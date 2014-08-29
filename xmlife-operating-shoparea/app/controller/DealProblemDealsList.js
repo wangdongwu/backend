@@ -191,7 +191,7 @@ Ext.define('XMLifeOperating.controller.DealProblemDealsList', {
             },
 
             callback:function(records){
-                var model=Ext.ComponentQuery.query('#reapportionDeliverer')[0].getSelectionModel();
+                var model=Ext.ComponentQuery.query('#reapportionDeliverers')[0].getSelectionModel();
                 model.deselectAll();
                 for ( var i = 0; i<records.length; i++) {
                     records[i].parentStore = reapportionDeliverer;

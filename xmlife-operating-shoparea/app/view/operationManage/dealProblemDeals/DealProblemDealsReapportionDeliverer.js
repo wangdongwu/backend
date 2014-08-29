@@ -29,11 +29,11 @@ Ext.define('XMLifeOperating.view.operationManage.dealProblemDeals.DealProblemDea
 
             items: [
                 {
-                    name: 'reapportionDeliverer',
+                    name: 'reapportionDeliverers',
                     store:'Deliverer',
-                    fieldLabel: '重新分配买手',
+                    fieldLabel: '重新分配配送员',
                     xtype:'gridpanel',
-                    itemId:'reapportionDeliverer',
+                    itemId:'reapportionDeliverers',
                     height:150,
                     columns:[
                         {
