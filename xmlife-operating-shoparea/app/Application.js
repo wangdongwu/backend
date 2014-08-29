@@ -19,11 +19,13 @@ Ext.define('XMLifeOperating.Application', {
 
     controllers: [
         'Navigation',
+        'DealShopAreaList',
         'Shop',
         'Shopper'
     ],
 
     stores: [
+        'DealShopArea',
         'Shop',
         'Shopper'
     ],

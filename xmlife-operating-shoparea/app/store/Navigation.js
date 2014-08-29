@@ -33,7 +33,7 @@ Ext.define('XMLifeOperating.store.Navigation', {
             left: false,
             expanded: true,
             children: [{
-                id: 'centerReceiveList',
+                id: 'dealShopAreaList',
                 text: '货到中心管理',
                 leaf: true
             }, {
