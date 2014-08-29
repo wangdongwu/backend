@@ -37,7 +37,7 @@ Ext.define('XMLifeOperating.store.Navigation', {
                 text: '货到中心管理',
                 leaf: true
             }, {
-                id: 'problemDealsList',
+                id: 'dealProblemDealsList',
                 text: '问题订单管理',
                 leaf: true
             }, {
