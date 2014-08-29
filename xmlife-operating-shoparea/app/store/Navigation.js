@@ -58,11 +58,12 @@ Ext.define('XMLifeOperating.store.Navigation', {
                 leaf: true
             }]
         }, {
-            id: 'stuffManage',
+            id: 'staffManage',
             text: '员工管理',
             leaf: false,
+            expanded: true,
             children: [{
-                id: 'buyerList',
+                id: 'shopperList',
                 text: '买手管理',
                 leaf: true
             }, {
