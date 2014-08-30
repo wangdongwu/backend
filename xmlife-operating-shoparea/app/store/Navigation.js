@@ -15,15 +15,15 @@ Ext.define('XMLifeOperating.store.Navigation', {
             leaf: false,
             expanded: true,
             children: [{
-                id: 'shop',
+                id: 'shoplist',
                 text: '店铺管理',
                 leaf: true
             }, {
-                id: 'deliverAddress',
+                id: 'residentaldistrictlist',
                 text: '配送地址管理',
                 leaf: true
             }, {
-                id: 'lineList',
+                id: 'linelist',
                 text: '线路管理',
                 leaf: true
             }]

@@ -8,6 +8,7 @@ Ext.define('XMLifeOperating.Application', {
     requires: [
         'Ext.container.Viewport',
         'Ext.selection.CheckboxModel',
+        'Ext.util.Point',
         'XMLifeOperating.generic.Global',
         'XMLifeOperating.generic.BaseProxy',
         'Ext.grid.plugin.DragDrop',
@@ -23,6 +24,7 @@ Ext.define('XMLifeOperating.Application', {
     controllers: [
         'Navigation',
         'Shop',
+        'ResidentalDistrict',
         'Shopper',
         'DealShopAreaList',
         'DealProblemDealsList',
@@ -36,6 +38,7 @@ Ext.define('XMLifeOperating.Application', {
     stores: [
         'DealShopArea',
         'Shop',
+        'ResidentalDistrict',
         'Shopper',
         'DealProblemDeals',
         'DealTasks',

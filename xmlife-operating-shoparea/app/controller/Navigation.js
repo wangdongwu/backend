@@ -4,7 +4,7 @@ Ext.define('XMLifeOperating.controller.Navigation', {
     views: [
         'Navigation',
         'Toolbar',
-        'centralPointManage.shopManage.Shop'
+        'centralPointManage.shop.ShopList'
     ],
 
     stores: [
@@ -115,7 +115,6 @@ Ext.define('XMLifeOperating.controller.Navigation', {
     },
 
     switchToView: function(xtype) {
-
 
         this.currentXType = xtype;
         var alias = 'widget.' + xtype,
