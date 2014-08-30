@@ -1,5 +1,3 @@
-
-
 Ext.define('XMLifeOperating.Application', {
     name: 'XMLifeOperating',
 
@@ -14,6 +12,7 @@ Ext.define('XMLifeOperating.Application', {
         'Ext.grid.plugin.DragDrop',
         'Ext.form.field.Radio',
         'Ext.form.RadioGroup',
+        'Ext.data.*',
         'Ext.util.*'
     ],
 
@@ -32,7 +31,8 @@ Ext.define('XMLifeOperating.Application', {
         'CustomerList',
         'DealCashOnDeliveryList',
         'DealList',
-        'FeedbackList'
+        'FeedbackList',
+        'RefundList'
     ],
 
     stores: [
@@ -51,7 +51,8 @@ Ext.define('XMLifeOperating.Application', {
         'Deal',
         'DealStatus',
         'Feedback',
-        'FeedbackStatus'
+        'FeedbackStatus',
+        'Refund'
     ],
 
     launch: function() {

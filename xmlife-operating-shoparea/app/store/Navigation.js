@@ -49,7 +49,7 @@ Ext.define('XMLifeOperating.store.Navigation', {
                 text: '货到付款管理',
                 leaf: true
             }, {
-                id: 'refundHistoryList',
+                id: 'refundList',
                 text: '退款订单查询',
                 leaf: true
             }]
