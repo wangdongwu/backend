@@ -42,7 +42,7 @@ Ext.define('XMLifeOperating.Application', {
         'RealTime',
         'Address',
         'Customer',
-        'ShopperWorkTime'
+        'ShopperWorkTime',
         'DealItems',
         'Deal',
         'DealStatus'

@@ -151,7 +151,7 @@ Ext.define('XMLifeOperating.view.staffManage.shopper.DealShopperHistoryList', {
         {
             header:"采购清单",
             width: 90,
-            itemId: 'shoppingList',
+            itemId: 'dealItemsId',
             menuDisabled: true,
             sortable: false,
             align: 'center',

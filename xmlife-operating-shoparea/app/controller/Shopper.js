@@ -334,6 +334,8 @@ Ext.define('XMLifeOperating.controller.Shopper', {
             //采购清单
             'dealShopperHistoryList #dealItemsId': {
                 click: function(view, column, rowIndex, colIndex, e) {
+                    alert(11111);
+                    return;
                     var tab = this.getShoppingList();
                     var content = this.getContentPanel();
                     content.removeAll(false);
