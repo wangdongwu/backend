@@ -5,6 +5,13 @@ Ext.define('XMLifeOperating.view.staffManage.shopper.DealItemsList', {
     header: false,
 
     store: 'DealItems',
+    tbar: [
+        {
+            xtype: 'button',
+            text: '返回',
+            itemId: 'dealShopperHistoryListReturn'
+        }
+    ],
     columns: [
 
         {

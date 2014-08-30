@@ -4,7 +4,8 @@ Ext.define('XMLifeOperating.controller.Shopper', {
     views: ['staffManage.shopper.ShopperList',
             'staffManage.shopper.EditShopper',
             'staffManage.shopper.DealShopperHistoryList',
-            'staffManage.shopper.ShopperWorkTimeList'],
+            'staffManage.shopper.ShopperWorkTimeList',
+            'staffManage.shopper.DealItemsList'],
 
     stores: ['Shopper',
              'DealShopperHistory',
@@ -45,6 +46,12 @@ Ext.define('XMLifeOperating.controller.Shopper', {
             ref: 'shopperWorkTimeList',
             selector: 'shopperWorkTimeList',
             xtype: 'shopperWorkTimeList',
+            autoCreate: true
+        },
+        {
+            ref: 'dealItemsList',
+            selector: 'dealItemsList',
+            xtype: 'dealItemsList',
             autoCreate: true
         }],
 /*
@@ -265,6 +272,7 @@ Ext.define('XMLifeOperating.controller.Shopper', {
                     content.add(tab);
                 }
             },
+
             //考勤管理
             'shopperList #shopperWorkTimeId': {
                 click: function(view, column, rowIndex, colIndex, e) {
@@ -334,27 +342,102 @@ Ext.define('XMLifeOperating.controller.Shopper', {
             //采购清单
             'dealShopperHistoryList #dealItemsId': {
                 click: function(view, column, rowIndex, colIndex, e) {
-                    alert(11111);
-                    return;
-                    var tab = this.getShoppingList();
+
+                    var tab = this.getDealItemsList();
                     var content = this.getContentPanel();
                     content.removeAll(false);
 
                     var deal = view.getRecord(view.findTargetByEvent(e));
                     var dealBackendId = deal.get('dealBackendId')
 
-                    var shoppingListStroe = this.getShoppingListStore();
-                    shoppingListStroe.load({
+                    var dealItemsStroe = this.getDealItemsStore();
+                    dealItemsStroe.load({
                         params: {
                             deal: dealBackendId,
-                            dataType: 5
+                            dataType: 1
                         }
                     });
                     content.add(tab);
                 }
 
             },
+            ///返回历史订单
+            'dealItemsList #dealShopperHistoryListReturn':{
+                click:function() {
+                    var tab=me.getDealShopperHistoryList();                   
+                    var content = this.getContentPanel();
+                    content.removeAll(false);
+                    content.add(tab);
+                }
+            },
+            'shopperList #closeOrOpenOrder':{
+                click:function(grid, column, rowIndex) { 
+                    var record = grid.getStore().getAt(rowIndex);
+                    var shopper = record.get('uid');
+                    var isActive = record.get('isActive');
+                    var url='';
+                    var str='确认要此操作吗？';
+                    if(isActive == true){
+                        str='确认要暂停买手接单吗？';
+                        isActive =false;
+                    }else{
+                        str='确认要恢复买手接单';
+                        isActive =true;
+                    }
+                    url='shopper/enable';
+                    Ext.MessageBox.confirm("选择框", str,function(str){
+                            if(str=='no'){
+                                return;
+                            }
+                            sendPutRequest(url,{shopper:shopper,isActive:isActive},'操作恢复或暂停买手接单','成功操作买手接单','操作买手接单失败',function(){
+                                    var store = me.getShopperStore();
+                                    store.load({
+                                        params: {
+                                            unbind:true
+                                        },
+                                        callback:function(){
+                                           
+                                            Ext.getCmp('shopperList').down('#activeBind').setText('查看已绑定的买手');
+                                            Ext.getCmp('shopperList').down('#shopArea').setValue('');
+                                        }
+                                    });
+                                    // me.fireEvent('refreshView');
+                            }); 
+                    });
+                }
+            },
+            //search
+            'shopperList #searchButton': {
+                click: me.searchShopper
+            }
+            
         });
+    },
+    searchShopper: function() {
+        var me = this,
+            keyWords = me.getShopperList().down('#searchBuyerKeyWords').getValue(),
+            store = this.getShopperStore(),
+            view = this.getShopperList();
+        var activeBindText = Ext.getCmp('shopperList').down('#activeBind').getText();
+        var isUnbind = null;
+        if (activeBindText == '查看已绑定的买手') {
+            isUnbind = true;
+        } else if (activeBindText == '查看未绑定的买手') {
+            isUnbind = '';
+        }
+        if (keyWords == '') {
+            store.load({
+                params: {
+                    unbind: isUnbind
+                }
+            });
+        } else {
+            store.load({
+                params: {
+                    nameOrPhone: keyWords
+                }
+            });
+        }
     },
     onShow: function() {
         /*var store = this.getShopperStore();
