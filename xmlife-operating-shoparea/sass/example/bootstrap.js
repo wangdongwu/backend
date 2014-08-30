@@ -8,7 +8,8 @@ Ext.Loader.addClassPathMappings({
   "Ext": "../../ext/src",
   "Ext.Msg": "../../ext/src/window/MessageBox.js",
   "Ext.rtl.EventObjectImpl": "../../ext/src/rtl/EventObject.js",
-  "XMLifeOperating": "../../app"
+  "XMLifeOperating": "../../app",
+  "xmlifeOperatingShop": "../../app"
 });
 Ext.ClassManager.addNameAlternateMappings({
   "Ext.AbstractComponent": [],
@@ -832,7 +833,6 @@ Ext.ClassManager.addNameAlternateMappings({
   "XMLifeOperating.controller.DealCashOnDeliveryList": [],
   "XMLifeOperating.controller.DealProblemDealsList": [],
   "XMLifeOperating.controller.DealShopAreaList": [],
-  "XMLifeOperating.controller.Main": [],
   "XMLifeOperating.controller.Navigation": [],
   "XMLifeOperating.controller.RealTimeList": [],
   "XMLifeOperating.controller.Shop": [],
@@ -884,10 +884,12 @@ Ext.ClassManager.addNameAlternateMappings({
   "XMLifeOperating.view.operationManage.dealShopArea.DealShopAreaList": [],
   "XMLifeOperating.view.operationManage.realTime.RealTimeList": [],
   "XMLifeOperating.view.staffManage.shopper.DealShopperHistory": [],
+  "XMLifeOperating.view.staffManage.shopper.DealShopperHistoryList": [],
   "XMLifeOperating.view.staffManage.shopper.EditShopper": [],
   "XMLifeOperating.view.staffManage.shopper.ShopperList": [],
   "XMLifeOperating.view.userManage.customer.CustomerAddress": [],
-  "XMLifeOperating.view.userManage.customer.CustomerList": []
+  "XMLifeOperating.view.userManage.customer.CustomerList": [],
+  "xmlifeOperatingShop.controller.Main": []
 });
 Ext.ClassManager.addNameAliasMappings({
   "Ext.AbstractComponent": [],
@@ -1879,7 +1881,6 @@ Ext.ClassManager.addNameAliasMappings({
   "XMLifeOperating.controller.DealCashOnDeliveryList": [],
   "XMLifeOperating.controller.DealProblemDealsList": [],
   "XMLifeOperating.controller.DealShopAreaList": [],
-  "XMLifeOperating.controller.Main": [],
   "XMLifeOperating.controller.Navigation": [],
   "XMLifeOperating.controller.RealTimeList": [],
   "XMLifeOperating.controller.Shop": [],
@@ -1955,6 +1956,9 @@ Ext.ClassManager.addNameAliasMappings({
   "XMLifeOperating.view.staffManage.shopper.DealShopperHistory": [
     "widget.dealShopperHistory"
   ],
+  "XMLifeOperating.view.staffManage.shopper.DealShopperHistoryList": [
+    "widget.dealShopperHistoryList"
+  ],
   "XMLifeOperating.view.staffManage.shopper.EditShopper": [
     "widget.editShopper"
   ],
@@ -1966,7 +1970,8 @@ Ext.ClassManager.addNameAliasMappings({
   ],
   "XMLifeOperating.view.userManage.customer.CustomerList": [
     "widget.customerList"
-  ]
+  ],
+  "xmlifeOperatingShop.controller.Main": []
 });
 Ext.setVersion("ext-theme-base", "4.2.1");
 Ext.setVersion("ext-theme-classic", "4.2.1");
