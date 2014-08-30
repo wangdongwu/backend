@@ -12,6 +12,7 @@ Ext.define('XMLifeOperating.Application', {
         'XMLifeOperating.generic.BaseProxy',
         'Ext.grid.plugin.DragDrop',
         'Ext.form.field.Radio',
+        'Ext.form.RadioGroup',
         'Ext.util.*'
     ],
 
@@ -26,7 +27,8 @@ Ext.define('XMLifeOperating.Application', {
         'DealShopAreaList',
         'DealProblemDealsList',
         'RealTimeList',
-        'CustomerList'
+        'CustomerList',
+        'DealCashOnDeliveryList'
     ],
 
     stores: [
@@ -38,7 +40,8 @@ Ext.define('XMLifeOperating.Application', {
         'Deliverer',
         'RealTime',
         'Address',
-        'Customer'
+        'Customer',
+        'DealItems'
     ],
 
     launch: function() {

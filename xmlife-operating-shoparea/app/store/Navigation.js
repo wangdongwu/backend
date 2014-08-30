@@ -45,12 +45,8 @@ Ext.define('XMLifeOperating.store.Navigation', {
                 text: '数据中心',
                 leaf: true
             }, {
-                id: 'cashOnDeliveryList',
+                id: 'dealCashOnDeliveryList',
                 text: '货到付款管理',
-                leaf: true
-            }, {
-                id: 'refundList',
-                text: '退款管理',
                 leaf: true
             }, {
                 id: 'refundHistoryList',

@@ -1,4 +1,4 @@
-Ext.define('XMLifeOperating.view.operationManage.dealCashOnDelivery.dealCashOnDeliveryList', {
+Ext.define('XMLifeOperating.view.operationManage.dealCashOnDelivery.DealCashOnDeliveryList', {
     extend: 'Ext.grid.Panel',
     xtype: 'dealCashOnDeliveryList',
 
@@ -8,7 +8,6 @@ Ext.define('XMLifeOperating.view.operationManage.dealCashOnDelivery.dealCashOnDe
     id:'dealCashOnDeliveryList',
     tbar: [
         {
-            //xtype      : 'fieldcontainer',
             xtype: 'radiogroup',
             id: 'sex',
             fieldLabel : '',
@@ -91,7 +90,7 @@ Ext.define('XMLifeOperating.view.operationManage.dealCashOnDelivery.dealCashOnDe
             xtype:'combo',
             name:'cashUnderCourierId',
             itemId:'cashUnderCourierId',
-            store:'Courier',
+            store:'Deliverer',
             emptyText:'请选择快递员',
             margin:10,
             editable: false,
@@ -103,7 +102,7 @@ Ext.define('XMLifeOperating.view.operationManage.dealCashOnDelivery.dealCashOnDe
             xtype:'combo',
             name:'cashSign',
             itemId:'cashOnDeliverySignId',
-            store:'CashOnDeliverySign',
+            store:'DealCashOnDeliverySign',
             value:'',
             margin:10,
             editable: false,
@@ -115,7 +114,7 @@ Ext.define('XMLifeOperating.view.operationManage.dealCashOnDelivery.dealCashOnDe
             xtype:'combo',
             name:'cashPaid',
             itemId:'cashOnDeliveryPaidId',
-            store:'CashOnDeliveryPaid',
+            store:'DealCashOnDeliveryPaid',
             value:'',
             margin:10,
             editable: false,
