@@ -3,7 +3,7 @@ Ext.define('XMLifeOperating.controller.Shopper', {
     
     views: ['staffManage.shopper.ShopperList',
             'staffManage.shopper.EditShopper',
-            'staffManage.shopper.DealShopperHistory'],
+            'staffManage.shopper.DealShopperHistoryList'],
 
     stores: ['Shopper',
              'DealShopperHistory'],
@@ -28,9 +28,9 @@ Ext.define('XMLifeOperating.controller.Shopper', {
             autoCreate: true
         },
         {
-            ref: 'dealShopperHistory',
-            selector: 'dealShopperHistory',
-            xtype: 'dealShopperHistory',
+            ref: 'dealShopperHistoryList',
+            selector: 'dealShopperHistoryList',
+            xtype: 'dealShopperHistoryList',
             autoCreate: true
         },
         {
@@ -169,24 +169,82 @@ Ext.define('XMLifeOperating.controller.Shopper', {
                 }
             },
             //历史订单
-            '#dealShopperHistoryId': {
+            'shopperList #dealShopperHistoryId': {
                 click: function(view, column, rowIndex, colIndex, e) {
-                    alert(1111);
-                    /*var tab = this.getDealShopperHistory();
+                    var tab = this.getDealShopperHistoryList();
                     var content = this.getContentPanel();
-                    content.removeAll(false);*/
-                    return;
-                    // var Shopper = view.getRecord(view.findTargetByEvent(e));
-                    // var shopperId = Shopper.get('uid');
-                    // var dealShopperHistoryStroe = this.getDealShopperHistoryStore();
-                    // dealShopperHistoryStroe.load({
-                    //     params: {
-                    //         shopper: shopperId,
-                    //         dataType: 5
-                    //     }
-                    // });
-                    // console.log(dealShopperHistoryStroe);
-                    // content.add(tab);
+                    content.removeAll(false);
+                    var Shopper = view.getRecord(view.findTargetByEvent(e));
+                    var shopperId = Shopper.get('uid');
+                    var dealShopperHistoryStroe = this.getDealShopperHistoryStore();
+                    dealShopperHistoryStroe.load({
+                        params: {
+                            shopper: shopperId,
+                            dataType: 1
+                        }
+                    });
+                    content.add(tab);
+                    this.shopperId=shopperId;
+                }
+            },
+            'dealShopperHistoryList radio[name="dayType"]': {
+                change: function(record, newV, oldV) {
+                    if (newV == true) {
+                        var itemId = record.itemId,
+                            str;
+                        switch (itemId) {
+                            case 'dayType1':
+                                str = 1;
+                                break;
+                            case 'dayType2':
+                                str = 2;
+                                break;
+                            case 'dayType3':
+                                str = 3;
+                                break;
+                            case 'dayType4':
+                                str = 4;
+                                break;
+                            case 'dayType5':
+                                str = 5;
+                                break;
+                            case 'dayType6':
+                                str = 6;
+                                break;
+                            case 'dayType7':
+                                str = 7;
+                                break;
+                        }
+                        var store = this.getDealShopperHistoryStore();
+                        var shopperId = this.shopperId;
+                        store.load({
+                            params: {
+                                dayType: str,
+                                shopper: shopperId
+                            }
+                        });
+                        this.dayType = str;
+                        console.log(record.itemId);
+
+                    }
+                }
+            },
+            'dealShopperHistoryList #shopperReturn':{
+                click:function() {
+                    var tab=me.getShopperList();
+                    var store = me.getShopperStore();
+                    store.load({
+                        params: {
+                            unbind: true
+                        },
+                        callback: function() {
+                            Ext.getCmp('shopperList').down('#activeBind').setText('查看已绑定的买手');
+                            Ext.getCmp('shopperList').down('#shopArea').setValue('');
+                        }
+                    });
+                    var content = this.getContentPanel();
+                    content.removeAll(false);
+                    content.add(tab);
                 }
             },
         });
