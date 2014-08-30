@@ -3,7 +3,6 @@ Ext.define('XMLifeOperating.view.staffManage.shopper.ShopperList', {
     xtype: 'shopperList',
 
     header: false,
-
     store: 'Shopper',
     id: 'shopperList',
     tbar: [
@@ -13,18 +12,18 @@ Ext.define('XMLifeOperating.view.staffManage.shopper.ShopperList', {
         itemId: 'add',
         hidden:(XMLifeOperating.generic.Global.operating_type == 'center')
     }, 
-    /*{
+    {
         xtype: 'combobox',
         name: 'area',
-        itemId: 'businessArea',
-        store: 'BusinessArea',
+        itemId: 'shopArea',
+        store: 'ShopArea',
         emptyText: '请选择中心',
         margin: 10,
         editable: false,
         displayField: 'name',
         valueField: 'id',
         hidden:(XMLifeOperating.generic.Global.operating_type == 'center')
-    },*/ 
+    }, 
     {
         xtype: 'button',
         itemId: 'activeSearch',
@@ -166,7 +165,7 @@ Ext.define('XMLifeOperating.view.staffManage.shopper.ShopperList', {
             tooltip: 'Edit',
             menuDisabled: true,
             sortable: false,
-            itemId: 'editBuyerId',
+            itemId: 'editShopperId',
             hidden:(XMLifeOperating.generic.Global.operating_type == 'center')
         }, 
         {
@@ -185,7 +184,7 @@ Ext.define('XMLifeOperating.view.staffManage.shopper.ShopperList', {
         }, {
             header: "历史订单",
             width: 90,
-            itemId: 'buyerHistory',
+            itemId: 'dealShopperHistoryId',
             menuDisabled: true,
             sortable: false,
             align: 'center',

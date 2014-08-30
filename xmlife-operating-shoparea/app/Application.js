@@ -10,7 +10,9 @@ Ext.define('XMLifeOperating.Application', {
         'Ext.selection.CheckboxModel',
         'XMLifeOperating.generic.Global',
         'XMLifeOperating.generic.BaseProxy',
-        'Ext.grid.plugin.DragDrop'
+        'Ext.grid.plugin.DragDrop',
+        'Ext.form.field.Radio',
+        'Ext.util.*'
     ],
 
     views: [
