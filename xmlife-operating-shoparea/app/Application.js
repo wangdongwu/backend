@@ -24,6 +24,7 @@ Ext.define('XMLifeOperating.Application', {
         'Navigation',
         'Shop',
         'ResidentalDistrict',
+        'Line',
         'Shopper',
         'DealShopAreaList',
         'DealProblemDealsList',
@@ -61,12 +62,12 @@ Ext.define('XMLifeOperating.Application', {
             // Fade out the body mask
             splashscreen.fadeOut({
                 duration: 1000,
-                remove:true
+                remove: true
             });
             // Fade out the icon and message
             splashscreen.next().fadeOut({
                 duration: 1000,
-                remove:true,
+                remove: true,
                 listeners: {
                     afteranimate: function() {
                         // Set the body as unmasked after the animation
@@ -81,13 +82,13 @@ Ext.define('XMLifeOperating.Application', {
 });
 
 
-var uploadBlobImage = function(blobImage){
+var uploadBlobImage = function(blobImage) {
     var reader = new FileReader();
     reader.readAsDataURL(blobImage);
 
-    reader.onload = function (imgsrc) {
+    reader.onload = function(imgsrc) {
         var form = new FormData();
-        form.append("data",blobImage);
+        form.append("data", blobImage);
         var xhr = new XMLHttpRequest();
         xhr.timeout = 30 * 1000;
         xhr.open("POST", XMLifeOperating.generic.Global.URL.upload, true);
@@ -132,7 +133,7 @@ var uploadBlobImage = function(blobImage){
 var uploadImage = function(form, textfield) {
     console.log('uploadimge');
     form.submit({
-        url : XMLifeOperating.generic.Global.URL.upload,
+        url: XMLifeOperating.generic.Global.URL.upload,
         success: function(form, action) {
             console.log('success');
             var resid = action.response.responseText;

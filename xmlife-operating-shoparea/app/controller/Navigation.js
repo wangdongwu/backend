@@ -3,8 +3,7 @@ Ext.define('XMLifeOperating.controller.Navigation', {
 
     views: [
         'Navigation',
-        'Toolbar',
-        'centralPointManage.shop.ShopList'
+        'Toolbar'
     ],
 
     stores: [
