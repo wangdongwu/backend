@@ -29,7 +29,8 @@ Ext.define('XMLifeOperating.Application', {
         'RealTimeList',
         'CustomerList',
         'DealCashOnDeliveryList',
-        'DealList'
+        'DealList',
+        'FeedbackList'
     ],
 
     stores: [
@@ -45,7 +46,9 @@ Ext.define('XMLifeOperating.Application', {
         'ShopperWorkTime',
         'DealItems',
         'Deal',
-        'DealStatus'
+        'DealStatus',
+        'Feedback',
+        'FeedbackStatus'
     ],
 
     launch: function() {
