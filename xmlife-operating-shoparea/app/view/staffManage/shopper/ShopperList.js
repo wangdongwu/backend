@@ -171,7 +171,7 @@ Ext.define('XMLifeOperating.view.staffManage.shopper.ShopperList', {
         {
             header: "考勤管理",
             width: 90,
-            itemId: 'buyerClock',
+            itemId: 'shopperWorkTimeId',
             menuDisabled: true,
             sortable: false,
             align: 'center',

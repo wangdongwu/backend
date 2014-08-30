@@ -1,44 +1,42 @@
-
-Ext.define('XMLifeOperating.view.staffManage.shopper.DealShopperHistoryList', {
+/**
+ * @class SimpleTasks.view.lists.Tree
+ * @extends Ext.tree.Panel
+ * The task list view.  A tree that displays all of the task lists.
+ */
+Ext.define('XMLifeOperating.view.staffManage.shopper.ShopperWorkTimeList', {
     extend: 'Ext.grid.Panel',
-    xtype: 'dealShopperHistoryList',
+    xtype: 'shopperWorkTimeList',
 
     header: false,
 
-    store: 'DealShopperHistory',
+    store: 'ShopperWorkTime',
     tbar: [
         {
             xtype: 'button',
             text: '返回',
             itemId: 'shopperReturn'
         },
-        {
+        /*{
 
             xtype: 'radio',
             fieldLabel:'今天',
             itemId: 'dayType1',
-            name:'dayType',
-            labelAlign: 'right',
-            style : 'border:0px solid;margin-right:10px;',
+            name:'dayType'
         },
         {
 
             xtype: 'radio',
             fieldLabel:'昨天',
             name:'dayType',
-            itemId: 'dayType2',
-            labelAlign: 'right',
-            style : 'border:0px solid;margin-right:10px;',
+            itemId: 'dayType2'
         },
         {
 
             xtype: 'radio',
             fieldLabel:'前天',
             name:'dayType',
-            itemId: 'dayType3',
-            labelAlign: 'right',
-            style : 'border:0px solid;margin-right:10px;',
-        },
+            itemId: 'dayType3'
+        },*/
         {
 
             xtype: 'radio',
@@ -74,22 +72,26 @@ Ext.define('XMLifeOperating.view.staffManage.shopper.DealShopperHistoryList', {
             itemId: 'dayType7',
             labelAlign: 'right',
             style : 'border:0px solid;margin-right:10px;',
-        }],
+        },
+    ],
 
     columns: [
        
         {
-            text: '订单号',
-            dataIndex: 'shortBackendId',
-            sortable: false,
-            width: 150,
-            renderer: function(value, metadata, model, rowIndex, colIndex, store) {
-                return '<a>'+value+'</a>'
-            }
-        },
-        {
-            text: '下单时间',
+            text: '日期',
             dataIndex: 'created',
+            sortable: false,
+            width: 100,
+            format:'Y-m-d',
+            renderer:function(value){
+               var newTime = new Date(value);
+               newTime = newTime.getFullYear()+'-'+(newTime.getMonth()+1)+'-'+newTime.getDate();
+               return newTime;
+            }  
+        },
+        {
+            text: '上班时间',
+            dataIndex: 'onlineTime',
             format:'H:i',
             sortable: false,
             width: 100,
@@ -100,8 +102,8 @@ Ext.define('XMLifeOperating.view.staffManage.shopper.DealShopperHistoryList', {
             }  
         },
         {
-            text: '买完时间',
-            dataIndex: 'taskDone',
+            text: '下班时间',
+            dataIndex: 'offlineTime',
             format:'H:i',
             sortable: false,
             width: 100,
@@ -110,27 +112,23 @@ Ext.define('XMLifeOperating.view.staffManage.shopper.DealShopperHistoryList', {
                newTime = newTime.getHours()+':'+newTime.getMinutes();
                return newTime;
             }  
+
         },
         {
-            text: '出货时间',
-            dataIndex: 'beginDeliverTime',
-            format:'H:i',
-            sortable: false,
-            width: 100,
-            renderer:function(value){
-               var newTime = new Date(value);
-               newTime = newTime.getHours()+':'+newTime.getMinutes();
-               return newTime;
-            }  
-        },
-        {
-            text: '完成时间',
-            dataIndex: 'dealDone',
-            format:'H:i',
+            text: '本次工时',
+            dataIndex: 'workTime',
+            
             sortable: false,
             width: 100
         },
         {
+            text: '完成订单数',
+            dataIndex: 'deals',
+            
+            sortable: false,
+            width: 100
+        },
+       /* {
             text: '顾客',
             dataIndex: 'customName',
             sortable: false,
@@ -149,30 +147,23 @@ Ext.define('XMLifeOperating.view.staffManage.shopper.DealShopperHistoryList', {
             width: 100
         },
         {
-            header:"采购清单",
-            width: 90,
-            itemId: 'shoppingList',
-            menuDisabled: true,
+            text: '采购订单',
+            dataIndex: 'id1',
             sortable: false,
-            align: 'center',
-            renderer : function(value, metadata, model, rowIndex, colIndex, store) { 
-
-                var seeBtn = '<span style="cursor:pointer">查看</span>';
-                return seeBtn; 
-            } 
+            width: 100
         },
         {
             text: '订单情况',
             dataIndex: 'status',
             sortable: false,
-            width: 60
+            width: 100
         },
         {
             text: '评价',
             dataIndex: 'review',
             sortable: false,
             width: 100
-        },
+        },*/
         
     ],
     viewConfig: {

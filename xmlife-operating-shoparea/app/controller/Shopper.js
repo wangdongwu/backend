@@ -3,19 +3,22 @@ Ext.define('XMLifeOperating.controller.Shopper', {
     
     views: ['staffManage.shopper.ShopperList',
             'staffManage.shopper.EditShopper',
-            'staffManage.shopper.DealShopperHistoryList'],
+            'staffManage.shopper.DealShopperHistoryList',
+            'staffManage.shopper.ShopperWorkTimeList'],
 
     stores: ['Shopper',
-             'DealShopperHistory'],
-
+             'DealShopperHistory',
+             'ShopperWorkTime',
+             'DealItems'],
     models: ['Shopper',
-             'DealShopperHistory'],
+             'DealShopperHistory',
+             'ShopperWorkTime',
+             'DealItems'],
     refs: [{
             ref: 'shopperList',
             selector: 'shopperList',
             xtype: 'shopperList',
             autoCreate: true
-
         }, 
         {
             ref: 'shopArea',
@@ -37,6 +40,12 @@ Ext.define('XMLifeOperating.controller.Shopper', {
             ref: 'contentPanel',
             selector: '#contentPanel',
             xtype: 'panel'
+        },
+        {
+            ref: 'shopperWorkTimeList',
+            selector: 'shopperWorkTimeList',
+            xtype: 'shopperWorkTimeList',
+            autoCreate: true
         }],
 /*
     views: ['shopper.shopperList', 'shopper.Editshopper', 'shopper.shopperHistory', 'shopper.shopperClock', 'shopper.ShoppingList'],
@@ -111,7 +120,11 @@ Ext.define('XMLifeOperating.controller.Shopper', {
                             city: XMLifeOperating.generic.Global.currentCity,
                             area: combo.getValue(),
                             isActive: isActive
+                        },
+                        callback: function() {
+                            Ext.getCmp('shopperList').down('#activeBind').setText('查看未绑定的买手');
                         }
+
                     });
 
                 },
@@ -147,6 +160,10 @@ Ext.define('XMLifeOperating.controller.Shopper', {
                         params: {
                             unbind: isUnbind
                         },
+                        callback: function() {
+                            Ext.getCmp('shopperList').down('#activeSearch').setText('查看停单买手');
+                            Ext.getCmp('shopperList').down('#shopArea').setValue('');
+                        }
                     });
                 }
             },
@@ -225,14 +242,14 @@ Ext.define('XMLifeOperating.controller.Shopper', {
                         });
                         this.dayType = str;
                         console.log(record.itemId);
-
                     }
                 }
             },
-            'dealShopperHistoryList #shopperReturn':{
+            //返回买手清单
+            'dealShopperHistoryList #shopperReturn,shopperWorkTimeList #shopperReturn':{
                 click:function() {
                     var tab=me.getShopperList();
-                    var store = me.getShopperStore();
+                    /*var store = me.getShopperStore();
                     store.load({
                         params: {
                             unbind: true
@@ -241,16 +258,104 @@ Ext.define('XMLifeOperating.controller.Shopper', {
                             Ext.getCmp('shopperList').down('#activeBind').setText('查看已绑定的买手');
                             Ext.getCmp('shopperList').down('#shopArea').setValue('');
                         }
-                    });
+                    });*/
+                        
                     var content = this.getContentPanel();
                     content.removeAll(false);
                     content.add(tab);
                 }
             },
+            //考勤管理
+            'shopperList #shopperWorkTimeId': {
+                click: function(view, column, rowIndex, colIndex, e) {
+                    var tab = this.getShopperWorkTimeList();
+                    var content = this.getContentPanel();
+                    content.removeAll(false);
+                    var shopper = view.getRecord(view.findTargetByEvent(e));
+
+                    var shopperId = shopper.get('uid');
+                    var ShopperWorkTimeStore = this.getShopperWorkTimeStore();
+                    ShopperWorkTimeStore.load({
+                        params: {
+                            shopper: shopperId,
+                            dataType: 1
+                        }
+                    });
+                    content.add(tab);
+                    this.shopper=shopperId;
+                }
+            },
+            'shopperWorkTimeList radio[name="dayType"]': {
+                change: function(record, newV, oldV) {
+                    var shopperId=this.shopperId;
+                    console.log(shopperId);
+
+                    if (newV == true) {
+                        console.log(record);
+                        //console.log(record.itemId);
+                        var itemId = record.itemId,
+                            str;
+                        switch (itemId) {
+                            /* case 'dayType1':
+                                str=1;
+                                break;
+                            case 'dayType2':
+                                str=2;
+                                break;
+                            case 'dayType3':
+                                str=3;
+                                break;*/
+                            case 'dayType4':
+                                str = 4;
+                                break;
+                            case 'dayType5':
+                                str = 5;
+                                break;
+                            case 'dayType6':
+                                str = 6;
+                                break;
+                            case 'dayType7':
+                                str = 7;
+                                break;
+                        }
+                        var store = this.getShopperWorkTimeStore();
+
+                        store.load({
+                            params: {
+                                dayType: str,
+                                shopper: shopperId
+                            }
+                        });
+                        this.dayType = str;
+
+                    }
+                }
+            },
+            //采购清单
+            'dealShopperHistoryList #dealItemsId': {
+                click: function(view, column, rowIndex, colIndex, e) {
+                    var tab = this.getShoppingList();
+                    var content = this.getContentPanel();
+                    content.removeAll(false);
+
+                    var deal = view.getRecord(view.findTargetByEvent(e));
+                    var dealBackendId = deal.get('dealBackendId')
+
+                    var shoppingListStroe = this.getShoppingListStore();
+                    shoppingListStroe.load({
+                        params: {
+                            deal: dealBackendId,
+                            dataType: 5
+                        }
+                    });
+                    content.add(tab);
+                }
+
+            },
         });
     },
     onShow: function() {
-        var store = this.getShopperStore();
+        /*var store = this.getShopperStore();
         store.load({
             params: {
                 unbind: true
@@ -259,7 +364,7 @@ Ext.define('XMLifeOperating.controller.Shopper', {
                 Ext.getCmp('shopperList').down('#activeBind').setText('查看已绑定的买手');
                 Ext.getCmp('shopperList').down('#shopArea').setValue('');
             }
-        });
+        });*/
     },
     onAdd: function() {
         var cClass = this.getShopperModel();
