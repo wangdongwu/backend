@@ -1,3 +1,3 @@
-Ext.define('XMLifeOperating.controller.Main', {
+Ext.define('xmlifeOperatingShop.controller.Main', {
     extend: 'Ext.app.Controller'
 });
