@@ -9,7 +9,8 @@ Ext.define('XMLifeOperating.store.Navigation', {
     root: {
         text: 'Root',
         expanded: true,
-        children: [{
+        children: [
+        {
             id: 'centralPointManage',
             text: '中心管理',
             leaf: false,
@@ -27,7 +28,8 @@ Ext.define('XMLifeOperating.store.Navigation', {
                 text: '线路管理',
                 leaf: true
             }]
-        }, {
+        },
+        {
             id: 'operateManage',
             text: '操作管理',
             left: false,
@@ -48,12 +50,9 @@ Ext.define('XMLifeOperating.store.Navigation', {
                 id: 'dealCashOnDeliveryList',
                 text: '货到付款管理',
                 leaf: true
-            }, {
-                id: 'refundList',
-                text: '退款订单查询',
-                leaf: true
             }]
-        }, {
+        }, 
+        {
             id: 'staffManage',
             text: '员工管理',
             leaf: false,
@@ -67,10 +66,12 @@ Ext.define('XMLifeOperating.store.Navigation', {
                 text: '配送员管理',
                 leaf: true
             }]
-        }, {
+        }, 
+        {
             id: 'customerManage',
             text: '用户管理',
             leaf: false,
+            expanded: true,
             children: [{
                 id: 'customerList',
                 text: '用户信息管理',
@@ -80,9 +81,15 @@ Ext.define('XMLifeOperating.store.Navigation', {
                 text: '用户反馈管理',
                 leaf: true
             }]
-        }, {
+        }, 
+        {
             id: 'dealList',
             text: '订单管理',
+            leaf: true
+        }, 
+        {
+            id: 'refundList',
+            text: '退款订单查询',
             leaf: true
         }]
     }
