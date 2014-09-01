@@ -30,7 +30,7 @@ Ext.define('XMLifeOperating.Application', {
         'RechargeableCardTemplate',
         'GDeliverer',
         'ProductTemplate',
-        'ShopBannerTemplate'     
+        'ShopBannerTemplate',     
         'Refund',    
         'CustomerList'
         ],
