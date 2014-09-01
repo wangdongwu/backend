@@ -222,9 +222,15 @@ Ext.define('XMLifeOperating.controller.Refund', {
         this.selectObjList = objList;
     },
     storeFilter : function(){
+        var self = this;
         this.getRefundStoreStore().clearFilter(true);
         this.getRefundStoreStore().filter([{filterFn : function(item){
-            return item.get('status') != 1 && item.get('refundType') == self.getRefundList().down('combo[name=refundType]').getValue();
+            var comboVal = self.getRefundList().down('combo[name=refundType]').getValue();           
+            if(comboVal){
+                return item.get('status') != 1 && item.get('refundType') == comboVal;                
+            }else{
+                return item.get('status') != 1
+            }
         }
         }]);
     }
