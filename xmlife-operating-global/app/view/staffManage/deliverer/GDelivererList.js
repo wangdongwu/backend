@@ -1,10 +1,11 @@
 Ext.define('XMLifeOperating.view.staffManage.deliverer.GDelivererList', {
     extend: 'Ext.grid.Panel',
     xtype: 'gDelivererList',
-
-    header: false,
     id: 'gDelivererList',
     store: 'Deliverer',
+    title : '配送员管理',
+    titleAlign : 'left',
+    forceFit: true,
     tbar: [{
             xtype: 'button',
             text: '添加快递员',
@@ -16,7 +17,6 @@ Ext.define('XMLifeOperating.view.staffManage.deliverer.GDelivererList', {
             itemId: 'shopArea',
             store: 'ShopArea',
             emptyText: '请选择中心',
-            margin: 10,
             editable: false,
             displayField: 'name',
             valueField: 'id',
@@ -25,7 +25,6 @@ Ext.define('XMLifeOperating.view.staffManage.deliverer.GDelivererList', {
             xtype: 'button',
             itemId: 'activeSearch',
             text: '查看停单快递员',
-            margin: 10,
             handler: function() {
 
                 if (this.text == '查看停单快递员') {
@@ -53,7 +52,6 @@ Ext.define('XMLifeOperating.view.staffManage.deliverer.GDelivererList', {
             xtype: 'button',
             itemId: 'activeBind',
             text: '查看未绑定的快递员',
-            margin: 10,
             handler: function() {
                 if (this.text == '查看未绑定的快递员') {
                     this.setText('查看已绑定的快递员');
@@ -61,12 +59,13 @@ Ext.define('XMLifeOperating.view.staffManage.deliverer.GDelivererList', {
                     this.setText('查看未绑定的快递员');
                 }
             }
-        }, {
+        },
+        '->',
+        , {
             xtype: 'textfield',
             name: 'searchcourier',
             itemId: 'searchDelivererKeyWords',
-            emptyText: '输入手机号',
-            margin: 10
+            emptyText: '输入手机号',        
         }, {
             xtype: 'button',
             name: 'searchbutton',
@@ -77,44 +76,38 @@ Ext.define('XMLifeOperating.view.staffManage.deliverer.GDelivererList', {
     columns: [{
             text: 'ID',
             dataIndex: 'uid',
-            width: 100,
             sortable: false,
+            width : 50,
             align: 'left'
         }, {
             text: '姓名',
             dataIndex: 'name',
-            width: 100,
             sortable: false,
             align: 'left',
 
         }, {
             text: '职称',
             dataIndex: 'title',
-            width: 70,
             sortable: false,
             align: 'left'
         }, {
             text: '电话',
             dataIndex: 'phone',
-            width: 150,
             sortable: false,
             align: 'left'
         }, {
             text: '密码',
             dataIndex: 'pwd',
-            width: 100,
             sortable: false,
             align: 'left'
         }, {
             text: '头像',
             dataIndex: 'avatar',
-            width: 70,
             sortable: false,
             align: 'left'
         }, {
             text: '服务商圈',
             dataIndex: 'areaNames',
-            width: 100,
             sortable: false,
             align: 'left',
             renderer: function(value) {
@@ -131,47 +124,35 @@ Ext.define('XMLifeOperating.view.staffManage.deliverer.GDelivererList', {
         }, {
             text: '订单数',
             dataIndex: 'deals',
-            width: 50,
             sortable: false,
             align: 'left'
         }, {
             text: '退单数',
             dataIndex: 'returnDealNum',
-            width: 50,
+            width : 50,
             sortable: false,
             align: 'left'
         }, {
             text: '好评数',
             dataIndex: 'goods',
-            width: 50,
+            width : 50,
             sortable: false,
             align: 'left'
         }, {
             text: '中评数',
             dataIndex: 'mediums',
-            width: 50,
+            width : 50,
             sortable: false,
             align: 'left'
         }, {
             text: '差评数',
             dataIndex: 'bads',
-            width: 50,
+            width : 50,
             sortable: false,
             align: 'left'
-        },
-        {
-            xtype: 'actioncolumn',
-            width: 24,
-            icon: 'resources/images/edit.png',
-            tooltip: 'Edit',
-            menuDisabled: true,
-            sortable: false,
-            itemId: 'delivererEditId',
-            hidden:(XMLifeOperating.generic.Global.operating_type == 'center')
         }, 
         {
             header: "考勤管理",
-            width: 90,
             itemId: 'delivererWorkTimeId',
             menuDisabled: true,
             sortable: false,
@@ -184,7 +165,6 @@ Ext.define('XMLifeOperating.view.staffManage.deliverer.GDelivererList', {
         }, 
         {
             header: "历史订单",
-            width: 90,
             itemId: 'dealDelivererHistoryId',
             menuDisabled: true,
             sortable: false,
@@ -194,10 +174,19 @@ Ext.define('XMLifeOperating.view.staffManage.deliverer.GDelivererList', {
                 var seeBtn = '<span style="cursor:pointer">查看</span>';
                 return seeBtn;
             }
+        },
+        {
+            xtype: 'actioncolumn',
+            icon: 'resources/images/edit.png',
+            tooltip: 'Edit',
+            menuDisabled: true,
+            sortable: false,
+            itemId: 'delivererEditId',
+            align: 'center',
+            hidden:(XMLifeOperating.generic.Global.operating_type == 'center')
         }, 
         {
             header: "",
-            width: 90,
             dataIndex: 'isActive',
             itemId: 'closeOrOpenOrder',
             menuDisabled: true,

@@ -66,10 +66,10 @@ Ext.define('XMLifeOperating.controller.SupportedCityList', {
                         },function(){
  
                         });
-                    }else if(evt.target.className == 'edit-ship-price'){
+                    }/*else if(evt.target.className == 'edit-ship-price'){
                         var supportedCityModifyPrice = me.getSupportedCityModifyPrice();
                         supportedCityModifyPrice.show();
-                    }
+                    }*/
                 }
             },
             'supportedCityList #editCity': {

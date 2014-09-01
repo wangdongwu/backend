@@ -1,9 +1,9 @@
 Ext.define('XMLifeOperating.view.templateManage.productTemplate.ProductTemplateList', {
     extend: 'Ext.grid.Panel',
     xtype: 'productTemplateList',
-
-    header: false,
-
+    title : '商品模板管理',
+    titleAlign : 'left',
+    forceFit: true,
     store: 'ProductTemplate',
     id:'productTemplateList',
     tbar: [
@@ -12,18 +12,17 @@ Ext.define('XMLifeOperating.view.templateManage.productTemplate.ProductTemplateL
             text: '添加商品模板',
             itemId: 'add'
         },
+        '-',
         {
             xtype:'textfield',
             emptyText:'商品名称',
             name:'keyword',
             itemId: 'keyword',
-            margin:10
-        },
+            },
         {
             xtype:'button',
             itemId: 'productSearch',
-            text:'搜索',
-            margin:10,
+            text:'搜索'
         }
     ],
 

@@ -1,9 +1,9 @@
 Ext.define('XMLifeOperating.view.templateManage.shopBannerTemplate.ShopBannerTemplateList', {
     extend: 'Ext.grid.Panel',
     xtype: 'shopBannerTemplateList',
-
-    header: false,
-
+    title : '店铺模板管理',
+    titleAlign : 'left',
+    forceFit: true,
     store: 'ShopBannerTemplate',
     tbar: [
         {

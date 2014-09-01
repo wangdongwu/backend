@@ -1,10 +1,11 @@
 Ext.define('XMLifeOperating.view.staffManage.shopper.GShopperList', {
     extend: 'Ext.grid.Panel',
     xtype: 'gShopperList',
-
-    header: false,
     store: 'Shopper',
     id: 'gShopperList',
+    title : '买手管理',
+    titleAlign : 'left',
+    forceFit: true,
     tbar: [
     {
         xtype: 'button',
@@ -18,7 +19,6 @@ Ext.define('XMLifeOperating.view.staffManage.shopper.GShopperList', {
         itemId: 'shopArea',
         store: 'ShopArea',
         emptyText: '请选择中心',
-        margin: 10,
         editable: false,
         displayField: 'name',
         valueField: 'id',
@@ -28,7 +28,6 @@ Ext.define('XMLifeOperating.view.staffManage.shopper.GShopperList', {
         xtype: 'button',
         itemId: 'activeSearch',
         text: '查看停单买手',
-        margin: 10,
         handler: function() {
 
             if (this.text == '查看停单买手') {
@@ -42,7 +41,6 @@ Ext.define('XMLifeOperating.view.staffManage.shopper.GShopperList', {
         xtype: 'button',
         itemId: 'activeBind',
         text: '查看未绑定的买手',
-        margin: 10,
         handler: function() {
             if (this.text == '查看未绑定的买手') {
                 this.setText('查看已绑定的买手');
@@ -50,12 +48,13 @@ Ext.define('XMLifeOperating.view.staffManage.shopper.GShopperList', {
                 this.setText('查看未绑定的买手');
             }
         }
-    }, {
+    },
+    '->',
+    , {
         xtype: 'textfield',
         name: 'searchbuyer',
         itemId: 'searchBuyerKeyWords',
-        emptyText: '输入手机号',
-        margin: 10
+        emptyText: '输入手机号'
     }, {
         xtype: 'button',
         name: 'searchbutton',

@@ -4,6 +4,9 @@ Ext.define('XMLifeOperating.view.cityManage.SupportedCityList', {
     alias: 'widget.supportedCityList',
     autoScroll: true,
     store: 'SupportedCity',
+    title : '城市管理',
+    titleAlign : 'left',
+    forceFit: true,
     tbar: [{
         xtype: 'button',
         text: '添加城市',
@@ -62,10 +65,11 @@ Ext.define('XMLifeOperating.view.cityManage.SupportedCityList', {
             sortable: false,
             align: 'center',
             renderer: function(value) {
+                /*<a class="edit-ship-price">设置运费</a> | */
                 if (value == 1) {
-                    return '<a class="edit-ship-price">设置运费</a> | <a class="close-city-bnt">暂时关闭</a>';
+                    return '<a class="close-city-bnt">暂时关闭</a>';
                 } else {
-                    return '<a class="edit-ship-price">设置运费</a> |<a class="open-city-bnt">上线</a>';
+                    return '<a class="open-city-bnt">上线</a>';
                 }
             }
         },
