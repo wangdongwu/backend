@@ -6,7 +6,6 @@ Ext.define('XMLifeOperating.controller.CustomerList', {
     stores: ['Customer','ShopArea','Address','Deal'],
 
     models: ['Customer','ShopArea','Address','Deal'],
- 
     refs: [
         {
             ref: 'shopAreac',
@@ -32,6 +31,16 @@ Ext.define('XMLifeOperating.controller.CustomerList', {
              xtype: 'CustomerDealList',
              autoCreate: true
         },
+        {
+             ref: 'CustomerList',
+             selector: 'CustomerList',
+             xtype: 'CustomerList',
+             autoCreate: true
+        },{
+            ref: 'contentPanel',
+            selector: '#contentPanel',
+            xtype: 'panel'
+        }
     ],
 
     init: function() {
@@ -42,9 +51,10 @@ Ext.define('XMLifeOperating.controller.CustomerList', {
             '#shopAreac': {
                 select: function (combo) {
                     var sstore = this.getCustomerStore();
+                    me.shopArea = combo.getValue();
                     sstore.load({
                         params: {
-                            shopArea: combo.getValue()
+                            shopArea: me.shopArea
                         }
                     });
 
@@ -62,7 +72,15 @@ Ext.define('XMLifeOperating.controller.CustomerList', {
                     });
                 }
             },
-
+            '#returnCustomerList' : {
+                click : function(){
+                    var tab=me.getCustomerList();
+                    var content = this.getContentPanel();
+                    content.removeAll(false);
+                    content.add(tab);
+                }
+            }
+            ,
             '#customerTitle':{
                 click: function(){
                     var store = this.getCustomerStore();
@@ -111,15 +129,23 @@ Ext.define('XMLifeOperating.controller.CustomerList', {
         var uid = customerDetail.get('uid');
         var store = self.getDealStore();
         var win = self.getCustomerDealList()
-        store.on('load',function (store,addressList ){
-            win.show();
-        });
-        store.getProxy().url += '/customerHistory';
+        var content = self.getContentPanel();
+        var oldProxyUrl = store.getProxy().url;
+        store.getProxy().url = XMLifeOperating.generic.Global.URL.biz+'deal/customerHistory';
+        store.on('load',function(){
+                content.removeAll(false);
+                content.add(win);
+                /*
+                还原原来的deal url
+                 */
+                //store.getProxy().url = oldProxyUrl;             
+        })
         store.load({
             params: {
-                customer: uid
-            },
+                customer: 32
+            }
         });
+
     },
 
     onOperationc: function(view, rowIndex, colIndex, column, e) {

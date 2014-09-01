@@ -1,12 +1,12 @@
 
 Ext.define('XMLifeOperating.view.userManage.customer.CustomerList', {
     extend: 'Ext.grid.Panel',
-    xtype: 'customerList',
+    xtype: 'CustomerList',
 
     header: false,
 
     store: 'Customer',
-    id:'customerList',
+    id:'CustomerList',
     forceFit: true,
     dockedItems: [{
                 xtype: 'toolbar',

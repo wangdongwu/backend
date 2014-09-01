@@ -1,40 +1,25 @@
 Ext.define('XMLifeOperating.view.userManage.customer.CustomerDealList', {
-    extend: 'Ext.window.Window',
+    extend: 'Ext.grid.Panel',
     xtype: 'CustomerDealList',
     requires: [
         'Ext.form.Panel',
         'Ext.form.field.Text',
         'Ext.form.field.Hidden',
     ],
-    closeAction: 'destroy',
-    modal: true,
-    width: 800,
-    height: 600,
-    resizable: false,
+    tbar : [{
+         xtype: 'button',
+            text: '返回',
+            itemId: 'returnCustomerList'
+    }],
+    store : 'Deal'
+    ,
+    forceFit: true,
     layout: 'fit',
-    initComponent: function() {
-        this.items = [{
-            xtype : 'grid',
-            store : 'Deal',
-            layout: 'fit',
-            forceFit: true,
-                columns: [
-                     {
-            text: '日期',
-            dataIndex: 'created',
-            width: 70,
-            sortable: true,
-            align: 'center', 
-            renderer:function(value){
-               var newTime = new Date(value);
-               newDate = newTime.getFullYear()+'.'+(newTime.getMonth()+1)+'.'+newTime.getDate();
-               return newDate;
-            } 
-        },
+    columns : [
         {
             text: '订单号',
             dataIndex: 'shortId',
-            width: 150,
+            width: 80,
             sortable: false,
             align: 'center',  
             itemId: 'dealDetail',
@@ -42,10 +27,108 @@ Ext.define('XMLifeOperating.view.userManage.customer.CustomerDealList', {
                 return '<a>'+value+'</a>'
             }
         },
-
         {
-            text: '线路',
-            dataIndex: 'zoneName',
+            text: '下单时间',
+            dataIndex: 'created',
+            width: 60,
+            sortable: false,
+            align: 'center', 
+            renderer:function(value){
+               var newTime = new Date(value);
+               newTime = newTime.getHours()+':'+newTime.getMinutes();
+               return newTime;
+            }  
+        },
+        {
+            text: '地址',
+            dataIndex: 'dtoAddress',
+            width: 80,
+            sortable: false,
+            align: 'center',  
+            itemId: 'dealAddress'
+        },
+        {
+            text: '期望送达时间',
+            dataIndex: 'deliverTime',
+            width: 80,
+            sortable: false,
+            align: 'center', 
+            renderer:function(value){
+               var newTime = new Date(value);
+               newTime = newTime.getHours()+':'+newTime.getMinutes();
+               return newTime;
+            }   
+        },
+        {
+            text: '送达时间',
+            dataIndex: 'completeTime',
+            width: 80,
+            sortable: false,
+            align: 'center', 
+            renderer:function(value){
+               var newTime = new Date(value);
+               newTime = newTime.getHours()+':'+newTime.getMinutes();
+               return newTime;
+            } 
+        },
+        {
+            text: '分配买手',
+            dataIndex: 'shopperNames',
+            width: 80,
+            sortable: false,
+            align: 'left',
+            renderer:function(value){
+                var str='';
+                for(var i=0;i<value.length;i++){
+                    str += value[i]+'<br />';
+                }
+                return str;
+            }
+ 
+        },
+        {
+            text: '购买店铺',
+            dataIndex: 'shopNames',
+            width: 60,
+            sortable: false,
+            align: 'left',
+            renderer:function(value){
+                var str='';
+                for(var i=0;i<value.length;i++){
+                    str += value[i]+'<br />';
+                }
+                return str;
+            }
+        },
+        {
+            text: '订单详情',
+            sortable: false,
+            align: 'center',
+            itemId: 'dealDetail',  
+            renderer: function() {
+                return '<a>查看</a>'
+            }
+        },
+        {
+            text: '订单价格',
+            align: 'center',
+            itemId: 'historyDealPrice',
+            dataIndex : 'dealPrice',
+            renderer : function(value){
+                return value / 100;
+            }
+        },
+        {
+            text: '成交价格',
+            align: 'center',
+            dataIndex : 'actualDealPrice',
+            renderer : function(value){
+                return value / 100;
+            }
+        },
+        {
+            text: '配送员',
+            dataIndex: 'delivererName',
             width: 60,
             sortable: false,
             align: 'center',  
@@ -91,156 +174,7 @@ Ext.define('XMLifeOperating.view.userManage.customer.CustomerDealList', {
                         return '未知';
                 }
             }
-        },
-        {
-            text: '顾客',
-            dataIndex: 'customerName',
-            width: 100,
-            sortable: false,
-            align: 'center',
-            itemId: 'customerDetail',  
-            renderer: function(value, metadata, model, rowIndex, colIndex, store) {
-                return '<a>'+value+'</a>'
-            }
-        },
-        {
-            text: '顾客电话',
-            dataIndex: 'customerPhone',
-            width: 60,
-            sortable: false,
-            align: 'center',  
-        },
-        {
-            text: '中心点',
-            dataIndex: 'shopAreaName',
-            width: 60,
-            sortable: false,
-            align: 'center',  
-        },
-        {
-            text: '分配买手',
-            dataIndex: 'shopperNames',
-            width: 80,
-            sortable: false,
-            align: 'left',
-            renderer:function(value){
-                var str='';
-                for(var i=0;i<value.length;i++){
-                    str += value[i]+'<br />';
-                }
-                return str;
-            }
- 
-        },
-        {
-            text: '购买店铺',
-            dataIndex: 'shopNames',
-            width: 60,
-            sortable: false,
-            align: 'left',
-            renderer:function(value){
-                var str='';
-                for(var i=0;i<value.length;i++){
-                    str += value[i]+'<br />';
-                }
-                return str;
-            }
-        },
-        {
-            text: '配送员',
-            dataIndex: 'delivererName',
-            width: 60,
-            sortable: false,
-            align: 'center',  
-        },
-        {
-            text: '下单时间',
-            dataIndex: 'created',
-            width: 60,
-            sortable: false,
-            align: 'center', 
-            renderer:function(value){
-               var newTime = new Date(value);
-               newTime = newTime.getHours()+':'+newTime.getMinutes();
-               return newTime;
-            }  
-        },
-        {
-            text: '期望送达时间',
-            dataIndex: 'deliverTime',
-            width: 80,
-            sortable: false,
-            align: 'center', 
-            renderer:function(value){
-               var newTime = new Date(value);
-               newTime = newTime.getHours()+':'+newTime.getMinutes();
-               return newTime;
-            }   
-        },
-        {
-            text: '剩余时间',
-            dataIndex: 'remainTime',
-            width: 80,
-            sortable: false,
-            align: 'center', 
-            renderer:function(value){
-                var time = (value/(3600*1000)+'').split('.');
-                var time1=Math.abs(time[0]);
-                var time2=Math.floor(('0.'+time[1])*60);
-                time= time1+'时'+time2+'分';
-                if(value<=0){
-                    return '<span style="color:#ff0000">'+time+'</span>';
-                }
-                return '<span style="color:#000">'+time+'</span>';
-            }
-        },
-        {
-            text: '完成购买时间',
-            dataIndex: 'taskDone',
-            width: 100,
-            sortable: false,
-            align: 'center',  
-            renderer:function(value){
-                var str='';
-                for(var i=0;i<value.length;i++){
-                    var newTime = new Date(value[i]);
-                    newTime = newTime.getHours()+':'+newTime.getMinutes();
-                    str += newTime+'<br />';
-                }
-                return str;
-            }
-        },
-        {
-            text: '出货时间',
-            dataIndex: 'beginDeliverTime',
-            width: 60,
-            sortable: false,
-            align: 'center',
-            renderer:function(value){
-               var newTime = new Date(value);
-               newTime = newTime.getHours()+':'+newTime.getMinutes();
-               return newTime;
-            }   
-        },
-        {
-            text: '送达时间',
-            dataIndex: 'completeTime',
-            width: 80,
-            sortable: false,
-            align: 'center', 
-            renderer:function(value){
-               var newTime = new Date(value);
-               newTime = newTime.getHours()+':'+newTime.getMinutes();
-               return newTime;
-            } 
         }
                 ]
-        }];
-
-        this.callParent(arguments);
-
-    }
-
-        
 });
 

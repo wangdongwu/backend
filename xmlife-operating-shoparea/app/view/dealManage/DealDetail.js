@@ -39,7 +39,10 @@ Ext.define('XMLifeOperating.view.dealManage.DealDetail', {
                     name: 'actualDealPrice',
                     fieldLabel: '总计',
                     allowBlank:false,
-                    labelAlign:'left'               
+                    labelAlign:'left',               
+                    renderer : function(value){
+                        return value / 100;
+                    }
              	},
                
                 {
@@ -64,7 +67,10 @@ Ext.define('XMLifeOperating.view.dealManage.DealDetail', {
                         {
                             text:'单价',
                             width: 50,
-                            dataIndex:'price'
+                            dataIndex:'price',
+                            renderer : function(){
+                                return price / 100;
+                            }
                         },
                         {
                             text:'数量',
@@ -74,7 +80,10 @@ Ext.define('XMLifeOperating.view.dealManage.DealDetail', {
                         {
                             text:'合计',
                             width: 50,
-                            dataIndex:'actualItemPrice'
+                            dataIndex:'actualItemPrice',
+                            renderer :  function(value){
+                                return value / 100;
+                            }
                         },
                     ],
                 },
