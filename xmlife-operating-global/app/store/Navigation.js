@@ -44,7 +44,7 @@ Ext.define('XMLifeOperating.store.Navigation', {
                 text: '商品模板管理',
                 leaf: true
             }, {
-                id: 'templateList',
+                id: 'shopBannerTemplateList',
                 text: '店铺模板管理',
                 leaf: true
             }]

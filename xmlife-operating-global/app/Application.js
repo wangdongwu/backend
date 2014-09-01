@@ -30,6 +30,7 @@ Ext.define('XMLifeOperating.Application', {
         'RechargeableCardTemplate',
         'GDeliverer',
         'ProductTemplate',
+        'ShopBannerTemplate'     
         'Refund',    
         'CustomerList'
         ],
@@ -43,7 +44,8 @@ Ext.define('XMLifeOperating.Application', {
         'CardBatch',
         'CardTemplate',
         'Deliverer',
-        'ProductTemplate'    
+        'ProductTemplate',
+        'ShopBannerTemplate'   
         ],
 
     launch: function() {
