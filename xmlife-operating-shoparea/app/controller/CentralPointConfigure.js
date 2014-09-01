@@ -74,7 +74,6 @@ Ext.define('XMLifeOperating.controller.CentralPointConfigure', {
             },
             'centralpointconfigurebanneredit #returnCentralPoint': {
                 click: function() {
-                    debugger
                     var tab = me.getCentralPointConfigureList();
                     var store = me.getShopAreaStore();
                     store.load({
