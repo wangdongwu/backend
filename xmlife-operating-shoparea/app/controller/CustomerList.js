@@ -142,7 +142,7 @@ Ext.define('XMLifeOperating.controller.CustomerList', {
         })
         store.load({
             params: {
-                customer: 32
+                customer: uid
             }
         });
 
