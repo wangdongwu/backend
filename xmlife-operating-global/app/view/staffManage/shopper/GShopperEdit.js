@@ -1,0 +1,190 @@
+Ext.define('XMLifeOperating.view.staffManage.shopper.GShopperEdit', {
+    extend: 'Ext.window.Window',
+    xtype: 'gShopperEdit',
+    
+    requires: [
+        'Ext.form.Panel',
+        'Ext.form.field.Text',
+        'Ext.form.field.Hidden',
+    ],
+    closeAction: 'hide',
+    modal: true,
+    width: 450,
+    height: 550,
+    resizable: false,
+    layout: 'fit',
+
+    initComponent: function() {
+        var  genderStore= Ext.create('Ext.data.Store', {
+            fields: ['value','gender'],
+            data : [
+                {"value": 0, "gender": '男'},
+                {"value": 1, "gender": '女'}
+            ],
+        });
+        this.items = [{
+            xtype: 'form',
+            layout: 'anchor',
+            bodyPadding: 10,
+            border: false,
+            frame: true,
+            defaults:{
+                anchor: '100%'
+            },
+            items: [
+                {
+                    xtype: 'textfield',
+                    name: 'name',
+                    fieldLabel: '姓名',
+                    labelWidth: 90,
+                    allowBlank:false,
+                    
+                },
+                {
+                    xtype: 'textfield',
+                    name: 'title',
+                    fieldLabel: '职称',
+                    labelWidth: 90,
+                    allowBlank:false,
+                    minLength: 2,
+                    minLengthText:'职称最小长度为2',
+                    maxLength: 10,
+                    maxLengthText:'职称最大长度为10',
+                },
+                {
+                    fieldLabel : '性别',
+                    labelWidth: 90,
+                    store : genderStore,
+                    name : 'gender',
+                    allowBlank : false,
+                    xtype : 'combo',
+                    editable : false,
+                    queryMode : 'local',
+                    triggerAction : 'all',
+                    displayField: 'gender',
+                    valueField: 'value',
+                    allowBlank:false                  
+                },
+                /*{
+                    fieldLabel : '市场类型',
+                    labelWidth: 90,
+                    store : typeStore,
+                    name : 'type',
+                    allowBlank : false,
+                    xtype : 'combo',
+                    editable : false,
+                    queryMode : 'local',
+                    triggerAction : 'all',
+                    displayField: 'type',
+                    valueField: 'value',
+                    allowBlank:false                  
+                },*/
+                /*{
+                    xtype: 'textfield',
+                    name: 'avatar',
+                    fieldLabel: '图片',
+                    labelWidth: 90,
+                    allowBlank:false,
+                    minLength: 2,
+                    minLengthText:'图片最小长度为2',
+                    maxLength: 10,
+                    maxLengthText:'图片最大长度为10',
+                },*/
+                {
+                    xtype: 'fieldset',
+                    layout: 'column',
+                    padding: 0,
+                    border: false,
+                    items:[
+                        {
+                            xtype: 'textfield',
+                            name: 'avatar',
+                            fieldLabel: '上传图片',
+                            itemId:'buyerAvater',
+                            labelWidth: 90,
+                            
+                            readOnly: false,
+                        },
+                        {
+                            xtype: 'form',
+                            border: false,
+                            itemId:'adf',
+                            margin: '0 30 0 0',
+                            items:[
+                                {
+                                    xtype: 'filefield',
+                                    name: 'shopperUploadfile',
+                                    buttonOnly: true,
+                                    hideLabel: true,
+                                },
+                            ]
+                        },
+                    ]
+                },
+                {
+                    xtype: 'textfield',
+                    name: 'idcard',
+                    fieldLabel: '身份证',
+                    labelWidth: 90,
+                    allowBlank:false,
+                    
+                },
+                {
+                    xtype: 'textfield',
+                    name: 'phone',
+                    fieldLabel: '电话',
+                    labelWidth: 90,
+                    allowBlank:false,
+                    regex: XMLifeOperating.generic.Global.VALIDATION_CONSTANTS.PHONE,
+                    regexText: '请输入正确的手机号码',
+                   
+                },
+                {
+                    xtype: 'textfield',
+                    name: 'pwd',
+                    fieldLabel: '密码',
+                    labelWidth: 90,
+                    allowBlank:false,
+                   
+                },
+                {
+                    xtype: 'timefield',
+                    name: 'onlineTime',
+                    fieldLabel: '开始时间',
+                    labelWidth: 90,
+                    format:'H:i',
+                    allowBlank:false,
+                    
+                },
+                {
+                    xtype: 'timefield',
+                    name: 'offlineTime',
+                    fieldLabel: '结束时间',
+                    labelWidth: 90,
+                    format:'H:i',
+                    allowBlank:false,
+
+                },
+                
+            ],
+            buttons: [
+                {
+                    text: 'Save',
+                    itemId: 'save-shopper-edit-btn'
+                },
+                {
+                    text: 'Cancel',
+                    handler:function(){
+                        //关闭窗口
+                        Ext.ComponentQuery.query('gShopperEdit')[0].close();
+                    }
+                }
+            ]
+        }]
+
+        this.callParent(arguments);
+
+    }
+
+        
+});
