@@ -12,7 +12,6 @@ Ext.define('XMLifeOperating.view.userManage.customer.CustomerAddress', {
     height: 240,
     resizable: false,
     layout: 'fit',
-
     initComponent: function() {
         this.items = [{
             xtype : 'grid',
