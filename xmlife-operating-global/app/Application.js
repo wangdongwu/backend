@@ -19,11 +19,14 @@ Ext.define('XMLifeOperating.Application', {
 
     controllers: [
         'Navigation',
-        'Shop'
-    ],
+        'SupportedCityList'
+     ],
 
     stores: [
-        'Shop'
+        'Shop',
+        'Province',
+        'AllCities',
+        'SupportedCity'
     ],
 
     launch: function() {
