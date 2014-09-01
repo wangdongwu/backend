@@ -28,10 +28,6 @@ Ext.define('XMLifeOperating.store.Navigation', {
                 id: 'gDelivererList',
                 text: '配送员管理',
                 leaf: true
-            }, {
-                id: 'otherList',
-                text: '其他员工管理',
-                leaf: true
             }]
         }, 
         {
