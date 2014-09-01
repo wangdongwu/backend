@@ -33,8 +33,8 @@ Ext.define('XMLifeOperating.Application', {
         'ShopBannerTemplate',     
         'Refund',    
         'CustomerList',
-        'GDealList'
-
+        'GDealList',
+        'GFeedbackList'
         ],
 
     stores: [
@@ -51,7 +51,9 @@ Ext.define('XMLifeOperating.Application', {
         'Deal',
         'ShopArea',
         'Customer',
-        'DealItems'
+        'DealItems',
+        'Feedback',
+        'FeedbackStatus'
         ],
 
     launch: function() {

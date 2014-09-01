@@ -75,7 +75,7 @@ Ext.define('XMLifeOperating.store.Navigation', {
                 text: '用户信息管理',
                 leaf: true
             }, {
-                id: 'feedbackList',
+                id: 'gFeedbackList',
                 text: '用户反馈管理',
                 leaf: true
             }]
