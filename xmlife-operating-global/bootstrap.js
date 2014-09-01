@@ -828,30 +828,74 @@ Ext.ClassManager.addNameAlternateMappings({
     "Ext.Window"
   ],
   "XMLifeOperating.Application": [],
+  "XMLifeOperating.controller.GDeliverer": [],
+  "XMLifeOperating.controller.GShopper": [],
   "XMLifeOperating.controller.Main": [],
   "XMLifeOperating.controller.Navigation": [],
+  "XMLifeOperating.controller.ProductTemplate": [],
+  "XMLifeOperating.controller.RechargeableCardInstance": [],
+  "XMLifeOperating.controller.RechargeableCardTemplate": [],
   "XMLifeOperating.controller.Shop": [],
   "XMLifeOperating.controller.SupportedCityList": [],
   "XMLifeOperating.generic.BaseProxy": [],
   "XMLifeOperating.generic.Global": [],
+  "XMLifeOperating.model.CardBatch": [],
+  "XMLifeOperating.model.CardTemplate": [],
   "XMLifeOperating.model.City": [],
+  "XMLifeOperating.model.DealDelivererHistory": [],
+  "XMLifeOperating.model.DealItems": [],
+  "XMLifeOperating.model.DealShopperHistory": [],
+  "XMLifeOperating.model.Deliverer": [],
+  "XMLifeOperating.model.DelivererWorkTime": [],
+  "XMLifeOperating.model.ProductTemplate": [],
+  "XMLifeOperating.model.ProductUnit": [],
   "XMLifeOperating.model.Shop": [],
   "XMLifeOperating.model.ShopArea": [],
+  "XMLifeOperating.model.Shopper": [],
+  "XMLifeOperating.model.ShopperWorkTime": [],
   "XMLifeOperating.model.SupportedCity": [],
   "XMLifeOperating.model.Template": [],
   "XMLifeOperating.store.AllCities": [],
   "XMLifeOperating.store.AssignedCity": [],
+  "XMLifeOperating.store.CardBatch": [],
+  "XMLifeOperating.store.CardTemplate": [],
+  "XMLifeOperating.store.DealDelivererHistory": [],
+  "XMLifeOperating.store.DealItems": [],
+  "XMLifeOperating.store.DealShopperHistory": [],
+  "XMLifeOperating.store.Deliverer": [],
+  "XMLifeOperating.store.DelivererWorkTime": [],
   "XMLifeOperating.store.Navigation": [],
+  "XMLifeOperating.store.ProductTemplate": [],
+  "XMLifeOperating.store.ProductUnit": [],
   "XMLifeOperating.store.Province": [],
   "XMLifeOperating.store.Shop": [],
   "XMLifeOperating.store.ShopArea": [],
+  "XMLifeOperating.store.Shopper": [],
+  "XMLifeOperating.store.ShopperWorkTime": [],
   "XMLifeOperating.store.SupportedCity": [],
   "XMLifeOperating.view.Main": [],
   "XMLifeOperating.view.Navigation": [],
   "XMLifeOperating.view.Toolbar": [],
   "XMLifeOperating.view.Viewport": [],
   "XMLifeOperating.view.centralPointManage.shopManage.Shop": [],
-  "XMLifeOperating.view.cityManage.SupportedCityList": []
+  "XMLifeOperating.view.cityManage.SupportedCityList": [],
+  "XMLifeOperating.view.rechargeableCardManage.rechargeableCardInstance.RechargeableCardInstanceAdd": [],
+  "XMLifeOperating.view.rechargeableCardManage.rechargeableCardInstance.RechargeableCardInstanceList": [],
+  "XMLifeOperating.view.rechargeableCardManage.rechargeableCardTemplate.RechargeableCardTemplateAdd": [],
+  "XMLifeOperating.view.rechargeableCardManage.rechargeableCardTemplate.RechargeableCardTemplateList": [],
+  "XMLifeOperating.view.rechargeableCardManage.rechargeableCardTemplate.RechargeableCardTemplateReturnCardAdd": [],
+  "XMLifeOperating.view.staffManage.deliverer.GDealDelivererHistoryList": [],
+  "XMLifeOperating.view.staffManage.deliverer.GDealItemsList": [],
+  "XMLifeOperating.view.staffManage.deliverer.GDelivererEdit": [],
+  "XMLifeOperating.view.staffManage.deliverer.GDelivererList": [],
+  "XMLifeOperating.view.staffManage.deliverer.GDelivererWorkTimeList": [],
+  "XMLifeOperating.view.staffManage.shopper.GDealItemsList": [],
+  "XMLifeOperating.view.staffManage.shopper.GDealShopperHistoryList": [],
+  "XMLifeOperating.view.staffManage.shopper.GShopperEdit": [],
+  "XMLifeOperating.view.staffManage.shopper.GShopperList": [],
+  "XMLifeOperating.view.staffManage.shopper.GShopperWorkTimeList": [],
+  "XMLifeOperating.view.templateManage.productTemplate.ProductTemplateEdit": [],
+  "XMLifeOperating.view.templateManage.productTemplate.ProductTemplateList": []
 });
 Ext.ClassManager.addNameAliasMappings({
   "Ext.AbstractComponent": [],
@@ -1839,23 +1883,50 @@ Ext.ClassManager.addNameAliasMappings({
     "widget.window"
   ],
   "XMLifeOperating.Application": [],
+  "XMLifeOperating.controller.GDeliverer": [],
+  "XMLifeOperating.controller.GShopper": [],
   "XMLifeOperating.controller.Main": [],
   "XMLifeOperating.controller.Navigation": [],
+  "XMLifeOperating.controller.ProductTemplate": [],
+  "XMLifeOperating.controller.RechargeableCardInstance": [],
+  "XMLifeOperating.controller.RechargeableCardTemplate": [],
   "XMLifeOperating.controller.Shop": [],
   "XMLifeOperating.controller.SupportedCityList": [],
   "XMLifeOperating.generic.BaseProxy": [],
   "XMLifeOperating.generic.Global": [],
+  "XMLifeOperating.model.CardBatch": [],
+  "XMLifeOperating.model.CardTemplate": [],
   "XMLifeOperating.model.City": [],
+  "XMLifeOperating.model.DealDelivererHistory": [],
+  "XMLifeOperating.model.DealItems": [],
+  "XMLifeOperating.model.DealShopperHistory": [],
+  "XMLifeOperating.model.Deliverer": [],
+  "XMLifeOperating.model.DelivererWorkTime": [],
+  "XMLifeOperating.model.ProductTemplate": [],
+  "XMLifeOperating.model.ProductUnit": [],
   "XMLifeOperating.model.Shop": [],
   "XMLifeOperating.model.ShopArea": [],
+  "XMLifeOperating.model.Shopper": [],
+  "XMLifeOperating.model.ShopperWorkTime": [],
   "XMLifeOperating.model.SupportedCity": [],
   "XMLifeOperating.model.Template": [],
   "XMLifeOperating.store.AllCities": [],
   "XMLifeOperating.store.AssignedCity": [],
+  "XMLifeOperating.store.CardBatch": [],
+  "XMLifeOperating.store.CardTemplate": [],
+  "XMLifeOperating.store.DealDelivererHistory": [],
+  "XMLifeOperating.store.DealItems": [],
+  "XMLifeOperating.store.DealShopperHistory": [],
+  "XMLifeOperating.store.Deliverer": [],
+  "XMLifeOperating.store.DelivererWorkTime": [],
   "XMLifeOperating.store.Navigation": [],
+  "XMLifeOperating.store.ProductTemplate": [],
+  "XMLifeOperating.store.ProductUnit": [],
   "XMLifeOperating.store.Province": [],
   "XMLifeOperating.store.Shop": [],
   "XMLifeOperating.store.ShopArea": [],
+  "XMLifeOperating.store.Shopper": [],
+  "XMLifeOperating.store.ShopperWorkTime": [],
   "XMLifeOperating.store.SupportedCity": [],
   "XMLifeOperating.view.Main": [
     "widget.app-main"
@@ -1872,6 +1943,57 @@ Ext.ClassManager.addNameAliasMappings({
   ],
   "XMLifeOperating.view.cityManage.SupportedCityList": [
     "widget.supportedCityList"
+  ],
+  "XMLifeOperating.view.rechargeableCardManage.rechargeableCardInstance.RechargeableCardInstanceAdd": [
+    "widget.rechargeablecardinstanceadd"
+  ],
+  "XMLifeOperating.view.rechargeableCardManage.rechargeableCardInstance.RechargeableCardInstanceList": [
+    "widget.rechargeablecrdinstancelist"
+  ],
+  "XMLifeOperating.view.rechargeableCardManage.rechargeableCardTemplate.RechargeableCardTemplateAdd": [
+    "widget.rechargeablecardtemplateadd"
+  ],
+  "XMLifeOperating.view.rechargeableCardManage.rechargeableCardTemplate.RechargeableCardTemplateList": [
+    "widget.rechargeablecardtemplatelist"
+  ],
+  "XMLifeOperating.view.rechargeableCardManage.rechargeableCardTemplate.RechargeableCardTemplateReturnCardAdd": [
+    "widget.rechargeablecardtemplatereturncardadd"
+  ],
+  "XMLifeOperating.view.staffManage.deliverer.GDealDelivererHistoryList": [
+    "widget.gDealDelivererHistoryList"
+  ],
+  "XMLifeOperating.view.staffManage.deliverer.GDealItemsList": [
+    "widget.gDealItemsList"
+  ],
+  "XMLifeOperating.view.staffManage.deliverer.GDelivererEdit": [
+    "widget.gDelivererEdit"
+  ],
+  "XMLifeOperating.view.staffManage.deliverer.GDelivererList": [
+    "widget.gDelivererList"
+  ],
+  "XMLifeOperating.view.staffManage.deliverer.GDelivererWorkTimeList": [
+    "widget.gDelivererWorkTimeList"
+  ],
+  "XMLifeOperating.view.staffManage.shopper.GDealItemsList": [
+    "widget.gDealItemsList"
+  ],
+  "XMLifeOperating.view.staffManage.shopper.GDealShopperHistoryList": [
+    "widget.gDealShopperHistoryList"
+  ],
+  "XMLifeOperating.view.staffManage.shopper.GShopperEdit": [
+    "widget.gShopperEdit"
+  ],
+  "XMLifeOperating.view.staffManage.shopper.GShopperList": [
+    "widget.gShopperList"
+  ],
+  "XMLifeOperating.view.staffManage.shopper.GShopperWorkTimeList": [
+    "widget.gShopperWorkTimeList"
+  ],
+  "XMLifeOperating.view.templateManage.productTemplate.ProductTemplateEdit": [
+    "widget.productTemplateEdit"
+  ],
+  "XMLifeOperating.view.templateManage.productTemplate.ProductTemplateList": [
+    "widget.productTemplateList"
   ]
 });
 Ext.setVersion("ext-theme-base", "4.2.1");

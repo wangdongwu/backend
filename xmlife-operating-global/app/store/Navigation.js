@@ -71,7 +71,7 @@ Ext.define('XMLifeOperating.store.Navigation', {
             leaf: false,
             expanded: true,
             children: [{
-                id: 'customerList',
+                id: 'CustomerList',
                 text: '用户信息管理',
                 leaf: true
             }, {
