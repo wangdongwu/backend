@@ -831,21 +831,27 @@ Ext.ClassManager.addNameAlternateMappings({
   "XMLifeOperating.controller.Main": [],
   "XMLifeOperating.controller.Navigation": [],
   "XMLifeOperating.controller.Shop": [],
+  "XMLifeOperating.controller.SupportedCityList": [],
   "XMLifeOperating.generic.BaseProxy": [],
   "XMLifeOperating.generic.Global": [],
   "XMLifeOperating.model.City": [],
   "XMLifeOperating.model.Shop": [],
   "XMLifeOperating.model.ShopArea": [],
+  "XMLifeOperating.model.SupportedCity": [],
   "XMLifeOperating.model.Template": [],
+  "XMLifeOperating.store.AllCities": [],
   "XMLifeOperating.store.AssignedCity": [],
   "XMLifeOperating.store.Navigation": [],
+  "XMLifeOperating.store.Province": [],
   "XMLifeOperating.store.Shop": [],
   "XMLifeOperating.store.ShopArea": [],
+  "XMLifeOperating.store.SupportedCity": [],
   "XMLifeOperating.view.Main": [],
   "XMLifeOperating.view.Navigation": [],
   "XMLifeOperating.view.Toolbar": [],
   "XMLifeOperating.view.Viewport": [],
-  "XMLifeOperating.view.centralPointManage.shopManage.Shop": []
+  "XMLifeOperating.view.centralPointManage.shopManage.Shop": [],
+  "XMLifeOperating.view.cityManage.SupportedCityList": []
 });
 Ext.ClassManager.addNameAliasMappings({
   "Ext.AbstractComponent": [],
@@ -1836,16 +1842,21 @@ Ext.ClassManager.addNameAliasMappings({
   "XMLifeOperating.controller.Main": [],
   "XMLifeOperating.controller.Navigation": [],
   "XMLifeOperating.controller.Shop": [],
+  "XMLifeOperating.controller.SupportedCityList": [],
   "XMLifeOperating.generic.BaseProxy": [],
   "XMLifeOperating.generic.Global": [],
   "XMLifeOperating.model.City": [],
   "XMLifeOperating.model.Shop": [],
   "XMLifeOperating.model.ShopArea": [],
+  "XMLifeOperating.model.SupportedCity": [],
   "XMLifeOperating.model.Template": [],
+  "XMLifeOperating.store.AllCities": [],
   "XMLifeOperating.store.AssignedCity": [],
   "XMLifeOperating.store.Navigation": [],
+  "XMLifeOperating.store.Province": [],
   "XMLifeOperating.store.Shop": [],
   "XMLifeOperating.store.ShopArea": [],
+  "XMLifeOperating.store.SupportedCity": [],
   "XMLifeOperating.view.Main": [
     "widget.app-main"
   ],
@@ -1858,6 +1869,9 @@ Ext.ClassManager.addNameAliasMappings({
   "XMLifeOperating.view.Viewport": [],
   "XMLifeOperating.view.centralPointManage.shopManage.Shop": [
     "widget.shop"
+  ],
+  "XMLifeOperating.view.cityManage.SupportedCityList": [
+    "widget.supportedCityList"
   ]
 });
 Ext.setVersion("ext-theme-base", "4.2.1");

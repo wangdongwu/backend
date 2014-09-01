@@ -25,8 +25,10 @@ Ext.define('XMLifeOperating.Application', {
         'Navigation',
         'SupportedCityList',
         'GShopper',
-        'GDeliverer'
-     ],
+        'RechargeableCardInstance',
+        'RechargeableCardTemplate',
+        'GDeliverer'     
+        ],
 
     stores: [
         'Shop',
@@ -34,8 +36,9 @@ Ext.define('XMLifeOperating.Application', {
         'AllCities',
         'SupportedCity',
         'Shopper',
-        'Deliverer'
-    ],
+        'CardBatch',
+        'CardTemplate',
+        'Deliverer'    ],
 
     launch: function() {
         // Setup a task to fadeOut the splashscreen

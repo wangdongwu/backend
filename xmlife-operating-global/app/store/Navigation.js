@@ -55,11 +55,11 @@ Ext.define('XMLifeOperating.store.Navigation', {
             expanded: true,
             leaf: false,
             children: [{
-                id: 'rechargeableCardList',
+                id: 'rechargeablecrdinstancelist',
                 text: '充值卡实例管理',
                 leaf: true
             }, {
-                id: 'rechargeableCardTemplateList',
+                id: 'rechargeablecardtemplatelist',
                 text: '充值卡模板管理',
                 leaf: true
             }]
