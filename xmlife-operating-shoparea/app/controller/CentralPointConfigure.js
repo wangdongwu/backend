@@ -55,7 +55,7 @@ Ext.define('XMLifeOperating.controller.CentralPointConfigure', {
             'centralpointconfigurelist #seeBannerBtn': {
                 click: function(view, column, rowIndex, colIndex, e) {
 
-                    var tab = this.centralPointConfigureBannerList();
+                    var tab = this.getCentralPointConfigureBannerList();
                     var content = this.getContentPanel();
                     content.removeAll(false);
 
@@ -74,6 +74,7 @@ Ext.define('XMLifeOperating.controller.CentralPointConfigure', {
             },
             'centralpointconfigurebanneredit #returnCentralPoint': {
                 click: function() {
+                    debugger
                     var tab = me.getCentralPointConfigureList();
                     var store = me.getShopAreaStore();
                     store.load({

@@ -48,6 +48,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.centralPointConfigure.Centra
             dataIndex: 'url',
             sortable: false,
             width: 250
+            
         },
         {
             xtype: 'actioncolumn',
