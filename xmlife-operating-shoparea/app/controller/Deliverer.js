@@ -52,51 +52,6 @@ Ext.define('XMLifeOperating.controller.Deliverer', {
             selector: '#contentPanel',
             xtype: 'panel'
         }],
-/*    views: ['deliverer.delivererList', 'deliverer.Editdeliverer', 'deliverer.delivererHistory', 'deliverer.delivererClock', 'deliverer.delivererShoppingList'],
-
-    stores: ['Deliverer', 'BusinessArea', 'delivererHistory', 'delivererClock', 'delivererShoppingList'],
-
-    models: ['Deliverer', 'BusinessArea', 'delivererHistory', 'delivererClock', 'delivererShoppingList'],*/
-
-    /*refs: [{
-            ref: 'delivererList',
-            selector: 'delivererList',
-            xtype: 'delivererList',
-            autoCreate: true
-        },
-
-        {
-            ref: 'businessArea',
-            selector: '#businessArea',
-        }, {
-            ref: 'editWindow',
-            selector: 'editdeliverer',
-            xtype: 'editdeliverer',
-            autoCreate: true
-        },
-
-        {
-            ref: 'delivererHistory',
-            selector: 'delivererHistory',
-            xtype: 'delivererHistory',
-            autoCreate: true
-        }, {
-            ref: 'delivererClock',
-            selector: 'delivererClock',
-            xtype: 'delivererClock',
-            autoCreate: true
-        }, {
-            ref: 'delivererShoppingList',
-            selector: 'delivererShoppingList',
-            xtype: 'delivererShoppingList',
-            autoCreate: true
-        }, {
-            ref: 'contentPanel',
-            selector: '#contentPanel',
-            xtype: 'panel'
-        },
-
-    ],*/
     init: function() {
 
         var me = this;
@@ -353,7 +308,7 @@ Ext.define('XMLifeOperating.controller.Deliverer', {
                                 return;
                             }
                             sendPutRequest(url,{deliverer:deliverer,isActive:isActive},'操作恢复或暂停配送员接单','成功操作配送员接单','操作配送员接单失败',function(){
-                                    var store = me.getCourierStore();
+                                    var store = me.getDelivererStore();
                                     store.load({
                                         params: {
                                             unbind:true
