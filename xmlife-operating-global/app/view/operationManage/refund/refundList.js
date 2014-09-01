@@ -1,9 +1,3 @@
-/**
- * @class SimpleTasks.view.lists.Tree
- * @extends Ext.tree.Panel
- * The task list view.  A tree that displays all of the task lists.
- */
-
 Ext.define('XMLifeOperating.view.operationManage.refund.refundList', {
     extend: 'Ext.grid.Panel',
     xtype: 'refundList',

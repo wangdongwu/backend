@@ -81,7 +81,7 @@ Ext.define('XMLifeOperating.store.Navigation', {
             }]
         }, 
         {
-            id: 'dealList',
+            id: 'gDealList',
             text: '订单管理',
             leaf: true
         }, 
