@@ -5,9 +5,11 @@ Ext.define('XMLifeOperating.controller.Shop', {
         'centralPointManage.shop.ShopList',
         'centralPointManage.shop.ShopEdit',
         'centralPointManage.shop.ShopBanner',
+        'centralPointManage.shop.ShopBannerAdd',
         // 'shopStore.AddBuyerWin',
         // 'shopStore.ShopStoreTab',
-        'centralPointManage.shop.ShopInfo'
+        'centralPointManage.shop.ShopInfo',
+        'centralPointManage.shop.ShopTab'
         // 'shopStore.Shelves',
         // 'shopStore.ShelvesNext',
         // 'shopStore.AddShelvesWin',
@@ -69,9 +71,19 @@ Ext.define('XMLifeOperating.controller.Shop', {
             xtype: 'shopbanner',
             autoCreate: true
         }, {
+            ref: 'ShopBannerAdd',
+            selector: 'shopbanneradd',
+            xtype: 'shopbanneradd',
+            autoCreate: true
+        }, {
             ref: 'shopInfo',
             selector: 'shopinfo',
             xtype: 'shopinfo',
+            autoCreate: true
+        }, {
+            ref: 'shopTab',
+            selector: 'shoptab',
+            xtype: 'shoptab',
             autoCreate: true
         }
         // {
@@ -105,16 +117,9 @@ Ext.define('XMLifeOperating.controller.Shop', {
         // }, {
         //     ref: 'keywordBuyer',
         //     selector: '#keywordBuyer',
-        // },{
-        //     ref: 'editShopStoreBannerWin',
-        //     selector: 'editShopStoreBannerWin',
-        //     xtype: 'editShopStoreBannerWin',
-        //     autoCreate: true
-        // } 
+        // }
     ],
     init: function() {
-
-
         var me = this,
             isSuccess = true;
         this.control({
@@ -132,43 +137,42 @@ Ext.define('XMLifeOperating.controller.Shop', {
                     });
                 },
                 itemdblclick: function(grid, record, item, index, e, eOpts) {
-
                     //替换成shopStoreinfo的面板
                     var tab = this.getShopInfo();
                     var content = this.getContentPanel();
                     content.removeAll(false);
                     this.record = record;
-                    tab.setActiveTab('tab1');
-                    var shopInfoForm = tab.getActiveTab();
-                    if (shopInfoForm.getItemId() == 'tab1') {
-                        var form = shopInfoForm.down('form').getForm();
-                        record.set('shopBannerTemplateId', record.get('templateId'));
-
-                        var leftOpenTime = Math.floor(record.get('openTime') / 60) < 10 ? '0' + Math.floor(record.get('openTime') / 60) : Math.floor(record.get('openTime') / 60);
-                        var rightOpenTime = record.get('openTime') % 60 < 10 ? '0' + record.get('openTime') % 60 : record.get('openTime') % 60;
-                        var leftCloseTime = Math.floor(record.get('closeTime') / 60) < 10 ? '0' + Math.floor(record.get('closeTime') / 60) : Math.floor(record.get('closeTime') / 60);
-                        var rightCloseTime = record.get('closeTime') % 60 < 10 ? '0' + record.get('closeTime') % 60 : record.get('closeTime') % 60;
-                        var openTime = leftOpenTime + ':' + rightOpenTime;
-                        var closeTime = leftCloseTime + ':' + rightCloseTime;
-                        record.set('openTime', openTime);
-                        record.set('closeTime', closeTime);
-                        form.loadRecord(record);
-                        var store = this.getBusinessAreaStore();
-                        store.load({
-                            callback: function(grid) {
-                                var model = Ext.ComponentQuery.query('#businessAreaScid')[0].getSelectionModel();
-                                model.deselectAll();
-                                for (var i = 0; i < grid.length; i++) {
-                                    for (var j = 0; j < record.get('areas').length; j++) {
-                                        if (grid[i].get('id') == record.get('areas')[j].areaId) {
-                                            var index = store.indexOfId(grid[i].get('id'));
-                                            model.select(index, true);
-                                        }
-                                    }
-                                }
-                            }
-                        });
-                    }
+                    var shopInfoForm = tab;
+                    // tab.setActiveTab('tab1');
+                    // var shopInfoForm = tab.getActiveTab();
+                    // if (shopInfoForm.getItemId() == 'tab1') {
+                    var form = shopInfoForm.getForm();
+                    record.set('shopBannerTemplateId', record.get('templateId'));
+                    var leftOpenTime = Math.floor(record.get('openTime') / 60) < 10 ? '0' + Math.floor(record.get('openTime') / 60) : Math.floor(record.get('openTime') / 60);
+                    var rightOpenTime = record.get('openTime') % 60 < 10 ? '0' + record.get('openTime') % 60 : record.get('openTime') % 60;
+                    var leftCloseTime = Math.floor(record.get('closeTime') / 60) < 10 ? '0' + Math.floor(record.get('closeTime') / 60) : Math.floor(record.get('closeTime') / 60);
+                    var rightCloseTime = record.get('closeTime') % 60 < 10 ? '0' + record.get('closeTime') % 60 : record.get('closeTime') % 60;
+                    var openTime = leftOpenTime + ':' + rightOpenTime;
+                    var closeTime = leftCloseTime + ':' + rightCloseTime;
+                    record.set('openTime', openTime);
+                    record.set('closeTime', closeTime);
+                    form.loadRecord(record);
+                    // var store = this.getBusinessAreaStore();
+                    // store.load({
+                    //     callback: function(grid) {
+                    //         var model = Ext.ComponentQuery.query('#businessAreaScid')[0].getSelectionModel();
+                    //         model.deselectAll();
+                    //         for (var i = 0; i < grid.length; i++) {
+                    //             for (var j = 0; j < record.get('areas').length; j++) {
+                    //                 if (grid[i].get('id') == record.get('areas')[j].areaId) {
+                    //                     var index = store.indexOfId(grid[i].get('id'));
+                    //                     model.select(index, true);
+                    //                 }
+                    //             }
+                    //         }
+                    //     }
+                    // });
+                    // }
                     this.shopId = this.record.raw.id;
                     content.add(tab);
                 }
@@ -203,31 +207,6 @@ Ext.define('XMLifeOperating.controller.Shop', {
 
                 }
             },
-            // 'shoplist #businessArea': {
-            //     render: function(combo) {
-
-            //         var dstore = me.getShopStore();
-            //         dstore.load({
-            //             params: {
-            //                 city: XMLifeOperating.generic.Global.currentCity,
-            //                 areaId: combo.getValue()
-            //             }
-            //         });
-            //     },
-            //     select: function(combo) {
-
-            //         console.log('hello shop dsitrict');
-            //         var sstore = this.getShopStore();
-            //         sstore.load({
-            //             params: {
-            //                 city: XMLifeOperating.generic.Global.currentCity,
-            //                 areaId: combo.getValue()
-            //             }
-            //         });
-            //         this.shopStoreAreaId = combo.getValue();
-
-            //     }
-            // },
             'shoplist #closeOrOpenShopStore': {
                 click: function(grid, column, rowIndex) {
                     var record = grid.getStore().getAt(rowIndex);
@@ -293,8 +272,8 @@ Ext.define('XMLifeOperating.controller.Shop', {
             },
 
             /*
-             * shopbanner事件 
-            */
+             * shopbanner事件
+             */
             'shopbanner #returnShopStore': {
                 click: function() {
                     var tab = me.getShopList();
@@ -314,7 +293,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
                 click: function() {
                     var cClass = me.getShopBannerTemplateModel();
                     var ShopStoreBanner = new cClass();
-                    var win = this.getEditShopStoreBannerWin();
+                    var win = this.getShopBannerAdd();
                     win.down('form').loadRecord(ShopStoreBanner);
                     win.show();
                 }
@@ -322,10 +301,10 @@ Ext.define('XMLifeOperating.controller.Shop', {
             'shopbanner #editShopStoreBanner': {
                 click: me.onShopStoreBannerEdit
             },
-            'editShopStoreBannerWin #btnSave': {
+            'shopbanneradd #btnSave': {
                 click: me.saveEditShopStoreBannerWin
             },
-            'editShopStoreBannerWin filefield[name="shopStoreBannerUploadfile"]': {
+            'shopbanneradd filefield[name="shopStoreBannerUploadfile"]': {
                 change: function(uploadfile) {
                     var form = uploadfile.ownerCt;
 
@@ -444,38 +423,33 @@ Ext.define('XMLifeOperating.controller.Shop', {
             },
             'shopinfo #returnShopBack': {
                 click: function(record) {
-                    var toolbar = Ext.getCmp('toolbar');
-                    var layout = toolbar.getLayout();
-                    var items = layout.getLayoutItems();
+                    // var toolbar = Ext.getCmp('headerToolbar');
+                    // var layout = toolbar.getLayout();
+                    // var items = layout.getLayoutItems();
 
-                    for (var p in items) {
-                        if (p >= 2) {
-                            toolbar.remove(items[p]);
-                        }
-
-                    }
-
+                    // for (var p in items) {
+                    //     if (p >= 2) {
+                    //         toolbar.remove(items[p]);
+                    //     }
+                    // }
                     var content = this.getContentPanel();
                     content.removeAll(false);
-                    var shopStoreAreaId = this.shopStoreAreaId;
                     var tabShopStore = this.getShopList();
                     var sstore = this.getShopStore();
                     sstore.load({
                         params: {
                             city: XMLifeOperating.generic.Global.currentCity,
-                            areaId: shopStoreAreaId
+                            areaId: XMLifeOperating.generic.Global.SERVICECENEERID
                         }
                     });
                     content.add(tabShopStore);
-
-
                 }
             },
             '#ShelvesList,#ShelvesNextList': {
                 itemdblclick: function(grid, record, item, index, e, eOpts) {
                     alert(11111);
-                    var toolbar = Ext.getCmp('toolbar');
-                    var tab = me.getShopStoreTab();
+                    var toolbar = Ext.getCmp('headerToolbar');
+                    var tab = me.getShopTab();
                     this.record = record;
                     for (var i = 0; i < toolbar.items.length; i++) {
                         if (toolbar.items.keys[i].split('_')[1] == record.get('id')) {
@@ -811,7 +785,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
         if (itemId == 'save-shopStore-edit-btn') {
             editWindow = this.getEditWindow();
         } else {
-            editWindow = this.getShopStoreTab();
+            editWindow = this.getShopTab();
 
         }
         var windowEl = editWindow.getEl(),
@@ -904,12 +878,12 @@ Ext.define('XMLifeOperating.controller.Shop', {
         console.log("start edit");
         var ShopStoreBanner = view.getRecord(view.findTargetByEvent(e));
         console.log(ShopStoreBanner);
-        var win = this.getEditShopStoreBannerWin();
+        var win = this.getShopBannerAdd();
         win.down('form').loadRecord(shopStoreBanner);
         win.show();
     },
     saveEditShopStoreBannerWin: function() {
-        var editWindow = this.getEditShopStoreBannerWin(),
+        var editWindow = this.getShopBannerAdd(),
             windowEl = editWindow.getEl(),
             form = editWindow.down('form').getForm(),
             me = this;
