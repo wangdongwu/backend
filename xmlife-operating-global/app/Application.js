@@ -30,8 +30,8 @@ Ext.define('XMLifeOperating.Application', {
         'RechargeableCardTemplate',
         'GDeliverer',
         'ProductTemplate',
-        'refundController',    
-        'CustomerListController'
+        'Refund',    
+        'CustomerList'
         ],
 
     stores: [
