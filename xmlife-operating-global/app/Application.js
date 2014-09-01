@@ -14,7 +14,8 @@ Ext.define('XMLifeOperating.Application', {
         'Ext.form.field.Radio',
         'Ext.form.RadioGroup',
         'Ext.data.*',
-        'Ext.util.*'
+        'Ext.util.*',
+        'Ext.layout.container.Card'
     ],
 
     views: [

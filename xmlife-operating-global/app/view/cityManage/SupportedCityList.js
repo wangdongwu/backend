@@ -15,27 +15,35 @@ Ext.define('XMLifeOperating.view.cityManage.SupportedCityList', {
             return record.get("status") == 0 && 'close-city';
         }
     },
-    columns: [{
+    columns: [
+        {
             xtype: 'rownumberer'
-        }, {
+        }, 
+        {
             header: '城市',
             dataIndex: 'name'
-        }, {
+        }, 
+        {
             header: '城市编号',
             dataIndex: 'code'
-        }, {
+        }, 
+        {
             header: '中心点数',
             dataIndex: 'shopAreas'
-        }, {
+        }, 
+        {
             header: '线路数',
             dataIndex: 'zones'
-        }, {
+        }, 
+        {
             header: '运费',
             dataIndex: 'shipfee'
-        }, {
+        }, 
+        {
             header: '满免运费',
             dataIndex: 'deductd'
-        }, {
+        }, 
+        {
             header: '状态',
             dataIndex: 'status',
             renderer: function(value) {
@@ -45,7 +53,8 @@ Ext.define('XMLifeOperating.view.cityManage.SupportedCityList', {
                     return "关闭";
                 }
             }
-        }, {
+        }, 
+        {
             header: "操作",
             dataIndex: 'status',
             itemId: 'status',
@@ -59,8 +68,7 @@ Ext.define('XMLifeOperating.view.cityManage.SupportedCityList', {
                     return '<a class="edit-ship-price">设置运费</a> |<a class="open-city-bnt">上线</a>';
                 }
             }
-        }
-        /*,
+        },
         {
             id: 'editCity',
             xtype: 'actioncolumn',
@@ -69,6 +77,6 @@ Ext.define('XMLifeOperating.view.cityManage.SupportedCityList', {
             tooltip: 'Edit',
             menuDisabled: true,
             sortable: false
-        }*/
+        }
     ]
 });
