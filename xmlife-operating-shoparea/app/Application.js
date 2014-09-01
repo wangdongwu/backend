@@ -13,6 +13,7 @@ Ext.define('XMLifeOperating.Application', {
         'Ext.grid.column.Action',
         'Ext.form.field.Radio',
         'Ext.form.RadioGroup',
+        'Ext.form.field.Time',
         'Ext.data.*',
         'Ext.util.*'
     ],

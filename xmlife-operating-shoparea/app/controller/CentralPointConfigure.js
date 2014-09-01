@@ -19,7 +19,8 @@ Ext.define('XMLifeOperating.controller.CentralPointConfigure', {
     refs: [{
         ref: 'contentPanel',
         selector: '#contentPanel',
-        xtype: 'panel'
+        xtype: 'panel',
+        autoCreate:true,
     }, {
         ref: 'centralPointConfigureBannerList',
         selector: 'centralpointconfigurebannerlist',

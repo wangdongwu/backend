@@ -61,9 +61,8 @@ Ext.define('XMLifeOperating.controller.Shop', {
             autoCreate: true
         }, {
             ref: 'contentPanel',
-            selector: 'contentpanel',
-            xtype: 'panel',
-            autoCreate: true
+            selector: '#contentPanel',
+            xtype: 'panel'
         }, {
             ref: 'shopBanner',
             selector: 'shopbanner',
@@ -185,6 +184,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
             },
             'shoplist #seeBannerBtn': {
                 click: function(view, column, rowIndex, colIndex, e) {
+
                     var tab = this.getShopBanner();
                     var content = this.getContentPanel();
                     content.removeAll(false);
@@ -198,10 +198,9 @@ Ext.define('XMLifeOperating.controller.Shop', {
                             shopStoreBannerStore.add(banners[i]);
                         }
                     };
-
                     content.add(tab);
-                    content.doLayout();
                     me.shopStoreId = shopStoreId;
+
                 }
             },
             // 'shoplist #businessArea': {
