@@ -1,11 +1,11 @@
 Ext.define('XMLifeOperating.controller.CustomerList', {
     extend: 'Ext.app.Controller',
 
-    views: ['userManage.customer.CustomerList','userManage.customer.CustomerAddress'],
+    views: ['userManage.customer.CustomerList','userManage.customer.CustomerAddress','userManage.customer.CustomerDealList'],
 
-    stores: ['Customer','ShopArea','Address'],
+    stores: ['Customer','ShopArea','Address','Deal'],
 
-    models: ['Customer','ShopArea','Address'],
+    models: ['Customer','ShopArea','Address','Deal'],
  
     refs: [
         {
@@ -26,12 +26,12 @@ Ext.define('XMLifeOperating.controller.CustomerList', {
              xtype: 'customerAddress',
              autoCreate: true
         },
-        // {
-        //      ref: 'orderHistory',
-        //      selector: 'orderHistory',
-        //      xtype: 'orderHistory',
-        //      autoCreate: true
-        // },
+        {
+             ref: 'CustomerDealList',
+             selector: 'CustomerDealList',
+             xtype: 'CustomerDealList',
+             autoCreate: true
+        },
     ],
 
     init: function() {
@@ -90,41 +90,36 @@ Ext.define('XMLifeOperating.controller.CustomerList', {
     },
 
     onAddressCustomer: function(view, rowIndex, colIndex, column, e) {
-        alert(123);
+        var self = this;
         var customerDetail = view.getRecord(view.findTargetByEvent(e));
-        var store = this.getAddressStore();
-        console.log(customerDetail.get('uid'));
-        var win = this.getCustomerAddress();
-        store.on('load',function (store, records, successful, eOpts ){
-            store.data.items[0].data['address'] = '1233<br>fdfdfdf';
-            console.log(store.data.items[0]);
-            win.down('form').loadRecord(store.data.items[0]);
+        var uid = customerDetail.get('uid');
+        var store = self.getAddressStore();
+        var win = self.getCustomerAddress()
+        store.on('load',function (store,addressList ){
             win.show();
         });
         store.load({
             params: {
-                customer: customerDetail.get('uid'),
+                customer: uid
             },
         });
     },
 
     onOrderHistory: function(view, rowIndex, colIndex, column, e) {
-        alert(456);
-        // var orderDetail = view.getRecord(view.findTargetByEvent(e));
-        // var store = this.getCustomerStore();
-        // console.log(orderDetail.get('customId'));
-        // var win = this.getOrderCustomerDetail();
-        // store.on('load',function (store, records, successful, eOpts ){
-        //     store.data.items[0].data['dtoAddress'] = orderDetail.getData()['dtoAddress'];
-        //     console.log(store.data.items[0]);
-        //     win.down('form').loadRecord(store.data.items[0]);
-        //     win.show();
-        // });
-        // store.load({
-        //     params: {
-        //         uid: orderDetail.get('customId'),
-        //     },
-        // });
+        var self = this;
+        var customerDetail = view.getRecord(view.findTargetByEvent(e));
+        var uid = customerDetail.get('uid');
+        var store = self.getDealStore();
+        var win = self.getCustomerDealList()
+        store.on('load',function (store,addressList ){
+            win.show();
+        });
+        store.getProxy().url += '/customerHistory';
+        store.load({
+            params: {
+                customer: uid
+            },
+        });
     },
 
     onOperationc: function(view, rowIndex, colIndex, column, e) {
