@@ -1,9 +1,4 @@
-Ext.define('XMLifeOperating.store.DealShopperHistory', {
+Ext.define('XMLifeOperating.store.DealDelivererHistory', {
     extend: 'Ext.data.Store',
-    model:'XMLifeOperating.model.DealShopperHistory',
-    autoLoad: true,
-    sorters: [{
-    	property: 'created',
-    	direction: 'DESC',
-    }],
+    model:'XMLifeOperating.model.DealDelivererHistory',
 });

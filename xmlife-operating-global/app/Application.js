@@ -24,7 +24,8 @@ Ext.define('XMLifeOperating.Application', {
     controllers: [
         'Navigation',
         'SupportedCityList',
-        'GShopper'
+        'GShopper',
+        'GDeliverer'
      ],
 
     stores: [
@@ -32,7 +33,8 @@ Ext.define('XMLifeOperating.Application', {
         'Province',
         'AllCities',
         'SupportedCity',
-        'Shopper'
+        'Shopper',
+        'Deliverer'
     ],
 
     launch: function() {
