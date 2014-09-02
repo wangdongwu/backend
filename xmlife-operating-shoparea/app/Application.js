@@ -15,7 +15,9 @@ Ext.define('XMLifeOperating.Application', {
         'Ext.form.RadioGroup',
         'Ext.form.field.Time',
         'Ext.data.*',
-        'Ext.util.*'
+        'Ext.util.*',
+        'Ext.form.FieldSet',
+        'Ext.layout.container.Column'
     ],
 
     views: [
@@ -26,7 +28,7 @@ Ext.define('XMLifeOperating.Application', {
         'Navigation',
         'Shop',
         'ResidentalDistrict',
-        'Line',
+        'DelivererZoneList',
         'CentralPointConfigure',
         'Shopper',
         'DealShopAreaList',

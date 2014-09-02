@@ -24,7 +24,7 @@ Ext.define('XMLifeOperating.store.Navigation', {
                 text: '配送地址管理',
                 leaf: true
             }, {
-                id: 'linelist',
+                id: 'delivererZoneList',
                 text: '线路管理',
                 leaf: true
             }, {
