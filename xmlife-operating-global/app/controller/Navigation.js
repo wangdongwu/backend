@@ -119,7 +119,7 @@ Ext.define('XMLifeOperating.controller.Navigation', {
         this.currentXType = xtype;
         var alias = 'widget.' + xtype,
             contentPanel = this.getContentPanel();
-        contentPanel.removeAll(false);
+        //contentPanel.removeAll(false);
         //debugger
         console.log("alias = " + alias);
         if (this.loadedClasses[xtype]) {
@@ -141,7 +141,21 @@ Ext.define('XMLifeOperating.controller.Navigation', {
         // }
         //XMLifeOperating.generic.Global.current_operating = this.getCmbGlobalCenter().displayTplData.data.code;
         //alert(XMLifeOperating.generic.Global.current_operating);
-        contentPanel.add(cmp);
+        //
+        //
+        var contentItems = contentPanel.items.items,
+            isNew = true;
+        Ext.Array.each(contentItems,function(item){
+            if(item.id == cmp.id){
+                contentPanel.setActiveTab(item);
+                isNew = false;
+            }
+        })
+        if(isNew){
+            contentPanel.add(cmp);
+            contentPanel.setActiveTab(cmp);
+        }
+
         cmp.fireEvent('onShowView', cmp, xtype);
     },
 

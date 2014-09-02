@@ -8,6 +8,7 @@ Ext.define('XMLifeOperating.view.cityManage.SupportedCityList', {
     titleAlign : 'left',
     forceFit: true,
     frame : true,
+    closable : true,
     tbar: [{
         xtype: 'button',
         text: '添加城市',
