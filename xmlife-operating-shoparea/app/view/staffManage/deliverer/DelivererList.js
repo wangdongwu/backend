@@ -10,7 +10,8 @@ Ext.define('XMLifeOperating.view.staffManage.deliverer.DelivererList', {
             text: '添加快递员',
             itemId: 'add',
             hidden:(XMLifeOperating.generic.Global.operating_type == 'center')
-        }, {
+        }, 
+        {
             xtype: 'combobox',
             name: 'area',
             itemId: 'shopArea',
@@ -21,21 +22,7 @@ Ext.define('XMLifeOperating.view.staffManage.deliverer.DelivererList', {
             displayField: 'name',
             valueField: 'id',
             hidden:(XMLifeOperating.generic.Global.operating_type == 'center')
-        }, {
-            xtype: 'button',
-            itemId: 'activeSearch',
-            text: '查看停单快递员',
-            // margin: 10,
-            handler: function() {
-
-                if (this.text == '查看停单快递员') {
-                    this.setText('查看接单快递员');
-                } else {
-                    this.setText('查看停单快递员');
-                }
-
-            }
-        },
+        }, 
         /*{
             xtype:'textfield',
             emptyText:'配送员名字',
@@ -49,6 +36,20 @@ Ext.define('XMLifeOperating.view.staffManage.deliverer.DelivererList', {
             text:'搜索',
             margin:10,
         }*/
+        '->',
+        {
+            xtype: 'textfield',
+            name: 'searchcourier',
+            itemId: 'searchDelivererKeyWords',
+            fieldLabel: '手机号码',
+            emptyText: '输入搜索号码...'
+        }, 
+        {
+            xtype: 'button',
+            name: 'searchbutton',
+            itemId: 'searchButton',
+            text: '搜索'
+        },
         {
             xtype: 'button',
             itemId: 'activeBind',
@@ -61,17 +62,21 @@ Ext.define('XMLifeOperating.view.staffManage.deliverer.DelivererList', {
                     this.setText('查看未绑定的快递员');
                 }
             }
-        }, {
-            xtype: 'textfield',
-            name: 'searchcourier',
-            itemId: 'searchDelivererKeyWords',
-            emptyText: '输入手机号',
-            // margin: 10
-        }, {
+        }, 
+        {
             xtype: 'button',
-            name: 'searchbutton',
-            itemId: 'searchButton',
-            text: '搜索'
+            itemId: 'activeSearch',
+            text: '查看停单快递员',
+            // margin: 10,
+            handler: function() {
+
+                if (this.text == '查看停单快递员') {
+                    this.setText('查看接单快递员');
+                } else {
+                    this.setText('查看停单快递员');
+                }
+
+            }
         }
     ],
     columns: [

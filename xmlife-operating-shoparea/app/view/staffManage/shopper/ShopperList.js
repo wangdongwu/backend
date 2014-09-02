@@ -24,6 +24,22 @@ Ext.define('XMLifeOperating.view.staffManage.shopper.ShopperList', {
         valueField: 'id',
         hidden:(XMLifeOperating.generic.Global.operating_type == 'center')
     }, 
+    '->',
+    {
+        xtype: 'textfield',
+        name: 'searchbuyer',
+        fieldLabel: '手机号码',
+
+        itemId: 'searchBuyerKeyWords',
+        emptyText: '输入搜索号码...',
+        // margin: 10
+    }, 
+    {
+        xtype: 'button',
+        name: 'searchbutton',
+        itemId: 'searchButton',
+        text: '搜索'
+    },
     {
         xtype: 'button',
         itemId: 'activeSearch',
@@ -38,7 +54,8 @@ Ext.define('XMLifeOperating.view.staffManage.shopper.ShopperList', {
             }
 
         }
-    }, {
+    }, 
+    {
         xtype: 'button',
         itemId: 'activeBind',
         text: '查看未绑定的买手',
@@ -50,18 +67,8 @@ Ext.define('XMLifeOperating.view.staffManage.shopper.ShopperList', {
                 this.setText('查看未绑定的买手');
             }
         }
-    }, {
-        xtype: 'textfield',
-        name: 'searchbuyer',
-        itemId: 'searchBuyerKeyWords',
-        emptyText: '输入手机号',
-        // margin: 10
-    }, {
-        xtype: 'button',
-        name: 'searchbutton',
-        itemId: 'searchButton',
-        text: '搜索'
-    }],
+    }
+    ],
     columns: [
         {
             xtype: 'rownumberer'
