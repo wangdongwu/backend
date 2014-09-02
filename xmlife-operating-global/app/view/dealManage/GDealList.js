@@ -7,7 +7,7 @@ Ext.define('XMLifeOperating.view.dealManage.GDealList', {
     forceFit : 'true',
     store: 'Deal',
     id:'gDealList',
-    frame : true,
+    
     tbar: [
         {
             xtype:'combobox',

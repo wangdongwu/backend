@@ -4,7 +4,7 @@ Ext.define('XMLifeOperating.view.userManage.customer.CustomerList', {
     xtype: 'CustomerList',
     title : '用户信息管理',
     titleAlign : 'left',closable : true,
-    forceFit: true,frame : true,frame : true,
+    forceFit: true,
     store: 'Customer',
     id:'CustomerList',
     dockedItems: [{

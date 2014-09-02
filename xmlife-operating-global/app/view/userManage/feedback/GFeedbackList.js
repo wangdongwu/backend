@@ -4,7 +4,7 @@ Ext.define('XMLifeOperating.view.userManage.feedback.GFeedbackList', {
     title: '用户反馈管理',
     titleAlign : 'left',closable : true,
     forceFit :true,
-    frame : true,
+    
     store: 'Feedback',
     tbar: [
         { 

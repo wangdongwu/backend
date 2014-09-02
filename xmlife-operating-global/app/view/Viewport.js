@@ -16,7 +16,8 @@ Ext.define('XMLifeOperating.view.Viewport', {
             region: 'west',
             width: 200,
             title : '导航',
-            // split: true,
+            frame : true,
+            //split: true,
             collapsible: true
         },
         {
@@ -28,6 +29,7 @@ Ext.define('XMLifeOperating.view.Viewport', {
             items : [
             {
                 closable : true,
+
                 title : '欢迎使用',
                 html : '<br/><br/><br/><br/><h1>欢迎使用小美后台管理系统!! <br/><br/>⊙o⊙</h1>'
             }

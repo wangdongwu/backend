@@ -5,7 +5,7 @@ Ext.define('XMLifeOperating.view.staffManage.deliverer.GDelivererList', {
     store: 'Deliverer',
     title : '配送员管理',
     titleAlign : 'left',closable : true,
-    forceFit: true,frame : true,
+    forceFit: true,
     tbar: [{
             xtype: 'button',
             text: '添加快递员',
