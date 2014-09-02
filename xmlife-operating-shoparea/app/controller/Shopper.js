@@ -64,6 +64,7 @@ Ext.define('XMLifeOperating.controller.Shopper', {
             'shopperList': {
                 added: me.onShow,
             },
+            //查看中心下暂停或接单买手
             'shopperList #shopArea': {
                 render: function(combo) {
 
@@ -77,7 +78,15 @@ Ext.define('XMLifeOperating.controller.Shopper', {
                     });
                 },
                 select: function(combo) {
-                    console.log('hello shop dsitrict');
+                    var activeSearch = Ext.getCmp('shopperList').down('#activeSearch').getText();
+
+                    if (activeSearch == '查看停单买手') {
+                        isActive=false;
+                        isUnbind = '';
+                    } else if (activeSearch == '查看接单买手') {
+                        isActive=true;
+                        isUnbind = true;
+                    }
                     var sstore = this.getShopperStore();
                     sstore.load({
                         params: {
@@ -93,18 +102,26 @@ Ext.define('XMLifeOperating.controller.Shopper', {
 
                 },
             },
+            //查看中心下暂停或接单买手
             'shopperList #activeSearch': {
                 click: function() {
-                    if (isActive == true) {
-                        isActive = false;
-                    } else {
-                        isActive = true;
+                    var activeSearch = Ext.getCmp('shopperList').down('#activeSearch').getText();
+
+                    if (activeSearch == '查看停单买手') {
+                        isActive=false;
+                        isUnbind = '';
+                    } else if (activeSearch == '查看接单买手') {
+                        isActive=true;
+                        isUnbind = true;
                     }
                     var store = me.getShopperStore();
                     store.load({
                         params: {
                             area: me.getShopArea().getValue(),
                             isActive: isActive
+                        },
+                        callback: function() {
+                            Ext.getCmp('shopperList').down('#activeBind').setText('查看未绑定的买手');
                         }
                     });
                 }
