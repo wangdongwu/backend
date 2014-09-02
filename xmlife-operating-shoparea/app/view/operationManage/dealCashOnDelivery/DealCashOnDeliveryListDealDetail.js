@@ -64,7 +64,10 @@ Ext.define('XMLifeOperating.view.operationManage.dealCashOnDelivery.DealCashOnDe
                         {
                             text:'单价',
                             width: 50,
-                            dataIndex:'price'
+                            dataIndex:'price',
+                            renderer : function(value){
+                                return value / 100;
+                            }
                         },
                         {
                             text:'数量',
@@ -74,7 +77,10 @@ Ext.define('XMLifeOperating.view.operationManage.dealCashOnDelivery.DealCashOnDe
                         {
                             text:'合计',
                             width: 50,
-                            dataIndex:'actualItemPrice'
+                            dataIndex:'actualItemPrice',
+                            renderer : function(value){
+                                return value / 100;
+                            }
                         },
                     ],
                 },
