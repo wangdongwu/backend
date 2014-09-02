@@ -2,7 +2,7 @@ Ext.define('XMLifeOperating.view.staffManage.shopper.ShopperList', {
     extend: 'Ext.grid.Panel',
     xtype: 'shopperList',
 
-    header: false,
+    title: '买手管理',
     store: 'Shopper',
     id: 'shopperList',
     tbar: [
@@ -18,7 +18,7 @@ Ext.define('XMLifeOperating.view.staffManage.shopper.ShopperList', {
         itemId: 'shopArea',
         store: 'ShopArea',
         emptyText: '请选择中心',
-        margin: 10,
+        // margin: 10,
         editable: false,
         displayField: 'name',
         valueField: 'id',
@@ -28,7 +28,7 @@ Ext.define('XMLifeOperating.view.staffManage.shopper.ShopperList', {
         xtype: 'button',
         itemId: 'activeSearch',
         text: '查看停单买手',
-        margin: 10,
+        // margin: 10,
         handler: function() {
 
             if (this.text == '查看停单买手') {
@@ -42,7 +42,7 @@ Ext.define('XMLifeOperating.view.staffManage.shopper.ShopperList', {
         xtype: 'button',
         itemId: 'activeBind',
         text: '查看未绑定的买手',
-        margin: 10,
+        // margin: 10,
         handler: function() {
             if (this.text == '查看未绑定的买手') {
                 this.setText('查看已绑定的买手');
@@ -55,14 +55,18 @@ Ext.define('XMLifeOperating.view.staffManage.shopper.ShopperList', {
         name: 'searchbuyer',
         itemId: 'searchBuyerKeyWords',
         emptyText: '输入手机号',
-        margin: 10
+        // margin: 10
     }, {
         xtype: 'button',
         name: 'searchbutton',
         itemId: 'searchButton',
         text: '搜索'
     }],
-    columns: [{
+    columns: [
+        {
+            xtype: 'rownumberer'
+        }, 
+        {
             text: 'uid',
             dataIndex: 'uid',
             width: 100,

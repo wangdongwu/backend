@@ -1,7 +1,7 @@
 Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopList', {
     extend: 'Ext.grid.Panel',
     xtype: 'shoplist',
-    title: '店铺列表',
+    title: '店铺管理',
     store: 'Shop',
     itemId: 'shoplist',
     tbar: [{
@@ -15,7 +15,6 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopList', {
             itemId:'shopArea',
             store:'ShopArea',
             emptyText:'请选择中心',
-            margin:10,
             editable: false,
             queryMode:'local',
             displayField:'name',
@@ -28,7 +27,6 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopList', {
             name: 'searchshop',
             itemId: 'searchShopKeyWords',
             emptyText: '输入店铺名称',
-            margin: 10,
         }, {
 
             xtype: 'button',

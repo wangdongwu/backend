@@ -1,7 +1,7 @@
 Ext.define('XMLifeOperating.view.centralPointManage.centralPointConfigure.CentralPointConfigureList', {
     extend: 'Ext.grid.Panel',
     xtype: 'centralpointconfigurelist',
-    header: false,
+    title: '首页配置',
     store: 'ShopArea',
     
     tbar: [
@@ -13,6 +13,9 @@ Ext.define('XMLifeOperating.view.centralPointManage.centralPointConfigure.Centra
         }
     ], 
     columns: [
+        {
+            xtype: 'rownumberer'
+        }, 
         {
             text: '编号',
             dataIndex: 'id',

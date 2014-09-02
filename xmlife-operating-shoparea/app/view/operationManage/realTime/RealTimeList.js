@@ -3,7 +3,7 @@ Ext.define('XMLifeOperating.view.operationManage.realTime.RealTimeList', {
     extend: 'Ext.grid.Panel',
     xtype: 'realTimeList',
 
-    header: false,
+    title: '数据中心',
 
     store: 'RealTime',
     id:'realTimeList',
@@ -24,7 +24,9 @@ Ext.define('XMLifeOperating.view.operationManage.realTime.RealTimeList', {
      ],
 
     columns: [
-
+        {
+            xtype: 'rownumberer'
+        }, 
         {
             text: '线路名称',
             dataIndex: 'zoneName',

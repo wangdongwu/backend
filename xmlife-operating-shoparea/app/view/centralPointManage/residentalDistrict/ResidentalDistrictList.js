@@ -2,29 +2,30 @@ Ext.define('XMLifeOperating.view.centralPointManage.residentalDistrict.Residenta
     extend: 'Ext.grid.Panel',
     xtype: 'residentaldistrictlist',
 
-    header: false,
+    title: '配送地址管理',
     id: 'residentaldistrictlist',
     store: 'ResidentalDistrict',
-    tbar: [{
+    tbar: [
+    {
         xtype: 'button',
         text: '添加小区',
         itemId: 'add'
-    }, {
+    }, 
+    {
         xtype: 'combobox',
         name: 'area',
         itemId: 'lineId',
         emptyText: '请选择线路',
-        margin: 10,
         editable: false,
         queryMode:'local',
         store:'DelivererZone',
         displayField: 'name',
         valueField: 'id'
-    }, {
+    }, 
+    {
         xtype: 'button',
         itemId: 'activeSearch',
         text: '查看已关闭小区',
-        margin: 10,
         handler: function() {
             if (this.text == '查看已关闭小区') {
                 this.setText('查看开启小区');
@@ -32,11 +33,11 @@ Ext.define('XMLifeOperating.view.centralPointManage.residentalDistrict.Residenta
                 this.setText('查看已关闭小区');
             }
         }
-    }, {
+    }, 
+    {
         xtype: 'button',
         itemId: 'activeBind',
         text: '查看未绑定的小区',
-        margin: 10,
         handler: function() {
             if (this.text == '查看未绑定的小区') {
                 this.setText('查看已绑定的小区');
@@ -44,25 +45,31 @@ Ext.define('XMLifeOperating.view.centralPointManage.residentalDistrict.Residenta
                 this.setText('查看未绑定的小区');
             }
         }
-    }, {
+    }, 
+    {
         xtype: 'textfield',
         name: 'searchCommunity',
         itemId: 'searchCommunityKeyWords',
         emptyText: '输入小区名称',
-        margin: 10
-    }, {
+    }, 
+    {
         xtype: 'button',
         name: 'searchbutton',
         itemId: 'searchButton',
         text: '搜索'
     }],
-    columns: [{
+    columns: [
+        {
+            xtype: 'rownumberer'
+        }, 
+        {
             text: 'ID',
             dataIndex: 'id',
             width: 200,
             sortable: false,
             align: 'left'
-        }, {
+        }, 
+        {
             text: '小区名',
             dataIndex: 'name',
             width: 150,

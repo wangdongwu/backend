@@ -3,7 +3,7 @@ Ext.define('XMLifeOperating.view.operationManage.dealShopArea.DealShopAreaList',
     extend: 'Ext.grid.Panel',
     xtype: 'dealShopAreaList',
 
-    header: false,
+    title: '货到中心管理',
 
     store: 'DealShopArea',
     tbar: [
@@ -24,7 +24,9 @@ Ext.define('XMLifeOperating.view.operationManage.dealShopArea.DealShopAreaList',
     ],
 
     columns: [
-
+        {
+            xtype: 'rownumberer'
+        }, 
         {
             text: '日期',
             dataIndex: 'created',

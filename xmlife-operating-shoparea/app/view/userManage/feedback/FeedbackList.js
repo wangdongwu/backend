@@ -1,7 +1,7 @@
 Ext.define('XMLifeOperating.view.userManage.feedback.FeedbackList', {
     extend: 'Ext.grid.Panel',
     xtype: 'feedbackList',
-    header: false,
+    title: '用户反馈管理',
     store: 'Feedback',       
 
     tbar: [
@@ -73,7 +73,7 @@ Ext.define('XMLifeOperating.view.userManage.feedback.FeedbackList', {
             name:'sa',
             store:'FeedbackStatus',
             value:'0',
-            margin:10,
+            // margin:10,
             editable: false,
             queryMode:'local',
             displayField:'name',
@@ -82,6 +82,9 @@ Ext.define('XMLifeOperating.view.userManage.feedback.FeedbackList', {
     ],
     
     columns: [
+        {
+            xtype: 'rownumberer'
+        }, 
         {
             dataIndex: 'created',
             text: '时间',

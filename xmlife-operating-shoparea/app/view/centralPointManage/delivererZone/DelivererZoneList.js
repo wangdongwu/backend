@@ -1,7 +1,7 @@
 Ext.define('XMLifeOperating.view.centralPointManage.delivererZone.DelivererZoneList', {
     extend: 'Ext.grid.Panel',
     xtype: 'delivererZoneList',
-    header: false,
+    title: '线路管理',
     store: 'DelivererZone',
     id:'delivererZoneList',
     tbar: [
@@ -24,6 +24,9 @@ Ext.define('XMLifeOperating.view.centralPointManage.delivererZone.DelivererZoneL
         },
     ], 
     columns: [
+        {
+            xtype: 'rownumberer'
+        }, 
         {
             text: 'ID',
             dataIndex: 'id',

@@ -3,7 +3,7 @@ Ext.define('XMLifeOperating.view.dealManage.DealList', {
     extend: 'Ext.grid.Panel',
     xtype: 'dealList',
 
-    header: false,
+    title: '订单管理',
 
     store: 'Deal',
     id:'dealList',
@@ -15,7 +15,7 @@ Ext.define('XMLifeOperating.view.dealManage.DealList', {
             itemId:'shopArea',
             store:'ShopArea',
             emptyText:'请选择中心',
-            margin:10,
+            // margin:10,
             editable: false,
             queryMode:'local',
             displayField:'name',
@@ -27,25 +27,25 @@ Ext.define('XMLifeOperating.view.dealManage.DealList', {
             emptyText:'输入搜索号码...',
             name:'keyword',
             itemId: 'keyword',
-            fieldLabel: '手机号码',
+            // fieldLabel: '手机号码',
             regex: XMLifeOperating.generic.Global.VALIDATION_CONSTANTS.PHONE,
             regexText: '请输入正确的手机号',
-            margin:10
+            // margin:10
         },
         {
             xtype:'button',
             itemId: 'dealSearch',
             text:'搜索',
-            margin:10,
+            // margin:10,
         },
         {
             xtype:'combobox',
             name:'status',
             itemId:'statusSearch',
-            fieldLabel: '状态',
+            // fieldLabel: '状态',
             store:'DealStatus',
             emptyText:'状态',
-            margin:1,
+            // margin:1,
             editable: false,
             queryMode:'local',
             displayField:'name',

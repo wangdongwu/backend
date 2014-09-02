@@ -2,7 +2,7 @@ Ext.define('XMLifeOperating.view.staffManage.deliverer.DelivererList', {
     extend: 'Ext.grid.Panel',
     xtype: 'delivererList',
 
-    header: false,
+    title: '配送员管理',
     id: 'delivererList',
     store: 'Deliverer',
     tbar: [{
@@ -16,7 +16,7 @@ Ext.define('XMLifeOperating.view.staffManage.deliverer.DelivererList', {
             itemId: 'shopArea',
             store: 'ShopArea',
             emptyText: '请选择中心',
-            margin: 10,
+            // margin: 10,
             editable: false,
             displayField: 'name',
             valueField: 'id',
@@ -25,7 +25,7 @@ Ext.define('XMLifeOperating.view.staffManage.deliverer.DelivererList', {
             xtype: 'button',
             itemId: 'activeSearch',
             text: '查看停单快递员',
-            margin: 10,
+            // margin: 10,
             handler: function() {
 
                 if (this.text == '查看停单快递员') {
@@ -53,7 +53,7 @@ Ext.define('XMLifeOperating.view.staffManage.deliverer.DelivererList', {
             xtype: 'button',
             itemId: 'activeBind',
             text: '查看未绑定的快递员',
-            margin: 10,
+            // margin: 10,
             handler: function() {
                 if (this.text == '查看未绑定的快递员') {
                     this.setText('查看已绑定的快递员');
@@ -66,7 +66,7 @@ Ext.define('XMLifeOperating.view.staffManage.deliverer.DelivererList', {
             name: 'searchcourier',
             itemId: 'searchDelivererKeyWords',
             emptyText: '输入手机号',
-            margin: 10
+            // margin: 10
         }, {
             xtype: 'button',
             name: 'searchbutton',
@@ -74,26 +74,33 @@ Ext.define('XMLifeOperating.view.staffManage.deliverer.DelivererList', {
             text: '搜索'
         }
     ],
-    columns: [{
+    columns: [
+        {
+            xtype: 'rownumberer'
+        }, 
+        {
             text: 'ID',
             dataIndex: 'uid',
             width: 80,
             sortable: false,
             align: 'left'
-        }, {
+        },
+        {
             text: '姓名',
             dataIndex: 'name',
             width: 80,
             sortable: false,
             align: 'left',
 
-        }, {
+        }, 
+        {
             text: '职称',
             dataIndex: 'title',
             width: 80,
             sortable: false,
             align: 'left'
-        }, {
+        }, 
+        {
             text: '电话',
             dataIndex: 'phone',
             width: 100,
@@ -138,25 +145,29 @@ Ext.define('XMLifeOperating.view.staffManage.deliverer.DelivererList', {
             width: 50,
             sortable: false,
             align: 'left'
-        }, {
+        }, 
+        {
             text: '退单数',
             dataIndex: 'returnDealNum',
             width: 50,
             sortable: false,
             align: 'left'
-        }, {
+        }, 
+        {
             text: '好评数',
             dataIndex: 'goods',
             width: 50,
             sortable: false,
             align: 'left'
-        }, {
+        }, 
+        {
             text: '中评数',
             dataIndex: 'mediums',
             width: 50,
             sortable: false,
             align: 'left'
-        }, {
+        }, 
+        {
             text: '差评数',
             dataIndex: 'bads',
             width: 50,

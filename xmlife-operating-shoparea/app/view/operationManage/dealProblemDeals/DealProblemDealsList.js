@@ -2,9 +2,7 @@
 Ext.define('XMLifeOperating.view.operationManage.dealProblemDeals.DealProblemDealsList', {
     extend: 'Ext.grid.Panel',
     xtype: 'dealProblemDealsList',
-
-    header: false,
-
+    title: '问题订单管理',
     store: 'DealProblemDeals',
     id:'dealProblemDealsList',
 
@@ -33,6 +31,9 @@ Ext.define('XMLifeOperating.view.operationManage.dealProblemDeals.DealProblemDea
      ],
 
     columns: [
+        {
+            xtype: 'rownumberer'
+        }, 
         {
             text: '日期',
             dataIndex: 'created',

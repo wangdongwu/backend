@@ -3,7 +3,7 @@ Ext.define('XMLifeOperating.view.userManage.customer.CustomerList', {
     extend: 'Ext.grid.Panel',
     xtype: 'customerList',
 
-    header: false,
+    title: '用户信息管理',
 
     store: 'Customer',
     id:'customerList',
@@ -50,6 +50,9 @@ Ext.define('XMLifeOperating.view.userManage.customer.CustomerList', {
                     ]
     }],
     columns: [
+        {
+            xtype: 'rownumberer'
+        }, 
         {
             text: '用户昵称',
             dataIndex: 'name',

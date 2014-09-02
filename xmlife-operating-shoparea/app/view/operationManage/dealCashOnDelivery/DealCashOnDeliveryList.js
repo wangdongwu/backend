@@ -2,7 +2,7 @@ Ext.define('XMLifeOperating.view.operationManage.dealCashOnDelivery.DealCashOnDe
     extend: 'Ext.grid.Panel',
     xtype: 'dealCashOnDeliveryList',
 
-    header: false,
+    title: '货到付款管理',
 
     store: 'DealCashOnDelivery',
     id:'dealCashOnDeliveryList',
@@ -92,7 +92,6 @@ Ext.define('XMLifeOperating.view.operationManage.dealCashOnDelivery.DealCashOnDe
             itemId:'cashUnderCourierId',
             store:'Deliverer',
             emptyText:'请选择快递员',
-            margin:10,
             editable: false,
             queryMode:'local',
             displayField:'name',
@@ -104,7 +103,7 @@ Ext.define('XMLifeOperating.view.operationManage.dealCashOnDelivery.DealCashOnDe
             itemId:'cashOnDeliverySignId',
             store:'DealCashOnDeliverySign',
             value:'',
-            margin:10,
+            // margin:10,
             editable: false,
             queryMode:'local',
             displayField:'name',
@@ -116,7 +115,7 @@ Ext.define('XMLifeOperating.view.operationManage.dealCashOnDelivery.DealCashOnDe
             itemId:'cashOnDeliveryPaidId',
             store:'DealCashOnDeliveryPaid',
             value:'',
-            margin:10,
+            // margin:10,
             editable: false,
             queryMode:'local',
             displayField:'name',
@@ -127,7 +126,9 @@ Ext.define('XMLifeOperating.view.operationManage.dealCashOnDelivery.DealCashOnDe
     ],
 
     columns: [
-       
+        {
+            xtype: 'rownumberer'
+        }, 
         {
             text: '创建时间',
             dataIndex: 'created',

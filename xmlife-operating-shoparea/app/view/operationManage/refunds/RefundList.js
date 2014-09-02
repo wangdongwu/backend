@@ -129,6 +129,9 @@ Ext.define('XMLifeOperating.view.operationManage.refunds.RefundList', {
 	    	}
     ],
         columns: [
+                {
+            xtype: 'rownumberer'
+        }, 
         { header: '日期', dataIndex: 'createTime'},
         { header: '订单别号',dataIndex:'dealId'},
         { header: '订单状态',dataIndex:'status',
