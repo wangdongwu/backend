@@ -61,7 +61,6 @@ Ext.define('XMLifeOperating.view.dealManage.GDealList', {
         {
             text: '日期',
             dataIndex: 'created',
-            width: 70,
             sortable: true,
               
             renderer:function(value){
@@ -73,7 +72,6 @@ Ext.define('XMLifeOperating.view.dealManage.GDealList', {
         {
             text: '订单号',
             dataIndex: 'shortId',
-            width: 150,
             sortable: false,
                
             itemId: 'dealDetail',
@@ -85,14 +83,12 @@ Ext.define('XMLifeOperating.view.dealManage.GDealList', {
         {
             text: '线路',
             dataIndex: 'zoneName',
-            width: 60,
             sortable: false,
                
         },
         {
             text: '订单状态',
             dataIndex: 'status',
-            width: 60,
             sortable: false,
                
             renderer:function(value){
@@ -134,7 +130,6 @@ Ext.define('XMLifeOperating.view.dealManage.GDealList', {
         {
             text: '顾客',
             dataIndex: 'customerName',
-            width: 100,
             sortable: false,
              
             itemId: 'customerDetail',  
@@ -145,21 +140,18 @@ Ext.define('XMLifeOperating.view.dealManage.GDealList', {
         {
             text: '顾客电话',
             dataIndex: 'customerPhone',
-            width: 60,
             sortable: false,
                
         },
         {
             text: '中心点',
             dataIndex: 'shopAreaName',
-            width: 60,
             sortable: false,
                
         },
         {
             text: '分配买手',
             dataIndex: 'shopperNames',
-            width: 80,
             sortable: false,
             align: 'left',
             renderer:function(value){
@@ -174,7 +166,6 @@ Ext.define('XMLifeOperating.view.dealManage.GDealList', {
         {
             text: '购买店铺',
             dataIndex: 'shopNames',
-            width: 60,
             sortable: false,
             align: 'left',
             renderer:function(value){
@@ -188,14 +179,12 @@ Ext.define('XMLifeOperating.view.dealManage.GDealList', {
         {
             text: '配送员',
             dataIndex: 'delivererName',
-            width: 60,
             sortable: false,
                
         },
         {
             text: '下单时间',
             dataIndex: 'created',
-            width: 60,
             sortable: false,
               
             renderer:function(value){
@@ -207,7 +196,6 @@ Ext.define('XMLifeOperating.view.dealManage.GDealList', {
         {
             text: '期望送达时间',
             dataIndex: 'deliverTime',
-            width: 80,
             sortable: false,
               
             renderer:function(value){
@@ -219,7 +207,6 @@ Ext.define('XMLifeOperating.view.dealManage.GDealList', {
         {
             text: '剩余时间',
             dataIndex: 'remainTime',
-            width: 80,
             sortable: false,
               
             renderer:function(value){
@@ -236,7 +223,6 @@ Ext.define('XMLifeOperating.view.dealManage.GDealList', {
         {
             text: '完成购买时间',
             dataIndex: 'taskDone',
-            width: 100,
             sortable: false,
                
             renderer:function(value){
@@ -252,7 +238,6 @@ Ext.define('XMLifeOperating.view.dealManage.GDealList', {
         {
             text: '出货时间',
             dataIndex: 'beginDeliverTime',
-            width: 60,
             sortable: false,
              
             renderer:function(value){
@@ -264,7 +249,6 @@ Ext.define('XMLifeOperating.view.dealManage.GDealList', {
         {
             text: '送达时间',
             dataIndex: 'completeTime',
-            width: 80,
             sortable: false,
               
             renderer:function(value){
