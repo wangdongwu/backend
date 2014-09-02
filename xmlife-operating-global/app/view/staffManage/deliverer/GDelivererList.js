@@ -78,7 +78,6 @@ Ext.define('XMLifeOperating.view.staffManage.deliverer.GDelivererList', {
             text: 'ID',
             dataIndex: 'uid',
             sortable: false,
-            width : 50,
             align: 'left'
         }, {
             text: '姓名',
@@ -130,25 +129,21 @@ Ext.define('XMLifeOperating.view.staffManage.deliverer.GDelivererList', {
         }, {
             text: '退单数',
             dataIndex: 'returnDealNum',
-            width : 50,
             sortable: false,
             align: 'left'
         }, {
             text: '好评数',
             dataIndex: 'goods',
-            width : 50,
             sortable: false,
             align: 'left'
         }, {
             text: '中评数',
             dataIndex: 'mediums',
-            width : 50,
             sortable: false,
             align: 'left'
         }, {
             text: '差评数',
             dataIndex: 'bads',
-            width : 50,
             sortable: false,
             align: 'left'
         }, 

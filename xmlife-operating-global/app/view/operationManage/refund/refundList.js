@@ -105,8 +105,33 @@ Ext.define('XMLifeOperating.view.operationManage.refund.refundList', {
 
 	    	}
     ],
-    bbar: [
+    dockedItems : [{
+    	xtype : 'toolbar',
+    	dock : 'bottom',
+    	items : [
+    	'->',
 		{
+				xtype : 'button',
+				name :'agreeRefund',
+				text : '同意退款',
+				align : 'right'
+			},
+			{
+				xtype : 'button',
+				name :'disAgreeRefund',
+				text : '驳回退款'
+			}]
+    },{
+    	xtype : 'toolbar',
+    	dock : 'bottom',
+    	boder : 1,
+    	style : {
+    		borderColor: 'red',
+    		borderStyle: 'solid'
+    	}
+    	,
+    	items : [
+    		{
 			xtype : 'button',
 			name :'allSelect',
 			text : '全选'
@@ -120,20 +145,10 @@ Ext.define('XMLifeOperating.view.operationManage.refund.refundList', {
 			xtype : 'button',
 			name :'reverseSelect',
 			text : '反向选择'
-		},
-		'->',
-		,
-		{
-				xtype : 'button',
-				name :'agreeRefund',
-				text : '同意退款',
-				align : 'right'
-			},
-			{
-				xtype : 'button',
-				name :'disAgreeRefund',
-				text : '驳回退款'
-			}],
+		}
+    	]
+    }
+    ],
         columns: [
         {
             xtype: 'rownumberer'

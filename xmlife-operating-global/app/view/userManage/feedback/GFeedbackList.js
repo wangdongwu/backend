@@ -7,48 +7,47 @@ Ext.define('XMLifeOperating.view.userManage.feedback.GFeedbackList', {
     frame : true,
     store: 'Feedback',
     tbar: [
-        {
-            labelWidth: 40,
-            xtype: 'radio',
-            fieldLabel:'今天',
+        { 
+            xtype: 'fieldcontainer',
+            fieldLabel : '按时间过滤',
+            defaultType: 'radiofield',
+            defaults: {
+                flex: 1,
+                margin : '0 5 0 5'
+            },
+            layout: 'hbox',
+            items : [
+            {
+            boxLabel:'今天',
             itemId: 'dayType1'
-        },
+            },
         {
-            labelWidth: 40,
-            xtype: 'radio',
-            fieldLabel:'昨天',
+            boxLabel:'昨天',
             itemId: 'dayType2'
-        },
+            },
         {
-            labelWidth: 40,
-            xtype: 'radio',
-            fieldLabel:'前天',
+            boxLabel:'前天',
             itemId: 'dayType3'
-        },
+            },
         {
-            labelWidth: 40,
-            xtype: 'radio',
-            fieldLabel:'本周',
+            boxLabel:'本周',
             itemId: 'dayType4'
-        },
+            },
         {
-            labelWidth: 40,
-            xtype: 'radio',
-            fieldLabel:'上周',
+            boxLabel:'上周',
             itemId: 'dayType5'
-        },
+            },
         {
-            labelWidth: 40,
-            xtype: 'radio',
-            fieldLabel:'本月',
+            boxLabel:'本月',
             itemId: 'dayType6'
-        },
+            },
         {
-            labelWidth: 40,
-            xtype: 'radio',
-            fieldLabel:'上月',
+            boxLabel:'上月',
             itemId: 'dayType7'
-        },
+            }
+        ]
+        }
+        ,
         '->',
         ,
         {
