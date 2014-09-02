@@ -148,10 +148,18 @@ Ext.define('XMLifeOperating.view.operationManage.refund.refundList', {
         	}
     	},
         { header: '顾客名称',dataIndex: 'userName'},
-        { header: '顾客电话', dataIndex: 'mobile'},
+        { header: '顾客电话', dataIndex: 'userPhone'},
         { header: '总退款次数', dataIndex: 'refundCount'},
-        { header: '订单金额', dataIndex: 'refundCount'},
-        { header: '退款金额', dataIndex: 'amount'},
+        { header: '订单金额', dataIndex: 'dealPrice',
+        	renderer : function(value){
+        		return value / 100;
+        	}
+    	},
+        { header: '退款金额', dataIndex: 'amount',
+	        renderer : function(value){
+	        		return value / 100;
+	        	}
+        },
         { header: '退款去处', dataIndex: 'refundType',
         	renderer : function(v){
         		var data ={
