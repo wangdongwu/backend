@@ -48,7 +48,6 @@ Ext.define('XMLifeOperating.view.centralPointManage.line.LineList', {
             sortable: false,
             align: 'left',
             itemId:'bindCourier'
-
         },
         {
             xtype: 'actioncolumn',
