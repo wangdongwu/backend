@@ -3,7 +3,7 @@ Ext.define('XMLifeOperating.view.rechargeableCardManage.rechargeableCardInstance
     xtype: 'rechargeablecrdinstancelist',
     title : '充值卡实例管理',
     titleAlign : 'left',
-    forceFit: true,
+    forceFit: true,frame : true,
     store: 'CardBatch',
     tbar: [
         {

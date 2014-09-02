@@ -29,7 +29,6 @@ Ext.define('XMLifeOperating.view.templateManage.productTemplate.ProductTemplateE
         layout: 'anchor',
         bodyPadding: 10,
         border: false,
-        frame: false,
         defaults:{
             anchor: '100%'
         },

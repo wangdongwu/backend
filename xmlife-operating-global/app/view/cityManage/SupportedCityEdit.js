@@ -26,7 +26,6 @@ Ext.define('XMLifeOperating.view.cityManage.SupportedCityEdit', {
             layout: 'anchor',
             bodyPadding: 10,
             border: false,
-            frame: true,
             items: [
                 {
                     xtype: 'textfield',

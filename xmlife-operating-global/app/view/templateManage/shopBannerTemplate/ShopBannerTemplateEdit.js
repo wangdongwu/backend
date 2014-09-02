@@ -30,7 +30,6 @@ Ext.define('XMLifeOperating.view.templateManage.shopBannerTemplate.ShopBannerTem
             layout: 'anchor',
             bodyPadding: 10,
             border: false,
-            frame: true,
             items: [
                 {
                     xtype: 'textfield',

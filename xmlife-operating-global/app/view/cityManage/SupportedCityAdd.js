@@ -2,7 +2,6 @@ Ext.define('XMLifeOperating.view.cityManage.SupportedCityAdd', {
     extend: 'Ext.window.Window',
     xtype: 'supportedCityAdd',
     closeAction: 'hide',
-    modal: true,
     width: 500,
     height: 350,
     resizable: false,
@@ -22,8 +21,6 @@ Ext.define('XMLifeOperating.view.cityManage.SupportedCityAdd', {
             layout: 'anchor',
             bodyPadding: 10,
             border: false,
-            frame: true,
-
             items: [
                 {
 

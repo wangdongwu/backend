@@ -27,7 +27,6 @@ Ext.define('XMLifeOperating.view.staffManage.shopper.GShopperEdit', {
             layout: 'anchor',
             bodyPadding: 10,
             border: false,
-            frame: true,
             defaults:{
                 anchor: '100%'
             },

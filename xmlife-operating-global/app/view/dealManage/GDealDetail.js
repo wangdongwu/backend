@@ -22,7 +22,6 @@ Ext.define('XMLifeOperating.view.dealManage.GDealDetail', {
             layout: 'anchor',
             bodyPadding: 5,
             border: false,
-            frame: true,
             defaults:{
                 anchor: '100%'
             },

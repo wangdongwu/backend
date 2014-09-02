@@ -23,7 +23,6 @@ Ext.define('XMLifeOperating.view.rechargeableCardManage.rechargeableCardTemplate
             layout: 'anchor',
             bodyPadding: 10,
             border: false,
-            frame: true,
             items: [
                 {
                     xtype: 'textfield',

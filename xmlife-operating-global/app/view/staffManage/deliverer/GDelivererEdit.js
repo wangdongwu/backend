@@ -28,7 +28,6 @@ Ext.define('XMLifeOperating.view.staffManage.deliverer.GDelivererEdit', {
             layout: 'anchor',
             bodyPadding: 10,
             border: false,
-            frame: true,
             defaults:{
                 anchor: '100%'
             },

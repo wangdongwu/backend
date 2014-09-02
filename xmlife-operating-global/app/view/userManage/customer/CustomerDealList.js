@@ -13,7 +13,7 @@ Ext.define('XMLifeOperating.view.userManage.customer.CustomerDealList', {
     }],
     store : 'Deal'
     ,
-    forceFit: true,
+    forceFit: true,frame : true,
     layout: 'fit',
     columns : [
         {

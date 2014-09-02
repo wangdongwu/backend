@@ -8,6 +8,7 @@ Ext.Loader.addClassPathMappings({
   "Ext": "ext/src",
   "Ext.Msg": "ext/src/window/MessageBox.js",
   "Ext.rtl.EventObjectImpl": "ext/src/rtl/EventObject.js",
+  "ExtThemeNeptune": "ext/packages/ext-theme-neptune/overrides",
   "XMLifeOperating": "app"
 });
 Ext.ClassManager.addNameAlternateMappings({
@@ -827,58 +828,98 @@ Ext.ClassManager.addNameAlternateMappings({
   "Ext.window.Window": [
     "Ext.Window"
   ],
+  "ExtThemeNeptune.Component": [],
+  "ExtThemeNeptune.container.ButtonGroup": [],
+  "ExtThemeNeptune.form.field.HtmlEditor": [],
+  "ExtThemeNeptune.grid.RowEditor": [],
+  "ExtThemeNeptune.grid.column.RowNumberer": [],
+  "ExtThemeNeptune.layout.component.Dock": [],
+  "ExtThemeNeptune.menu.Menu": [],
+  "ExtThemeNeptune.menu.Separator": [],
+  "ExtThemeNeptune.panel.Panel": [],
+  "ExtThemeNeptune.panel.Table": [],
+  "ExtThemeNeptune.panel.Tool": [],
+  "ExtThemeNeptune.picker.Month": [],
+  "ExtThemeNeptune.resizer.Splitter": [],
+  "ExtThemeNeptune.tab.Tab": [],
+  "ExtThemeNeptune.toolbar.Paging": [],
+  "ExtThemeNeptune.toolbar.Toolbar": [],
   "XMLifeOperating.Application": [],
+  "XMLifeOperating.controller.CustomerList": [],
+  "XMLifeOperating.controller.GDealList": [],
   "XMLifeOperating.controller.GDeliverer": [],
+  "XMLifeOperating.controller.GFeedbackList": [],
   "XMLifeOperating.controller.GShopper": [],
   "XMLifeOperating.controller.Main": [],
   "XMLifeOperating.controller.Navigation": [],
   "XMLifeOperating.controller.ProductTemplate": [],
   "XMLifeOperating.controller.RechargeableCardInstance": [],
   "XMLifeOperating.controller.RechargeableCardTemplate": [],
-  "XMLifeOperating.controller.Shop": [],
+  "XMLifeOperating.controller.Refund": [],
+  "XMLifeOperating.controller.ShopBannerTemplate": [],
   "XMLifeOperating.controller.SupportedCityList": [],
   "XMLifeOperating.generic.BaseProxy": [],
   "XMLifeOperating.generic.Global": [],
+  "XMLifeOperating.model.Address": [],
   "XMLifeOperating.model.CardBatch": [],
   "XMLifeOperating.model.CardTemplate": [],
-  "XMLifeOperating.model.City": [],
+  "XMLifeOperating.model.Customer": [],
+  "XMLifeOperating.model.Deal": [],
   "XMLifeOperating.model.DealDelivererHistory": [],
   "XMLifeOperating.model.DealItems": [],
   "XMLifeOperating.model.DealShopperHistory": [],
   "XMLifeOperating.model.Deliverer": [],
   "XMLifeOperating.model.DelivererWorkTime": [],
+  "XMLifeOperating.model.Feedback": [],
   "XMLifeOperating.model.ProductTemplate": [],
   "XMLifeOperating.model.ProductUnit": [],
   "XMLifeOperating.model.Shop": [],
   "XMLifeOperating.model.ShopArea": [],
+  "XMLifeOperating.model.ShopBannerTemplate": [],
   "XMLifeOperating.model.Shopper": [],
   "XMLifeOperating.model.ShopperWorkTime": [],
   "XMLifeOperating.model.SupportedCity": [],
   "XMLifeOperating.model.Template": [],
+  "XMLifeOperating.model.refundModel": [],
+  "XMLifeOperating.store.Address": [],
   "XMLifeOperating.store.AllCities": [],
   "XMLifeOperating.store.AssignedCity": [],
   "XMLifeOperating.store.CardBatch": [],
   "XMLifeOperating.store.CardTemplate": [],
+  "XMLifeOperating.store.Customer": [],
+  "XMLifeOperating.store.Deal": [],
   "XMLifeOperating.store.DealDelivererHistory": [],
   "XMLifeOperating.store.DealItems": [],
   "XMLifeOperating.store.DealShopperHistory": [],
+  "XMLifeOperating.store.DealStatus": [],
   "XMLifeOperating.store.Deliverer": [],
   "XMLifeOperating.store.DelivererWorkTime": [],
+  "XMLifeOperating.store.Feedback": [],
+  "XMLifeOperating.store.FeedbackStatus": [],
   "XMLifeOperating.store.Navigation": [],
   "XMLifeOperating.store.ProductTemplate": [],
   "XMLifeOperating.store.ProductUnit": [],
   "XMLifeOperating.store.Province": [],
   "XMLifeOperating.store.Shop": [],
   "XMLifeOperating.store.ShopArea": [],
+  "XMLifeOperating.store.ShopBannerTemplate": [],
   "XMLifeOperating.store.Shopper": [],
   "XMLifeOperating.store.ShopperWorkTime": [],
   "XMLifeOperating.store.SupportedCity": [],
+  "XMLifeOperating.store.refundStore": [],
   "XMLifeOperating.view.Main": [],
   "XMLifeOperating.view.Navigation": [],
   "XMLifeOperating.view.Toolbar": [],
   "XMLifeOperating.view.Viewport": [],
-  "XMLifeOperating.view.centralPointManage.shopManage.Shop": [],
+  "XMLifeOperating.view.cityManage.SupportedCityAdd": [],
+  "XMLifeOperating.view.cityManage.SupportedCityEdit": [],
   "XMLifeOperating.view.cityManage.SupportedCityList": [],
+  "XMLifeOperating.view.cityManage.SupportedCityModifyPrice": [],
+  "XMLifeOperating.view.dealManage.GDealCustomerDetail": [],
+  "XMLifeOperating.view.dealManage.GDealDetail": [],
+  "XMLifeOperating.view.dealManage.GDealList": [],
+  "XMLifeOperating.view.operationManage.refund.refundList": [],
+  "XMLifeOperating.view.operationManage.refund.tenpayLogin": [],
   "XMLifeOperating.view.rechargeableCardManage.rechargeableCardInstance.RechargeableCardInstanceAdd": [],
   "XMLifeOperating.view.rechargeableCardManage.rechargeableCardInstance.RechargeableCardInstanceList": [],
   "XMLifeOperating.view.rechargeableCardManage.rechargeableCardTemplate.RechargeableCardTemplateAdd": [],
@@ -895,7 +936,13 @@ Ext.ClassManager.addNameAlternateMappings({
   "XMLifeOperating.view.staffManage.shopper.GShopperList": [],
   "XMLifeOperating.view.staffManage.shopper.GShopperWorkTimeList": [],
   "XMLifeOperating.view.templateManage.productTemplate.ProductTemplateEdit": [],
-  "XMLifeOperating.view.templateManage.productTemplate.ProductTemplateList": []
+  "XMLifeOperating.view.templateManage.productTemplate.ProductTemplateList": [],
+  "XMLifeOperating.view.templateManage.shopBannerTemplate.ShopBannerTemplateEdit": [],
+  "XMLifeOperating.view.templateManage.shopBannerTemplate.ShopBannerTemplateList": [],
+  "XMLifeOperating.view.userManage.customer.CustomerAddress": [],
+  "XMLifeOperating.view.userManage.customer.CustomerDealList": [],
+  "XMLifeOperating.view.userManage.customer.CustomerList": [],
+  "XMLifeOperating.view.userManage.feedback.GFeedbackList": []
 });
 Ext.ClassManager.addNameAliasMappings({
   "Ext.AbstractComponent": [],
@@ -1882,52 +1929,85 @@ Ext.ClassManager.addNameAliasMappings({
   "Ext.window.Window": [
     "widget.window"
   ],
+  "ExtThemeNeptune.Component": [],
+  "ExtThemeNeptune.container.ButtonGroup": [],
+  "ExtThemeNeptune.form.field.HtmlEditor": [],
+  "ExtThemeNeptune.grid.RowEditor": [],
+  "ExtThemeNeptune.grid.column.RowNumberer": [],
+  "ExtThemeNeptune.layout.component.Dock": [],
+  "ExtThemeNeptune.menu.Menu": [],
+  "ExtThemeNeptune.menu.Separator": [],
+  "ExtThemeNeptune.panel.Panel": [],
+  "ExtThemeNeptune.panel.Table": [],
+  "ExtThemeNeptune.panel.Tool": [],
+  "ExtThemeNeptune.picker.Month": [],
+  "ExtThemeNeptune.resizer.Splitter": [],
+  "ExtThemeNeptune.tab.Tab": [],
+  "ExtThemeNeptune.toolbar.Paging": [],
+  "ExtThemeNeptune.toolbar.Toolbar": [],
   "XMLifeOperating.Application": [],
+  "XMLifeOperating.controller.CustomerList": [],
+  "XMLifeOperating.controller.GDealList": [],
   "XMLifeOperating.controller.GDeliverer": [],
+  "XMLifeOperating.controller.GFeedbackList": [],
   "XMLifeOperating.controller.GShopper": [],
   "XMLifeOperating.controller.Main": [],
   "XMLifeOperating.controller.Navigation": [],
   "XMLifeOperating.controller.ProductTemplate": [],
   "XMLifeOperating.controller.RechargeableCardInstance": [],
   "XMLifeOperating.controller.RechargeableCardTemplate": [],
-  "XMLifeOperating.controller.Shop": [],
+  "XMLifeOperating.controller.Refund": [],
+  "XMLifeOperating.controller.ShopBannerTemplate": [],
   "XMLifeOperating.controller.SupportedCityList": [],
   "XMLifeOperating.generic.BaseProxy": [],
   "XMLifeOperating.generic.Global": [],
+  "XMLifeOperating.model.Address": [],
   "XMLifeOperating.model.CardBatch": [],
   "XMLifeOperating.model.CardTemplate": [],
-  "XMLifeOperating.model.City": [],
+  "XMLifeOperating.model.Customer": [],
+  "XMLifeOperating.model.Deal": [],
   "XMLifeOperating.model.DealDelivererHistory": [],
   "XMLifeOperating.model.DealItems": [],
   "XMLifeOperating.model.DealShopperHistory": [],
   "XMLifeOperating.model.Deliverer": [],
   "XMLifeOperating.model.DelivererWorkTime": [],
+  "XMLifeOperating.model.Feedback": [],
   "XMLifeOperating.model.ProductTemplate": [],
   "XMLifeOperating.model.ProductUnit": [],
   "XMLifeOperating.model.Shop": [],
   "XMLifeOperating.model.ShopArea": [],
+  "XMLifeOperating.model.ShopBannerTemplate": [],
   "XMLifeOperating.model.Shopper": [],
   "XMLifeOperating.model.ShopperWorkTime": [],
   "XMLifeOperating.model.SupportedCity": [],
   "XMLifeOperating.model.Template": [],
+  "XMLifeOperating.model.refundModel": [],
+  "XMLifeOperating.store.Address": [],
   "XMLifeOperating.store.AllCities": [],
   "XMLifeOperating.store.AssignedCity": [],
   "XMLifeOperating.store.CardBatch": [],
   "XMLifeOperating.store.CardTemplate": [],
+  "XMLifeOperating.store.Customer": [],
+  "XMLifeOperating.store.Deal": [],
   "XMLifeOperating.store.DealDelivererHistory": [],
   "XMLifeOperating.store.DealItems": [],
   "XMLifeOperating.store.DealShopperHistory": [],
+  "XMLifeOperating.store.DealStatus": [],
   "XMLifeOperating.store.Deliverer": [],
   "XMLifeOperating.store.DelivererWorkTime": [],
+  "XMLifeOperating.store.Feedback": [],
+  "XMLifeOperating.store.FeedbackStatus": [],
   "XMLifeOperating.store.Navigation": [],
   "XMLifeOperating.store.ProductTemplate": [],
   "XMLifeOperating.store.ProductUnit": [],
   "XMLifeOperating.store.Province": [],
   "XMLifeOperating.store.Shop": [],
   "XMLifeOperating.store.ShopArea": [],
+  "XMLifeOperating.store.ShopBannerTemplate": [],
   "XMLifeOperating.store.Shopper": [],
   "XMLifeOperating.store.ShopperWorkTime": [],
   "XMLifeOperating.store.SupportedCity": [],
+  "XMLifeOperating.store.refundStore": [],
   "XMLifeOperating.view.Main": [
     "widget.app-main"
   ],
@@ -1938,11 +2018,32 @@ Ext.ClassManager.addNameAliasMappings({
     "widget.headerToolbar"
   ],
   "XMLifeOperating.view.Viewport": [],
-  "XMLifeOperating.view.centralPointManage.shopManage.Shop": [
-    "widget.shop"
+  "XMLifeOperating.view.cityManage.SupportedCityAdd": [
+    "widget.supportedCityAdd"
+  ],
+  "XMLifeOperating.view.cityManage.SupportedCityEdit": [
+    "widget.supportedCityEdit"
   ],
   "XMLifeOperating.view.cityManage.SupportedCityList": [
     "widget.supportedCityList"
+  ],
+  "XMLifeOperating.view.cityManage.SupportedCityModifyPrice": [
+    "widget.supportedCityModifyPrice"
+  ],
+  "XMLifeOperating.view.dealManage.GDealCustomerDetail": [
+    "widget.gDealCustomerDetail"
+  ],
+  "XMLifeOperating.view.dealManage.GDealDetail": [
+    "widget.gDealDetail"
+  ],
+  "XMLifeOperating.view.dealManage.GDealList": [
+    "widget.gDealList"
+  ],
+  "XMLifeOperating.view.operationManage.refund.refundList": [
+    "widget.refundList"
+  ],
+  "XMLifeOperating.view.operationManage.refund.tenpayLogin": [
+    "widget.tenpayLogin"
   ],
   "XMLifeOperating.view.rechargeableCardManage.rechargeableCardInstance.RechargeableCardInstanceAdd": [
     "widget.rechargeablecardinstanceadd"
@@ -1994,11 +2095,45 @@ Ext.ClassManager.addNameAliasMappings({
   ],
   "XMLifeOperating.view.templateManage.productTemplate.ProductTemplateList": [
     "widget.productTemplateList"
+  ],
+  "XMLifeOperating.view.templateManage.shopBannerTemplate.ShopBannerTemplateEdit": [
+    "widget.shopBannerTemplateEdit"
+  ],
+  "XMLifeOperating.view.templateManage.shopBannerTemplate.ShopBannerTemplateList": [
+    "widget.shopBannerTemplateList"
+  ],
+  "XMLifeOperating.view.userManage.customer.CustomerAddress": [
+    "widget.customerAddress"
+  ],
+  "XMLifeOperating.view.userManage.customer.CustomerDealList": [
+    "widget.CustomerDealList"
+  ],
+  "XMLifeOperating.view.userManage.customer.CustomerList": [
+    "widget.CustomerList"
+  ],
+  "XMLifeOperating.view.userManage.feedback.GFeedbackList": [
+    "widget.gFeedbackList"
   ]
 });
 Ext.setVersion("ext-theme-base", "4.2.1");
-Ext.setVersion("ext-theme-classic", "4.2.1");
+Ext.setVersion("ext-theme-neptune", "4.2.1");
 Ext.setVersion("ext-theme-neutral", "4.2.1");
+Ext.Loader.loadScript("ext/packages/ext-theme-neptune/overrides/Component.js");;
+Ext.Loader.loadScript("ext/packages/ext-theme-neptune/overrides/panel/Panel.js");;
+Ext.Loader.loadScript("ext/packages/ext-theme-neptune/overrides/toolbar/Toolbar.js");;
+Ext.Loader.loadScript("ext/packages/ext-theme-neptune/overrides/layout/component/Dock.js");;
+Ext.Loader.loadScript("ext/packages/ext-theme-neptune/overrides/container/ButtonGroup.js");;
+Ext.Loader.loadScript("ext/packages/ext-theme-neptune/overrides/toolbar/Paging.js");;
+Ext.Loader.loadScript("ext/packages/ext-theme-neptune/overrides/picker/Month.js");;
+Ext.Loader.loadScript("ext/packages/ext-theme-neptune/overrides/form/field/HtmlEditor.js");;
+Ext.Loader.loadScript("ext/packages/ext-theme-neptune/overrides/panel/Table.js");;
+Ext.Loader.loadScript("ext/packages/ext-theme-neptune/overrides/grid/RowEditor.js");;
+Ext.Loader.loadScript("ext/packages/ext-theme-neptune/overrides/grid/column/RowNumberer.js");;
+Ext.Loader.loadScript("ext/packages/ext-theme-neptune/overrides/resizer/Splitter.js");;
+Ext.Loader.loadScript("ext/packages/ext-theme-neptune/overrides/menu/Menu.js");;
+Ext.Loader.loadScript("ext/packages/ext-theme-neptune/overrides/menu/Separator.js");;
+Ext.Loader.loadScript("ext/packages/ext-theme-neptune/overrides/panel/Tool.js");;
+Ext.Loader.loadScript("ext/packages/ext-theme-neptune/overrides/tab/Tab.js");;
 /**
  * Sencha Blink - Development
  * @author Jacky Nguyen <jacky@sencha.com>

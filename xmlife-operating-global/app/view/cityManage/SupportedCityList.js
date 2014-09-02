@@ -7,12 +7,12 @@ Ext.define('XMLifeOperating.view.cityManage.SupportedCityList', {
     title : '城市管理',
     titleAlign : 'left',
     forceFit: true,
+    frame : true,
     tbar: [{
         xtype: 'button',
         text: '添加城市',
         id: 'addNewCity'
     }],
-    forceFit: true,
     viewConfig: {
         getRowClass: function(record, rowIndex, rowParams, store) {
             return record.get("status") == 0 && 'close-city';
