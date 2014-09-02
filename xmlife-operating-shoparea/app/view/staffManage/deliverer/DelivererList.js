@@ -249,5 +249,8 @@ Ext.define('XMLifeOperating.view.staffManage.deliverer.DelivererList', {
             combo.fireEvent('select', combo);
         }
     },
-
+    forceFit : true,
+    columnLines: true,
+    frame: true,
+    iconCls: 'icon-grid'
 });

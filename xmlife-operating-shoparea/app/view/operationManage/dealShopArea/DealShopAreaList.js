@@ -220,5 +220,8 @@ Ext.define('XMLifeOperating.view.operationManage.dealShopArea.DealShopAreaList',
             combo.fireEvent('select', combo);
         }
     },
-
+    forceFit : true,
+    columnLines: true,
+    frame: true,
+    iconCls: 'icon-grid'
 });

@@ -22,12 +22,13 @@ Ext.define('XMLifeOperating.view.dealManage.DealList', {
             valueField:'id',
             hidden:(XMLifeOperating.generic.Global.operating_type == 'center')
         },
+        '->',
         {
             xtype:'textfield',
             emptyText:'输入搜索号码...',
             name:'keyword',
             itemId: 'keyword',
-            // fieldLabel: '手机号码',
+            fieldLabel: '手机号码',
             regex: XMLifeOperating.generic.Global.VALIDATION_CONSTANTS.PHONE,
             regexText: '请输入正确的手机号',
             // margin:10
@@ -70,7 +71,7 @@ Ext.define('XMLifeOperating.view.dealManage.DealList', {
         {
             text: '订单号',
             dataIndex: 'shortId',
-            width: 150,
+            width: 50,
             sortable: false,
             align: 'center',  
             itemId: 'dealDetail',
@@ -293,5 +294,8 @@ Ext.define('XMLifeOperating.view.dealManage.DealList', {
             combo.fireEvent('select', combo);
         }
     },
-
+    forceFit : true,
+    columnLines: true,
+    frame: true,
+    iconCls: 'icon-grid'
 });

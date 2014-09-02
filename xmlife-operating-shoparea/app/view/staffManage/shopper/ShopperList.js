@@ -241,5 +241,8 @@ Ext.define('XMLifeOperating.view.staffManage.shopper.ShopperList', {
             combo.fireEvent('select', combo);
         }
     },
-
+    forceFit : true,
+    columnLines: true,
+    frame: true,
+    iconCls: 'icon-grid'
 });

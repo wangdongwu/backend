@@ -98,4 +98,8 @@ Ext.define('XMLifeOperating.view.centralPointManage.delivererZone.DelivererZoneL
             combo.fireEvent('select', combo);
         }
     },
+    forceFit : true,
+    columnLines: true,
+    frame: true,
+    iconCls: 'icon-grid'
 });

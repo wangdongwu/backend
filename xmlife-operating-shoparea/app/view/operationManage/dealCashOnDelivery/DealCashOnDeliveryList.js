@@ -322,5 +322,9 @@ Ext.define('XMLifeOperating.view.operationManage.dealCashOnDelivery.DealCashOnDe
             ptype: 'gridviewdragdrop',
             dragText: 'Drag and drop to reorder'
         }
-    }
+    },
+    forceFit : true,
+    columnLines: true,
+    frame: true,
+    iconCls: 'icon-grid'
 });

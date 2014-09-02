@@ -156,5 +156,8 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopList', {
             combo.fireEvent('select', combo);
         }
     },
-
+    forceFit : true,
+    columnLines: true,
+    frame: true,
+    iconCls: 'icon-grid'
 });

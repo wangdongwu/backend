@@ -123,6 +123,10 @@ Ext.define('XMLifeOperating.view.centralPointManage.residentalDistrict.Residenta
             ptype: 'gridviewdragdrop',
             dragText: 'Drag and drop to reorder'
         }
-    }
+    },
+    forceFit : true,
+    columnLines: true,
+    frame: true,
+    iconCls: 'icon-grid'
 
 });
