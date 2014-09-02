@@ -3,7 +3,7 @@ Ext.define('XMLifeOperating.view.dealManage.GDealList', {
     extend: 'Ext.grid.Panel',
     xtype: 'gDealList',
     title : '订单管理',
-    titleAlign : 'left',
+    titleAlign : 'left',closable : true,
     forceFit : 'true',
     store: 'Deal',
     id:'gDealList',

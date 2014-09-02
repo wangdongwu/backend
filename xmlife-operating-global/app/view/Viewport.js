@@ -26,10 +26,13 @@ Ext.define('XMLifeOperating.view.Viewport', {
             deferredRender : false,
             itemId: 'contentPanel',
             items : [{
-                closable : true,
-                title : '欢迎',
-                html : '欢迎使用小美后台管理系统'
-            }],
+                xtype : 'supportedCityList'
+            },
+            {
+                title : '欢迎使用',
+                html : '<br/><br/><br/><br/><h1>欢迎使用小美后台管理系统!!</h1>'
+            }
+            ],
             layout: 'fit',
             header: false,
             autoScroll: true

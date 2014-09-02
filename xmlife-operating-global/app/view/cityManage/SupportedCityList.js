@@ -5,7 +5,7 @@ Ext.define('XMLifeOperating.view.cityManage.SupportedCityList', {
     autoScroll: true,
     store: 'SupportedCity',
     title : '城市管理',
-    titleAlign : 'left',
+    titleAlign : 'left',closable : true,
     forceFit: true,
     frame : true,
     closable : true,

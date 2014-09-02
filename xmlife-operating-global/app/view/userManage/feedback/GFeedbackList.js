@@ -2,7 +2,7 @@ Ext.define('XMLifeOperating.view.userManage.feedback.GFeedbackList', {
     extend: 'Ext.grid.Panel',
     xtype: 'gFeedbackList',
     title: '用户反馈管理',
-    titleAlign : 'left',
+    titleAlign : 'left',closable : true,
     forceFit :true,
     frame : true,
     store: 'Feedback',

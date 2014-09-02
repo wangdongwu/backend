@@ -4,7 +4,7 @@ Ext.define('XMLifeOperating.view.staffManage.shopper.GShopperList', {
     store: 'Shopper',
     id: 'gShopperList',
     title : '买手管理',
-    titleAlign : 'left',
+    titleAlign : 'left',closable : true,
     forceFit: true,frame : true,
     tbar: [
     {

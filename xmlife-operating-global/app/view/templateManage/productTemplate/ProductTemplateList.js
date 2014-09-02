@@ -2,7 +2,7 @@ Ext.define('XMLifeOperating.view.templateManage.productTemplate.ProductTemplateL
     extend: 'Ext.grid.Panel',
     xtype: 'productTemplateList',
     title : '商品模板管理',
-    titleAlign : 'left',
+    titleAlign : 'left',closable : true,
     forceFit: true,frame : true,
     store: 'ProductTemplate',
     id:'productTemplateList',
