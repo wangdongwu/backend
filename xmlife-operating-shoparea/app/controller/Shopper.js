@@ -347,7 +347,8 @@ Ext.define('XMLifeOperating.controller.Shopper', {
                                 return;
                             }
                             sendPutRequest(url,{shopper:shopper,isActive:isActive},'操作恢复或暂停买手接单','成功操作买手接单','操作买手接单失败',function(){
-                                    var store = me.getShopperStore();
+                                //3种情况 手机查询  未绑定查询 中心停单买手查询
+                                    /*var store = me.getShopperStore();
                                     store.load({
                                         params: {
                                             unbind:true
@@ -357,8 +358,9 @@ Ext.define('XMLifeOperating.controller.Shopper', {
                                             Ext.getCmp('shopperList').down('#activeBind').setText('查看已绑定的买手');
                                             Ext.getCmp('shopperList').down('#shopArea').setValue('');
                                         }
-                                    });
-                                    // me.fireEvent('refreshView');
+                                    });*/
+                                    record.set('isActive',isActive);
+                                    me.fireEvent('refreshView');
                             }); 
                     });
                 }
@@ -377,6 +379,7 @@ Ext.define('XMLifeOperating.controller.Shopper', {
             view = this.getShopperList();
         var activeBindText = Ext.getCmp('shopperList').down('#activeBind').getText();
         var isUnbind = null;
+        view.down('#shopArea').setValue('');
         if (activeBindText == '查看已绑定的买手') {
             isUnbind = true;
         } else if (activeBindText == '查看未绑定的买手') {
@@ -395,6 +398,7 @@ Ext.define('XMLifeOperating.controller.Shopper', {
                 }
             });
         }
+
     },
     onShow: function() {
         /*var store = this.getShopperStore();
@@ -412,6 +416,7 @@ Ext.define('XMLifeOperating.controller.Shopper', {
         var cClass = this.getShopperModel();
         var shopper = new cClass();
         var win = this.getEditWindow();
+        win.down('#shopperPhone').setDisabled(false);
         win.down('form').loadRecord(shopper);
         win.show();
     },
@@ -428,6 +433,7 @@ Ext.define('XMLifeOperating.controller.Shopper', {
         var offlineTime = leftOfflineTime + ':' + rightOfflineTime;
         record.set('onlineTime', onlineTime);
         record.set('offlineTime', offlineTime);
+        win.down('#shopperPhone').setDisabled(true);
         win.down('form').loadRecord(record);
         win.show();
     },
@@ -441,7 +447,7 @@ Ext.define('XMLifeOperating.controller.Shopper', {
 
         if (form.isValid()) {
 
-            // windowEl.mask('saving');
+            windowEl.mask('saving');
             form.updateRecord(shopper);
 
             shopper.set('onlineTime', (shopper.get('onlineTime').getHours()*60+shopper.get('onlineTime').getMinutes()));
@@ -458,11 +464,10 @@ Ext.define('XMLifeOperating.controller.Shopper', {
                                        title:shopper.get('title'),
                                        gender:shopper.get('gender'),
                                        idcard:shopper.get('idcard'),
-                                       phone:shopper.get('phone'),
                                        onlineTime:shopper.get('onlineTime'),
                                        offlineTime:shopper.get('offlineTime'),
                                        avatar:shopper.get('avatar'),
-                                                     },'编辑模板','成功编辑模板','编辑模板失败',function(){
+                                                     },'编辑模板','成功编辑模板','编辑模板失败',function(operation){
                     windowEl.unmask();
                     editWindow.close();
                     /*var shopStoreAreaId = me.shopStoreAreaId;
@@ -480,19 +485,36 @@ Ext.define('XMLifeOperating.controller.Shopper', {
 
             shopper.save({
                 success: function(task, operation) {
-                    console.log(operation);
-                    console.log(operation.response.responseText);
                     var error = operation.getError();
-                    if (operation.response.responseText == '-2') {
+                    var errorStr='';
+                    switch(operation.response.responseText){
+                        case '1':
+                            errorStr='创建成功';
+                            break;
+                        case '-2':
+                            errorStr='传参错误';
+                            break;
+                        case '-24':
+                            errorStr='手机已注册';
+                            break;
+                        case '-28':
+                            errorStr='手机号码格式错误';
+                            break;
+                    }
+                    console.log(errorStr);
+                    if(operation.response.responseText<0){
                         Ext.MessageBox.show({
                             title: 'Edit Task Failed',
-                            msg: '传参错误',
+                            msg: errorStr,
                             icon: Ext.Msg.ERROR,
                             buttons: Ext.Msg.OK
                         });
                         windowEl.unmask();
                         return;
                     }
+                    
+
+
                     windowEl.unmask();
                     editWindow.close();
                     me.fireEvent('refreshView');
