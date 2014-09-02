@@ -30,7 +30,6 @@ Ext.define('XMLifeOperating.view.centralPointManage.delivererZone.LineDelivererA
                 {
                     xtype: 'hidden',
                     name: 'id',
-                    id:'shopId',
                     fieldLabel: 'shopId',
                     labelWidth: 90,
                     allowBlank:false,
@@ -77,7 +76,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.delivererZone.LineDelivererA
                 },
                 {
                     name: 'searchCourierIds',
-                    store:'ResidentalDistrict',
+                    // store:'ResidentalDistrict',
                     allowBlank: false,
                     fieldLabel: '配送员',
                     xtype:'gridpanel',
@@ -138,8 +137,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.delivererZone.LineDelivererA
                     }
                 }
             ]
-        }]
-
+        }],
         this.callParent(arguments);
 
     }

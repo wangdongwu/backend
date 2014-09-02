@@ -103,7 +103,6 @@ Ext.define('XMLifeOperating.view.centralPointManage.delivererZone.ResidentalDist
                 },
                 {
                     name: 'searchCommunityIds',
-                    store:'ResidentalDistrict',
                     allowBlank: false,
                     fieldLabel: '小区',
                     xtype:'gridpanel',
@@ -123,7 +122,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.delivererZone.ResidentalDist
                 },
                 {
                     name: 'oldCommunityIds',
-                    store:'ResidentalDistrict',
+                    
                     fieldLabel: '已绑定小区',
                     xtype:'gridpanel',
                     itemId:'oldCommunityId',

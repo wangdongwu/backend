@@ -10,15 +10,14 @@ Ext.define('XMLifeOperating.controller.DelivererZoneList', {
 
     stores: [
         'DelivererZone',
-        'ResidentalDistrict',
-        'Deliverer',
+        // 'Deliverer',
         'ShopArea'
     ],
 
     models: [
         'DelivererZone',
         'ResidentalDistrict',
-        'Deliverer',
+        // 'Deliverer',
         'ShopArea'
     ],
     refs: [
@@ -50,6 +49,22 @@ Ext.define('XMLifeOperating.controller.DelivererZoneList', {
         selector: 'lineDelivererAdd',
         xtype: 'lineDelivererAdd',
         autoCreate: true
+    }, 
+    {
+        ref: 'oldCommunityId',
+        selector: '#oldCommunityId',
+    }, 
+    {
+        ref: 'searchCommunityId',
+        selector: '#searchCommunityId',
+    },
+    {
+        ref: 'oldCourierId',
+        selector: '#oldCourierId',
+    }, 
+    {
+        ref: 'searchCourierId',
+        selector: '#searchCourierId',
     }, 
     {
         ref: 'keywordCourier',
@@ -97,10 +112,11 @@ Ext.define('XMLifeOperating.controller.DelivererZoneList', {
                 //弹出入小区window
                 click: function(grid, column, rowIndex) {
                     var record = grid.getStore().getAt(rowIndex);
-                    var win = this.getResidentalDistrictEdit();
+                    var win = me.getResidentalDistrictEdit();
                     win.down('form').loadRecord(record);
                     win.show();
-                    var store = me.getResidentalDistrictStore();
+                    var store = Ext.create('XMLifeOperating.store.ResidentalDistrict');
+                    this.getOldCommunityId().bindStore(store, true);
                     store.load({
                         params: {
                             deliveryZone: record.get('id'),
@@ -121,11 +137,14 @@ Ext.define('XMLifeOperating.controller.DelivererZoneList', {
                             }
                         }
                     });
+                    var store1 = Ext.create('XMLifeOperating.store.ResidentalDistrict');
+                    this.getSearchCommunityId().bindStore(store1, true);
+                    store1.load();
                 }
             },
             'residentalDistrictEdit #reseachCommunity': {
                 click: function() {
-                    var store = me.getResidentalDistrictStore();
+                    var store = this.getSearchCommunityId().store;
                     store.load({
                         params: {
                             name: me.getKeywordCommunity().getValue()
@@ -180,12 +199,29 @@ Ext.define('XMLifeOperating.controller.DelivererZoneList', {
             'delivererZoneList #bindCourier': {
                 //弹出绑定配送员window
                 click: function(grid, column, rowIndex) {
+                    
                     var record = grid.getStore().getAt(rowIndex);
-                    var win = this.getLineDelivererAdd();
+                    var win = me.getLineDelivererAdd();
                     win.down('form').loadRecord(record);
                     win.show();
-                    var store = me.getDelivererStore();
+                    /*var store = me.getDelivererStore();
+                    store.load({
+                        params: {
+                            deliveryZone: record.get('id'),
+                        },
+                        callback: function(records) {
+                            //初始化打勾
+                            var model = Ext.ComponentQuery.query('#oldCourierId')[0].getSelectionModel();
+                            model.deselectAll();
+                            for (var i = 0; i < records.length; i++) {
+                                var index = store.indexOfId(records[i].get('id'));
+                                model.select(index, true);
+                            }
+                        }
+                    });*/
 
+                    var store = Ext.create('XMLifeOperating.store.Deliverer');
+                    this.getOldCourierId().bindStore(store, true);
                     store.load({
                         params: {
                             deliveryZone: record.get('id'),
@@ -200,11 +236,33 @@ Ext.define('XMLifeOperating.controller.DelivererZoneList', {
                             }
                         }
                     });
+                    var store1 = Ext.create('XMLifeOperating.store.Deliverer');
+                    this.getSearchCourierId().bindStore(store1, true);
+                    store.load({
+                        params: {
+                            deliveryZone: record.get('id'),
+                        },
+                        callback: function(records) {
+                            //初始化打勾
+                            var model = Ext.ComponentQuery.query('#oldCourierId')[0].getSelectionModel();
+                            model.deselectAll();
+                            for (var i = 0; i < records.length; i++) {
+                                var index = store.indexOfId(records[i].get('id'));
+                                model.select(index, true);
+                            }
+                        }
+                    });
+
+
+
+
+
                 }
             },
             'lineDelivererAdd #reseachCourier': {
                 click: function() {
-                    var store = me.getDelivererStore();
+                    // var store = me.getDelivererStore();
+                    var store = this.getSearchCourierId().store;
                     store.load({
                         params: {
                             nameOrPhone: me.getKeywordCourier().getValue(),
