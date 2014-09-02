@@ -61,14 +61,14 @@ Ext.define('XMLifeOperating.view.centralPointManage.centralPointConfigure.Centra
         },
         {
             header:"首页配置",
-            width: 90,
+            width: 70,
             itemId: 'seeBannerBtn',
             menuDisabled: true,
             sortable: false,
             align: 'center',
             renderer : function(value, metadata, model, rowIndex, colIndex, store) { 
 
-                var seeBtn = '<span style="cursor:pointer">banner配置</span>';
+                var seeBtn = '<a>配置</a>';
                 return seeBtn; 
             } 
         }
@@ -79,7 +79,6 @@ Ext.define('XMLifeOperating.view.centralPointManage.centralPointConfigure.Centra
             dragText: 'Drag and drop to reorder'
         }
     },
-    forceFit : true,
     columnLines: true,
     frame: true,
     iconCls: 'icon-grid'

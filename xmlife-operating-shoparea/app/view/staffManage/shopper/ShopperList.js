@@ -69,29 +69,29 @@ Ext.define('XMLifeOperating.view.staffManage.shopper.ShopperList', {
         {
             text: 'uid',
             dataIndex: 'uid',
-            width: 100,
+            width: 60,
             sortable: true,
-            align: 'left'
+            align: 'center'
         }, {
             text: '姓名',
             dataIndex: 'name',
-            width: 100,
+            width: 80,
             sortable: false,
-            align: 'left',
+            align: 'center',
         }, {
             text: '职称',
             dataIndex: 'title',
-            width: 60,
+            width: 80,
             sortable: false,
-            align: 'left'
+            align: 'center'
         },
 
         {
             text: '电话',
             dataIndex: 'phone',
-            width: 80,
+            width: 90,
             sortable: false,
-            align: 'left',
+            align: 'center',
         }, 
         /*{
             text: '密码',
@@ -105,7 +105,7 @@ Ext.define('XMLifeOperating.view.staffManage.shopper.ShopperList', {
             dataIndex: 'shopNames',
             width: 100,
             sortable: false,
-            align: 'left',
+            align: 'center',
             renderer: function(value) {
                 var htmlStr = '';
                 if (value != null) {
@@ -138,31 +138,31 @@ Ext.define('XMLifeOperating.view.staffManage.shopper.ShopperList', {
             dataIndex: 'deals',
             width: 50,
             sortable: false,
-            align: 'left'
+            align: 'center'
         }, {
             text: '退单数',
             dataIndex: 'returnDealNum',
             width: 50,
             sortable: false,
-            align: 'left'
+            align: 'center'
         }, {
             text: '好评数',
             dataIndex: 'goods',
             width: 50,
             sortable: false,
-            align: 'left'
+            align: 'center'
         }, {
             text: '中评数',
             dataIndex: 'mediums',
             width: 50,
             sortable: false,
-            align: 'left'
+            align: 'center'
         }, {
             text: '差评数',
             dataIndex: 'bads',
             width: 50,
             sortable: false,
-            align: 'left'
+            align: 'center'
         }, 
         {
             xtype: 'actioncolumn',
@@ -241,7 +241,6 @@ Ext.define('XMLifeOperating.view.staffManage.shopper.ShopperList', {
             combo.fireEvent('select', combo);
         }
     },
-    forceFit : true,
     columnLines: true,
     frame: true,
     iconCls: 'icon-grid'

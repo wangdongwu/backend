@@ -81,16 +81,16 @@ Ext.define('XMLifeOperating.view.staffManage.deliverer.DelivererList', {
         {
             text: 'ID',
             dataIndex: 'uid',
-            width: 80,
+            width: 60,
             sortable: false,
-            align: 'left'
+            align: 'center'
         },
         {
             text: '姓名',
             dataIndex: 'name',
             width: 80,
             sortable: false,
-            align: 'left',
+            align: 'center',
 
         }, 
         {
@@ -98,14 +98,14 @@ Ext.define('XMLifeOperating.view.staffManage.deliverer.DelivererList', {
             dataIndex: 'title',
             width: 80,
             sortable: false,
-            align: 'left'
+            align: 'center'
         }, 
         {
             text: '电话',
             dataIndex: 'phone',
-            width: 100,
+            width: 90,
             sortable: false,
-            align: 'left'
+            align: 'center'
         }, 
         // {
         //     text: '密码',
@@ -119,7 +119,7 @@ Ext.define('XMLifeOperating.view.staffManage.deliverer.DelivererList', {
             dataIndex: 'avatar',
             width: 80,
             sortable: false,
-            align: 'left'
+            align: 'center'
         }, 
         // {
         //     text: '服务商圈',
@@ -144,35 +144,35 @@ Ext.define('XMLifeOperating.view.staffManage.deliverer.DelivererList', {
             dataIndex: 'deals',
             width: 50,
             sortable: false,
-            align: 'left'
+            align: 'center'
         }, 
         {
             text: '退单数',
             dataIndex: 'returnDealNum',
             width: 50,
             sortable: false,
-            align: 'left'
+            align: 'center'
         }, 
         {
             text: '好评数',
             dataIndex: 'goods',
             width: 50,
             sortable: false,
-            align: 'left'
+            align: 'center'
         }, 
         {
             text: '中评数',
             dataIndex: 'mediums',
             width: 50,
             sortable: false,
-            align: 'left'
+            align: 'center'
         }, 
         {
             text: '差评数',
             dataIndex: 'bads',
             width: 50,
             sortable: false,
-            align: 'left'
+            align: 'center'
         },
         {
             xtype: 'actioncolumn',
@@ -211,7 +211,7 @@ Ext.define('XMLifeOperating.view.staffManage.deliverer.DelivererList', {
             }
         }, 
         {
-            header: "",
+            header: "操作",
             width: 90,
             dataIndex: 'isActive',
             itemId: 'closeOrOpenOrder',
@@ -241,7 +241,7 @@ Ext.define('XMLifeOperating.view.staffManage.deliverer.DelivererList', {
                 return;
             }
             if(XMLifeOperating.generic.Global.current_operating == -1) {
-                alert('请先在右上角选择中心');
+                // alert('请先在右上角选择中心');
                 return;
             }
             var combo = view.down('#shopArea');
@@ -249,7 +249,6 @@ Ext.define('XMLifeOperating.view.staffManage.deliverer.DelivererList', {
             combo.fireEvent('select', combo);
         }
     },
-    forceFit : true,
     columnLines: true,
     frame: true,
     iconCls: 'icon-grid'

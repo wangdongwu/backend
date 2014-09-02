@@ -132,7 +132,7 @@ Ext.define('XMLifeOperating.view.operationManage.dealCashOnDelivery.DealCashOnDe
         {
             text: '创建时间',
             dataIndex: 'created',
-            width: 100,
+            width: 80,
             sortable: false,
             align: 'center', 
             renderer: function (value) {
@@ -168,7 +168,7 @@ Ext.define('XMLifeOperating.view.operationManage.dealCashOnDelivery.DealCashOnDe
         {
             text: '顾客',
             dataIndex: 'customerName',
-            width: 100,
+            width: 80,
             sortable: false,
             align: 'center', 
             itemId:'customerDetailId',
@@ -179,7 +179,7 @@ Ext.define('XMLifeOperating.view.operationManage.dealCashOnDelivery.DealCashOnDe
         {
             text: '顾客电话',
             dataIndex: 'customerPhone',
-            width: 60,
+            width: 90,
             sortable: false,
             align: 'center', 
 
@@ -187,14 +187,14 @@ Ext.define('XMLifeOperating.view.operationManage.dealCashOnDelivery.DealCashOnDe
         {
             text: '分配配送员',
             dataIndex: 'delivererName',
-            width: 100,
+            width: 80,
             sortable: false,
             align: 'center', 
         },
         {
             text: '支付方式',
             dataIndex: 'shopAreaName',
-            width: 100,
+            width: 60,
             sortable: false,
             align: 'center', 
         },
@@ -208,14 +208,14 @@ Ext.define('XMLifeOperating.view.operationManage.dealCashOnDelivery.DealCashOnDe
         {
             text: '使用账户余额',
             dataIndex: 'balance',
-            width: 60,
+            width: 90,
             sortable: false,
             align: 'center', 
         },
         {
             text: '是否取消订单',
             dataIndex: 'hasCancel',
-            width: 100,
+            width: 90,
             sortable: false,
             align: 'center',
             itemId:'hasCancelId',
@@ -230,14 +230,14 @@ Ext.define('XMLifeOperating.view.operationManage.dealCashOnDelivery.DealCashOnDe
         {
             text: '取消金额',
             dataIndex: 'cancelPrice',
-            width: 100,
+            width: 80,
             sortable: false,
             align: 'center', 
         },
         {
             text: '是否有退货',
             dataIndex: 'hasReturn',
-            width: 100,
+            width: 80,
             sortable: false,
             align: 'center',
             itemId:'hasReturnId', 
@@ -251,7 +251,7 @@ Ext.define('XMLifeOperating.view.operationManage.dealCashOnDelivery.DealCashOnDe
         {
             text: '退款金额',
             dataIndex: 'returnPrice',
-            width: 80,
+            width: 60,
             sortable: false,
             align: 'center', 
         },
@@ -263,7 +263,7 @@ Ext.define('XMLifeOperating.view.operationManage.dealCashOnDelivery.DealCashOnDe
             align: 'center', 
         },
         {
-            text: '',
+            text: '是否到账',
             dataIndex: 'codMark',
             width: 80,
             sortable: false,
@@ -277,7 +277,7 @@ Ext.define('XMLifeOperating.view.operationManage.dealCashOnDelivery.DealCashOnDe
             }
         },
         {
-            text: '',
+            text: '标记',
             dataIndex: 'codProblemMark',
             width: 80,
             sortable: false,
@@ -291,9 +291,9 @@ Ext.define('XMLifeOperating.view.operationManage.dealCashOnDelivery.DealCashOnDe
             }
         },
         {
-            text: '',
+            text: '操作',
             dataIndex: '',
-            width: 80,
+            width: 60,
             sortable: false,
             align: 'center',
             itemId:'remarkId',
@@ -312,7 +312,7 @@ Ext.define('XMLifeOperating.view.operationManage.dealCashOnDelivery.DealCashOnDe
         {
             text: '备注',
             dataIndex: 'codMarkContent',
-            width: 100,
+            width: 80,
             sortable: false,
             align: 'center', 
         },
@@ -323,7 +323,6 @@ Ext.define('XMLifeOperating.view.operationManage.dealCashOnDelivery.DealCashOnDe
             dragText: 'Drag and drop to reorder'
         }
     },
-    forceFit : true,
     columnLines: true,
     frame: true,
     iconCls: 'icon-grid'

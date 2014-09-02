@@ -7,7 +7,6 @@ Ext.define('XMLifeOperating.view.userManage.customer.CustomerList', {
 
     store: 'Customer',
     id:'customerList',
-    forceFit: true,
     dockedItems: [{
                 xtype: 'toolbar',
                 dock: 'top',
@@ -56,17 +55,20 @@ Ext.define('XMLifeOperating.view.userManage.customer.CustomerList', {
         {
             text: '用户昵称',
             dataIndex: 'name',
-            width: 100  
+            width: 100,
+            align: 'center'
         },
         {
             text: '手机号',
             dataIndex: 'phone',
-            width: 100  
+            width: 90,
+            align: 'center'  
         },
         {
             text: '日期',
             dataIndex: 'created',
             width: 80,
+            align: 'center',
             sortable: true, 
             renderer:function(value){
                var newTime = new Date(value);
@@ -77,21 +79,24 @@ Ext.define('XMLifeOperating.view.userManage.customer.CustomerList', {
         {
             text: '余额',
             dataIndex: 'balance',
-            width: 60  
+            width: 60,
+            align: 'center'
         },
         {
             text: '收获地址',
-            width: 60,
+            width: 100,
             itemId: 'addressCustomer',
             menuDisabled: true,
+            align: 'center',
             renderer: function(value, metadata, model, rowIndex, colIndex, store) {
                 return '<a class="showAddressDetail">查看收货地址</a>';
             }
         },
         {
             text: '历史订单',
-            width: 60,
+            width: 100,
             itemId: 'orderHistory',
+            align: 'center',
             menuDisabled: true,
             renderer: function(value, metadata, model, rowIndex, colIndex, store) {
                 return '<a class="showDealList">查看历史订单</a>';
@@ -118,7 +123,6 @@ Ext.define('XMLifeOperating.view.userManage.customer.CustomerList', {
             combo.fireEvent('select', combo);
         }
     },
-    forceFit : true,
     columnLines: true,
     frame: true,
     iconCls: 'icon-grid'

@@ -83,27 +83,27 @@ Ext.define('XMLifeOperating.view.userManage.feedback.FeedbackList', {
         {
             text: '用户',
             dataIndex: 'name',
-            width: 130,
+            width: 100,
             sortable: false,
             align: 'center',
         },
         {
             text: '注册号码',
             dataIndex: 'phone',
-            width: 130,
+            width: 90,
             sortable: false,
             align: 'center',
         },
         {
             text: '反馈意见',
             dataIndex: 'content',
-            width: 130,
+            width: 140,
             sortable: false,
             align: 'center',
         },
         {
-            header:"",
-            width: 130,
+            header:"标记",
+            width: 60,
             dataIndex: 'mark',
             itemId: 'mark',
             menuDisabled: true,
@@ -127,7 +127,6 @@ Ext.define('XMLifeOperating.view.userManage.feedback.FeedbackList', {
             dragText: 'Drag and drop to reorder'
         }
     },
-    forceFit : true,
     columnLines: true,
     frame: true,
     iconCls: 'icon-grid'

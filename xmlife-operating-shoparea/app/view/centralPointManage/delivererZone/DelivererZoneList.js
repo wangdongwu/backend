@@ -30,14 +30,14 @@ Ext.define('XMLifeOperating.view.centralPointManage.delivererZone.DelivererZoneL
         {
             text: 'ID',
             dataIndex: 'id',
-            width: 60,
+            width: 50,
             sortable: false,
             align: 'left'
         },
         {
             text: '线路名称',
             dataIndex: 'name',
-            width: 60,
+            width: 100,
             sortable: false,
             align: 'left',
             itemId:'lineName'
@@ -98,7 +98,6 @@ Ext.define('XMLifeOperating.view.centralPointManage.delivererZone.DelivererZoneL
             combo.fireEvent('select', combo);
         }
     },
-    forceFit : true,
     columnLines: true,
     frame: true,
     iconCls: 'icon-grid'

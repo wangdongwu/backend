@@ -65,7 +65,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.residentalDistrict.Residenta
         {
             text: 'ID',
             dataIndex: 'id',
-            width: 200,
+            width: 180,
             sortable: false,
             align: 'left'
         }, 
@@ -78,13 +78,13 @@ Ext.define('XMLifeOperating.view.centralPointManage.residentalDistrict.Residenta
         }, {
             text: '经度',
             dataIndex: 'lng',
-            width: 150,
+            width: 80,
             sortable: false,
             align: 'left'
         }, {
             text: '纬度',
             dataIndex: 'lat',
-            width: 150,
+            width: 80,
             sortable: false,
             align: 'left'
         }, {
@@ -94,9 +94,9 @@ Ext.define('XMLifeOperating.view.centralPointManage.residentalDistrict.Residenta
             sortable: false,
             align: 'left'
         }, {
-            text: '',
+            text: '操作',
             dataIndex: 'isActive',
-            width: 100,
+            width: 50,
             sortable: false,
             align: 'center',
             itemId: 'isActiveId',
@@ -124,7 +124,6 @@ Ext.define('XMLifeOperating.view.centralPointManage.residentalDistrict.Residenta
             dragText: 'Drag and drop to reorder'
         }
     },
-    forceFit : true,
     columnLines: true,
     frame: true,
     iconCls: 'icon-grid'

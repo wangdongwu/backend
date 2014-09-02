@@ -22,6 +22,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopList', {
             id:'areaId',
             hidden:(XMLifeOperating.generic.Global.operating_type == 'center')
         },
+        '->',        
         {
             xtype: 'textfield',
             name: 'searchshop',

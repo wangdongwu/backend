@@ -129,12 +129,10 @@ Ext.define('XMLifeOperating.view.operationManage.refunds.RefundList', {
 	    	}
     ],
         columns: [
-                {
-            xtype: 'rownumberer'
-        }, 
-        { header: '日期', dataIndex: 'createTime'},
-        { header: '订单别号',dataIndex:'dealId'},
-        { header: '订单状态',dataIndex:'status',
+        { xtype: 'rownumberer'}, 
+        { header: '日期', width: 150, align: 'center', dataIndex: 'createTime'},
+        { header: '订单别号', width: 150, align: 'center', dataIndex:'dealId'},
+        { header: '订单状态', width: 80, align: 'center', dataIndex:'status',
         	renderer : function(v){
         		var data = {
         			'-1' : '所有状态',
@@ -145,20 +143,20 @@ Ext.define('XMLifeOperating.view.operationManage.refunds.RefundList', {
         		return data[v];
         	}
     	},
-        { header: '顾客名称',dataIndex: 'userName'},
-        { header: '顾客电话', dataIndex: 'userPhone'},
-        { header: '总退款次数', dataIndex: 'refundCount'},
-        { header: '订单金额', dataIndex: 'dealPrice',
+        { header: '顾客名称', width: 90, align: 'center', dataIndex: 'userName'},
+        { header: '顾客电话', width: 90, align: 'center', dataIndex: 'userPhone'},
+        { header: '总退款次数', width: 80, align: 'center', dataIndex: 'refundCount'},
+        { header: '订单金额', width: 80, align: 'center', dataIndex: 'dealPrice',
         	renderer : function(value){
         		return value / 100;
         	}
     	},
-        { header: '退款金额', dataIndex: 'amount',
+        { header: '退款金额', width: 80, align: 'center', dataIndex: 'amount',
 	        renderer : function(value){
 	        		return value / 100;
 	        	}
         },
-        { header: '退款去处', dataIndex: 'refundType',
+        { header: '退款去处', width: 80, align: 'center', dataIndex: 'refundType',
         	renderer : function(v){
         		var data ={
         					"ALIPAY": '支付宝',
@@ -170,7 +168,7 @@ Ext.define('XMLifeOperating.view.operationManage.refunds.RefundList', {
     }
     ],
 
-    forceFit : true,
+    // forceFit : true,
     columnLines: true,
     frame: true,
     iconCls: 'icon-grid'
