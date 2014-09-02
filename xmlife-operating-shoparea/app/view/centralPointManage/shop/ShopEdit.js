@@ -20,7 +20,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopEdit', {
             bodyPadding: 10,
             border: false,
             frame: true,
-            defaults:{
+            defaults: {
                 anchor: '100%'
             },
             itemId: 'shopeditform',
@@ -48,7 +48,8 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopEdit', {
                     blankText: '请选择模板',
                     labelWidth: 90,
                     editable: false,
-                    // store: 'Template',
+                    mode:'local',
+                    store: 'ShopBannerTemplate',
                     displayField: 'name',
                     valueField: 'id',
                     emptyText: "请选择模板"
@@ -218,8 +219,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopEdit', {
             buttons: [{
                 text: 'Save',
                 itemId: 'save-shopStore-edit-btn'
-            }, 
-            {
+            }, {
                 text: 'Cancel',
                 handler: function() {
                     //关闭窗口

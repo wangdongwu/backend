@@ -44,6 +44,7 @@ Ext.define('XMLifeOperating.Application', {
         'DealShopArea',
         'Shop',
         'ShopArea',
+        'ShopBannerTemplate',
         'ShopAreaBanner',
         'ResidentalDistrict',
         'Shopper',

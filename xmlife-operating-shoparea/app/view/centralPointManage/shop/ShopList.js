@@ -1,9 +1,7 @@
 Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopList', {
     extend: 'Ext.grid.Panel',
     xtype: 'shoplist',
-
-    header: false,
-
+    title: '店铺列表',
     store: 'Shop',
     itemId: 'shoplist',
     tbar: [{
@@ -80,7 +78,6 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopList', {
             sortable: false,
             align: 'center',
             renderer: function(value, metadata, model, rowIndex, colIndex, store) {
-                console.log(123)
                 var seeBtn = '<a href="javascript:void(0)">查看</a>';
                 return seeBtn;
             }
@@ -99,10 +96,11 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopList', {
             sortable: false,
             align: 'center',
             renderer: function(value, metadata, model, rowIndex, colIndex, store) {
-
-                var style = ['color:blue;cursor:pointer;', 'color:#AAA;cursor:default;'];
-                var seeBtn = '<span style="' + style[0] + '" class="affirm" ><input type="button" value="货到中心" /></span>&nbsp&nbsp';
+                var seeBtn = '<a href="javascript:void(0)">查看</a>';
                 return seeBtn;
+                // var style = ['color:blue;cursor:pointer;', 'color:#AAA;cursor:default;'];
+                // var seeBtn = '<span style="' + style[0] + '" class="affirm" ><input type="button" value="货到中心" /></span>&nbsp&nbsp';
+                // return seeBtn;
             }
         }, {
             header: "",

@@ -51,6 +51,9 @@ Ext.define('XMLifeOperating.controller.Line', {
     init: function() {
         var me = this;
         this.control({
+            'linelist':{
+                added:me.onShow
+            },
             'linelist #add': {
                 click: function() {
                     var cClass = this.getDelivererZoneModel();
