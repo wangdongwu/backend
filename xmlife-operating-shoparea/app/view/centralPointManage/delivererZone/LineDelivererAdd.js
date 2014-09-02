@@ -1,7 +1,7 @@
 Ext.define('XMLifeOperating.view.centralPointManage.delivererZone.LineDelivererAdd', {
     extend: 'Ext.window.Window',
-    xtype: 'linedelivereradd',
-    
+    xtype: 'lineDelivererAdd',
+
     requires: [
         'Ext.form.Panel',
         'Ext.form.field.Text',
@@ -77,7 +77,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.delivererZone.LineDelivererA
                 },
                 {
                     name: 'searchCourierIds',
-                    store:'CourierSearch',
+                    store:'ResidentalDistrict',
                     allowBlank: false,
                     fieldLabel: '配送员',
                     xtype:'gridpanel',
@@ -101,7 +101,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.delivererZone.LineDelivererA
                 },
                 {
                     name: 'oldCourierIds',
-                    store:'Courier',
+                    store:'Deliverer',
                     fieldLabel: '已绑定配送员',
                     xtype:'gridpanel',
                     itemId:'oldCourierId',
@@ -134,7 +134,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.delivererZone.LineDelivererA
                     text: 'Cancel',
                     handler:function(){
                         //关闭窗口
-                        Ext.ComponentQuery.query('addCourierWin')[0].close();
+                        Ext.ComponentQuery.query('lineDelivererAdd')[0].close();
                     }
                 }
             ]

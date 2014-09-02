@@ -47,8 +47,8 @@ Ext.define('XMLifeOperating.controller.DelivererZoneList', {
     }, 
     {
         ref: 'lineDelivererAdd',
-        selector: 'linedelivereradd',
-        xtype: 'linedelivereradd',
+        selector: 'lineDelivererAdd',
+        xtype: 'lineDelivererAdd',
         autoCreate: true
     }, 
     {
@@ -202,7 +202,7 @@ Ext.define('XMLifeOperating.controller.DelivererZoneList', {
                     });
                 }
             },
-            'linedelivereradd #reseachCourier': {
+            'lineDelivererAdd #reseachCourier': {
                 click: function() {
                     var store = me.getDelivererStore();
                     store.load({
@@ -218,7 +218,7 @@ Ext.define('XMLifeOperating.controller.DelivererZoneList', {
                     });
                 }
             },
-            'linedelivereradd #save-bindLineWithCourier': {
+            'lineDelivererAdd #save-bindLineWithCourier': {
                 click: function() {
 
                     var editWindow = this.getLineDelivererAdd(),
