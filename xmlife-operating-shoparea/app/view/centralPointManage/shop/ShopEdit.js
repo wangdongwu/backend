@@ -38,8 +38,8 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopEdit', {
                     fieldLabel: '店铺副名称',
                     labelWidth: 90,
                     allowBlank: false,
-                    maxLength: 14,
-                    maxLengthText: '商品名称最大长度为14',
+                    maxLength: 10,
+                    maxLengthText: '商品名称最大长度为10',
                 }, {
                     xtype: 'combo',
                     name: 'shopBannerTemplateId',
