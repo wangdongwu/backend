@@ -10,7 +10,8 @@ Ext.define('XMLifeOperating.controller.Shop', {
         // 'shopStore.ShopStoreTab',
         'centralPointManage.shop.ShopInfo',
         'centralPointManage.shop.ShopTab',
-        'centralPointManage.shop.ShopShelf'
+        'centralPointManage.shop.ShopShelf',
+        'centralPointManage.shop.ShopShelfAdd'
         // 'shopStore.ShelvesNext',
         // 'shopStore.AddShelvesWin',
         // 'shopStore.ShelvesGoodsList',
@@ -91,6 +92,11 @@ Ext.define('XMLifeOperating.controller.Shop', {
             ref: 'shopShelf',
             selector: 'shopshelf',
             xtype: 'shopshelf',
+            autoCreate: true
+        }, {
+            ref: 'shopShelfAdd',
+            selector: 'shopshelfadd',
+            xtype: 'shopshelfadd',
             autoCreate: true
         }
         // {
@@ -221,6 +227,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
                     content.removeAll(false);
                     var record = view.getRecord(view.findTargetByEvent(e));
                     var shopId = record.get('id');
+                    console.log(shopId)
                     var shopShelfStore = this.getCategoryRootsStore();
                     shopShelfStore.removeAll();
                     shopShelfStore.load({
@@ -462,9 +469,6 @@ Ext.define('XMLifeOperating.controller.Shop', {
                         windowEl = editWindow.getEl(),
                         form = editWindow.down('form').getForm(),
                         buyerStore = form.getRecord();
-
-
-
                     var selectModel = Ext.ComponentQuery.query('#searchBuyerId')[0].getSelectionModel();
                     var selectRecords = selectModel.getSelection();
                     var shopperIds = [];
@@ -480,10 +484,8 @@ Ext.define('XMLifeOperating.controller.Shop', {
                             shopperIds.push(item.get("uid"));
                         }
                     });
-
                     var shopId = buyerStore.get('id');
                     var store = this.getShopStore();
-
                     sendPutRequest('shopper/bindToShop', {
                         shopId: shopId,
                         shopperIds: shopperIds
@@ -500,13 +502,12 @@ Ext.define('XMLifeOperating.controller.Shop', {
 
                 }
             },
-
             '#shopStoreInfoTab': {
                 tabchange: function(tabPanel, newCard, oldCard, eOpts) {
                     var tabIdStr = newCard.getItemId();
                     tabIdArray = tabIdStr.split('_');
                     var tabId = tabIdArray[0];
-                    var sstore = this.getShelvesStore();
+                    var sstore = this.getCategoryRootsStore();
                     var snstore = this.getShelvesNextStore();
                     var sgstore = this.getShelvesGoodsStore();
                     var shopId = this.shopId;
@@ -611,7 +612,6 @@ Ext.define('XMLifeOperating.controller.Shop', {
             },*/
             'shopshelf': {
                 itemdblclick: function(grid, record, item, index, e, eOpts) {
-                    alert(11111);
                     var toolbar = Ext.getCmp('headerToolbar');
                     var tab = me.getShopTab();
                     this.record = record;
@@ -657,10 +657,10 @@ Ext.define('XMLifeOperating.controller.Shop', {
             '#openCreateShelvesWin,#openModifyShelvesWin': {
                 click: function(component, rowIndex, colIndex) {
                     var itemId = component.getItemId();
-                    var win = this.getAddShelvesWin();
+                    var win = this.getShopShelfAdd();
                     var model;
                     if (itemId == 'openCreateShelvesWin') {
-                        model = this.getShelvesModel();
+                        model = this.getCategoryRootsModel();
                         model = new model();
                     } else {
                         model = component.getStore().getAt(colIndex);
@@ -668,10 +668,10 @@ Ext.define('XMLifeOperating.controller.Shop', {
                     me.openWin(win, model);
                 }
             },
-            '#addShelvesWin': {
+            'shopshelf #addShelvesWin': {
                 click: function() {
 
-                    var editWindow = this.getAddShelvesWin(),
+                    var editWindow = this.getShopShelfAdd(),
                         windowEl = editWindow.getEl(),
                         form = editWindow.down('form').getForm(),
                         shelves = form.getRecord(),
@@ -694,7 +694,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
                             }, '编辑分类', '成功编辑分类', '编辑分类失败', function() {
                                 editWindow.close();
                                 if (parentId == '') {
-                                    me.getShelvesStore().load({
+                                    me.getCategoryRootsStore().load({
                                         params: {
                                             shopId: shopId
                                         }
@@ -725,7 +725,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
                         sendRequest('category', jsonStr, '创建分类', '成功创建分类', '创建分类失败', function() {
                             editWindow.close();
                             if (parentId == '') {
-                                me.getShelvesStore().load({
+                                me.getCategoryRootsStore().load({
                                     params: {
                                         shopId: shopId,
 
