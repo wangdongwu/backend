@@ -220,19 +220,19 @@ Ext.define('XMLifeOperating.view.staffManage.deliverer.DelivererList', {
             dragText: 'Drag and drop to reorder'
         }
     },
-    /*listeners: {
+    listeners: {
         onShowView: function(view, viewName) {           
-            if(XMLifeOperating.generic.Global.operating_type != 'center') {
+            /*if(XMLifeOperating.generic.Global.operating_type != 'center') {
                 return;
-            }
+            }*/
             if(XMLifeOperating.generic.Global.current_operating == -1) {
                 alert('请先在右上角选择中心');
                 return;
             }
-            var combo = view.down('#businessArea');
+            var combo = view.down('#shopArea');
             combo.setValue(XMLifeOperating.generic.Global.current_operating);
             combo.fireEvent('select', combo);
         }
-    },*/
+    },
 
 });

@@ -45,7 +45,7 @@ Ext.define('XMLifeOperating.view.Toolbar', {
             valueField: 'id',
             tooltip: 'Choose current center',
             queryMode:'local',
-            hidden:(XMLifeOperating.generic.Global.operating_type != 'center')
+            // hidden:(XMLifeOperating.generic.Global.operating_type != 'center')
         },
         '-',
         {
