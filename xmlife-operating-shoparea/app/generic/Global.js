@@ -13,8 +13,8 @@ Ext.define("XMLifeOperating.generic.Global",{
 
         },
         static_image_prefix: '/admin',
-        operating_type: 'global',
-        // operating_type: 'center',
-        current_operating: -1,
+        //operating_type: 'global',
+        operating_type: 'center',
+        current_operating: 1,
     }
 });

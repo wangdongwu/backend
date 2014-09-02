@@ -9,7 +9,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.centralPointConfigure.Centra
             xtype: 'button',
             text: '添加中心点',
             itemId: 'add',
-            hidden:true
+            hidden:(XMLifeOperating.generic.Global.operating_type == 'center')
         }
     ], 
     columns: [

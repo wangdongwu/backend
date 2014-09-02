@@ -10,6 +10,20 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopList', {
             itemId: 'add'
         },
         {
+            xtype:'combobox',
+            name:'areaId',
+            itemId:'shopArea',
+            store:'ShopArea',
+            emptyText:'请选择中心',
+            margin:10,
+            editable: false,
+            queryMode:'local',
+            displayField:'name',
+            valueField:'id',
+            id:'areaId',
+            hidden:(XMLifeOperating.generic.Global.operating_type == 'center')
+        },
+        {
             xtype: 'textfield',
             name: 'searchshop',
             itemId: 'searchShopKeyWords',
@@ -132,16 +146,16 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopList', {
     },
     listeners: {
         onShowView: function(view, viewName) {
-            /*            if(XMLifeOperating.generic.Global.operating_type != 'center') {
+            if(XMLifeOperating.generic.Global.operating_type != 'center') {
                 return;
             }
-            if(XMLifeOperating.generic.Global.current_operating == -1) {*/
-            alert('请先在右上角选择中心');
-            /*                return;
-            }*/
-            /*            var combo = view.down('#businessArea');
+            if(XMLifeOperating.generic.Global.current_operating == -1) {
+                alert('请先在右上角选择中心');
+                return;
+            }
+            var combo = view.down('#shopArea');
             combo.setValue(XMLifeOperating.generic.Global.current_operating);
-            combo.fireEvent('select', combo);*/
+            combo.fireEvent('select', combo);
         }
     },
 

@@ -206,9 +206,9 @@ Ext.define('XMLifeOperating.view.operationManage.dealShopArea.DealShopAreaList',
     },
     listeners: {
         onShowView: function(view, viewName) {           
-            /*if(XMLifeOperating.generic.Global.operating_type != 'center') {
+            if(XMLifeOperating.generic.Global.operating_type != 'center') {
                 return;
-            }*/
+            }
             if(XMLifeOperating.generic.Global.current_operating == -1) {
                 alert('请先在右上角选择中心');
                 return;
