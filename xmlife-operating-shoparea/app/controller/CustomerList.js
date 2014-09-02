@@ -8,8 +8,8 @@ Ext.define('XMLifeOperating.controller.CustomerList', {
     models: ['Customer','ShopArea','Address','Deal'],
     refs: [
         {
-            ref: 'shopAreac',
-            selector: '#shopAreac',
+            ref: 'shopArea',
+            selector: '#shopArea',
         },
         {
             ref: 'keywordc',
@@ -48,7 +48,7 @@ Ext.define('XMLifeOperating.controller.CustomerList', {
         var me=this;
         this.control({
 
-            '#shopAreac': {
+            'customerList #shopArea': {
                 select: function (combo) {
                     var sstore = this.getCustomerStore();
                     me.shopArea = combo.getValue();
@@ -66,7 +66,7 @@ Ext.define('XMLifeOperating.controller.CustomerList', {
                     var store = this.getCustomerStore();
                     store.load({
                         params:{
-                            shopArea: Ext.getCmp('customerList').down('#shopAreac').getValue(),
+                            shopArea: Ext.getCmp('customerList').down('#shopArea').getValue(),
                             nameOrPhone: me.getKeywordc().getValue()
                         }
                     });
@@ -161,7 +161,7 @@ Ext.define('XMLifeOperating.controller.CustomerList', {
                 var store = me.getCustomerStore();
                 store.load({
                     params:{
-                        shopArea: Ext.getCmp('customerList').down('#businessAreac').getValue(),
+                        shopArea: Ext.getCmp('customerList').down('#shopArea').getValue(),
                         nameOrPhone: me.getKeywordc().getValue()
                     }
                 });

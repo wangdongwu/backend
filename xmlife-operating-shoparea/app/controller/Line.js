@@ -11,13 +11,15 @@ Ext.define('XMLifeOperating.controller.Line', {
     stores: [
         'DelivererZone',
         'ResidentalDistrict',
-        'Deliverer'
+        'Deliverer',
+        'ShopArea'
     ],
 
     models: [
         'DelivererZone',
         'ResidentalDistrict',
-        'Deliverer'
+        'Deliverer',
+        'ShopArea'
     ],
     refs: [{
         ref: 'lineList',
@@ -63,7 +65,7 @@ Ext.define('XMLifeOperating.controller.Line', {
                     win.show();
                 }
             },
-            'linelist #businessArea': {
+            'linelist #shopArea': {
 
                 select: function(combo) {
 
@@ -77,10 +79,6 @@ Ext.define('XMLifeOperating.controller.Line', {
 
                 },
             },
-            /*'lineList': {
-                
-                added:me.onShow
-            },*/
             'lineedit #save-line-edit-btn': {
                 click: me.saveLineEdit
             },
@@ -266,12 +264,12 @@ Ext.define('XMLifeOperating.controller.Line', {
         });
     },
     onShow: function() {
-        var store = this.getDelivererZoneStore();
+        /*var store = this.getDelivererZoneStore();
         store.load({
             params: {
                 shopArea: XMLifeOperating.generic.Global.SERVICECENEERID
             }
-        });
+        });*/
     },
     onEdit: function(view, rowIndex, colIndex, column, e) {
         console.log("start edit");

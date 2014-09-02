@@ -8,7 +8,19 @@ Ext.define('XMLifeOperating.view.centralPointManage.line.LineList', {
             xtype: 'button',
             text: '添加线路',
             itemId: 'add'
-        }
+        },
+        {
+            xtype:'combobox',
+            name:'shopArea',
+            itemId:'shopArea',
+            store:'ShopArea',
+            emptyText:'请选择中心',
+            margin:10,
+            editable: false,
+            displayField:'name',
+            valueField:'id',
+            hidden:(XMLifeOperating.generic.Global.operating_type == 'center')
+        },
     ], 
     columns: [
         {
@@ -72,13 +84,13 @@ Ext.define('XMLifeOperating.view.centralPointManage.line.LineList', {
             // if(XMLifeOperating.generic.Global.operating_type != 'center') {
             //     return;
             // }
-            // if(XMLifeOperating.generic.Global.current_operating == -1) {
-            //     alert('请先在右上角选择中心');
-            //     return;
-            // }
-            // var combo = view.down('#businessArea');
-            // combo.setValue(XMLifeOperating.generic.Global.current_operating);
-            // combo.fireEvent('select', combo);
+            if(XMLifeOperating.generic.Global.current_operating == -1) {
+                alert('请先在右上角选择中心');
+                return;
+            }
+            var combo = view.down('#shopArea');
+            combo.setValue(XMLifeOperating.generic.Global.current_operating);
+            combo.fireEvent('select', combo);
         }
     },
 });

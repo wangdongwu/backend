@@ -15,8 +15,8 @@ Ext.define('XMLifeOperating.controller.DealProblemDealsList', {
              autoCreate: true
         },
         {
-            ref: 'shopAreap',
-            selector: '#shopAreap',
+            ref: 'shopArea',
+            selector: '#shopArea',
         },
         {
              ref: 'reapportion',
@@ -43,7 +43,7 @@ Ext.define('XMLifeOperating.controller.DealProblemDealsList', {
         var me=this;
         this.control({
             
-            'dealProblemDealsList #shopAreap': {
+            'dealProblemDealsList #shopArea': {
             	select: function (combo) {
                     var sstore = this.getDealProblemDealsStore();
                     sstore.load({

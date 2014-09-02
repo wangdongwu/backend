@@ -1,12 +1,12 @@
 
 Ext.define('XMLifeOperating.view.userManage.customer.CustomerList', {
     extend: 'Ext.grid.Panel',
-    xtype: 'CustomerList',
+    xtype: 'customerList',
 
     header: false,
 
     store: 'Customer',
-    id:'CustomerList',
+    id:'customerList',
     forceFit: true,
     dockedItems: [{
                 xtype: 'toolbar',
@@ -18,7 +18,7 @@ Ext.define('XMLifeOperating.view.userManage.customer.CustomerList', {
                     {
                         xtype:'combo',
                         name:'shopAreac',
-                        itemId:'shopAreac',
+                        itemId:'shopArea',
                         store:'ShopArea',
                         emptyText:'请选择中心',
                         editable: false,
@@ -103,14 +103,14 @@ Ext.define('XMLifeOperating.view.userManage.customer.CustomerList', {
     },
     listeners: {
         onShowView: function(view, viewName) {           
-            if(XMLifeOperating.generic.Global.operating_type != 'center') {
+            /*if(XMLifeOperating.generic.Global.operating_type != 'center') {
                 return;
-            }
+            }*/
             if(XMLifeOperating.generic.Global.current_operating == -1) {
                 alert('请先在右上角选择中心');
                 return;
             }
-            var combo = view.down('#businessArea');
+            var combo = view.down('#shopArea');
             combo.setValue(XMLifeOperating.generic.Global.current_operating);
             combo.fireEvent('select', combo);
         }

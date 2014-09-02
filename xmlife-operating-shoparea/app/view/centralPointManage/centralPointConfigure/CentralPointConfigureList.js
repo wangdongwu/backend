@@ -3,6 +3,15 @@ Ext.define('XMLifeOperating.view.centralPointManage.centralPointConfigure.Centra
     xtype: 'centralpointconfigurelist',
     header: false,
     store: 'ShopArea',
+    
+    tbar: [
+        {
+            xtype: 'button',
+            text: '添加中心点',
+            itemId: 'add',
+            hidden:true
+        }
+    ], 
     columns: [
         {
             text: '编号',

@@ -9,8 +9,8 @@ Ext.define('XMLifeOperating.controller.RealTimeList', {
  
     refs: [
         {
-            ref: 'shopArear',
-            selector: '#shopArear',
+            ref: 'shopArea',
+            selector: '#shopArea',
         },
     ],
 
@@ -19,7 +19,7 @@ Ext.define('XMLifeOperating.controller.RealTimeList', {
         var me=this;
         this.control({
             
-            'realTimeList #shopArear': {
+            'realTimeList #shopArea': {
             	select: function (combo) {
 
                    console.log('hello shop dsitrict');
