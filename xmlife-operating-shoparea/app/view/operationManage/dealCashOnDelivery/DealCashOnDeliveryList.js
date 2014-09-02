@@ -165,13 +165,6 @@ Ext.define('XMLifeOperating.view.operationManage.dealCashOnDelivery.DealCashOnDe
             align: 'center', 
         },
         {
-            text: '中心点',
-            dataIndex: 'shopAreaName',
-            width: 60,
-            sortable: false,
-            align: 'center', 
-        },
-        {
             text: '顾客',
             dataIndex: 'customerName',
             width: 100,

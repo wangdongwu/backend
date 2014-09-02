@@ -77,58 +77,62 @@ Ext.define('XMLifeOperating.view.staffManage.deliverer.DelivererList', {
     columns: [{
             text: 'ID',
             dataIndex: 'uid',
-            width: 100,
+            width: 80,
             sortable: false,
             align: 'left'
         }, {
             text: '姓名',
             dataIndex: 'name',
-            width: 100,
+            width: 80,
             sortable: false,
             align: 'left',
 
         }, {
             text: '职称',
             dataIndex: 'title',
-            width: 70,
+            width: 80,
             sortable: false,
             align: 'left'
         }, {
             text: '电话',
             dataIndex: 'phone',
-            width: 150,
-            sortable: false,
-            align: 'left'
-        }, {
-            text: '密码',
-            dataIndex: 'pwd',
             width: 100,
             sortable: false,
             align: 'left'
-        }, {
+        }, 
+        // {
+        //     text: '密码',
+        //     dataIndex: 'pwd',
+        //     width: 80,
+        //     sortable: false,
+        //     align: 'left'
+        // }, 
+        {
             text: '头像',
             dataIndex: 'avatar',
-            width: 70,
+            width: 80,
             sortable: false,
             align: 'left'
-        }, {
-            text: '服务商圈',
-            dataIndex: 'areaNames',
-            width: 100,
-            sortable: false,
-            align: 'left',
-            renderer: function(value) {
-                var htmlStr = '';
-                if (value != null) {
+        }, 
+        // {
+        //     text: '服务商圈',
+        //     dataIndex: 'areaNames',
+        //     width: 100,
+        //     sortable: false,
+        //     align: 'left',
+        //     renderer: function(value) {
+        //         var htmlStr = '';
+        //         if (value != null) {
 
-                    value.forEach(function(item, index, value) {
-                        htmlStr += item + "<br />";
-                    });
-                    return htmlStr;
-                }
-                return htmlStr;
-            }
-        }, {
+        //             value.forEach(function(item, index, value) {
+        //                 htmlStr += item + "<br />";
+        //             });
+        //             return htmlStr;
+        //         }
+        //         return htmlStr;
+        //     }
+        // }, 
+        {
             text: '订单数',
             dataIndex: 'deals',
             width: 50,

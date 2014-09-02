@@ -79,7 +79,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopList', {
             sortable: false,
             align: 'center',
         }, {
-            text: '服务商圈',
+            text: '所属中心',
             dataIndex: 'areaNames',
             width: 80,
             sortable: false,

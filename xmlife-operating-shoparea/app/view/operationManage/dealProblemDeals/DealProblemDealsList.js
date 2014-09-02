@@ -127,13 +127,13 @@ Ext.define('XMLifeOperating.view.operationManage.dealProblemDeals.DealProblemDea
             sortable: false,
             align: 'center',  
         },
-        // {
-        //     text: '收货用户',
-        //     dataIndex: 'contactsName',
-        //     width: 60,
-        //     sortable: false,
-        //     align: 'center',  
-        // },
+        {
+            text: '收货用户',
+            dataIndex: 'contactsName',
+            width: 60,
+            sortable: false,
+            align: 'center',  
+        },
         {
             text: '收货电话',
             dataIndex: 'contactsPhone',

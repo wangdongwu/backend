@@ -85,7 +85,7 @@ Ext.define('XMLifeOperating.view.staffManage.shopper.ShopperList', {
         {
             text: '电话',
             dataIndex: 'phone',
-            width: 100,
+            width: 80,
             sortable: false,
             align: 'left',
         }, 
@@ -112,22 +112,24 @@ Ext.define('XMLifeOperating.view.staffManage.shopper.ShopperList', {
                 }
                 return htmlStr;
             }
-        }, {
-            text: '服务商圈',
-            dataIndex: 'areaNames',
-            width: 100,
-            sortable: false,
-            align: 'left',
-            renderer: function(value) {
-                var htmlStr = '';
-                if (value != null) {
-                    value.forEach(function(item, index, value) {
-                        htmlStr += item + "<br />";
-                    });
-                }
-                return htmlStr;
-            }
-        }, {
+        }, 
+        // {
+        //     text: '服务商圈',
+        //     dataIndex: 'areaNames',
+        //     width: 100,
+        //     sortable: false,
+        //     align: 'left',
+        //     renderer: function(value) {
+        //         var htmlStr = '';
+        //         if (value != null) {
+        //             value.forEach(function(item, index, value) {
+        //                 htmlStr += item + "<br />";
+        //             });
+        //         }
+        //         return htmlStr;
+        //     }
+        // }, 
+        {
             text: '订单数',
             dataIndex: 'deals',
             width: 50,
