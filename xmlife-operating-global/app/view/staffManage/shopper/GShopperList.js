@@ -61,7 +61,11 @@ Ext.define('XMLifeOperating.view.staffManage.shopper.GShopperList', {
         itemId: 'searchButton',
         text: '搜索'
     }],
-    columns: [{
+    columns: [
+        {
+            xtype: 'rownumberer'
+        }, 
+        {
             text: 'uid',
             dataIndex: 'uid',
             width: 100,
@@ -173,7 +177,7 @@ Ext.define('XMLifeOperating.view.staffManage.shopper.GShopperList', {
             itemId: 'shopperWorkTimeId',
             menuDisabled: true,
             sortable: false,
-            align: 'center',
+             
 
             renderer: function(value, metadata, model, rowIndex, colIndex, store) {
 
@@ -186,7 +190,7 @@ Ext.define('XMLifeOperating.view.staffManage.shopper.GShopperList', {
             itemId: 'dealShopperHistoryId',
             menuDisabled: true,
             sortable: false,
-            align: 'center',
+             
             renderer: function(value, metadata, model, rowIndex, colIndex, store) {
 
                 var seeBtn = '<span style="cursor:pointer">查看</span>';
@@ -200,7 +204,7 @@ Ext.define('XMLifeOperating.view.staffManage.shopper.GShopperList', {
             itemId: 'closeOrOpenOrder',
             menuDisabled: true,
             sortable: false,
-            align: 'center',
+             
             renderer : function(value) {
                 var str='';
                 if(value==true){

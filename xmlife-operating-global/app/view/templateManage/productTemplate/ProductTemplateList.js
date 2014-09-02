@@ -28,6 +28,9 @@ Ext.define('XMLifeOperating.view.templateManage.productTemplate.ProductTemplateL
 
     columns: [
         {
+            xtype: 'rownumberer'
+        }, 
+        {
             text: 'ID',
             dataIndex: 'id',
             width: 150,
@@ -39,7 +42,7 @@ Ext.define('XMLifeOperating.view.templateManage.productTemplate.ProductTemplateL
             dataIndex: 'name',
             width: 200,
             sortable: false,
-            align: 'center',
+             
             
         },
         {
@@ -47,7 +50,7 @@ Ext.define('XMLifeOperating.view.templateManage.productTemplate.ProductTemplateL
             dataIndex: 'picture',
             width: 150,
             sortable: false,
-            align: 'center',
+             
             renderer: function (value) {
                 return Ext.String.format('<img src="{0}/image/id-{1}" height="100" />', XMLifeOperating.generic.Global.URL.res, value);
             }
@@ -64,7 +67,7 @@ Ext.define('XMLifeOperating.view.templateManage.productTemplate.ProductTemplateL
             dataIndex: 'canPartiallyReturn',
             width: 130,
             sortable: false,
-            align: 'center',
+             
             renderer:function(value){
                 if(value){
                     return '可以';

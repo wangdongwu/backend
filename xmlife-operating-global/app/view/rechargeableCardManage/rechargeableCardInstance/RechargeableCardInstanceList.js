@@ -14,18 +14,19 @@ Ext.define('XMLifeOperating.view.rechargeableCardManage.rechargeableCardInstance
     ],
     columns: [
         {
+            xtype: 'rownumberer'
+        }, 
+        {
             text: '批次',
             dataIndex: 'id',
             width: 100,
-            sortable: false,
-            align: 'center',  
+            sortable: false,  
         },
         {
             text: '名称',
             dataIndex: 'name',
             width: 180,
             sortable: false,
-            align: 'center',
             
         },
         {
@@ -33,7 +34,6 @@ Ext.define('XMLifeOperating.view.rechargeableCardManage.rechargeableCardInstance
             dataIndex: 'startTime',
             width: 130,
             sortable: false,
-            align: 'center',
             renderer:function(value){
                var newTime = new Date(value);
                newTime = newTime.getFullYear()+newTime.getMonth()+newTime.getDate();
@@ -46,7 +46,6 @@ Ext.define('XMLifeOperating.view.rechargeableCardManage.rechargeableCardInstance
             dataIndex: 'endTime',
             width: 130,
             sortable: false,
-            align: 'center',
             renderer:function(value){
                var newTime = new Date(value);
                newTime = newTime.getFullYear()+newTime.getMonth()+newTime.getDate();
@@ -59,7 +58,6 @@ Ext.define('XMLifeOperating.view.rechargeableCardManage.rechargeableCardInstance
             dataIndex: 'total',
             width: 130,
             sortable: false,
-            align: 'center',
             
         },
         {
@@ -67,7 +65,6 @@ Ext.define('XMLifeOperating.view.rechargeableCardManage.rechargeableCardInstance
             dataIndex: 'descStrokeColor',
             width: 130,
             sortable: false,
-            align: 'center',
             
         },
         {
@@ -75,7 +72,6 @@ Ext.define('XMLifeOperating.view.rechargeableCardManage.rechargeableCardInstance
             dataIndex: 'descDegree',
             width: 130,
             sortable: false,
-            align: 'center',
         },
       
     ],

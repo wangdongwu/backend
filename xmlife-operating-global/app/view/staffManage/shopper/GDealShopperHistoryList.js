@@ -77,7 +77,9 @@ Ext.define('XMLifeOperating.view.staffManage.shopper.GDealShopperHistoryList', {
         }],
 
     columns: [
-       
+       {
+            xtype: 'rownumberer'
+        }, 
         {
             text: '订单号',
             dataIndex: 'shortBackendId',
@@ -154,7 +156,7 @@ Ext.define('XMLifeOperating.view.staffManage.shopper.GDealShopperHistoryList', {
             itemId: 'dealItemsId',
             menuDisabled: true,
             sortable: false,
-            align: 'center',
+             
             renderer : function(value, metadata, model, rowIndex, colIndex, store) { 
 
                 var seeBtn = '<span style="cursor:pointer">查看</span>';

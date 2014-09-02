@@ -18,20 +18,22 @@ Ext.define('XMLifeOperating.view.rechargeableCardManage.rechargeableCardTemplate
         },
     ],
     columns: [
-       
+       {
+            xtype: 'rownumberer'
+        }, 
         {
             text: '编号',
             dataIndex: 'id',
             width: 100,
             sortable: false,
-            align: 'center',  
+               
         },
         {
             text: '名称',
             dataIndex: 'name',
             width: 180,
             sortable: false,
-            align: 'center',
+             
             
         },
         {
@@ -39,7 +41,7 @@ Ext.define('XMLifeOperating.view.rechargeableCardManage.rechargeableCardTemplate
             dataIndex: 'type',
             width: 130,
             sortable: false,
-            align: 'center',
+             
            
         },
         {
@@ -47,7 +49,7 @@ Ext.define('XMLifeOperating.view.rechargeableCardManage.rechargeableCardTemplate
             dataIndex: 'amount',
             width: 130,
             sortable: false,
-            align: 'center',
+             
            
         },
         {
@@ -55,7 +57,7 @@ Ext.define('XMLifeOperating.view.rechargeableCardManage.rechargeableCardTemplate
             dataIndex: 'desc',
             width: 130,
             sortable: false,
-            align: 'center',
+             
             
         },
         {
@@ -63,7 +65,7 @@ Ext.define('XMLifeOperating.view.rechargeableCardManage.rechargeableCardTemplate
             dataIndex: 'newAccount',
             width: 130,
             sortable: false,
-            align: 'center',
+             
            
            renderer: function (value) {
             console.log(value);

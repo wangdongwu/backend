@@ -76,7 +76,9 @@ Ext.define('XMLifeOperating.view.staffManage.shopper.GShopperWorkTimeList', {
     ],
 
     columns: [
-       
+       {
+            xtype: 'rownumberer'
+        }, 
         {
             text: '日期',
             dataIndex: 'created',

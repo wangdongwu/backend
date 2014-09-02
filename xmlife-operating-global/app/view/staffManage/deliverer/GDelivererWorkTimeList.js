@@ -80,7 +80,9 @@ Ext.define('XMLifeOperating.view.staffManage.deliverer.GDelivererWorkTimeList', 
     ],
 
     columns: [
-       
+       {
+            xtype: 'rownumberer'
+        }, 
         {
             text: '日期',
             dataIndex: 'created',

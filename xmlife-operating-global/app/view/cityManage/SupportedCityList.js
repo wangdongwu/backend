@@ -63,7 +63,7 @@ Ext.define('XMLifeOperating.view.cityManage.SupportedCityList', {
             itemId: 'status',
             menuDisabled: true,
             sortable: false,
-            align: 'center',
+             
             renderer: function(value) {
                 /*<a class="edit-ship-price">设置运费</a> | */
                 if (value == 1) {

@@ -21,7 +21,7 @@ Ext.define('XMLifeOperating.view.userManage.customer.CustomerDealList', {
             dataIndex: 'shortId',
             width: 80,
             sortable: false,
-            align: 'center',  
+               
             itemId: 'dealDetail',
             renderer: function(value, metadata, model, rowIndex, colIndex, store) {
                 return '<a>'+value+'</a>'
@@ -32,7 +32,7 @@ Ext.define('XMLifeOperating.view.userManage.customer.CustomerDealList', {
             dataIndex: 'created',
             width: 60,
             sortable: false,
-            align: 'center', 
+              
             renderer:function(value){
                var newTime = new Date(value);
                newTime = newTime.getHours()+':'+newTime.getMinutes();
@@ -44,7 +44,7 @@ Ext.define('XMLifeOperating.view.userManage.customer.CustomerDealList', {
             dataIndex: 'dtoAddress',
             width: 80,
             sortable: false,
-            align: 'center',  
+               
             itemId: 'dealAddress'
         },
         {
@@ -52,7 +52,7 @@ Ext.define('XMLifeOperating.view.userManage.customer.CustomerDealList', {
             dataIndex: 'deliverTime',
             width: 80,
             sortable: false,
-            align: 'center', 
+              
             renderer:function(value){
                var newTime = new Date(value);
                newTime = newTime.getHours()+':'+newTime.getMinutes();
@@ -64,7 +64,7 @@ Ext.define('XMLifeOperating.view.userManage.customer.CustomerDealList', {
             dataIndex: 'completeTime',
             width: 80,
             sortable: false,
-            align: 'center', 
+              
             renderer:function(value){
                var newTime = new Date(value);
                newTime = newTime.getHours()+':'+newTime.getMinutes();
@@ -103,7 +103,7 @@ Ext.define('XMLifeOperating.view.userManage.customer.CustomerDealList', {
         {
             text: '订单详情',
             sortable: false,
-            align: 'center',
+             
             itemId: 'dealDetail',  
             renderer: function() {
                 return '<a>查看</a>'
@@ -111,7 +111,7 @@ Ext.define('XMLifeOperating.view.userManage.customer.CustomerDealList', {
         },
         {
             text: '订单价格',
-            align: 'center',
+             
             itemId: 'historyDealPrice',
             dataIndex : 'dealPrice',
             renderer : function(value){
@@ -120,7 +120,7 @@ Ext.define('XMLifeOperating.view.userManage.customer.CustomerDealList', {
         },
         {
             text: '成交价格',
-            align: 'center',
+             
             dataIndex : 'actualDealPrice',
             renderer : function(value){
                 return value / 100;
@@ -131,14 +131,14 @@ Ext.define('XMLifeOperating.view.userManage.customer.CustomerDealList', {
             dataIndex: 'delivererName',
             width: 60,
             sortable: false,
-            align: 'center',  
+               
         },
         {
             text: '订单状态',
             dataIndex: 'status',
             width: 60,
             sortable: false,
-            align: 'center',  
+               
             renderer:function(value){
                 switch(value){
                     case 1:

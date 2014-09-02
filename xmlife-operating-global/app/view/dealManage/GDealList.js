@@ -2,9 +2,9 @@
 Ext.define('XMLifeOperating.view.dealManage.GDealList', {
     extend: 'Ext.grid.Panel',
     xtype: 'gDealList',
-
-    header: false,
-
+    title : '订单管理',
+    titleAlign : 'left',
+    forceFit : 'true',
     store: 'Deal',
     id:'gDealList',
 
@@ -15,7 +15,6 @@ Ext.define('XMLifeOperating.view.dealManage.GDealList', {
             itemId:'shopAread',
             store:'ShopArea',
             emptyText:'请选择中心',
-            margin:10,
             editable: false,
             queryMode:'local',
             displayField:'name',
@@ -23,44 +22,48 @@ Ext.define('XMLifeOperating.view.dealManage.GDealList', {
             hidden:(XMLifeOperating.generic.Global.operating_type == 'center')
         },
         {
-            xtype:'textfield',
-            emptyText:'输入搜索号码...',
-            name:'keyword',
-            itemId: 'keyword',
-            fieldLabel: '手机号码',
-            regex: XMLifeOperating.generic.Global.VALIDATION_CONSTANTS.PHONE,
-            regexText: '请输入正确的手机号',
-            margin:10
-        },
-        {
-            xtype:'button',
-            itemId: 'dealSearch',
-            text:'搜索',
-            margin:10,
-        },
-        {
             xtype:'combobox',
             name:'status',
             itemId:'statusSearch',
             fieldLabel: '状态',
+            labelWidth : 50,
             store:'DealStatus',
-            emptyText:'状态',
-            margin:1,
+            emptyText:'状态',          
+            labelAlign : 'right',
             editable: false,
             queryMode:'local',
             displayField:'name',
             valueField:'value',
         },
+        '->',
+        {
+            xtype:'textfield',
+            emptyText:'输入搜索号码...',
+            name:'keyword',
+            itemId: 'keyword',
+            fieldLabel: '手机号码',
+            labelAlign : 'right',
+            regex: XMLifeOperating.generic.Global.VALIDATION_CONSTANTS.PHONE,
+            regexText: '请输入正确的手机号'
+        },
+        {
+            xtype:'button',
+            itemId: 'dealSearch',
+            text:'搜索',
+        }
 
      ],
 
     columns: [
         {
+            xtype: 'rownumberer'
+        }, 
+        {
             text: '日期',
             dataIndex: 'created',
             width: 70,
             sortable: true,
-            align: 'center', 
+              
             renderer:function(value){
                var newTime = new Date(value);
                newDate = newTime.getFullYear()+'.'+(newTime.getMonth()+1)+'.'+newTime.getDate();
@@ -72,7 +75,7 @@ Ext.define('XMLifeOperating.view.dealManage.GDealList', {
             dataIndex: 'shortId',
             width: 150,
             sortable: false,
-            align: 'center',  
+               
             itemId: 'dealDetail',
             renderer: function(value, metadata, model, rowIndex, colIndex, store) {
                 return '<a>'+value+'</a>'
@@ -84,14 +87,14 @@ Ext.define('XMLifeOperating.view.dealManage.GDealList', {
             dataIndex: 'zoneName',
             width: 60,
             sortable: false,
-            align: 'center',  
+               
         },
         {
             text: '订单状态',
             dataIndex: 'status',
             width: 60,
             sortable: false,
-            align: 'center',  
+               
             renderer:function(value){
                 switch(value){
                     case 1:
@@ -133,7 +136,7 @@ Ext.define('XMLifeOperating.view.dealManage.GDealList', {
             dataIndex: 'customerName',
             width: 100,
             sortable: false,
-            align: 'center',
+             
             itemId: 'customerDetail',  
             renderer: function(value, metadata, model, rowIndex, colIndex, store) {
                 return '<a>'+value+'</a>'
@@ -144,14 +147,14 @@ Ext.define('XMLifeOperating.view.dealManage.GDealList', {
             dataIndex: 'customerPhone',
             width: 60,
             sortable: false,
-            align: 'center',  
+               
         },
         {
             text: '中心点',
             dataIndex: 'shopAreaName',
             width: 60,
             sortable: false,
-            align: 'center',  
+               
         },
         {
             text: '分配买手',
@@ -187,14 +190,14 @@ Ext.define('XMLifeOperating.view.dealManage.GDealList', {
             dataIndex: 'delivererName',
             width: 60,
             sortable: false,
-            align: 'center',  
+               
         },
         {
             text: '下单时间',
             dataIndex: 'created',
             width: 60,
             sortable: false,
-            align: 'center', 
+              
             renderer:function(value){
                var newTime = new Date(value);
                newTime = newTime.getHours()+':'+newTime.getMinutes();
@@ -206,7 +209,7 @@ Ext.define('XMLifeOperating.view.dealManage.GDealList', {
             dataIndex: 'deliverTime',
             width: 80,
             sortable: false,
-            align: 'center', 
+              
             renderer:function(value){
                var newTime = new Date(value);
                newTime = newTime.getHours()+':'+newTime.getMinutes();
@@ -218,7 +221,7 @@ Ext.define('XMLifeOperating.view.dealManage.GDealList', {
             dataIndex: 'remainTime',
             width: 80,
             sortable: false,
-            align: 'center', 
+              
             renderer:function(value){
                 var time = (value/(3600*1000)+'').split('.');
                 var time1=Math.abs(time[0]);
@@ -235,7 +238,7 @@ Ext.define('XMLifeOperating.view.dealManage.GDealList', {
             dataIndex: 'taskDone',
             width: 100,
             sortable: false,
-            align: 'center',  
+               
             renderer:function(value){
                 var str='';
                 for(var i=0;i<value.length;i++){
@@ -251,7 +254,7 @@ Ext.define('XMLifeOperating.view.dealManage.GDealList', {
             dataIndex: 'beginDeliverTime',
             width: 60,
             sortable: false,
-            align: 'center',
+             
             renderer:function(value){
                var newTime = new Date(value);
                newTime = newTime.getHours()+':'+newTime.getMinutes();
@@ -263,7 +266,7 @@ Ext.define('XMLifeOperating.view.dealManage.GDealList', {
             dataIndex: 'completeTime',
             width: 80,
             sortable: false,
-            align: 'center', 
+              
             renderer:function(value){
                var newTime = new Date(value);
                newTime = newTime.getHours()+':'+newTime.getMinutes();

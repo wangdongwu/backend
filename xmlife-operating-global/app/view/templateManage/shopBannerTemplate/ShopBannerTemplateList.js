@@ -14,20 +14,22 @@ Ext.define('XMLifeOperating.view.templateManage.shopBannerTemplate.ShopBannerTem
     ],
 
     columns: [
-       
+       {
+            xtype: 'rownumberer'
+        }, 
         {
             text: '商品名称',
             dataIndex: 'name',
             width: 100,
             sortable: false,
-            align: 'center',  
+               
         },
         {
             text: '模板图片',
             dataIndex: 'banner',
             width: 180,
             sortable: false,
-            align: 'center',
+             
             renderer: function (value) {
                 return Ext.String.format('<img src="{0}/image/id-{1}" height="45" />', XMLifeOperating.generic.Global.URL.res, value);
             }
@@ -37,7 +39,7 @@ Ext.define('XMLifeOperating.view.templateManage.shopBannerTemplate.ShopBannerTem
             dataIndex: 'type',
             width: 130,
             sortable: false,
-            align: 'center',
+             
             renderer: function (value) {
                 if(value==1){
                     return '农贸市场';
@@ -51,7 +53,7 @@ Ext.define('XMLifeOperating.view.templateManage.shopBannerTemplate.ShopBannerTem
             dataIndex: 'descColor',
             width: 130,
             sortable: false,
-            align: 'center',
+             
             renderer: function (value) {
                 return value.toString(16);
             }
@@ -61,7 +63,7 @@ Ext.define('XMLifeOperating.view.templateManage.shopBannerTemplate.ShopBannerTem
             dataIndex: 'descStrokeColor',
             width: 130,
             sortable: false,
-            align: 'center',
+             
             renderer: function (value) {
                 return value.toString(16);
             }
@@ -71,28 +73,28 @@ Ext.define('XMLifeOperating.view.templateManage.shopBannerTemplate.ShopBannerTem
             dataIndex: 'descDegree',
             width: 130,
             sortable: false,
-            align: 'center',
+             
         },
         {
             text: '小标题aRGB',
             dataIndex: 'nameColor',
             width: 130,
             sortable: false,
-            align: 'center',
+             
         },
         {
             text: '小标题 Stroke argb',
             dataIndex: 'nameStrokeColor',
             width: 130,
             sortable: false,
-            align: 'center',
+             
         },
         {
             text: '小标题投影角度',
             dataIndex: 'nameDegree',
             width: 130,
             sortable: false,
-            align: 'center',
+             
         },
         {
             xtype: 'actioncolumn',

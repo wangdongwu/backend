@@ -19,6 +19,9 @@ Ext.define('XMLifeOperating.view.userManage.customer.CustomerAddress', {
             layout: 'fit',
             forceFit: true,
                 columns: [
+                {
+                    xtype: 'rownumberer'
+                }, 
                     {
                         text: '属性',
                         renderer : function(a,b,c,row){

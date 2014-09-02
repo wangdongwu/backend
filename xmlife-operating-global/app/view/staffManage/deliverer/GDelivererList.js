@@ -73,7 +73,8 @@ Ext.define('XMLifeOperating.view.staffManage.deliverer.GDelivererList', {
             text: '搜索'
         }
     ],
-    columns: [{
+    columns: [
+         {
             text: 'ID',
             dataIndex: 'uid',
             sortable: false,
@@ -156,7 +157,7 @@ Ext.define('XMLifeOperating.view.staffManage.deliverer.GDelivererList', {
             itemId: 'delivererWorkTimeId',
             menuDisabled: true,
             sortable: false,
-            align: 'center',
+             
             renderer: function(value, metadata, model, rowIndex, colIndex, store) {
 
                 var seeBtn = '<span style="cursor:pointer">查看</span>';
@@ -168,7 +169,7 @@ Ext.define('XMLifeOperating.view.staffManage.deliverer.GDelivererList', {
             itemId: 'dealDelivererHistoryId',
             menuDisabled: true,
             sortable: false,
-            align: 'center',
+             
             renderer: function(value, metadata, model, rowIndex, colIndex, store) {
 
                 var seeBtn = '<span style="cursor:pointer">查看</span>';
@@ -182,7 +183,7 @@ Ext.define('XMLifeOperating.view.staffManage.deliverer.GDelivererList', {
             menuDisabled: true,
             sortable: false,
             itemId: 'delivererEditId',
-            align: 'center',
+             
             hidden:(XMLifeOperating.generic.Global.operating_type == 'center')
         }, 
         {
@@ -191,7 +192,7 @@ Ext.define('XMLifeOperating.view.staffManage.deliverer.GDelivererList', {
             itemId: 'closeOrOpenOrder',
             menuDisabled: true,
             sortable: false,
-            align: 'center',
+             
             renderer: function(value) {
                 var str='';
                 if(value==true){

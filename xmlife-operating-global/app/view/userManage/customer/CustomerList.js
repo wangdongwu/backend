@@ -7,7 +7,6 @@ Ext.define('XMLifeOperating.view.userManage.customer.CustomerList', {
     forceFit: true,
     store: 'Customer',
     id:'CustomerList',
-    forceFit: true,
     dockedItems: [{
                 xtype: 'toolbar',
                 dock: 'top',
@@ -47,6 +46,9 @@ Ext.define('XMLifeOperating.view.userManage.customer.CustomerList', {
                     ]
     }],
     columns: [
+        {
+            xtype: 'rownumberer'
+        }, 
         {
             text: '用户昵称',
             dataIndex: 'name',

@@ -53,7 +53,9 @@ Ext.define('XMLifeOperating.view.dealManage.GDealDetail', {
                     itemId:'gDealDetails',
                     height:200,
                     columns:[
-
+                        {
+                            xtype: 'rownumberer'
+                        }, 
                         {
                             text:'店铺名',
                             width: 100,
