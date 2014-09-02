@@ -108,18 +108,22 @@ Ext.define('XMLifeOperating.view.operationManage.refund.refundList', {
     dockedItems : [{
     	xtype : 'toolbar',
     	dock : 'bottom',
+    	style : {
+    		backgroundColor : '#efefef',
+    		borderTop : '1px solid red'	
+    	},
     	items : [
     	'->',
+			{
+				xtype : 'button',
+				name :'disAgreeRefund',
+				text : '驳回退款'
+			},
 		{
 				xtype : 'button',
 				name :'agreeRefund',
 				text : '同意退款',
 				align : 'right'
-			},
-			{
-				xtype : 'button',
-				name :'disAgreeRefund',
-				text : '驳回退款'
 			}]
     },{
     	xtype : 'toolbar',

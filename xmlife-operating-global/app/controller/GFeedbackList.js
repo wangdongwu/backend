@@ -47,9 +47,8 @@ Ext.define('XMLifeOperating.controller.GFeedbackList', {
                                 break;
                         }
                         var store = this.getFeedbackStore();
-                        store.load({params:{dayType:str,mark:false}
-                                    });
-                                        this.dayType=str;
+                        store.load({params:{dayType:str,mark:false}});
+                        this.dayType=str;
 
                     }
                 }
@@ -100,10 +99,8 @@ Ext.define('XMLifeOperating.controller.GFeedbackList', {
 
     onShow: function() {
         var store = this.getFeedbackStore();
-        store.load({params:{dayType:5,mark:false},
-                    });
-                        this.dayType=5;
-
+        store.load({params:{dayType:5,mark:false},});
+        this.dayType=5;
     },
     
 });

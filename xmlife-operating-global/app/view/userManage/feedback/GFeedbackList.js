@@ -18,31 +18,39 @@ Ext.define('XMLifeOperating.view.userManage.feedback.GFeedbackList', {
             layout: 'hbox',
             items : [
             {
+            checked: true,    
             boxLabel:'今天',
+            name : 'dayType',
             itemId: 'dayType1'
             },
         {
             boxLabel:'昨天',
+            name : 'dayType',
             itemId: 'dayType2'
             },
         {
             boxLabel:'前天',
+            name : 'dayType',
             itemId: 'dayType3'
             },
         {
             boxLabel:'本周',
+            name : 'dayType',
             itemId: 'dayType4'
             },
         {
             boxLabel:'上周',
+            name : 'dayType',
             itemId: 'dayType5'
             },
         {
             boxLabel:'本月',
+            name : 'dayType',
             itemId: 'dayType6'
             },
         {
             boxLabel:'上月',
+            name : 'dayType',
             itemId: 'dayType7'
             }
         ]

@@ -19,6 +19,7 @@ Ext.define('XMLifeOperating.view.staffManage.deliverer.GDealDelivererHistoryList
         {
 
             xtype: 'radio',
+            checked : true,
             fieldLabel:'今天',
             itemId: 'dayType1',
             name:'dayType',
