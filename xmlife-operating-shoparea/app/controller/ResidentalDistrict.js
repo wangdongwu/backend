@@ -178,6 +178,7 @@ Ext.define('XMLifeOperating.controller.ResidentalDistrict', {
         if (form.isValid()) {
             windowEl.mask('saving');
             form.updateRecord(community);
+            community.set('city',XMLifeOperating.generic.Global.currentCity);
             console.log("try saving");
             community.save({
                 success: function(task, operation) {

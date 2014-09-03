@@ -89,6 +89,7 @@ Ext.define('XMLifeOperating.controller.CentralPointConfigure', {
             },
             'centralpointconfigurebanneredit #add': {
                 click: function() {
+                    alert(1111);
                     var len = this.getShopAreaBannerStore().getCount();
 
                     if (len >= 6) {
