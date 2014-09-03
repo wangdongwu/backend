@@ -250,7 +250,6 @@ Ext.define('XMLifeOperating.controller.GShopper', {
                         }
                     });
                     content.add(tab);
-                    debugger;
                     this.shopper=shopperId;
                 }
             },
