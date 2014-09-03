@@ -8,8 +8,7 @@ Ext.Loader.addClassPathMappings({
   "Ext": "ext/src",
   "Ext.Msg": "ext/src/window/MessageBox.js",
   "Ext.rtl.EventObjectImpl": "ext/src/rtl/EventObject.js",
-  "XMLifeOperating": "app",
-  "xmlifeOperatingShop": "app"
+  "XMLifeOperating": "app"
 });
 Ext.ClassManager.addNameAlternateMappings({
   "Ext.AbstractComponent": [],
@@ -829,67 +828,131 @@ Ext.ClassManager.addNameAlternateMappings({
     "Ext.Window"
   ],
   "XMLifeOperating.Application": [],
+  "XMLifeOperating.controller.CentralPointConfigure": [],
   "XMLifeOperating.controller.CustomerList": [],
   "XMLifeOperating.controller.DealCashOnDeliveryList": [],
+  "XMLifeOperating.controller.DealList": [],
   "XMLifeOperating.controller.DealProblemDealsList": [],
   "XMLifeOperating.controller.DealShopAreaList": [],
+  "XMLifeOperating.controller.Deliverer": [],
+  "XMLifeOperating.controller.DelivererZoneList": [],
+  "XMLifeOperating.controller.FeedbackList": [],
+  "XMLifeOperating.controller.Main": [],
   "XMLifeOperating.controller.Navigation": [],
   "XMLifeOperating.controller.RealTimeList": [],
+  "XMLifeOperating.controller.RefundList": [],
+  "XMLifeOperating.controller.ResidentalDistrict": [],
   "XMLifeOperating.controller.Shop": [],
   "XMLifeOperating.controller.Shopper": [],
   "XMLifeOperating.generic.BaseProxy": [],
   "XMLifeOperating.generic.Global": [],
   "XMLifeOperating.model.Address": [],
+  "XMLifeOperating.model.CategoryRoots": [],
   "XMLifeOperating.model.City": [],
   "XMLifeOperating.model.Customer": [],
+  "XMLifeOperating.model.Deal": [],
   "XMLifeOperating.model.DealCashOnDelivery": [],
+  "XMLifeOperating.model.DealDelivererHistory": [],
   "XMLifeOperating.model.DealItems": [],
   "XMLifeOperating.model.DealProblemDeals": [],
   "XMLifeOperating.model.DealShopArea": [],
   "XMLifeOperating.model.DealShopperHistory": [],
   "XMLifeOperating.model.DealTasks": [],
   "XMLifeOperating.model.Deliverer": [],
+  "XMLifeOperating.model.DelivererWorkTime": [],
+  "XMLifeOperating.model.DelivererZone": [],
+  "XMLifeOperating.model.Feedback": [],
   "XMLifeOperating.model.RealTime": [],
+  "XMLifeOperating.model.Refund": [],
+  "XMLifeOperating.model.ResidentalDistrict": [],
   "XMLifeOperating.model.Shop": [],
   "XMLifeOperating.model.ShopArea": [],
+  "XMLifeOperating.model.ShopAreaBanner": [],
+  "XMLifeOperating.model.ShopBannerTemplate": [],
   "XMLifeOperating.model.Shopper": [],
+  "XMLifeOperating.model.ShopperWorkTime": [],
   "XMLifeOperating.model.Template": [],
   "XMLifeOperating.store.Address": [],
   "XMLifeOperating.store.AssignedCity": [],
+  "XMLifeOperating.store.CategoryRoots": [],
   "XMLifeOperating.store.Customer": [],
+  "XMLifeOperating.store.Deal": [],
   "XMLifeOperating.store.DealCashOnDelivery": [],
   "XMLifeOperating.store.DealCashOnDeliveryPaid": [],
   "XMLifeOperating.store.DealCashOnDeliverySign": [],
+  "XMLifeOperating.store.DealDelivererHistory": [],
   "XMLifeOperating.store.DealItems": [],
   "XMLifeOperating.store.DealProblemDeals": [],
   "XMLifeOperating.store.DealShopArea": [],
   "XMLifeOperating.store.DealShopperHistory": [],
+  "XMLifeOperating.store.DealStatus": [],
   "XMLifeOperating.store.DealTasks": [],
   "XMLifeOperating.store.Deliverer": [],
+  "XMLifeOperating.store.DelivererWorkTime": [],
+  "XMLifeOperating.store.DelivererZone": [],
+  "XMLifeOperating.store.Feedback": [],
+  "XMLifeOperating.store.FeedbackStatus": [],
   "XMLifeOperating.store.Navigation": [],
   "XMLifeOperating.store.RealTime": [],
+  "XMLifeOperating.store.Refund": [],
+  "XMLifeOperating.store.ResidentalDistrict": [],
   "XMLifeOperating.store.Shop": [],
   "XMLifeOperating.store.ShopArea": [],
+  "XMLifeOperating.store.ShopAreaBanner": [],
+  "XMLifeOperating.store.ShopBannerTemplate": [],
   "XMLifeOperating.store.Shopper": [],
+  "XMLifeOperating.store.ShopperWorkTime": [],
   "XMLifeOperating.view.Main": [],
   "XMLifeOperating.view.Navigation": [],
   "XMLifeOperating.view.Toolbar": [],
   "XMLifeOperating.view.Viewport": [],
-  "XMLifeOperating.view.centralPointManage.shopManage.Shop": [],
+  "XMLifeOperating.view.centralPointManage.centralPointConfigure.CentralPointConfigureBannerEdit": [],
+  "XMLifeOperating.view.centralPointManage.centralPointConfigure.CentralPointConfigureBannerList": [],
+  "XMLifeOperating.view.centralPointManage.centralPointConfigure.CentralPointConfigureList": [],
+  "XMLifeOperating.view.centralPointManage.centralPointConfigure.CentralPointConfigureStoreConfigure": [],
+  "XMLifeOperating.view.centralPointManage.delivererZone.DelivererZoneEdit": [],
+  "XMLifeOperating.view.centralPointManage.delivererZone.DelivererZoneList": [],
+  "XMLifeOperating.view.centralPointManage.delivererZone.LineDelivererAdd": [],
+  "XMLifeOperating.view.centralPointManage.delivererZone.ResidentalDistrictEdit": [],
+  "XMLifeOperating.view.centralPointManage.residentalDistrict.ResidentalDistrictAdd": [],
+  "XMLifeOperating.view.centralPointManage.residentalDistrict.ResidentalDistrictList": [],
+  "XMLifeOperating.view.centralPointManage.shop.ShopBanner": [],
+  "XMLifeOperating.view.centralPointManage.shop.ShopBannerAdd": [],
+  "XMLifeOperating.view.centralPointManage.shop.ShopEdit": [],
+  "XMLifeOperating.view.centralPointManage.shop.ShopInfo": [],
+  "XMLifeOperating.view.centralPointManage.shop.ShopList": [],
+  "XMLifeOperating.view.centralPointManage.shop.ShopShelf": [],
+  "XMLifeOperating.view.centralPointManage.shop.ShopShelfAdd": [],
+  "XMLifeOperating.view.centralPointManage.shop.ShopShelfTab": [],
+  "XMLifeOperating.view.centralPointManage.shop.ShopTab": [],
+  "XMLifeOperating.view.dealManage.DealCustomerDetail": [],
+  "XMLifeOperating.view.dealManage.DealDetail": [],
+  "XMLifeOperating.view.dealManage.DealList": [],
   "XMLifeOperating.view.operationManage.dealCashOnDelivery.DealCashOnDeliveryList": [],
+  "XMLifeOperating.view.operationManage.dealCashOnDelivery.DealCashOnDeliveryListCustomerDetail": [],
+  "XMLifeOperating.view.operationManage.dealCashOnDelivery.DealCashOnDeliveryListDealDetail": [],
+  "XMLifeOperating.view.operationManage.dealCashOnDelivery.DealCashOnDeliveryListEditRemark": [],
   "XMLifeOperating.view.operationManage.dealProblemDeals.DealProblemDealsList": [],
   "XMLifeOperating.view.operationManage.dealProblemDeals.DealProblemDealsReapportion": [],
   "XMLifeOperating.view.operationManage.dealProblemDeals.DealProblemDealsReapportionDeliverer": [],
   "XMLifeOperating.view.operationManage.dealProblemDeals.DealProblemDealsReapportionShopper": [],
   "XMLifeOperating.view.operationManage.dealShopArea.DealShopAreaList": [],
   "XMLifeOperating.view.operationManage.realTime.RealTimeList": [],
-  "XMLifeOperating.view.staffManage.shopper.DealShopperHistory": [],
+  "XMLifeOperating.view.operationManage.refunds.RefundList": [],
+  "XMLifeOperating.view.staffManage.deliverer.DealDelivererHistoryList": [],
+  "XMLifeOperating.view.staffManage.deliverer.DealItemsList": [],
+  "XMLifeOperating.view.staffManage.deliverer.DelivererEdit": [],
+  "XMLifeOperating.view.staffManage.deliverer.DelivererList": [],
+  "XMLifeOperating.view.staffManage.deliverer.DelivererWorkTimeList": [],
+  "XMLifeOperating.view.staffManage.shopper.DealItemsList": [],
   "XMLifeOperating.view.staffManage.shopper.DealShopperHistoryList": [],
   "XMLifeOperating.view.staffManage.shopper.EditShopper": [],
   "XMLifeOperating.view.staffManage.shopper.ShopperList": [],
+  "XMLifeOperating.view.staffManage.shopper.ShopperWorkTimeList": [],
   "XMLifeOperating.view.userManage.customer.CustomerAddress": [],
+  "XMLifeOperating.view.userManage.customer.CustomerDealList": [],
   "XMLifeOperating.view.userManage.customer.CustomerList": [],
-  "xmlifeOperatingShop.controller.Main": []
+  "XMLifeOperating.view.userManage.feedback.FeedbackList": []
 });
 Ext.ClassManager.addNameAliasMappings({
   "Ext.AbstractComponent": [],
@@ -1877,48 +1940,80 @@ Ext.ClassManager.addNameAliasMappings({
     "widget.window"
   ],
   "XMLifeOperating.Application": [],
+  "XMLifeOperating.controller.CentralPointConfigure": [],
   "XMLifeOperating.controller.CustomerList": [],
   "XMLifeOperating.controller.DealCashOnDeliveryList": [],
+  "XMLifeOperating.controller.DealList": [],
   "XMLifeOperating.controller.DealProblemDealsList": [],
   "XMLifeOperating.controller.DealShopAreaList": [],
+  "XMLifeOperating.controller.Deliverer": [],
+  "XMLifeOperating.controller.DelivererZoneList": [],
+  "XMLifeOperating.controller.FeedbackList": [],
+  "XMLifeOperating.controller.Main": [],
   "XMLifeOperating.controller.Navigation": [],
   "XMLifeOperating.controller.RealTimeList": [],
+  "XMLifeOperating.controller.RefundList": [],
+  "XMLifeOperating.controller.ResidentalDistrict": [],
   "XMLifeOperating.controller.Shop": [],
   "XMLifeOperating.controller.Shopper": [],
   "XMLifeOperating.generic.BaseProxy": [],
   "XMLifeOperating.generic.Global": [],
   "XMLifeOperating.model.Address": [],
+  "XMLifeOperating.model.CategoryRoots": [],
   "XMLifeOperating.model.City": [],
   "XMLifeOperating.model.Customer": [],
+  "XMLifeOperating.model.Deal": [],
   "XMLifeOperating.model.DealCashOnDelivery": [],
+  "XMLifeOperating.model.DealDelivererHistory": [],
   "XMLifeOperating.model.DealItems": [],
   "XMLifeOperating.model.DealProblemDeals": [],
   "XMLifeOperating.model.DealShopArea": [],
   "XMLifeOperating.model.DealShopperHistory": [],
   "XMLifeOperating.model.DealTasks": [],
   "XMLifeOperating.model.Deliverer": [],
+  "XMLifeOperating.model.DelivererWorkTime": [],
+  "XMLifeOperating.model.DelivererZone": [],
+  "XMLifeOperating.model.Feedback": [],
   "XMLifeOperating.model.RealTime": [],
+  "XMLifeOperating.model.Refund": [],
+  "XMLifeOperating.model.ResidentalDistrict": [],
   "XMLifeOperating.model.Shop": [],
   "XMLifeOperating.model.ShopArea": [],
+  "XMLifeOperating.model.ShopAreaBanner": [],
+  "XMLifeOperating.model.ShopBannerTemplate": [],
   "XMLifeOperating.model.Shopper": [],
+  "XMLifeOperating.model.ShopperWorkTime": [],
   "XMLifeOperating.model.Template": [],
   "XMLifeOperating.store.Address": [],
   "XMLifeOperating.store.AssignedCity": [],
+  "XMLifeOperating.store.CategoryRoots": [],
   "XMLifeOperating.store.Customer": [],
+  "XMLifeOperating.store.Deal": [],
   "XMLifeOperating.store.DealCashOnDelivery": [],
   "XMLifeOperating.store.DealCashOnDeliveryPaid": [],
   "XMLifeOperating.store.DealCashOnDeliverySign": [],
+  "XMLifeOperating.store.DealDelivererHistory": [],
   "XMLifeOperating.store.DealItems": [],
   "XMLifeOperating.store.DealProblemDeals": [],
   "XMLifeOperating.store.DealShopArea": [],
   "XMLifeOperating.store.DealShopperHistory": [],
+  "XMLifeOperating.store.DealStatus": [],
   "XMLifeOperating.store.DealTasks": [],
   "XMLifeOperating.store.Deliverer": [],
+  "XMLifeOperating.store.DelivererWorkTime": [],
+  "XMLifeOperating.store.DelivererZone": [],
+  "XMLifeOperating.store.Feedback": [],
+  "XMLifeOperating.store.FeedbackStatus": [],
   "XMLifeOperating.store.Navigation": [],
   "XMLifeOperating.store.RealTime": [],
+  "XMLifeOperating.store.Refund": [],
+  "XMLifeOperating.store.ResidentalDistrict": [],
   "XMLifeOperating.store.Shop": [],
   "XMLifeOperating.store.ShopArea": [],
+  "XMLifeOperating.store.ShopAreaBanner": [],
+  "XMLifeOperating.store.ShopBannerTemplate": [],
   "XMLifeOperating.store.Shopper": [],
+  "XMLifeOperating.store.ShopperWorkTime": [],
   "XMLifeOperating.view.Main": [
     "widget.app-main"
   ],
@@ -1929,11 +2024,83 @@ Ext.ClassManager.addNameAliasMappings({
     "widget.headerToolbar"
   ],
   "XMLifeOperating.view.Viewport": [],
-  "XMLifeOperating.view.centralPointManage.shopManage.Shop": [
-    "widget.shop"
+  "XMLifeOperating.view.centralPointManage.centralPointConfigure.CentralPointConfigureBannerEdit": [
+    "widget.centralpointconfigurebanneredit"
+  ],
+  "XMLifeOperating.view.centralPointManage.centralPointConfigure.CentralPointConfigureBannerList": [
+    "widget.centralpointconfigurebannerlist"
+  ],
+  "XMLifeOperating.view.centralPointManage.centralPointConfigure.CentralPointConfigureList": [
+    "widget.centralpointconfigurelist"
+  ],
+  "XMLifeOperating.view.centralPointManage.centralPointConfigure.CentralPointConfigureStoreConfigure": [
+    "widget.centralpointconfigurestoreconfigure"
+  ],
+  "XMLifeOperating.view.centralPointManage.delivererZone.DelivererZoneEdit": [
+    "widget.delivererZoneEdit"
+  ],
+  "XMLifeOperating.view.centralPointManage.delivererZone.DelivererZoneList": [
+    "widget.delivererZoneList"
+  ],
+  "XMLifeOperating.view.centralPointManage.delivererZone.LineDelivererAdd": [
+    "widget.lineDelivererAdd"
+  ],
+  "XMLifeOperating.view.centralPointManage.delivererZone.ResidentalDistrictEdit": [
+    "widget.residentalDistrictEdit"
+  ],
+  "XMLifeOperating.view.centralPointManage.residentalDistrict.ResidentalDistrictAdd": [
+    "widget.residentaldistrictadd"
+  ],
+  "XMLifeOperating.view.centralPointManage.residentalDistrict.ResidentalDistrictList": [
+    "widget.residentaldistrictlist"
+  ],
+  "XMLifeOperating.view.centralPointManage.shop.ShopBanner": [
+    "widget.shopbanner"
+  ],
+  "XMLifeOperating.view.centralPointManage.shop.ShopBannerAdd": [
+    "widget.shopbanneradd"
+  ],
+  "XMLifeOperating.view.centralPointManage.shop.ShopEdit": [
+    "widget.shopedit"
+  ],
+  "XMLifeOperating.view.centralPointManage.shop.ShopInfo": [
+    "widget.shopinfo"
+  ],
+  "XMLifeOperating.view.centralPointManage.shop.ShopList": [
+    "widget.shoplist"
+  ],
+  "XMLifeOperating.view.centralPointManage.shop.ShopShelf": [
+    "widget.shopshelf"
+  ],
+  "XMLifeOperating.view.centralPointManage.shop.ShopShelfAdd": [
+    "widget.shopshelfadd"
+  ],
+  "XMLifeOperating.view.centralPointManage.shop.ShopShelfTab": [
+    "widget.shopshelftab"
+  ],
+  "XMLifeOperating.view.centralPointManage.shop.ShopTab": [
+    "widget.shoptab"
+  ],
+  "XMLifeOperating.view.dealManage.DealCustomerDetail": [
+    "widget.dealCustomerDetail"
+  ],
+  "XMLifeOperating.view.dealManage.DealDetail": [
+    "widget.dealDetail"
+  ],
+  "XMLifeOperating.view.dealManage.DealList": [
+    "widget.dealList"
   ],
   "XMLifeOperating.view.operationManage.dealCashOnDelivery.DealCashOnDeliveryList": [
     "widget.dealCashOnDeliveryList"
+  ],
+  "XMLifeOperating.view.operationManage.dealCashOnDelivery.DealCashOnDeliveryListCustomerDetail": [
+    "widget.customerDetail"
+  ],
+  "XMLifeOperating.view.operationManage.dealCashOnDelivery.DealCashOnDeliveryListDealDetail": [
+    "widget.dealCashOnDeliveryListDealDetail"
+  ],
+  "XMLifeOperating.view.operationManage.dealCashOnDelivery.DealCashOnDeliveryListEditRemark": [
+    "widget.editRemark"
   ],
   "XMLifeOperating.view.operationManage.dealProblemDeals.DealProblemDealsList": [
     "widget.dealProblemDealsList"
@@ -1953,8 +2120,26 @@ Ext.ClassManager.addNameAliasMappings({
   "XMLifeOperating.view.operationManage.realTime.RealTimeList": [
     "widget.realTimeList"
   ],
-  "XMLifeOperating.view.staffManage.shopper.DealShopperHistory": [
-    "widget.dealShopperHistory"
+  "XMLifeOperating.view.operationManage.refunds.RefundList": [
+    "widget.refundList"
+  ],
+  "XMLifeOperating.view.staffManage.deliverer.DealDelivererHistoryList": [
+    "widget.dealDelivererHistoryList"
+  ],
+  "XMLifeOperating.view.staffManage.deliverer.DealItemsList": [
+    "widget.dealItemsList"
+  ],
+  "XMLifeOperating.view.staffManage.deliverer.DelivererEdit": [
+    "widget.delivererEdit"
+  ],
+  "XMLifeOperating.view.staffManage.deliverer.DelivererList": [
+    "widget.delivererList"
+  ],
+  "XMLifeOperating.view.staffManage.deliverer.DelivererWorkTimeList": [
+    "widget.delivererWorkTimeList"
+  ],
+  "XMLifeOperating.view.staffManage.shopper.DealItemsList": [
+    "widget.dealItemsList"
   ],
   "XMLifeOperating.view.staffManage.shopper.DealShopperHistoryList": [
     "widget.dealShopperHistoryList"
@@ -1965,13 +2150,21 @@ Ext.ClassManager.addNameAliasMappings({
   "XMLifeOperating.view.staffManage.shopper.ShopperList": [
     "widget.shopperList"
   ],
+  "XMLifeOperating.view.staffManage.shopper.ShopperWorkTimeList": [
+    "widget.shopperWorkTimeList"
+  ],
   "XMLifeOperating.view.userManage.customer.CustomerAddress": [
     "widget.customerAddress"
+  ],
+  "XMLifeOperating.view.userManage.customer.CustomerDealList": [
+    "widget.CustomerDealList"
   ],
   "XMLifeOperating.view.userManage.customer.CustomerList": [
     "widget.customerList"
   ],
-  "xmlifeOperatingShop.controller.Main": []
+  "XMLifeOperating.view.userManage.feedback.FeedbackList": [
+    "widget.feedbackList"
+  ]
 });
 Ext.setVersion("ext-theme-base", "4.2.1");
 Ext.setVersion("ext-theme-classic", "4.2.1");

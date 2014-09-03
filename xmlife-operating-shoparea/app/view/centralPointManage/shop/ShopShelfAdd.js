@@ -66,7 +66,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopShelfAdd', {
                     text: 'Cancel',
                     handler:function(){
                         //关闭窗口
-                        Ext.ComponentQuery.query('addShelvesWin')[0].close();
+                        Ext.ComponentQuery.query('shopshelfadd')[0].close();
                     }
                 }
             ]

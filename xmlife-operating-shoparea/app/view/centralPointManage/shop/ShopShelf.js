@@ -1,7 +1,6 @@
 Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopShelf', {
     extend: 'Ext.grid.Panel',
     xtype: 'shopshelf',
-    title: '货架列表',
     store: 'CategoryRoots',
     id: 'ShelvesList',
     columns: [{
@@ -22,7 +21,6 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopShelf', {
                 return '无';
             }
             return '有';
-
         }
     }, {
         text: '编辑',
