@@ -127,7 +127,7 @@ Ext.define('XMLifeOperating.controller.Deliverer', {
                     dealDelivererHistoryStroe.load({
                         params: {
                             deliverer: delivererId,
-                            dataType: 1
+                            dayType: 1
                         }
                     });
                     content.add(tab);
@@ -140,6 +140,9 @@ Ext.define('XMLifeOperating.controller.Deliverer', {
                         var itemId = record.itemId,
                             str;
                         switch (itemId) {
+                            case 'dayType0':
+                                str = 0;
+                                break;
                             case 'dayType1':
                                 str = 1;
                                 break;
@@ -158,8 +161,8 @@ Ext.define('XMLifeOperating.controller.Deliverer', {
                             case 'dayType6':
                                 str = 6;
                                 break;
-                            case 'dayType7':
-                                str = 7;
+                            default:
+                                str = -1;
                                 break;
                         }
                         var store = this.getDealDelivererHistoryStore();
@@ -170,8 +173,6 @@ Ext.define('XMLifeOperating.controller.Deliverer', {
                                 deliverer: delivererId
                             }
                         });
-                        this.dayType = str;
-                        console.log(record.itemId);
                     }
                 }
             },
@@ -210,7 +211,7 @@ Ext.define('XMLifeOperating.controller.Deliverer', {
                     delivererWorkTimeStore.load({
                         params: {
                             deliverer: delivererId,
-                            dataType: 1
+                            dayType: 1
                         }
                     });
                     content.add(tab);
@@ -271,7 +272,7 @@ Ext.define('XMLifeOperating.controller.Deliverer', {
                     dealItemsStore.load({
                         params: {
                             deal: dealBackendId,
-                            dataType: 1
+                            dayType: 1
                         }
                     });
                     content.add(tab);

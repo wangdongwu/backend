@@ -81,11 +81,9 @@ Ext.define('XMLifeOperating.controller.Shopper', {
                     var activeSearch = Ext.getCmp('shopperList').down('#activeSearch').getText();
 
                     if (activeSearch == '查看停单买手') {
-                        isActive=false;
-                        isUnbind = '';
-                    } else if (activeSearch == '查看接单买手') {
                         isActive=true;
-                        isUnbind = true;
+                    } else if (activeSearch == '查看接单买手') {
+                        isActive=false;
                     }
                     var sstore = this.getShopperStore();
                     sstore.load({
@@ -106,7 +104,6 @@ Ext.define('XMLifeOperating.controller.Shopper', {
             'shopperList #activeSearch': {
                 click: function() {
                     var activeSearch = Ext.getCmp('shopperList').down('#activeSearch').getText();
-
                     if (activeSearch == '查看停单买手') {
                         isActive=false;
                         isUnbind = '';
@@ -191,6 +188,9 @@ Ext.define('XMLifeOperating.controller.Shopper', {
                         var itemId = record.itemId,
                             str;
                         switch (itemId) {
+                            case 'dayType0':
+                                str = 0;
+                                break;
                             case 'dayType1':
                                 str = 1;
                                 break;
@@ -208,9 +208,6 @@ Ext.define('XMLifeOperating.controller.Shopper', {
                                 break;
                             case 'dayType6':
                                 str = 6;
-                                break;
-                            case 'dayType7':
-                                str = 7;
                                 break;
                         }
                         var store = this.getDealShopperHistoryStore();
@@ -260,33 +257,32 @@ Ext.define('XMLifeOperating.controller.Shopper', {
                     ShopperWorkTimeStore.load({
                         params: {
                             shopper: shopperId,
-                            dataType: 1
+                            dayType: 3
                         }
                     });
                     content.add(tab);
-                    this.shopper=shopperId;
+                    me.shopperId=shopperId;
                 }
             },
             'shopperWorkTimeList radio[name="dayType"]': {
                 change: function(record, newV, oldV) {
-                    var shopperId=this.shopperId;
-                    console.log(shopperId);
-
-                    if (newV == true) {
-                        console.log(record);
-                        //console.log(record.itemId);
+                    var shopperId=me.shopperId;
+                    if (newV == true) {;
                         var itemId = record.itemId,
                             str;
                         switch (itemId) {
-                            /* case 'dayType1':
+                             case 'dayType0':
+                                str=0;
+                                break;
+                            case 'dayType1':
                                 str=1;
                                 break;
                             case 'dayType2':
                                 str=2;
                                 break;
                             case 'dayType3':
-                                str=3;
-                                break;*/
+                                str = 3;
+                                break;
                             case 'dayType4':
                                 str = 4;
                                 break;
@@ -296,12 +292,11 @@ Ext.define('XMLifeOperating.controller.Shopper', {
                             case 'dayType6':
                                 str = 6;
                                 break;
-                            case 'dayType7':
-                                str = 7;
+                            default:
+                                str=-1;
                                 break;
                         }
                         var store = this.getShopperWorkTimeStore();
-
                         store.load({
                             params: {
                                 dayType: str,

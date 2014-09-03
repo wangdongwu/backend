@@ -20,7 +20,7 @@ Ext.define('XMLifeOperating.view.staffManage.shopper.ShopperWorkTimeList', {
 
             xtype: 'radio',
             fieldLabel:'今天',
-            itemId: 'dayType1',
+            itemId: 'dayType0',
             name:'dayType'
         },
         {
@@ -28,21 +28,21 @@ Ext.define('XMLifeOperating.view.staffManage.shopper.ShopperWorkTimeList', {
             xtype: 'radio',
             fieldLabel:'昨天',
             name:'dayType',
-            itemId: 'dayType2'
+            itemId: 'dayType1'
         },
         {
 
             xtype: 'radio',
             fieldLabel:'前天',
             name:'dayType',
-            itemId: 'dayType3'
+            itemId: 'dayType2'
         },*/
         {
 
             xtype: 'radio',
             fieldLabel:'本周',
             name:'dayType',
-            itemId: 'dayType4',
+            itemId: 'dayType3',
             labelAlign: 'right',
             style : 'border:0px solid;margin-right:10px;',
         },
@@ -51,7 +51,7 @@ Ext.define('XMLifeOperating.view.staffManage.shopper.ShopperWorkTimeList', {
             xtype: 'radio',
             fieldLabel:'上周',
             name:'dayType',
-            itemId: 'dayType5',
+            itemId: 'dayType4',
             labelAlign: 'right',
             style : 'border:0px solid;margin-right:10px;',
         },
@@ -60,7 +60,7 @@ Ext.define('XMLifeOperating.view.staffManage.shopper.ShopperWorkTimeList', {
             xtype: 'radio',
             fieldLabel:'本月',
             name:'dayType',
-            itemId: 'dayType6',
+            itemId: 'dayType5',
             labelAlign: 'right',
             style : 'border:0px solid;margin-right:10px;',
         },
@@ -69,14 +69,13 @@ Ext.define('XMLifeOperating.view.staffManage.shopper.ShopperWorkTimeList', {
             xtype: 'radio',
             fieldLabel:'上月',
             name:'dayType',
-            itemId: 'dayType7',
+            itemId: 'dayType6',
             labelAlign: 'right',
             style : 'border:0px solid;margin-right:10px;',
         },
     ],
 
     columns: [
-       
         {
             text: '日期',
             dataIndex: 'created',
@@ -96,10 +95,9 @@ Ext.define('XMLifeOperating.view.staffManage.shopper.ShopperWorkTimeList', {
             sortable: false,
             width: 100,
             renderer:function(value){
-               var newTime = new Date(value);
-               newTime = newTime.getHours()+':'+newTime.getMinutes();
-               return newTime;
-            }  
+               var time = Math.floor(value/60) +':'+ (value%60);
+               return time;
+            }
         },
         {
             text: '下班时间',
@@ -108,18 +106,19 @@ Ext.define('XMLifeOperating.view.staffManage.shopper.ShopperWorkTimeList', {
             sortable: false,
             width: 100,
             renderer:function(value){
-               var newTime = new Date(value);
-               newTime = newTime.getHours()+':'+newTime.getMinutes();
-               return newTime;
-            }  
-
+               var time = Math.floor(value/60) +':'+ (value%60);
+               return time;
+            }
         },
         {
             text: '本次工时',
             dataIndex: 'workTime',
-            
             sortable: false,
-            width: 100
+            width: 100,
+            renderer:function(value){
+               var time = Math.floor(value/60) +'时'+ (value%60) +'分';
+               return time;
+            }
         },
         {
             text: '完成订单数',
