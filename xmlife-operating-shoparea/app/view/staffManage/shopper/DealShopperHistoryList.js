@@ -12,71 +12,56 @@ Ext.define('XMLifeOperating.view.staffManage.shopper.DealShopperHistoryList', {
             text: '返回',
             itemId: 'shopperReturn'
         },
-        {
-
-            xtype: 'radio',
-            fieldLabel:'今天',
-            checked: true,
-            itemId: 'dayType0',
-            name:'dayType',
-            labelAlign: 'right',
-            style : 'border:0px solid;margin-right:10px;',
+        { 
+            xtype: 'fieldcontainer',
+            fieldLabel : '按时间过滤',
+            defaultType: 'radiofield',
+            defaults: 
+            {
+                flex: 1,
+                margin : '0 5 0 5'
+            },
+            layout: 'hbox',
+            items : [
+            {
+                checked: true,    
+                boxLabel:'今天',
+                name : 'dayType',
+                itemId: 'dayType0'
+            },
+            {
+                boxLabel:'昨天',
+                name : 'dayType',
+                itemId: 'dayType1'
+            },
+            {
+                boxLabel:'前天',
+                name : 'dayType',
+                itemId: 'dayType2'
+            },
+            {
+                boxLabel:'本周',
+                name : 'dayType',
+                itemId: 'dayType3'
+            },
+            {
+                boxLabel:'上周',
+                name : 'dayType',
+                itemId: 'dayType4'
+            },
+            {
+                boxLabel:'本月',
+                name : 'dayType',
+                itemId: 'dayType5'
+            },
+            {
+                boxLabel:'上月',
+                name : 'dayType',
+                itemId: 'dayType6'
+            }
+            ]
         },
-        {
-
-            xtype: 'radio',
-            fieldLabel:'昨天',
-            name:'dayType',
-            itemId: 'dayType1',
-            labelAlign: 'right',
-            style : 'border:0px solid;margin-right:10px;',
-        },
-        {
-
-            xtype: 'radio',
-            fieldLabel:'前天',
-            name:'dayType',
-            itemId: 'dayType2',
-            labelAlign: 'right',
-            style : 'border:0px solid;margin-right:10px;',
-        },
-        {
-
-            xtype: 'radio',
-            fieldLabel:'本周',
-            name:'dayType',
-            itemId: 'dayType3',
-            labelAlign: 'right',
-            style : 'border:0px solid;margin-right:10px;',
-        },
-        {
-
-            xtype: 'radio',
-            fieldLabel:'上周',
-            name:'dayType',
-            itemId: 'dayType4',
-            labelAlign: 'right',
-            style : 'border:0px solid;margin-right:10px;',
-        },
-        {
-
-            xtype: 'radio',
-            fieldLabel:'本月',
-            name:'dayType',
-            itemId: 'dayType5',
-            labelAlign: 'right',
-            style : 'border:0px solid;margin-right:10px;',
-        },
-        {
-
-            xtype: 'radio',
-            fieldLabel:'上月',
-            name:'dayType',
-            itemId: 'dayType6',
-            labelAlign: 'right',
-            style : 'border:0px solid;margin-right:10px;',
-        }],
-
+        ],
     columns: [
        
         {

@@ -191,7 +191,7 @@ Ext.define('XMLifeOperating.view.staffManage.shopper.ShopperList', {
 
             renderer: function(value, metadata, model, rowIndex, colIndex, store) {
 
-                var seeBtn = '<span style="cursor:pointer">查看</span>';
+                var seeBtn = '<a>查看</a>';
                 return seeBtn;
             }
         }, {
@@ -203,7 +203,7 @@ Ext.define('XMLifeOperating.view.staffManage.shopper.ShopperList', {
             align: 'center',
             renderer: function(value, metadata, model, rowIndex, colIndex, store) {
 
-                var seeBtn = '<span style="cursor:pointer">查看</span>';
+                var seeBtn = '<a>查看</a>';
                 return seeBtn;
             }
         },

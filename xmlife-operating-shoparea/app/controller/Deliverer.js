@@ -127,7 +127,7 @@ Ext.define('XMLifeOperating.controller.Deliverer', {
                     dealDelivererHistoryStroe.load({
                         params: {
                             deliverer: delivererId,
-                            dayType: 1
+                            dayType: 0
                         }
                     });
                     content.add(tab);
@@ -211,7 +211,8 @@ Ext.define('XMLifeOperating.controller.Deliverer', {
                     delivererWorkTimeStore.load({
                         params: {
                             deliverer: delivererId,
-                            dayType: 1
+                            dayType: 3
+
                         }
                     });
                     content.add(tab);
@@ -233,6 +234,9 @@ Ext.define('XMLifeOperating.controller.Deliverer', {
                             case 'dayType3':
                                 str=3;
                                 break;*/
+                            case 'dayType3':
+                                str = 3;
+                                break;
                             case 'dayType4':
                                 str = 4;
                                 break;
@@ -241,9 +245,6 @@ Ext.define('XMLifeOperating.controller.Deliverer', {
                                 break;
                             case 'dayType6':
                                 str = 6;
-                                break;
-                            case 'dayType7':
-                                str = 7;
                                 break;
                         }
                         var store = this.getDelivererWorkTimeStore();

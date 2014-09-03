@@ -198,7 +198,7 @@ Ext.define('XMLifeOperating.view.staffManage.deliverer.DelivererList', {
             align: 'center',
             renderer: function(value, metadata, model, rowIndex, colIndex, store) {
 
-                var seeBtn = '<span style="cursor:pointer">查看</span>';
+                var seeBtn = '<a>查看</a>';
                 return seeBtn;
             }
         }, 
@@ -211,7 +211,7 @@ Ext.define('XMLifeOperating.view.staffManage.deliverer.DelivererList', {
             align: 'center',
             renderer: function(value, metadata, model, rowIndex, colIndex, store) {
 
-                var seeBtn = '<span style="cursor:pointer">查看</span>';
+                var seeBtn = '<a>查看</a>';
                 return seeBtn;
             }
         }, 
