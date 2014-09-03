@@ -34,7 +34,26 @@ Ext.define('XMLifeOperating.controller.DealCashOnDeliveryList', {
 
         var me=this,CashDayType=-1,CashMark='',CashPaid='';
         this.control({
-           
+            //查看中心下暂停或接单买手
+            'dealCashOnDeliveryList #shopArea': {
+                select: function(combo) {
+                    var store = this.getDealCashOnDeliveryStore();
+                    store.load({
+                        params: {
+                            // city: XMLifeOperating.generic.Global.currentCity,
+                            shopArea: combo.getValue(),
+                            dayType:0
+                        },
+                    });
+                    var deliveryStore = this.getDelivererStore();
+                    deliveryStore.load({
+                        params:{
+                            city:XMLifeOperating.generic.Global.currentCity,
+                            area:combo.getValue()
+                        }
+                    });
+                },
+            },
             'dealCashOnDeliveryList': {
                 added: me.onShow,
             },
@@ -217,12 +236,19 @@ Ext.define('XMLifeOperating.controller.DealCashOnDeliveryList', {
 
     },
     onShow: function() {
-        var store = this.getDealCashOnDeliveryStore();
-        store.load({params:{shopArea:2,dayType:3}});
-        var deliveryStore = this.getDelivererStore();
-        deliveryStore.load({params:{
-                            city:XMLifeOperating.generic.Global.currentCity,
-                            area:2}});
+        // var store = this.getDealCashOnDeliveryStore();
+        // store.load(
+        //     {
+        //         params:
+        //         {
+        //             shopArea:2,
+        //             dayType:0
+        //         }
+        //     });
+        // var deliveryStore = this.getDelivererStore();
+        // deliveryStore.load({params:{
+        //                     city:XMLifeOperating.generic.Global.currentCity,
+        //                     area:2}});
     },
     onCustomerDetail: function(view, column, rowIndex,colIndex, e) {
         var customerDetail = view.getRecord(view.findTargetByEvent(e));

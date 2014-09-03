@@ -8,49 +8,63 @@ Ext.define('XMLifeOperating.view.operationManage.dealCashOnDelivery.DealCashOnDe
     id:'dealCashOnDeliveryList',
     tbar: [
         {
+            xtype: 'combobox',
+            name: 'area',
+            itemId: 'shopArea',
+            store: 'ShopArea',
+            emptyText: '请选择中心',
+            // margin: 10,
+            editable: false,
+            displayField: 'name',
+            valueField: 'id',
+            hidden:(XMLifeOperating.generic.Global.operating_type == 'center')
+        }, 
+        {
             xtype: 'radiogroup',
             id: 'sex',
             fieldLabel : '',
             hideLabels: false,
-            defaults: {
+            defaults: 
+            {
                 flex: 2
             },
             layout: 'hbox',
             items: [
-                {
-                    boxLabel  : '今日',
-                    name      : 'dayType',
-                    inputValue: '',
-                    itemId: 'dayType0',
-                    labelWidth : 75,
+            {
+                boxLabel  : '今日',
+                name      : 'dayType',
+                checked: true,
+                inputValue: '',
+                itemId: 'dayType0',
+                labelWidth : 75,
 
-                }, 
-                {
-                    boxLabel  : '本周',
-                    name      : 'dayType',
-                    inputValue: '',
-                    itemId: 'dayType3',
-                    labelWidth : 75,
-                },
-                {
-                    boxLabel  : '本月',
-                    name      : 'dayType',
-                    inputValue: '',
-                    itemId: 'dayType5'
-                },
-                {
-                    boxLabel  : '上月',
-                    name      : 'dayType',
-                    inputValue: '',
-                    itemId: 'dayType6'
-                },
-                {
-                    boxLabel  : '全部',
-                    name      : 'dayType',
-                    inputValue: '',
-                    itemId: 'dayType7'
-                },
-            ]
+            }, 
+            {
+                boxLabel  : '本周',
+                name      : 'dayType',
+                inputValue: '',
+                itemId: 'dayType3',
+                labelWidth : 75,
+            },
+            {
+                boxLabel  : '本月',
+                name      : 'dayType',
+                inputValue: '',
+                itemId: 'dayType5'
+            },
+            {
+                boxLabel  : '上月',
+                name      : 'dayType',
+                inputValue: '',
+                itemId: 'dayType6'
+            },
+            {
+                boxLabel  : '全部',
+                name      : 'dayType',
+                inputValue: '',
+                itemId: 'dayType7'
+            },
+        ]
         },
         /*{
             xtype: 'radio',
@@ -321,6 +335,20 @@ Ext.define('XMLifeOperating.view.operationManage.dealCashOnDelivery.DealCashOnDe
         plugins: {
             ptype: 'gridviewdragdrop',
             dragText: 'Drag and drop to reorder'
+        }
+    },
+    listeners: {
+        onShowView: function(view, viewName) {          
+            if(XMLifeOperating.generic.Global.operating_type != 'center') {
+                return;
+            }
+            if(XMLifeOperating.generic.Global.current_operating == -1) {
+                alert('请先在右上角选择中心');
+                return;
+            }
+            var combo = view.down('#shopArea');
+            combo.setValue(XMLifeOperating.generic.Global.current_operating);
+            combo.fireEvent('select', combo);
         }
     },
     columnLines: true,
