@@ -21,7 +21,7 @@ Ext.define('XMLifeOperating.view.staffManage.deliverer.GDealDelivererHistoryList
             xtype: 'radio',
             checked : true,
             fieldLabel:'今天',
-            itemId: 'dayType1',
+            itemId: 'dayType0',
             name:'dayType',
             labelAlign: 'right',
             style : 'border:0px solid;margin-right:10px;',
@@ -31,7 +31,7 @@ Ext.define('XMLifeOperating.view.staffManage.deliverer.GDealDelivererHistoryList
             xtype: 'radio',
             fieldLabel:'昨天',
             name:'dayType',
-            itemId: 'dayType2',
+            itemId: 'dayType1',
             labelAlign: 'right',
             style : 'border:0px solid;margin-right:10px;',
         },
@@ -40,7 +40,7 @@ Ext.define('XMLifeOperating.view.staffManage.deliverer.GDealDelivererHistoryList
             xtype: 'radio',
             fieldLabel:'前天',
             name:'dayType',
-            itemId: 'dayType3',
+            itemId: 'dayType2',
             labelAlign: 'right',
             style : 'border:0px solid;margin-right:10px;',
         },
@@ -49,7 +49,7 @@ Ext.define('XMLifeOperating.view.staffManage.deliverer.GDealDelivererHistoryList
             xtype: 'radio',
             fieldLabel:'本周',
             name:'dayType',
-            itemId: 'dayType4',
+            itemId: 'dayType3',
             labelAlign: 'right',
             style : 'border:0px solid;margin-right:10px;',
         },
@@ -58,7 +58,7 @@ Ext.define('XMLifeOperating.view.staffManage.deliverer.GDealDelivererHistoryList
             xtype: 'radio',
             fieldLabel:'上周',
             name:'dayType',
-            itemId: 'dayType5',
+            itemId: 'dayType4',
             labelAlign: 'right',
             style : 'border:0px solid;margin-right:10px;',
         },
@@ -67,7 +67,7 @@ Ext.define('XMLifeOperating.view.staffManage.deliverer.GDealDelivererHistoryList
             xtype: 'radio',
             fieldLabel:'本月',
             name:'dayType',
-            itemId: 'dayType6',
+            itemId: 'dayType5',
             labelAlign: 'right',
             style : 'border:0px solid;margin-right:10px;',
         },
@@ -76,7 +76,7 @@ Ext.define('XMLifeOperating.view.staffManage.deliverer.GDealDelivererHistoryList
             xtype: 'radio',
             fieldLabel:'上月',
             name:'dayType',
-            itemId: 'dayType7',
+            itemId: 'dayType6',
             labelAlign: 'right',
             style : 'border:0px solid;margin-right:10px;',
         },
@@ -101,28 +101,49 @@ Ext.define('XMLifeOperating.view.staffManage.deliverer.GDealDelivererHistoryList
             dataIndex: 'created',
             format:'H:i',
             sortable: false,
-            width: 100
+            width: 100,
+            renderer:function(value){
+               var newTime = new Date(value);
+               newTime = newTime.getHours()+':'+newTime.getMinutes();
+               return newTime;
+            } 
         },
         {
             text: '买完时间',
             dataIndex: 'taskDone',
             format:'H:i',
             sortable: false,
-            width: 100
+            width: 100,
+            renderer:function(value){
+               var newTime = new Date(value);
+               newTime = newTime.getHours()+':'+newTime.getMinutes();
+               return newTime;
+            } 
+
         },
         {
             text: '出货时间',
             dataIndex: 'beginDeliverTime',
             format:'H:i',
             sortable: false,
-            width: 100
+            width: 100,
+            renderer:function(value){
+               var newTime = new Date(value);
+               newTime = newTime.getHours()+':'+newTime.getMinutes();
+               return newTime;
+            }  
         },
         {
             text: '完成时间',
             dataIndex: 'completeTime',
             format:'H:i',
             sortable: false,
-            width: 100
+            width: 100,
+            renderer:function(value){
+               var newTime = new Date(value);
+               newTime = newTime.getHours()+':'+newTime.getMinutes();
+               return newTime;
+            } 
         },
         {
             text: '顾客',

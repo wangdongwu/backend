@@ -88,28 +88,45 @@ Ext.define('XMLifeOperating.view.staffManage.deliverer.GDelivererWorkTimeList', 
             text: '日期',
             dataIndex: 'created',
             sortable: false,
-            width: 100
+            width: 100,
+            renderer:function(value){
+               var newTime = new Date(value);
+               newTime = newTime.getFullYear()+'-'+(newTime.getMonth()+1)+'-'+newTime.getDate();
+               return newTime;
+            }  
         },
         {
             text: '上班时间',
             dataIndex: 'onlineTime',
             format:'H:i',
             sortable: false,
-            width: 100
+            width: 100,
+            renderer:function(value){
+               var time = Math.floor(value/60) +':'+ (value%60);
+               return time;
+            }
         },
         {
             text: '下班时间',
             dataIndex: 'offlineTime',
             format:'H:i',
             sortable: false,
-            width: 100
+            width: 100,
+            renderer:function(value){
+               var time = Math.floor(value/60) +':'+ (value%60);
+               return time;
+            }
         },
         {
             text: '本次工时',
             dataIndex: 'workTime',
             
             sortable: false,
-            width: 100
+            width: 100,
+            renderer:function(value){
+               var time = Math.floor(value/60) +'时'+ (value%60) +'分';
+               return time;
+            }
         },
         {
             text: '完成订单数',

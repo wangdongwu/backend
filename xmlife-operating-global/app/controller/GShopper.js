@@ -163,7 +163,7 @@ Ext.define('XMLifeOperating.controller.GShopper', {
                     dealShopperHistoryStroe.load({
                         params: {
                             shopper: shopperId,
-                            dataType: 0
+                            dayType: 0
                         }
                     });
                     content.add(tab);
@@ -246,11 +246,11 @@ Ext.define('XMLifeOperating.controller.GShopper', {
                     ShopperWorkTimeStore.load({
                         params: {
                             shopper: shopperId,
-                            dataType: 3
+                            dayType: 3
                         }
                     });
                     content.add(tab);
-                    this.shopper=shopperId;
+                    this.shopperId=shopperId;
                 }
             },
             'gShopperWorkTimeList radio[name="dayType"]': {
@@ -311,7 +311,7 @@ Ext.define('XMLifeOperating.controller.GShopper', {
                     dealItemsStroe.load({
                         params: {
                             deal: dealBackendId,
-                            dataType: 0
+                            dayType: 0
                         }
                     });
                     content.add(tab);

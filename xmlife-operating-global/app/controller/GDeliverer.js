@@ -128,7 +128,7 @@ Ext.define('XMLifeOperating.controller.GDeliverer', {
                     dealDelivererHistoryStroe.load({
                         params: {
                             deliverer: delivererId,
-                            dataType: 1
+                            dayType: 0
                         }
                     });
                     content.add(tab);
@@ -141,6 +141,9 @@ Ext.define('XMLifeOperating.controller.GDeliverer', {
                         var itemId = record.itemId,
                             str;
                         switch (itemId) {
+                            case 'dayType0':
+                                str = 0;
+                                break;
                             case 'dayType1':
                                 str = 1;
                                 break;
@@ -159,8 +162,8 @@ Ext.define('XMLifeOperating.controller.GDeliverer', {
                             case 'dayType6':
                                 str = 6;
                                 break;
-                            case 'dayType7':
-                                str = 7;
+                            default:
+                                str = -1;
                                 break;
                         }
                         var store = this.getDealDelivererHistoryStore();
@@ -211,7 +214,7 @@ Ext.define('XMLifeOperating.controller.GDeliverer', {
                     delivererWorkTimeStore.load({
                         params: {
                             deliverer: delivererId,
-                            dataType: 1
+                            dayType: 1
                         }
                     });
                     content.add(tab);
@@ -224,15 +227,18 @@ Ext.define('XMLifeOperating.controller.GDeliverer', {
                         var itemId = record.itemId,
                             str;
                         switch (itemId) {
-                            /* case 'dayType1':
+                            /* case 'dayType0':
+                                str=0;
+                                break;
+                            case 'dayType1':
                                 str=1;
                                 break;
                             case 'dayType2':
                                 str=2;
-                                break;
-                            case 'dayType3':
-                                str=3;
                                 break;*/
+                            case 'dayType3':
+                                str = 3;
+                                break;
                             case 'dayType4':
                                 str = 4;
                                 break;
@@ -242,8 +248,8 @@ Ext.define('XMLifeOperating.controller.GDeliverer', {
                             case 'dayType6':
                                 str = 6;
                                 break;
-                            case 'dayType7':
-                                str = 7;
+                            default:
+                                str = -1;
                                 break;
                         }
                         var store = this.getDelivererWorkTimeStore();
@@ -272,7 +278,7 @@ Ext.define('XMLifeOperating.controller.GDeliverer', {
                     dealItemsStore.load({
                         params: {
                             deal: dealBackendId,
-                            dataType: 1
+                            dayType: 0
                         }
                     });
                     content.add(tab);
