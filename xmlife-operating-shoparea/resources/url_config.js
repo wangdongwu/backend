@@ -4,7 +4,7 @@ window.URLMap = {
     //biz     : 'http://192.168.5.131:8080/',
     //biz :'http://192.168.5.86:8089/',
     //biz:'http://192.168.5.190:8089/',
-    biz:'http://114.215.112.77:8089/',
-    res     : 'http://114.215.112.77/res/image/id-',
-    upload  : 'http://114.215.112.77/res/upload'
+    biz:'http://dev.xiaomei.com:8089/',
+    res     : 'http://dev.xiaomei.com/res/image/id-',
+    upload  : 'http://dev.xiaomei.com/res/upload'
 };
