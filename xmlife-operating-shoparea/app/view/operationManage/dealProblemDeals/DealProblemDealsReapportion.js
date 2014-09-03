@@ -101,6 +101,10 @@ Ext.define('XMLifeOperating.view.operationManage.dealProblemDeals.DealProblemDea
                             dataIndex:'shopperName'
                         },
                         {
+                            text:'买手电话',
+                            dataIndex:'shopperPhone'
+                        },
+                        {
                             text: '问题原因',
                             dataIndex: 'problem',
                             width: 60,
