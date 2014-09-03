@@ -87,12 +87,12 @@ Ext.define('XMLifeOperating.store.Navigation', {
             leaf: true
         },
         {
-            id: 'authorityManage',
+            /*id: 'authorityManage',*/
             text: '权限管理',
             leaf: true
         },
         {
-            id: 'shoparea',
+            /*id: 'shoparea',*/
             text: '中心平台',
             leaf: true
         }]
