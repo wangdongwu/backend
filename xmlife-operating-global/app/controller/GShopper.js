@@ -235,6 +235,7 @@ Ext.define('XMLifeOperating.controller.GShopper', {
             //考勤管理
             'gShopperList #shopperWorkTimeId': {
                 click: function(view, column, rowIndex, colIndex, e) {
+
                     var tab = this.getGShopperWorkTimeList();
                     var content = this.getContentPanel();
                     content.removeAll(false);
@@ -249,6 +250,7 @@ Ext.define('XMLifeOperating.controller.GShopper', {
                         }
                     });
                     content.add(tab);
+                    debugger;
                     this.shopper=shopperId;
                 }
             },

@@ -10,6 +10,8 @@ Ext.define('XMLifeOperating.model.refundModel', {
     'createTime',
     'description',
     'dealId',
+    'dealBackendId',
+    'shortId',
     'refRecordId',
     'refundCount',
     'refundType',

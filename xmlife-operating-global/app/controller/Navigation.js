@@ -5,23 +5,19 @@ Ext.define('XMLifeOperating.controller.Navigation', {
         'Navigation',
         'Toolbar',
     ],
-
     stores: [
         'Navigation',
         'AssignedCity',
         'ShopArea'
     ],
-
     requires: [
         'Ext.grid.column.Action'
     ],
-
-
     init: function() {
         var me = this;
         me.control({
             'moduleNavigation': {
-                selectionchange: me.enterModule
+                selectionchange: me.switchToView
 
             },
             '#cmbGlobalCity': {
@@ -35,15 +31,6 @@ Ext.define('XMLifeOperating.controller.Navigation', {
         me.loadedClasses = {};
         me.viewStack = [];
         me.currentXType;
-
-        me.listen({
-            controller: {
-                '*': {
-                    refreshView: me.refreshView
-                }
-            }
-        });
-
     },
 
     refs: [{
@@ -57,32 +44,6 @@ Ext.define('XMLifeOperating.controller.Navigation', {
         ref: 'cmbGlobalCenter',
         selector: '#cmbGlobalCenter'
     }],
-
-    enterModule: function(selected, eOpts) {
-        if (eOpts.length == 0) {
-            return;
-        }
-        console.log(eOpts);
-        var xtype = eOpts[0].raw.id,
-            text = eOpts[0].raw.text;
-
-
-        if (xtype) { // only leaf nodes have ids
-            this.switchToView(xtype);
-
-            // this.getContentPanel().setTitle(text);
-            this.getModuleTitle().setText(text);
-            document.title = text + ' - ' + XMLifeOperating.getApplication().name;
-            // location.hash = xtype;
-
-            this.viewStack = [];
-        }
-    },
-
-    refreshView: function() {
-        this.switchToView(this.currentXType);
-    },
-
     changeCurrentCity: function(combo, records, eOpts) {
         if (records.length == 0) {
             console.log('no entry selected');
@@ -103,76 +64,39 @@ Ext.define('XMLifeOperating.controller.Navigation', {
         }
 
         XMLifeOperating.generic.Global.current_operating = combo.getValue();
-        //alert(XMLifeOperating.generic.Global.current_operating);
-        //combo.setValue(records[0].data.code);
-        //combo.reset();
-        //combo.isExpanded = false;
+        
         if (this.currentXType && this.loadedClasses[this.currentXType]) {
             var cmp = this.loadedClasses[this.currentXType];
             cmp.fireEvent('onShowView', cmp, this.currentXType);
         }
     },
-
-    switchToView: function(xtype) {
-
-
-        this.currentXType = xtype;
-        var alias = 'widget.' + xtype,
-            contentPanel = this.getContentPanel();
-        //contentPanel.removeAll(false);
-        //debugger
-        console.log("alias = " + alias);
-        if (this.loadedClasses[xtype]) {
-            cmp = this.loadedClasses[xtype];
-        } else {
-            var ViewClass = Ext.ClassManager.getByAlias(alias);
-            cmp = new ViewClass();
-            this.loadedClasses[xtype] = cmp;
-            console.log("init module " + xtype);
-        }
-        //debugger
-
-        // var clsProto = ViewClass.prototype;
-        // if (clsProto.themes) {
-        //     clsProto.themeInfo = clsProto.themes[themeName];
-        //     if (themeName === 'gray' || themeName === 'access') {
-        //         clsProto.themeInfo = Ext.applyIf(clsProto.themeInfo || {}, clsProto.themes.classic);
-        //     }
-        // }
-        //XMLifeOperating.generic.Global.current_operating = this.getCmbGlobalCenter().displayTplData.data.code;
-        //alert(XMLifeOperating.generic.Global.current_operating);
-        //
-        //
-        var contentItems = contentPanel.items.items,
+    /**
+     * [switchToView 根据treepanel 叶子节点的选择显示相应的面板]
+     * 参数具体 参照 EXT API treepanel Event selectionchange
+     * @param  {[type]} model     [当前选择模型]
+     * @param  {[type]} Selectarr [当前选择项的list]
+     * @return {[type]} Ext.Component [当前处于激活状态的panel]
+     */
+    switchToView: function(model,Selectarr) {
+        if(!Selectarr[0].raw.leaf){return false}
+            
+        var contentPanel = this.getContentPanel(),
+            contentItems = contentPanel.items.items,
+            xtype = Selectarr[0].raw.id
             isNew = true;
+            
         Ext.Array.each(contentItems,function(item){
-            if(item.id == cmp.id){
-                contentPanel.setActiveTab(item);
+            if(item.xtype == xtype){
+                contentPanel.setActiveTab(item.show());
                 isNew = false;
             }
         })
         if(isNew){
-            contentPanel.add(cmp);
-            contentPanel.setActiveTab(cmp);
+            contentPanel.add({
+                xtype : xtype
+            });
+            contentPanel.setActiveTab(xtype);
         }
-
-        cmp.fireEvent('onShowView', cmp, xtype);
-    },
-
-    pushView: function(xtype) {
-        this.viewStack.push(xtype);
-
-        this.switchToView(xtype);
-    },
-
-    popView: function() {
-        if (this.viewStack.length < 2) {
-            return;
-        }
-
-        var previousViewXType = this.viewStack[this.viewStack.lenth - 2];
-        this.viewStack.pop();
-
-        this.switchToView(previousViewXType);
+        return contentPanel.getActiveTab( )
     }
 });

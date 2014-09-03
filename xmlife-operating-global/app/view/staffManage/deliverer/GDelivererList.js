@@ -1,7 +1,7 @@
 Ext.define('XMLifeOperating.view.staffManage.deliverer.GDelivererList', {
     extend: 'Ext.grid.Panel',
-    xtype: 'gDelivererList',
     id: 'gDelivererList',
+    xtype: 'gDelivererList',
     store: 'Deliverer',
     title : '配送员管理',
     titleAlign : 'left',closable : true,

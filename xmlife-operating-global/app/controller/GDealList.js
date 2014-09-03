@@ -114,7 +114,7 @@ Ext.define('XMLifeOperating.controller.GDealList', {
         win.down('form').loadRecord(gDealDetail);
         win.show();
         var store = this.getDealItemsStore();
-
+        debugger;
         store.load({
             params: {
                 deal: gDealDetail.get('dealBackendId'),

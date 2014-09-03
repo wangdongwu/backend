@@ -9,7 +9,17 @@ Ext.define('XMLifeOperating.view.Toolbar', {
         'Ext.form.Label',
         'Ext.form.field.ComboBox'
     ],
+    cls : 'topHeadToolbar',
     items: [
+        {
+            xtype : 'image',
+            src : '/resources/images/logo.png',
+            style: {
+                marginLeft: '10px',
+                height : '33px'
+            }
+        }
+        , 
         {
             xtype: 'label',
             itemId: 'txtModuleTitle',

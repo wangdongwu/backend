@@ -1,6 +1,7 @@
 
 Ext.define('XMLifeOperating.view.userManage.customer.CustomerList', {
     extend: 'Ext.grid.Panel',
+    id: 'CustomerList',
     xtype: 'CustomerList',
     title : '用户信息管理',
     titleAlign : 'left',closable : true,

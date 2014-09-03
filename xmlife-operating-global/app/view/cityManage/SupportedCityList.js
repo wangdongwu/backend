@@ -2,13 +2,13 @@ Ext.define('XMLifeOperating.view.cityManage.SupportedCityList', {
     extend: 'Ext.grid.Panel',
     xtype: 'supportedCityList',
     alias: 'widget.supportedCityList',
+    id : 'supportedCityList',
     autoScroll: true,
     store: 'SupportedCity',
     title : '城市管理',
-    titleAlign : 'left',closable : true,
-    forceFit: true,
-    
+    titleAlign : 'left',
     closable : true,
+    forceFit: true, 
     tbar: [{
         xtype: 'button',
         text: '添加城市',

@@ -1,6 +1,7 @@
 
 Ext.define('XMLifeOperating.view.staffManage.shopper.GDealShopperHistoryList', {
     extend: 'Ext.grid.Panel',
+    id: 'gDealShopperHistoryList',
     xtype: 'gDealShopperHistoryList',
 
     title: '历史订单',

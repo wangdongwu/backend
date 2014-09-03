@@ -1,7 +1,7 @@
 Ext.define('XMLifeOperating.view.dealManage.GDealDetail', {
     extend: 'Ext.window.Window',
     xtype: 'gDealDetail',
-    
+    title:'订单详情',
     requires: [
         'Ext.form.Panel',
         'Ext.form.field.Text',
@@ -17,7 +17,6 @@ Ext.define('XMLifeOperating.view.dealManage.GDealDetail', {
     initComponent: function() {
         this.items = [{
             xtype: 'form',
-            title:'订单详情',
             itemId:'dealForm',
             layout: 'anchor',
             bodyPadding: 5,

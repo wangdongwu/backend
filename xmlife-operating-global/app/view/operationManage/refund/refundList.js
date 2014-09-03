@@ -1,5 +1,6 @@
 Ext.define('XMLifeOperating.view.operationManage.refund.refundList', {
     extend: 'Ext.grid.Panel',
+    id : 'refundList',
     xtype: 'refundList',
     alias:  'widget.refundList',
     autoScroll: true,
@@ -105,7 +106,8 @@ Ext.define('XMLifeOperating.view.operationManage.refund.refundList', {
 
 	    	}
     ],
-    dockedItems : [{
+    dockedItems : [
+     {
     	xtype : 'toolbar',
     	dock : 'bottom',
     	style : {
@@ -151,14 +153,20 @@ Ext.define('XMLifeOperating.view.operationManage.refund.refundList', {
 			text : '反向选择'
 		}
     	]
-    }
+    },
+    {
+			xtype : 'pagingtoolbar',
+			store : 'refundStore',
+			dock : 'bottom',
+			displayInfo : true
+		}
     ],
         columns: [
         {
             xtype: 'rownumberer'
         }, 
         { header: '日期', dataIndex: 'createTime'},
-        { header: '订单别号',dataIndex:'dealId'},
+        { header: '订单编号',dataIndex:'shortId',itemId:'dealDetail'},
         { header: '订单状态',dataIndex:'status',
         	renderer : function(v){
         		var data = {

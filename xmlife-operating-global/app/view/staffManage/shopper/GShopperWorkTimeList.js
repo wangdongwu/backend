@@ -5,6 +5,7 @@
  */
 Ext.define('XMLifeOperating.view.staffManage.shopper.GShopperWorkTimeList', {
     extend: 'Ext.grid.Panel',
+    id: 'gShopperWorkTimeList',
     xtype: 'gShopperWorkTimeList',
 
     title: '考勤管理',

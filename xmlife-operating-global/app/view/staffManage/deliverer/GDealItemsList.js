@@ -1,5 +1,6 @@
 Ext.define('XMLifeOperating.view.staffManage.deliverer.GDealItemsList', {
     extend: 'Ext.grid.Panel',
+    id : 'gDealItemsList',
     xtype: 'gDealItemsList',
 
     header: false,

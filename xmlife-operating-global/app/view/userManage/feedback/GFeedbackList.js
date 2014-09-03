@@ -1,5 +1,6 @@
 Ext.define('XMLifeOperating.view.userManage.feedback.GFeedbackList', {
     extend: 'Ext.grid.Panel',
+    id: 'gFeedbackList',
     xtype: 'gFeedbackList',
     title: '用户反馈管理',
     titleAlign : 'left',closable : true,

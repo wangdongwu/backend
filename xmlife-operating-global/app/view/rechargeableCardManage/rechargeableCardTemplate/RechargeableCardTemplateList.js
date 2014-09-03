@@ -1,5 +1,6 @@
 Ext.define('XMLifeOperating.view.rechargeableCardManage.rechargeableCardTemplate.RechargeableCardTemplateList', {
     extend: 'Ext.grid.Panel',
+    id : 'rechargeablecardtemplatelist',
     xtype: 'rechargeablecardtemplatelist',
     title : '充值卡模板管理',
     titleAlign : 'left',closable : true,
