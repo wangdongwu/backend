@@ -848,6 +848,7 @@ Ext.ClassManager.addNameAlternateMappings({
   "XMLifeOperating.generic.Global": [],
   "XMLifeOperating.model.Address": [],
   "XMLifeOperating.model.CategoryRoots": [],
+  "XMLifeOperating.model.CategorySubs": [],
   "XMLifeOperating.model.City": [],
   "XMLifeOperating.model.Customer": [],
   "XMLifeOperating.model.Deal": [],
@@ -862,6 +863,8 @@ Ext.ClassManager.addNameAlternateMappings({
   "XMLifeOperating.model.DelivererWorkTime": [],
   "XMLifeOperating.model.DelivererZone": [],
   "XMLifeOperating.model.Feedback": [],
+  "XMLifeOperating.model.Product": [],
+  "XMLifeOperating.model.ProductTemplate": [],
   "XMLifeOperating.model.RealTime": [],
   "XMLifeOperating.model.Refund": [],
   "XMLifeOperating.model.ResidentalDistrict": [],
@@ -875,6 +878,7 @@ Ext.ClassManager.addNameAlternateMappings({
   "XMLifeOperating.store.Address": [],
   "XMLifeOperating.store.AssignedCity": [],
   "XMLifeOperating.store.CategoryRoots": [],
+  "XMLifeOperating.store.CategorySubs": [],
   "XMLifeOperating.store.Customer": [],
   "XMLifeOperating.store.Deal": [],
   "XMLifeOperating.store.DealCashOnDelivery": [],
@@ -893,6 +897,8 @@ Ext.ClassManager.addNameAlternateMappings({
   "XMLifeOperating.store.Feedback": [],
   "XMLifeOperating.store.FeedbackStatus": [],
   "XMLifeOperating.store.Navigation": [],
+  "XMLifeOperating.store.Product": [],
+  "XMLifeOperating.store.ProductTemplate": [],
   "XMLifeOperating.store.RealTime": [],
   "XMLifeOperating.store.Refund": [],
   "XMLifeOperating.store.ResidentalDistrict": [],
@@ -918,9 +924,13 @@ Ext.ClassManager.addNameAlternateMappings({
   "XMLifeOperating.view.centralPointManage.residentalDistrict.ResidentalDistrictList": [],
   "XMLifeOperating.view.centralPointManage.shop.ShopBanner": [],
   "XMLifeOperating.view.centralPointManage.shop.ShopBannerAdd": [],
+  "XMLifeOperating.view.centralPointManage.shop.ShopBuyer": [],
   "XMLifeOperating.view.centralPointManage.shop.ShopEdit": [],
   "XMLifeOperating.view.centralPointManage.shop.ShopInfo": [],
   "XMLifeOperating.view.centralPointManage.shop.ShopList": [],
+  "XMLifeOperating.view.centralPointManage.shop.ShopProduct": [],
+  "XMLifeOperating.view.centralPointManage.shop.ShopProductAdd": [],
+  "XMLifeOperating.view.centralPointManage.shop.ShopSecondShelf": [],
   "XMLifeOperating.view.centralPointManage.shop.ShopShelf": [],
   "XMLifeOperating.view.centralPointManage.shop.ShopShelfAdd": [],
   "XMLifeOperating.view.centralPointManage.shop.ShopShelfTab": [],
@@ -1960,6 +1970,7 @@ Ext.ClassManager.addNameAliasMappings({
   "XMLifeOperating.generic.Global": [],
   "XMLifeOperating.model.Address": [],
   "XMLifeOperating.model.CategoryRoots": [],
+  "XMLifeOperating.model.CategorySubs": [],
   "XMLifeOperating.model.City": [],
   "XMLifeOperating.model.Customer": [],
   "XMLifeOperating.model.Deal": [],
@@ -1974,6 +1985,8 @@ Ext.ClassManager.addNameAliasMappings({
   "XMLifeOperating.model.DelivererWorkTime": [],
   "XMLifeOperating.model.DelivererZone": [],
   "XMLifeOperating.model.Feedback": [],
+  "XMLifeOperating.model.Product": [],
+  "XMLifeOperating.model.ProductTemplate": [],
   "XMLifeOperating.model.RealTime": [],
   "XMLifeOperating.model.Refund": [],
   "XMLifeOperating.model.ResidentalDistrict": [],
@@ -1987,6 +2000,7 @@ Ext.ClassManager.addNameAliasMappings({
   "XMLifeOperating.store.Address": [],
   "XMLifeOperating.store.AssignedCity": [],
   "XMLifeOperating.store.CategoryRoots": [],
+  "XMLifeOperating.store.CategorySubs": [],
   "XMLifeOperating.store.Customer": [],
   "XMLifeOperating.store.Deal": [],
   "XMLifeOperating.store.DealCashOnDelivery": [],
@@ -2005,6 +2019,8 @@ Ext.ClassManager.addNameAliasMappings({
   "XMLifeOperating.store.Feedback": [],
   "XMLifeOperating.store.FeedbackStatus": [],
   "XMLifeOperating.store.Navigation": [],
+  "XMLifeOperating.store.Product": [],
+  "XMLifeOperating.store.ProductTemplate": [],
   "XMLifeOperating.store.RealTime": [],
   "XMLifeOperating.store.Refund": [],
   "XMLifeOperating.store.ResidentalDistrict": [],
@@ -2060,6 +2076,9 @@ Ext.ClassManager.addNameAliasMappings({
   "XMLifeOperating.view.centralPointManage.shop.ShopBannerAdd": [
     "widget.shopbanneradd"
   ],
+  "XMLifeOperating.view.centralPointManage.shop.ShopBuyer": [
+    "widget.shopbuyer"
+  ],
   "XMLifeOperating.view.centralPointManage.shop.ShopEdit": [
     "widget.shopedit"
   ],
@@ -2068,6 +2087,15 @@ Ext.ClassManager.addNameAliasMappings({
   ],
   "XMLifeOperating.view.centralPointManage.shop.ShopList": [
     "widget.shoplist"
+  ],
+  "XMLifeOperating.view.centralPointManage.shop.ShopProduct": [
+    "widget.shopproduct"
+  ],
+  "XMLifeOperating.view.centralPointManage.shop.ShopProductAdd": [
+    "widget.shopproductadd"
+  ],
+  "XMLifeOperating.view.centralPointManage.shop.ShopSecondShelf": [
+    "widget.shopsecondshelf"
   ],
   "XMLifeOperating.view.centralPointManage.shop.ShopShelf": [
     "widget.shopshelf"

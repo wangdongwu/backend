@@ -531,7 +531,6 @@ Ext.define('XMLifeOperating.controller.Shop', {
             },
             'shopbuyer #reseachBuyer': {
                 click: function() {
-                    debugger
                     var store = Ext.ComponentQuery.query('shopbuyer #searchBuyerId')[0].getStore();
                     var store = me.getShopperStore();
                     store.load({
