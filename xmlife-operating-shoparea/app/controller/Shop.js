@@ -444,7 +444,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
             /*
              * shopshelf事件
              */
-            'shopshelf , shopsecondshelf': {
+            'shopshelf,shopsecondshelf': {
                 itemdblclick: function(grid, record, item, index, e, eOpts) {
 
                     var toolbar = Ext.getCmp('toolbar');
@@ -452,7 +452,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
                     this.record = record;
                     for (var i = 0; i < toolbar.items.length; i++) {
                         if (toolbar.items.keys[i].split('_')[1] == record.get('id')) {
-                            tab.setActiveTab('tab4_' + record.get('id'));
+                            tab.setActiveTab(toolbar.items.keys[i])
                             return;
                         }
                     };

@@ -4,7 +4,7 @@
 
     header: false,
     store:'CategorySubs',
-    id:'ShelvesNextList',
+    itemId:'ShelvesNextList',
     columns: [
     	{ text: 'id',dataIndex:'id'},
         { text: 'shopId',dataIndex:'shopId'},

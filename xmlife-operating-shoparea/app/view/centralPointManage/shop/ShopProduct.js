@@ -2,10 +2,9 @@
  Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopProduct', {
     extend: 'Ext.grid.Panel',
     xtype: 'shopproduct',
-
     header: false,
     store:'Product',
-    id:'ShelvesGoodsList',
+    itemId:'ShelvesGoodsList',
     columns: [
         { text: 'id',dataIndex:'id'},
         { text: 'shopId',dataIndex:'shopId'},
@@ -14,9 +13,7 @@
             dataIndex:'name',
             sortable: false,
             align: 'center', 
-
         },
-
         {
             text: '所属店铺',
             dataIndex: 'shopname',
@@ -52,7 +49,6 @@
                 
                 return value/100;
             } 
-
         }, 
         {
             text: '售价',
@@ -94,7 +90,6 @@
                 return value;
             }  
         },
-        
         {
             header:"",
             width: 90,
@@ -155,7 +150,7 @@
             sortable: false,
             itemId:'openModifyShelvesGoodsWin',
         
-        }, 
+        }
     ],
     tbar:[
         {text:'添加商品',itemId:'openCreateShelvesGoodsWin'}
