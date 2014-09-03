@@ -32,9 +32,9 @@ Ext.define('XMLifeOperating.controller.CustomerList', {
              autoCreate: true
         },
         {
-             ref: 'CustomerList',
-             selector: 'CustomerList',
-             xtype: 'CustomerList',
+             ref: 'customerList',
+             selector: 'customerList',
+             xtype: 'customerList',
              autoCreate: true
         },{
             ref: 'contentPanel',
