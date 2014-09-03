@@ -66,7 +66,9 @@ Ext.define('XMLifeOperating.view.staffManage.deliverer.DealDelivererHistoryList'
     ],
 
     columns: [
-       
+        {
+            xtype: 'rownumberer'
+        }, 
         {
             text: '订单号',
             dataIndex: 'dealBackendId',

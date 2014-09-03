@@ -63,7 +63,9 @@ Ext.define('XMLifeOperating.view.staffManage.shopper.DealShopperHistoryList', {
         },
         ],
     columns: [
-       
+        {
+            xtype: 'rownumberer'
+        }, 
         {
             text: '订单号',
             dataIndex: 'shortBackendId',
