@@ -83,20 +83,20 @@ Ext.define('XMLifeOperating.controller.Navigation', {
 
     var contentPanel = this.getContentPanel(),
         contentItems = contentPanel.items.items,
-        xtype = Selectarr[0].raw.id
+        id = Selectarr[0].raw.id
         isNew = true;
         
     Ext.Array.each(contentItems,function(item) {
-      if (item.xtype === xtype) {
+      if (item.id === id) {
         contentPanel.setActiveTab(item.show());
         isNew = false;
       }
     });
     if (isNew) {
       contentPanel.add({
-        xtype : xtype
+        xtype : id
       });
-      contentPanel.setActiveTab(xtype);
+      contentPanel.setActiveTab(id);
     }
     return contentPanel.getActiveTab();
   }
