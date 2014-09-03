@@ -7,7 +7,7 @@ Ext.define('XMLifeOperating.view.staffManage.deliverer.GDealDelivererHistoryList
     extend: 'Ext.grid.Panel',
     xtype: 'gDealDelivererHistoryList',
 
-    header: false,
+    title: '历史订单',
 
     store: 'DealDelivererHistory',
      tbar: [
@@ -174,5 +174,8 @@ Ext.define('XMLifeOperating.view.staffManage.deliverer.GDealDelivererHistoryList
             ptype: 'gridviewdragdrop',
             dragText: 'Drag and drop to reorder'
         }
-    }
+    },
+    columnLines: true,
+    frame: true,
+    iconCls: 'icon-grid'
 });

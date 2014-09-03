@@ -5,7 +5,7 @@ Ext.define('XMLifeOperating.view.userManage.feedback.FeedbackList', {
     store: 'Feedback',       
 
    tbar: [
-        { 
+            { 
             xtype: 'fieldcontainer',
             fieldLabel : '按时间过滤',
             defaultType: 'radiofield',

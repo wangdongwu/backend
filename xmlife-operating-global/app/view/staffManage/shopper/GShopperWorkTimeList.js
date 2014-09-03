@@ -7,7 +7,7 @@ Ext.define('XMLifeOperating.view.staffManage.shopper.GShopperWorkTimeList', {
     extend: 'Ext.grid.Panel',
     xtype: 'gShopperWorkTimeList',
 
-    header: false,
+    title: '考勤管理',
 
     store: 'ShopperWorkTime',
     tbar: [
@@ -42,6 +42,7 @@ Ext.define('XMLifeOperating.view.staffManage.shopper.GShopperWorkTimeList', {
             xtype: 'radio',
             fieldLabel:'本周',
             name:'dayType',
+            checked: true,
             itemId: 'dayType4',
             labelAlign: 'right',
             style : 'border:0px solid;margin-right:10px;',
@@ -137,5 +138,8 @@ Ext.define('XMLifeOperating.view.staffManage.shopper.GShopperWorkTimeList', {
             ptype: 'gridviewdragdrop',
             dragText: 'Drag and drop to reorder'
         }
-    }
+    },
+    columnLines: true,
+    frame: true,
+    iconCls: 'icon-grid'
 });

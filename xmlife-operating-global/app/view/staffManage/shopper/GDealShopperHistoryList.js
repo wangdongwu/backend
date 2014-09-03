@@ -3,7 +3,7 @@ Ext.define('XMLifeOperating.view.staffManage.shopper.GDealShopperHistoryList', {
     extend: 'Ext.grid.Panel',
     xtype: 'gDealShopperHistoryList',
 
-    header: false,
+    title: '历史订单',
 
     store: 'DealShopperHistory',
     tbar: [
@@ -183,5 +183,8 @@ Ext.define('XMLifeOperating.view.staffManage.shopper.GDealShopperHistoryList', {
             ptype: 'gridviewdragdrop',
             dragText: 'Drag and drop to reorder'
         }
-    }
+    },
+    columnLines: true,
+    frame: true,
+    iconCls: 'icon-grid'
 });

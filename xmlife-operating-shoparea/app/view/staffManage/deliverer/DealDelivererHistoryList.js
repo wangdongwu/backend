@@ -7,7 +7,7 @@ Ext.define('XMLifeOperating.view.staffManage.deliverer.DealDelivererHistoryList'
     extend: 'Ext.grid.Panel',
     xtype: 'dealDelivererHistoryList',
 
-    header: false,
+    title: '历史订单',
 
     store: 'DealDelivererHistory',
      tbar: [
@@ -20,6 +20,7 @@ Ext.define('XMLifeOperating.view.staffManage.deliverer.DealDelivererHistoryList'
 
             xtype: 'radio',
             fieldLabel:'今天',
+            checked: true,
             itemId: 'dayType0',
             name:'dayType',
             labelAlign: 'right',
@@ -191,5 +192,8 @@ Ext.define('XMLifeOperating.view.staffManage.deliverer.DealDelivererHistoryList'
             ptype: 'gridviewdragdrop',
             dragText: 'Drag and drop to reorder'
         }
-    }
+    },
+    columnLines: true,
+    frame: true,
+    iconCls: 'icon-grid'
 });

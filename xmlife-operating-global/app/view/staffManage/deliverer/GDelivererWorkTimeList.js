@@ -7,7 +7,7 @@ Ext.define('XMLifeOperating.view.staffManage.deliverer.GDelivererWorkTimeList', 
     extend: 'Ext.grid.Panel',
     xtype: 'gDelivererWorkTimeList',
 
-    header: false,
+    title: '考勤管理',
 
     store: 'DelivererWorkTime',
    tbar: [
@@ -42,6 +42,7 @@ Ext.define('XMLifeOperating.view.staffManage.deliverer.GDelivererWorkTimeList', 
             xtype: 'radio',
             fieldLabel:'本周',
             name:'dayType',
+            checked: true,
             itemId: 'dayType4',
             labelAlign: 'right',
             style : 'border:0px solid;margin-right:10px;',
@@ -125,5 +126,8 @@ Ext.define('XMLifeOperating.view.staffManage.deliverer.GDelivererWorkTimeList', 
             ptype: 'gridviewdragdrop',
             dragText: 'Drag and drop to reorder'
         }
-    }
+    },
+    columnLines: true,
+    frame: true,
+    iconCls: 'icon-grid'
 });
