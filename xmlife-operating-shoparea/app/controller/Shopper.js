@@ -175,7 +175,7 @@ Ext.define('XMLifeOperating.controller.Shopper', {
                     dealShopperHistoryStroe.load({
                         params: {
                             shopper: shopperId,
-                            dataType: 1
+                            dayType: 1
                         }
                     });
                     content.add(tab);
@@ -323,7 +323,7 @@ Ext.define('XMLifeOperating.controller.Shopper', {
                     dealItemsStroe.load({
                         params: {
                             deal: dealBackendId,
-                            dataType: 1
+                            dayType: 1
                         }
                     });
                     content.add(tab);

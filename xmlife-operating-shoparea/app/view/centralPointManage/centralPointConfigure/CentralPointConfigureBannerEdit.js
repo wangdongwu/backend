@@ -20,7 +20,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.centralPointConfigure.Centra
             text: 'Cancel',
             itemId: 'btnCancel',
             handler:function(){
-                this.up('centralpointbanneredit').close();
+                this.up('centralpointconfigurebanneredit').close();
             }
         }
     ],

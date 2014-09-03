@@ -115,8 +115,10 @@ Ext.define('XMLifeOperating.controller.DelivererZoneList', {
                     var win = me.getResidentalDistrictEdit();
                     win.down('form').loadRecord(record);
                     win.show();
-                    var store = Ext.create('XMLifeOperating.store.ResidentalDistrict');
-                    this.getOldCommunityId().bindStore(store, true);
+                    var store = Ext.create('XMLifeOperating.store.ResidentalDistrict', {
+                        autoSync : true
+                    });
+                    this.getOldCommunityId().bindStore(store, false);
                     store.load({
                         params: {
                             deliveryZone: record.get('id'),
@@ -137,7 +139,9 @@ Ext.define('XMLifeOperating.controller.DelivererZoneList', {
                             }
                         }
                     });
-                    var store1 = Ext.create('XMLifeOperating.store.ResidentalDistrict');
+                    var store1 = Ext.create('XMLifeOperating.store.ResidentalDistrict', {
+                        autoSync : true
+                    });
                     this.getSearchCommunityId().bindStore(store1, true);
                     store1.load();
                 }
@@ -204,24 +208,10 @@ Ext.define('XMLifeOperating.controller.DelivererZoneList', {
                     var win = me.getLineDelivererAdd();
                     win.down('form').loadRecord(record);
                     win.show();
-                    /*var store = me.getDelivererStore();
-                    store.load({
-                        params: {
-                            deliveryZone: record.get('id'),
-                        },
-                        callback: function(records) {
-                            //初始化打勾
-                            var model = Ext.ComponentQuery.query('#oldCourierId')[0].getSelectionModel();
-                            model.deselectAll();
-                            for (var i = 0; i < records.length; i++) {
-                                var index = store.indexOfId(records[i].get('id'));
-                                model.select(index, true);
-                            }
-                        }
-                    });*/
-
-                    var store = Ext.create('XMLifeOperating.store.Deliverer');
-                    this.getOldCourierId().bindStore(store, true);
+                    var store = Ext.create('XMLifeOperating.store.Deliverer', {
+                        autoSync : true
+                    });
+                    this.getOldCourierId().bindStore(store, false);
                     store.load({
                         params: {
                             deliveryZone: record.get('id'),
@@ -236,27 +226,11 @@ Ext.define('XMLifeOperating.controller.DelivererZoneList', {
                             }
                         }
                     });
-                    var store1 = Ext.create('XMLifeOperating.store.Deliverer');
-                    this.getSearchCourierId().bindStore(store1, true);
-                    store.load({
-                        params: {
-                            deliveryZone: record.get('id'),
-                        },
-                        callback: function(records) {
-                            //初始化打勾
-                            var model = Ext.ComponentQuery.query('#oldCourierId')[0].getSelectionModel();
-                            model.deselectAll();
-                            for (var i = 0; i < records.length; i++) {
-                                var index = store.indexOfId(records[i].get('id'));
-                                model.select(index, true);
-                            }
-                        }
+                    var store1 = Ext.create('XMLifeOperating.store.Deliverer',{
+                        autoSync : true
                     });
-
-
-
-
-
+                    this.getSearchCourierId().bindStore(store1, false);
+                    store.load();
                 }
             },
             'lineDelivererAdd #reseachCourier': {
@@ -420,11 +394,27 @@ Ext.define('XMLifeOperating.controller.DelivererZoneList', {
             Ext.String.format("确定删除线路 '{0}' 吗？", line.get('name')),
             function(result) {
                 if (result == 'yes') {
-                    line.destroy({
+
+                    /*line.destroy({
+                        success: function() {
+                            console.log('line deleted!');
+                        }
+                    });*/
+                var zoneId = line.get('id');
+                var url='delivererZone/'+zoneId;
+                sendDeleteRequest(url, {}, '删除线路', '成功删除线路', '删除线路失败', function(response) {
+                        console.log(response);
+                        if(response.responseText=='-2'){
+                            Ext.Msg.alert('Invalid Data', '不能删除');
+                            return;
+                        }
+                        line.destroy({
                         success: function() {
                             console.log('line deleted!');
                         }
                     });
+
+                });
                 }
             }
         );

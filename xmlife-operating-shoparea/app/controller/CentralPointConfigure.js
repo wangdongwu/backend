@@ -73,7 +73,7 @@ Ext.define('XMLifeOperating.controller.CentralPointConfigure', {
                     this.centralPointId = centralPointId;
                 }
             },
-            'centralpointconfigurebanneredit #returnCentralPoint': {
+            'centralpointconfigurebannerlist #returnCentralPoint': {
                 click: function() {
                     var tab = me.getCentralPointConfigureList();
                     var store = me.getShopAreaStore();
@@ -87,9 +87,8 @@ Ext.define('XMLifeOperating.controller.CentralPointConfigure', {
                     content.add(tab);
                 }
             },
-            'centralpointconfigurebanneredit #add': {
+            'centralpointconfigurebannerlist #add': {
                 click: function() {
-                    alert(1111);
                     var len = this.getShopAreaBannerStore().getCount();
 
                     if (len >= 6) {
@@ -104,7 +103,7 @@ Ext.define('XMLifeOperating.controller.CentralPointConfigure', {
                     }
                     var cClass = me.getShopAreaBannerModel();
                     var CentralPointBanner = new cClass();
-                    var win = this.getEditCentralPointBannerWin();
+                    var win = this.getCentralPointConfigureBannerEdit();
                     win.down('form').loadRecord(CentralPointBanner);
                     win.show();
                 }
@@ -217,7 +216,7 @@ Ext.define('XMLifeOperating.controller.CentralPointConfigure', {
     },
     saveEditCentralPointBannerWin: function() {
 
-        var editWindow = this.getEditCentralPointBannerWin(),
+        var editWindow = this.getCentralPointConfigureBannerEdit(),
             windowEl = editWindow.getEl(),
             form = editWindow.down('form').getForm(),
             centralPointBanner = form.getRecord(),

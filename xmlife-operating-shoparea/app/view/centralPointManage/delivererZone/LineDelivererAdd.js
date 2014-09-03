@@ -82,7 +82,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.delivererZone.LineDelivererA
                     xtype:'gridpanel',
                     itemId:'searchCourierId',
                     height:150,
-                    selModel:Ext.create('Ext.selection.CheckboxModel',{mode:"SIMPLE"}),
+                    selModel:Ext.create('Ext.selection.CheckboxModel',{mode:"MULTI"}),
                     columns:[
                         {
                             text:'uid',
@@ -105,7 +105,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.delivererZone.LineDelivererA
                     xtype:'gridpanel',
                     itemId:'oldCourierId',
                     height:150,
-                    selModel:Ext.create('Ext.selection.CheckboxModel',{mode:"SIMPLE"}),
+                    selModel:Ext.create('Ext.selection.CheckboxModel',{mode:"MULTI"}),
                     columns:[
                         {
                             text:'uid',
