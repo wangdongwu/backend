@@ -446,7 +446,6 @@ Ext.define('XMLifeOperating.controller.Shop', {
              */
             'shopshelf,shopsecondshelf': {
                 itemdblclick: function(grid, record, item, index, e, eOpts) {
-
                     var toolbar = Ext.getCmp('toolbar');
                     var tab = me.getShopShelfTab();
                     this.record = record;

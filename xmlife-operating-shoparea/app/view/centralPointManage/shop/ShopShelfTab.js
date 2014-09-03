@@ -9,7 +9,7 @@
     xtype: 'shopshelftab',
     title:'货架列表',
     itemId:'shopStoreInfoTab',
-    plain: true,
+    plain: false,
     id:'toolbar',
     layout:'fit',
     enableTabScroll:true,
