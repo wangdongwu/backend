@@ -75,6 +75,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopBuyer', {
                     name: 'searchCourierIds',
                     store:Ext.create('XMLifeOperating.store.Shopper'),
                     allowBlank: false,
+                    mode:'remote',
                     fieldLabel: '买手',
                     xtype:'gridpanel',
                     itemId:'searchBuyerId',
@@ -98,6 +99,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopBuyer', {
                 {
                     name: 'shopperIds',
                     store:'Shopper',
+                    mode:'remote',
                     fieldLabel: '买手',
                     xtype:'gridpanel',
                     itemId:'bindShopWithShopper',
@@ -117,8 +119,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopBuyer', {
                             dataIndex:'phone'
                         }
                     ]
-                }, 
-                
+                }
             ],
             buttons: [
                 {

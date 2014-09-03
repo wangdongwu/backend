@@ -146,7 +146,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
                     content.removeAll(false);
                     this.record = record;
                     var shopInfoForm = tab;
-                    /*                    tab.setActiveTab('tab1');
+                    /* tab.setActiveTab('tab1');
                     var shopInfoForm = tab.getActiveTab();
                     if (shopInfoForm.getItemId() == 'tab1') {*/
                     var form = shopInfoForm.getForm();
@@ -175,7 +175,6 @@ Ext.define('XMLifeOperating.controller.Shop', {
             },
             'shoplist #seeBannerBtn': {
                 click: function(view, column, rowIndex, colIndex, e) {
-
                     var tab = this.getShopBanner();
                     var content = this.getContentPanel();
                     content.removeAll(false);
@@ -190,8 +189,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
                         }
                     };
                     content.add(tab);
-                    me.shopStoreId = shopStoreId;
-
+                    this.shopId = shopStoreId;
                 }
             },
             'shoplist #seeCategoryBtn': {
@@ -532,7 +530,6 @@ Ext.define('XMLifeOperating.controller.Shop', {
             'shopbuyer #reseachBuyer': {
                 click: function() {
                     var store = Ext.ComponentQuery.query('shopbuyer #searchBuyerId')[0].getStore();
-                    var store = me.getShopperStore();
                     store.load({
                         params: {
                             nameOrPhone: me.getKeywordBuyer().getValue(),
