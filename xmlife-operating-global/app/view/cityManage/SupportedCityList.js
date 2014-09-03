@@ -54,7 +54,7 @@ Ext.define('XMLifeOperating.view.cityManage.SupportedCityList', {
                 if (value == 1) {
                     return "开放";
                 } else {
-                    return "关闭";
+                    return "筹备";
                 }
             }
         }, 

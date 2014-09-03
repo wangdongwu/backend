@@ -95,18 +95,20 @@ Ext.define('XMLifeOperating.view.staffManage.deliverer.GDelivererList', {
             dataIndex: 'phone',
             sortable: false,
             align: 'left'
-        }, {
-            text: '密码',
-            dataIndex: 'pwd',
-            sortable: false,
-            align: 'left'
-        }, {
+        }, 
+        // {
+        //     text: '密码',
+        //     dataIndex: 'pwd',
+        //     sortable: false,
+        //     align: 'left'
+        // }, 
+        {
             text: '头像',
             dataIndex: 'avatar',
             sortable: false,
             align: 'left'
         }, {
-            text: '服务商圈',
+            text: '所属中心',
             dataIndex: 'areaNames',
             sortable: false,
             align: 'left',

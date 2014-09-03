@@ -53,20 +53,20 @@ Ext.define('XMLifeOperating.view.cityManage.SupportedCityAdd', {
                     queryMode:'local',
                     emptyText: "请先选择省份"
                 },
-                {
-                    fieldLabel : '状态',
-                    value : 1,
-                    name : 'cstatue',
-                    store : statueStore,
-                    hiddenName: 'name',
-                    xtype : 'combo',
-                    editable : false,
-                    mode : 'local',
-                    triggerAction : 'all',
-                    displayField: 'name',
-                    valueField: 'value',
-                    queryMode:'local'
-                },
+                // {
+                //     fieldLabel : '状态',
+                //     value : 1,
+                //     name : 'cstatue',
+                //     store : statueStore,
+                //     hiddenName: 'name',
+                //     xtype : 'combo',
+                //     editable : false,
+                //     mode : 'local',
+                //     triggerAction : 'all',
+                //     displayField: 'name',
+                //     valueField: 'value',
+                //     queryMode:'local'
+                // },
                 {
                     fieldLabel : '运费',
                     value : 10,
@@ -95,15 +95,15 @@ Ext.define('XMLifeOperating.view.cityManage.SupportedCityAdd', {
             ],
             buttons: [
                 {
-                    text: '添加',
-                    itemId: 'save-city-add-btn'
-                },
-                {
                     text: '关闭',
                     handler:function(){
                         //关闭窗口
                         Ext.ComponentQuery.query('supportedCityAdd')[0].close();
                     }
+                },
+                {
+                    text: '添加',
+                    itemId: 'save-city-add-btn'
                 }
             ]
         }]

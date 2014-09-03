@@ -3,6 +3,11 @@ Ext.define('XMLifeOperating.store.AllCities', {
     fields: ['lat', 'lng', 'code', 'name', 'parent'],
 
     data: [
+        {"code": 110000, "name": "\u5317\u4eac\u5e02", "parent": 110000},
+        {"code": 120000, "name": "\u5929\u6d25\u5e02", "parent": 120000},
+        {"code": 310000, "name": "\u4e0a\u6d77\u5e02", "parent": 310000},
+        {"code": 810000, "name": "\u9999\u6e2f\u7279\u522b\u884c\u653f\u533a", "parent": 810000},
+        {"code": 820000, "name": "\u6fb3\u95e8\u7279\u522b\u884c\u653f\u533a", "parent": 820000},
         {"lat": 38.0741259, "lng": 114.4892442, "code": 130100, "name": "\u77f3\u5bb6\u5e84\u5e02", "parent": 130000},
         {"lat": 39.630581, "lng": 118.1804037, "code": 130200, "name": "\u5510\u5c71\u5e02", "parent": 130000},
         {"lat": 39.9541782, "lng": 119.6335709, "code": 130300, "name": "\u79e6\u7687\u5c9b\u5e02", "parent": 130000},

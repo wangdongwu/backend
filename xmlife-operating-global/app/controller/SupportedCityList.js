@@ -184,7 +184,7 @@ Ext.define('XMLifeOperating.controller.SupportedCityList', {
             city = form.getRecord();
 
         var cityCode = addWindow.down('combo[name=ccity]').getValue();
-        var status = addWindow.down('combo[name=cstatue]').getValue();
+        // var status = addWindow.down('combo[name=cstatue]').getValue();
         var shipfee = addWindow.down('textfield[name=logisticsPrice]').getValue();
         var deductd = addWindow.down('textfield[name=deductdPrice]').getValue();
 
@@ -192,7 +192,7 @@ Ext.define('XMLifeOperating.controller.SupportedCityList', {
         city.set('lng',this.selectedRecord.get('lng'));
         city.set('lat',this.selectedRecord.get('lat'));
         city.set('name',this.selectedRecord.get('name'));
-        city.set('status',status);
+        city.set('status',0);
         city.set('shipfee',shipfee);
         city.set('deductd',deductd);
 

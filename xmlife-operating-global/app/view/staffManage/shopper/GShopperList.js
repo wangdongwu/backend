@@ -117,7 +117,7 @@ Ext.define('XMLifeOperating.view.staffManage.shopper.GShopperList', {
                 return htmlStr;
             }
         }, {
-            text: '服务商圈',
+            text: '所属中心',
             dataIndex: 'areaNames',
             width: 100,
             sortable: false,
