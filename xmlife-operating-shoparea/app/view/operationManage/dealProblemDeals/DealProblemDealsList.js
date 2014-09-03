@@ -80,7 +80,7 @@ Ext.define('XMLifeOperating.view.operationManage.dealProblemDeals.DealProblemDea
                     case 32:                        
                         return '等待派送';
                         break;
-                    case 4:
+                    case 3:
                         return '正在配送';
                         break;
                 }
