@@ -137,27 +137,6 @@ Ext.define('XMLifeOperating.controller.Shop', {
                             areaId: XMLifeOperating.generic.Global.SERVICECENEERID
                         }
                     });
-                },
-                itemdblclick: function(grid, record, item, index, e, eOpts) {
-                    //替换成shopStoreinfo的面板
-                    var tab = this.getShopEdit();
-                    // var content = this.getContentPanel();
-                    // content.removeAll(false);
-                    this.record = record;
-                    var shopInfoForm = tab;
-                    var form = shopInfoForm.down('form');
-                    record.set('shopBannerTemplateId', record.get('templateId'));
-                    var leftOpenTime = Math.floor(record.get('openTime') / 60) < 10 ? '0' + Math.floor(record.get('openTime') / 60) : Math.floor(record.get('openTime') / 60);
-                    var rightOpenTime = record.get('openTime') % 60 < 10 ? '0' + record.get('openTime') % 60 : record.get('openTime') % 60;
-                    var leftCloseTime = Math.floor(record.get('closeTime') / 60) < 10 ? '0' + Math.floor(record.get('closeTime') / 60) : Math.floor(record.get('closeTime') / 60);
-                    var rightCloseTime = record.get('closeTime') % 60 < 10 ? '0' + record.get('closeTime') % 60 : record.get('closeTime') % 60;
-                    var openTime = leftOpenTime + ':' + rightOpenTime;
-                    var closeTime = leftCloseTime + ':' + rightCloseTime;
-                    record.set('openTime', openTime);
-                    record.set('closeTime', closeTime);
-                    form.loadRecord(record);
-                    this.shopId = this.record.raw.id;
-                    tab.show();
                 }
             },
             'shoplist #add': {
@@ -268,6 +247,27 @@ Ext.define('XMLifeOperating.controller.Shop', {
                             }
                         }
                     });
+                }
+            },
+            'shoplist #modifyShopList':{
+                click: function(view, column, rowIndex, colIndex, e) {
+                    var tab = this.getShopEdit();
+                    var record = view.getRecord(view.findTargetByEvent(e));
+                    this.record = record;
+                    var shopInfoForm = tab;
+                    var form = shopInfoForm.down('form');
+                    record.set('shopBannerTemplateId', record.get('templateId'));
+                    var leftOpenTime = Math.floor(record.get('openTime') / 60) < 10 ? '0' + Math.floor(record.get('openTime') / 60) : Math.floor(record.get('openTime') / 60);
+                    var rightOpenTime = record.get('openTime') % 60 < 10 ? '0' + record.get('openTime') % 60 : record.get('openTime') % 60;
+                    var leftCloseTime = Math.floor(record.get('closeTime') / 60) < 10 ? '0' + Math.floor(record.get('closeTime') / 60) : Math.floor(record.get('closeTime') / 60);
+                    var rightCloseTime = record.get('closeTime') % 60 < 10 ? '0' + record.get('closeTime') % 60 : record.get('closeTime') % 60;
+                    var openTime = leftOpenTime + ':' + rightOpenTime;
+                    var closeTime = leftCloseTime + ':' + rightCloseTime;
+                    record.set('openTime', openTime);
+                    record.set('closeTime', closeTime);
+                    form.loadRecord(record);
+                    this.shopId = this.record.raw.id;
+                    tab.show();
                 }
             },
             /*
