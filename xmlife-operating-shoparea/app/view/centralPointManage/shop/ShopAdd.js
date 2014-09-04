@@ -13,6 +13,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopAdd', {
     height: 650,
     resizable: false,
     layout: 'fit',
+    bodyStyle: 'text-align:center;border-style: none;',
     initComponent: function() {
         this.items = [{
             xtype: 'form',

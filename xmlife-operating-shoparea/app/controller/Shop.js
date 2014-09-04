@@ -141,14 +141,11 @@ Ext.define('XMLifeOperating.controller.Shop', {
                 itemdblclick: function(grid, record, item, index, e, eOpts) {
                     //替换成shopStoreinfo的面板
                     var tab = this.getShopEdit();
-                    var content = this.getContentPanel();
-                    content.removeAll(false);
+                    // var content = this.getContentPanel();
+                    // content.removeAll(false);
                     this.record = record;
                     var shopInfoForm = tab;
-                    /* tab.setActiveTab('tab1');
-                    var shopInfoForm = tab.getActiveTab();
-                    if (shopInfoForm.getItemId() == 'tab1') {*/
-                    var form = shopInfoForm.getForm();
+                    var form = shopInfoForm.down('form');
                     record.set('shopBannerTemplateId', record.get('templateId'));
                     var leftOpenTime = Math.floor(record.get('openTime') / 60) < 10 ? '0' + Math.floor(record.get('openTime') / 60) : Math.floor(record.get('openTime') / 60);
                     var rightOpenTime = record.get('openTime') % 60 < 10 ? '0' + record.get('openTime') % 60 : record.get('openTime') % 60;
@@ -160,7 +157,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
                     record.set('closeTime', closeTime);
                     form.loadRecord(record);
                     this.shopId = this.record.raw.id;
-                    content.add(tab);
+                    tab.show();
                 }
             },
             'shoplist #add': {
@@ -317,16 +314,56 @@ Ext.define('XMLifeOperating.controller.Shop', {
             /*
              * shopadd事件
              */
-            'shopadd #save-shopStore-edit-btn,#modifyShopStoreInfo': {
+            'shopadd #save-shopStore-edit-btn': {
                 click: function(button) {
-                    debugger
                     var editWindow;
                     var itemId = button.getItemId();
-                    if (itemId == 'save-shopStore-edit-btn') {
-                        editWindow = this.getShopAdd();
+                    editWindow = this.getShopAdd()
+                    var windowEl = editWindow.getEl(),
+                        form = editWindow.down('#shopeditform').getForm(),
+                        shopStore = form.getRecord(),
+                        me = this;
+                    if (form.isValid()) {
+                        windowEl.mask('saving');
+                        form.updateRecord(shopStore);
+                        shopStore.set('city', XMLifeOperating.generic.Global.currentCity);
+                        var areaIds = [XMLifeOperating.generic.Global.SERVICECENEERID];
+                        shopStore.set('areaIds', areaIds);
+                        shopStore.set('beCopyedShopId', '123');
+                        shopStore.set('autoOnline', false);
+                        shopStore.set('openTime', (shopStore.get('openTime').getHours() * 60 + shopStore.get('openTime').getMinutes()));
+                        shopStore.set('closeTime', (shopStore.get('closeTime').getHours() * 60 + shopStore.get('closeTime').getMinutes()));
+                        shopStore.save({
+                            success: function(task, operation) {
+                                windowEl.unmask();
+                                editWindow.close();
+                                me.fireEvent('refreshView');
+                            },
+                            failure: function(task, operation) {
+                                var error = operation.getError(),
+                                    msg = Ext.isObject(error) ? error.status + ' ' + error.statusText : error;
+                                Ext.MessageBox.show({
+                                    title: 'Edit Task Failed',
+                                    msg: msg,
+                                    icon: Ext.Msg.ERROR,
+                                    buttons: Ext.Msg.OK
+                                });
+                                windowEl.unmask();
+                            }
+                        });
                     } else {
-                        editWindow = this.getShopEdit();
+                        Ext.Msg.alert('Invalid Data', 'Please correct form errors');
                     }
+                }
+            },
+            /*
+             * shopedit事件
+             */
+            'shopedit #modifyShopStoreInfo': {
+                click: function(button) {
+                    var editWindow;
+                    var itemId = button.getItemId();
+                    editWindow = this.getShopEdit();
                     var windowEl = editWindow.getEl(),
                         form = editWindow.down('#shopeditform').getForm(),
                         shopStore = form.getRecord(),
@@ -371,61 +408,76 @@ Ext.define('XMLifeOperating.controller.Shop', {
                                 });
                             return;
                         } else {*/
-                        // var data = {
-                        //     name: shopStore.get('name'),
-                        //     openTime: shopStore.get('openTime'),
-                        //     closeTime: shopStore.get('closeTime'),
-                        //     lng: shopStore.get('lng'),
-                        //     lat: shopStore.get('lat'),
-                        //     areaIds: areaIds,
-                        //     address: shopStore.get('address'),
-                        //     shopBannerTemplateId: shopStore.get('shopBannerTemplateId'),
-                        //     city: XMLifeOperating.generic.Global.currentCity,
-                        //     autoOnline: shopStore.get('autoOnline'),
-                        //     beCopyedShopId: shopStore.get('beCopyedShopId'),
-                        //     desc: shopStore.get('desc'),
-                        // }
-                        // sendRequest('shop',$.param(data), '创建店铺', '创建店铺成功', '创建店铺失败', function() {
-                        //     windowEl.unmask();
-                        //     editWindow.close();
-                        //     var sstore = me.getShopStore();
-                        //     sstore.load({
-                        //         params: {
-                        //             city: XMLifeOperating.generic.Global.currentCity,
-                        //             areaId: XMLifeOperating.generic.Global.SERVICECENEERID
-                        //         }
-                        //     });
-                        //     me.fireEvent('refreshView');
-                        // })
-
-                        shopStore.save({
-                            success: function(task, operation) {
-                                windowEl.unmask();
-                                editWindow.close();
-                                me.fireEvent('refreshView');
-                            },
-                            failure: function(task, operation) {
-                                var error = operation.getError(),
-                                    msg = Ext.isObject(error) ? error.status + ' ' + error.statusText : error;
-                                Ext.MessageBox.show({
-                                    title: 'Edit Task Failed',
-                                    msg: msg,
-                                    icon: Ext.Msg.ERROR,
-                                    buttons: Ext.Msg.OK
-                                });
-                                windowEl.unmask();
-                            }
-                        });
-                        //}
+                        /*                        var data = {
+                            name: shopStore.get('name'),
+                            openTime: shopStore.get('openTime'),
+                            closeTime: shopStore.get('closeTime'),
+                            lng: shopStore.get('lng'),
+                            lat: shopStore.get('lat'),
+                            areaIds: areaIds,
+                            address: shopStore.get('address'),
+                            shopBannerTemplateId: shopStore.get('shopBannerTemplateId'),
+                            city: XMLifeOperating.generic.Global.currentCity,
+                            autoOnline: shopStore.get('autoOnline'),
+                            beCopyedShopId: shopStore.get('beCopyedShopId'),
+                            desc: shopStore.get('desc'),
+                        }
+                        sendRequest('shop',$.param(data), '创建店铺', '创建店铺成功', '创建店铺失败', function() {
+                            windowEl.unmask();
+                            editWindow.close();
+                            var sstore = me.getShopStore();
+                            sstore.load({
+                                params: {
+                                    city: XMLifeOperating.generic.Global.currentCity,
+                                    areaId: XMLifeOperating.generic.Global.SERVICECENEERID
+                                }
+                            });
+                            me.fireEvent('refreshView');
+                        })*/
+                        var requestparams = {
+                            id: shopStore.get('id'),
+                            name: shopStore.get('name'),
+                            openTime: shopStore.get('openTime'),
+                            closeTime: shopStore.get('closeTime'),
+                            lng: shopStore.get('lng'),
+                            lat: shopStore.get('lat'),
+                            areaIds: areaIds,
+                            address: shopStore.get('address'),
+                            shopBannerTemplateId: shopStore.get('shopBannerTemplateId'),
+                            city: XMLifeOperating.generic.Global.currentCity,
+                            autoOnline: shopStore.get('autoOnline'),
+                            desc: shopStore.get('desc')
+                        }
+                        var modifySuccessCallback = function(task, operation) {
+                            windowEl.unmask();
+                            editWindow.close();
+                            var sstore = me.getShopStore();
+                            sstore.load({
+                                params: {
+                                    city: XMLifeOperating.generic.Global.currentCity,
+                                    areaId: XMLifeOperating.generic.Global.SERVICECENEERID
+                                }
+                            });
+                            me.fireEvent('refreshView');
+                        };
+                        var modifyFailureCallback = function(task, operation) {
+                            var error = operation.getError(),
+                                msg = Ext.isObject(error) ? error.status + ' ' + error.statusText : error;
+                            Ext.MessageBox.show({
+                                title: 'Edit Task Failed',
+                                msg: msg,
+                                icon: Ext.Msg.ERROR,
+                                buttons: Ext.Msg.OK
+                            });
+                            windowEl.unmask();
+                        }
+                        sendPutRequest('shop/update', requestparams, '编辑模板', '成功编辑模板', '编辑模板失败', modifySuccessCallback,modifyFailureCallback);
 
                     } else {
                         Ext.Msg.alert('Invalid Data', 'Please correct form errors');
                     }
                 }
             },
-            /*
-             * shopedit事件
-             */
             'shopedit #returnShopBack': {
                 click: function(record) {
                     var content = this.getContentPanel();
