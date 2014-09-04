@@ -1,10 +1,7 @@
-/**
- * @class SimpleTasks.view.tasks.EditWindow
- * @extends Ext.window.Window
- */
-Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopInfo', {
+
+Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopEdit', {
     extend: 'Ext.form.Panel',
-    xtype: 'shopinfo',
+    xtype: 'shopedit',
     requires: [
         'Ext.form.Panel',
         'Ext.form.field.Text',

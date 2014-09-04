@@ -6,7 +6,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
         'centralPointManage.shop.ShopAdd',
         'centralPointManage.shop.ShopBanner',
         'centralPointManage.shop.ShopBannerAdd',
-        'centralPointManage.shop.ShopInfo',
+        'centralPointManage.shop.ShopEdit',
         'centralPointManage.shop.ShopTab',
         'centralPointManage.shop.ShopShelf',
         'centralPointManage.shop.ShopShelfAdd',
@@ -75,9 +75,9 @@ Ext.define('XMLifeOperating.controller.Shop', {
             xtype: 'shopbanneradd',
             autoCreate: true
         }, {
-            ref: 'shopInfo',
-            selector: 'shopinfo',
-            xtype: 'shopinfo',
+            ref: 'shopEdit',
+            selector: 'shopedit',
+            xtype: 'shopedit',
             autoCreate: true
         }, {
             ref: 'shopTab',
@@ -140,7 +140,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
                 },
                 itemdblclick: function(grid, record, item, index, e, eOpts) {
                     //替换成shopStoreinfo的面板
-                    var tab = this.getShopInfo();
+                    var tab = this.getShopEdit();
                     var content = this.getContentPanel();
                     content.removeAll(false);
                     this.record = record;
@@ -325,7 +325,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
                     if (itemId == 'save-shopStore-edit-btn') {
                         editWindow = this.getShopAdd();
                     } else {
-                        editWindow = this.getShopInfo();
+                        editWindow = this.getShopEdit();
                     }
                     var windowEl = editWindow.getEl(),
                         form = editWindow.down('#shopeditform').getForm(),
@@ -424,9 +424,9 @@ Ext.define('XMLifeOperating.controller.Shop', {
                 }
             },
             /*
-             * shopeinfo事件
+             * shopedit事件
              */
-            'shopinfo #returnShopBack': {
+            'shopedit #returnShopBack': {
                 click: function(record) {
                     var content = this.getContentPanel();
                     content.removeAll(false);

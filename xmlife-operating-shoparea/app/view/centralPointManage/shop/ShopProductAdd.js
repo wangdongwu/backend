@@ -179,7 +179,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopProductAdd', {
                     text: 'Cancel',
                     handler:function(){
                         //关闭窗口
-                        Ext.ComponentQuery.query('addShelvesGoodsWin')[0].close();
+                        Ext.ComponentQuery.query('shopproductadd')[0].close();
                     }
                 }
             ]
