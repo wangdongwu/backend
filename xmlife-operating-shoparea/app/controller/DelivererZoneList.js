@@ -142,7 +142,7 @@ Ext.define('XMLifeOperating.controller.DelivererZoneList', {
                     var store1 = Ext.create('XMLifeOperating.store.ResidentalDistrict', {
                         autoSync : true
                     });
-                    this.getSearchCommunityId().bindStore(store1, true);
+                    this.getSearchCommunityId().bindStore(store1, false);
                     store1.load();
                 }
             },
