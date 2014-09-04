@@ -63,7 +63,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.residentalDistrict.Residenta
                 text: 'Cancel',
                 handler: function() {
                     //关闭窗口
-                    Ext.ComponentQuery.query('addCommunity')[0].close();
+                    Ext.ComponentQuery.query('residentaldistrictadd')[0].close();
                 }
             }]
         }]

@@ -60,7 +60,7 @@ Ext.define('XMLifeOperating.view.userManage.feedback.FeedbackList', {
             labelWidth: 40,
             xtype:'combo',
             store:'FeedbackStatus',
-            value:'0',
+            itemId:'feedbackStatus',
             editable: false,
             queryMode:'local',
             displayField:'name',
