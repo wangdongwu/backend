@@ -203,7 +203,7 @@ Ext.define('XMLifeOperating.controller.CentralPointConfigure', {
         var store = this.getShopAreaBannerStore();
         var len = store.getCount();
         var orderedIds = [];
-
+        var me=this;
         for (var i = 0; i < len; i++) {
 
             // orderedIds[i] = store.getAt(i).get('id');
@@ -217,7 +217,7 @@ Ext.define('XMLifeOperating.controller.CentralPointConfigure', {
         };
         var url = 'shopArea/banner/setorder/' + centralPointId;
         sendPutRequest(url, params, '保存顺序', '顺序已成功保存', '保存顺序失败',function(){
-            var centralPointBannerStroe = this.getShopAreaBannerStore();
+            var centralPointBannerStroe = me.getShopAreaBannerStore();
             centralPointBannerStroe.load({
                 params: {
                     area: centralPointId
@@ -246,12 +246,17 @@ Ext.define('XMLifeOperating.controller.CentralPointConfigure', {
                     title: centralPointBanner.get('title'),
                     url: centralPointBanner.get('url'),
                     image: centralPointBanner.get('image'),
-                    oldUrl: centralPointBanner.get('oldUrl')
+                    order:centralPointBanner.get('order')
                 }, '编辑banner', '成功编辑banner', '编辑banner失败', function() {
 
                     windowEl.unmask();
                     editWindow.close();
-                    me.fireEvent('refreshView');
+                    var centralPointBannerStroe = me.getShopAreaBannerStore();
+                    centralPointBannerStroe.load({
+                        params: {
+                            area: areaId
+                        }
+                    });
                 });
                 return;
             }
@@ -259,7 +264,13 @@ Ext.define('XMLifeOperating.controller.CentralPointConfigure', {
                 success: function(task, operation) {
                     windowEl.unmask();
                     editWindow.close();
-                    me.fireEvent('refreshView');
+                    //me.fireEvent('refreshView');
+                    var centralPointBannerStroe = me.getShopAreaBannerStore();
+                    centralPointBannerStroe.load({
+                        params: {
+                            area: areaId
+                        }
+                    });
                 },
                 failure: function(task, operation) {
 
@@ -281,27 +292,33 @@ Ext.define('XMLifeOperating.controller.CentralPointConfigure', {
     },
     onDeleteBanner: function(view, rowIndex, colIndex, column, e) {
         var banner = view.getRecord(view.findTargetByEvent(e));
+        var areaId = this.centralPointId;
+        me=this;
+        console.log(banner);
 
         Ext.MessageBox.confirm(
             '确认删除',
-            Ext.String.format("确定删除线路 '{0}' 吗？", banner.get('title')),
+            Ext.String.format("确定删除banner '{0}' 吗？", banner.get('title')),
             function(result) {
                 if (result == 'yes') {
-                    /*var zoneId = banner.get('id');
-                    var url='delivererZone/'+zoneId;
-                    sendDeleteRequest(url, {}, '删除线路', '成功删除线路', '删除线路失败', function(response) {
+                    var order = banner.get('order');
+                    
+                    var url='shopArea/banner/'+order;
+                    console.log(url);
+                    sendDeleteRequest(url, {areaId:areaId}, '删除线路', '成功删除线路', '删除线路失败', function(response) {
                             console.log(response);
                             if(response.responseText=='-2'){
                                 Ext.Msg.alert('Invalid Data', '不能删除');
                                 return;
                             }
-                            line.destroy({
-                            success: function() {
-                                console.log('line deleted!');
-                            }
-                        });
+                            var centralPointBannerStroe = me.getShopAreaBannerStore();
+                            centralPointBannerStroe.load({
+                                params: {
+                                    area: areaId
+                                }
+                            });
 
-                    });*/
+                    });
                 }
             }
         );

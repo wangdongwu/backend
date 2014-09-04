@@ -183,7 +183,7 @@ Ext.define('XMLifeOperating.controller.DealCashOnDeliveryList', {
                     }
                     url='deal/codMark/'+dealBackendId;
                     Ext.MessageBox.confirm("选择框", str,function(str){
-                            if(str=='no'){
+                            if(str!='yes'){
                                 return;
                             }
                             sendPutRequest(url,{},'操作到账','成功操作到账','操作到账失败',function(){
@@ -214,7 +214,7 @@ Ext.define('XMLifeOperating.controller.DealCashOnDeliveryList', {
                     }
                     url='deal/codProblemMark/'+dealBackendId;
                     Ext.MessageBox.confirm("选择框", str,function(str){
-                            if(str=='no'){
+                            if(str!='yes'){
                                 return;
                             }
                             sendPutRequest(url,{problemMark:codProblemMark},'操作标记','成功操作标记','操作标记失败',function(){
