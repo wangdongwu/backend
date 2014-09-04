@@ -108,10 +108,10 @@ Ext.define('XMLifeOperating.controller.CentralPointConfigure', {
                     win.show();
                 }
             },
-            'centralpointconfigurebanneredit #saveOrder': {
+            'centralpointconfigurebannerlist #saveOrder': {
                 click: me.saveOrder
             },
-            'centralpointconfigurebanneredit #editCentralPointBanner': {
+            'centralpointconfigurebannerlist #editCentralPointBanner': {
                 click: me.onCentralPointBannerEdit
             },
             'centralpointconfigurebanneredit #btnSave': {
@@ -125,10 +125,14 @@ Ext.define('XMLifeOperating.controller.CentralPointConfigure', {
 
                     uploadImage(form, hash);
                 }
+            },
+            'centralpointconfigurebannerlist #deleteBannerId':{
+                click: me.onDeleteBanner
             }
 
         });
     },
+
     onShow: function() {
         var store = this.getShopAreaStore();
         store.load({
@@ -148,7 +152,7 @@ Ext.define('XMLifeOperating.controller.CentralPointConfigure', {
         console.log("start edit");
         var centralPointBanner = view.getRecord(view.findTargetByEvent(e));
         console.log(centralPointBanner);
-        var win = this.getEditCentralPointBannerWin();
+        var win = this.getCentralPointConfigureBannerEdit();
         centralPointBanner.set('oldUrl', centralPointBanner.get('url'));
         win.down('form').loadRecord(centralPointBanner);
         win.show();
@@ -212,7 +216,14 @@ Ext.define('XMLifeOperating.controller.CentralPointConfigure', {
             orders: orderedIds
         };
         var url = 'shopArea/banner/setorder/' + centralPointId;
-        sendPutRequest(url, params, '保存顺序', '顺序已成功保存', '保存顺序失败');
+        sendPutRequest(url, params, '保存顺序', '顺序已成功保存', '保存顺序失败',function(){
+            var centralPointBannerStroe = this.getShopAreaBannerStore();
+            centralPointBannerStroe.load({
+                params: {
+                    area: centralPointId
+                }
+            });
+        });
     },
     saveEditCentralPointBannerWin: function() {
 
@@ -267,5 +278,32 @@ Ext.define('XMLifeOperating.controller.CentralPointConfigure', {
         } else {
             Ext.Msg.alert('Invalid Data', 'Please correct form errors');
         }
+    },
+    onDeleteBanner: function(view, rowIndex, colIndex, column, e) {
+        var banner = view.getRecord(view.findTargetByEvent(e));
+
+        Ext.MessageBox.confirm(
+            '确认删除',
+            Ext.String.format("确定删除线路 '{0}' 吗？", banner.get('title')),
+            function(result) {
+                if (result == 'yes') {
+                    /*var zoneId = banner.get('id');
+                    var url='delivererZone/'+zoneId;
+                    sendDeleteRequest(url, {}, '删除线路', '成功删除线路', '删除线路失败', function(response) {
+                            console.log(response);
+                            if(response.responseText=='-2'){
+                                Ext.Msg.alert('Invalid Data', '不能删除');
+                                return;
+                            }
+                            line.destroy({
+                            success: function() {
+                                console.log('line deleted!');
+                            }
+                        });
+
+                    });*/
+                }
+            }
+        );
     }
 });

@@ -58,7 +58,19 @@ Ext.define('XMLifeOperating.view.centralPointManage.centralPointConfigure.Centra
             menuDisabled: true,
             sortable: false,
             itemId: 'editCentralPointBanner'
-        }
+        },
+        {
+            xtype: 'actioncolumn',
+            text: '操作',
+            width: 40,
+            icon: 'resources/images/delete.png',
+            tooltip: 'Delete',
+            menuDisabled: true,
+            sortable: false,
+            itemId: 'deleteBannerId',
+            align: 'center',
+            // hidden:(XMLifeOperating.generic.Global.operating_type == 'center')
+        },
     ],
     viewConfig: {
         plugins: {
