@@ -4,6 +4,8 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopShelf', {
     store: 'CategoryRoots',
     id: 'ShelvesList',
     columns: [{
+            xtype: 'rownumberer'
+        },{
         text: 'id',
         dataIndex: 'id'
     }, {

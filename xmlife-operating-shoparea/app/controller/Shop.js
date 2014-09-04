@@ -917,7 +917,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
         var ShopStoreBanner = view.getRecord(view.findTargetByEvent(e));
         console.log(ShopStoreBanner);
         var win = this.getShopBannerAdd();
-        win.down('form').loadRecord(shopStoreBanner);
+        win.down('form').loadRecord(ShopStoreBanner);
         win.show();
     },
     saveEditShopStoreBannerWin: function() {

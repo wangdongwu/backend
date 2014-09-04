@@ -5,7 +5,9 @@
     header: false,
     store:'Product',
     itemId:'ShelvesGoodsList',
-    columns: [
+    columns: [{
+            xtype: 'rownumberer'
+        },
         { text: 'id',dataIndex:'id'},
         { text: 'shopId',dataIndex:'shopId'},
         { 
