@@ -249,7 +249,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
                     });
                 }
             },
-            'shoplist #modifyShopList':{
+            'shoplist #modifyShopList': {
                 click: function(view, column, rowIndex, colIndex, e) {
                     var tab = this.getShopEdit();
                     var record = view.getRecord(view.findTargetByEvent(e));
@@ -471,7 +471,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
                             });
                             windowEl.unmask();
                         }
-                        sendPutRequest('shop/update', requestparams, '编辑模板', '成功编辑模板', '编辑模板失败', modifySuccessCallback,modifyFailureCallback);
+                        sendPutRequest('shop/update', requestparams, '编辑模板', '成功编辑模板', '编辑模板失败', modifySuccessCallback, modifyFailureCallback);
 
                     } else {
                         Ext.Msg.alert('Invalid Data', 'Please correct form errors');
@@ -720,27 +720,29 @@ Ext.define('XMLifeOperating.controller.Shop', {
             //上下架
             '#putawayOrOut,#frozen': {
                 click: function(component, column, rowIndex, colIndex, e) {
+
                     var model = component.getStore().getAt(rowIndex);
                     var className = e.target.className;
                     var statusValue = Ext.query("." + className)[rowIndex].getAttribute("statusValue");
                     var url = 'product/' + statusValue;
                     var status;
+                    console.log(statusValue)
+                    //statusValue为点击事件后商品的状态
                     switch (statusValue) {
-                        case 'online':
+                        case 'soldout': //让商品下架（目前处于上架状态）
                             status = 0;
                             break;
-                        case 'offline':
+                        case 'offline': //让商品雪藏（目前处于未雪藏）
                             status = 1;
                             break;
-                        case 'soldout':
+                        case 'online': //让商品上架（目前处于售罄状态）
                             status = 3;
                             break;
-
                     }
                     sendPutRequest(url, {
                         productId: model.get('id')
                     }, '', '成功创建分类', '创建分类失败', function() {
-                        // me.fireEvent('refreshView');
+                        //me.fireEvent('refreshView');
                         model.set('status', status);
                     });
                 }
@@ -817,7 +819,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
                         if (discountPrice >= facePrice) {
                             Ext.Msg.alert('Invalid Data', '折扣价不能大于等于原价');
                             return;
-                        }
+                        };
                         shelvesGoods.set('shopId', shopId);
                         shelvesGoods.set('categoryId', categoryId);
                         shelvesGoods.set('facePrice', (Math.abs(parseInt(shelvesGoods.get('facePrice') * 100))));
@@ -883,10 +885,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
                                 });
                                 windowEl.unmask();
                             }
-                        })
-
-
-
+                        });
                     } else {
                         Ext.Msg.alert('Invalid Data', 'Please correct form errors');
                     }
@@ -910,7 +909,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
         form.loadRecord(model);
         if (callback) {
             callback();
-        }
+        };
         win.show();
     },
     onShopStoreBannerEdit: function(view, rowIndex, colIndex, column, e) {
@@ -939,13 +938,11 @@ Ext.define('XMLifeOperating.controller.Shop', {
             data.bannerUrls.push(e.data.url);
             data.titles.push(e.data.title);
         });
-
         data.id = me.shopStoreId;
         data.bannerIds.push('53ec44e20cf292d0f893df5db9');
         data.bannerUrls.push(inputs.url);
         data.titles.push(inputs.title);
         data.id = me.shopStoreId;
-
         if (form.isValid()) {
             var success = function(task, operation) {
                 windowEl.unmask();
@@ -962,9 +959,8 @@ Ext.define('XMLifeOperating.controller.Shop', {
                     buttons: Ext.Msg.OK
                 });
                 windowEl.unmask();
-            }
+            };
             sendPutRequest('shop/updatebanners', $.param(data, true), '添加Banner模板', '添加Banner模板成功', '添加Banner模板失败', success, failure);
-
         } else {
             Ext.Msg.alert('Invalid Data', 'Please correct form errors');
         }

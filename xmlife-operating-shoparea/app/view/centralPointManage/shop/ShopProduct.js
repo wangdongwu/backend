@@ -101,14 +101,14 @@
             renderer : function(value) { 
                 var str='';
                 switch(value){
-                    case 0:
-                        str+='<input type="button" value="下架" statusValue="soldout" class="putaway" /><br/>';
+                    case 0://售罄，显示上架按钮
+                        str+='<input type="button" value="上架" statusValue="online" class="putaway" /><br/>';
                         break;
                     case 1:
                         str+='--';
                         break;
-                    case 3:
-                        str+='<input type="button" value="上架" statusValue="online"  class="putaway" /><br/>';
+                    case 3://在上架中，显示下架按钮
+                        str+='<input type="button" value="下架" statusValue="soldout"  class="putaway" /><br/>';
                         break;
                 }
                 return str;
@@ -130,7 +130,7 @@
                         str+='<input type="button" value="雪藏" statusValue="offline" class="frozen" />';
                         break;
                     case 1:
-                        str+='<input type="button" value="取消雪藏" statusValue="online" class="frozen" />';
+                        str+='<input type="button" value="取消雪藏" statusValue="soldout" class="frozen" />';
                         break;
                     case 3:
                         str+='<input type="button" value="雪藏" statusValue="offline"  class="frozen" />';
