@@ -8,22 +8,20 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopList', {
             xtype: 'button',
             text: '添加店铺',
             itemId: 'add'
-        },
-        {
-            xtype:'combobox',
-            name:'areaId',
-            itemId:'shopArea',
-            store:'ShopArea',
-            emptyText:'请选择中心',
+        }, {
+            xtype: 'combobox',
+            name: 'areaId',
+            itemId: 'shopArea',
+            store: 'ShopArea',
+            emptyText: '请选择中心',
             editable: false,
-            queryMode:'local',
-            displayField:'name',
-            valueField:'id',
-            id:'areaId',
-            hidden:(XMLifeOperating.generic.Global.operating_type == 'center')
+            queryMode: 'local',
+            displayField: 'name',
+            valueField: 'id',
+            id: 'areaId',
+            hidden: (XMLifeOperating.generic.Global.operating_type == 'center')
         },
-        '->',        
-        {
+        '->', {
             xtype: 'textfield',
             name: 'searchshop',
             itemId: 'searchShopKeyWords',
@@ -135,7 +133,17 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopList', {
                 }
                 return str;
             }
-        },
+        }, {
+            text: '编辑',
+            xtype: 'actioncolumn',
+            width: 50,
+            icon: 'resources/images/edit.png',
+            tooltip: 'Edit',
+            menuDisabled: true,
+            sortable: false,
+            itemId: 'modifyShopList',
+
+        }
     ],
     viewConfig: {
         plugins: {
@@ -145,10 +153,10 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopList', {
     },
     listeners: {
         onShowView: function(view, viewName) {
-            if(XMLifeOperating.generic.Global.operating_type != 'center') {
+            if (XMLifeOperating.generic.Global.operating_type != 'center') {
                 return;
             }
-            if(XMLifeOperating.generic.Global.current_operating == -1) {
+            if (XMLifeOperating.generic.Global.current_operating == -1) {
                 alert('请先在右上角选择中心');
                 return;
             }
@@ -157,7 +165,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopList', {
             combo.fireEvent('select', combo);
         }
     },
-    forceFit : true,
+    forceFit: true,
     columnLines: true,
     frame: true,
     iconCls: 'icon-grid'

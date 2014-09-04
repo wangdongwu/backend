@@ -1,6 +1,6 @@
-Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopEdit', {
+Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopAdd', {
     extend: 'Ext.window.Window',
-    xtype: 'shopedit',
+    xtype: 'shopadd',
     requires: [
         'Ext.form.Panel',
         'Ext.form.field.Text',
@@ -223,7 +223,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopEdit', {
                 text: 'Cancel',
                 handler: function() {
                     //关闭窗口
-                    Ext.ComponentQuery.query('shopedit')[0].close();
+                    Ext.ComponentQuery.query('shopadd')[0].close();
                 }
             }]
         }]

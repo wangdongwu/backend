@@ -3,7 +3,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
 
     views: [
         'centralPointManage.shop.ShopList',
-        'centralPointManage.shop.ShopEdit',
+        'centralPointManage.shop.ShopAdd',
         'centralPointManage.shop.ShopBanner',
         'centralPointManage.shop.ShopBannerAdd',
         'centralPointManage.shop.ShopInfo',
@@ -56,9 +56,9 @@ Ext.define('XMLifeOperating.controller.Shop', {
             xtype: 'shoplist',
             autoCreate: true
         }, {
-            ref: 'shopEdit',
-            selector: 'shopedit',
-            xtype: 'shopedit',
+            ref: 'shopAdd',
+            selector: 'shopadd',
+            xtype: 'shopadd',
             autoCreate: true
         }, {
             ref: 'contentPanel',
@@ -89,7 +89,6 @@ Ext.define('XMLifeOperating.controller.Shop', {
             selector: 'shopshelftab',
             xtype: 'shopshelftab',
             autoCreate: true
-
         }, {
             ref: 'shopShelfAdd',
             selector: 'shopshelfadd',
@@ -168,7 +167,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
                 click: function() {
                     var cClass = this.getShopModel();
                     var shop = new cClass();
-                    var win = this.getShopEdit();
+                    var win = this.getShopAdd();
                     win.down('#shopeditform').loadRecord(shop);
                     win.show();
                 }
@@ -316,19 +315,20 @@ Ext.define('XMLifeOperating.controller.Shop', {
                 }
             },
             /*
-             * shopedit事件
+             * shopadd事件
              */
-            'shopedit #save-shopStore-edit-btn,#modifyShopStoreInfo': {
+            'shopadd #save-shopStore-edit-btn,#modifyShopStoreInfo': {
                 click: function(button) {
+                    debugger
                     var editWindow;
                     var itemId = button.getItemId();
                     if (itemId == 'save-shopStore-edit-btn') {
-                        editWindow = this.getShopEdit();
+                        editWindow = this.getShopAdd();
                     } else {
                         editWindow = this.getShopInfo();
                     }
                     var windowEl = editWindow.getEl(),
-                        form = editWindow.getForm(),
+                        form = editWindow.down('#shopeditform').getForm(),
                         shopStore = form.getRecord(),
                         me = this;
                     if (form.isValid()) {

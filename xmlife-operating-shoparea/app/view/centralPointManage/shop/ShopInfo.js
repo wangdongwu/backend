@@ -12,13 +12,12 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopInfo', {
         'Ext.form.field.ComboBox',
         'Ext.selection.CheckboxModel'
     ],
-    layout: 'anchor',
+    layout: 'absolute',
+    bodyStyle:'text-align:center',
     bodyPadding: 10,
     border: false,
     frame: false,
-    defaults: {
-        anchor: '70%'
-    },
+
     buttonAlign:'left',
     autoScroll: true,
     tbar: [{
