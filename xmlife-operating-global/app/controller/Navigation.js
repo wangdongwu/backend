@@ -79,12 +79,14 @@ Ext.define('XMLifeOperating.controller.Navigation', {
    * @return {[type]} Ext.Component [当前处于激活状态的panel]
    */
   switchToView : function (model,Selectarr) {
-    if (!Selectarr[0].raw.leaf) {return false}
-
-    var contentPanel = this.getContentPanel(),
+    var selected = Selectarr[0],
+        contentPanel = this.getContentPanel(),
         contentItems = contentPanel.items.items,
-        id = Selectarr[0].raw.id
+        id = selected.raw.id
         isNew = true;
+    if (!selected.raw.leaf) {return false}
+
+    this.getModuleTitle().setText(selected.raw.text);
         
     Ext.Array.each(contentItems,function(item) {
       if (item.id === id) {

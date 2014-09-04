@@ -116,7 +116,7 @@ Ext.define('XMLifeOperating.controller.GDealList', {
         var store = this.getDealItemsStore();
         store.load({
             params: {
-                deal: gDealDetail.get('dealBackendId'),
+                deal: gDealDetail.get('dealBackendId') || gDealDetail.get('dealId'),
             },
 
             callback: function(records) {

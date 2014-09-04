@@ -3,7 +3,7 @@ Ext.define('XMLifeOperating.model.refundModel', {
     fields: [
     'id',
     'useId',
-    'mobile',
+    'userPhone',
     'amount',
     'auditTime',
     'auditor',
@@ -16,6 +16,8 @@ Ext.define('XMLifeOperating.model.refundModel', {
     'refundCount',
     'refundType',
     'status',
-    'userName'],
-    proxy: new XMLifeOperating.generic.BaseProxy('refund')
+    'dealPrice',
+    'userName'
+    ],
+    proxy: new XMLifeOperating.generic.BaseProxy('refund'),
 });

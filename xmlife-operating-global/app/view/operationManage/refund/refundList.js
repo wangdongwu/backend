@@ -71,22 +71,44 @@ Ext.define('XMLifeOperating.view.operationManage.refund.refundList', {
 	    	{
 	    		xtype : 'combo',
 	    		name : 'refundType',
+          itemId : 'refundTypeCombo',
 	    		queryMode: 'local',
-	            triggerAction : 'all',
+	        triggerAction : 'all',
 	    		emptyText : '根据付款类型筛选',
-	            displayField: 'type',
+	        displayField: 'type',
+          width : 120,
 	    		margin : '0 5 0 5',
 	            valueField: 'value',
 	    		store : Ext.create('Ext.data.Store', {
 				            fields: ['value','type'],
 				            data : [
-				                {"value": 'all', "type": '所有方式'},
+				                {"value": 'ALIPAY-TENPAY-BALANCE', "type": '所有方式'},
 				                {"value": 'ALIPAY', "type": '支付宝'},
 				                {"value": 'TENPAY', "type": '财付通'},
 				                {"value": 'BALANCE', "type": '余额付款'}
 				            ],
 				        })
-	    	},
+	    	},{
+          xtype : 'combo',
+          name : 'status',
+          itemId : 'statusCombo',
+          queryMode: 'local',
+          triggerAction : 'all',
+          emptyText : '根据状态判断',
+          displayField: 'type',
+          width : 120,
+          margin : '0 5 0 5',
+          valueField: 'value',
+          store : Ext.create('Ext.data.Store', {
+                    fields: ['value','type'],
+                    data : [
+                        {"value": '0-1-2', "type": '所有方式'},
+                        {"value": '0', "type": '待处理'},
+                        {"value": '1', "type": '完成退款'},
+                        {"value": '2', "type": '退款不成功'}
+                    ],
+                })
+        },
 	    	'->',
 	    	{
 	    		xtype : 'textfield',
@@ -94,7 +116,7 @@ Ext.define('XMLifeOperating.view.operationManage.refund.refundList', {
 	    		name : 'mobileSearch',
 	    		allowBlank: false,
 	    		margin : '0 5 0 5',
-	    		blankText : '不能为空'
+	    		
 	    	},
 	    	{
 				xtype : 'button',
@@ -110,10 +132,6 @@ Ext.define('XMLifeOperating.view.operationManage.refund.refundList', {
      {
     	xtype : 'toolbar',
     	dock : 'bottom',
-    	style : {
-    		backgroundColor : '#efefef',
-    		borderTop : '1px solid red'	
-    	},
     	items : [
     	'->',
 			{
@@ -130,9 +148,9 @@ Ext.define('XMLifeOperating.view.operationManage.refund.refundList', {
     },{
     	xtype : 'toolbar',
     	dock : 'bottom',
-    	boder : 1,
     	style : {
-    		borderColor: 'red',
+        borderBottomWidth : '1px',          
+    		borderColor: 'silver',
     		borderStyle: 'solid'
     	}
     	,
@@ -158,7 +176,8 @@ Ext.define('XMLifeOperating.view.operationManage.refund.refundList', {
 			xtype : 'pagingtoolbar',
 			store : 'refundStore',
 			dock : 'bottom',
-			displayInfo : true
+      align : 'center',
+    	displayInfo : true
 		}
     ],
         columns: [

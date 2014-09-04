@@ -3,7 +3,7 @@ Ext.define('XMLifeOperating.generic.BaseProxy', {
     extend: 'Ext.data.proxy.Rest',
     reader: 'json',
 
-    constructor: function(resourceURL) {
+    constructor: function(resourceURL,root) {
         if(!resourceURL || resourceURL.length < 1) {
             alert("bad resourceURL");
         }
@@ -11,6 +11,14 @@ Ext.define('XMLifeOperating.generic.BaseProxy', {
             this.url = "http://192.168.5.190:9999/rest/";
         }else{
             this.url = XMLifeOperating.generic.Global.URL.biz + resourceURL;
+        }
+
+        if(root){
+          this.reader = {
+            type : 'json',
+            root : root,
+            totalProperty : 'total'
+          }
         }
         this.callParent(arguments);
     },

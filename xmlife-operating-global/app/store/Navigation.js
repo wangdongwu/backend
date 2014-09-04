@@ -92,7 +92,7 @@ Ext.define('XMLifeOperating.store.Navigation', {
             leaf: true
         },
         {
-            /*id: 'shoparea',*/
+            id: 'shopareaList',
             text: '中心平台',
             leaf: true
         }]

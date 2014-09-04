@@ -74,14 +74,9 @@ Ext.define('XMLifeOperating.controller.Refund', {
                         endTime.setValue(new Date());
                 }
             },
-            'refundList combo[name=refundType]' : {
+            'refundList combo' : {
                 change : function(grid,value){
-                    self.getRefundStoreStore().clearFilter(true);
-                    if(value !== 'all'){
-                        self.getRefundStoreStore().filter('refundType',value);
-                    }else{
-                        self.getRefundStoreStore().reload();
-                    }
+                    self.rendenRefundList(this.getRefundList());
                 }
             },
             'refundList datefield':{
@@ -98,7 +93,7 @@ Ext.define('XMLifeOperating.controller.Refund', {
                         store.getProxy().extraParams={
                                 mobile : mobile
                         };
-                        self.storeFilter();
+                        //self.storeFilter();
                         store.load();
                 }
             },
@@ -236,15 +231,25 @@ Ext.define('XMLifeOperating.controller.Refund', {
     }
     ,
     rendenRefundList : function(grid){
-        var beginTime = grid.down('[name=beginTime]').rawValue,
-            endTime = grid.down('[name=endTime]').rawValue,
-            store = grid.store;
-        store.getProxy().extraParams={
-                beginTime : beginTime,
-                endTime : endTime
-        };
-        this.storeFilter();
-        store.load();
+      var beginTime = grid.down('[name=beginTime]').rawValue,
+          endTime = grid.down('[name=endTime]').rawValue,
+          refundType = grid.down('#refundTypeCombo').getValue(),
+          status = grid.down('#statusCombo').getValue();
+
+          store = grid.store;
+
+          store.getProxy().extraParams={
+            beginTime : beginTime,
+            endTime : endTime,
+            refundType : refundType || '',
+            status : status || '',
+            page:1,
+            start:0,
+            aaa : ['as','dd'],
+            limit:25
+      };
+      //this.storeFilter();
+      store.load();
     }
 });
 
