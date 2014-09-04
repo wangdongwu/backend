@@ -52,7 +52,15 @@ Ext.define('XMLifeOperating.view.shopareaManage.shopareaList', {
               renderer : function(value){
                 return value.join('/');
               }
-            }
+            },
+              {
+                align : 'center', 
+                header : '操作',
+                dataIndex : 'isActive',
+                renderer : function(value){
+                  return value ? '<a>关闭</a>' : '<a>开启</a>'
+                }
+              }
 
           ]
 });
