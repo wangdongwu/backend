@@ -110,7 +110,7 @@ Ext.define('XMLifeOperating.view.dealManage.DealList', {
                         return '正在配送';
                         break;
                     case 4:
-                        return '正在配送';
+                        return '完成配送';
                         break;
                     case 7:
                         return '订单取消';
@@ -118,9 +118,9 @@ Ext.define('XMLifeOperating.view.dealManage.DealList', {
                     case 20:
                         return '等待分配买手';
                         break;
-                    case 21:
+/*                    case 21:
                         return '货到中心';
-                        break;
+                        break;*/
                     case 22:
                         return '等待取货';
                         break;
