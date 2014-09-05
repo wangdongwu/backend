@@ -97,7 +97,7 @@ Ext.define('XMLifeOperating.controller.Deliverer', {
                             isActive: isActive
                         },
                         callback: function() {
-                            Ext.getCmp('delivererList').down('#activeBind').setText('查看未绑定的买手');
+                            Ext.getCmp('delivererList').down('#activeBind').setText('查看未绑定的快递员');
                         }
                     });
                 }
@@ -116,6 +116,10 @@ Ext.define('XMLifeOperating.controller.Deliverer', {
                         params: {
                             unbind: isUnbind
                         },
+                        callback: function() {
+                            Ext.getCmp('delivererList').down('#activeSearch').setText('查看停单快递员');
+                            me.getDelivererList().down('#searchDelivererKeyWords').setValue('');
+                        }
                     });
                 }
             },
@@ -319,7 +323,6 @@ Ext.define('XMLifeOperating.controller.Deliverer', {
             'delivererList #closeOrOpenOrder':{
                 click:function(grid, column, rowIndex) { 
                     var record = grid.getStore().getAt(rowIndex);
-                    console.log(record);
                     var deliverer = record.get('uid');
                     var isActive = record.get('isActive');
                     var url='';
@@ -338,15 +341,31 @@ Ext.define('XMLifeOperating.controller.Deliverer', {
                             }
                             sendPutRequest(url,{deliverer:deliverer,isActive:isActive},'操作恢复或暂停配送员接单','成功操作配送员接单','操作配送员接单失败',function(){
                                     var store = me.getDelivererStore();
-                                    store.load({
-                                        params: {
-                                            unbind:true
-                                        },
-                                        callback:function(){
-                                            Ext.getCmp('delivererList').down('#activeBind').setText('查看已绑定的快递员');
-                                            Ext.getCmp('delivererList').down('#shopArea').setValue('');
-                                        }
-                                    });
+                                    var activeBindText = Ext.getCmp('delivererList').down('#activeBind').getText();
+                                    var params='';
+                                    var searchDelivererKeyWords = me.getDelivererList().down('#searchDelivererKeyWords').getValue();
+                                    if(activeBindText=='查看已绑定的快递员'||searchDelivererKeyWords!=''){
+                                        record.set('isActive',isActive);
+                                        return;
+                                    }else{
+                                        me.fireEvent('refreshView');
+                                        // var activeSearch = Ext.getCmp('gShopperList').down('#activeSearch').getText();
+                                        // if (activeSearch == '查看停单买手') {
+                                        //     isActive=true;
+                                        // } else if (activeSearch == '查看接单买手') {
+                                        //     isActive=false;
+                                        // }
+                                        // store.load({
+                                        //     params: {
+                                        //         city: XMLifeOperating.generic.Global.currentCity,
+                                        //         area: me.getShopArea().getValue(),
+                                        //         isActive: isActive
+                                        //     },
+                                        //     callback: function() {
+                                        //         Ext.getCmp('gShopperList').down('#activeBind').setText('查看未绑定的买手');
+                                        //     }
+                                        // });
+                                    } 
                             }); 
                     });
                 }
@@ -379,6 +398,9 @@ Ext.define('XMLifeOperating.controller.Deliverer', {
             store.load({
                 params: {
                     nameOrPhone: keyWords
+                },
+                callback:function(){
+                    Ext.getCmp('delivererList').down('#activeBind').setText('查看未绑定的快递员');
                 }
             });
         }
