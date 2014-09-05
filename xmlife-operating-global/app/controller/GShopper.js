@@ -438,8 +438,6 @@ Ext.define('XMLifeOperating.controller.GShopper', {
             form = editWindow.down('form').getForm(),
             shopper = form.getRecord(),
             me = this;
-            console.log(shopper);
-            return;
         if (form.isValid()) {
 
             windowEl.mask('saving');
@@ -450,7 +448,9 @@ Ext.define('XMLifeOperating.controller.GShopper', {
             shopper.set('offlineTime',(shopper.get('offlineTime').getHours()*60+shopper.get('offlineTime').getMinutes()));
             shopper.set('pwd',hex_md5(shopper.get('pwd')));
             console.log("try saving");
-            if(shopper.get('id')!=null&&shopper.get('id')!=''){
+            console.log(shopper.get('id'));
+            if(shopper.get('id')!=null&&shopper.get('id')!=''&&shopper.get('id')!=undefined){
+
                 var url='shopper/'+shopper.get('uid')
                 sendPutRequest(url,{
                                        name:shopper.get('name'),
@@ -508,9 +508,13 @@ Ext.define('XMLifeOperating.controller.GShopper', {
                     }
                     windowEl.unmask();
                     editWindow.close();
-                    // keyWords=
-                    // keyWords = me.getGShopperList().down('#searchBuyerKeyWords').getValue(),
-                    //me.fireEvent('refreshView');
+                    var keyWords=shopper.get('phone');
+                    me.getShopperStore().load({
+                        params: {
+                            nameOrPhone: keyWords
+                        }
+                    });
+                    me.getGShopperList().down('#searchBuyerKeyWords').setValue(keyWords);
                 },
                 failure: function(task, operation) {
 
