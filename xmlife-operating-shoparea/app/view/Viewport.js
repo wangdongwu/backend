@@ -21,7 +21,7 @@ Ext.define('XMLifeOperating.view.Viewport', {
         },
         {
             region: 'center',
-            xtype: 'tabpanel',
+            xtype: 'panel',
             tabPosition : 'top',
             deferredRender : false,
             itemId: 'contentPanel',
