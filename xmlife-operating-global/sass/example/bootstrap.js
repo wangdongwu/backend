@@ -893,6 +893,7 @@ Ext.ClassManager.addNameAlternateMappings({
   "XMLifeOperating.controller.RechargeableCardTemplate": [],
   "XMLifeOperating.controller.Refund": [],
   "XMLifeOperating.controller.ShopBannerTemplate": [],
+  "XMLifeOperating.controller.Shoparea": [],
   "XMLifeOperating.controller.SupportedCityList": [],
   "XMLifeOperating.generic.BaseProxy": [],
   "XMLifeOperating.generic.Global": [],
@@ -961,6 +962,8 @@ Ext.ClassManager.addNameAlternateMappings({
   "XMLifeOperating.view.rechargeableCardManage.rechargeableCardTemplate.RechargeableCardTemplateAdd": [],
   "XMLifeOperating.view.rechargeableCardManage.rechargeableCardTemplate.RechargeableCardTemplateList": [],
   "XMLifeOperating.view.rechargeableCardManage.rechargeableCardTemplate.RechargeableCardTemplateReturnCardAdd": [],
+  "XMLifeOperating.view.shopareaManage.addShopArea": [],
+  "XMLifeOperating.view.shopareaManage.shopareaList": [],
   "XMLifeOperating.view.staffManage.deliverer.GDealDelivererHistoryList": [],
   "XMLifeOperating.view.staffManage.deliverer.GDealItemsList": [],
   "XMLifeOperating.view.staffManage.deliverer.GDelivererEdit": [],
@@ -2012,6 +2015,7 @@ Ext.ClassManager.addNameAliasMappings({
   "XMLifeOperating.controller.RechargeableCardTemplate": [],
   "XMLifeOperating.controller.Refund": [],
   "XMLifeOperating.controller.ShopBannerTemplate": [],
+  "XMLifeOperating.controller.Shoparea": [],
   "XMLifeOperating.controller.SupportedCityList": [],
   "XMLifeOperating.generic.BaseProxy": [],
   "XMLifeOperating.generic.Global": [],
@@ -2113,6 +2117,12 @@ Ext.ClassManager.addNameAliasMappings({
   ],
   "XMLifeOperating.view.rechargeableCardManage.rechargeableCardTemplate.RechargeableCardTemplateReturnCardAdd": [
     "widget.rechargeablecardtemplatereturncardadd"
+  ],
+  "XMLifeOperating.view.shopareaManage.addShopArea": [
+    "widget.addShopArea"
+  ],
+  "XMLifeOperating.view.shopareaManage.shopareaList": [
+    "widget.shopareaList"
   ],
   "XMLifeOperating.view.staffManage.deliverer.GDealDelivererHistoryList": [
     "widget.gDealDelivererHistoryList"

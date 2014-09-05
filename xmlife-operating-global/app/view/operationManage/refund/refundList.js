@@ -6,7 +6,8 @@ Ext.define('XMLifeOperating.view.operationManage.refund.refundList', {
     autoScroll: true,
     store: 'refundStore',
     title: '退款列表',
-    titleAlign : 'left',closable : true,
+    titleAlign : 'left',
+    closable : true,
     forceFit: true,
     selModel: Ext.create('Ext.selection.CheckboxModel'),
     requires:[
@@ -177,8 +178,9 @@ Ext.define('XMLifeOperating.view.operationManage.refund.refundList', {
       itemId : 'pagetoll',
 			store : 'refundStore',
 			dock : 'bottom',
-      align : 'center',
-    	displayInfo : true
+    	displayInfo : true/*,
+      items : ['->'],   
+      prependButtons: true*/
 		}
     ],
         columns: [
@@ -222,7 +224,6 @@ Ext.define('XMLifeOperating.view.operationManage.refund.refundList', {
     }
     ],
 
-    columnLines: true,
-    frame: true,
-    iconCls: 'icon-grid'
+    columnLines: true
+    
 });
