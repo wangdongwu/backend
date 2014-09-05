@@ -130,7 +130,7 @@ Ext.define('XMLifeOperating.controller.ProductTemplate', {
                     windowEl.unmask();
                     editWindow.close();
                     // me.fireEvent('refreshView');
-                    var tag=productTemplate.get('tag');
+                    /*var tag=productTemplate.get('tag');
                     var tagKeyword = tag.split(' ')[0];
                     var store = me.getProductTemplateStore();
                     store.load({
@@ -138,7 +138,16 @@ Ext.define('XMLifeOperating.controller.ProductTemplate', {
                             keyword      : tagKeyword
                         }
                     });
-                    Ext.getCmp('productTemplateList').down('#keyword').setValue(tagKeyword);
+                    Ext.getCmp('productTemplateList').down('#keyword').setValue(tagKeyword);*/
+                    var keyword = productTemplate.get('name1');
+                    var store = me.getProductTemplateStore();
+                    store.load({
+                        params:{
+                            keyword      : keyword
+                        }
+                    });
+                    Ext.getCmp('productTemplateList').down('#keyword').setValue(keyword);
+
                 },
                 failure: function(task, operation) {
 

@@ -78,7 +78,6 @@ Ext.define('XMLifeOperating.view.templateManage.productTemplate.ProductTemplateE
                 name: 'tag',
                 fieldLabel: '标签',
                 labelWidth: 90,
-                allowBlank: false,
                 blankText: '请输入标签，之间用空格隔开',
 
             },
