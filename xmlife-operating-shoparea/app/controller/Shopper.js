@@ -127,7 +127,6 @@ Ext.define('XMLifeOperating.controller.Shopper', {
             },
             'shopperList #activeBind': {
                 click: function(grid) {
-                    //Ext.getCmp('communityList').down('#lineId').setValue('');
                     var activeBindText = Ext.getCmp('shopperList').down('#activeBind').getText();
 
                     if (activeBindText == '查看已绑定的买手') {
@@ -362,28 +361,15 @@ Ext.define('XMLifeOperating.controller.Shopper', {
                             }
                             sendPutRequest(url,{shopper:shopper,isActive:isActive},'操作恢复或暂停买手接单','成功操作买手接单','操作买手接单失败',function(){
                                 //3种情况 手机查询  未绑定查询 中心停单买手查询
-                                   
                                     var store = me.getShopperStore();
                                     var activeBindText = Ext.getCmp('shopperList').down('#activeBind').getText();
                                     var params='';
                                     var searchBuyerKeyWords = me.getShopperList().down('#searchBuyerKeyWords').getValue();
                                     if(activeBindText=='查看已绑定的买手'||searchBuyerKeyWords!=''){
-                                        //params={unbind:true};
                                         record.set('isActive',isActive);
                                         return;
                                     }                               
                                     me.fireEvent('refreshView');
-
-                                    /*store.load({
-                                        params:params,
-                                        callback:function(){
-                                           
-                                            // Ext.getCmp('shopperList').down('#activeBind').setText('查看已绑定的买手');
-                                            // Ext.getCmp('shopperList').down('#shopArea').setValue('');
-                                        }
-                                    });*/
-                                    //record.set('isActive',isActive);
-                                    //me.fireEvent('refreshView');
                             }); 
                     });
                 }
@@ -421,7 +407,6 @@ Ext.define('XMLifeOperating.controller.Shopper', {
                 },
                 callback:function(){
                     Ext.getCmp('shopperList').down('#activeBind').setText('查看未绑定的买手');
-
                 }
             });
         }
