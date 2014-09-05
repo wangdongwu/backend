@@ -72,7 +72,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopAdd', {
                     name: 'lat',
                     fieldLabel: '纬度',
                     labelWidth: 90,
-                    allowBlank: false,
+                    allowBlank: false
                 }, {
                     xtype: 'timefield',
                     name: 'openTime',

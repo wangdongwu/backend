@@ -323,9 +323,27 @@ Ext.define('XMLifeOperating.controller.Shop', {
                         form = editWindow.down('#shopeditform').getForm(),
                         shopStore = form.getRecord(),
                         me = this;
+                    var jSting, wString;
+
                     if (form.isValid()) {
-                        windowEl.mask('saving');
                         form.updateRecord(shopStore);
+                        jString = shopStore.get('lng');
+                        wString = shopStore.get('lat');
+                        var pattern = /(\d{1,3}\.)\d{1,3}/;
+                        if (pattern.test(jString) && pattern.test(wString)) {
+                            if (jString > 180 || jString < 0) {
+                                alert('经度错误');
+                                return;
+                            }
+                            if (wString > 90 || wString < 0) {
+                                alert('纬度错误');
+                                return;
+                            }
+                        } else {
+                            alert('经纬度格式错误');
+                            return
+                        }
+                        windowEl.mask('saving');
                         shopStore.set('city', XMLifeOperating.generic.Global.currentCity);
                         var areaIds = [XMLifeOperating.generic.Global.SERVICECENEERID];
                         shopStore.set('areaIds', areaIds);
@@ -368,9 +386,25 @@ Ext.define('XMLifeOperating.controller.Shop', {
                         form = editWindow.down('#shopeditform').getForm(),
                         shopStore = form.getRecord(),
                         me = this;
+                    var jSting, wString;
                     if (form.isValid()) {
-                        //windowEl.mask('saving');
                         form.updateRecord(shopStore);
+                        jString = shopStore.get('lng');
+                        wString = shopStore.get('lat');
+                        if (pattern.test(jString) && pattern.test(wString)) {
+                            if (jString > 180 || jString < 0) {
+                                alert('经度错误');
+                                return;
+                            }
+                            if (wString > 90 || wString < 0) {
+                                alert('纬度错误');
+                                return;
+                            }
+                        } else {
+                            alert('经纬度格式错误');
+                            return
+                        }
+                        windowEl.mask('saving');
                         shopStore.set('city', XMLifeOperating.generic.Global.currentCity);
                         var areaIds = [XMLifeOperating.generic.Global.SERVICECENEERID];
                         shopStore.set('areaIds', areaIds);
@@ -903,6 +937,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
                 }
             }
         });
+        Ext.QuickTips.init();
     },
     openWin: function(win, model, callback) {
         //打开窗口
