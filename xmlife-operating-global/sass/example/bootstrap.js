@@ -7,7 +7,26 @@
 Ext.Loader.addClassPathMappings({
   "Ext": "../../ext/src",
   "Ext.Msg": "../../ext/src/window/MessageBox.js",
+  "Ext.locale.zh_CN.Component": "../../ext/packages/ext-locale/overrides/zh_CN/ext-locale-zh_CN.js",
+  "Ext.locale.zh_CN.form.field.Base": "../../ext/packages/ext-locale/overrides/zh_CN/ext-locale-zh_CN.js",
+  "Ext.locale.zh_CN.form.field.ComboBox": "../../ext/packages/ext-locale/overrides/zh_CN/ext-locale-zh_CN.js",
+  "Ext.locale.zh_CN.form.field.Date": "../../ext/packages/ext-locale/overrides/zh_CN/ext-locale-zh_CN.js",
+  "Ext.locale.zh_CN.form.field.HtmlEditor": "../../ext/packages/ext-locale/overrides/zh_CN/ext-locale-zh_CN.js",
+  "Ext.locale.zh_CN.form.field.Number": "../../ext/packages/ext-locale/overrides/zh_CN/ext-locale-zh_CN.js",
+  "Ext.locale.zh_CN.form.field.Text": "../../ext/packages/ext-locale/overrides/zh_CN/ext-locale-zh_CN.js",
+  "Ext.locale.zh_CN.form.field.VTypes": "../../ext/packages/ext-locale/overrides/zh_CN/ext-locale-zh_CN.js",
+  "Ext.locale.zh_CN.grid.PropertyColumnModel": "../../ext/packages/ext-locale/overrides/zh_CN/ext-locale-zh_CN.js",
+  "Ext.locale.zh_CN.grid.header.Container": "../../ext/packages/ext-locale/overrides/zh_CN/ext-locale-zh_CN.js",
+  "Ext.locale.zh_CN.grid.plugin.DragDrop": "../../ext/packages/ext-locale/overrides/zh_CN/ext-locale-zh_CN.js",
+  "Ext.locale.zh_CN.picker.Date": "../../ext/packages/ext-locale/overrides/zh_CN/ext-locale-zh_CN.js",
+  "Ext.locale.zh_CN.picker.Month": "../../ext/packages/ext-locale/overrides/zh_CN/ext-locale-zh_CN.js",
+  "Ext.locale.zh_CN.tab.Tab": "../../ext/packages/ext-locale/overrides/zh_CN/ext-locale-zh_CN.js",
+  "Ext.locale.zh_CN.toolbar.Paging": "../../ext/packages/ext-locale/overrides/zh_CN/ext-locale-zh_CN.js",
+  "Ext.locale.zh_CN.view.AbstractView": "../../ext/packages/ext-locale/overrides/zh_CN/ext-locale-zh_CN.js",
+  "Ext.locale.zh_CN.view.View": "../../ext/packages/ext-locale/overrides/zh_CN/ext-locale-zh_CN.js",
+  "Ext.locale.zh_CN.window.MessageBox": "../../ext/packages/ext-locale/overrides/zh_CN/ext-locale-zh_CN.js",
   "Ext.rtl.EventObjectImpl": "../../ext/src/rtl/EventObject.js",
+  "ExtThemeNeptune": "../../ext/packages/ext-theme-neptune/overrides",
   "XMLifeOperating": "../../app"
 });
 Ext.ClassManager.addNameAlternateMappings({
@@ -555,6 +574,24 @@ Ext.ClassManager.addNameAlternateMappings({
   "Ext.layout.container.boxOverflow.Scroller": [
     "Ext.layout.boxOverflow.Scroller"
   ],
+  "Ext.locale.zh_CN.Component": [],
+  "Ext.locale.zh_CN.form.field.Base": [],
+  "Ext.locale.zh_CN.form.field.ComboBox": [],
+  "Ext.locale.zh_CN.form.field.Date": [],
+  "Ext.locale.zh_CN.form.field.HtmlEditor": [],
+  "Ext.locale.zh_CN.form.field.Number": [],
+  "Ext.locale.zh_CN.form.field.Text": [],
+  "Ext.locale.zh_CN.form.field.VTypes": [],
+  "Ext.locale.zh_CN.grid.PropertyColumnModel": [],
+  "Ext.locale.zh_CN.grid.header.Container": [],
+  "Ext.locale.zh_CN.grid.plugin.DragDrop": [],
+  "Ext.locale.zh_CN.picker.Date": [],
+  "Ext.locale.zh_CN.picker.Month": [],
+  "Ext.locale.zh_CN.tab.Tab": [],
+  "Ext.locale.zh_CN.toolbar.Paging": [],
+  "Ext.locale.zh_CN.view.AbstractView": [],
+  "Ext.locale.zh_CN.view.View": [],
+  "Ext.locale.zh_CN.window.MessageBox": [],
   "Ext.menu.CheckItem": [],
   "Ext.menu.ColorPicker": [],
   "Ext.menu.DatePicker": [],
@@ -827,6 +864,22 @@ Ext.ClassManager.addNameAlternateMappings({
   "Ext.window.Window": [
     "Ext.Window"
   ],
+  "ExtThemeNeptune.Component": [],
+  "ExtThemeNeptune.container.ButtonGroup": [],
+  "ExtThemeNeptune.form.field.HtmlEditor": [],
+  "ExtThemeNeptune.grid.RowEditor": [],
+  "ExtThemeNeptune.grid.column.RowNumberer": [],
+  "ExtThemeNeptune.layout.component.Dock": [],
+  "ExtThemeNeptune.menu.Menu": [],
+  "ExtThemeNeptune.menu.Separator": [],
+  "ExtThemeNeptune.panel.Panel": [],
+  "ExtThemeNeptune.panel.Table": [],
+  "ExtThemeNeptune.panel.Tool": [],
+  "ExtThemeNeptune.picker.Month": [],
+  "ExtThemeNeptune.resizer.Splitter": [],
+  "ExtThemeNeptune.tab.Tab": [],
+  "ExtThemeNeptune.toolbar.Paging": [],
+  "ExtThemeNeptune.toolbar.Toolbar": [],
   "XMLifeOperating.Application": [],
   "XMLifeOperating.controller.CustomerList": [],
   "XMLifeOperating.controller.GDealList": [],
@@ -1563,6 +1616,24 @@ Ext.ClassManager.addNameAliasMappings({
   "Ext.layout.container.boxOverflow.Menu": [],
   "Ext.layout.container.boxOverflow.None": [],
   "Ext.layout.container.boxOverflow.Scroller": [],
+  "Ext.locale.zh_CN.Component": [],
+  "Ext.locale.zh_CN.form.field.Base": [],
+  "Ext.locale.zh_CN.form.field.ComboBox": [],
+  "Ext.locale.zh_CN.form.field.Date": [],
+  "Ext.locale.zh_CN.form.field.HtmlEditor": [],
+  "Ext.locale.zh_CN.form.field.Number": [],
+  "Ext.locale.zh_CN.form.field.Text": [],
+  "Ext.locale.zh_CN.form.field.VTypes": [],
+  "Ext.locale.zh_CN.grid.PropertyColumnModel": [],
+  "Ext.locale.zh_CN.grid.header.Container": [],
+  "Ext.locale.zh_CN.grid.plugin.DragDrop": [],
+  "Ext.locale.zh_CN.picker.Date": [],
+  "Ext.locale.zh_CN.picker.Month": [],
+  "Ext.locale.zh_CN.tab.Tab": [],
+  "Ext.locale.zh_CN.toolbar.Paging": [],
+  "Ext.locale.zh_CN.view.AbstractView": [],
+  "Ext.locale.zh_CN.view.View": [],
+  "Ext.locale.zh_CN.window.MessageBox": [],
   "Ext.menu.CheckItem": [
     "widget.menucheckitem"
   ],
@@ -1912,6 +1983,22 @@ Ext.ClassManager.addNameAliasMappings({
   "Ext.window.Window": [
     "widget.window"
   ],
+  "ExtThemeNeptune.Component": [],
+  "ExtThemeNeptune.container.ButtonGroup": [],
+  "ExtThemeNeptune.form.field.HtmlEditor": [],
+  "ExtThemeNeptune.grid.RowEditor": [],
+  "ExtThemeNeptune.grid.column.RowNumberer": [],
+  "ExtThemeNeptune.layout.component.Dock": [],
+  "ExtThemeNeptune.menu.Menu": [],
+  "ExtThemeNeptune.menu.Separator": [],
+  "ExtThemeNeptune.panel.Panel": [],
+  "ExtThemeNeptune.panel.Table": [],
+  "ExtThemeNeptune.panel.Tool": [],
+  "ExtThemeNeptune.picker.Month": [],
+  "ExtThemeNeptune.resizer.Splitter": [],
+  "ExtThemeNeptune.tab.Tab": [],
+  "ExtThemeNeptune.toolbar.Paging": [],
+  "ExtThemeNeptune.toolbar.Toolbar": [],
   "XMLifeOperating.Application": [],
   "XMLifeOperating.controller.CustomerList": [],
   "XMLifeOperating.controller.GDealList": [],
@@ -2082,6 +2169,24 @@ Ext.ClassManager.addNameAliasMappings({
     "widget.gFeedbackList"
   ]
 });
+Ext.setVersion("ext-locale", "1.0.0");
 Ext.setVersion("ext-theme-base", "4.2.1");
-Ext.setVersion("ext-theme-classic", "4.2.1");
+Ext.setVersion("ext-theme-neptune", "4.2.1");
 Ext.setVersion("ext-theme-neutral", "4.2.1");
+Ext.Loader.loadScript("../../ext/packages/ext-theme-neptune/overrides/Component.js");;
+Ext.Loader.loadScript("../../ext/packages/ext-locale/overrides/zh_CN/ext-locale-zh_CN.js");;
+Ext.Loader.loadScript("../../ext/packages/ext-theme-neptune/overrides/panel/Panel.js");;
+Ext.Loader.loadScript("../../ext/packages/ext-theme-neptune/overrides/toolbar/Toolbar.js");;
+Ext.Loader.loadScript("../../ext/packages/ext-theme-neptune/overrides/layout/component/Dock.js");;
+Ext.Loader.loadScript("../../ext/packages/ext-theme-neptune/overrides/container/ButtonGroup.js");;
+Ext.Loader.loadScript("../../ext/packages/ext-theme-neptune/overrides/toolbar/Paging.js");;
+Ext.Loader.loadScript("../../ext/packages/ext-theme-neptune/overrides/picker/Month.js");;
+Ext.Loader.loadScript("../../ext/packages/ext-theme-neptune/overrides/form/field/HtmlEditor.js");;
+Ext.Loader.loadScript("../../ext/packages/ext-theme-neptune/overrides/panel/Table.js");;
+Ext.Loader.loadScript("../../ext/packages/ext-theme-neptune/overrides/grid/RowEditor.js");;
+Ext.Loader.loadScript("../../ext/packages/ext-theme-neptune/overrides/grid/column/RowNumberer.js");;
+Ext.Loader.loadScript("../../ext/packages/ext-theme-neptune/overrides/resizer/Splitter.js");;
+Ext.Loader.loadScript("../../ext/packages/ext-theme-neptune/overrides/menu/Menu.js");;
+Ext.Loader.loadScript("../../ext/packages/ext-theme-neptune/overrides/menu/Separator.js");;
+Ext.Loader.loadScript("../../ext/packages/ext-theme-neptune/overrides/panel/Tool.js");;
+Ext.Loader.loadScript("../../ext/packages/ext-theme-neptune/overrides/tab/Tab.js");;

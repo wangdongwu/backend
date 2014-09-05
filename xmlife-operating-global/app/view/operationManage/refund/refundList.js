@@ -174,6 +174,7 @@ Ext.define('XMLifeOperating.view.operationManage.refund.refundList', {
     },
     {
 			xtype : 'pagingtoolbar',
+      itemId : 'pagetoll',
 			store : 'refundStore',
 			dock : 'bottom',
       align : 'center',

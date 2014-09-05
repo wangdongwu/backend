@@ -2,6 +2,7 @@
     "name": "XMLifeOperating",
 
     "requires": [
+    "ext-locale"
     ],
 
     "id": "52c2b4a3-56a2-4c71-b438-e83013b4d639"

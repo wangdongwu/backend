@@ -235,18 +235,16 @@ Ext.define('XMLifeOperating.controller.Refund', {
           endTime = grid.down('[name=endTime]').rawValue,
           refundType = grid.down('#refundTypeCombo').getValue(),
           status = grid.down('#statusCombo').getValue();
+          //grid.down('pagetoll').
 
           store = grid.store;
+          store.currentPage = 1;
 
           store.getProxy().extraParams={
             beginTime : beginTime,
             endTime : endTime,
             refundType : refundType || '',
-            status : status || '',
-            page:1,
-            start:0,
-            aaa : ['as','dd'],
-            limit:25
+            status : status || ''
       };
       //this.storeFilter();
       store.load();
