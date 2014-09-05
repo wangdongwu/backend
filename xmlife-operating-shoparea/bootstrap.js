@@ -922,11 +922,11 @@ Ext.ClassManager.addNameAlternateMappings({
   "XMLifeOperating.view.centralPointManage.delivererZone.ResidentalDistrictEdit": [],
   "XMLifeOperating.view.centralPointManage.residentalDistrict.ResidentalDistrictAdd": [],
   "XMLifeOperating.view.centralPointManage.residentalDistrict.ResidentalDistrictList": [],
+  "XMLifeOperating.view.centralPointManage.shop.ShopAdd": [],
   "XMLifeOperating.view.centralPointManage.shop.ShopBanner": [],
   "XMLifeOperating.view.centralPointManage.shop.ShopBannerAdd": [],
   "XMLifeOperating.view.centralPointManage.shop.ShopBuyer": [],
   "XMLifeOperating.view.centralPointManage.shop.ShopEdit": [],
-  "XMLifeOperating.view.centralPointManage.shop.ShopInfo": [],
   "XMLifeOperating.view.centralPointManage.shop.ShopList": [],
   "XMLifeOperating.view.centralPointManage.shop.ShopProduct": [],
   "XMLifeOperating.view.centralPointManage.shop.ShopProductAdd": [],
@@ -948,6 +948,7 @@ Ext.ClassManager.addNameAlternateMappings({
   "XMLifeOperating.view.operationManage.dealProblemDeals.DealProblemDealsReapportionShopper": [],
   "XMLifeOperating.view.operationManage.dealShopArea.DealShopAreaList": [],
   "XMLifeOperating.view.operationManage.realTime.RealTimeList": [],
+  "XMLifeOperating.view.operationManage.refund.RefundList": [],
   "XMLifeOperating.view.operationManage.refunds.RefundList": [],
   "XMLifeOperating.view.staffManage.deliverer.DealDelivererHistoryList": [],
   "XMLifeOperating.view.staffManage.deliverer.DealItemsList": [],
@@ -2070,6 +2071,9 @@ Ext.ClassManager.addNameAliasMappings({
   "XMLifeOperating.view.centralPointManage.residentalDistrict.ResidentalDistrictList": [
     "widget.residentaldistrictlist"
   ],
+  "XMLifeOperating.view.centralPointManage.shop.ShopAdd": [
+    "widget.shopadd"
+  ],
   "XMLifeOperating.view.centralPointManage.shop.ShopBanner": [
     "widget.shopbanner"
   ],
@@ -2081,9 +2085,6 @@ Ext.ClassManager.addNameAliasMappings({
   ],
   "XMLifeOperating.view.centralPointManage.shop.ShopEdit": [
     "widget.shopedit"
-  ],
-  "XMLifeOperating.view.centralPointManage.shop.ShopInfo": [
-    "widget.shopinfo"
   ],
   "XMLifeOperating.view.centralPointManage.shop.ShopList": [
     "widget.shoplist"
@@ -2147,6 +2148,9 @@ Ext.ClassManager.addNameAliasMappings({
   ],
   "XMLifeOperating.view.operationManage.realTime.RealTimeList": [
     "widget.realTimeList"
+  ],
+  "XMLifeOperating.view.operationManage.refund.RefundList": [
+    "widget.RefundList"
   ],
   "XMLifeOperating.view.operationManage.refunds.RefundList": [
     "widget.refundList"
