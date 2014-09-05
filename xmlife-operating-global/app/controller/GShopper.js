@@ -413,6 +413,7 @@ Ext.define('XMLifeOperating.controller.GShopper', {
         var shopper = new cClass();
         var win = this.getEditWindow();
         win.down('form').loadRecord(shopper);
+        win.down('#shopperPhone').setDisabled(false);
         win.show();
     },
     onEdit: function(view, rowIndex, colIndex, column, e) {
@@ -437,10 +438,13 @@ Ext.define('XMLifeOperating.controller.GShopper', {
             form = editWindow.down('form').getForm(),
             shopper = form.getRecord(),
             me = this;
+            console.log(shopper);
+            return;
         if (form.isValid()) {
 
-            // windowEl.mask('saving');
+            windowEl.mask('saving');
             form.updateRecord(shopper);
+
 
             shopper.set('onlineTime', (shopper.get('onlineTime').getHours()*60+shopper.get('onlineTime').getMinutes()));
             shopper.set('offlineTime',(shopper.get('offlineTime').getHours()*60+shopper.get('offlineTime').getMinutes()));
@@ -469,20 +473,33 @@ Ext.define('XMLifeOperating.controller.GShopper', {
                             areaId: shopStoreAreaId
                         }
                     });*/
-                    me.fireEvent('refreshView');
+                    //me.fireEvent('refreshView');
                 });
                 return;
             }
 
             shopper.save({
                 success: function(task, operation) {
-                    console.log(operation);
-                    console.log(operation.response.responseText);
                     var error = operation.getError();
-                    if (operation.response.responseText == '-2') {
+                    var errorStr='';
+                    switch(operation.response.responseText){
+                        case '1':
+                            errorStr='创建成功';
+                            break;
+                        case '-2':
+                            errorStr='传参错误';
+                            break;
+                        case '-24':
+                            errorStr='手机已注册';
+                            break;
+                        case '-28':
+                            errorStr='手机号码格式错误';
+                            break;
+                    }
+                    if(operation.response.responseText<0){
                         Ext.MessageBox.show({
                             title: 'Edit Task Failed',
-                            msg: '传参错误',
+                            msg: errorStr,
                             icon: Ext.Msg.ERROR,
                             buttons: Ext.Msg.OK
                         });
@@ -491,7 +508,9 @@ Ext.define('XMLifeOperating.controller.GShopper', {
                     }
                     windowEl.unmask();
                     editWindow.close();
-                    me.fireEvent('refreshView');
+                    // keyWords=
+                    // keyWords = me.getGShopperList().down('#searchBuyerKeyWords').getValue(),
+                    //me.fireEvent('refreshView');
                 },
                 failure: function(task, operation) {
 

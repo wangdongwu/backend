@@ -132,6 +132,7 @@ Ext.define('XMLifeOperating.view.staffManage.shopper.GShopperEdit', {
                     xtype: 'textfield',
                     name: 'phone',
                     fieldLabel: '电话',
+                    itemId:'shopperPhone',
                     labelWidth: 90,
                     allowBlank:false,
                     regex: XMLifeOperating.generic.Global.VALIDATION_CONSTANTS.PHONE,
