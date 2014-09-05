@@ -30,6 +30,10 @@ Ext.define('XMLifeOperating.controller.GDeliverer', {
             autoCreate: true
         },
         {
+            ref: 'shopArea',
+            selector: '#shopArea',
+        },
+        {
             ref: 'gDealDelivererHistoryList',
             selector: 'gDealDelivererHistoryList',
             xtype: 'gDealDelivererHistoryList',
@@ -76,6 +80,30 @@ Ext.define('XMLifeOperating.controller.GDeliverer', {
 
                 },
             },
+            //查看中心下暂停或接单快递员
+            'gDelivererList #activeSearch': {
+                click: function() {
+                    var activeSearch = Ext.getCmp('gDelivererList').down('#activeSearch').getText();
+                    if (activeSearch == '查看停单快递员') {
+                        isActive=false;
+                        isUnbind = '';
+                    } else if (activeSearch == '查看接单快递员') {
+                        isActive=true;
+                        isUnbind = true;
+                    }
+                    var store = me.getDelivererStore();
+                    store.load({
+                        params: {
+                            city: XMLifeOperating.generic.Global.currentCity,
+                            area: me.getShopArea().getValue(),
+                            isActive: isActive
+                        },
+                        callback: function() {
+                            Ext.getCmp('gDelivererList').down('#activeBind').setText('查看未绑定的快递员');
+                        }
+                    });
+                }
+            },
             'gDelivererList #activeBind': {
                 click: function(grid) {
                     //Ext.getCmp('communityList').down('#lineId').setValue('');
@@ -90,6 +118,11 @@ Ext.define('XMLifeOperating.controller.GDeliverer', {
                         params: {
                             unbind: isUnbind
                         },
+                        callback: function() {
+                            Ext.getCmp('gDelivererList').down('#activeSearch').setText('查看停单快递员');
+                            Ext.getCmp('gDelivererList').down('#shopArea').setValue('');
+                            me.getGDelivererList().down('#searchDelivererKeyWords').setValue('');
+                        }
                     });
                 }
             },
@@ -316,15 +349,31 @@ Ext.define('XMLifeOperating.controller.GDeliverer', {
                             }
                             sendPutRequest(url,{deliverer:deliverer,isActive:isActive},'操作恢复或暂停配送员接单','成功操作配送员接单','操作配送员接单失败',function(){
                                     var store = me.getDelivererStore();
-                                    store.load({
-                                        params: {
-                                            unbind:true
-                                        },
-                                        callback:function(){
-                                            Ext.getCmp('gDelivererList').down('#activeBind').setText('查看已绑定的快递员');
-                                            Ext.getCmp('gDelivererList').down('#shopArea').setValue('');
-                                        }
-                                    });
+                                    var activeBindText = Ext.getCmp('gDelivererList').down('#activeBind').getText();
+                                    var params='';
+                                    var searchDelivererKeyWords = me.getGDelivererList().down('#searchDelivererKeyWords').getValue();
+                                    if(activeBindText=='查看已绑定的快递员'||searchDelivererKeyWords!=''){
+                                        record.set('isActive',isActive);
+                                        return;
+                                    }else{
+                                        me.fireEvent('refreshView');
+                                        // var activeSearch = Ext.getCmp('gShopperList').down('#activeSearch').getText();
+                                        // if (activeSearch == '查看停单买手') {
+                                        //     isActive=true;
+                                        // } else if (activeSearch == '查看接单买手') {
+                                        //     isActive=false;
+                                        // }
+                                        // store.load({
+                                        //     params: {
+                                        //         city: XMLifeOperating.generic.Global.currentCity,
+                                        //         area: me.getShopArea().getValue(),
+                                        //         isActive: isActive
+                                        //     },
+                                        //     callback: function() {
+                                        //         Ext.getCmp('gShopperList').down('#activeBind').setText('查看未绑定的买手');
+                                        //     }
+                                        // });
+                                    } 
                             }); 
                     });
                 }
@@ -363,7 +412,7 @@ Ext.define('XMLifeOperating.controller.GDeliverer', {
 
     },
     onShow: function() {
-        var store = this.getDelivererStore();
+        /*var store = this.getDelivererStore();
         store.load({
             params: {
                 unbind: true
@@ -372,7 +421,7 @@ Ext.define('XMLifeOperating.controller.GDeliverer', {
                 Ext.getCmp('gDelivererList').down('#activeBind').setText('查看已绑定的快递员');
                 Ext.getCmp('gDelivererList').down('#shopArea').setValue('');
             }
-        });
+        });*/
 
     },
     onAdd: function() {

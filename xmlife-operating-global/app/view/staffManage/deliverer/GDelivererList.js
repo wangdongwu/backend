@@ -193,9 +193,9 @@ Ext.define('XMLifeOperating.view.staffManage.deliverer.GDelivererList', {
             renderer: function(value) {
                 var str='';
                 if(value==true){
-                    str+='<input type="button" value="暂停接单" statusValue="open" /><br/>';
+                    str+='<input type="button" value="关闭" statusValue="open" /><br/>';
                 }else{
-                    str+='<input type="button" value="恢复接单" statusValue="close"  /><br/>';
+                    str+='<input type="button" value="开启" statusValue="close"  /><br/>';
                 }
                 return str;
             }
