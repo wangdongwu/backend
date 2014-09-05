@@ -394,27 +394,21 @@ Ext.define('XMLifeOperating.controller.DelivererZoneList', {
             Ext.String.format("确定删除线路 '{0}' 吗？", line.get('name')),
             function(result) {
                 if (result == 'yes') {
+                    var zoneId = line.get('id');
+                    var url='delivererZone/'+zoneId;
+                    sendDeleteRequest(url, {}, '删除线路', '成功删除线路', '删除线路失败', function(response) {
+                            console.log(response);
+                            if(response.responseText=='-2'){
+                                Ext.Msg.alert('Invalid Data', '不能删除');
+                                return;
+                            }
+                            line.destroy({
+                            success: function() {
+                                console.log('line deleted!');
+                            }
+                        });
 
-                    /*line.destroy({
-                        success: function() {
-                            console.log('line deleted!');
-                        }
-                    });*/
-                var zoneId = line.get('id');
-                var url='delivererZone/'+zoneId;
-                sendDeleteRequest(url, {}, '删除线路', '成功删除线路', '删除线路失败', function(response) {
-                        console.log(response);
-                        if(response.responseText=='-2'){
-                            Ext.Msg.alert('Invalid Data', '不能删除');
-                            return;
-                        }
-                        line.destroy({
-                        success: function() {
-                            console.log('line deleted!');
-                        }
                     });
-
-                });
                 }
             }
         );

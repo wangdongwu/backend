@@ -30,6 +30,10 @@ Ext.define('XMLifeOperating.controller.Deliverer', {
             autoCreate: true
         },
         {
+            ref: 'shopArea',
+            selector: '#shopArea',
+        },
+        {
             ref: 'dealDelivererHistoryList',
             selector: 'dealDelivererHistoryList',
             xtype: 'dealDelivererHistoryList',
@@ -74,6 +78,29 @@ Ext.define('XMLifeOperating.controller.Deliverer', {
                     });
 
                 },
+            },
+             //查看中心下暂停或接单快递员
+            'delivererList #activeSearch': {
+                click: function() {
+                    var activeSearch = Ext.getCmp('delivererList').down('#activeSearch').getText();
+                    if (activeSearch == '查看停单快递员') {
+                        isActive=false;
+                        isUnbind = '';
+                    } else if (activeSearch == '查看接单快递员') {
+                        isActive=true;
+                        isUnbind = true;
+                    }
+                    var store = me.getDelivererStore();
+                    store.load({
+                        params: {
+                            area: me.getShopArea().getValue(),
+                            isActive: isActive
+                        },
+                        callback: function() {
+                            Ext.getCmp('delivererList').down('#activeBind').setText('查看未绑定的买手');
+                        }
+                    });
+                }
             },
             'delivererList #activeBind': {
                 click: function(grid) {
