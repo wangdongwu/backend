@@ -796,7 +796,6 @@ Ext.define('XMLifeOperating.controller.Shop', {
                         categoryId = tabIdstrArray[1];
                     }
                     if (form.isValid()) {
-                        //windowEl.mask('saving');
                         form.updateRecord(shelvesGoods);
                         console.log(shelvesGoods);
                         shopId = this.shopId;
@@ -828,6 +827,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
                         shelvesGoods.set('limitType', limitType);
                         shelvesGoods.set('limitCount', limitCount);
                         console.log("try saving");
+                        windowEl.mask('saving');
                         if (shelvesGoods.get('id') != null) {
                             console.log('编辑');
                             var id = shelvesGoods.get('id');
@@ -853,39 +853,40 @@ Ext.define('XMLifeOperating.controller.Shop', {
                                 });
                             });
                             return;
-                        }
-                        var selectModel = Ext.ComponentQuery.query('#productTemplateId')[0].getSelectionModel();
-                        var selectRecords = selectModel.getSelection();
-                        if (selectRecords[0] == null) {
-                            Ext.Msg.alert('添加商品失败', '请选择添加商品模板');
-                            windowEl.unmask();
-                            return;
-                        }
-                        shelvesGoods.set('productTemplateId', selectRecords[0].raw.id);
-                        console.log(categoryId);
-                        shelvesGoods.save({
-                            success: function(task, operation) {
+                        } else {
+                            var selectModel = Ext.ComponentQuery.query('#productTemplateId')[0].getSelectionModel();
+                            var selectRecords = selectModel.getSelection();
+                            if (selectRecords[0] == null) {
+                                Ext.Msg.alert('添加商品失败', '请选择添加商品模板');
                                 windowEl.unmask();
-                                editWindow.close();
-                                // me.fireEvent('refreshView');
-                                me.getProductStore().load({
-                                    params: {
-                                        categoryId: categoryId
-                                    }
-                                });
-                            },
-                            failure: function(task, operation) {
-                                var error = operation.getError(),
-                                    msg = Ext.isObject(error) ? error.status + ' ' + error.statusText : error;
-                                Ext.MessageBox.show({
-                                    title: 'Edit Task Failed',
-                                    msg: msg,
-                                    icon: Ext.Msg.ERROR,
-                                    buttons: Ext.Msg.OK
-                                });
-                                windowEl.unmask();
+                                return;
                             }
-                        });
+                            shelvesGoods.set('productTemplateId', selectRecords[0].raw.id);
+                            console.log(categoryId);
+                            shelvesGoods.save({
+                                success: function(task, operation) {
+                                    windowEl.unmask();
+                                    editWindow.close();
+                                    // me.fireEvent('refreshView');
+                                    me.getProductStore().load({
+                                        params: {
+                                            categoryId: categoryId
+                                        }
+                                    });
+                                },
+                                failure: function(task, operation) {
+                                    var error = operation.getError(),
+                                        msg = Ext.isObject(error) ? error.status + ' ' + error.statusText : error;
+                                    Ext.MessageBox.show({
+                                        title: 'Edit Task Failed',
+                                        msg: msg,
+                                        icon: Ext.Msg.ERROR,
+                                        buttons: Ext.Msg.OK
+                                    });
+                                    windowEl.unmask();
+                                }
+                            });
+                        }
                     } else {
                         Ext.Msg.alert('Invalid Data', 'Please correct form errors');
                     }
