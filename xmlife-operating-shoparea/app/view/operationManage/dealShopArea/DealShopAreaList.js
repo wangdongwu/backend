@@ -2,6 +2,7 @@
 Ext.define('XMLifeOperating.view.operationManage.dealShopArea.DealShopAreaList', {
     extend: 'Ext.grid.Panel',
     closable : true,
+    id: 'dealShopAreaList',
     xtype: 'dealShopAreaList',
 
     title: '货到中心管理',

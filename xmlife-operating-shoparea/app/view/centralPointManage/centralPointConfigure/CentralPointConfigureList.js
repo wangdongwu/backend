@@ -1,6 +1,7 @@
 Ext.define('XMLifeOperating.view.centralPointManage.centralPointConfigure.CentralPointConfigureList', {
     extend: 'Ext.grid.Panel',
     closable : true,
+    id: 'centralpointconfigurelist',
     xtype: 'centralpointconfigurelist',
     title: '首页配置',
     store: 'ShopArea',
