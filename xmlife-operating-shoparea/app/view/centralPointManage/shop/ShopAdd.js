@@ -20,7 +20,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopAdd', {
             layout: 'anchor',
             bodyPadding: 10,
             border: false,
-            
+            frame: true,
             defaults: {
                 anchor: '100%'
             },
