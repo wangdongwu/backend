@@ -764,13 +764,13 @@ Ext.define('XMLifeOperating.controller.Shop', {
                     //statusValue为点击事件后商品的状态
                     switch (statusValue) {
                         case 'soldout': //让商品下架（目前处于上架状态）
-                            status = 0;
+                            status = 3;
                             break;
                         case 'offline': //让商品雪藏（目前处于未雪藏）
                             status = 1;
                             break;
                         case 'online': //让商品上架（目前处于售罄状态）
-                            status = 3;
+                            status = 0;
                             break;
                     }
                     sendPutRequest(url, {
@@ -786,21 +786,25 @@ Ext.define('XMLifeOperating.controller.Shop', {
                     var itemId = component.getItemId();
                     var win = this.getShopProductAdd();
                     var model, form = win.down('form').getForm();
+                    var name = '',
+                        productTemplateId = '',
+                        limitType = '',
+                        limitCount = '';
                     form.reset();
 
                     if (itemId == 'openCreateShelvesGoodsWin') {
                         model = this.getProductModel();
                         model = new model();
-
                     } else {
                         model = component.getStore().getAt(colIndex);
+                        limitType = model.get('limitType');
+                        limitCount = model.get('limitCount');
+                        productTemplateId = mode.get('productTemplateId');
+                        name = model.get('name');
                         model.set('facePrice', (Math.abs(model.get('fprice') / 100)));
                         model.set('purchasePrice', (Math.abs(model.get('pprice') / 100)));
                         model.set('discountPrice', (Math.abs(model.get('dprice') / 100)));
-                        var limitType = '',
-                            limitCount = '';
-                        limitType = model.get('limitType');
-                        limitCount = model.get('limitCount');
+                        model.set('name', name);
                         if (limitType == 1) {
                             model.set('dayLimitCount', limitCount);
                         } else if (limitType == 2) {
@@ -809,6 +813,14 @@ Ext.define('XMLifeOperating.controller.Shop', {
                             model.set('dayLimitCount', '');
                             model.set('totalLimitCount', '');
                         }
+                        this.getProductTemplateStore().load({
+                            params: {
+                                keyword: name
+                            },
+                            success:function(){
+                                this.down('#productTemplateId')
+                            }
+                        });
                         console.log(model);
                     }
                     me.openWin(win, model);
