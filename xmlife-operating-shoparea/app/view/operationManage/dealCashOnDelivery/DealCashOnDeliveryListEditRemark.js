@@ -19,7 +19,7 @@ Ext.define('XMLifeOperating.view.operationManage.dealCashOnDelivery.DealCashOnDe
             layout: 'anchor',
             bodyPadding: 10,
             border: false,
-            frame: true,
+            
             items: [
                 {
                     xtype: 'textfield',

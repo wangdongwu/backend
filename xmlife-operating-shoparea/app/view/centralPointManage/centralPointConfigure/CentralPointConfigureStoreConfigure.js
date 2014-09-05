@@ -5,6 +5,7 @@
  */
 Ext.define('XMLifeOperating.view.centralPointManage.centralPointConfigure.CentralPointConfigureStoreConfigure', {
     extend: 'Ext.grid.Panel',
+    closable : true,
     xtype: 'centralpointconfigurestoreconfigure',
     header: false,
     store: 'Shop',

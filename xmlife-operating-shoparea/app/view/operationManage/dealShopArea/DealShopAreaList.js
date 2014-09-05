@@ -1,6 +1,7 @@
 
 Ext.define('XMLifeOperating.view.operationManage.dealShopArea.DealShopAreaList', {
     extend: 'Ext.grid.Panel',
+    closable : true,
     xtype: 'dealShopAreaList',
 
     title: '货到中心管理',
@@ -221,6 +222,6 @@ Ext.define('XMLifeOperating.view.operationManage.dealShopArea.DealShopAreaList',
         }
     },
     columnLines: true,
-    frame: true,
-    iconCls: 'icon-grid'
+    
+    
 });

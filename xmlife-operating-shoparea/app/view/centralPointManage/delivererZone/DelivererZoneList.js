@@ -1,5 +1,6 @@
 Ext.define('XMLifeOperating.view.centralPointManage.delivererZone.DelivererZoneList', {
     extend: 'Ext.grid.Panel',
+    closable : true,
     xtype: 'delivererZoneList',
     title: '线路管理',
     store: 'DelivererZone',
@@ -99,6 +100,6 @@ Ext.define('XMLifeOperating.view.centralPointManage.delivererZone.DelivererZoneL
         }
     },
     columnLines: true,
-    frame: true,
-    iconCls: 'icon-grid'
+    
+    
 });

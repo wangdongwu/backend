@@ -5,6 +5,7 @@
  */
 Ext.define('XMLifeOperating.view.staffManage.deliverer.DelivererWorkTimeList', {
     extend: 'Ext.grid.Panel',
+    closable : true,
     xtype: 'delivererWorkTimeList',
 
     title: '考勤管理',
@@ -116,6 +117,6 @@ Ext.define('XMLifeOperating.view.staffManage.deliverer.DelivererWorkTimeList', {
         }
     },
     columnLines: true,
-    frame: true,
-    iconCls: 'icon-grid'
+    
+    
 });

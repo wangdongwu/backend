@@ -1,5 +1,6 @@
 Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopShelf', {
     extend: 'Ext.grid.Panel',
+    closable : true,
     xtype: 'shopshelf',
     store: 'CategoryRoots',
     id: 'ShelvesList',

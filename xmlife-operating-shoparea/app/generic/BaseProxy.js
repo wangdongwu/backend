@@ -3,7 +3,7 @@ Ext.define('XMLifeOperating.generic.BaseProxy', {
     extend: 'Ext.data.proxy.Rest',
     reader: 'json',
 
-    constructor: function(resourceURL) {
+    constructor: function(resourceURL,root) {
         if(!resourceURL || resourceURL.length < 1) {
             alert("bad resourceURL");
         }
@@ -11,6 +11,14 @@ Ext.define('XMLifeOperating.generic.BaseProxy', {
             this.url = "http://192.168.5.190:9999/rest/";
         }else{
             this.url = XMLifeOperating.generic.Global.URL.biz + resourceURL;
+        }
+
+        if(root){
+          this.reader = {
+            type : 'json',
+            root : root,
+            totalProperty : 'total'
+          }
         }
         this.callParent(arguments);
     },
@@ -142,49 +150,6 @@ var sendPutRequest = function(url, params, title, successMsg, errorMsg, success,
         url: newUrl,
         params: params,
         method: 'PUT',
-        success: function(response){
-            /*Ext.MessageBox.show({
-                title: title,
-                msg: successMsg,
-                icon: Ext.Msg.INFO,
-                buttons: Ext.Msg.OK
-            });*/
-
-            if (success) {
-                success(response);
-            }
-        },
-        failure: function(response,opts) {   
-            var error = Ext.decode(response.responseText);
-            var msg = Ext.String.format('{0}<br />Error Code: {1}<br />Message: {2}', errorMsg, error.code, error.message)
-            /*Ext.MessageBox.show({
-                title: title,
-                msg: msg,
-                icon: Ext.Msg.ERROR,
-                buttons: Ext.Msg.OK
-            });*/
-
-            if (failure) {
-                failure(response);
-            }
-        }              
-    });    
-}
-
-var sendDeleteRequest = function(url, params, title, successMsg, errorMsg, success, failure) {
-    if(!url || url.length < 1) {
-        alert("bad url");
-    }
-    var newUrl;
-    if(url == 'auth'){
-        newUrl = "http://192.168.5.190:9999/rest/auth";
-    }else{
-        newUrl = XMLifeOperating.generic.Global.URL.biz + url;
-    }
-    Ext.Ajax.request({
-        url: newUrl,
-        params: params,
-        method: 'DELETE',
         success: function(response){
             /*Ext.MessageBox.show({
                 title: title,

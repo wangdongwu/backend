@@ -30,7 +30,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopShelfAdd', {
             layout: 'anchor',
             bodyPadding: 10,
             border: false,
-            frame: true,
+            
             items: [
                 {
                     xtype: 'textfield',

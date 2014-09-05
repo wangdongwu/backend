@@ -22,7 +22,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.delivererZone.LineDelivererA
             bodyPadding: 10,
 
             border: false,
-            frame: true,
+            
             defaults:{
                 anchor: '100%'
             },

@@ -1,5 +1,6 @@
 Ext.define('XMLifeOperating.view.operationManage.dealCashOnDelivery.DealCashOnDeliveryList', {
     extend: 'Ext.grid.Panel',
+    closable : true,
     xtype: 'dealCashOnDeliveryList',
 
     title: '货到付款管理',
@@ -355,6 +356,6 @@ Ext.define('XMLifeOperating.view.operationManage.dealCashOnDelivery.DealCashOnDe
         }
     },
     columnLines: true,
-    frame: true,
-    iconCls: 'icon-grid'
+    
+    
 });

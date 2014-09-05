@@ -21,7 +21,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.delivererZone.DelivererZoneE
             layout: 'anchor',
             bodyPadding: 10,
             border: false,
-            frame: true,
+            
             defaults:{
                 anchor: '100%'
             },

@@ -21,7 +21,7 @@ Ext.define('XMLifeOperating.view.operationManage.dealProblemDeals.DealProblemDea
             layout: 'anchor',
             bodyPadding: 5,
             border: false,
-            frame: true,
+            
             defaults:{
                 anchor: '100%'
             },

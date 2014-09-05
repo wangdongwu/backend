@@ -1,10 +1,9 @@
 
 Ext.define('XMLifeOperating.view.operationManage.realTime.RealTimeList', {
     extend: 'Ext.grid.Panel',
+    closable : true,
     xtype: 'realTimeList',
-
     title: '数据中心',
-
     store: 'RealTime',
     id:'realTimeList',
     tbar: [
@@ -72,6 +71,6 @@ Ext.define('XMLifeOperating.view.operationManage.realTime.RealTimeList', {
         }
     },
     columnLines: true,
-    frame: true,
-    iconCls: 'icon-grid'
+    
+    
 });

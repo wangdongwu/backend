@@ -31,7 +31,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopProductAdd', {
             layout: 'anchor',
             bodyPadding: 10,
             border: false,
-            frame: true,
+            
             items: [
                 {
                     xtype:'fieldset',

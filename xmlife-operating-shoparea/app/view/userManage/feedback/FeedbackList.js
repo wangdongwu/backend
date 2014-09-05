@@ -1,5 +1,6 @@
 Ext.define('XMLifeOperating.view.userManage.feedback.FeedbackList', {
     extend: 'Ext.grid.Panel',
+    closable : true,
     xtype: 'feedbackList',
     title: '用户反馈管理',
     store: 'Feedback',       
@@ -128,6 +129,6 @@ Ext.define('XMLifeOperating.view.userManage.feedback.FeedbackList', {
         }
     },
     columnLines: true,
-    frame: true,
-    iconCls: 'icon-grid'
+    
+    
 });

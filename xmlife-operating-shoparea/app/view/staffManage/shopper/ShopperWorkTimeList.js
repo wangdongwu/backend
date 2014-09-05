@@ -5,6 +5,7 @@
  */
 Ext.define('XMLifeOperating.view.staffManage.shopper.ShopperWorkTimeList', {
     extend: 'Ext.grid.Panel',
+    closable : true,
     xtype: 'shopperWorkTimeList',
 
     title: '考勤管理',
@@ -152,6 +153,6 @@ Ext.define('XMLifeOperating.view.staffManage.shopper.ShopperWorkTimeList', {
         }
     },
     columnLines: true,
-    frame: true,
-    iconCls: 'icon-grid'
+    
+    
 });

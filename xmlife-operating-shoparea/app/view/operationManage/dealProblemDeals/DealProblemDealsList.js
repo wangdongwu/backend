@@ -1,6 +1,7 @@
 
 Ext.define('XMLifeOperating.view.operationManage.dealProblemDeals.DealProblemDealsList', {
     extend: 'Ext.grid.Panel',
+    closable : true,
     xtype: 'dealProblemDealsList',
     title: '问题订单管理',
     store: 'DealProblemDeals',
@@ -316,6 +317,6 @@ Ext.define('XMLifeOperating.view.operationManage.dealProblemDeals.DealProblemDea
         }
     },
     columnLines: true,
-    frame: true,
-    iconCls: 'icon-grid'
+    
+    
 });

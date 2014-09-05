@@ -1,5 +1,6 @@
 Ext.define('XMLifeOperating.view.staffManage.shopper.DealItemsList', {
     extend: 'Ext.grid.Panel',
+    closable : true,
     xtype: 'dealItemsList',
 
     header: false,

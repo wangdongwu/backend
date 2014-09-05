@@ -22,7 +22,7 @@ Ext.define('XMLifeOperating.view.operationManage.dealCashOnDelivery.DealCashOnDe
             layout: 'anchor',
             bodyPadding: 5,
             border: false,
-            frame: true,
+            
             defaults:{
                 anchor: '100%'
             },

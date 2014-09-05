@@ -1,5 +1,6 @@
 Ext.define('XMLifeOperating.view.staffManage.deliverer.DelivererList', {
     extend: 'Ext.grid.Panel',
+    closable : true,
     xtype: 'delivererList',
 
     title: '配送员管理',
@@ -255,6 +256,6 @@ Ext.define('XMLifeOperating.view.staffManage.deliverer.DelivererList', {
         }
     },
     columnLines: true,
-    frame: true,
-    iconCls: 'icon-grid'
+    
+    
 });

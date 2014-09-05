@@ -5,6 +5,7 @@
  */
 Ext.define('XMLifeOperating.view.staffManage.deliverer.DealDelivererHistoryList', {
     extend: 'Ext.grid.Panel',
+    closable : true,
     xtype: 'dealDelivererHistoryList',
     title: '历史订单',
     store: 'DealDelivererHistory',
@@ -175,6 +176,6 @@ Ext.define('XMLifeOperating.view.staffManage.deliverer.DealDelivererHistoryList'
         }
     },
     columnLines: true,
-    frame: true,
-    iconCls: 'icon-grid'
+    
+    
 });

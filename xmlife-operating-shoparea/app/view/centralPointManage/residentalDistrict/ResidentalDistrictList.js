@@ -1,5 +1,6 @@
 Ext.define('XMLifeOperating.view.centralPointManage.residentalDistrict.ResidentalDistrictList', {
     extend: 'Ext.grid.Panel',
+    closable : true,
     xtype: 'residentaldistrictlist',
 
     title: '配送地址管理',
@@ -125,7 +126,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.residentalDistrict.Residenta
         }
     },
     columnLines: true,
-    frame: true,
-    iconCls: 'icon-grid'
+    
+    
 
 });

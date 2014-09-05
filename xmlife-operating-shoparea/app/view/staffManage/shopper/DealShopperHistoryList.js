@@ -1,6 +1,7 @@
 
 Ext.define('XMLifeOperating.view.staffManage.shopper.DealShopperHistoryList', {
     extend: 'Ext.grid.Panel',
+    closable : true,
     xtype: 'dealShopperHistoryList',
 
     title: '历史订单',
@@ -175,6 +176,6 @@ Ext.define('XMLifeOperating.view.staffManage.shopper.DealShopperHistoryList', {
         }
     },
     columnLines: true,
-    frame: true,
-    iconCls: 'icon-grid'
+    
+    
 });

@@ -1,5 +1,6 @@
 Ext.define('XMLifeOperating.view.staffManage.shopper.ShopperList', {
     extend: 'Ext.grid.Panel',
+    closable : true,
     xtype: 'shopperList',
 
     title: '买手管理',
@@ -249,6 +250,6 @@ Ext.define('XMLifeOperating.view.staffManage.shopper.ShopperList', {
         }
     },
     columnLines: true,
-    frame: true,
-    iconCls: 'icon-grid'
+    
+    
 });

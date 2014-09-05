@@ -1,7 +1,7 @@
 Ext.define('XMLifeOperating.controller.RefundList', {
     extend: 'Ext.app.Controller',
 
-    views: ['operationManage.refunds.RefundList'],
+    views: ['operationManage.refund.RefundList'],
 
     stores: ['Refund'],
 
@@ -9,9 +9,9 @@ Ext.define('XMLifeOperating.controller.RefundList', {
 
     refs: [
         {
-            ref: 'refundList',
-            selector: 'refundList',
-            xtype: 'refundList',
+            ref: 'RefundList',
+            selector: 'RefundList',
+            xtype: 'RefundList',
             autoCreate: true
         }
     ],
@@ -20,122 +20,124 @@ Ext.define('XMLifeOperating.controller.RefundList', {
         var self = this;
         this.selectObjList = [];
         self.control({
-            'refundList' : {
-                added : self.rendenrefundList,
+            'RefundList' : {
+                added : self.rendenRefundList,
                 afterrender : function(thisObj){
                     sm = thisObj.getSelectionModel();
                     self.sm = sm;
                     sm.on('selectionchange',self.selectChange,self)
                 }
             },
-            'refundList button[name=today]':{
+            'RefundList button[name=today]':{
                 click : function(ele){
-                    var refundList = this.getRefundList(),
-                        beginTime = refundList.down('[name=beginTime]'),
-                        endTime = refundList.down('[name=endTime]');
+                    var RefundList = this.getRefundList(),
+                        beginTime = RefundList.down('[name=beginTime]'),
+                        endTime = RefundList.down('[name=endTime]');
                         date = new Date();
 
                         beginTime.setValue(date);
                         endTime.setValue(date);
                 }
             },
-            'refundList button[name=yesterday]':{
+            'RefundList button[name=yesterday]':{
                 click : function(ele){
-                    var refundList = this.getRefundList(),
-                        beginTime = refundList.down('[name=beginTime]'),
-                        endTime = refundList.down('[name=endTime]');
+                    var RefundList = this.getRefundList(),
+                        beginTime = RefundList.down('[name=beginTime]'),
+                        endTime = RefundList.down('[name=endTime]');
                         beginTime.setValue(new Date(+new Date()-86400000));
                         endTime.setValue(new Date());
                 }
             },
-            'refundList button[name=oldSevenDay]':{
+            'RefundList button[name=oldSevenDay]':{
                 click : function(ele){
-                    var refundList = this.getRefundList(),
-                        beginTime = refundList.down('[name=beginTime]'),
-                        endTime = refundList.down('[name=endTime]');
+                    var RefundList = this.getRefundList(),
+                        beginTime = RefundList.down('[name=beginTime]'),
+                        endTime = RefundList.down('[name=endTime]');
                         beginTime.setValue(new Date(+new Date()-604800000));
                         endTime.setValue(new Date());
                 }
             },
-            'refundList button[name=oldMonth]':{
+            'RefundList button[name=oldMonth]':{
                 click : function(ele){
-                    var refundList = this.getRefundList(),
-                        beginTime = refundList.down('[name=beginTime]'),
-                        endTime = refundList.down('[name=endTime]');
+                    var RefundList = this.getRefundList(),
+                        beginTime = RefundList.down('[name=beginTime]'),
+                        endTime = RefundList.down('[name=endTime]');
                         beginTime.setValue(new Date(+new Date()-2592000000));
                         endTime.setValue(new Date());
                 }
             },
-            'refundList combo[name=refundType]' : {
+            'RefundList combo' : {
                 change : function(grid,value){
-                    self.getRefundStore().clearFilter(true);
-                    if(value !== 'all'){
-                        self.getRefundStore().filter('refundType',value);
-                    }else{
-                        self.getRefundStore().reload();
-                    }
+                    self.rendenRefundList(this.getRefundList());
                 }
             },
-            'refundList combo[name=status]' : {
-                change : function(grid,value){
-                    self.getRefundStore().clearFilter(true);
-                    if(value != '-1'){
-                        self.getRefundStore().filter('status',value);
-                    }else{
-                        self.getRefundStore().reload()
-                    }
-                }
-            },
-            'refundList datefield':{
+            'RefundList datefield':{
                 change : function(){
-                    self.rendenrefundList(this.getRefundList());
+                    self.rendenRefundList(this.getRefundList());
                 }
             },
-            'refundList button[name=searchDeal]':{
+            'RefundList button[name=searchDeal]':{
                 click : function(){
-                    var refundList = this.getRefundList(),
-                        SearchInput = refundList.down('[name=mobileSearch]'),
+                    var RefundList = this.getRefundList(),
+                        SearchInput = RefundList.down('[name=mobileSearch]'),
                         mobile = SearchInput.getValue(),
                         store = self.getRefundStore();
                         store.getProxy().extraParams={
                                 mobile : mobile
                         };
-                        self.storeFilter();
+                        //self.storeFilter();
                         store.load();
                 }
             },
-            'refundList button[name=allSelect]' : {
+            'RefundList button[name=allSelect]' : {
                 click : function(){
                     self.sm.selectAll();
                 }
             },
-            'refundList button[name=reverseAllSelect]' : {
+            'RefundList button[name=reverseAllSelect]' : {
                 click : function(){
                     self.sm.deselectAll();    
                 }
             },
-            'refundList button[name=reverseSelect]' : {
+            'RefundList button[name=reverseSelect]' : {
                 click : function(){
 
                 }
             },
-            'refundList button[name=agreeRefund]' : {
+            'RefundList button[name=agreeRefund]' : {
                 click : function(){
                     var idObj = self.getRefundIdList({type:'agree'});
+                    if(idObj && idObj.refundType == 'tenpay'){
+                        self.getTenpayLogin().show();
+                        return false;
+                    }
+
                     idObj && sendPutRequest('refund/'+idObj.refundType,{
                             ids : idObj.idList
                         },'','','',function(response){
                             if(response.responseText == 1){
                                 Ext.Msg.alert('提示', '成功同意'+self.sm.getCount()+'条退款记录');                                
-                            }    
-                            self.rendenrefundList(self.getRefundList());
+                                self.rendenRefundList(self.getRefundList());
+                            }
+                            if(idObj.refundType == 'alipay'){
+                                var w = window.open();
+                                w.document.open();
+                                w.document.write(response.responseText);
+                                var confirmMsg = Ext.Msg.confirm('提示', '你已经完成退款了吗',function(value){
+                                    if(value = 'yes'){
+                                        self.getRefundStore().reload()
+                                    }
+                                });  
+                            }
+                            
                             
                         },function(){
  
                         });
+                        
                 }
             },
-            'refundList button[name=disAgreeRefund]' : {
+            'RefundList button[name=disAgreeRefund]' : {
                 click : function(){
                     var idObj = self.getRefundIdList({type:'disagree'});
                         idObj && sendPutRequest('refund/refuse',{
@@ -144,7 +146,7 @@ Ext.define('XMLifeOperating.controller.RefundList', {
                             if(response.responseText == 1){
                                 Ext.Msg.alert('提示', '成功拒绝'+self.sm.getCount()+'条退款记录');
                             }
-                            self.rendenrefundList(self.getRefundList());
+                            self.rendenRefundList(self.getRefundList());
                             
 
                         },function(){
@@ -179,24 +181,41 @@ Ext.define('XMLifeOperating.controller.RefundList', {
         }else{
             return idObj;
         }
-    },
+    }
+    ,
     selectChange : function(obj,objList){
         this.selectObjList = objList;
     },
     storeFilter : function(){
+        var self = this;
         this.getRefundStore().clearFilter(true);
+        this.getRefundStore().filter([{filterFn : function(item){
+            var comboVal = self.getRefundList().down('combo[name=refundType]').getValue();           
+            if(comboVal){
+                return item.get('status') != 1 && item.get('refundType') == comboVal;                
+            }else{
+                return item.get('status') != 1
+            }
         }
+        }]);
+    }
     ,
-    rendenrefundList : function(grid){
-        var beginTime = grid.down('[name=beginTime]').rawValue,
-            endTime = grid.down('[name=endTime]').rawValue,
-            store = grid.store;
-        store.getProxy().extraParams={
-                beginTime : beginTime,
-                endTime : endTime
-        };
-        this.storeFilter();
-        store.load();
+    rendenRefundList : function(grid){
+      var beginTime = grid.down('[name=beginTime]').rawValue,
+          endTime = grid.down('[name=endTime]').rawValue,
+          refundType = grid.down('#refundTypeCombo').getValue(),
+          status = grid.down('#statusCombo').getValue();
+          
+          store = grid.store;
+
+          store.getProxy().extraParams={
+            beginTime : beginTime,
+            endTime : endTime,
+            refundType : refundType || '',
+            status : status || ''
+      };
+      //this.storeFilter();
+      store.loadPage(1);
     }
 });
 
