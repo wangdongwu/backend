@@ -17,7 +17,6 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopEdit', {
         layout: 'anchor',
         bodyPadding: 10,
         frame: true,
-        bodyBorder: false,
         defaults: {
             anchor: '100%'
         },

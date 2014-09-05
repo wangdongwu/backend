@@ -16,7 +16,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopShelfAdd', {
     height: 350,
     resizable: false,
     layout: 'fit', 
-   
+     bodyStyle: 'text-align:center;border-style: none;',
     initComponent: function() {
         var leafStore = Ext.create('Ext.data.Store', {
             fields: ['value','leaf'],

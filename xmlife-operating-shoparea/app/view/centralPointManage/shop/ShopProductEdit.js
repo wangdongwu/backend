@@ -30,6 +30,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopProductEdit', {
             layout: 'anchor',
             bodyPadding: 10,
             border: false,
+            frame:true,
             align:'center',
             items: [
                 {
