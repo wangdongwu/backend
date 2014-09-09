@@ -1,10 +1,10 @@
-Ext.define('XMLifeOperating.controller.Deliverer', {
+Ext.define('XMLifeOperating.controller.GDeliverer', {
     extend: 'Ext.app.Controller',
-    views: ['staffManage.deliverer.DelivererList',
-            'staffManage.deliverer.DelivererEdit',
-            'staffManage.deliverer.DealDelivererHistoryList',
-            'staffManage.deliverer.DelivererWorkTimeList',
-            'staffManage.deliverer.DealItemsList'],
+    views: ['staffManage.deliverer.GDelivererList',
+            'staffManage.deliverer.GDelivererEdit',
+            'staffManage.deliverer.GDealDelivererHistoryList',
+            'staffManage.deliverer.GDelivererWorkTimeList',
+            'staffManage.deliverer.GDealItemsList'],
 
     stores: ['Deliverer',
              'ShopArea',
@@ -18,15 +18,15 @@ Ext.define('XMLifeOperating.controller.Deliverer', {
              'DelivererWorkTime',
              'DealItems'],
     refs: [{
-            ref: 'delivererList',
-            selector: 'delivererList',
-            xtype: 'delivererList',
+            ref: 'gDelivererList',
+            selector: 'gDelivererList',
+            xtype: 'gDelivererList',
             autoCreate: true
         },
         {
-            ref: 'delivererEdit',
-            selector: 'delivererEdit',
-            xtype: 'delivererEdit',
+            ref: 'gDelivererEdit',
+            selector: 'gDelivererEdit',
+            xtype: 'gDelivererEdit',
             autoCreate: true
         },
         {
@@ -34,23 +34,24 @@ Ext.define('XMLifeOperating.controller.Deliverer', {
             selector: '#shopArea',
         },
         {
-            ref: 'dealDelivererHistoryList',
-            selector: 'dealDelivererHistoryList',
-            xtype: 'dealDelivererHistoryList',
+            ref: 'gDealDelivererHistoryList',
+            selector: 'gDealDelivererHistoryList',
+            xtype: 'gDealDelivererHistoryList',
             autoCreate: true
         },
         {
-            ref: 'delivererWorkTimeList',
-            selector: 'delivererWorkTimeList',
-            xtype: 'delivererWorkTimeList',
+            ref: 'gDelivererWorkTimeList',
+            selector: 'gDelivererWorkTimeList',
+            xtype: 'gDelivererWorkTimeList',
             autoCreate: true
         },
         {
-            ref: 'dealItemsList',
-            selector: 'dealItemsList',
-            xtype: 'dealItemsList',
+            ref: 'gDealItemsList',
+            selector: 'gDealItemsList',
+            xtype: 'gDealItemsList',
             autoCreate: true
         },
+        
         {
             ref: 'contentPanel',
             selector: '#contentPanel',
@@ -62,12 +63,12 @@ Ext.define('XMLifeOperating.controller.Deliverer', {
         var isActive = true,
             isUnbind = true;
         this.control({
-            'delivererList #shopArea': {
+            'gDelivererList #shopArea': {
                 select: function(combo) {
 
                     console.log('hello shop dsitrict');
                     var sstore = this.getDelivererStore();
-                    Ext.getCmp('delivererList').down('#activeBind').setText('查看未绑定的快递员');
+                    Ext.getCmp('gDelivererList').down('#activeBind').setText('查看未绑定的快递员');
                     isUnbind = true;
                     sstore.load({
                         params: {
@@ -79,10 +80,10 @@ Ext.define('XMLifeOperating.controller.Deliverer', {
 
                 },
             },
-             //查看中心下暂停或接单快递员
-            'delivererList #activeSearch': {
+            //查看中心下暂停或接单快递员
+            'gDelivererList #activeSearch': {
                 click: function() {
-                    var activeSearch = Ext.getCmp('delivererList').down('#activeSearch').getText();
+                    var activeSearch = Ext.getCmp('gDelivererList').down('#activeSearch').getText();
                     if (activeSearch == '查看停单快递员') {
                         isActive=false;
                         isUnbind = '';
@@ -93,19 +94,20 @@ Ext.define('XMLifeOperating.controller.Deliverer', {
                     var store = me.getDelivererStore();
                     store.load({
                         params: {
+                            city: XMLifeOperating.generic.Global.currentCity,
                             area: me.getShopArea().getValue(),
                             isActive: isActive
                         },
                         callback: function() {
-                            Ext.getCmp('delivererList').down('#activeBind').setText('查看未绑定的快递员');
+                            Ext.getCmp('gDelivererList').down('#activeBind').setText('查看未绑定的快递员');
                         }
                     });
                 }
             },
-            'delivererList #activeBind': {
+            'gDelivererList #activeBind': {
                 click: function(grid) {
                     //Ext.getCmp('communityList').down('#lineId').setValue('');
-                    var activeBindText = Ext.getCmp('delivererList').down('#activeBind').getText();
+                    var activeBindText = Ext.getCmp('gDelivererList').down('#activeBind').getText();
                     if (activeBindText == '查看已绑定的快递员') {
                         isUnbind = '';
                     } else if (activeBindText == '查看未绑定的快递员') {
@@ -117,22 +119,23 @@ Ext.define('XMLifeOperating.controller.Deliverer', {
                             unbind: isUnbind
                         },
                         callback: function() {
-                            Ext.getCmp('delivererList').down('#activeSearch').setText('查看停单快递员');
-                            me.getDelivererList().down('#searchDelivererKeyWords').setValue('');
+                            Ext.getCmp('gDelivererList').down('#activeSearch').setText('查看停单快递员');
+                            Ext.getCmp('gDelivererList').down('#shopArea').setValue('');
+                            me.getGDelivererList().down('#searchDelivererKeyWords').setValue('');
                         }
                     });
                 }
             },
-            'delivererList #add': {
+            'gDelivererList #add': {
                 click: me.onAdd
             },
-            'delivererList #delivererEditId': {
+            'gDelivererList #delivererEditId': {
                 click: me.onEdit
             },
-            'delivererEdit #save-deliverer-edit-btn': {
+            'gDelivererEdit #save-deliverer-edit-btn': {
                 click: me.saveEditWindow
             },
-            'delivererEdit filefield[name="delivererUploadfile"]': {
+            'gDelivererEdit filefield[name="delivererUploadfile"]': {
                 change: function(uploadfile) {
                     var form = uploadfile.ownerCt;
 
@@ -141,13 +144,13 @@ Ext.define('XMLifeOperating.controller.Deliverer', {
                     uploadImage(form, hash);
                 }
             },
-            'delivererList': {
+            'gDelivererList': {
                 added: me.onShow,
             },
             //历史订单
-            'delivererList #dealDelivererHistoryId': {
+            'gDelivererList #dealDelivererHistoryId': {
                 click: function(view, column, rowIndex, colIndex, e) {
-                    var tab = this.getDealDelivererHistoryList();
+                    var tab = this.getGDealDelivererHistoryList();
                     var content = this.getContentPanel();
                     content.removeAll(false);
 
@@ -155,17 +158,18 @@ Ext.define('XMLifeOperating.controller.Deliverer', {
 
                     var delivererId = deliverer.get('uid');
                     var dealDelivererHistoryStroe = this.getDealDelivererHistoryStore();
-                    dealDelivererHistoryStroe.load({
-                        params: {
-                            deliverer: delivererId,
-                            dayType: 0
-                        }
-                    });
+                    
+                    dealDelivererHistoryStroe.getProxy().extraParams={
+                        deliverer: delivererId,
+                        dayType: 0
+                      }
+                    dealDelivererHistoryStroe.loadPage(1);
+
                     content.add(tab);
                     this.delivererId = delivererId;
                 }
             },
-            'dealDelivererHistoryList radio[name="dayType"]': {
+            'gDealDelivererHistoryList radio[name="dayType"]': {
                 change: function(record, newV, oldV) {
                     if (newV == true) {
                         var itemId = record.itemId,
@@ -196,22 +200,25 @@ Ext.define('XMLifeOperating.controller.Deliverer', {
                                 str = -1;
                                 break;
                         }
-                        var store = this.getDealDelivererHistoryStore();
+                        var dealDelivererHistoryStroe = this.getDealDelivererHistoryStore();
                         var delivererId = this.delivererId;
-                        store.load({
-                            params: {
-                                dayType: str,
-                                deliverer: delivererId
-                            }
-                        });
+                        
+                        dealDelivererHistoryStroe.getProxy().extraParams={
+                            dayType: str,
+                            deliverer: delivererId
+                          };
+                        dealDelivererHistoryStroe.loadPage(1);
+
+                        this.dayType = str;
+                        console.log(record.itemId);
                     }
                 }
             },
             //返回配送员清单
-            'dealDelivererHistoryList #delivererReturn,delivererWorkTimeList #delivererReturn':{
+            'gDealDelivererHistoryList #delivererReturn,gDelivererWorkTimeList #delivererReturn':{
                 click:function() {
 
-                    var tab=me.getDelivererList();
+                    var tab=me.getGDelivererList();
                     /*var store = me.getdelivererStore();
                     store.load({
                         params: {
@@ -229,42 +236,41 @@ Ext.define('XMLifeOperating.controller.Deliverer', {
                 }
             },
             //考勤管理
-            'delivererList #delivererWorkTimeId': {
+            'gDelivererList #delivererWorkTimeId': {
                 click: function(view, column, rowIndex, colIndex, e) {
                     
-                    var tab = this.getDelivererWorkTimeList();
+                    var tab = this.getGDelivererWorkTimeList();
                     var content = this.getContentPanel();
                     content.removeAll(false);
-
                     var deliverer = view.getRecord(view.findTargetByEvent(e));
 
                     var delivererId = deliverer.get('uid');
                     var delivererWorkTimeStore = this.getDelivererWorkTimeStore();
-                    delivererWorkTimeStore.load({
-                        params: {
-                            deliverer: delivererId,
-                            dayType: 3
+                    
+                    delivererWorkTimeStore.getProxy().extraParams={
+                        deliverer: delivererId,
+                        dayType: 1
+                      }
+                    delivererWorkTimeStore.loadPage(1);
 
-                        }
-                    });
                     content.add(tab);
-                    me.delivererId=delivererId;
+                    this.deliverer=delivererId;
                 }
             },
-            'delivererWorkTimeList radio[name="dayType"]': {
+            'gDelivererWorkTimeList radio[name="dayType"]': {
                 change: function(record, newV, oldV) {
                     if (newV == true) {
                         var itemId = record.itemId,
                             str;
                         switch (itemId) {
-                            /* case 'dayType1':
+                            /* case 'dayType0':
+                                str=0;
+                                break;
+                            case 'dayType1':
                                 str=1;
                                 break;
                             case 'dayType2':
                                 str=2;
-                                break;
-                            case 'dayType3':
-                                str=3;
                                 break;*/
                             case 'dayType3':
                                 str = 3;
@@ -278,24 +284,27 @@ Ext.define('XMLifeOperating.controller.Deliverer', {
                             case 'dayType6':
                                 str = 6;
                                 break;
+                            default:
+                                str = -1;
+                                break;
                         }
-                        var store = this.getDelivererWorkTimeStore();
+                        var delivererWorkTimeStore = this.getDelivererWorkTimeStore();
                         var delivererId = this.delivererId;
-                        store.load({
-                            params: {
-                                dayType: str,
-                                deliverer: delivererId
-                            }
-                        });
+                        
+                        delivererWorkTimeStore.getProxy().extraParams={
+                            deliverer: delivererId,
+                            dayType: str
+                          }
+                        delivererWorkTimeStore.loadPage(1);
                         this.dayType = str;
                     }
                 }
             },
             //订单详情
-            'dealDelivererHistoryList #dealItemsId': {
+            'gDealDelivererHistoryList #dealItemsId': {
                 click: function(view, column, rowIndex, colIndex, e) {
 
-                    var tab = this.getDealItemsList();
+                    var tab = this.getGDealItemsList();
                     var content = this.getContentPanel();
                     content.removeAll(false);
                     var deal = view.getRecord(view.findTargetByEvent(e));
@@ -305,7 +314,7 @@ Ext.define('XMLifeOperating.controller.Deliverer', {
                     dealItemsStore.load({
                         params: {
                             deal: dealBackendId,
-                            dayType: 1
+                            dayType: 0
                         }
                     });
                     content.add(tab);
@@ -313,17 +322,18 @@ Ext.define('XMLifeOperating.controller.Deliverer', {
 
             },
             ///返回历史订单
-            'dealItemsList #dealDelivererHistoryListReturn':{
+            'gDealItemsList #dealDelivererHistoryListReturn':{
                 click:function() {
-                    var tab=me.getDealDelivererHistoryList();                   
+                    var tab=me.getGDealDelivererHistoryList();                   
                     var content = this.getContentPanel();
                     content.removeAll(false);
                     content.add(tab);
                 }
             },
-            'delivererList #closeOrOpenOrder':{
+            'gDelivererList #closeOrOpenOrder':{
                 click:function(grid, column, rowIndex) { 
                     var record = grid.getStore().getAt(rowIndex);
+                    console.log(record);
                     var deliverer = record.get('uid');
                     var isActive = record.get('isActive');
                     var url='';
@@ -342,9 +352,9 @@ Ext.define('XMLifeOperating.controller.Deliverer', {
                             }
                             sendPutRequest(url,{deliverer:deliverer,isActive:isActive},'操作恢复或暂停配送员接单','成功操作配送员接单','操作配送员接单失败',function(){
                                     var store = me.getDelivererStore();
-                                    var activeBindText = Ext.getCmp('delivererList').down('#activeBind').getText();
+                                    var activeBindText = Ext.getCmp('gDelivererList').down('#activeBind').getText();
                                     var params='';
-                                    var searchDelivererKeyWords = me.getDelivererList().down('#searchDelivererKeyWords').getValue();
+                                    var searchDelivererKeyWords = me.getGDelivererList().down('#searchDelivererKeyWords').getValue();
                                     if(activeBindText=='查看已绑定的快递员'||searchDelivererKeyWords!=''){
                                         record.set('isActive',isActive);
                                         return;
@@ -371,7 +381,7 @@ Ext.define('XMLifeOperating.controller.Deliverer', {
                     });
                 }
             },
-            'delivererList #searchButton': {
+            'gDelivererList #searchButton': {
                 click: me.searchDeliverer
             }
 
@@ -379,11 +389,11 @@ Ext.define('XMLifeOperating.controller.Deliverer', {
     },
     searchDeliverer: function() {
         var me = this,
-            keyWords = me.getDelivererList().down('#searchDelivererKeyWords').getValue(),
+            keyWords = me.getGDelivererList().down('#searchDelivererKeyWords').getValue(),
             store = this.getDelivererStore(),
-            view = this.getDelivererList();
+            view = this.getGDelivererList();
 
-        var activeBindText = Ext.getCmp('delivererList').down('#activeBind').getText();
+        var activeBindText = Ext.getCmp('gDelivererList').down('#activeBind').getText();
         if (activeBindText == '查看已绑定的快递员') {
             isUnbind = true
         } else if (activeBindText == '查看未绑定的快递员') {
@@ -399,9 +409,6 @@ Ext.define('XMLifeOperating.controller.Deliverer', {
             store.load({
                 params: {
                     nameOrPhone: keyWords
-                },
-                callback:function(){
-                    Ext.getCmp('delivererList').down('#activeBind').setText('查看未绑定的快递员');
                 }
             });
         }
@@ -414,8 +421,8 @@ Ext.define('XMLifeOperating.controller.Deliverer', {
                 unbind: true
             },
             callback: function() {
-                Ext.getCmp('delivererList').down('#activeBind').setText('查看已绑定的快递员');
-                Ext.getCmp('delivererList').down('#shopArea').setValue('');
+                Ext.getCmp('gDelivererList').down('#activeBind').setText('查看已绑定的快递员');
+                Ext.getCmp('gDelivererList').down('#shopArea').setValue('');
             }
         });*/
 
@@ -423,14 +430,14 @@ Ext.define('XMLifeOperating.controller.Deliverer', {
     onAdd: function() {
         var cClass = this.getDelivererModel();
         var deliverer = new cClass();
-        var win = this.getDelivererEdit();
+        var win = this.getGDelivererEdit();
         win.down('form').loadRecord(deliverer);
         win.show();
     },
     onEdit: function(view, rowIndex, colIndex, column, e) {
         console.log("start edit");
         var deliverer = view.getRecord(view.findTargetByEvent(e));
-        var win = this.getDelivererEdit();
+        var win = this.getGDelivererEdit();
         var record = deliverer;
         var leftOnlineTime = Math.floor(record.get('onlineTime') / 60) < 10 ? '0' + Math.floor(record.get('onlineTime') / 60) : Math.floor(record.get('onlineTime') / 60);
         var rightOnlineTime = record.get('onlineTime') % 60 < 10 ? '0' + record.get('onlineTime') % 60 : record.get('onlineTime') % 60;
@@ -444,7 +451,7 @@ Ext.define('XMLifeOperating.controller.Deliverer', {
         win.show();
     },
     saveEditWindow: function() {
-        var editWindow = this.getDelivererEdit(),
+        var editWindow = this.getGDelivererEdit(),
             windowEl = editWindow.getEl(),
             form = editWindow.down('form').getForm(),
             deliverer = form.getRecord(),
