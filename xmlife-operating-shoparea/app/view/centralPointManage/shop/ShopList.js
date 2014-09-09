@@ -9,20 +9,21 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopList', {
             xtype: 'button',
             text: '添加店铺',
             itemId: 'add'
-        }, {
-            xtype: 'combobox',
-            name: 'areaId',
-            itemId: 'shopArea',
-            store: 'ShopArea',
-            emptyText: '请选择中心',
-            editable: false,
-            queryMode: 'local',
-            displayField: 'name',
-            valueField: 'id',
-            id: 'areaId',
-            hidden: (XMLifeOperating.generic.Global.operating_type == 'center')
+        },     
+        {
+        xtype:'combobox',
+        name:'shopArea',
+        itemId:'shopArea',
+        store:'ShopArea',
+        emptyText:'请选择中心',
+        margin:10,
+        editable: false,
+        displayField:'name',
+        valueField:'id',
+        hidden:(XMLifeOperating.generic.Global.operating_type == 'center')
         },
-        '->', {
+        '->', 
+        {
             xtype: 'textfield',
             name: 'searchshop',
             itemId: 'searchShopKeyWords',
@@ -153,11 +154,11 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopList', {
         }
     },
     listeners: {
-        onShowView: function(view, viewName) {
-            if (XMLifeOperating.generic.Global.operating_type != 'center') {
+        onShowView: function(view, viewName) {          
+            if(XMLifeOperating.generic.Global.operating_type != 'center') {
                 return;
             }
-            if (XMLifeOperating.generic.Global.current_operating == -1) {
+            if(XMLifeOperating.generic.Global.current_operating == -1) {
                 alert('请先在右上角选择中心');
                 return;
             }

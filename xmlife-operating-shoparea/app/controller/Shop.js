@@ -131,6 +131,18 @@ Ext.define('XMLifeOperating.controller.Shop', {
         var me = this,
             isSuccess = true;
         this.control({
+            'shoplist #shopArea': 
+            {
+                select: function(combo) {
+                    var dstore = me.getShopStore();
+                    dstore.load({
+                        params: {
+                            city: XMLifeOperating.generic.Global.currentCity,
+                            areaId: combo.getValue()
+                        }
+                    });                 
+                },
+            },
             /*
              *shoplist事件
              */
