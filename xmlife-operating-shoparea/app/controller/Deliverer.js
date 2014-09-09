@@ -248,7 +248,7 @@ Ext.define('XMLifeOperating.controller.Deliverer', {
                     delivererWorkTimeStore.loadPage(1);
 
                     content.add(tab);
-                    this.deliverer=delivererId;
+                    me.delivererId=delivererId;
                 }
             },
             'delivererWorkTimeList radio[name="dayType"]': {
