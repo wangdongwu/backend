@@ -105,7 +105,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopProductAdd', {
                     xtype: 'textfield',
                     name: 'discountPrice',
                     fieldLabel: '折扣价',
-                    allowBlank: false,
+                    allowBlank: true,
                     labelWidth: 90,
                     /*regex: /^[1-9][0-9]{2}\.[0-9]|[0-9]{1-2}\.[0-9]{1-2}|[0-9]{4}$/,
                     regexText: '请输入如下格式111.1,11.11,1.11,只允许除了点的4位数字',*/
