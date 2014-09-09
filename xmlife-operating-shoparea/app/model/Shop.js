@@ -9,6 +9,8 @@ Ext.define('XMLifeOperating.model.Shop', {
 		'desc',
 		'openTime',
 		'closeTime',
+		'openTimeText',
+		'closeTimeText',
 		'lng',
 		'lat',
 		'url',

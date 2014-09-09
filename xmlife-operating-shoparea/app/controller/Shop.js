@@ -262,16 +262,17 @@ Ext.define('XMLifeOperating.controller.Shop', {
                     this.record = record;
                     var shopInfoForm = tab;
                     var form = shopInfoForm.down('form');
-                    record.set('shopBannerTemplateId', record.get('templateId'));
-                    var leftOpenTime = Math.floor(record.get('openTime') / 60) < 10 ? '0' + Math.floor(record.get('openTime') / 60) : Math.floor(record.get('openTime') / 60);
-                    var rightOpenTime = record.get('openTime') % 60 < 10 ? '0' + record.get('openTime') % 60 : record.get('openTime') % 60;
-                    var leftCloseTime = Math.floor(record.get('closeTime') / 60) < 10 ? '0' + Math.floor(record.get('closeTime') / 60) : Math.floor(record.get('closeTime') / 60);
-                    var rightCloseTime = record.get('closeTime') % 60 < 10 ? '0' + record.get('closeTime') % 60 : record.get('closeTime') % 60;
+                    this.record.set('shopBannerTemplateId', this.record.get('templateName'));
+                    var leftOpenTime = Math.floor(this.record.get('openTime') / 60) < 10 ? '0' + Math.floor(this.record.get('openTime') / 60) : Math.floor(this.record.get('openTime') / 60);
+                    var rightOpenTime = this.record.get('openTime') % 60 < 10 ? '0' + this.record.get('openTime') % 60 : this.record.get('openTime') % 60;
+                    var leftCloseTime = Math.floor(this.record.get('closeTime') / 60) < 10 ? '0' + Math.floor(this.record.get('closeTime') / 60) : Math.floor(this.record.get('closeTime') / 60);
+                    var rightCloseTime = this.record.get('closeTime') % 60 < 10 ? '0' + this.record.get('closeTime') % 60 : this.record.get('closeTime') % 60;
                     var openTime = leftOpenTime + ':' + rightOpenTime;
                     var closeTime = leftCloseTime + ':' + rightCloseTime;
-                    record.set('openTime', openTime);
-                    record.set('closeTime', closeTime);
-                    form.loadRecord(record);
+                    this.record.set('openTimeText', openTime);
+                    this.record.set('closeTimeText', closeTime);
+                    console.log(this.record)
+                    form.loadRecord(this.record);
                     this.shopId = this.record.raw.id;
                     tab.show();
                 }
@@ -323,7 +324,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
                 click: function(button) {
                     var editWindow;
                     var itemId = button.getItemId();
-                    editWindow = this.getShopAdd()
+                    editWindow = this.getShopAdd();
                     var windowEl = editWindow.getEl(),
                         form = editWindow.down('#shopeditform').getForm(),
                         shopStore = form.getRecord(),
@@ -332,6 +333,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
 
                     if (form.isValid()) {
                         form.updateRecord(shopStore);
+                        //经纬度检验
                         jString = shopStore.get('lng');
                         wString = shopStore.get('lat');
                         var pattern = /(\d{1,3}\.)\d{1,3}/;
@@ -347,6 +349,13 @@ Ext.define('XMLifeOperating.controller.Shop', {
                         } else {
                             alert('经纬度格式错误');
                             return
+                        }
+                        //开始结束时间点检验
+                        var openTime = shopStore.get('openTime').getHours() * 60 + shopStore.get('openTime').getMinutes();
+                        var closeTime = shopStore.get('closeTime').getHours() * 60 + shopStore.get('closeTime').getMinutes();
+                        if (openTime >= closeTime) {
+                            alert('请确认结束时间晚于开始时间！');
+                            return;
                         }
                         windowEl.mask('saving');
                         shopStore.set('city', XMLifeOperating.generic.Global.currentCity);
@@ -410,14 +419,25 @@ Ext.define('XMLifeOperating.controller.Shop', {
                             alert('经纬度格式错误');
                             return
                         }
+                        //开始结束时间点检验
+                        var openTime = shopStore.get('openTimeText').getHours() * 60 + shopStore.get('openTimeText').getMinutes();
+                        var closeTime = shopStore.get('closeTimeText').getHours() * 60 + shopStore.get('closeTimeText').getMinutes();
+                        if (openTime >= closeTime) {
+                            alert('请确认结束时间晚于开始时间！');
+                            return;
+                        }
                         windowEl.mask('saving');
                         shopStore.set('city', XMLifeOperating.generic.Global.currentCity);
                         var areaIds = [XMLifeOperating.generic.Global.SERVICECENEERID];
+                         var templateId = this.getShopBannerTemplateStore().data.items.length?this.getShopBannerTemplateStore().findRecord('name',shopStore.get('shopBannerTemplateId')).getName():null;
+
+                        //shopStore.set('templateName',templateName);
                         shopStore.set('areaIds', areaIds);
                         shopStore.set('beCopyedShopId', '123');
                         shopStore.set('autoOnline', false);
-                        shopStore.set('openTime', (shopStore.get('openTime').getHours() * 60 + shopStore.get('openTime').getMinutes()));
-                        shopStore.set('closeTime', (shopStore.get('closeTime').getHours() * 60 + shopStore.get('closeTime').getMinutes()));
+                        shopStore.set('openTime', openTime);
+                        shopStore.set('closeTime', closeTime);
+                       
                         var requestparams = {
                             id: shopStore.get('id'),
                             name: shopStore.get('name'),
@@ -427,7 +447,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
                             lat: shopStore.get('lat'),
                             areaIds: areaIds,
                             address: shopStore.get('address'),
-                            shopBannerTemplateId: shopStore.get('shopBannerTemplateId'),
+                            shopBannerTemplateId: templateId?templateId:shopStore.get('templateId'),
                             city: XMLifeOperating.generic.Global.currentCity,
                             autoOnline: shopStore.get('autoOnline'),
                             desc: shopStore.get('desc')
@@ -445,6 +465,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
                             me.fireEvent('refreshView');
                         };
                         var modifyFailureCallback = function(task, operation) {
+
                             var error = operation.getError(),
                                 msg = Ext.isObject(error) ? error.status + ' ' + error.statusText : error;
                             Ext.MessageBox.show({
@@ -456,7 +477,6 @@ Ext.define('XMLifeOperating.controller.Shop', {
                             windowEl.unmask();
                         }
                         sendPutRequest('shop/update', requestparams, '编辑模板', '成功编辑模板', '编辑模板失败', modifySuccessCallback, modifyFailureCallback);
-
                     } else {
                         Ext.Msg.alert('Invalid Data', 'Please correct form errors');
                     }
@@ -464,7 +484,10 @@ Ext.define('XMLifeOperating.controller.Shop', {
             },
             'shopedit #returnShopBack': {
                 click: function(record) {
+                    var shopEditWin = this.getShopEdit();
                     var content = this.getContentPanel();
+                    var form = shopEditWin.down('#shopeditform').getForm();
+                    form.reset();
                     content.removeAll(false);
                     var tabShopStore = this.getShopList();
                     var sstore = this.getShopStore();
@@ -1092,7 +1115,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
                 });
                 windowEl.unmask();
             };
-            sendPutRequest('shop/updatebanners', $.param(data, true), '添加Banner模板', '添加Banner模板成功', '添加Banner模板失败', success, failure);
+            sendPutRequest('shop/updatebanners', data, '添加Banner模板', '添加Banner模板成功', '添加Banner模板失败', success, failure);
         } else {
             Ext.Msg.alert('Invalid Data', 'Please correct form errors');
         }

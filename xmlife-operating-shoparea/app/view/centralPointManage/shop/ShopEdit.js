@@ -87,7 +87,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopEdit', {
             maxLengthText: '商品名称最大长度为10',
         }, {
             xtype: 'timefield',
-            name: 'openTime',
+            name: 'openTimeText',
             fieldLabel: '开始时间',
             labelWidth: 90,
             flex: 1,
@@ -95,7 +95,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopEdit', {
             allowBlank: false,
         }, {
             xtype: 'timefield',
-            name: 'closeTime',
+            name: 'closeTimeText',
             fieldLabel: '结束时间',
             labelWidth: 90,
             flex: 1,
