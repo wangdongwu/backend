@@ -397,6 +397,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
                         form.updateRecord(shopStore);
                         jString = shopStore.get('lng');
                         wString = shopStore.get('lat');
+                        var pattern = /(\d{1,3}\.)\d{1,3}/;
                         if (pattern.test(jString) && pattern.test(wString)) {
                             if (jString > 180 || jString < 0) {
                                 alert('经度错误');
