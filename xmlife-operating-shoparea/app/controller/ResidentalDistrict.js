@@ -76,6 +76,23 @@ Ext.define('XMLifeOperating.controller.ResidentalDistrict', {
                     });
                 }
             },
+            'residentaldistrictlist #activeSearch': {
+                click: function(grid) {
+                    Ext.getCmp('residentaldistrictlist').down('#lineId').setValue('');
+                    var activeBindText = Ext.getCmp('residentaldistrictlist').down('#activeSearch').getText();
+                    if (activeBindText == '查看已关闭小区') {
+                        isUnbind = false;
+                    } else if (activeBindText == '查看开启小区') {
+                        isUnbind = true;
+                    }
+                    var lstore = this.getResidentalDistrictStore();
+                    lstore.load({
+                        params: {
+                            isActive: isUnbind
+                        },
+                    });
+                }
+            },
             'residentaldistrictlist': {
                 added: me.onShow,
             },
