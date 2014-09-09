@@ -312,7 +312,6 @@ Ext.define('XMLifeOperating.controller.Shop', {
             'shopbanneradd filefield[name="shopStoreBannerUploadfile"]': {
                 change: function(uploadfile) {
                     var form = uploadfile.ownerCt;
-
                     var hash = uploadfile.previousNode().previousNode();
                     uploadImage(form, hash);
                 }
@@ -762,7 +761,6 @@ Ext.define('XMLifeOperating.controller.Shop', {
                     me.openWin(win, model);
                 }
             },
-
             '#openCreateShelvesGoodsWin': {
                 click: function(component, rowIndex, colIndex) {
                     var itemId = component.getItemId();
@@ -1065,13 +1063,15 @@ Ext.define('XMLifeOperating.controller.Shop', {
             titles: []
         }
         var allbaners = this.getShopBannerTemplateStore().data.items;
+        var hash = inputs.image;
+        console.log(hash);
         this.getShopBannerTemplateStore().each(function(e) {
             data.bannerIds.push(e.getId());
             data.bannerUrls.push(e.data.url);
             data.titles.push(e.data.title);
         });
         data.id = me.shopStoreId;
-        data.bannerIds.push('53ec44e20cf292d0f893df5db9');
+        data.bannerIds.push(hash);
         data.bannerUrls.push(inputs.url);
         data.titles.push(inputs.title);
         data.id = me.shopStoreId;
