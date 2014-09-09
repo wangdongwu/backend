@@ -3,12 +3,12 @@
  * @extends Ext.tree.Panel
  * The task list view.  A tree that displays all of the task lists.
  */
-Ext.define('XMLifeOperating.view.staffManage.deliverer.GDelivererWorkTimeList', {
+Ext.define('XMLifeOperating.view.staffManage.deliverer.DelivererWorkTimeList', {
     extend: 'Ext.grid.Panel',
-    xtype: 'gDelivererWorkTimeList',
+    closable : true,
+    xtype: 'delivererWorkTimeList',
 
     title: '考勤管理',
-
     store: 'DelivererWorkTime',
     dockedItems : [
       {
@@ -27,72 +27,43 @@ Ext.define('XMLifeOperating.view.staffManage.deliverer.GDelivererWorkTimeList', 
             text: '返回',
             itemId: 'delivererReturn'
         },
-        /*{
-
-            xtype: 'radio',
-            fieldLabel:'今天',
-            itemId: 'dayType1',
-            name:'dayType'
+        { 
+            xtype: 'fieldcontainer',
+            fieldLabel : '按时间过滤',
+            defaultType: 'radiofield',
+            defaults: {
+                flex: 1,
+                margin : '0 5 0 5'
+            },
+            layout: 'hbox',
+            items : [
+                {
+                    boxLabel:'本周',
+                    name : 'dayType',
+                    checked: true,
+                    itemId: 'dayType3'
+                },
+                {
+                    boxLabel:'上周',
+                    name : 'dayType',
+                    itemId: 'dayType4'
+                },
+                {
+                    boxLabel:'本月',
+                    name : 'dayType',
+                    itemId: 'dayType5'
+                },
+                {
+                    boxLabel:'上月',
+                    name : 'dayType',
+                    itemId: 'dayType6'
+                }
+            ]
         },
-        {
-
-            xtype: 'radio',
-            fieldLabel:'昨天',
-            name:'dayType',
-            itemId: 'dayType2'
-        },
-        {
-
-            xtype: 'radio',
-            fieldLabel:'前天',
-            name:'dayType',
-            itemId: 'dayType3'
-        },*/
-        {
-
-            xtype: 'radio',
-            fieldLabel:'本周',
-            name:'dayType',
-            checked: true,
-            itemId: 'dayType4',
-            labelAlign: 'right',
-            style : 'border:0px solid;margin-right:10px;',
-        },
-        {
-
-            xtype: 'radio',
-            fieldLabel:'上周',
-            name:'dayType',
-            itemId: 'dayType5',
-            labelAlign: 'right',
-            style : 'border:0px solid;margin-right:10px;',
-        },
-        {
-
-            xtype: 'radio',
-            fieldLabel:'本月',
-            name:'dayType',
-            itemId: 'dayType6',
-            labelAlign: 'right',
-            style : 'border:0px solid;margin-right:10px;',
-        },
-        {
-
-            xtype: 'radio',
-            fieldLabel:'上月',
-            name:'dayType',
-            itemId: 'dayType7',
-            labelAlign: 'right',
-            style : 'border:0px solid;margin-right:10px;',
-        },
-        
-        
-
-
     ],
 
     columns: [
-       {
+        {
             xtype: 'rownumberer'
         }, 
         {
@@ -104,7 +75,7 @@ Ext.define('XMLifeOperating.view.staffManage.deliverer.GDelivererWorkTimeList', 
                var newTime = new Date(value);
                newTime = newTime.getFullYear()+'-'+(newTime.getMonth()+1)+'-'+newTime.getDate();
                return newTime;
-            }  
+            } 
         },
         {
             text: '上班时间',
@@ -158,4 +129,5 @@ Ext.define('XMLifeOperating.view.staffManage.deliverer.GDelivererWorkTimeList', 
     columnLines: true,
     frame: true,
     iconCls: 'icon-grid'
+    
 });

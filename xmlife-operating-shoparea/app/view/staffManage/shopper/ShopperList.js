@@ -1,12 +1,11 @@
-Ext.define('XMLifeOperating.view.staffManage.shopper.GShopperList', {
+Ext.define('XMLifeOperating.view.staffManage.shopper.ShopperList', {
     extend: 'Ext.grid.Panel',
-    xtype: 'gShopperList',
-    store: 'Shopper',
-    id: 'gShopperList',
-    title : '买手管理',
-    titleAlign : 'left',
     closable : true,
-    forceFit: true,
+    xtype: 'shopperList',
+
+    title: '买手管理',
+    store: 'Shopper',
+    id: 'shopperList',
     tbar: [
     {
         xtype: 'button',
@@ -20,15 +19,33 @@ Ext.define('XMLifeOperating.view.staffManage.shopper.GShopperList', {
         itemId: 'shopArea',
         store: 'ShopArea',
         emptyText: '请选择中心',
+        // margin: 10,
         editable: false,
         displayField: 'name',
         valueField: 'id',
         hidden:(XMLifeOperating.generic.Global.operating_type == 'center')
     }, 
+    '->',
+    {
+        xtype: 'textfield',
+        name: 'searchbuyer',
+        fieldLabel: '手机号码',
+
+        itemId: 'searchBuyerKeyWords',
+        emptyText: '输入搜索号码...',
+        // margin: 10
+    }, 
+    {
+        xtype: 'button',
+        name: 'searchbutton',
+        itemId: 'searchButton',
+        text: '搜索'
+    },
     {
         xtype: 'button',
         itemId: 'activeSearch',
         text: '查看停单买手',
+        // margin: 10,
         handler: function() {
 
             if (this.text == '查看停单买手') {
@@ -38,10 +55,12 @@ Ext.define('XMLifeOperating.view.staffManage.shopper.GShopperList', {
             }
 
         }
-    }, {
+    }, 
+    {
         xtype: 'button',
         itemId: 'activeBind',
         text: '查看未绑定的买手',
+        // margin: 10,
         handler: function() {
             if (this.text == '查看未绑定的买手') {
                 this.setText('查看已绑定的买手');
@@ -49,19 +68,8 @@ Ext.define('XMLifeOperating.view.staffManage.shopper.GShopperList', {
                 this.setText('查看未绑定的买手');
             }
         }
-    },
-    '->',
-    , {
-        xtype: 'textfield',
-        name: 'searchbuyer',
-        itemId: 'searchBuyerKeyWords',
-        emptyText: '输入手机号'
-    }, {
-        xtype: 'button',
-        name: 'searchbutton',
-        itemId: 'searchButton',
-        text: '搜索'
-    }],
+    }
+    ],
     columns: [
         {
             xtype: 'rownumberer'
@@ -69,29 +77,29 @@ Ext.define('XMLifeOperating.view.staffManage.shopper.GShopperList', {
         {
             text: 'uid',
             dataIndex: 'uid',
-            width: 100,
+            width: 60,
             sortable: true,
-            align: 'left'
+            align: 'center'
         }, {
             text: '姓名',
             dataIndex: 'name',
-            width: 100,
+            width: 80,
             sortable: false,
-            align: 'left',
+            align: 'center',
         }, {
             text: '职称',
             dataIndex: 'title',
-            width: 60,
+            width: 80,
             sortable: false,
-            align: 'left'
+            align: 'center'
         },
 
         {
             text: '电话',
             dataIndex: 'phone',
-            width: 100,
+            width: 90,
             sortable: false,
-            align: 'left',
+            align: 'center',
         }, 
         /*{
             text: '密码',
@@ -105,7 +113,7 @@ Ext.define('XMLifeOperating.view.staffManage.shopper.GShopperList', {
             dataIndex: 'shopNames',
             width: 100,
             sortable: false,
-            align: 'left',
+            align: 'center',
             renderer: function(value) {
                 var htmlStr = '';
                 if (value != null) {
@@ -116,51 +124,53 @@ Ext.define('XMLifeOperating.view.staffManage.shopper.GShopperList', {
                 }
                 return htmlStr;
             }
-        }, {
-            text: '所属中心',
-            dataIndex: 'areaNames',
-            width: 100,
-            sortable: false,
-            align: 'left',
-            renderer: function(value) {
-                var htmlStr = '';
-                if (value != null) {
-                    value.forEach(function(item, index, value) {
-                        htmlStr += item + "<br />";
-                    });
-                }
-                return htmlStr;
-            }
-        }, {
+        }, 
+        // {
+        //     text: '服务商圈',
+        //     dataIndex: 'areaNames',
+        //     width: 100,
+        //     sortable: false,
+        //     align: 'left',
+        //     renderer: function(value) {
+        //         var htmlStr = '';
+        //         if (value != null) {
+        //             value.forEach(function(item, index, value) {
+        //                 htmlStr += item + "<br />";
+        //             });
+        //         }
+        //         return htmlStr;
+        //     }
+        // }, 
+        {
             text: '订单数',
             dataIndex: 'deals',
             width: 50,
             sortable: false,
-            align: 'left'
+            align: 'center'
         }, {
             text: '退单数',
             dataIndex: 'returnDealNum',
             width: 50,
             sortable: false,
-            align: 'left'
+            align: 'center'
         }, {
             text: '好评数',
             dataIndex: 'goods',
             width: 50,
             sortable: false,
-            align: 'left'
+            align: 'center'
         }, {
             text: '中评数',
             dataIndex: 'mediums',
             width: 50,
             sortable: false,
-            align: 'left'
+            align: 'center'
         }, {
             text: '差评数',
             dataIndex: 'bads',
             width: 50,
             sortable: false,
-            align: 'left'
+            align: 'center'
         }, 
         {
             xtype: 'actioncolumn',
@@ -178,11 +188,11 @@ Ext.define('XMLifeOperating.view.staffManage.shopper.GShopperList', {
             itemId: 'shopperWorkTimeId',
             menuDisabled: true,
             sortable: false,
-             
+            align: 'center',
 
             renderer: function(value, metadata, model, rowIndex, colIndex, store) {
 
-                var seeBtn = '<span style="cursor:pointer">查看</span>';
+                var seeBtn = '<a>查看</a>';
                 return seeBtn;
             }
         }, {
@@ -191,10 +201,10 @@ Ext.define('XMLifeOperating.view.staffManage.shopper.GShopperList', {
             itemId: 'dealShopperHistoryId',
             menuDisabled: true,
             sortable: false,
-             
+            align: 'center',
             renderer: function(value, metadata, model, rowIndex, colIndex, store) {
 
-                var seeBtn = '<span style="cursor:pointer">查看</span>';
+                var seeBtn = '<a>查看</a>';
                 return seeBtn;
             }
         },
@@ -205,7 +215,7 @@ Ext.define('XMLifeOperating.view.staffManage.shopper.GShopperList', {
             itemId: 'closeOrOpenOrder',
             menuDisabled: true,
             sortable: false,
-             
+            align: 'center',
             renderer : function(value) {
                 var str='';
                 if(value==true){
@@ -226,7 +236,7 @@ Ext.define('XMLifeOperating.view.staffManage.shopper.GShopperList', {
         }
     },
     listeners: {
-        onShowView: function(view, viewName) {           
+        onShowView: function(view, viewName) {          
             if(XMLifeOperating.generic.Global.operating_type != 'center') {
                 return;
             }
@@ -234,10 +244,12 @@ Ext.define('XMLifeOperating.view.staffManage.shopper.GShopperList', {
                 alert('请先在右上角选择中心');
                 return;
             }
-            var combo = view.down('#businessArea');
+            var combo = view.down('#shopArea');
             combo.setValue(XMLifeOperating.generic.Global.current_operating);
             combo.fireEvent('select', combo);
         }
     },
-
+    columnLines: true,
+    
+    
 });

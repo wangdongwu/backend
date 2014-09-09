@@ -3,10 +3,10 @@
  * @extends Ext.tree.Panel
  * The task list view.  A tree that displays all of the task lists.
  */
-Ext.define('XMLifeOperating.view.staffManage.shopper.GShopperWorkTimeList', {
+Ext.define('XMLifeOperating.view.staffManage.shopper.ShopperWorkTimeList', {
     extend: 'Ext.grid.Panel',
-    id: 'gShopperWorkTimeList',
-    xtype: 'gShopperWorkTimeList',
+    closable : true,
+    xtype: 'shopperWorkTimeList',
 
     title: '考勤管理',
 
@@ -28,47 +28,44 @@ Ext.define('XMLifeOperating.view.staffManage.shopper.GShopperWorkTimeList', {
             text: '返回',
             itemId: 'shopperReturn'
         },
-        {
-
-            xtype: 'radio',
-            fieldLabel:'本周',
-            name:'dayType',
-            checked: true,
-            itemId: 'dayType3',
-            labelAlign: 'right',
-            style : 'border:0px solid;margin-right:10px;',
-        },
-        {
-
-            xtype: 'radio',
-            fieldLabel:'上周',
-            name:'dayType',
-            itemId: 'dayType4',
-            labelAlign: 'right',
-            style : 'border:0px solid;margin-right:10px;',
-        },
-        {
-
-            xtype: 'radio',
-            fieldLabel:'本月',
-            name:'dayType',
-            itemId: 'dayType5',
-            labelAlign: 'right',
-            style : 'border:0px solid;margin-right:10px;',
-        },
-        {
-
-            xtype: 'radio',
-            fieldLabel:'上月',
-            name:'dayType',
-            itemId: 'dayType6',
-            labelAlign: 'right',
-            style : 'border:0px solid;margin-right:10px;',
+        { 
+            xtype: 'fieldcontainer',
+            fieldLabel : '按时间过滤',
+            defaultType: 'radiofield',
+            defaults: 
+            {
+                flex: 1,
+                margin : '0 5 0 5'
+            },
+            layout: 'hbox',
+            items : [
+            {
+                boxLabel:'本周',
+                checked: true,    
+                name : 'dayType',
+                itemId: 'dayType3'
+            },
+            {
+                boxLabel:'上周',
+                name : 'dayType',
+                itemId: 'dayType4'
+            },
+            {
+                boxLabel:'本月',
+                name : 'dayType',
+                itemId: 'dayType5'
+            },
+            {
+                boxLabel:'上月',
+                name : 'dayType',
+                itemId: 'dayType6'
+            }
+            ]
         },
     ],
 
     columns: [
-       {
+        {
             xtype: 'rownumberer'
         }, 
         {
@@ -104,12 +101,10 @@ Ext.define('XMLifeOperating.view.staffManage.shopper.GShopperWorkTimeList', {
                var time = Math.floor(value/60) +':'+ (value%60);
                return time;
             }
-
         },
         {
             text: '本次工时',
             dataIndex: 'workTime',
-            
             sortable: false,
             width: 100,
             renderer:function(value){
@@ -124,6 +119,42 @@ Ext.define('XMLifeOperating.view.staffManage.shopper.GShopperWorkTimeList', {
             sortable: false,
             width: 100
         },
+       /* {
+            text: '顾客',
+            dataIndex: 'customName',
+            sortable: false,
+            width: 100
+        },
+        {
+            text: '联系方式',
+            dataIndex: 'customPhone',
+            sortable: false,
+            width: 100
+        },
+        {
+            text: '店铺',
+            dataIndex: 'shopName',
+            sortable: false,
+            width: 100
+        },
+        {
+            text: '采购订单',
+            dataIndex: 'id1',
+            sortable: false,
+            width: 100
+        },
+        {
+            text: '订单情况',
+            dataIndex: 'status',
+            sortable: false,
+            width: 100
+        },
+        {
+            text: '评价',
+            dataIndex: 'review',
+            sortable: false,
+            width: 100
+        },*/
         
     ],
     viewConfig: {
@@ -135,4 +166,5 @@ Ext.define('XMLifeOperating.view.staffManage.shopper.GShopperWorkTimeList', {
     columnLines: true,
     frame: true,
     iconCls: 'icon-grid'
+    
 });
