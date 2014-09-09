@@ -31,7 +31,24 @@ Ext.define('XMLifeOperating.controller.ResidentalDistrict', {
         var isActive = true,
             isUnbind = true;
         this.control({
-
+            'residentaldistrictlist #shopArea': 
+            {
+                select: function(combo) {
+                    var store = this.getResidentalDistrictStore();
+                        store.getProxy().extraParams={
+                            unbind: true,
+                        }
+                        store.loadPage(1);  
+                    Ext.getCmp('residentaldistrictlist').down('#activeBind').setText('查看已绑定的小区');
+                    Ext.getCmp('residentaldistrictlist').down('#lineId').setValue('');
+                    var delivererZone = this.getDelivererZoneStore();
+                    delivererZone.load({
+                        params:{
+                            shopArea:combo.getValue()
+                        }
+                    });              
+                },
+            },
             'residentaldistrictlist #add': {
                 click: function() {
 
@@ -174,16 +191,16 @@ Ext.define('XMLifeOperating.controller.ResidentalDistrict', {
 
     },
     onShow: function() {
-        var store = this.getResidentalDistrictStore();
-        store.load({
-            params: {
-                unbind: true
-            },
-            callback: function() {
-                Ext.getCmp('residentaldistrictlist').down('#activeBind').setText('查看已绑定的小区');
-                Ext.getCmp('residentaldistrictlist').down('#lineId').setValue('');
-            }
-        });
+        // var store = this.getResidentalDistrictStore();
+        // store.load({
+        //     params: {
+        //         unbind: true
+        //     },
+        //     callback: function() {
+        //         Ext.getCmp('residentaldistrictlist').down('#activeBind').setText('查看已绑定的小区');
+        //         Ext.getCmp('residentaldistrictlist').down('#lineId').setValue('');
+        //     }
+        // });
     },
     saveEditWindow: function() {
 

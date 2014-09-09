@@ -6,12 +6,35 @@ Ext.define('XMLifeOperating.view.centralPointManage.residentalDistrict.Residenta
     title: '配送地址管理',
     id: 'residentaldistrictlist',
     store: 'ResidentalDistrict',
+    dockedItems : [
+      {
+      xtype : 'pagingtoolbar',
+      itemId : 'pagetoll',
+      store : 'ResidentalDistrict',
+      dock : 'bottom',
+      displayInfo : true/*,
+      items : ['->'],   
+      prependButtons: true*/
+    }
+    ],
     tbar: [
     {
         xtype: 'button',
         text: '添加小区',
         itemId: 'add'
     }, 
+    {
+        xtype:'combobox',
+        name:'shopArea',
+        itemId:'shopArea',
+        store:'ShopArea',
+        emptyText:'请选择中心',
+        margin:10,
+        editable: false,
+        displayField:'name',
+        valueField:'id',
+        hidden:(XMLifeOperating.generic.Global.operating_type == 'center')
+    },
     {
         xtype: 'combobox',
         name: 'area',
@@ -125,8 +148,22 @@ Ext.define('XMLifeOperating.view.centralPointManage.residentalDistrict.Residenta
             dragText: 'Drag and drop to reorder'
         }
     },
+    listeners: {
+        onShowView: function(view, viewName) {          
+            if(XMLifeOperating.generic.Global.operating_type != 'center') {
+                return;
+            }
+            if(XMLifeOperating.generic.Global.current_operating == -1) {
+                alert('请先在右上角选择中心');
+                return;
+            }
+            var combo = view.down('#shopArea');
+            combo.setValue(XMLifeOperating.generic.Global.current_operating);
+            combo.fireEvent('select', combo);
+        }
+    },
     columnLines: true,
-    
-    
+    frame: true,
+    iconCls: 'icon-grid'
 
 });
