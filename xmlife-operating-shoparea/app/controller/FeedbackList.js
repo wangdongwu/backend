@@ -20,13 +20,32 @@ Ext.define('XMLifeOperating.controller.FeedbackList', {
                     win.show();
                 }
             },
+            'feedbackList #feedbackStatus':{
+                select: function (combo) {
+                    var itemId = Ext.getCmp('feedbackList').down('radiogroup').getValue().dayType;
+                   
+                    var store = this.getFeedbackStore();
+                    store.load(
+                    {
+                        params: 
+                        {
+                            dayType:itemId,
+                            mark:combo.getValue()
+                        }
+                    });
+                },
+            },
             'feedbackList radio[name="dayType"]':{
                 change:function(record,newV,oldV){
                     if(newV==true){
                         console.log(record);
                         console.log(record.itemId);
                         var itemId=record.itemId,str;
-                        switch(itemId){
+                        switch(itemId)
+                        {
+                            case 'dayType0':
+                                str=0;
+                                break;
                             case 'dayType1':
                                 str=1;
                                 break;

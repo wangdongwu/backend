@@ -3,12 +3,14 @@ Ext.define('XMLifeOperating.view.userManage.feedback.FeedbackList', {
     closable : true,
     xtype: 'feedbackList',
     title: '用户反馈管理',
-    store: 'Feedback',       
+    store: 'Feedback', 
+    id:'feedbackList',
 
    tbar: [
             { 
             xtype: 'fieldcontainer',
             fieldLabel : '按时间过滤',
+            itemId:'feedbackRadiofield',
             defaultType: 'radiofield',
             defaults: {
                 flex: 1,
@@ -17,42 +19,53 @@ Ext.define('XMLifeOperating.view.userManage.feedback.FeedbackList', {
             layout: 'hbox',
             items : [
             {
+            xtype: 'radiogroup',
+            items : [
+            {
             checked: true,    
             boxLabel:'今天',
             name : 'dayType',
-            itemId: 'dayType1'
+            itemId: 'dayType0',
+            inputValue: '0'
             },
         {
             boxLabel:'昨天',
             name : 'dayType',
-            itemId: 'dayType2'
+            itemId: 'dayType1',
+            inputValue: '1'
             },
         {
             boxLabel:'前天',
             name : 'dayType',
-            itemId: 'dayType3'
+            itemId: 'dayType2',
+            inputValue: '2'
             },
         {
             boxLabel:'本周',
             name : 'dayType',
-            itemId: 'dayType4'
+            itemId: 'dayType3',
+            inputValue: '3'
             },
         {
             boxLabel:'上周',
             name : 'dayType',
-            itemId: 'dayType5'
+            itemId: 'dayType4',
+            inputValue: '4'
             },
         {
             boxLabel:'本月',
             name : 'dayType',
-            itemId: 'dayType6'
+            itemId: 'dayType5',
+            inputValue: '5'
             },
         {
             boxLabel:'上月',
             name : 'dayType',
-            itemId: 'dayType7'
+            itemId: 'dayType6',
+            inputValue: '6'
             }
         ]
+        }]
         }
         ,
         '->',
