@@ -47,12 +47,10 @@ Ext.define('XMLifeOperating.controller.GDealList', {
             'gDealList #shopAread': {
                 select: function(combo) {
                     var sstore = this.getDealStore();
-                    sstore.load({
-                        params: {
-                            shopArea: combo.getValue()
-                        }
-                    });
-
+                    sstore.getProxy().extraParams={
+                        shopArea: combo.getValue()
+                    };
+                  sstore.loadPage(1);
                 },
             },
 
@@ -62,14 +60,12 @@ Ext.define('XMLifeOperating.controller.GDealList', {
             '#statusSearch': {
                 select: function(combo) {
                     var sstore = this.getDealStore();
-                    sstore.load({
-                        params: {
-                            shopArea: Ext.getCmp('gDealList').down('#shopAread').getValue(),
-                            status: combo.getValue()
-                        }
-                    });
-
-                },
+                    sstore.getProxy().extraParams={
+                        shopArea: Ext.getCmp('gDealList').down('#shopAread').getValue(),
+                        status: combo.getValue()
+                    };
+                  sstore.loadPage(1);
+              },
             },
 
             '#dealDetail': {
@@ -91,20 +87,19 @@ Ext.define('XMLifeOperating.controller.GDealList', {
 
         if (keyWords == '') {
             if (shopAreaId) {
-                store.load({
-                    params: {
+                store.getProxy().extraParams={
                         shopArea: shopAreaId
-                    }
-                });
+                    };
+                store.loadPage(1);
+
             } else {
                 return;
             }
         } else {
-            store.load({
-                params: {
-                    phone: keyWords
-                }
-            });
+            store.getProxy().extraParams={
+                phone: keyWords
+            };
+            store.loadPage(1);
         }
     },
 
@@ -142,11 +137,10 @@ Ext.define('XMLifeOperating.controller.GDealList', {
             win.down('form').loadRecord(store.data.items[0]);
             win.show();
         });
-        store.load({
-            params: {
-                uid: dealDetail.get('customId'),
-            },
-        });
+        store.getProxy().extraParams={
+          uid: dealDetail.get('customId'),
+        };
+        store.loadPage(1);
     },
 
 });

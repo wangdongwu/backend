@@ -8,7 +8,17 @@ Ext.define('XMLifeOperating.view.dealManage.GDealList', {
     closable : true,
     forceFit : 'true',
     store: 'Deal',
-    
+    dockedItems : [
+      {
+      xtype : 'pagingtoolbar',
+      itemId : 'pagetoll',
+      store : 'Deal',
+      dock : 'bottom',
+      displayInfo : true/*,
+      items : ['->'],   
+      prependButtons: true*/
+    }
+    ],
     tbar: [
         {
             xtype:'combobox',

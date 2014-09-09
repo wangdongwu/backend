@@ -7,6 +7,17 @@ Ext.define('XMLifeOperating.view.userManage.feedback.GFeedbackList', {
     forceFit :true,
     
     store: 'Feedback',
+    dockedItems : [
+      {
+      xtype : 'pagingtoolbar',
+      itemId : 'pagetoll',
+      store : 'Feedback',
+      dock : 'bottom',
+      displayInfo : true/*,
+      items : ['->'],   
+      prependButtons: true*/
+    }
+    ],
     tbar: [
         { 
             xtype: 'fieldcontainer',
