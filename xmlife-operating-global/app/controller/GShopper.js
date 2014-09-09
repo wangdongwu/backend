@@ -184,12 +184,12 @@ Ext.define('XMLifeOperating.controller.GShopper', {
                     var Shopper = view.getRecord(view.findTargetByEvent(e));
                     var shopperId = Shopper.get('uid');
                     var dealShopperHistoryStroe = this.getDealShopperHistoryStore();
-                    dealShopperHistoryStroe.load({
-                        params: {
+                    
+                    dealShopperHistoryStroe.getProxy().extraParams={
                             shopper: shopperId,
                             dayType: 0
-                        }
-                    });
+                          };
+                    dealShopperHistoryStroe.loadPage(1);
                     content.add(tab);
                     this.shopperId=shopperId;
                 }
@@ -222,14 +222,15 @@ Ext.define('XMLifeOperating.controller.GShopper', {
                                 str = 6;
                                 break;
                         }
-                        var store = this.getDealShopperHistoryStore();
+                        var dealShopperHistoryStroe = this.getDealShopperHistoryStore();
                         var shopperId = this.shopperId;
-                        store.load({
-                            params: {
-                                dayType: str,
-                                shopper: shopperId
-                            }
-                        });
+                       
+                        dealShopperHistoryStroe.getProxy().extraParams={
+                            dayType: str,
+                            shopper: shopperId
+                          };
+                        dealShopperHistoryStroe.loadPage(1);
+
                         this.dayType = str;
                         console.log(record.itemId);
                     }
@@ -267,12 +268,11 @@ Ext.define('XMLifeOperating.controller.GShopper', {
 
                     var shopperId = shopper.get('uid');
                     var ShopperWorkTimeStore = this.getShopperWorkTimeStore();
-                    ShopperWorkTimeStore.load({
-                        params: {
+                    ShopperWorkTimeStore.getProxy().extraParams={
                             shopper: shopperId,
                             dayType: 3
-                        }
-                    });
+                          }
+                    ShopperWorkTimeStore.loadPage(1);
                     content.add(tab);
                     this.shopperId=shopperId;
                 }
@@ -307,14 +307,14 @@ Ext.define('XMLifeOperating.controller.GShopper', {
                                 str = 6;
                                 break;
                         }
-                        var store = this.getShopperWorkTimeStore();
+                        var ShopperWorkTimeStore = this.getShopperWorkTimeStore();
 
-                        store.load({
-                            params: {
-                                dayType: str,
-                                shopper: shopperId
-                            }
-                        });
+                        ShopperWorkTimeStore.getProxy().extraParams={
+                            shopper: shopperId,
+                            dayType: str
+                          }
+                        ShopperWorkTimeStore.loadPage(1);
+
                         this.dayType = str;
 
                     }

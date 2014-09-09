@@ -10,6 +10,17 @@ Ext.define('XMLifeOperating.view.staffManage.deliverer.GDealDelivererHistoryList
     title: '历史订单',
 
     store: 'DealDelivererHistory',
+    dockedItems : [
+      {
+      xtype : 'pagingtoolbar',
+      itemId : 'pagetoll',
+      store : 'DealDelivererHistory',
+      dock : 'bottom',
+      displayInfo : true/*,
+      items : ['->'],   
+      prependButtons: true*/
+    }
+    ],
      tbar: [
         {
             xtype: 'button',

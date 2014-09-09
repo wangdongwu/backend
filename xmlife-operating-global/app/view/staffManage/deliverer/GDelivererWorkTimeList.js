@@ -10,6 +10,17 @@ Ext.define('XMLifeOperating.view.staffManage.deliverer.GDelivererWorkTimeList', 
     title: '考勤管理',
 
     store: 'DelivererWorkTime',
+    dockedItems : [
+      {
+      xtype : 'pagingtoolbar',
+      itemId : 'pagetoll',
+      store : 'DelivererWorkTime',
+      dock : 'bottom',
+      displayInfo : true/*,
+      items : ['->'],   
+      prependButtons: true*/
+    }
+    ],
    tbar: [
         {
             xtype: 'button',

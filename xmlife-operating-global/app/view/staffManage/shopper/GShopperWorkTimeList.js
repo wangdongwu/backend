@@ -11,33 +11,23 @@ Ext.define('XMLifeOperating.view.staffManage.shopper.GShopperWorkTimeList', {
     title: '考勤管理',
 
     store: 'ShopperWorkTime',
+    dockedItems : [
+      {
+      xtype : 'pagingtoolbar',
+      itemId : 'pagetoll',
+      store : 'ShopperWorkTime',
+      dock : 'bottom',
+      displayInfo : true/*,
+      items : ['->'],   
+      prependButtons: true*/
+    }
+    ],
     tbar: [
         {
             xtype: 'button',
             text: '返回',
             itemId: 'shopperReturn'
         },
-        /*{
-
-            xtype: 'radio',
-            fieldLabel:'今天',
-            itemId: 'dayType0',
-            name:'dayType'
-        },
-        {
-
-            xtype: 'radio',
-            fieldLabel:'昨天',
-            name:'dayType',
-            itemId: 'dayType1'
-        },
-        {
-
-            xtype: 'radio',
-            fieldLabel:'前天',
-            name:'dayType',
-            itemId: 'dayType2'
-        },*/
         {
 
             xtype: 'radio',

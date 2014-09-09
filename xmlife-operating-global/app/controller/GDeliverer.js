@@ -158,12 +158,13 @@ Ext.define('XMLifeOperating.controller.GDeliverer', {
 
                     var delivererId = deliverer.get('uid');
                     var dealDelivererHistoryStroe = this.getDealDelivererHistoryStore();
-                    dealDelivererHistoryStroe.load({
-                        params: {
-                            deliverer: delivererId,
-                            dayType: 0
-                        }
-                    });
+                    
+                    dealDelivererHistoryStroe.getProxy().extraParams={
+                        deliverer: delivererId,
+                        dayType: 0
+                      }
+                    dealDelivererHistoryStroe.loadPage(1);
+
                     content.add(tab);
                     this.delivererId = delivererId;
                 }
@@ -199,14 +200,15 @@ Ext.define('XMLifeOperating.controller.GDeliverer', {
                                 str = -1;
                                 break;
                         }
-                        var store = this.getDealDelivererHistoryStore();
+                        var dealDelivererHistoryStroe = this.getDealDelivererHistoryStore();
                         var delivererId = this.delivererId;
-                        store.load({
-                            params: {
-                                dayType: str,
-                                deliverer: delivererId
-                            }
-                        });
+                        
+                        dealDelivererHistoryStroe.getProxy().extraParams={
+                            dayType: str,
+                            deliverer: delivererId
+                          };
+                        dealDelivererHistoryStroe.loadPage(1);
+
                         this.dayType = str;
                         console.log(record.itemId);
                     }
@@ -244,12 +246,13 @@ Ext.define('XMLifeOperating.controller.GDeliverer', {
 
                     var delivererId = deliverer.get('uid');
                     var delivererWorkTimeStore = this.getDelivererWorkTimeStore();
-                    delivererWorkTimeStore.load({
-                        params: {
-                            deliverer: delivererId,
-                            dayType: 1
-                        }
-                    });
+                    
+                    delivererWorkTimeStore.getProxy().extraParams={
+                        deliverer: delivererId,
+                        dayType: 1
+                      }
+                    delivererWorkTimeStore.loadPage(1);
+
                     content.add(tab);
                     this.deliverer=delivererId;
                 }
@@ -285,14 +288,14 @@ Ext.define('XMLifeOperating.controller.GDeliverer', {
                                 str = -1;
                                 break;
                         }
-                        var store = this.getDelivererWorkTimeStore();
+                        var delivererWorkTimeStore = this.getDelivererWorkTimeStore();
                         var delivererId = this.delivererId;
-                        store.load({
-                            params: {
-                                dayType: str,
-                                deliverer: delivererId
-                            }
-                        });
+                        
+                        delivererWorkTimeStore.getProxy().extraParams={
+                            deliverer: delivererId,
+                            dayType: str
+                          }
+                        delivererWorkTimeStore.loadPage(1);
                         this.dayType = str;
                     }
                 }
