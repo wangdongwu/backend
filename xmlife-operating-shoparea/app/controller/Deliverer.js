@@ -235,6 +235,7 @@ Ext.define('XMLifeOperating.controller.Deliverer', {
                     var tab = this.getDelivererWorkTimeList();
                     var content = this.getContentPanel();
                     content.removeAll(false);
+
                     var deliverer = view.getRecord(view.findTargetByEvent(e));
 
                     var delivererId = deliverer.get('uid');
@@ -247,7 +248,7 @@ Ext.define('XMLifeOperating.controller.Deliverer', {
                         }
                     });
                     content.add(tab);
-                    this.deliverer=delivererId;
+                    me.delivererId=delivererId;
                 }
             },
             'delivererWorkTimeList radio[name="dayType"]': {

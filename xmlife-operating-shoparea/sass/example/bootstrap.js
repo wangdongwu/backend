@@ -930,6 +930,7 @@ Ext.ClassManager.addNameAlternateMappings({
   "XMLifeOperating.view.centralPointManage.shop.ShopList": [],
   "XMLifeOperating.view.centralPointManage.shop.ShopProduct": [],
   "XMLifeOperating.view.centralPointManage.shop.ShopProductAdd": [],
+  "XMLifeOperating.view.centralPointManage.shop.ShopProductEdit": [],
   "XMLifeOperating.view.centralPointManage.shop.ShopSecondShelf": [],
   "XMLifeOperating.view.centralPointManage.shop.ShopShelf": [],
   "XMLifeOperating.view.centralPointManage.shop.ShopShelfAdd": [],
@@ -2094,6 +2095,9 @@ Ext.ClassManager.addNameAliasMappings({
   ],
   "XMLifeOperating.view.centralPointManage.shop.ShopProductAdd": [
     "widget.shopproductadd"
+  ],
+  "XMLifeOperating.view.centralPointManage.shop.ShopProductEdit": [
+    "widget.shopproductedit"
   ],
   "XMLifeOperating.view.centralPointManage.shop.ShopSecondShelf": [
     "widget.shopsecondshelf"
