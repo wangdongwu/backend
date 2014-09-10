@@ -6,5 +6,5 @@ Ext.define('XMLifeOperating.store.Customer', {
 		limit: 25,
 		page: 1
 	},
-    proxy: new XMLifeOperating.generic.BaseProxy('customer', 'result')
+    proxy: new XMLifeOperating.generic.BaseProxy('customer', 'arrayResult')
 });

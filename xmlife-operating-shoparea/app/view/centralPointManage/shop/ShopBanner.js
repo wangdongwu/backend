@@ -5,7 +5,7 @@
  */
 Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopBanner', {
     extend: 'Ext.grid.Panel',
-    closable : true,
+    closable: true,
     xtype: 'shopbanner',
     header: false,
     store: 'ShopBannerTemplate',
@@ -17,7 +17,13 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopBanner', {
         xtype: 'button',
         text: '返回',
         itemId: 'returnShopStore'
-    }, ],
+    }],
+/*    bbar: [{
+        xtype: 'pagingtoolbar',
+        itemId: 'pagetool',
+        store: 'ShopBannerTemplate',
+        displayInfo: true
+    }],*/
     columns: [{
         text: '图片',
         dataIndex: 'image',
