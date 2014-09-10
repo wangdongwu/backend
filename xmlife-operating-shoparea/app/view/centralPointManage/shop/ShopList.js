@@ -1,29 +1,33 @@
 Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopList', {
     extend: 'Ext.grid.Panel',
-    closable : true,
+    closable: true,
     xtype: 'shoplist',
     title: '店铺管理',
     store: 'Shop',
     itemId: 'shoplist',
+    bbar: [{
+        xtype: 'pagingtoolbar',
+        itemId: 'pagetool',
+        store: 'Shop',
+        displayInfo: true
+    }],
     tbar: [{
             xtype: 'button',
             text: '添加店铺',
             itemId: 'add'
-        },     
-        {
-        xtype:'combobox',
-        name:'shopArea',
-        itemId:'shopArea',
-        store:'ShopArea',
-        emptyText:'请选择中心',
-        margin:10,
-        editable: false,
-        displayField:'name',
-        valueField:'id',
-        hidden:(XMLifeOperating.generic.Global.operating_type == 'center')
+        }, {
+            xtype: 'combobox',
+            name: 'shopArea',
+            itemId: 'shopArea',
+            store: 'ShopArea',
+            emptyText: '请选择中心',
+            margin: 10,
+            editable: false,
+            displayField: 'name',
+            valueField: 'id',
+            hidden: (XMLifeOperating.generic.Global.operating_type == 'center')
         },
-        '->', 
-        {
+        '->', {
             xtype: 'textfield',
             name: 'searchshop',
             itemId: 'searchShopKeyWords',
@@ -154,11 +158,11 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopList', {
         }
     },
     listeners: {
-        onShowView: function(view, viewName) {          
-            if(XMLifeOperating.generic.Global.operating_type != 'center') {
+        onShowView: function(view, viewName) {
+            if (XMLifeOperating.generic.Global.operating_type != 'center') {
                 return;
             }
-            if(XMLifeOperating.generic.Global.current_operating == -1) {
+            if (XMLifeOperating.generic.Global.current_operating == -1) {
                 alert('请先在右上角选择中心');
                 return;
             }
@@ -169,6 +173,6 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopList', {
     },
     forceFit: true,
     columnLines: true,
-    
-    
+
+
 });
