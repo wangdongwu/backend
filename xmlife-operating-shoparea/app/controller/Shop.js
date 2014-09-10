@@ -139,6 +139,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
                         areaId: combo.getValue()
                     }
                     dstore.loadPage(1);
+                    this.areaId = combo.getValue();
                     /*                   dstore.load({
                         params: {
                             city: XMLifeOperating.generic.Global.currentCity,
@@ -388,7 +389,8 @@ Ext.define('XMLifeOperating.controller.Shop', {
                         }
                         windowEl.mask('saving');
                         shopStore.set('city', XMLifeOperating.generic.Global.currentCity);
-                        var areaIds = [XMLifeOperating.generic.Global.SERVICECENEERID];
+                        //var areaIds = [XMLifeOperating.generic.Global.SERVICECENEERID];
+                        var areaIds = [this.areaId];
                         shopStore.set('areaIds', areaIds);
                         shopStore.set('beCopyedShopId', '123');
                         shopStore.set('autoOnline', false);
@@ -429,7 +431,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
                         form = editWindow.down('#shopeditform').getForm(),
                         shopStore = form.getRecord(),
                         me = this;
-                    var jSting, wString;
+                    var jStng, wString;
                     if (form.isValid()) {
                         form.updateRecord(shopStore);
                         jString = shopStore.get('lng');
@@ -457,7 +459,9 @@ Ext.define('XMLifeOperating.controller.Shop', {
                         }
                         windowEl.mask('saving');
                         shopStore.set('city', XMLifeOperating.generic.Global.currentCity);
-                        var areaIds = [XMLifeOperating.generic.Global.SERVICECENEERID];
+
+                        //var areaIds = [XMLifeOperating.generic.Global.SERVICECENEERID];
+                        var areaIds = [shopStore.get('areas')[0].areaId];
                         var templateId = this.getShopBannerTemplateStore().data.items.length ? this.getShopBannerTemplateStore().findRecord('name', shopStore.get('shopBannerTemplateId')).getName() : null;
 
                         //shopStore.set('templateName',templateName);
@@ -485,13 +489,14 @@ Ext.define('XMLifeOperating.controller.Shop', {
                             windowEl.unmask();
                             editWindow.close();
                             me.showShopList();
-                            /*                            sstore.load({
+
+                                                        me.getShopStore().load({
                                 params: {
                                     city: XMLifeOperating.generic.Global.currentCity,
-                                    areaId: XMLifeOperating.generic.Global.SERVICECENEERID
+                                    areaId: me.areaId
                                 }
-                            });*/
-                            me.fireEvent('refreshView');
+                            });
+                            //me.fireEvent('refreshView');
                         };
                         var modifyFailureCallback = function(task, operation) {
 
@@ -1163,7 +1168,8 @@ Ext.define('XMLifeOperating.controller.Shop', {
         var dstore = this.getShopStore();
         dstore.getProxy().extraParams = {
             city: XMLifeOperating.generic.Global.currentCity,
-            areaId: XMLifeOperating.generic.Global.SERVICECENEERID
+            //areaId: XMLifeOperating.generic.Global.SERVICECENEERID
+            areaId:this.areaId
         }
         dstore.loadPage(1);
     },
