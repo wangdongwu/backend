@@ -49,19 +49,25 @@ Ext.define('XMLifeOperating.controller.CustomerList', {
                         shopArea: me.shopArea
                     };
                     // sstore.load();
-                     sstore.loadPage(1);
+                    sstore.loadPage(1);
                 }
             },
 
             '#customerSearch': {
                 click: function() {
                     var store = this.getCustomerStore();
-                    store.load({
+                    /*                    store.load({
                         params: {
                             shopArea: Ext.getCmp('customerList').down('#shopArea').getValue(),
                             nameOrPhone: me.getKeywordc().getValue()
                         }
-                    });
+                    });*/
+                    store.getProxy().extraParams = {
+                        shopArea: Ext.getCmp('customerList').down('#shopArea').getValue(),
+                        nameOrPhone: me.getKeywordc().getValue()
+                    };
+                    // sstore.load();
+                    store.loadPage(1);
                 }
             },
             '#returnCustomerList': {
@@ -75,11 +81,16 @@ Ext.define('XMLifeOperating.controller.CustomerList', {
             '#customerTitle': {
                 click: function() {
                     var store = this.getCustomerStore();
-                    store.load({
+                    /*                    store.load({
                         params: {
                             enable: false,
                         }
-                    });
+                    });*/
+                    store.getProxy().extraParams = {
+                        enable: false
+                    };
+                    // sstore.load()
+                    store.loadPage(1);
                 }
             },
 
@@ -131,11 +142,16 @@ Ext.define('XMLifeOperating.controller.CustomerList', {
                  */
             //store.getProxy().url = oldProxyUrl;             
         })
-        store.load({
+
+        /*        store.load({
             params: {
                 customer: uid
             }
-        });
+        });*/
+        store.getProxy().extraParams = {
+            customer: uid
+        };
+        store.loadPage(1);
 
     },
 
@@ -152,12 +168,17 @@ Ext.define('XMLifeOperating.controller.CustomerList', {
             enable: enable
         }, '封号', '封号成功', '封号失败', function() {
             var store = me.getCustomerStore();
-            store.load({
+            /*            store.load({
                 params: {
                     shopArea: Ext.getCmp('customerList').down('#shopArea').getValue(),
                     nameOrPhone: me.getKeywordc().getValue()
                 }
-            });
+            });*/
+            store.getProxy().extraParams = {
+                shopArea: Ext.getCmp('customerList').down('#shopArea').getValue(),
+                nameOrPhone: me.getKeywordc().getValue()
+            };
+            store.loadPage(1);
         });
     },
 
