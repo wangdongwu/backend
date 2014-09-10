@@ -13,6 +13,12 @@ Ext.define('XMLifeOperating.view.staffManage.shopper.DealItemsList', {
             itemId: 'dealShopperHistoryListReturn'
         }
     ],
+            bbar: [{
+        xtype: 'pagingtoolbar',
+        itemId: 'pagetool',
+        store: 'DealItems',
+        displayInfo: true
+    }],
     columns: [
 
         {

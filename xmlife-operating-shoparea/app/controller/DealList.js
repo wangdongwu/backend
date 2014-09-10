@@ -1,43 +1,36 @@
 Ext.define('XMLifeOperating.controller.DealList', {
     extend: 'Ext.app.Controller',
 
-    views: ['dealManage.DealList','dealManage.DealDetail','dealManage.DealCustomerDetail'],
+    views: ['dealManage.DealList', 'dealManage.DealDetail', 'dealManage.DealCustomerDetail'],
 
     stores: ['Deal', 'ShopArea', 'DealStatus', 'Customer', 'DealItems'],
 
     models: ['Deal', 'ShopArea', 'Customer', 'DealItems'],
 
-    refs: [
-        {
-            ref: 'dealList',
-            selector: 'dealList',
-            xtype: 'dealList'
-        }, 
-        {
-            ref: 'shopAread',
-            selector: '#shopAread',
-        }, 
-        {
-            ref: 'keyword',
-            selector: '#keyword',
-        }, 
-        {
-            ref: 'statusSearch',
-            selector: '#statusSearch',
-        },  
-        {
-            ref: 'dealCustomerDetail',
-            selector: 'dealCustomerDetail',
-            xtype: 'dealCustomerDetail',
-            autoCreate: true
-        }, 
-        {
-            ref: 'dealDetail',
-            selector: 'dealDetail',
-            xtype: 'dealDetail',
-            autoCreate: true
-        }
-    ],
+    refs: [{
+        ref: 'dealList',
+        selector: 'dealList',
+        xtype: 'dealList'
+    }, {
+        ref: 'shopAread',
+        selector: '#shopAread',
+    }, {
+        ref: 'keyword',
+        selector: '#keyword',
+    }, {
+        ref: 'statusSearch',
+        selector: '#statusSearch',
+    }, {
+        ref: 'dealCustomerDetail',
+        selector: 'dealCustomerDetail',
+        xtype: 'dealCustomerDetail',
+        autoCreate: true
+    }, {
+        ref: 'dealDetail',
+        selector: 'dealDetail',
+        xtype: 'dealDetail',
+        autoCreate: true
+    }],
 
     init: function() {
 
@@ -47,13 +40,11 @@ Ext.define('XMLifeOperating.controller.DealList', {
             'dealList #shopArea': {
                 select: function(combo) {
                     var sstore = this.getDealStore();
-                    sstore.load({
-                        params: {
-                            shopArea: combo.getValue()
-                        }
-                    });
-
-                },
+                    sstore.getProxy().extraParams = {
+                        shopArea: combo.getValue()
+                    }
+                    sstore.loadPage(1);
+                }
             },
 
             '#dealSearch': {
@@ -61,13 +52,19 @@ Ext.define('XMLifeOperating.controller.DealList', {
             },
             '#statusSearch': {
                 select: function(combo) {
-                    var sstore = this.getDealStore();
+                    /*                    var sstore = this.getDealStore();
                     sstore.load({
                         params: {
                             shopArea: Ext.getCmp('dealList').down('#shopAread').getValue(),
                             status: combo.getValue()
                         }
-                    });
+                    });*/
+                    var sstore = this.getDealStore();
+                    sstore.getProxy().extraParams = {
+                        shopArea: Ext.getCmp('dealList').down('#shopAread').getValue(),
+                        status: combo.getValue()
+                    }
+                    sstore.loadPage(1);
 
                 },
             },
@@ -91,11 +88,10 @@ Ext.define('XMLifeOperating.controller.DealList', {
 
         if (keyWords == '') {
             if (shopAreaId) {
-                store.load({
-                    params: {
-                        shopArea: shopAreaId
-                    }
-                });
+                store.getProxy().extraParams = {
+                    shopArea: shopAreaId
+                }
+                store.loadPage(1);
             } else {
                 return;
             }
@@ -114,7 +110,6 @@ Ext.define('XMLifeOperating.controller.DealList', {
         win.down('form').loadRecord(dealDetail);
         win.show();
         var store = this.getDealItemsStore();
-
         store.load({
             params: {
                 deal: dealDetail.get('dealBackendId'),

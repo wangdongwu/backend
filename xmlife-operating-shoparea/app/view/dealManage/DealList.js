@@ -55,7 +55,12 @@ Ext.define('XMLifeOperating.view.dealManage.DealList', {
         },
 
      ],
-
+    bbar:[{
+        xtype:'pagingtoolbar',
+        itemId:'pagetool',
+        store:'Deal',
+        displayInfo:true
+    }],
     columns: [
         {
             text: '日期',
@@ -168,7 +173,6 @@ Ext.define('XMLifeOperating.view.dealManage.DealList', {
                 }
                 return str;
             }
- 
         },
         {
             text: '购买店铺',
@@ -272,8 +276,6 @@ Ext.define('XMLifeOperating.view.dealManage.DealList', {
                return newTime;
             } 
         },
-
-       
     ],
     viewConfig: {
         plugins: {

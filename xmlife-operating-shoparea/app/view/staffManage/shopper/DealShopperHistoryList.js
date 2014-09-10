@@ -72,7 +72,7 @@ Ext.define('XMLifeOperating.view.staffManage.shopper.DealShopperHistoryList', {
                 itemId: 'dayType6'
             }
             ]
-        },
+        }
         ],
     columns: [
         {

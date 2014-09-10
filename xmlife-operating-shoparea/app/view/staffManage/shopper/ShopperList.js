@@ -70,6 +70,12 @@ Ext.define('XMLifeOperating.view.staffManage.shopper.ShopperList', {
         }
     }
     ],
+        bbar: [{
+        xtype: 'pagingtoolbar',
+        itemId: 'pagetool',
+        store: 'Shopper',
+        displayInfo: true
+    }],
     columns: [
         {
             xtype: 'rownumberer'

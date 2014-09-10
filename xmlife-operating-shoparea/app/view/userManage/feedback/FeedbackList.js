@@ -5,7 +5,12 @@ Ext.define('XMLifeOperating.view.userManage.feedback.FeedbackList', {
     title: '用户反馈管理',
     store: 'Feedback', 
     id:'feedbackList',
-
+    bbar: [{
+        xtype: 'pagingtoolbar',
+        itemId: 'pagetool',
+        store: 'Feedback',
+        displayInfo: true
+    }],
    tbar: [
             { 
             xtype: 'fieldcontainer',

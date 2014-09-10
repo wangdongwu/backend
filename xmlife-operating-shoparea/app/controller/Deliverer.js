@@ -1,61 +1,58 @@
 Ext.define('XMLifeOperating.controller.Deliverer', {
     extend: 'Ext.app.Controller',
     views: ['staffManage.deliverer.DelivererList',
-            'staffManage.deliverer.DelivererEdit',
-            'staffManage.deliverer.DealDelivererHistoryList',
-            'staffManage.deliverer.DelivererWorkTimeList',
-            'staffManage.deliverer.DealItemsList'],
+        'staffManage.deliverer.DelivererEdit',
+        'staffManage.deliverer.DealDelivererHistoryList',
+        'staffManage.deliverer.DelivererWorkTimeList',
+        'staffManage.deliverer.DealItemsList'
+    ],
 
     stores: ['Deliverer',
-             'ShopArea',
-             'DealDelivererHistory',
-             'DelivererWorkTime',
-             'DealItems'],
+        'ShopArea',
+        'DealDelivererHistory',
+        'DelivererWorkTime',
+        'DealItems'
+    ],
 
     models: ['Deliverer',
-             'ShopArea',
-             'DealDelivererHistory',
-             'DelivererWorkTime',
-             'DealItems'],
+        'ShopArea',
+        'DealDelivererHistory',
+        'DelivererWorkTime',
+        'DealItems'
+    ],
     refs: [{
-            ref: 'delivererList',
-            selector: 'delivererList',
-            xtype: 'delivererList',
-            autoCreate: true
-        },
-        {
-            ref: 'delivererEdit',
-            selector: 'delivererEdit',
-            xtype: 'delivererEdit',
-            autoCreate: true
-        },
-        {
-            ref: 'shopArea',
-            selector: '#shopArea',
-        },
-        {
-            ref: 'dealDelivererHistoryList',
-            selector: 'dealDelivererHistoryList',
-            xtype: 'dealDelivererHistoryList',
-            autoCreate: true
-        },
-        {
-            ref: 'delivererWorkTimeList',
-            selector: 'delivererWorkTimeList',
-            xtype: 'delivererWorkTimeList',
-            autoCreate: true
-        },
-        {
-            ref: 'dealItemsList',
-            selector: 'dealItemsList',
-            xtype: 'dealItemsList',
-            autoCreate: true
-        },
-        {
-            ref: 'contentPanel',
-            selector: '#contentPanel',
-            xtype: 'panel'
-        }],
+        ref: 'delivererList',
+        selector: 'delivererList',
+        xtype: 'delivererList',
+        autoCreate: true
+    }, {
+        ref: 'delivererEdit',
+        selector: 'delivererEdit',
+        xtype: 'delivererEdit',
+        autoCreate: true
+    }, {
+        ref: 'shopArea',
+        selector: '#shopArea',
+    }, {
+        ref: 'dealDelivererHistoryList',
+        selector: 'dealDelivererHistoryList',
+        xtype: 'dealDelivererHistoryList',
+        autoCreate: true
+    }, {
+        ref: 'delivererWorkTimeList',
+        selector: 'delivererWorkTimeList',
+        xtype: 'delivererWorkTimeList',
+        autoCreate: true
+    }, {
+        ref: 'dealItemsList',
+        selector: 'dealItemsList',
+        xtype: 'dealItemsList',
+        autoCreate: true
+    }, {
+        ref: 'contentPanel',
+        selector: '#contentPanel',
+        xtype: 'panel'
+    }],
     init: function() {
 
         var me = this;
@@ -69,29 +66,28 @@ Ext.define('XMLifeOperating.controller.Deliverer', {
                     var sstore = this.getDelivererStore();
                     Ext.getCmp('delivererList').down('#activeBind').setText('查看未绑定的快递员');
                     isUnbind = true;
-                    sstore.load({
-                        params: {
-                            city: XMLifeOperating.generic.Global.currentCity,
-                            area: combo.getValue(),
-                            isActive: isActive
-                        }
-                    });
+                    sstore.getProxy().extraParams = {
+                        city: XMLifeOperating.generic.Global.currentCity,
+                        area: combo.getValue(),
+                        isActive: isActive
+                    };
+                    sstore.loadPage(1);
 
                 },
             },
-             //查看中心下暂停或接单快递员
+            //查看中心下暂停或接单快递员
             'delivererList #activeSearch': {
                 click: function() {
                     var activeSearch = Ext.getCmp('delivererList').down('#activeSearch').getText();
                     if (activeSearch == '查看停单快递员') {
-                        isActive=false;
+                        isActive = false;
                         isUnbind = '';
                     } else if (activeSearch == '查看接单快递员') {
-                        isActive=true;
+                        isActive = true;
                         isUnbind = true;
                     }
                     var store = me.getDelivererStore();
-                    store.load({
+                    /*                    store.load({
                         params: {
                             area: me.getShopArea().getValue(),
                             isActive: isActive
@@ -99,7 +95,16 @@ Ext.define('XMLifeOperating.controller.Deliverer', {
                         callback: function() {
                             Ext.getCmp('delivererList').down('#activeBind').setText('查看未绑定的快递员');
                         }
+                    });*/
+                    store.getProxy().extraParams = {
+                        area: me.getShopArea().getValue(),
+                        isActive: isActive
+                    };
+                    store.on('load', function() {
+                        Ext.getCmp('delivererList').down('#activeBind').setText('查看未绑定的快递员');
                     });
+                    store.loadPage(1);
+
                 }
             },
             'delivererList #activeBind': {
@@ -112,7 +117,7 @@ Ext.define('XMLifeOperating.controller.Deliverer', {
                         isUnbind = true;
                     }
                     var lstore = this.getDelivererStore();
-                    lstore.load({
+                    /*                    lstore.load({
                         params: {
                             unbind: isUnbind
                         },
@@ -120,7 +125,15 @@ Ext.define('XMLifeOperating.controller.Deliverer', {
                             Ext.getCmp('delivererList').down('#activeSearch').setText('查看停单快递员');
                             me.getDelivererList().down('#searchDelivererKeyWords').setValue('');
                         }
+                    });*/
+                    lstore.getProxy().extraParams = {
+                        unbind: isUnbind
+                    };
+                    lstore.on('load', function() {
+                        Ext.getCmp('delivererList').down('#activeSearch').setText('查看停单快递员');
+                        me.getDelivererList().down('#searchDelivererKeyWords').setValue('');
                     });
+                    lstore.loadPage(1);
                 }
             },
             'delivererList #add': {
@@ -155,10 +168,10 @@ Ext.define('XMLifeOperating.controller.Deliverer', {
 
                     var delivererId = deliverer.get('uid');
                     var dealDelivererHistoryStroe = this.getDealDelivererHistoryStore();
-                    dealDelivererHistoryStroe.getProxy().extraParams={
+                    dealDelivererHistoryStroe.getProxy().extraParams = {
                         deliverer: delivererId,
                         dayType: 0
-                      }
+                    }
                     dealDelivererHistoryStroe.loadPage(1);
 
                     content.add(tab);
@@ -198,20 +211,25 @@ Ext.define('XMLifeOperating.controller.Deliverer', {
                         }
                         var store = this.getDealDelivererHistoryStore();
                         var delivererId = this.delivererId;
-                        store.load({
+                        /*                        store.load({
                             params: {
                                 dayType: str,
                                 deliverer: delivererId
                             }
-                        });
+                        });*/
+                        store.getProxy().extraParams = {
+                            dayType: str,
+                            deliverer: delivererId
+                        };
+                        store.loadPage(1);
                     }
                 }
             },
             //返回配送员清单
-            'dealDelivererHistoryList #delivererReturn,delivererWorkTimeList #delivererReturn':{
-                click:function() {
+            'dealDelivererHistoryList #delivererReturn,delivererWorkTimeList #delivererReturn': {
+                click: function() {
 
-                    var tab=me.getDelivererList();
+                    var tab = me.getDelivererList();
                     /*var store = me.getdelivererStore();
                     store.load({
                         params: {
@@ -222,7 +240,7 @@ Ext.define('XMLifeOperating.controller.Deliverer', {
                             Ext.getCmp('delivererList').down('#shopArea').setValue('');
                         }
                     });*/
-                        
+
                     var content = this.getContentPanel();
                     content.removeAll(false);
                     content.add(tab);
@@ -231,7 +249,7 @@ Ext.define('XMLifeOperating.controller.Deliverer', {
             //考勤管理
             'delivererList #delivererWorkTimeId': {
                 click: function(view, column, rowIndex, colIndex, e) {
-                    
+
                     var tab = this.getDelivererWorkTimeList();
                     var content = this.getContentPanel();
                     content.removeAll(false);
@@ -240,15 +258,14 @@ Ext.define('XMLifeOperating.controller.Deliverer', {
 
                     var delivererId = deliverer.get('uid');
                     var delivererWorkTimeStore = this.getDelivererWorkTimeStore();
-                    delivererWorkTimeStore.getProxy().extraParams=
-                        {
-                            deliverer: delivererId,
-                            dayType: 1
-                        }
+                    delivererWorkTimeStore.getProxy().extraParams = {
+                        deliverer: delivererId,
+                        dayType: 1
+                    }
                     delivererWorkTimeStore.loadPage(1);
 
                     content.add(tab);
-                    this.delivererId=delivererId;
+                    this.delivererId = delivererId;
                 }
             },
             'delivererWorkTimeList radio[name="dayType"]': {
@@ -281,12 +298,17 @@ Ext.define('XMLifeOperating.controller.Deliverer', {
                         }
                         var store = this.getDelivererWorkTimeStore();
                         var delivererId = this.delivererId;
-                        store.load({
+                        /*                        store.load({
                             params: {
                                 dayType: str,
                                 deliverer: delivererId
                             }
-                        });
+                        });*/
+                        store.getProxy().extraParams = {
+                            dayType: str,
+                            deliverer: delivererId
+                        };
+                        store.loadPage(1);
                         this.dayType = str;
                     }
                 }
@@ -313,61 +335,64 @@ Ext.define('XMLifeOperating.controller.Deliverer', {
 
             },
             ///返回历史订单
-            'dealItemsList #dealDelivererHistoryListReturn':{
-                click:function() {
-                    var tab=me.getDealDelivererHistoryList();                   
+            'dealItemsList #dealDelivererHistoryListReturn': {
+                click: function() {
+                    var tab = me.getDealDelivererHistoryList();
                     var content = this.getContentPanel();
                     content.removeAll(false);
                     content.add(tab);
                 }
             },
-            'delivererList #closeOrOpenOrder':{
-                click:function(grid, column, rowIndex) { 
+            'delivererList #closeOrOpenOrder': {
+                click: function(grid, column, rowIndex) {
                     var record = grid.getStore().getAt(rowIndex);
                     var deliverer = record.get('uid');
                     var isActive = record.get('isActive');
-                    var url='';
-                    var str='确认要此操作吗？';
-                    if(isActive == true){
-                        str='确认要暂停配送员接单吗？';
-                        isActive =false;
-                    }else{
-                        str='确认要恢复配送员接单吗？';
-                        isActive =true;
+                    var url = '';
+                    var str = '确认要此操作吗？';
+                    if (isActive == true) {
+                        str = '确认要暂停配送员接单吗？';
+                        isActive = false;
+                    } else {
+                        str = '确认要恢复配送员接单吗？';
+                        isActive = true;
                     }
                     url = 'deliverer/enable';
-                    Ext.MessageBox.confirm("选择框", str,function(str){
-                            if(str=='no'){
+                    Ext.MessageBox.confirm("选择框", str, function(str) {
+                        if (str == 'no') {
+                            return;
+                        }
+                        sendPutRequest(url, {
+                            deliverer: deliverer,
+                            isActive: isActive
+                        }, '操作恢复或暂停配送员接单', '成功操作配送员接单', '操作配送员接单失败', function() {
+                            var store = me.getDelivererStore();
+                            var activeBindText = Ext.getCmp('delivererList').down('#activeBind').getText();
+                            var params = '';
+                            var searchDelivererKeyWords = me.getDelivererList().down('#searchDelivererKeyWords').getValue();
+                            if (activeBindText == '查看已绑定的快递员' || searchDelivererKeyWords != '') {
+                                record.set('isActive', isActive);
                                 return;
+                            } else {
+                                me.fireEvent('refreshView');
+                                // var activeSearch = Ext.getCmp('gShopperList').down('#activeSearch').getText();
+                                // if (activeSearch == '查看停单买手') {
+                                //     isActive=true;
+                                // } else if (activeSearch == '查看接单买手') {
+                                //     isActive=false;
+                                // }
+                                // store.load({
+                                //     params: {
+                                //         city: XMLifeOperating.generic.Global.currentCity,
+                                //         area: me.getShopArea().getValue(),
+                                //         isActive: isActive
+                                //     },
+                                //     callback: function() {
+                                //         Ext.getCmp('gShopperList').down('#activeBind').setText('查看未绑定的买手');
+                                //     }
+                                // });
                             }
-                            sendPutRequest(url,{deliverer:deliverer,isActive:isActive},'操作恢复或暂停配送员接单','成功操作配送员接单','操作配送员接单失败',function(){
-                                    var store = me.getDelivererStore();
-                                    var activeBindText = Ext.getCmp('delivererList').down('#activeBind').getText();
-                                    var params='';
-                                    var searchDelivererKeyWords = me.getDelivererList().down('#searchDelivererKeyWords').getValue();
-                                    if(activeBindText=='查看已绑定的快递员'||searchDelivererKeyWords!=''){
-                                        record.set('isActive',isActive);
-                                        return;
-                                    }else{
-                                        me.fireEvent('refreshView');
-                                        // var activeSearch = Ext.getCmp('gShopperList').down('#activeSearch').getText();
-                                        // if (activeSearch == '查看停单买手') {
-                                        //     isActive=true;
-                                        // } else if (activeSearch == '查看接单买手') {
-                                        //     isActive=false;
-                                        // }
-                                        // store.load({
-                                        //     params: {
-                                        //         city: XMLifeOperating.generic.Global.currentCity,
-                                        //         area: me.getShopArea().getValue(),
-                                        //         isActive: isActive
-                                        //     },
-                                        //     callback: function() {
-                                        //         Ext.getCmp('gShopperList').down('#activeBind').setText('查看未绑定的买手');
-                                        //     }
-                                        // });
-                                    } 
-                            }); 
+                        });
                     });
                 }
             },
@@ -390,20 +415,32 @@ Ext.define('XMLifeOperating.controller.Deliverer', {
             isUnbind = ' ';
         }
         if (keyWords == '') {
+            store.getProxy().extraParams = {
+                unbind: isUnbind
+            };
+            store.loadPage(1);
+            /*
             store.load({
                 params: {
                     unbind: isUnbind
                 }
-            });
+            });*/
         } else {
-            store.load({
+            /*            store.load({
                 params: {
                     nameOrPhone: keyWords
                 },
-                callback:function(){
+                callback: function() {
                     Ext.getCmp('delivererList').down('#activeBind').setText('查看未绑定的快递员');
                 }
+            });*/
+            store.getProxy().extraParams = {
+                nameOrPhone: keyWords
+            };
+            store.on('load', function() {
+                Ext.getCmp('delivererList').down('#activeBind').setText('查看未绑定的快递员');
             });
+            store.loadPage(1);
         }
 
     },
@@ -458,19 +495,19 @@ Ext.define('XMLifeOperating.controller.Deliverer', {
             deliverer.set('offlineTime', (deliverer.get('offlineTime').getHours() * 60 + deliverer.get('offlineTime').getMinutes()));
             deliverer.set('pwd', hex_md5(deliverer.get('pwd')));
             console.log("try saving");
-            if(deliverer.get('id')!=null&&deliverer.get('id')!=''){
-                var url='deliverer/'+deliverer.get('uid')
-                sendPutRequest(url,{
-                                       name:deliverer.get('name'),
-                                       pwd:deliverer.get('pwd'),
-                                       title:deliverer.get('title'),
-                                       gender:deliverer.get('gender'),
-                                       idcard:deliverer.get('idcard'),
-                                       phone:deliverer.get('phone'),
-                                       onlineTime:deliverer.get('onlineTime'),
-                                       offlineTime:deliverer.get('offlineTime'),
-                                       avatar:deliverer.get('avatar'),
-                                                     },'编辑配送员','成功编辑配送员','编辑配送员失败',function(){
+            if (deliverer.get('id') != null && deliverer.get('id') != '') {
+                var url = 'deliverer/' + deliverer.get('uid')
+                sendPutRequest(url, {
+                    name: deliverer.get('name'),
+                    pwd: deliverer.get('pwd'),
+                    title: deliverer.get('title'),
+                    gender: deliverer.get('gender'),
+                    idcard: deliverer.get('idcard'),
+                    phone: deliverer.get('phone'),
+                    onlineTime: deliverer.get('onlineTime'),
+                    offlineTime: deliverer.get('offlineTime'),
+                    avatar: deliverer.get('avatar'),
+                }, '编辑配送员', '成功编辑配送员', '编辑配送员失败', function() {
                     windowEl.unmask();
                     editWindow.close();
                     me.fireEvent('refreshView');
