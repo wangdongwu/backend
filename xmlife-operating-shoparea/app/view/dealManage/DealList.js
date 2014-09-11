@@ -1,7 +1,7 @@
 
 Ext.define('XMLifeOperating.view.dealManage.DealList', {
     extend: 'Ext.grid.Panel',
-    closable : true,
+    closable : false,
     xtype: 'dealList',
 
     title: '订单管理',

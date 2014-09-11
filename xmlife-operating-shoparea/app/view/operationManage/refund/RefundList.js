@@ -7,7 +7,7 @@ Ext.define('XMLifeOperating.view.operationManage.refund.RefundList', {
     store: 'Refund',
     title: '退款列表',
    // titleAlign : 'left',
-    closable : true,
+    closable : false,
     forceFit: true,
     selModel: Ext.create('Ext.selection.CheckboxModel'),
     requires:[

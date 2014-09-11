@@ -5,7 +5,7 @@
  */
 Ext.define('XMLifeOperating.view.staffManage.deliverer.DelivererWorkTimeList', {
     extend: 'Ext.grid.Panel',
-    closable : true,
+    closable : false,
     xtype: 'delivererWorkTimeList',
 
     title: '考勤管理',

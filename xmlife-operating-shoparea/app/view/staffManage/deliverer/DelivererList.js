@@ -1,6 +1,6 @@
 Ext.define('XMLifeOperating.view.staffManage.deliverer.DelivererList', {
     extend: 'Ext.grid.Panel',
-    closable: true,
+    closable: false,
     xtype: 'delivererList',
 
     title: '配送员管理',

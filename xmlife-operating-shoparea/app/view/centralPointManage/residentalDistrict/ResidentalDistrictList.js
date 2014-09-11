@@ -1,6 +1,6 @@
 Ext.define('XMLifeOperating.view.centralPointManage.residentalDistrict.ResidentalDistrictList', {
     extend: 'Ext.grid.Panel',
-    closable : true,
+    closable : false,
     xtype: 'residentaldistrictlist',
 
     title: '配送地址管理',

@@ -5,7 +5,7 @@
  */
 Ext.define('XMLifeOperating.view.centralPointManage.centralPointConfigure.CentralPointConfigureBannerList', {
     extend: 'Ext.grid.Panel',
-    closable : true,
+    closable : false,
     xtype: 'centralpointconfigurebannerlist',
     header: false,
     store: 'ShopAreaBanner',

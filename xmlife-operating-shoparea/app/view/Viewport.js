@@ -27,7 +27,7 @@ Ext.define('XMLifeOperating.view.Viewport', {
             itemId: 'contentPanel',
             items : [
             {
-                closable : true,
+                closable : false,
                 title : '欢迎使用',
                 html : '<br/><br/><br/><br/><h1>欢迎使用小美后台管理系统!! <br/><br/>⊙o⊙</h1>'
             }

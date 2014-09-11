@@ -1,7 +1,7 @@
 
 Ext.define('XMLifeOperating.view.operationManage.dealShopArea.DealShopAreaList', {
     extend: 'Ext.grid.Panel',
-    closable : true,
+    closable : false,
     id: 'dealShopAreaList',
     xtype: 'dealShopAreaList',
 

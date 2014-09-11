@@ -1,6 +1,6 @@
 Ext.define('XMLifeOperating.view.userManage.customer.CustomerDealList', {
     extend: 'Ext.grid.Panel',
-    closable: true,
+    closable: false,
     xtype: 'CustomerDealList',
     requires: [
         'Ext.form.Panel',

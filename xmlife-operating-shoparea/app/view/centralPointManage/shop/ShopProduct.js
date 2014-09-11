@@ -1,6 +1,6 @@
 Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopProduct', {
     extend: 'Ext.grid.Panel',
-    closable: true,
+    closable: false,
     xtype: 'shopproduct',
     header: false,
     store: 'Product',

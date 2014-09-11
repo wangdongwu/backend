@@ -1,6 +1,6 @@
  Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopSecondShelf', {
      extend: 'Ext.grid.Panel',
-     closable: true,
+     closable: false,
      xtype: 'shopsecondshelf',
 
      header: false,

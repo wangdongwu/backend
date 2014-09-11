@@ -115,7 +115,7 @@ Ext.define('XMLifeOperating.controller.DelivererZoneList', {
                     store.load({
                         params: {
                             deliveryZone: record.get('id'),
-                            isActive: true
+                            unbind: true
                         },
                         callback: function(records) {
                             /*console.log(records.length);

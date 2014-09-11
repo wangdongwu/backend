@@ -5,7 +5,7 @@
  */
 Ext.define('XMLifeOperating.view.staffManage.deliverer.DealDelivererHistoryList', {
     extend: 'Ext.grid.Panel',
-    closable : true,
+    closable : false,
     xtype: 'dealDelivererHistoryList',
     title: '历史订单',
     store: 'DealDelivererHistory',
