@@ -10,7 +10,6 @@ Ext.define('XMLifeOperating.controller.DelivererZoneList', {
 
     stores: [
         'DelivererZone',
-        'DelivererGetByZone',
         // 'Deliverer',
         'ShopArea'
     ],
@@ -18,7 +17,6 @@ Ext.define('XMLifeOperating.controller.DelivererZoneList', {
     models: [
         'DelivererZone',
         'ResidentalDistrict',
-        'DelivererGetByZone',
         // 'Deliverer',
         'ShopArea'
     ],
@@ -84,18 +82,18 @@ Ext.define('XMLifeOperating.controller.DelivererZoneList', {
                     console.log('hello shop dsitrict');
                     var lstore = this.getDelivererZoneStore();
 
-                    /*                    lstore.load({
+                    lstore.load({
                         params: {
                             shopArea: combo.getValue()
                         }
-                    });*/
-                    lstore.loadPage(1, {
+                    });
+                    /*                   lstore.loadPage(1, {
                         params: {
                             start: 0,
                             limit: 25,
                             page: 1
                         }
-                    });
+                    });*/
 
                 },
             },
