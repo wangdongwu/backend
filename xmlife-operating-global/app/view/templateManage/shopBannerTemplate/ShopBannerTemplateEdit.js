@@ -68,7 +68,6 @@ Ext.define('XMLifeOperating.view.templateManage.shopBannerTemplate.ShopBannerTem
                             fieldLabel: '上传店铺logo',
                             itemId:'shoplogo',
                             labelWidth: 90,
-                            
                             readOnly: false,
                         },
                         {
@@ -77,10 +76,11 @@ Ext.define('XMLifeOperating.view.templateManage.shopBannerTemplate.ShopBannerTem
                             margin: '0 30 0 0',
                             items:[
                                 {
-                                    xtype: 'filefield',
-                                    name: 'templateUploadfile',
-                                    buttonOnly: true,
-                                    hideLabel: true,
+                                  xtype: 'filefield',
+                                  name: 'templateUploadfile',
+                                  buttonText: '上传logo',
+                                  buttonOnly: true,
+                                  hideLabel: true,
                                 },
                             ]
                         },
@@ -98,7 +98,6 @@ Ext.define('XMLifeOperating.view.templateManage.shopBannerTemplate.ShopBannerTem
                             fieldLabel: '上传店铺inco',
                             itemId:'shopinco',
                             labelWidth: 90,
-                            
                             readOnly: false,
                         },
                         {
@@ -107,10 +106,11 @@ Ext.define('XMLifeOperating.view.templateManage.shopBannerTemplate.ShopBannerTem
                             margin: '0 30 0 0',
                             items:[
                                 {
-                                    xtype: 'filefield',
-                                    name: 'templateUploadfile',
-                                    buttonOnly: true,
-                                    hideLabel: true,
+                                  xtype: 'filefield',
+                                  name: 'templateUploadfile',
+                                  buttonText: '上传inco',
+                                  buttonOnly: true,
+                                  hideLabel: true,
                                 },
                             ]
                         },
@@ -119,11 +119,11 @@ Ext.define('XMLifeOperating.view.templateManage.shopBannerTemplate.ShopBannerTem
             ],
             buttons: [
                 {
-                    text: 'Save',
+                    text: '保存',
                     itemId: 'save-template-edit-btn'
                 },
                 {
-                    text: 'Cancel',
+                    text: '关闭',
                     handler:function(){
                         //关闭窗口
                         Ext.ComponentQuery.query('editTemplate')[0].close();
