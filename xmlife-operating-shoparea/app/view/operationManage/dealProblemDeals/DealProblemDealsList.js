@@ -110,6 +110,9 @@ Ext.define('XMLifeOperating.view.operationManage.dealProblemDeals.DealProblemDea
                     case 4:
                         return '配送超时';
                         break;
+                    case 5:
+                        return '标记问题订单';
+                        break;
                     default:
                         return '默认';
                 }
