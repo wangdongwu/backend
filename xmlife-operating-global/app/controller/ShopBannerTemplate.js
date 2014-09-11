@@ -45,7 +45,7 @@ Ext.define('XMLifeOperating.controller.ShopBannerTemplate', {
                 change:function(uploadfile){
                   var form=uploadfile.ownerCt;
                   var hash=uploadfile.previousNode().previousNode();
-                  
+
                   uploadImage(form, hash);
                 }
             },
@@ -61,7 +61,6 @@ Ext.define('XMLifeOperating.controller.ShopBannerTemplate', {
             windowEl = editWindow.getEl(),
             form = editWindow.down('form').getForm(),
             template = form.getRecord(),
-
             me = this;
             
         if(form.isValid()) {
@@ -74,10 +73,10 @@ Ext.define('XMLifeOperating.controller.ShopBannerTemplate', {
             descStrokeColor = parseInt(descStrokeColor,'16');
             nameColor = parseInt(nameColor,'16');
             nameStrokeColor = parseInt(nameStrokeColor,'16');*/
-            var shoplogo = form.findField('shoplogo').lastValue;
-            var shopinco = form.findField('shopinco').lastValue;
-            template.set('shoplogo',shoplogo);
-            template.set('shopinco',shopinco);
+            var logo = form.findField('logo').lastValue;
+            var inco = form.findField('inco').lastValue;
+            template.set('logo',logo);
+            template.set('inco',inco);
 
             windowEl.mask('saving');
             form.updateRecord(template);
@@ -87,13 +86,12 @@ Ext.define('XMLifeOperating.controller.ShopBannerTemplate', {
           
             template.set('nameColor', nameColor);
             template.set('nameStrokeColor', nameStrokeColor);*/
-            debugger;
             if(template.get('id')!=null){
                 sendPutRequest('shopbannertemplate',{id:template.get('id'),
-                                                     logo:template.get('shoplogo'),
-                                                     inco : template.get('shopinco'),
+                                                     logo:template.get('logo'),
+                                                     inco : template.get('inco'),
                                                      name:template.get('name'),
-                                                     type:template.get('type'),},'编辑模板','成功编辑模板','编辑模板失败',function(){
+                                                     type:template.get('type')},'编辑模板','成功编辑模板','编辑模板失败',function(){
                        
                     windowEl.unmask();
                     editWindow.close();
@@ -125,11 +123,16 @@ Ext.define('XMLifeOperating.controller.ShopBannerTemplate', {
             Ext.Msg.alert('Invalid Data', 'Please correct form errors');
         }
     },
-    onEdit: function(view, rowIndex, colIndex, column, e) {
+    onEdit: function(view, rowIndex, colIndex, column, e,template) {
         console.log("start edit");
-        var template = view.getRecord(view.findTargetByEvent(e));
+        /* var template = view.getRecord(view.findTargetByEvent(e));
         var win = this.getEditWindow();
         win.down('form').loadRecord(template);
+        */
+       
+        var win = this.getEditWindow();
+        win.down('form').loadRecord(template);
+
         win.show();
     },
 });

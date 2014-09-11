@@ -64,9 +64,9 @@ Ext.define('XMLifeOperating.view.templateManage.shopBannerTemplate.ShopBannerTem
                     items:[
                         {
                             xtype: 'textfield',
-                            name: 'shoplogo',
+                            name: 'logo',
                             fieldLabel: '上传店铺logo',
-                            itemId:'shoplogo',
+                            itemId:'logo',
                             labelWidth: 90,
                             readOnly: false,
                         },
@@ -94,9 +94,9 @@ Ext.define('XMLifeOperating.view.templateManage.shopBannerTemplate.ShopBannerTem
                     items:[
                         {
                             xtype: 'textfield',
-                            name: 'shopinco',
+                            name: 'inco',
                             fieldLabel: '上传店铺inco',
-                            itemId:'shopinco',
+                            itemId:'inco',
                             labelWidth: 90,
                             readOnly: false,
                         },
