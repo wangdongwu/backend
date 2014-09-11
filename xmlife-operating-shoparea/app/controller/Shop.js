@@ -445,10 +445,9 @@ Ext.define('XMLifeOperating.controller.Shop', {
                         }
                         windowEl.mask('saving');
                         shopStore.set('city', XMLifeOperating.generic.Global.currentCity);
-
                         //var areaIds = [XMLifeOperating.generic.Global.SERVICECENEERID];
                         var areaIds = [shopStore.get('areas')[0].areaId];
-                        var templateId = this.getShopBannerTemplateStore().data.items.length ? this.getShopBannerTemplateStore().findRecord('name', shopStore.get('shopBannerTemplateId')).getName() : null;
+                        var templateId = this.getShopBannerTemplateStore().data.items.length ? this.getShopBannerTemplateStore().findRecord('id', shopStore.get('shopBannerTemplateId')).getId() : null;
 
                         //shopStore.set('templateName',templateName);
                         shopStore.set('areaIds', areaIds);
@@ -1222,11 +1221,10 @@ Ext.define('XMLifeOperating.controller.Shop', {
             data.bannerUrls.push(e.data.url);
             data.titles.push(e.data.title);
         });
-        data.id = me.shopStoreId;
+        data.id = me.shopId;
         data.bannerIds.push(hash);
         data.bannerUrls.push(inputs.url);
         data.titles.push(inputs.title);
-        data.id = me.shopStoreId;
         if (form.isValid()) {
             var success = function(task, operation) {
                 windowEl.unmask();
