@@ -31,22 +31,25 @@ Ext.define('XMLifeOperating.controller.ResidentalDistrict', {
         var isActive = true,
             isUnbind = true;
         this.control({
-            'residentaldistrictlist #shopArea': 
-            {
+            'residentaldistrictlist #shopArea': {
                 select: function(combo) {
                     var store = this.getResidentalDistrictStore();
-                        store.getProxy().extraParams={
-                            unbind: true,
-                        }
-                        store.loadPage(1);  
+                    store.getProxy().extraParams = {
+                        unbind: true,
+                    }
+                    store.loadPage(1, {
+                        start: 0,
+                        limit: 25,
+                        page: 1
+                    });
                     Ext.getCmp('residentaldistrictlist').down('#activeBind').setText('查看已绑定的小区');
                     Ext.getCmp('residentaldistrictlist').down('#lineId').setValue('');
                     var delivererZone = this.getDelivererZoneStore();
                     delivererZone.load({
-                        params:{
-                            shopArea:combo.getValue()
+                        params: {
+                            shopArea: combo.getValue()
                         }
-                    });              
+                    });
                 },
             },
             'residentaldistrictlist #add': {
@@ -67,11 +70,15 @@ Ext.define('XMLifeOperating.controller.ResidentalDistrict', {
                     Ext.getCmp('residentaldistrictlist').down('#activeBind').setText('查看未绑定的小区');
                     isUnbind = true;
                     var store = this.getResidentalDistrictStore();
-                        store.getProxy().extraParams={
-                            deliveryZone: combo.getValue(),
-                            isActive: true
-                        }
-                        store.loadPage(1);  
+                    store.getProxy().extraParams = {
+                        deliveryZone: combo.getValue(),
+                        isActive: true
+                    }
+                    store.loadPage(1, {
+                        start: 0,
+                        limit: 25,
+                        page: 1
+                    });
                 },
             },
             'residentaldistrictlist #activeBind': {
@@ -84,10 +91,14 @@ Ext.define('XMLifeOperating.controller.ResidentalDistrict', {
                         isUnbind = true;
                     }
                     var store = this.getResidentalDistrictStore();
-                        store.getProxy().extraParams={
-                            unbind: isUnbind
-                        }
-                        store.loadPage(1);  
+                    store.getProxy().extraParams = {
+                        unbind: isUnbind
+                    }
+                    store.loadPage(1, {
+                        start: 0,
+                        limit: 25,
+                        page: 1
+                    });
                 }
             },
             'residentaldistrictlist #activeSearch': {
@@ -100,10 +111,14 @@ Ext.define('XMLifeOperating.controller.ResidentalDistrict', {
                         isUnbind = true;
                     }
                     var store = this.getResidentalDistrictStore();
-                        store.getProxy().extraParams={
-                            isActive: isUnbind
-                        }
-                        store.loadPage(1); 
+                    store.getProxy().extraParams = {
+                        isActive: isUnbind
+                    }
+                    store.loadPage(1, {
+                        start: 0,
+                        limit: 25,
+                        page: 1
+                    });
                 }
             },
             'residentaldistrictlist': {
@@ -137,14 +152,18 @@ Ext.define('XMLifeOperating.controller.ResidentalDistrict', {
                             isActive: isActive
                         }, '操作关闭或开启小区', '成功操作小区', '操作小区失败', function() {
 
-                        var store = this.getResidentalDistrictStore();
-                            store.getProxy().extraParams={
+                            var store = this.getResidentalDistrictStore();
+                            store.getProxy().extraParams = {
                                 unbind: true
                             }
-                            store.loadPage(1);  
-                            
-                        Ext.getCmp('residentaldistrictlist').down('#activeBind').setText('查看已绑定的小区');
-                        Ext.getCmp('residentaldistrictlist').down('#lineId').setValue('');
+                            store.loadPage(1, {
+                                start: 0,
+                                limit: 25,
+                                page: 1
+                            });
+
+                            Ext.getCmp('residentaldistrictlist').down('#activeBind').setText('查看已绑定的小区');
+                            Ext.getCmp('residentaldistrictlist').down('#lineId').setValue('');
                         });
                     });
                 }
@@ -171,15 +190,23 @@ Ext.define('XMLifeOperating.controller.ResidentalDistrict', {
             isUnbind = ' ';
         }
         if (keyWords == '') {
-            store.getProxy().extraParams={
+            store.getProxy().extraParams = {
                 unbind: isUnbind
             }
-            store.loadPage(1);  
+            store.loadPage(1, {
+                start: 0,
+                limit: 25,
+                page: 1
+            });
         } else {
-            store.getProxy().extraParams={
+            store.getProxy().extraParams = {
                 name: keyWords
             }
-            store.loadPage(1); 
+            store.loadPage(1, {
+                start: 0,
+                limit: 25,
+                page: 1
+            });
         }
 
     },
@@ -205,7 +232,7 @@ Ext.define('XMLifeOperating.controller.ResidentalDistrict', {
         if (form.isValid()) {
             windowEl.mask('saving');
             form.updateRecord(community);
-            community.set('city',XMLifeOperating.generic.Global.currentCity);
+            community.set('city', XMLifeOperating.generic.Global.currentCity);
             console.log("try saving");
             community.save({
                 success: function(task, operation) {
@@ -213,10 +240,14 @@ Ext.define('XMLifeOperating.controller.ResidentalDistrict', {
                     addWindow.close();
                     //me.fireEvent('refreshView');
                     var store = me.getResidentalDistrictStore();
-                    store.getProxy().extraParams={
+                    store.getProxy().extraParams = {
                         unbind: true
                     }
-                    store.loadPage(1); 
+                    store.loadPage(1, {
+                        start: 0,
+                        limit: 25,
+                        page: 1
+                    });
                     Ext.getCmp('residentaldistrictlist').down('#activeBind').setText('查看已绑定的小区');
 
                 },

@@ -110,9 +110,7 @@ Ext.define('XMLifeOperating.controller.DelivererZoneList', {
                     var win = me.getResidentalDistrictEdit();
                     win.down('form').loadRecord(record);
                     win.show();
-                    var store = Ext.create('XMLifeOperating.store.ResidentalDistrict', {
-                        autoSync: true
-                    });
+                    var store = Ext.create('XMLifeOperating.store.ResidentalDistrict');
                     this.getOldCommunityId().bindStore(store, false);
                     store.load({
                         params: {
