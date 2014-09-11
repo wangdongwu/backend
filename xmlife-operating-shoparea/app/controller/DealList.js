@@ -43,7 +43,13 @@ Ext.define('XMLifeOperating.controller.DealList', {
                     sstore.getProxy().extraParams = {
                         shopArea: combo.getValue()
                     }
-                    sstore.loadPage(1);
+                    sstore.loadPage(1, {
+                        params: {
+                            start: 0,
+                            limit: 25,
+                            page: 1
+                        }
+                    });
                 }
             },
 
@@ -64,7 +70,13 @@ Ext.define('XMLifeOperating.controller.DealList', {
                         shopArea: Ext.getCmp('dealList').down('#shopAread').getValue(),
                         status: combo.getValue()
                     }
-                    sstore.loadPage(1);
+                    sstore.loadPage(1, {
+                        params: {
+                            start: 0,
+                            limit: 25,
+                            page: 1
+                        }
+                    });
 
                 },
             },
@@ -91,7 +103,13 @@ Ext.define('XMLifeOperating.controller.DealList', {
                 store.getProxy().extraParams = {
                     shopArea: shopAreaId
                 }
-                store.loadPage(1);
+                store.loadPage(1, {
+                    params: {
+                        start: 0,
+                        limit: 25,
+                        page: 1
+                    }
+                });
             } else {
                 return;
             }

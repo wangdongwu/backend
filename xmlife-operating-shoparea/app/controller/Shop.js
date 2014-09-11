@@ -35,6 +35,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
     models: [
         'Shop',
         'Shopper',
+
         'ShopBannerTemplate',
         'CategoryRoots',
         'Product',
@@ -138,14 +139,14 @@ Ext.define('XMLifeOperating.controller.Shop', {
                         city: XMLifeOperating.generic.Global.currentCity,
                         areaId: combo.getValue()
                     }
-                    dstore.loadPage(1);
-                    this.areaId = combo.getValue();
-                    /*                   dstore.load({
+                    dstore.loadPage(1, {
                         params: {
-                            city: XMLifeOperating.generic.Global.currentCity,
-                            areaId: combo.getValue()
+                            start: 0,
+                            limit: 25,
+                            page: 1
                         }
-                    });*/
+                    })
+                    this.areaId = combo.getValue();
                 },
             },
             /*
@@ -232,18 +233,6 @@ Ext.define('XMLifeOperating.controller.Shop', {
                             id: shopId
                         }, '店铺开启或关闭', '成功操作店铺', '操作店铺失败', function() {
                             me.showShopList();
-                            /* var dstore = me.getShopStore();*/
-                            /*                            dstore.load({
-                                params: {
-                                    city: XMLifeOperating.generic.Global.currentCity,
-                                    areaId: XMLifeOperating.generic.Global.SERVICECENEERID
-                                }
-                            });*/
-                            /*                            dstore.getProxy().extraParams = {
-                                city: XMLifeOperating.generic.Global.currentCity,
-                                areaId: XMLifeOperating.generic.Global.SERVICECENEERID
-                            }
-                            dstore.loadPage(1);*/
                         });
 
                     });
@@ -490,7 +479,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
                             editWindow.close();
                             me.showShopList();
 
-                                                        me.getShopStore().load({
+                            me.getShopStore().load({
                                 params: {
                                     city: XMLifeOperating.generic.Global.currentCity,
                                     areaId: me.areaId
@@ -602,42 +591,16 @@ Ext.define('XMLifeOperating.controller.Shop', {
                         case 'tab2': //collection一级货架
                             console.log('tab2 shopId:' + shopId);
                             me.showCategoryRootsList(this.shopId);
-                            /*  sstore.getProxy().extraParams = {
-                                shopId: this.shopId
-                            }
-                            sstore.loadPage(1);*/
-                            /*                      sstore.load({
-                                params: {
-                                    shopId: this.shopId
-                                }
-                            });*/
+  
                             break;
                         case 'tab3': //次级货架
                             me.showCategorySubsList(this.shopId, tabIdArray[1]);
-                            /*                            snstore.getProxy().extraParams = {
-                                shopId: this.shopId,
-                                parentId: tabIdArray[1]
-                            }
-                            snstore.loadPage(1);*/
-                            /*                            snstore.load({
-                                params: {
-                                    shopId: this.shopId,
-                                    parentId: tabIdArray[1]
-                                }
-                            });*/
+
                             break;
                         case 'tab4':
                             //商品
                             me.showProductList(tabIdArray[1]);
-/*                            sgstore.getProxy().extraParams = {
-                                categoryId: tabIdArray[1]
-                            }
-                            sgstore.loadPage(1);*/
-                            /*                            sgstore.load({
-                                params: {
-                                    categoryId: tabIdArray[1]
-                                }
-                            });*/
+
                             break;
                     }
                 }
@@ -645,12 +608,11 @@ Ext.define('XMLifeOperating.controller.Shop', {
             'shopbuyer #reseachBuyer': {
                 click: function() {
                     var store = Ext.ComponentQuery.query('shopbuyer #searchBuyerId')[0].getStore();
-                    store.load({
-                        params: {
-                            nameOrPhone: me.getKeywordBuyer().getValue(),
-                            isActive: true
-                        }
-                    });
+                    store.getProxy().extraParams = {
+                        nameOrPhone: me.getKeywordBuyer().getValue(),
+                        isActive: true
+                    }
+                    store.load();
                 }
             },
             'shopbuyer #save-bindShopWithShopper': {
@@ -1103,7 +1065,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
                                 windowEl.unmask();
                                 editWindow.close();
                                 me.showProductList(categoryId);
-/*                                me.getProductStore().getProxy.extraParams = {
+                                /*                                me.getProductStore().getProxy.extraParams = {
                                     categoryId: categoryId
                                 }
                                 me.getProductStore().loadPage(1);*/
@@ -1130,7 +1092,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
                                     editWindow.close();
                                     // me.fireEvent('refreshView');
                                     me.showProductList(categoryId);
-/*                                    me.getProductStore().getProxy.extraParams = {
+                                    /*                                    me.getProductStore().getProxy.extraParams = {
                                         categoryId: categoryId
                                     }
                                     me.getProductStore().loadPage(1);*/
@@ -1176,9 +1138,15 @@ Ext.define('XMLifeOperating.controller.Shop', {
         dstore.getProxy().extraParams = {
             city: XMLifeOperating.generic.Global.currentCity,
             //areaId: XMLifeOperating.generic.Global.SERVICECENEERID
-            areaId:this.areaId
+            areaId: this.areaId
         }
-        dstore.loadPage(1);
+        dstore.loadPage(1, {
+            params: {
+                start: 0,
+                limit: 25,
+                page: 1
+            }
+        });
     },
     showCategoryRootsList: function(shopId) {
         var shopShelfStore = this.getCategoryRootsStore();
@@ -1186,7 +1154,13 @@ Ext.define('XMLifeOperating.controller.Shop', {
         shopShelfStore.getProxy().extraParams = {
             shopId: shopId
         }
-        shopShelfStore.loadPage(1);
+        shopShelfStore.loadPage(1, {
+            params: {
+                start: 0,
+                limit: 25,
+                page: 1
+            }
+        });
     },
     showCategorySubsList: function(shopId, parentId) {
         var snstore = this.getCategorySubsStore();
@@ -1194,14 +1168,26 @@ Ext.define('XMLifeOperating.controller.Shop', {
             shopId: shopId,
             parentId: parentId
         }
-        snstore.loadPage(1);
+        snstore.loadPage(1, {
+            params: {
+                start: 0,
+                limit: 25,
+                page: 1
+            }
+        });
     },
     showProductList: function(categoryId) {
         var sgstore = this.getProductStore();
         sgstore.getProxy.extraParams = {
             categoryId: categoryId
         }
-        sgstore.loadPage(1);
+        sgstore.loadPage(1, {
+            params: {
+                start: 0,
+                limit: 25,
+                page: 1
+            }
+        });
     },
     openWin: function(win, model, callback) {
         //打开窗口

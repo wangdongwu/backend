@@ -71,7 +71,13 @@ Ext.define('XMLifeOperating.controller.Deliverer', {
                         area: combo.getValue(),
                         isActive: isActive
                     };
-                    sstore.loadPage(1);
+                    sstore.loadPage(1, {
+                        params: {
+                            start: 0,
+                            limit: 25,
+                            page: 1
+                        }
+                    });
 
                 },
             },
@@ -103,7 +109,13 @@ Ext.define('XMLifeOperating.controller.Deliverer', {
                     store.on('load', function() {
                         Ext.getCmp('delivererList').down('#activeBind').setText('查看未绑定的快递员');
                     });
-                    store.loadPage(1);
+                    store.loadPage(1, {
+                        params: {
+                            start: 0,
+                            limit: 25,
+                            page: 1
+                        }
+                    });
 
                 }
             },
@@ -133,7 +145,13 @@ Ext.define('XMLifeOperating.controller.Deliverer', {
                         Ext.getCmp('delivererList').down('#activeSearch').setText('查看停单快递员');
                         me.getDelivererList().down('#searchDelivererKeyWords').setValue('');
                     });
-                    lstore.loadPage(1);
+                    lstore.loadPage(1, {
+                        params: {
+                            start: 0,
+                            limit: 25,
+                            page: 1
+                        }
+                    });
                 }
             },
             'delivererList #add': {
@@ -172,7 +190,13 @@ Ext.define('XMLifeOperating.controller.Deliverer', {
                         deliverer: delivererId,
                         dayType: 0
                     }
-                    dealDelivererHistoryStroe.loadPage(1);
+                    dealDelivererHistoryStroe.loadPage(1, {
+                        params: {
+                            start: 0,
+                            limit: 25,
+                            page: 1
+                        }
+                    });
 
                     content.add(tab);
                     this.delivererId = delivererId;
@@ -211,17 +235,18 @@ Ext.define('XMLifeOperating.controller.Deliverer', {
                         }
                         var store = this.getDealDelivererHistoryStore();
                         var delivererId = this.delivererId;
-                        /*                        store.load({
-                            params: {
-                                dayType: str,
-                                deliverer: delivererId
-                            }
-                        });*/
                         store.getProxy().extraParams = {
                             dayType: str,
                             deliverer: delivererId
-                        };
-                        store.loadPage(1);
+                        }
+                        store.loadPage(1, {
+                            params: {
+                                start: 0,
+                                limit: 25,
+                                page: 1
+                            }
+                        });
+
                     }
                 }
             },
@@ -262,7 +287,13 @@ Ext.define('XMLifeOperating.controller.Deliverer', {
                         deliverer: delivererId,
                         dayType: 1
                     }
-                    delivererWorkTimeStore.loadPage(1);
+                    delivererWorkTimeStore.loadPage(1, {
+                        params: {
+                            start: 0,
+                            limit: 25,
+                            page: 1
+                        }
+                    });
 
                     content.add(tab);
                     this.delivererId = delivererId;
@@ -298,17 +329,17 @@ Ext.define('XMLifeOperating.controller.Deliverer', {
                         }
                         var store = this.getDelivererWorkTimeStore();
                         var delivererId = this.delivererId;
-                        /*                        store.load({
-                            params: {
-                                dayType: str,
-                                deliverer: delivererId
-                            }
-                        });*/
-                        store.getProxy().extraParams = {
+                        delivererWorkTimeStore.getProxy().extraParams = {
                             dayType: str,
-                            deliverer: delivererId
-                        };
-                        store.loadPage(1);
+                            deliverer: delivererId,
+                        }
+                        delivererWorkTimeStore.loadPage(1, {
+                            params: {
+                                start: 0,
+                                limit: 25,
+                                page: 1
+                            }
+                        });
                         this.dayType = str;
                     }
                 }
@@ -417,30 +448,30 @@ Ext.define('XMLifeOperating.controller.Deliverer', {
         if (keyWords == '') {
             store.getProxy().extraParams = {
                 unbind: isUnbind
-            };
-            store.loadPage(1);
-            /*
-            store.load({
+            }
+            store.loadPage(1, {
                 params: {
-                    unbind: isUnbind
+                    start: 0,
+                    limit: 25,
+                    page: 1
                 }
-            });*/
+            });
+
         } else {
-            /*            store.load({
-                params: {
-                    nameOrPhone: keyWords
-                },
-                callback: function() {
-                    Ext.getCmp('delivererList').down('#activeBind').setText('查看未绑定的快递员');
-                }
-            });*/
+
             store.getProxy().extraParams = {
                 nameOrPhone: keyWords
             };
             store.on('load', function() {
                 Ext.getCmp('delivererList').down('#activeBind').setText('查看未绑定的快递员');
             });
-            store.loadPage(1);
+            store.loadPage(1, {
+                params: {
+                    start: 0,
+                    limit: 25,
+                    page: 1
+                }
+            });
         }
 
     },

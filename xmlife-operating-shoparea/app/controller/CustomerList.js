@@ -48,8 +48,13 @@ Ext.define('XMLifeOperating.controller.CustomerList', {
                     sstore.getProxy().extraParams = {
                         shopArea: me.shopArea
                     };
-                    // sstore.load();
-                    sstore.loadPage(1);
+                    sstore.loadPage(1, {
+                        params: {
+                            start: 0,
+                            limit: 25,
+                            page: 1
+                        }
+                    });
                 }
             },
 
@@ -67,7 +72,13 @@ Ext.define('XMLifeOperating.controller.CustomerList', {
                         nameOrPhone: me.getKeywordc().getValue()
                     };
                     // sstore.load();
-                    store.loadPage(1);
+                    store.loadPage(1, {
+                        params: {
+                            start: 0,
+                            limit: 25,
+                            page: 1
+                        }
+                    });
                 }
             },
             '#returnCustomerList': {
@@ -90,7 +101,13 @@ Ext.define('XMLifeOperating.controller.CustomerList', {
                         enable: false
                     };
                     // sstore.load()
-                    store.loadPage(1);
+                    store.loadPage(1, {
+                        params: {
+                            start: 0,
+                            limit: 25,
+                            page: 1
+                        }
+                    });
                 }
             },
 
@@ -151,7 +168,13 @@ Ext.define('XMLifeOperating.controller.CustomerList', {
         store.getProxy().extraParams = {
             customer: uid
         };
-        store.loadPage(1);
+        store.loadPage(1, {
+            params: {
+                start: 0,
+                limit: 25,
+                page: 1
+            }
+        });
 
     },
 
@@ -178,7 +201,13 @@ Ext.define('XMLifeOperating.controller.CustomerList', {
                 shopArea: Ext.getCmp('customerList').down('#shopArea').getValue(),
                 nameOrPhone: me.getKeywordc().getValue()
             };
-            store.loadPage(1);
+            store.loadPage(1, {
+                params: {
+                    start: 0,
+                    limit: 25,
+                    page: 1
+                }
+            });
         });
     },
 

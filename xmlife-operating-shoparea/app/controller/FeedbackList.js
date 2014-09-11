@@ -37,7 +37,13 @@ Ext.define('XMLifeOperating.controller.FeedbackList', {
                         dayType: itemId,
                         mark: combo.getValue()
                     }
-                    store.loadPage(1);
+                    store.loadPage(1, {
+                        params: {
+                            start: 0,
+                            limit: 25,
+                            page: 1
+                        }
+                    });
                 }
             },
             'feedbackList radio[name="dayType"]': {
@@ -81,7 +87,13 @@ Ext.define('XMLifeOperating.controller.FeedbackList', {
                             dayType: itemId,
                             mark: combo.getValue()
                         }
-                        store.loadPage(1);
+                        store.loadPage(1, {
+                            params: {
+                                start: 0,
+                                limit: 25,
+                                page: 1
+                            }
+                        });
                         this.dayType = str;
 
                     }
@@ -131,7 +143,13 @@ Ext.define('XMLifeOperating.controller.FeedbackList', {
                             dayType: dayType,
                             mark: false
                         }
-                        store.loadPage(1);
+                        store.loadPage(1, {
+                            params: {
+                                start: 0,
+                                limit: 25,
+                                page: 1
+                            }
+                        });
                         // me.fireEvent('refreshView');
                         // model.set('mark',status);
                     });
@@ -153,7 +171,13 @@ Ext.define('XMLifeOperating.controller.FeedbackList', {
             dayType: 5,
             mark: false
         }
-        store.loadPage(1);
+        store.loadPage(1, {
+            params: {
+                start: 0,
+                limit: 25,
+                page: 1
+            }
+        });
         this.dayType = 5;
 
     },

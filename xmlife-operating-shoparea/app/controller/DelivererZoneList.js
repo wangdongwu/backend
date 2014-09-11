@@ -10,6 +10,7 @@ Ext.define('XMLifeOperating.controller.DelivererZoneList', {
 
     stores: [
         'DelivererZone',
+        'DelivererGetByZone',
         // 'Deliverer',
         'ShopArea'
     ],
@@ -17,56 +18,47 @@ Ext.define('XMLifeOperating.controller.DelivererZoneList', {
     models: [
         'DelivererZone',
         'ResidentalDistrict',
+        'DelivererGetByZone',
         // 'Deliverer',
         'ShopArea'
     ],
-    refs: [
-    {
+    refs: [{
         ref: 'delivererZoneList',
         selector: 'delivererZoneList',
         xtype: 'delivererZoneList',
         autoCreate: true
 
-    }, 
-    {
+    }, {
         ref: 'delivererZoneEdit',
         selector: 'delivererZoneEdit',
         xtype: 'delivererZoneEdit',
         autoCreate: true
-    }, 
-    {
+    }, {
         ref: 'residentalDistrictEdit',
         selector: 'residentalDistrictEdit',
         xtype: 'residentalDistrictEdit',
         autoCreate: true
-    }, 
-    {
+    }, {
         ref: 'keywordCommunity',
         selector: '#keywordCommunity',
-    }, 
-    {
+    }, {
         ref: 'lineDelivererAdd',
         selector: 'lineDelivererAdd',
         xtype: 'lineDelivererAdd',
         autoCreate: true
-    }, 
-    {
+    }, {
         ref: 'oldCommunityId',
         selector: '#oldCommunityId',
-    }, 
-    {
+    }, {
         ref: 'searchCommunityId',
         selector: '#searchCommunityId',
-    },
-    {
+    }, {
         ref: 'oldCourierId',
         selector: '#oldCourierId',
-    }, 
-    {
+    }, {
         ref: 'searchCourierId',
         selector: '#searchCourierId',
-    }, 
-    {
+    }, {
         ref: 'keywordCourier',
         selector: '#keywordCourier',
     }],
@@ -74,11 +66,10 @@ Ext.define('XMLifeOperating.controller.DelivererZoneList', {
     init: function() {
         var me = this;
         this.control({
-            'delivererZoneList':{
-                added:me.onShow
+            'delivererZoneList': {
+                added: me.onShow
             },
-            'delivererZoneList #add': 
-            {
+            'delivererZoneList #add': {
                 click: function() {
                     var cClass = this.getDelivererZoneModel();
                     var line = new cClass();
@@ -87,22 +78,28 @@ Ext.define('XMLifeOperating.controller.DelivererZoneList', {
                     win.show();
                 }
             },
-            'delivererZoneList #shopArea': 
-            {
+            'delivererZoneList #shopArea': {
                 select: function(combo) {
 
                     console.log('hello shop dsitrict');
                     var lstore = this.getDelivererZoneStore();
-                    lstore.load({
+
+                    /*                    lstore.load({
                         params: {
                             shopArea: combo.getValue()
+                        }
+                    });*/
+                    lstore.loadPage(1, {
+                        params: {
+                            start: 0,
+                            limit: 25,
+                            page: 1
                         }
                     });
 
                 },
             },
-            'delivererZoneEdit #save-line-edit-btn': 
-            {
+            'delivererZoneEdit #save-line-edit-btn': {
                 click: me.onSaveDelivererZoneEdit
             },
             'delivererZoneList #lineName': {
@@ -116,7 +113,7 @@ Ext.define('XMLifeOperating.controller.DelivererZoneList', {
                     win.down('form').loadRecord(record);
                     win.show();
                     var store = Ext.create('XMLifeOperating.store.ResidentalDistrict', {
-                        autoSync : true
+                        autoSync: true
                     });
                     this.getOldCommunityId().bindStore(store, false);
                     store.load({
@@ -140,7 +137,7 @@ Ext.define('XMLifeOperating.controller.DelivererZoneList', {
                         }
                     });
                     var store1 = Ext.create('XMLifeOperating.store.ResidentalDistrict', {
-                        autoSync : true
+                        autoSync: true
                     });
                     this.getSearchCommunityId().bindStore(store1, false);
                     store1.load();
@@ -203,13 +200,13 @@ Ext.define('XMLifeOperating.controller.DelivererZoneList', {
             'delivererZoneList #bindCourier': {
                 //弹出绑定配送员window
                 click: function(grid, column, rowIndex) {
-                    
+
                     var record = grid.getStore().getAt(rowIndex);
                     var win = me.getLineDelivererAdd();
                     win.down('form').loadRecord(record);
                     win.show();
                     var store = Ext.create('XMLifeOperating.store.Deliverer', {
-                        autoSync : true
+                        autoSync: true
                     });
                     this.getOldCourierId().bindStore(store, false);
                     store.load({
@@ -226,8 +223,8 @@ Ext.define('XMLifeOperating.controller.DelivererZoneList', {
                             }
                         }
                     });
-                    var store1 = Ext.create('XMLifeOperating.store.Deliverer',{
-                        autoSync : true
+                    var store1 = Ext.create('XMLifeOperating.store.Deliverer', {
+                        autoSync: true
                     });
                     this.getSearchCourierId().bindStore(store1, false);
                     store.load();
@@ -354,7 +351,7 @@ Ext.define('XMLifeOperating.controller.DelivererZoneList', {
                 });
                 return;
             }
-            var areaId=Ext.getCmp('delivererZoneList').down('#shopArea').getValue();
+            var areaId = Ext.getCmp('delivererZoneList').down('#shopArea').getValue();
             line.set('shopArea', areaId);
             line.set('areaId', areaId);
             line.save({
@@ -395,14 +392,14 @@ Ext.define('XMLifeOperating.controller.DelivererZoneList', {
             function(result) {
                 if (result == 'yes') {
                     var zoneId = line.get('id');
-                    var url='delivererZone/'+zoneId;
+                    var url = 'delivererZone/' + zoneId;
                     sendDeleteRequest(url, {}, '删除线路', '成功删除线路', '删除线路失败', function(response) {
-                            console.log(response);
-                            if(response.responseText=='-2'){
-                                Ext.Msg.alert('Invalid Data', '不能删除');
-                                return;
-                            }
-                            line.destroy({
+                        console.log(response);
+                        if (response.responseText == '-2') {
+                            Ext.Msg.alert('Invalid Data', '不能删除');
+                            return;
+                        }
+                        line.destroy({
                             success: function() {
                                 console.log('line deleted!');
                             }

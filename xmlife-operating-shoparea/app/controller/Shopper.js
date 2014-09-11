@@ -63,15 +63,7 @@ Ext.define('XMLifeOperating.controller.Shopper', {
             },
             //查看中心下暂停或接单买手
             'shopperList #shopArea': {
-                render: function(combo) {
-                    /*                    var dstore = me.getShopperStore();
-                    dstore.getProxy().extraParams = {
-                        city: XMLifeOperating.generic.Global.currentCity,
-                        area: combo.getValue(),
-                        isActive: isActive
-                    };
-                    dstore.loadPage(1);*/
-                },
+                render: function(combo) {},
                 select: function(combo) {
                     var activeSearch = Ext.getCmp('shopperList').down('#activeSearch').getText();
 
@@ -102,7 +94,13 @@ Ext.define('XMLifeOperating.controller.Shopper', {
                         Ext.getCmp('shopperList').down('#activeBind').setText('查看未绑定的买手');
                         me.getShopperList().down('#searchBuyerKeyWords').setValue('');
                     });
-                    sstore.loadPage(1);
+                    sstore.loadPage(1, {
+                        params: {
+                            start: 0,
+                            limit: 25,
+                            page: 1
+                        }
+                    });
 
                 },
             },
@@ -136,7 +134,14 @@ Ext.define('XMLifeOperating.controller.Shopper', {
                         Ext.getCmp('shopperList').down('#activeBind').setText('查看未绑定的买手');
                         me.getShopperList().down('#searchBuyerKeyWords').setValue('');
                     });
-                    store.loadPage(1);
+
+                    store.loadPage(1, {
+                        params: {
+                            start: 0,
+                            limit: 25,
+                            page: 1
+                        }
+                    });
                 }
             },
             'shopperList #activeBind': {
@@ -165,7 +170,13 @@ Ext.define('XMLifeOperating.controller.Shopper', {
                         Ext.getCmp('shopperList').down('#activeSearch').setText('查看停单买手');
                         me.getShopperList().down('#searchBuyerKeyWords').setValue('');
                     });
-                    lstore.loadPage(1);
+                    lstore.loadPage(1, {
+                        params: {
+                            start: 0,
+                            limit: 25,
+                            page: 1
+                        }
+                    });
                 }
             },
             'shopperList #add': {
@@ -200,7 +211,13 @@ Ext.define('XMLifeOperating.controller.Shopper', {
                         shopper: shopperId,
                         dayType: 0
                     };
-                    dealShopperHistoryStroe.loadPage(1);
+                    dealShopperHistoryStroe.loadPage(1, {
+                        params: {
+                            start: 0,
+                            limit: 25,
+                            page: 1
+                        }
+                    });
                     content.add(tab);
                     this.shopperId = shopperId;
                 }
@@ -245,7 +262,13 @@ Ext.define('XMLifeOperating.controller.Shopper', {
                             dayType: str,
                             shopper: shopperId
                         };
-                        store.loadPage(1);
+                        store.loadPage(1, {
+                            params: {
+                                start: 0,
+                                limit: 25,
+                                page: 1
+                            }
+                        });
                         this.dayType = str;
                         console.log(record.itemId);
                     }
@@ -287,7 +310,13 @@ Ext.define('XMLifeOperating.controller.Shopper', {
                         shopper: shopperId,
                         dayType: 3
                     }
-                    ShopperWorkTimeStore.loadPage(1);
+                    ShopperWorkTimeStore.loadPage(1, {
+                        params: {
+                            start: 0,
+                            limit: 25,
+                            page: 1
+                        }
+                    });
                     content.add(tab);
                     this.shopperId = shopperId;
                 }
@@ -335,7 +364,13 @@ Ext.define('XMLifeOperating.controller.Shopper', {
                             dayType: str,
                             shopper: shopperId
                         };
-                        store.loadPage(1);
+                        store.loadPage(1, {
+                            params: {
+                                start: 0,
+                                limit: 25,
+                                page: 1
+                            }
+                        });
                         this.dayType = str;
 
                     }
@@ -438,7 +473,13 @@ Ext.define('XMLifeOperating.controller.Shopper', {
             store.getProxy().extraParams = {
                 unbind: isUnbind
             };
-            store.loadPage(1);
+            store.loadPage(1, {
+                params: {
+                    start: 0,
+                    limit: 25,
+                    page: 1
+                }
+            });
         } else {
             // store.load({
             //     params: {
@@ -455,7 +496,13 @@ Ext.define('XMLifeOperating.controller.Shopper', {
                 Ext.getCmp('shopperList').down('#activeBind').setText('查看未绑定的买手');
 
             });
-            store.loadPage(1);
+            store.loadPage(1, {
+                params: {
+                    start: 0,
+                    limit: 25,
+                    page: 1
+                }
+            });
         }
 
     },
