@@ -77,8 +77,8 @@ Ext.define('XMLifeOperating.controller.ProductTemplate', {
         var productTemplate = view.getRecord(view.findTargetByEvent(e));
         var win = this.getEditWindow();
         var names=[];
-        if(productTemplate.get('name').indexOf('#@')){
-            names = productTemplate.get('name').split('#@');
+        if(productTemplate.get('name').indexOf('\n')){
+            names = productTemplate.get('name').split('\n');
         }
         productTemplate.set('name1',names[0]);
         productTemplate.set('name2',names[1]);
@@ -120,7 +120,15 @@ Ext.define('XMLifeOperating.controller.ProductTemplate', {
                 sendPutRequest('producttemplate/update',{id:id,names:names,desc:desc,picture:picture,unit:unit,tag:tag},'编辑商品','成功编辑商品','编辑商品失败',function(){
                                     windowEl.unmask();
                                     editWindow.close();
-                                    me.fireEvent('refreshView');
+                                    // me.fireEvent('refreshView');
+                                    var keyword = productTemplate.get('name1');
+                                    var store = me.getProductTemplateStore();
+                                    store.load({
+                                        params:{
+                                            keyword      : keyword
+                                        }
+                                    });
+                                    Ext.getCmp('productTemplateList').down('#keyword').setValue(keyword);
                                     
                             });
                 return;
@@ -129,16 +137,6 @@ Ext.define('XMLifeOperating.controller.ProductTemplate', {
                 success: function(task, operation) {
                     windowEl.unmask();
                     editWindow.close();
-                    // me.fireEvent('refreshView');
-                    /*var tag=productTemplate.get('tag');
-                    var tagKeyword = tag.split(' ')[0];
-                    var store = me.getProductTemplateStore();
-                    store.load({
-                        params:{
-                            keyword      : tagKeyword
-                        }
-                    });
-                    Ext.getCmp('productTemplateList').down('#keyword').setValue(tagKeyword);*/
                     var keyword = productTemplate.get('name1');
                     var store = me.getProductTemplateStore();
                     store.load({
