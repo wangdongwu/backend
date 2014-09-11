@@ -52,26 +52,24 @@ Ext.define('XMLifeOperating.controller.CustomerList', {
 
             '#shopAreac': {
                 select: function (combo) {
-                    var sstore = this.getCustomerStore();
+                    var store = this.getCustomerStore();
                     me.shopArea = combo.getValue();
-                    sstore.load({
-                        params: {
-                            shopArea: me.shopArea
-                        }
-                    });
-
+                    store.getProxy().extraParams={
+                        shopArea: me.shopArea
+                    };
+                    store.loadPage(1);
                 },
             }, 
        
             '#customerSearch':{
                 click: function(){
                     var store = this.getCustomerStore();
-                    store.load({
-                        params:{
-                            shopArea: Ext.getCmp('customerList').down('#shopAreac').getValue(),
-                            nameOrPhone: me.getKeywordc().getValue()
-                        }
-                    });
+                    
+                    store.getProxy().extraParams={
+                        shopArea: Ext.getCmp('customerList').down('#shopAreac').getValue(),
+                        nameOrPhone: me.getKeywordc().getValue()
+                    };
+                    store.loadPage(1);
                 }
             },
             '#returnCustomerList' : {
@@ -86,11 +84,10 @@ Ext.define('XMLifeOperating.controller.CustomerList', {
             '#customerTitle':{
                 click: function(){
                     var store = this.getCustomerStore();
-                    store.load({
-                        params:{
-                            enable:false,
-                        }
-                    });
+                    store.getProxy().extraParams={
+                        enable:false
+                    };
+                    store.loadPage(1);
                 }
             },
 
@@ -161,12 +158,12 @@ Ext.define('XMLifeOperating.controller.CustomerList', {
 
         sendPutRequest(url,{enable:enable},'封号','封号成功','封号失败',function(){
                 var store = me.getCustomerStore();
-                store.load({
-                    params:{
+               
+                store.getProxy().extraParams={
                         shopArea: Ext.getCmp('customerList').down('#businessAreac').getValue(),
                         nameOrPhone: me.getKeywordc().getValue()
-                    }
-                });
+                    };
+                store.loadPage(1);
             });
     },
 

@@ -14,7 +14,7 @@ Ext.define('XMLifeOperating.view.staffManage.deliverer.GDelivererEdit', {
     height: 550,
     resizable: false,
     layout: 'fit',
-
+    
     initComponent: function() {
         var  genderStore= Ext.create('Ext.data.Store', {
             fields: ['value','gender'],

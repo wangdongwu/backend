@@ -7,6 +7,17 @@ Ext.define('XMLifeOperating.view.staffManage.shopper.GShopperList', {
     titleAlign : 'left',
     closable : true,
     forceFit: true,
+    dockedItems : [
+      {
+      xtype : 'pagingtoolbar',
+      itemId : 'pagetoll',
+      store : 'Shopper',
+      dock : 'bottom',
+      displayInfo : true/*,
+      items : ['->'],   
+      prependButtons: true*/
+    }
+    ],
     tbar: [
     {
         xtype: 'button',

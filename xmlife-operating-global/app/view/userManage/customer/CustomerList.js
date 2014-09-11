@@ -8,7 +8,17 @@ Ext.define('XMLifeOperating.view.userManage.customer.CustomerList', {
     forceFit: true,
     store: 'Customer',
     id:'CustomerList',
-    dockedItems: [{
+    dockedItems: [
+    {
+      xtype : 'pagingtoolbar',
+      itemId : 'pagetoll',
+      store : 'Customer',
+      dock : 'bottom',
+      displayInfo : true/*,
+      items : ['->'],   
+      prependButtons: true*/
+    },
+    {
                 xtype: 'toolbar',
                 dock: 'top',
                 items: [
