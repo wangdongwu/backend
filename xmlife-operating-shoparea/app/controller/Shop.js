@@ -145,16 +145,13 @@ Ext.define('XMLifeOperating.controller.Shop', {
                             limit: 25,
                             page: 1
                         }
-                    })
+                    });
                     this.areaId = combo.getValue();
-                },
+                }
             },
             /*
              *shoplist事件
              */
-            'shoplist': {
-                added: me.showShopList
-            },
             'shoplist #add': {
                 click: function() {
                     var cClass = this.getShopModel();
@@ -591,7 +588,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
                         case 'tab2': //collection一级货架
                             console.log('tab2 shopId:' + shopId);
                             me.showCategoryRootsList(this.shopId);
-  
+
                             break;
                         case 'tab3': //次级货架
                             me.showCategorySubsList(this.shopId, tabIdArray[1]);
@@ -906,8 +903,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
 
                         var discountPrice = shelvesGoods.get('discountPrice');
 
-                        if(discountPrice!="")
-                        {
+                        if (discountPrice != "") {
                             discountPrice = Math.abs(parseInt(shelvesGoods.get('discountPrice') * 100));
                             if (discountPrice >= facePrice) {
                                 Ext.Msg.alert('Invalid Data', '折扣价不能大于等于原价');
