@@ -276,6 +276,17 @@ Ext.define('XMLifeOperating.view.dealManage.DealList', {
                return newTime;
             } 
         },
+        {
+            text: '操作',
+            width: 80,
+            itemId: 'toproblemdeal',
+            menuDisabled: true,
+            sortable: false,
+            align: 'center',
+            renderer: function(value, metadata, model, rowIndex, colIndex, store) {
+                return Ext.String.format('<a>转为问题订单</a>', value, value);
+            }
+        },
     ],
     viewConfig: {
         plugins: {

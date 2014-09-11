@@ -76,6 +76,9 @@ Ext.define('XMLifeOperating.controller.GDealList', {
                 click: me.onCustomerDetail
             },
 
+            '#toproblemdeal':{
+                 click: me.onToProblemDeal
+            },  
         });
     },
     dealSearch: function() {
@@ -143,4 +146,24 @@ Ext.define('XMLifeOperating.controller.GDealList', {
         store.loadPage(1);
     },
 
+
+    onToProblemDeal: function(view, rowIndex, colIndex, column, e) {
+        var dealitem = view.getRecord(view.findTargetByEvent(e));
+        var dealBackendId = dealitem.get('dealBackendId');
+        var url = 'deal/transToProblem/'+ dealBackendId;
+        var me = this;
+        sendPutRequest(url,{},'转为问题订单','转为问题订单成功','转为问题订单失败',function(){
+                    var sstore = me.getDealStore();
+                    sstore.getProxy().extraParams = {
+                        shopArea: Ext.getCmp('gDealList').down('#shopAread').getValue()
+                    }
+                    sstore.loadPage(1, {
+                        params: {
+                            start: 0,
+                            limit: 25,
+                            page: 1
+                        }
+                    });
+            });
+    },
 });
