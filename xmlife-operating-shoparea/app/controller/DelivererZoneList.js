@@ -88,14 +88,6 @@ Ext.define('XMLifeOperating.controller.DelivererZoneList', {
                             shopArea: combo.getValue()
                         }
                     });
-                    /*                   lstore.loadPage(1, {
-                        params: {
-                            start: 0,
-                            limit: 25,
-                            page: 1
-                        }
-                    });*/
-
                 },
             },
             'delivererZoneEdit #save-line-edit-btn': {
@@ -129,7 +121,7 @@ Ext.define('XMLifeOperating.controller.DelivererZoneList', {
                             model.select(index, true);
                         }
                     });
-                    store.loadPage(1, {
+                    store.loadPage(1,{
                         params: {
                             start: 0,
                             limit: 25,
@@ -146,11 +138,11 @@ Ext.define('XMLifeOperating.controller.DelivererZoneList', {
                     store.getProxy().extraParams = {
                         name: me.getKeywordCommunity().getValue()
                     }
-                    store.loadPage({
+                    store.loadPage(1,{
                         params: {
-                            start: 0,
-                            limit: 25,
-                            page: 1
+                            start:0,
+                            limit:25,
+                            page:1
                         }
                     });
                 }
