@@ -1,7 +1,7 @@
 Ext.define('XMLifeOperating.view.centralPointManage.delivererZone.ResidentalDistrictEdit', {
     extend: 'Ext.window.Window',
     xtype: 'residentalDistrictEdit',
-    
+
     requires: [
         'Ext.form.Panel',
         'Ext.form.field.Text',
@@ -21,145 +21,118 @@ Ext.define('XMLifeOperating.view.centralPointManage.delivererZone.ResidentalDist
             layout: 'anchor',
             bodyPadding: 10,
             border: false,
-            
-            defaults:{
+            frame: true,
+            style: 'border:none',
+            defaults: {
                 anchor: '100%'
             },
-            items: [
-                {
+            items: [{
                     xtype: 'hidden',
                     name: 'id',
-                    id:'shopId',
+                    itemId: 'shopId',
                     fieldLabel: 'shopId',
                     labelWidth: 90,
-                    allowBlank:false,
-                },
-                {
+                    allowBlank: false,
+                }, {
                     xtype: 'displayfield',
                     name: 'name',
                     fieldLabel: '线路名称',
                     labelWidth: 90,
-                    allowBlank:false,
-                    labelAlign:'center'
-                },
-                /*{
-                    xtype: 'textfield',
-                    name: 'uid',
-                    id:'shopperuid',
-                    fieldLabel: '绑定',
+                    allowBlank: false,
+                    labelAlign: 'center'
+                }, {
+                    xtype: 'fieldset',
                     labelWidth: 90,
-                    allowBlank:false,
-                },
-                {
-                    name: 'shopperIds',
-                    store:'Buyer',
-                    fieldLabel: '买手',
-                    xtype:'gridpanel',
-                    itemId:'bindCommunityWithLine',
-                    height:150,
-                    selModel:Ext.create('Ext.selection.CheckboxModel',{mode:"SIMPLE"}),
-                    columns:[
-                        {
-                            text:'uid',
-                            dataIndex:'uid'
-                        },
-                        {
-                            text:'姓名',
-                            dataIndex:'name'
-                        }
-                    ],
-                },*/
-                {
-                    xtype:'fieldset',
-                    labelWidth: 90,
-                    border:false,
-                    padding:0,
-                    items:[
-                        
-                        {
-                            layout:'column',
-                            xtype:'fieldset',
-                            border:false,
-                            padding:0,
-                            items:[
-                                {
-                                    xtype:'textfield',
-                                    fieldLabel:'小区名称',
-                                    labelWidth: 90,
-                                    labelAlign:'left',
-                                    name:'keywordCommunity',
-                                    itemId: 'keywordCommunity',
-                                },
-                                {
-                                    xtype:'button',
-                                    text:'搜索',
-                                    itemId:'reseachCommunity'
-                                    
-                                }
-                            ]
-                            
-                        },
-                    ]   
-                },
-                {
+                    border: false,
+                    padding: 0,
+                    items: [{
+                        layout: 'column',
+                        xtype: 'fieldset',
+                        border: false,
+                        padding: 0,
+                        items: [{
+                            xtype: 'textfield',
+                            fieldLabel: '小区名称',
+                            labelWidth: 90,
+                            labelAlign: 'left',
+                            name: 'keywordCommunity',
+                            itemId: 'keywordCommunity',
+                        }, {
+                            xtype: 'button',
+                            text: '搜索',
+                            itemId: 'reseachCommunity'
+
+                        }]
+
+                    }, ]
+                }, {
                     name: 'searchCommunityIds',
                     allowBlank: false,
                     fieldLabel: '小区',
-                    xtype:'gridpanel',
-                    itemId:'searchCommunityId',
-                    height:150,
-                    selModel:Ext.create('Ext.selection.CheckboxModel',{mode:"SIMPLE"}),
-                    columns:[
-                        {
-                            text:'id',
-                            dataIndex:'id'
-                        },
-                        {
-                            text:'小区名称',
-                            dataIndex:'name'
-                        }
-                    ],
-                },
-                {
+                    xtype: 'gridpanel',
+                    itemId: 'searchCommunityId',
+                    height: 180,
+                    store: Ext.create('XMLifeOperating.store.ResidentalDistrict'),
+                    selModel: Ext.create('Ext.selection.CheckboxModel', {
+                        mode: "SIMPLE"
+                    }),
+                    columns: [{
+                        xtype: 'rownumberer'
+                    }, {
+                        text: 'id',
+                        dataIndex: 'id'
+                    }, {
+                        text: '小区名称',
+                        dataIndex: 'name'
+                    }],
+                    bbar: [{
+                        xtype: 'pagingtoolbar',
+                        itemId: 'pagetool_search',
+                        displayInfo: true,
+                        style: 'border:none'
+                    }]
+                }, {
                     name: 'oldCommunityIds',
-                    
                     fieldLabel: '已绑定小区',
-                    xtype:'gridpanel',
-                    itemId:'oldCommunityId',
-                    height:150,
-                    selModel:Ext.create('Ext.selection.CheckboxModel',{mode:"SIMPLE"}),
-                    columns:[
-                        {
-                            text:'id',
-                            dataIndex:'id'
-                        },
-                        {
-                            text:'已绑定小区名称',
-                            dataIndex:'name'
-                        }
-                    ],
+                    xtype: 'gridpanel',
+                    itemId: 'oldCommunityId',
+                    height: 180,
+                    selModel: Ext.create('Ext.selection.CheckboxModel', {
+                        mode: "SIMPLE"
+                    }),
+                    columns: [{
+                        xtype: 'rownumberer'
+                    }, {
+                        text: 'id',
+                        dataIndex: 'id'
+                    }, {
+                        text: '已绑定小区名称',
+                        dataIndex: 'name'
+                    }],
+                    bbar: [{
+                        xtype: 'pagingtoolbar',
+                        itemId: 'pagetool_has',
+                        displayInfo: true,
+                        style: 'border:none'
+                    }]
                 },
-                
+
             ],
-            buttons: [
-                {
-                    text: 'Save',
-                    itemId: 'save-bindLineWithCommunity'
-                },
-                {
-                    text: 'Cancel',
-                    handler:function(){
-                        //关闭窗口
-                        Ext.ComponentQuery.query('residentalDistrictEdit')[0].close();
-                    }
+            buttons: [{
+                text: 'Save',
+                itemId: 'save-bindLineWithCommunity'
+            }, {
+                text: 'Cancel',
+                handler: function() {
+                    //关闭窗口
+                    Ext.ComponentQuery.query('residentalDistrictEdit')[0].close();
                 }
-            ]
+            }]
         }]
 
         this.callParent(arguments);
 
     }
 
-        
-});
 
+});

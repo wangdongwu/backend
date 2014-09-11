@@ -28,7 +28,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopBuyer', {
             items: [{
                 xtype: 'hidden',
                 name: 'id',
-                id: 'shopId',
+                itemId: 'shopId',
                 fieldLabel: 'shopId',
                 labelWidth: 90,
                 allowBlank: false,

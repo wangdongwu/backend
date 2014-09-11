@@ -9,6 +9,7 @@ Ext.define('XMLifeOperating.controller.DelivererZoneList', {
     ],
 
     stores: [
+        'ResidentalDistrict',
         'DelivererZone',
         // 'Deliverer',
         'ShopArea'
@@ -112,39 +113,44 @@ Ext.define('XMLifeOperating.controller.DelivererZoneList', {
                     win.show();
                     var store = Ext.create('XMLifeOperating.store.ResidentalDistrict');
                     this.getOldCommunityId().bindStore(store, false);
-                    store.load({
-                        params: {
-                            deliveryZone: record.get('id'),
-                            unbind: true
-                        },
-                        callback: function(records) {
-                            /*console.log(records.length);
-                            return;*/
-                            // if((records.length==1)&&(records[0].get('uid')=='')){
-                            //    store.remove(store.getAt(0)); 
-                            // }
-                            //初始化打勾
-                            var model = Ext.ComponentQuery.query('#oldCommunityId')[0].getSelectionModel();
-                            model.deselectAll();
-                            for (var i = 0; i < records.length; i++) {
-                                var index = store.indexOfId(records[i].get('id'));
-                                model.select(index, true);
-                            }
+                    Ext.ComponentQuery.query('residentalDistrictEdit #pagetool_has')[0].bindStore(store, false);
+
+
+                    store.getProxy().extraParams = {
+                        deliveryZone: record.get('id'),
+                        isActive: true
+                    }
+                    store.on('load', function(records) {
+                        //初始化打勾
+                        var model = Ext.ComponentQuery.query('#oldCommunityId')[0].getSelectionModel();
+                        model.deselectAll();
+                        for (var i = 0; i < records.length; i++) {
+                            var index = store.indexOfId(records[i].get('id'));
+                            model.select(index, true);
                         }
                     });
-                    var store1 = Ext.create('XMLifeOperating.store.ResidentalDistrict', {
-                        autoSync: true
+                    store.loadPage(1, {
+                        params: {
+                            start: 0,
+                            limit: 25,
+                            page: 1
+                        }
                     });
-                    this.getSearchCommunityId().bindStore(store1, false);
-                    store1.load();
                 }
             },
             'residentalDistrictEdit #reseachCommunity': {
                 click: function() {
-                    var store = this.getSearchCommunityId().store;
-                    store.load({
+                    var view = this.getSearchCommunityId();
+                    var store = view.store;
+                    Ext.ComponentQuery.query('residentalDistrictEdit #pagetool_search')[0].bindStore(store, false);
+                    store.getProxy().extraParams = {
+                        name: me.getKeywordCommunity().getValue()
+                    }
+                    store.loadPage({
                         params: {
-                            name: me.getKeywordCommunity().getValue()
+                            start: 0,
+                            limit: 25,
+                            page: 1
                         }
                     });
                 }
