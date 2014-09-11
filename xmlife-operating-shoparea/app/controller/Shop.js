@@ -448,7 +448,6 @@ Ext.define('XMLifeOperating.controller.Shop', {
                         //var areaIds = [XMLifeOperating.generic.Global.SERVICECENEERID];
                         var areaIds = [shopStore.get('areas')[0].areaId];
                         var templateId = this.getShopBannerTemplateStore().data.items.length ? this.getShopBannerTemplateStore().findRecord('id', shopStore.get('shopBannerTemplateId')).getId() : null;
-
                         //shopStore.set('templateName',templateName);
                         shopStore.set('areaIds', areaIds);
                         shopStore.set('beCopyedShopId', '123');
