@@ -190,18 +190,6 @@ Ext.define('XMLifeOperating.controller.Shop', {
                     var record = view.getRecord(view.findTargetByEvent(e));
                     var shopId = record.get('id');
                     me.showCategoryRootsList(shopId);
-
-                    /*                    var shopShelfStore = this.getCategoryRootsStore();
-                    shopShelfStore.removeAll();
-                    shopShelfStore.getProxy().extraParams = {
-                        shopId: shopId
-                    }
-                    shopShelfStore.loadPage(1);*/
-                    /*                    shopShelfStore.load({
-                        params: {
-                            shopId: shopId
-                        }
-                    });*/
                     content.add(tab);
                     this.shopId = shopId;
                     this.tabIdStr = 'tab2_' + shopId;

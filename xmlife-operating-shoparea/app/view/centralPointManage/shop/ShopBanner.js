@@ -26,13 +26,13 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopBanner', {
     }],*/
     columns: [{
         text: '图片',
-        dataIndex: 'image',
+        dataIndex: 'id',
         width: 420,
         sortable: false,
         align: 'center',
         renderer: function(value) {
 
-            return Ext.String.format('<img src="{0}/image/id-{1}" height="100" />', XMLifeOperating.generic.Global.URL.res, value);
+            return Ext.String.format('<img src="{0}{1}" height="100" />', XMLifeOperating.generic.Global.URL.res, value);
         }
     }, {
         text: 'title',
