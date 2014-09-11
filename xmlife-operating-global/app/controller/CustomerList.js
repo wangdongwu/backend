@@ -1,6 +1,5 @@
 Ext.define('XMLifeOperating.controller.CustomerList', {
     extend: 'Ext.app.Controller',
-
     views: ['userManage.customer.CustomerList',
             'userManage.customer.CustomerAddress',
             'userManage.customer.CustomerDealList'],

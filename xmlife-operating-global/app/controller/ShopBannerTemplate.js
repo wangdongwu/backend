@@ -44,9 +44,8 @@ Ext.define('XMLifeOperating.controller.ShopBannerTemplate', {
             'shopBannerTemplateEdit filefield[name="templateUploadfile"]':{
                 change:function(uploadfile){
                   var form=uploadfile.ownerCt;
-                  
                   var hash=uploadfile.previousNode().previousNode();
-                 
+                  
                   uploadImage(form, hash);
                 }
             },
@@ -67,34 +66,33 @@ Ext.define('XMLifeOperating.controller.ShopBannerTemplate', {
             
         if(form.isValid()) {
 
-            var descColor = form.findField('descColor').lastValue;
+           /* var descColor = form.findField('descColor').lastValue;
             var descStrokeColor = form.findField('descStrokeColor').lastValue;
             var nameColor = form.findField('nameColor').lastValue;
             var nameStrokeColor = form.findField('nameStrokeColor').lastValue;
             descColor = parseInt(descColor,'16');
             descStrokeColor = parseInt(descStrokeColor,'16');
             nameColor = parseInt(nameColor,'16');
-            nameStrokeColor = parseInt(nameStrokeColor,'16');
+            nameStrokeColor = parseInt(nameStrokeColor,'16');*/
+            var shoplogo = form.findField('shoplogo').lastValue;
+            var shopinco = form.findField('shopinco').lastValue;
+            template.set('shoplogo',shoplogo);
+            template.set('shopinco',shopinco);
 
             windowEl.mask('saving');
             form.updateRecord(template);
-            
+            /*
             template.set('descColor', descColor);
             template.set('descStrokeColor', descStrokeColor);
           
             template.set('nameColor', nameColor);
-            template.set('nameStrokeColor', nameStrokeColor);
-
+            template.set('nameStrokeColor', nameStrokeColor);*/
+            debugger;
             if(template.get('id')!=null){
                 sendPutRequest('shopbannertemplate',{id:template.get('id'),
-                                                     banner:template.get('banner'),
+                                                     logo:template.get('shoplogo'),
+                                                     inco : template.get('shopinco'),
                                                      name:template.get('name'),
-                                                     nameColor:template.get('nameColor'),
-                                                     nameStrokeColor:template.get('nameStrokeColor'),
-                                                     nameDegree:template.get('nameDegree'),
-                                                     descColor:template.get('descColor'),
-                                                     descStrokeColor:template.get('descStrokeColor'),
-                                                     descDegree:template.get('descDegree'),
                                                      type:template.get('type'),},'编辑模板','成功编辑模板','编辑模板失败',function(){
                        
                     windowEl.unmask();

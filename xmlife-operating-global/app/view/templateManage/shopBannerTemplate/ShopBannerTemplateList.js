@@ -26,16 +26,6 @@ Ext.define('XMLifeOperating.view.templateManage.shopBannerTemplate.ShopBannerTem
                
         },
         {
-            text: '模板图片',
-            dataIndex: 'banner',
-            width: 180,
-            sortable: false,
-             
-            renderer: function (value) {
-                return Ext.String.format('<img src="{0}/image/id-{1}" height="45" />', XMLifeOperating.generic.Global.URL.res, value);
-            }
-        },
-        {
             text: '店铺类型',
             dataIndex: 'type',
             width: 130,
@@ -50,52 +40,24 @@ Ext.define('XMLifeOperating.view.templateManage.shopBannerTemplate.ShopBannerTem
             }
         },
         {
-            text: '大标题aRGB',
-            dataIndex: 'descColor',
-            width: 130,
+            text: '店铺logo',
+            dataIndex: 'logo',
+            width: 180,
             sortable: false,
              
             renderer: function (value) {
-                return value.toString(16);
+                return Ext.String.format('<img src="{0}/image/id-{1}" height="45" />', XMLifeOperating.generic.Global.URL.res, value);
             }
         },
         {
-            text: '大标题 Stroke argb',
-            dataIndex: 'descStrokeColor',
-            width: 130,
+            text: '店铺inco',
+            dataIndex: 'inco',
+            width: 180,
             sortable: false,
              
             renderer: function (value) {
-                return value.toString(16);
+                return Ext.String.format('<img src="{0}/image/id-{1}" height="45" />', XMLifeOperating.generic.Global.URL.res, value);
             }
-        },
-        {
-            text: '大标题投影角度',
-            dataIndex: 'descDegree',
-            width: 130,
-            sortable: false,
-             
-        },
-        {
-            text: '小标题aRGB',
-            dataIndex: 'nameColor',
-            width: 130,
-            sortable: false,
-             
-        },
-        {
-            text: '小标题 Stroke argb',
-            dataIndex: 'nameStrokeColor',
-            width: 130,
-            sortable: false,
-             
-        },
-        {
-            text: '小标题投影角度',
-            dataIndex: 'nameDegree',
-            width: 130,
-            sortable: false,
-             
         },
         {
             xtype: 'actioncolumn',

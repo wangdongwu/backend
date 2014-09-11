@@ -64,9 +64,9 @@ Ext.define('XMLifeOperating.view.templateManage.shopBannerTemplate.ShopBannerTem
                     items:[
                         {
                             xtype: 'textfield',
-                            name: 'banner',
-                            fieldLabel: '上传图片',
-                            itemId:'picture',
+                            name: 'shoplogo',
+                            fieldLabel: '上传店铺logo',
+                            itemId:'shoplogo',
                             labelWidth: 90,
                             
                             readOnly: false,
@@ -74,7 +74,6 @@ Ext.define('XMLifeOperating.view.templateManage.shopBannerTemplate.ShopBannerTem
                         {
                             xtype: 'form',
                             border: false,
-                            itemId:'adf',
                             margin: '0 30 0 0',
                             items:[
                                 {
@@ -88,58 +87,35 @@ Ext.define('XMLifeOperating.view.templateManage.shopBannerTemplate.ShopBannerTem
                     ]
                 },
                 {
-                    xtype: 'textfield',
-                    name: 'descColor',
-                    fieldLabel: '大标题 argb',
-                    labelWidth: 90,
-                    allowBlank:false,
-                    regex:/^[0-9a-fA-F]{8}$/,
-                    regexText: '请输入8位0-9a-fA-F的字母或数字',
-                },
-                {
-                    xtype: 'textfield',
-                    name: 'descStrokeColor',
-                    fieldLabel: '大标题 Stroke argb',
-                    labelWidth: 90,
-                    allowBlank:false,
-                    regex:/^[0-9a-fA-F]{8}$/,
-                    regexText: '请输入8位0-9a-fA-F的字母或数字',
-                },
-                {
-                    xtype: 'textfield',
-                    name: 'descDegree',
-                    fieldLabel: '大标题投影角度',
-                    labelWidth: 90,
-                    allowBlank:false,
-                    
-                },
-                {
-                    xtype: 'textfield',
-                    name: 'nameColor',
-                    fieldLabel: '小标题argb',
-                    labelWidth: 90,
-                    allowBlank:false,
-                    regex:/^[0-9a-fA-F]{8}$/,
-                    regexText: '请输入8位0-9a-fA-F的字母或数字',
-                },
-                {
-                    xtype: 'textfield',
-                    name: 'nameStrokeColor',
-                    fieldLabel: '小标题 Stroke argb',
-                    labelWidth: 90,
-                    allowBlank:false,
-                    regex:/^[0-9a-fA-F]{8}$/,
-                    regexText: '请输入8位0-9a-fA-F的字母或数字',
-                },
-                {
-                    xtype: 'textfield',
-                    name: 'nameDegree',
-                    fieldLabel: '小标题投影角度',
-                    labelWidth: 90,
-                    allowBlank:false,
-                   
-                   
-                },
+                    xtype: 'fieldset',
+                    layout: 'column',
+                    padding: 0,
+                    border: false,
+                    items:[
+                        {
+                            xtype: 'textfield',
+                            name: 'shopinco',
+                            fieldLabel: '上传店铺inco',
+                            itemId:'shopinco',
+                            labelWidth: 90,
+                            
+                            readOnly: false,
+                        },
+                        {
+                            xtype: 'form',
+                            border: false,
+                            margin: '0 30 0 0',
+                            items:[
+                                {
+                                    xtype: 'filefield',
+                                    name: 'templateUploadfile',
+                                    buttonOnly: true,
+                                    hideLabel: true,
+                                },
+                            ]
+                        },
+                    ]
+                }
             ],
             buttons: [
                 {
