@@ -88,7 +88,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopList', {
             sortable: false,
             align: 'center',
         }, {
-            header: "店铺配置",
+            header: "Banner配置",
             width: 90,
             itemId: 'seeBannerBtn',
             menuDisabled: true,

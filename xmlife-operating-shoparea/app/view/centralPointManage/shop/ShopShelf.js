@@ -13,12 +13,6 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopShelf', {
     columns: [{
         xtype: 'rownumberer'
     }, {
-        text: 'id',
-        dataIndex: 'id'
-    }, {
-        text: 'shopId',
-        dataIndex: 'shopId'
-    }, {
         text: '货架名称',
         dataIndex: 'name'
     }, {
@@ -31,6 +25,12 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopShelf', {
             }
             return '有';
         }
+    }, {
+        text: '货架图片（横）',
+        dataInde: 'xImage'
+    }, {
+        text: '货架图片（竖）',
+        dataInde: 'vImage'
     }, {
         text: '编辑',
         xtype: 'actioncolumn',
@@ -45,6 +45,13 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopShelf', {
     tbar: [{
         text: '添加货架',
         itemId: 'openCreateShelvesWin'
-    }]
+    }],
+    viewConfig: {
+        plugins: {
+            ptype: 'gridviewdragdrop',
+            dragText: 'Drag and drop to reorder'
+        }
+    }
+
 
 });
