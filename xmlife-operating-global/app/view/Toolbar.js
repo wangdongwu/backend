@@ -14,6 +14,7 @@ Ext.define('XMLifeOperating.view.Toolbar', {
         {
             xtype : 'image',
             src : '/resources/images/logo.png',
+            itemId : 'myTestImg',
             style: {
                 marginLeft: '10px',
                 height : '33px'
@@ -65,13 +66,34 @@ Ext.define('XMLifeOperating.view.Toolbar', {
             menu: {
                 items: [
                     {
-                        text: 'Change Password'
+                        text: '修改密码'
                         // iconCls: 'tasks-new'
                     },
                     '-',
                     {
-                        text: 'Sign Out',
-                        itemId: 'btnSignOut'
+                        text: '注销',
+                        itemId: 'btnSignOut',
+                        handler : function(){
+                          var loginOutUrl = XMLifeOperating.generic.Global.URL.biz + 'admin/logout',
+                              sessionId = localStorage.getItem('sessionId');
+                              Ext.Ajax.request({
+                                  url: loginOutUrl,
+                                  method: 'post',
+                                  success : function(response){
+                                    if(response.responseText){
+                                      localStorage.removeItem('sessionId');
+                                    }
+                                  },
+                                  failure : function(response){
+                                      Ext.MessageBox.show({
+                                        title: '注销失败',
+                                        msg: '很抱歉您注销失败了,请重新尝试!',
+                                        buttons: Ext.Msg.OK
+                                     });
+                                    
+                                  }
+                                })
+                                          }
                         // iconCls: 'tasks-new-list'
                     },
                 ]

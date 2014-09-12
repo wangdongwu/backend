@@ -95,6 +95,7 @@ Ext.define('XMLifeOperating.controller.ShopBannerTemplate', {
                        
                     windowEl.unmask();
                     editWindow.close();
+                    me.onShow()
                     me.fireEvent('refreshView');
                 });
                 return;
@@ -103,6 +104,7 @@ Ext.define('XMLifeOperating.controller.ShopBannerTemplate', {
                 success: function(task, operation) {
                     windowEl.unmask();
                     editWindow.close();
+                    me.onShow();
                     me.fireEvent('refreshView');
                 },
                 failure: function(task, operation) {

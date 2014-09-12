@@ -35,7 +35,8 @@ Ext.define('XMLifeOperating.Application', {
         'CustomerList',
         'GDealList',
         'GFeedbackList',
-        'Shoparea'
+        'Shoparea',
+        'login'
         ],
 
     stores: [
