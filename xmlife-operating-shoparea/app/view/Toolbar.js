@@ -9,7 +9,18 @@ Ext.define('XMLifeOperating.view.Toolbar', {
         'Ext.form.Label',
         'Ext.form.field.ComboBox'
     ],
+    cls : 'topHeadToolbar',
     items: [
+        {
+            xtype : 'image',
+            src : '/resources/images/logo.png',
+            itemId : 'myTestImg',
+            style: {
+                marginLeft: '10px',
+                height : '33px'
+            }
+        }
+        , 
         {
             xtype: 'label',
             itemId: 'txtModuleTitle',
@@ -45,29 +56,60 @@ Ext.define('XMLifeOperating.view.Toolbar', {
             valueField: 'id',
             tooltip: 'Choose current center',
             queryMode:'local',
-            // hidden:(XMLifeOperating.generic.Global.operating_type != 'center')
+            hidden:(XMLifeOperating.generic.Global.operating_type != 'center')
         },
         '-',
         {
-            text: 'admin',
+            text: '未登录',
             itemId: 'txtUserName',
             margin: '0 10 0 10',
             menu: {
                 items: [
                     {
-                        text: 'Change Password'
+                        text: '修改密码'
                         // iconCls: 'tasks-new'
                     },
                     '-',
                     {
-                        text: 'Sign Out',
-                        itemId: 'btnSignOut'
+                        text: '注销',
+                        itemId: 'btnSignOut',
+                        handler : function(){
+                          var loginOutUrl = XMLifeOperating.generic.Global.URL.biz + 'admin/logout',
+                              sessionId = localStorage.getItem('sessionId');
+                              Ext.Ajax.request({
+                                  url: loginOutUrl,
+                                  method: 'post',
+                                  success : function(response){
+                                    if(response.responseText){
+                                      localStorage.removeItem('sessionId');
+                                      localStorage.removeItem('username');
+                                      window.location.reload();
+                                    }
+                                  },
+                                  failure : function(response){
+                                      Ext.MessageBox.show({
+                                        title: '注销失败',
+                                        msg: '您现在已经注销了!',
+                                        buttons: Ext.Msg.OK
+                                     });
+                                    
+                                  }
+                                })
+                                          }
                         // iconCls: 'tasks-new-list'
                     },
                 ]
             }
         },
-    ]
+    ],
+    listeners : {
+      added : function(view){
+        var username = localStorage.getItem('username');
+        if(username){
+          view.down('#txtUserName').setText(username);
+        }
+      }
+    }
 });
 
 
