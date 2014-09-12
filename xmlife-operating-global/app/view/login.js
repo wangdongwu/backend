@@ -12,6 +12,7 @@ Ext.define('XMLifeOperating.view.login', {
     height: 150,
     resizable: false,
     layout: 'card',
+    buttonAlign : 'center',
     initComponent : function(){
       this.items = [
       {
