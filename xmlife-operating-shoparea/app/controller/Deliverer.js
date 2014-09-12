@@ -283,6 +283,8 @@ Ext.define('XMLifeOperating.controller.Deliverer', {
 
                     var delivererId = deliverer.get('uid');
                     var delivererWorkTimeStore = this.getDelivererWorkTimeStore();
+
+                    
                     delivererWorkTimeStore.getProxy().extraParams = {
                         deliverer: delivererId,
                         dayType: 1
@@ -327,7 +329,7 @@ Ext.define('XMLifeOperating.controller.Deliverer', {
                                 str = 6;
                                 break;
                         }
-                        var store = this.getDelivererWorkTimeStore();
+                        var delivererWorkTimeStore = this.getDelivererWorkTimeStore();
                         var delivererId = this.delivererId;
                         delivererWorkTimeStore.getProxy().extraParams = {
                             dayType: str,

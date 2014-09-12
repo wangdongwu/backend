@@ -64,7 +64,7 @@ Ext.define('XMLifeOperating.Application', {
         'Feedback',
         'FeedbackStatus',
         'Refund',
-        'ShopTopShops'
+        'ShopTopShops',
     ],
 
     launch: function() {
