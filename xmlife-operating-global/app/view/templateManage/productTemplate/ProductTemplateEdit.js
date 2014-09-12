@@ -5,7 +5,7 @@ Ext.define('XMLifeOperating.view.templateManage.productTemplate.ProductTemplateE
     closeAction: 'hide',
     modal: true,
     width: 450,
-    height: 350,
+    height: 450,
     resizable :false,
     layout: 'fit',
     
@@ -75,11 +75,24 @@ Ext.define('XMLifeOperating.view.templateManage.productTemplate.ProductTemplateE
             },
             {
                 xtype: 'textfield',
+                name: 'barCode',
+                fieldLabel: '条形码',
+                labelWidth: 90,
+                allowBlank: false,
+            },
+            {
+                xtype: 'textfield',
+                name: 'skuId',
+                fieldLabel: '商品编码',
+                labelWidth: 90,
+                allowBlank: false,
+            },
+            {
+                xtype: 'textfield',
                 name: 'tag',
                 fieldLabel: '标签',
                 labelWidth: 90,
                 blankText: '请输入标签，之间用空格隔开',
-
             },
             {
                 xtype: 'fieldset',

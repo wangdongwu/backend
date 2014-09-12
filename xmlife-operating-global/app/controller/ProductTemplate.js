@@ -73,6 +73,7 @@ Ext.define('XMLifeOperating.controller.ProductTemplate', {
 
     },
     onEdit: function(view, rowIndex, colIndex, column, e) {
+        alert(111);
         console.log("start edit");
         var productTemplate = view.getRecord(view.findTargetByEvent(e));
         var win = this.getEditWindow();
@@ -98,6 +99,8 @@ Ext.define('XMLifeOperating.controller.ProductTemplate', {
 
             windowEl.mask('saving');
             form.updateRecord(productTemplate);
+            
+
             productTemplate.get('name1');
             productTemplate.get('name2');
             productTemplate.get('name3');
@@ -106,6 +109,7 @@ Ext.define('XMLifeOperating.controller.ProductTemplate', {
             names.push(productTemplate.get('name2'));
             names.push(productTemplate.get('name3'));
             productTemplate.set('names',names);
+            console.log(productTemplate);
             console.log("try saving");
             if(productTemplate.get('id')!=''&&productTemplate.get('id')!=null){
                 console.log(names);
