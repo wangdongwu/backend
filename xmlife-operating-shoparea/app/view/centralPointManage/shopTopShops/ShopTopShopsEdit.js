@@ -21,8 +21,8 @@ Ext.define('XMLifeOperating.view.centralPointManage.shopTopShops.ShopTopShopsEdi
         var typeStore = Ext.create('Ext.data.Store', {
             fields: ['value','type'],
             data : [
-                {"value": 0, "type": '5'},
-                {"value": 1, "type": '6'}
+                {"value": 0, "type": '6'},
+                {"value": 1, "type": '5'}
             ],
         });
         this.items = [{
