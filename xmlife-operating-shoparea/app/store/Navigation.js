@@ -5,7 +5,7 @@ Ext.define('XMLifeOperating.store.Navigation', {
     ],
     extend: 'Ext.data.TreeStore',
     fields: ['id', 'text', 'code', 'leaf'],
-    autoLoad: true,
+    
     root: {
         text: 'Root',
         expanded: true,
