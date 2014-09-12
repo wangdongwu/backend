@@ -1,8 +1,7 @@
-var dataProxy = new XMLifeOperating.generic.BaseProxy('address');
 Ext.define('XMLifeOperating.model.Address', {
     extend: 'Ext.data.Model',
     fields: ['addrdesc','addressDetail','addressId'],
-    proxy: dataProxy
+    proxy: new XMLifeOperating.generic.BaseProxy('address')
 });
  
 

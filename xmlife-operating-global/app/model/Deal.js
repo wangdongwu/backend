@@ -1,4 +1,3 @@
-var dataProxy = new XMLifeOperating.generic.BaseProxy('deal');
 Ext.define('XMLifeOperating.model.Deal', {
     extend: 'Ext.data.Model',
     fields: [
@@ -22,7 +21,7 @@ Ext.define('XMLifeOperating.model.Deal', {
     'actualDealPrice',
     'dealPrice',
     'shortId'],
-    proxy: dataProxy
+    proxy: new XMLifeOperating.generic.BaseProxy('deal')
 });
  
 
