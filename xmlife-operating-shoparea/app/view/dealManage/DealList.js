@@ -1,88 +1,89 @@
-
 Ext.define('XMLifeOperating.view.dealManage.DealList', {
     extend: 'Ext.grid.Panel',
-    closable : false,
+    closable: false,
     xtype: 'dealList',
 
     title: '订单管理',
 
     store: 'Deal',
-    id:'dealList',
+    id: 'dealList',
 
-    tbar: [
-        {
-            xtype:'combobox',
-            name:'shopAread',
-            itemId:'shopArea',
-            store:'ShopArea',
-            emptyText:'请选择中心',
+    tbar: [{
+            xtype: 'combobox',
+            name: 'shopAread',
+            itemId: 'shopArea',
+            store: 'ShopArea',
+            emptyText: '请选择中心',
             // margin:10,
             editable: false,
-            queryMode:'local',
-            displayField:'name',
-            valueField:'id',
-            hidden:(XMLifeOperating.generic.Global.operating_type == 'center')
+            queryMode: 'local',
+            displayField: 'name',
+            valueField: 'id',
+            hidden: (XMLifeOperating.generic.Global.operating_type == 'center')
+        }, {
+            xtype: 'button',
+            itemId: 'productInvoice',
+            text: '导出商品对货单',
+        }, {
+            xtype: 'button',
+            itemId: 'paymentInvoice',
+            text: '导出支付对账单',
         },
-        '->',
-        {
-            xtype:'textfield',
-            emptyText:'输入搜索号码...',
-            name:'keyword',
+        '->', {
+            xtype: 'textfield',
+            emptyText: '输入搜索号码...',
+            name: 'keyword',
             itemId: 'keyword',
             fieldLabel: '手机号码',
             regex: XMLifeOperating.generic.Global.VALIDATION_CONSTANTS.PHONE,
             regexText: '请输入正确的手机号',
             // margin:10
-        },
-        {
-            xtype:'button',
+        }, {
+            xtype: 'button',
             itemId: 'dealSearch',
-            text:'搜索',
+            text: '搜索',
             // margin:10,
-        },
-        {
-            xtype:'combobox',
-            name:'status',
-            itemId:'statusSearch',
+        }, {
+            xtype: 'combobox',
+            name: 'status',
+            itemId: 'statusSearch',
             // fieldLabel: '状态',
-            store:'DealStatus',
-            emptyText:'状态',
+            store: 'DealStatus',
+            emptyText: '状态',
             // margin:1,
             editable: false,
-            queryMode:'local',
-            displayField:'name',
-            valueField:'value',
+            queryMode: 'local',
+            displayField: 'name',
+            valueField: 'value',
         },
 
-     ],
-    bbar:[{
-        xtype:'pagingtoolbar',
-        itemId:'pagetool',
-        store:'Deal',
-        displayInfo:true
+    ],
+    bbar: [{
+        xtype: 'pagingtoolbar',
+        itemId: 'pagetool',
+        store: 'Deal',
+        displayInfo: true
     }],
-    columns: [
-        {
+    columns: [{
             text: '日期',
             dataIndex: 'created',
             width: 70,
             sortable: true,
-            align: 'center', 
-            renderer:function(value){
-               var newTime = new Date(value);
-               newDate = newTime.getFullYear()+'.'+(newTime.getMonth()+1)+'.'+newTime.getDate();
-               return newDate;
-            } 
-        },
-        {
+            align: 'center',
+            renderer: function(value) {
+                var newTime = new Date(value);
+                newDate = newTime.getFullYear() + '.' + (newTime.getMonth() + 1) + '.' + newTime.getDate();
+                return newDate;
+            }
+        }, {
             text: '订单号',
             dataIndex: 'shortId',
             width: 50,
             sortable: false,
-            align: 'center',  
+            align: 'center',
             itemId: 'dealDetail',
             renderer: function(value, metadata, model, rowIndex, colIndex, store) {
-                return '<a>'+value+'</a>'
+                return '<a>' + value + '</a>'
             }
         },
 
@@ -91,16 +92,15 @@ Ext.define('XMLifeOperating.view.dealManage.DealList', {
             dataIndex: 'zoneName',
             width: 60,
             sortable: false,
-            align: 'center',  
-        },
-        {
+            align: 'center',
+        }, {
             text: '订单状态',
             dataIndex: 'status',
             width: 60,
             sortable: false,
-            align: 'center',  
-            renderer:function(value){
-                switch(value){
+            align: 'center',
+            renderer: function(value) {
+                switch (value) {
                     case 1:
                         return '正在采购';
                         break;
@@ -109,7 +109,7 @@ Ext.define('XMLifeOperating.view.dealManage.DealList', {
                         break;
                     case 2:
                     case 21:
-                    case 32:                        
+                    case 32:
                         return '等待派送';
                         break;
                     case 3:
@@ -124,7 +124,7 @@ Ext.define('XMLifeOperating.view.dealManage.DealList', {
                     case 20:
                         return '等待分配买手';
                         break;
-/*                    case 21:
+                        /*                    case 21:
                         return '货到中心';
                         break;*/
                     case 22:
@@ -134,149 +134,136 @@ Ext.define('XMLifeOperating.view.dealManage.DealList', {
                         return '未知';
                 }
             }
-        },
-        {
+        }, {
             text: '顾客',
             dataIndex: 'customerName',
             width: 100,
             sortable: false,
             align: 'center',
-            itemId: 'customerDetail',  
+            itemId: 'customerDetail',
             renderer: function(value, metadata, model, rowIndex, colIndex, store) {
-                return '<a>'+value+'</a>'
+                return '<a>' + value + '</a>'
             }
-        },
-        {
+        }, {
             text: '顾客电话',
             dataIndex: 'customerPhone',
             width: 60,
             sortable: false,
-            align: 'center',  
-        },
-        {
+            align: 'center',
+        }, {
             text: '中心点',
             dataIndex: 'shopAreaName',
             width: 60,
             sortable: false,
-            align: 'center',  
-        },
-        {
+            align: 'center',
+        }, {
             text: '分配买手',
             dataIndex: 'shopperNames',
             width: 80,
             sortable: false,
             align: 'left',
-            renderer:function(value){
-                var str='';
-                for(var i=0;i<value.length;i++){
-                    str += value[i]+'<br />';
+            renderer: function(value) {
+                var str = '';
+                for (var i = 0; i < value.length; i++) {
+                    str += value[i] + '<br />';
                 }
                 return str;
             }
-        },
-        {
+        }, {
             text: '购买店铺',
             dataIndex: 'shopNames',
             width: 60,
             sortable: false,
             align: 'left',
-            renderer:function(value){
-                var str='';
-                for(var i=0;i<value.length;i++){
-                    str += value[i]+'<br />';
+            renderer: function(value) {
+                var str = '';
+                for (var i = 0; i < value.length; i++) {
+                    str += value[i] + '<br />';
                 }
                 return str;
             }
-        },
-        {
+        }, {
             text: '配送员',
             dataIndex: 'delivererName',
             width: 60,
             sortable: false,
-            align: 'center',  
-        },
-        {
+            align: 'center',
+        }, {
             text: '下单时间',
             dataIndex: 'created',
             width: 60,
             sortable: false,
-            align: 'center', 
-            renderer:function(value){
-               var newTime = new Date(value);
-               newTime = newTime.getHours()+':'+newTime.getMinutes();
-               return newTime;
-            }  
-        },
-        {
+            align: 'center',
+            renderer: function(value) {
+                var newTime = new Date(value);
+                newTime = newTime.getHours() + ':' + newTime.getMinutes();
+                return newTime;
+            }
+        }, {
             text: '期望送达时间',
             dataIndex: 'deliverTime',
             width: 80,
             sortable: false,
-            align: 'center', 
-            renderer:function(value){
-               var newTime = new Date(value);
-               newTime = newTime.getHours()+':'+newTime.getMinutes();
-               return newTime;
-            }   
-        },
-        {
+            align: 'center',
+            renderer: function(value) {
+                var newTime = new Date(value);
+                newTime = newTime.getHours() + ':' + newTime.getMinutes();
+                return newTime;
+            }
+        }, {
             text: '剩余时间',
             dataIndex: 'remainTime',
             width: 80,
             sortable: false,
-            align: 'center', 
-            renderer:function(value){
-                var time = (value/(3600*1000)+'').split('.');
-                var time1=Math.abs(time[0]);
-                var time2=Math.floor(('0.'+time[1])*60);
-                time= time1+'时'+time2+'分';
-                if(value<=0){
-                    return '<span style="color:#ff0000">'+time+'</span>';
+            align: 'center',
+            renderer: function(value) {
+                var time = (value / (3600 * 1000) + '').split('.');
+                var time1 = Math.abs(time[0]);
+                var time2 = Math.floor(('0.' + time[1]) * 60);
+                time = time1 + '时' + time2 + '分';
+                if (value <= 0) {
+                    return '<span style="color:#ff0000">' + time + '</span>';
                 }
-                return '<span style="color:#000">'+time+'</span>';
+                return '<span style="color:#000">' + time + '</span>';
             }
-        },
-        {
+        }, {
             text: '完成购买时间',
             dataIndex: 'taskDone',
             width: 100,
             sortable: false,
-            align: 'center',  
-            renderer:function(value){
-                var str='';
-                for(var i=0;i<value.length;i++){
+            align: 'center',
+            renderer: function(value) {
+                var str = '';
+                for (var i = 0; i < value.length; i++) {
                     var newTime = new Date(value[i]);
-                    newTime = newTime.getHours()+':'+newTime.getMinutes();
-                    str += newTime+'<br />';
+                    newTime = newTime.getHours() + ':' + newTime.getMinutes();
+                    str += newTime + '<br />';
                 }
                 return str;
             }
-        },
-        {
+        }, {
             text: '出货时间',
             dataIndex: 'beginDeliverTime',
             width: 60,
             sortable: false,
             align: 'center',
-            renderer:function(value){
-               var newTime = new Date(value);
-               newTime = newTime.getHours()+':'+newTime.getMinutes();
-               return newTime;
-            }   
-        },
-        {
+            renderer: function(value) {
+                var newTime = new Date(value);
+                newTime = newTime.getHours() + ':' + newTime.getMinutes();
+                return newTime;
+            }
+        }, {
             text: '送达时间',
             dataIndex: 'completeTime',
             width: 80,
             sortable: false,
-            align: 'center', 
-            renderer:function(value){
-               var newTime = new Date(value);
-               newTime = newTime.getHours()+':'+newTime.getMinutes();
-               return newTime;
-            } 
-        },
-        {
+            align: 'center',
+            renderer: function(value) {
+                var newTime = new Date(value);
+                newTime = newTime.getHours() + ':' + newTime.getMinutes();
+                return newTime;
+            }
+        }, {
             text: '操作',
             width: 80,
             itemId: 'toproblemdeal',
@@ -295,11 +282,11 @@ Ext.define('XMLifeOperating.view.dealManage.DealList', {
         }
     },
     listeners: {
-        onShowView: function(view, viewName) {           
+        onShowView: function(view, viewName) {
             /*if(XMLifeOperating.generic.Global.operating_type != 'center') {
                 return;
             }*/
-            if(XMLifeOperating.generic.Global.current_operating == -1) {
+            if (XMLifeOperating.generic.Global.current_operating == -1) {
                 alert('请先在右上角选择中心');
                 return;
             }
@@ -308,8 +295,8 @@ Ext.define('XMLifeOperating.view.dealManage.DealList', {
             combo.fireEvent('select', combo);
         }
     },
-    forceFit : true,
+    forceFit: true,
     columnLines: true,
-    
-    
+
+
 });

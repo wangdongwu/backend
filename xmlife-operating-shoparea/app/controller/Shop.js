@@ -1203,7 +1203,16 @@ Ext.define('XMLifeOperating.controller.Shop', {
             me = this;
         var inputs = form.updateRecord().getRecord().data;
 
-        if (inputs.id) { //修改
+        if (inputs.id != null) { //修改
+            if (inputs.image == '') {
+                Ext.MessageBox.show({
+                    title: '提示',
+                    msg: '请添加Banner图片！',
+                    icon: Ext.Msg.ERROR,
+                    buttons: Ext.Msg.OK
+                });
+                return
+            }
             var editBannerId = inputs.id;
             var data = {
                 id: null,

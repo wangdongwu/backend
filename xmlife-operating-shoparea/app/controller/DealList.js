@@ -36,7 +36,6 @@ Ext.define('XMLifeOperating.controller.DealList', {
 
         var me = this;
         this.control({
-
             'dealList #shopArea': {
                 select: function(combo) {
                     var sstore = this.getDealStore();
@@ -50,21 +49,38 @@ Ext.define('XMLifeOperating.controller.DealList', {
                             page: 1
                         }
                     });
+                    this.areaId = combo.getValue();
                 }
             },
-
+            'dealList #productInvoice': {
+                click: function() {
+                    var me = this;
+                    Ext.MessageBox.confirm('提示', '确认下载商品对货单？', function(btn) {
+                        if (btn == 'yes') {
+                            window.location.href = XMLifeOperating.generic.Global.URL.biz + 'deal/exportProductStatistic?' + 'shopArea=' + me.areaId + '&dayType=1';
+                        } else {
+                            return;
+                        }
+                    });
+                }
+            },
+            'dealList #paymentInvoice': {
+                click: function() {
+                    var me = this;
+                    Ext.MessageBox.confirm('提示', '确认下载支付对账单？', function(btn) {
+                        if (btn == 'yes') {
+                            window.location.href = XMLifeOperating.generic.Global.URL.biz + 'deal/exportDealCashflow?' + 'shopArea=' + me.areaId + '&dayType=1';
+                        } else {
+                            return;
+                        }
+                    });
+                }
+            },
             '#dealSearch': {
                 click: me.dealSearch
             },
             '#statusSearch': {
                 select: function(combo) {
-                    /*                    var sstore = this.getDealStore();
-                    sstore.load({
-                        params: {
-                            shopArea: Ext.getCmp('dealList').down('#shopAread').getValue(),
-                            status: combo.getValue()
-                        }
-                    });*/
                     var sstore = this.getDealStore();
                     sstore.getProxy().extraParams = {
                         shopArea: Ext.getCmp('dealList').down('#shopAread').getValue(),
@@ -80,18 +96,15 @@ Ext.define('XMLifeOperating.controller.DealList', {
 
                 },
             },
-
             '#dealDetail': {
                 click: me.onDealDetail
             },
-
             '#customerDetail': {
                 click: me.onCustomerDetail
             },
-            '#toproblemdeal':{
-                 click: me.onToProblemDeal
-            },  
-
+            '#toproblemdeal': {
+                click: me.onToProblemDeal
+            }
         });
     },
     dealSearch: function() {
@@ -100,12 +113,11 @@ Ext.define('XMLifeOperating.controller.DealList', {
             store = this.getDealStore(),
             view = this.getDealList();
         var shopAreaId = Ext.getCmp('dealList').down('#shopAread').getValue();
-
         if (keyWords == '') {
             if (shopAreaId) {
                 store.getProxy().extraParams = {
                     shopArea: shopAreaId
-                }
+                };
                 store.loadPage(1, {
                     params: {
                         start: 0,
@@ -169,21 +181,21 @@ Ext.define('XMLifeOperating.controller.DealList', {
     onToProblemDeal: function(view, rowIndex, colIndex, column, e) {
         var dealitem = view.getRecord(view.findTargetByEvent(e));
         var dealBackendId = dealitem.get('dealBackendId');
-        var url = 'deal/transToProblem/'+ dealBackendId;
+        var url = 'deal/transToProblem/' + dealBackendId;
         var me = this;
-        sendPutRequest(url,{},'转为问题订单','转为问题订单成功','转为问题订单失败',function(){
-                    var sstore = me.getDealStore();
-                    sstore.getProxy().extraParams = {
-                        shopArea: combo.getValue()
-                    }
-                    sstore.loadPage(1, {
-                        params: {
-                            start: 0,
-                            limit: 25,
-                            page: 1
-                        }
-                    });
+        sendPutRequest(url, {}, '转为问题订单', '转为问题订单成功', '转为问题订单失败', function() {
+            var sstore = me.getDealStore();
+            sstore.getProxy().extraParams = {
+                shopArea: combo.getValue()
+            }
+            sstore.loadPage(1, {
+                params: {
+                    start: 0,
+                    limit: 25,
+                    page: 1
+                }
             });
+        });
     },
 
 });
