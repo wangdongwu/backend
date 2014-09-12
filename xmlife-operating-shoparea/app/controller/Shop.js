@@ -1040,16 +1040,19 @@ Ext.define('XMLifeOperating.controller.Shop', {
                             limitType = 0;
                         }
                         var facePrice = Math.abs(parseInt(shelvesGoods.get('facePrice') * 100));
-                        var discountPrice = Math.abs(parseInt(shelvesGoods.get('discountPrice') * 100));
-                        if (discountPrice >= facePrice) {
-                            Ext.Msg.alert('Invalid Data', '折扣价不能大于等于原价');
-                            return;
-                        };
+                        var discountPrice = shelvesGoods.get('discountPrice');
+                        if (discountPrice != "") {
+                            discountPrice = Math.abs(parseInt(shelvesGoods.get('discountPrice') * 100));
+                            if (discountPrice >= facePrice) {
+                                Ext.Msg.alert('Invalid Data', '折扣价不能大于等于原价');
+                                return;
+                            };
+                        }
                         shelvesGoods.set('shopId', shopId);
                         shelvesGoods.set('categoryId', categoryId);
                         shelvesGoods.set('facePrice', (Math.abs(parseInt(shelvesGoods.get('facePrice') * 100))));
                         shelvesGoods.set('purchasePrice', (Math.abs(parseInt(shelvesGoods.get('purchasePrice') * 100))));
-                        shelvesGoods.set('discountPrice', (Math.abs(parseInt(shelvesGoods.get('discountPrice') * 100))));
+                        shelvesGoods.set('discountPrice', discountPrice);
                         shelvesGoods.set('limitType', limitType);
                         shelvesGoods.set('limitCount', limitCount);
                         console.log("try saving");
@@ -1059,7 +1062,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
                             var id = shelvesGoods.get('id');
                             var facePrice = Math.abs(parseInt(shelvesGoods.get('facePrice')));
                             var purchasePrice = Math.abs(parseInt(shelvesGoods.get('purchasePrice')));
-                            var discountPrice = Math.abs(parseInt(shelvesGoods.get('discountPrice')));
+                            // var discountPrice = Math.abs(parseInt(shelvesGoods.get('discountPrice')));
                             sendPutRequest('product/update', {
                                 id: id,
                                 facePrice: facePrice,
