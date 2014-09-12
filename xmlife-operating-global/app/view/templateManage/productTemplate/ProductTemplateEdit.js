@@ -79,6 +79,7 @@ Ext.define('XMLifeOperating.view.templateManage.productTemplate.ProductTemplateE
                 fieldLabel: '条形码',
                 labelWidth: 90,
                 allowBlank: false,
+                itemId:'barCodeId'
             },
             {
                 xtype: 'textfield',
@@ -86,6 +87,7 @@ Ext.define('XMLifeOperating.view.templateManage.productTemplate.ProductTemplateE
                 fieldLabel: '商品编码',
                 labelWidth: 90,
                 allowBlank: false,
+                itemId:'skuIdId'
             },
             {
                 xtype: 'textfield',

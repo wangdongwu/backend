@@ -12,6 +12,7 @@ Ext.define('XMLifeOperating.controller.ProductTemplate', {
              'ProductUnit'],
 
     refs: [
+
         {
              ref: 'editWindow',
              selector: 'productTemplateEdit',
@@ -73,7 +74,6 @@ Ext.define('XMLifeOperating.controller.ProductTemplate', {
 
     },
     onEdit: function(view, rowIndex, colIndex, column, e) {
-        alert(111);
         console.log("start edit");
         var productTemplate = view.getRecord(view.findTargetByEvent(e));
         var win = this.getEditWindow();
@@ -84,6 +84,8 @@ Ext.define('XMLifeOperating.controller.ProductTemplate', {
         productTemplate.set('name1',names[0]);
         productTemplate.set('name2',names[1]);
         productTemplate.set('name3',names[2]);
+        win.down('#barCodeId').setDisabled(true);
+        win.down('#skuIdId').setDisabled(true);
         win.down('form').loadRecord(productTemplate);
         win.show();
     },
