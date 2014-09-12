@@ -55,7 +55,7 @@ Ext.define('XMLifeOperating.controller.DealList', {
             'dealList #productInvoice': {
                 click: function() {
                     var me = this;
-                    Ext.MessageBox.confirm('提示', '确认下载商品对货单？', function(btn) {
+                    Ext.MessageBox.confirm('提示', '确认导出昨日商品对货单？', function(btn) {
                         if (btn == 'yes') {
                             window.location.href = XMLifeOperating.generic.Global.URL.biz + 'deal/exportProductStatistic?' + 'shopArea=' + me.areaId + '&dayType=1';
                         } else {
@@ -67,7 +67,7 @@ Ext.define('XMLifeOperating.controller.DealList', {
             'dealList #paymentInvoice': {
                 click: function() {
                     var me = this;
-                    Ext.MessageBox.confirm('提示', '确认下载支付对账单？', function(btn) {
+                    Ext.MessageBox.confirm('提示', '确认导出昨日支付对账单？', function(btn) {
                         if (btn == 'yes') {
                             window.location.href = XMLifeOperating.generic.Global.URL.biz + 'deal/exportDealCashflow?' + 'shopArea=' + me.areaId + '&dayType=1';
                         } else {
