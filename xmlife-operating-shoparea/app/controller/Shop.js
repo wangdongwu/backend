@@ -686,14 +686,18 @@ Ext.define('XMLifeOperating.controller.Shop', {
                     if (tabIdstrArray[0] == 'tab3' && tabIdstrArray[1] != undefined) {
                         parentId = tabIdstrArray[1];
                     }
+
                     if (form.isValid()) {
                         form.updateRecord(shelves);
                         shopId = this.shopId;
                         //修改分类
                         if (shelves.get('id') != null && shelves.get('id') != '') {
+                            debugger
                             sendPutRequest('category/update', {
                                 id: shelves.get('id'),
                                 name: shelves.get('name'),
+                                /*                                xImage:
+                                vImage:*/
                             }, '编辑分类', '成功编辑分类', '编辑分类失败', function() {
                                 editWindow.close();
                                 if (parentId == '') {
@@ -704,11 +708,11 @@ Ext.define('XMLifeOperating.controller.Shop', {
                             });
                             return;
                         } else { //添加分类
-                          
+
                             var shelvesName = Ext.getCmp('shelvesName').getValue();
                             var shelvesLeaf = Ext.getCmp('shelvesLeaf').getValue();
-                            var xImage = Ext.getCmp('xImage').getValue();
-                            var vImage = Ext.getCmp('vImage').getValue();
+                            var xImage = Ext.getCmp('shopShelfxImage').getValue();
+                            var vImage = Ext.getCmp('shopShelfvImage').getValue();
                             var jsonStr = {
                                 shopId: shopId,
                                 name: shelvesName,
