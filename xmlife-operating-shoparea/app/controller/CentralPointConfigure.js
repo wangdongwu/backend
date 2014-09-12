@@ -48,9 +48,23 @@ Ext.define('XMLifeOperating.controller.CentralPointConfigure', {
             'centralpointconfigurelist': {
                 added: me.onShow,
             },
+            
+            'centralpointconfigurelist #topshopsAdd':{
+                click:function(){
+                    alert(1111);
+                }
+            },
+
+
+
+
+
+
+
+
+
 
             'centralpointconfigurelist #editCentralPoint': {
-                //click: me.onEdit
                 click: me.onEdit
             },
             'centralpointconfigurelist #seeBannerBtn': {

@@ -7,11 +7,16 @@ Ext.define('XMLifeOperating.view.centralPointManage.centralPointConfigure.Centra
     store: 'ShopArea',
     
     tbar: [
-        {
+        /*{
             xtype: 'button',
             text: '添加中心点',
             itemId: 'add',
             hidden:(XMLifeOperating.generic.Global.operating_type == 'center')
+        }*/
+        {
+            xtype: 'button',
+            text: '添加展示店铺',
+            itemId: 'topshopsAdd',
         }
     ], 
     columns: [

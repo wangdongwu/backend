@@ -28,10 +28,9 @@ Ext.define('XMLifeOperating.store.Navigation', {
                 text: '线路管理',
                 leaf: true
             }, {
-                id: 'centralpointconfigurelist',
+                id: 'shopTopShopsList',
                 text: '首页配置',
                 leaf: true
-
             }]
         },
         {

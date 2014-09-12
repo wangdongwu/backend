@@ -29,7 +29,7 @@ Ext.define('XMLifeOperating.Application', {
         'Shop',
         'ResidentalDistrict',
         'DelivererZoneList',
-        'CentralPointConfigure',
+        // 'CentralPointConfigure',
         'Shopper',
         'DealShopAreaList',
         'DealProblemDealsList',
@@ -39,7 +39,8 @@ Ext.define('XMLifeOperating.Application', {
         'DealList',
         'FeedbackList',
         'Deliverer',
-        'RefundList'
+        'RefundList',
+        'ShopTopShops'
     ],
 
     stores: [
@@ -62,7 +63,8 @@ Ext.define('XMLifeOperating.Application', {
         'DealStatus',
         'Feedback',
         'FeedbackStatus',
-        'Refund'
+        'Refund',
+        'ShopTopShops'
     ],
 
     launch: function() {

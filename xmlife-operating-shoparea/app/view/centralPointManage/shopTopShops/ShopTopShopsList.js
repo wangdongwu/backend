@@ -1,16 +1,18 @@
-Ext.define('XMLifeOperating.view.centralPointManage.delivererZone.DelivererZoneList', {
+Ext.define('XMLifeOperating.view.centralPointManage.shopTopShops.ShopTopShopsList', {
     extend: 'Ext.grid.Panel',
-    closable : false,
-    xtype: 'delivererZoneList',
-    title: '线路管理',
-    store: 'DelivererZone',
-    id:'delivererZoneList',
+    closable : true,
+    id: 'shopTopShopsList',
+    xtype: 'shopTopShopsList',
+    title: '首页配置',
+    store: 'ShopTopShops',
+    
     tbar: [
-        {
+        /*{
             xtype: 'button',
-            text: '添加线路',
-            itemId: 'add'
-        },
+            text: '添加中心点',
+            itemId: 'add',
+            hidden:(XMLifeOperating.generic.Global.operating_type == 'center')
+        }*/
         {
             xtype:'combobox',
             name:'shopArea',
@@ -23,48 +25,53 @@ Ext.define('XMLifeOperating.view.centralPointManage.delivererZone.DelivererZoneL
             valueField:'id',
             hidden:(XMLifeOperating.generic.Global.operating_type == 'center')
         },
+        {
+            xtype: 'button',
+            text: '添加展示店铺',
+            itemId: 'topshopsAdd',
+        },
+        {
+            xtype: 'button',
+            text: '首页图片配置',
+            itemId: 'seeBannerBtn',
+        },
+        {
+            xtype: 'button',
+            text: '优质店铺配置',
+            itemId: 'seeShopShopGroupBtn',
+        },
     ], 
     columns: [
         {
             xtype: 'rownumberer'
         }, 
         {
-            text: 'ID',
+            text: '编号',
             dataIndex: 'id',
-            width: 50,
+            width: 150,
             sortable: false,
             align: 'left'
         },
         {
-            text: '线路名称',
-            dataIndex: 'name',
+            text: '展示店铺',
+            dataIndex: 'shopName',
+            width: 90,
+            sortable: false,
+            align: 'left',
+        },
+        {
+            text: '展示店铺分类',
+            dataIndex: 'names',
             width: 100,
             sortable: false,
             align: 'left',
-            itemId:'lineName'
-        },
-        /*{
-            text: '中心点',
-            dataIndex: 'shopAreaName',
-            width: 60,
-            sortable: false,
-            align: 'left'
-        },*/
-        {
-            text: '小区数',
-            dataIndex: 'districts',
-            width: 60,
-            sortable: false,
-            align: 'left',
-            itemId:'bindCommunity'
-        },
-        {
-            text: '配送员',
-            dataIndex: 'deliverers',
-            width: 60,
-            sortable: false,
-            align: 'left',
-            itemId:'bindCourier'
+            renderer:function(value){
+                var str='';
+                for(var i=0;i<value.length;i++){
+                    str += value[i]+'<br />';
+                }
+                return str;
+            }
         },
         {
             xtype: 'actioncolumn',
@@ -74,10 +81,23 @@ Ext.define('XMLifeOperating.view.centralPointManage.delivererZone.DelivererZoneL
             tooltip: 'Delete',
             menuDisabled: true,
             sortable: false,
-            itemId: 'deleteLineId',
+            itemId: 'deleteShopTopShopsId',
+            align:'center'
             // hidden:(XMLifeOperating.generic.Global.operating_type == 'center')
-        }
-      
+        },
+        /*{
+            header:"首页配置",
+            width: 70,
+            itemId: 'seeBannerBtn',
+            menuDisabled: true,
+            sortable: false,
+            align: 'center',
+            renderer : function(value, metadata, model, rowIndex, colIndex, store) { 
+
+                var seeBtn = '<a>配置</a>';
+                return seeBtn; 
+            } 
+        }*/
     ],
     viewConfig: {
         plugins: {
@@ -102,4 +122,5 @@ Ext.define('XMLifeOperating.view.centralPointManage.delivererZone.DelivererZoneL
     columnLines: true,
     
     
+
 });
