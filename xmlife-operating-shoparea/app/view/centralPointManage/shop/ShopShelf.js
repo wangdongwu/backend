@@ -77,16 +77,6 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopShelf', {
             ptype: 'gridviewdragdrop',
             dragText: 'Drag and drop to reorder'
         }
-    },
-    initComponent: function() {
-      
-/*        this.viewConfig
-        'gridviewdragdrop' :{
-            drop:function(){
-                console.log(123)
-            }
-        }*/
-
     }
 
 
