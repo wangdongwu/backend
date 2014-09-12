@@ -704,7 +704,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
                             });
                             return;
                         } else { //添加分类
-                            debugger
+                          
                             var shelvesName = Ext.getCmp('shelvesName').getValue();
                             var shelvesLeaf = Ext.getCmp('shelvesLeaf').getValue();
                             var xImage = Ext.getCmp('xImage').getValue();
