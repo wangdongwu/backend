@@ -78,7 +78,4 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopShelf', {
             dragText: 'Drag and drop to reorder'
         }
     }
-
-
-
 });
