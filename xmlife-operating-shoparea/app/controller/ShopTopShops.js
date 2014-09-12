@@ -550,7 +550,7 @@ Ext.define('XMLifeOperating.controller.ShopTopShops', {
                                 Ext.Msg.alert('Invalid Data', '不能删除');
                                 return;
                             }
-                            var store = me.getShopShopGroupAddStore();
+                            var store = me.getShopShopGroupStore();
                             store.load({
                                 params: {
                                     areaId: me.areaId
