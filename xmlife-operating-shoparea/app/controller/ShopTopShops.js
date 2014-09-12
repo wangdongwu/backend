@@ -121,13 +121,14 @@ Ext.define('XMLifeOperating.controller.ShopTopShops', {
                         form.updateRecord(shopTopShopsStore);
                         var areaId = me.areaId;
                         var type = shopTopShopsStore.get('type');
+                        console.log(shopTopShopsStore);
                         var shopId = selectRecords[0].get('id');
                         var params = {
                             areaId:areaId,
                             type:type,
                             shopId:shopId
                         }
-                        sendRequest('shop/topshops/store',params, '编辑商品', '成功编辑商品', '编辑商品失败', function() {
+                        sendRequest('shop/topshops/store',params, '编辑店铺', '成功编辑店铺', '编辑店铺失败', function() {
                                             windowEl.unmask();
                                             editWindow.close();
                                             var lstore = me.getShopTopShopsStore();
@@ -269,8 +270,6 @@ Ext.define('XMLifeOperating.controller.ShopTopShops', {
 
 
 
-
-            
             'centralpointconfigurebannerlist #add': {
                 click: function() {
 
