@@ -692,12 +692,13 @@ Ext.define('XMLifeOperating.controller.Shop', {
                         shopId = this.shopId;
                         //修改分类
                         if (shelves.get('id') != null && shelves.get('id') != '') {
-                            debugger
+                            // debugger
                             sendPutRequest('category/update', {
                                 id: shelves.get('id'),
                                 name: shelves.get('name'),
-                                /*                                xImage:
-                                vImage:*/
+
+                                xImage: shelves.
+                                vImage:shelves.
                             }, '编辑分类', '成功编辑分类', '编辑分类失败', function() {
                                 editWindow.close();
                                 if (parentId == '') {
