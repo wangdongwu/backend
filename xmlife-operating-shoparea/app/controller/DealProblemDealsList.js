@@ -62,7 +62,7 @@ Ext.define('XMLifeOperating.controller.DealProblemDealsList', {
                     var me = this;
                     var store = this.getDealProblemDealsStore()
                     
-                    var shopAreaId = Ext.getCmp('dealProblemDealsList').down('#shopAreap').getValue();
+                    var shopAreaId = Ext.getCmp('dealProblemDealsList').down('#shopArea').getValue();
 
                         if (shopAreaId) {
                             store.load({
@@ -170,7 +170,7 @@ Ext.define('XMLifeOperating.controller.DealProblemDealsList', {
                 var sstore = me.getDealProblemDealsStore();
                 sstore.load({
                     params: {
-                            areaId: Ext.getCmp('dealProblemDealsList').down('#shopAreap').getValue()
+                            areaId: Ext.getCmp('dealProblemDealsList').down('#shopArea').getValue()
                     }
                 });
             });
@@ -218,7 +218,7 @@ Ext.define('XMLifeOperating.controller.DealProblemDealsList', {
                 var sstore = me.getDealProblemDealsStore();
                 sstore.load({
                     params: {
-                            areaId: Ext.getCmp('dealProblemDealsList').down('#shopAreap').getValue()
+                            areaId: Ext.getCmp('dealProblemDealsList').down('#shopArea').getValue()
                     }
                 });
             });
