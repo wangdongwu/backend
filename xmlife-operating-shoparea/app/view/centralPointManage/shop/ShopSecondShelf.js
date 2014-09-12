@@ -10,7 +10,8 @@
          xtype: 'pagingtoolbar',
          itemId: 'pagetool',
          store: 'CategorySubs',
-         displayInfo: true
+         displayInfo: true,
+         style: 'border:none'
      }],
      columns: [{
          xtype: 'rownumberer'

@@ -9,7 +9,8 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopList', {
         xtype: 'pagingtoolbar',
         itemId: 'pagetool',
         store: 'Shop',
-        displayInfo: true
+        displayInfo: true,
+        style:'border:none'        
     }],
     tbar: [{
             xtype: 'button',

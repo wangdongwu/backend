@@ -925,15 +925,6 @@ Ext.define('XMLifeOperating.controller.Shop', {
                                 windowEl.unmask();
                                 editWindow.close();
                                 me.showProductList(categoryId);
-                                /*                                me.getProductStore().getProxy.extraParams = {
-                                    categoryId: categoryId
-                                }
-                                me.getProductStore().loadPage(1);*/
-                                /*                                me.getProductStore().load({
-                                    params: {
-                                        categoryId: categoryId
-                                    }
-                                });*/
                             });
                             return;
                         } else {
@@ -950,17 +941,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
                                 success: function(task, operation) {
                                     windowEl.unmask();
                                     editWindow.close();
-                                    // me.fireEvent('refreshView');
-                                    /*                                    me.getProductStore().load({
-                                        params: {
-                                            categoryId: categoryId
-                                        }
-                                    });*/
                                     me.showProductList(categoryId);
-                                    /*                                    me.getProductStore().getProxy.extraParams = {
-                                        categoryId: categoryId
-                                    }
-                                    me.getProductStore().loadPage(1);*/
                                 },
                                 failure: function(task, operation) {
                                     var error = operation.getError(),
@@ -1160,7 +1141,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
     },
     showProductList: function(categoryId) {
         var sgstore = this.getProductStore();
-        sgstore.getProxy.extraParams = {
+        sgstore.getProxy().extraParams = {
             categoryId: categoryId
         }
         sgstore.loadPage(1, {

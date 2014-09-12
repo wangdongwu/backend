@@ -9,7 +9,8 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopProduct', {
         xtype: 'pagingtoolbar',
         itemId: 'pagetool',
         store: 'Product',
-        displayInfo: true
+        displayInfo: true,
+        style: 'border:none'
     }],
     columns: [{
         xtype: 'rownumberer'

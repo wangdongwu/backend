@@ -8,13 +8,18 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopShelf', {
         xtype: 'pagingtoolbar',
         itemId: 'pagetool',
         store: 'CategoryRoots',
-        displayInfo: true
+        displayInfo: true,
+        style: 'border:none'
     }],
     columns: [{
-        xtype: 'rownumberer'
+        xtype: 'rownumberer',
+        align: 'center',
+        tdCls:'user-td'
     }, {
         text: '货架名称',
-        dataIndex: 'name'
+        dataIndex: 'name',
+        align: 'center',
+        tdCls:'user-td'
     }, {
         text: '是否有次级货架',
         dataIndex: 'leaf',
@@ -27,10 +32,22 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopShelf', {
         }
     }, {
         text: '货架图片（横）',
-        dataInde: 'xImage'
+        dataInde: 'xImage',
+        width: 420,
+        sortable: false,
+        align: 'center',
+        renderer: function(value) {
+            return Ext.String.format('<img src="{0}{1}" height="100" />', XMLifeOperating.generic.Global.URL.res, value);
+        }
     }, {
         text: '货架图片（竖）',
-        dataInde: 'vImage'
+        dataInde: 'vImage',
+        width: 420,
+        sortable: false,
+        align: 'center',
+        renderer: function(value) {
+            return Ext.String.format('<img src="{0}{1}" height="100" />', XMLifeOperating.generic.Global.URL.res, value);
+        }
     }, {
         text: '编辑',
         xtype: 'actioncolumn',
@@ -40,11 +57,16 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopShelf', {
         menuDisabled: true,
         sortable: false,
         itemId: 'openModifyShelvesWin',
+        align: 'center'
 
-    }, ],
+    }],
     tbar: [{
         text: '添加货架',
         itemId: 'openCreateShelvesWin'
+    }, {
+        xtype: 'button',
+        text: '保存排序',
+        itemId: 'saveOrder'
     }],
     viewConfig: {
         plugins: {

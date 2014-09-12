@@ -199,6 +199,9 @@ body.dragging{background-color:#888fa3;}
 	font-weight: normal;
 	left: 238px !important;
 }
+.user-td{
+	vertical-align: middle;
+}
 
 
 
