@@ -895,6 +895,7 @@ Ext.ClassManager.addNameAlternateMappings({
   "XMLifeOperating.controller.ShopBannerTemplate": [],
   "XMLifeOperating.controller.Shoparea": [],
   "XMLifeOperating.controller.SupportedCityList": [],
+  "XMLifeOperating.controller.login": [],
   "XMLifeOperating.generic.BaseProxy": [],
   "XMLifeOperating.generic.Global": [],
   "XMLifeOperating.model.Address": [],
@@ -955,6 +956,7 @@ Ext.ClassManager.addNameAlternateMappings({
   "XMLifeOperating.view.dealManage.GDealCustomerDetail": [],
   "XMLifeOperating.view.dealManage.GDealDetail": [],
   "XMLifeOperating.view.dealManage.GDealList": [],
+  "XMLifeOperating.view.login": [],
   "XMLifeOperating.view.operationManage.refund.refundList": [],
   "XMLifeOperating.view.operationManage.refund.tenpayLogin": [],
   "XMLifeOperating.view.rechargeableCardManage.rechargeableCardInstance.RechargeableCardInstanceAdd": [],
@@ -2017,6 +2019,7 @@ Ext.ClassManager.addNameAliasMappings({
   "XMLifeOperating.controller.ShopBannerTemplate": [],
   "XMLifeOperating.controller.Shoparea": [],
   "XMLifeOperating.controller.SupportedCityList": [],
+  "XMLifeOperating.controller.login": [],
   "XMLifeOperating.generic.BaseProxy": [],
   "XMLifeOperating.generic.Global": [],
   "XMLifeOperating.model.Address": [],
@@ -2096,6 +2099,9 @@ Ext.ClassManager.addNameAliasMappings({
   ],
   "XMLifeOperating.view.dealManage.GDealList": [
     "widget.gDealList"
+  ],
+  "XMLifeOperating.view.login": [
+    "widget.login"
   ],
   "XMLifeOperating.view.operationManage.refund.refundList": [
     "widget.refundList"

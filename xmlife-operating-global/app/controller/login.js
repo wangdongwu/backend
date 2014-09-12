@@ -35,7 +35,7 @@ Ext.define('XMLifeOperating.controller.login', {
           }
         })
       }else{
-        self.getCurrentUsername().setText(username);
+        //self.getCurrentUsername().setText(username);
         Ext.Ajax.defaultHeaders = {
                     'auth-token' : sessionId
                   }
