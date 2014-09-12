@@ -74,9 +74,9 @@ Ext.define('XMLifeOperating.controller.ShopBannerTemplate', {
             nameColor = parseInt(nameColor,'16');
             nameStrokeColor = parseInt(nameStrokeColor,'16');*/
             var logo = form.findField('logo').lastValue;
-            var inco = form.findField('inco').lastValue;
+            var icon = form.findField('icon').lastValue;
             template.set('logo',logo);
-            template.set('inco',inco);
+            template.set('icon',icon);
 
             windowEl.mask('saving');
             form.updateRecord(template);
@@ -89,7 +89,7 @@ Ext.define('XMLifeOperating.controller.ShopBannerTemplate', {
             if(template.get('id')!=null){
                 sendPutRequest('shopbannertemplate',{id:template.get('id'),
                                                      logo:template.get('logo'),
-                                                     inco : template.get('inco'),
+                                                     icon : template.get('icon'),
                                                      name:template.get('name'),
                                                      type:template.get('type')},'编辑模板','成功编辑模板','编辑模板失败',function(){
                        
