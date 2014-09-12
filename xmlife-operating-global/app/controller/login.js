@@ -33,7 +33,7 @@ Ext.define('XMLifeOperating.controller.login', {
           '#login-bt' : {
             click : self.login
           },
-          'Toolbar':{
+          'HeaderToolbar':{
             added : function(){
                     debugger
                   }

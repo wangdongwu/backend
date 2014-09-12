@@ -104,7 +104,10 @@ Ext.define('XMLifeOperating.view.Toolbar', {
     ],
     listeners : {
       added : function(view){
-        view.down('#txtUserName').setText(localStorage.getItem('username'));
+        var username = localStorage.getItem('username');
+        if(username){
+          view.down('#txtUserName').setText(username);
+        }
       }
     }
 });
