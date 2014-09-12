@@ -740,7 +740,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
             /*
              * 二级货架(shopsecondshelf)事件
              */
-             //二级货架添加修改弹出框
+            //二级货架添加修改弹出框
             '#openCreateSecondShelvesWin,#openModifySecondShelvesWin': {
                 click: function(component, rowIndex, colIndex) {
                     var itemId = component.getItemId() || {};
@@ -778,8 +778,8 @@ Ext.define('XMLifeOperating.controller.Shop', {
                             sendPutRequest('category/update', {
                                 id: shelves.get('id'),
                                 name: shelves.get('name'),
-                                vImage:'',
-                                xImage:''
+                                vImage: '',
+                                xImage: ''
                             }, '编辑分类', '成功编辑分类', '编辑分类失败', function() {
                                 editWindow.close();
                                 me.showCategorySubsList(shopId, parentId);
@@ -1199,29 +1199,56 @@ Ext.define('XMLifeOperating.controller.Shop', {
             form = editWindow.down('form').getForm(),
             me = this;
         var inputs = form.updateRecord().getRecord().data;
-        var data = {
-            id: null,
-            bannerIds: [],
-            bannerUrls: [],
-            titles: []
+
+        if (inputs.id) { //修改
+            var editBannerId = inputs.id;
+            var data = {
+                id: null,
+                bannerIds: [],
+                bannerUrls: [],
+                titles: []
+            }
+            var allbaners = this.getShopBannerTemplateStore().data.items;
+            var hash = inputs.image;
+
+
+            this.getShopBannerTemplateStore().each(function(e) {
+                if (e.getId() == editBannerId) {
+                    data.bannerIds.push(e.getId());
+                    data.bannerUrls.push(inputs.url);
+                    data.titles.push(inputs.title);
+                } else {
+                    data.bannerIds.push(e.getId());
+                    data.bannerUrls.push(e.data.url);
+                    data.titles.push(e.data.title);
+                }
+            });
+            data.id = me.shopId;
+
+        } else { //添加
+            var data = {
+                id: null,
+                bannerIds: [],
+                bannerUrls: [],
+                titles: []
+            }
+            var allbaners = this.getShopBannerTemplateStore().data.items;
+            var hash = inputs.image;
+
+            this.getShopBannerTemplateStore().each(function(e) {
+                data.bannerIds.push(e.getId());
+                data.bannerUrls.push(e.data.url);
+                data.titles.push(e.data.title);
+            });
+            data.id = me.shopId;
+            data.bannerIds.push(hash);
+            data.bannerUrls.push(inputs.url);
+            data.titles.push(inputs.title);
         }
-        var allbaners = this.getShopBannerTemplateStore().data.items;
-        var hash = inputs.image;
-        console.log(hash);
-        this.getShopBannerTemplateStore().each(function(e) {
-            data.bannerIds.push(e.getId());
-            data.bannerUrls.push(e.data.url);
-            data.titles.push(e.data.title);
-        });
-        data.id = me.shopId;
-        data.bannerIds.push(hash);
-        data.bannerUrls.push(inputs.url);
-        data.titles.push(inputs.title);
         if (form.isValid()) {
             var success = function(task, operation) {
                 windowEl.unmask();
                 editWindow.close();
-                me.fireEvent('refreshView');
             };
             var failure = function(task, operation) {
                 var error = operation.getError(),
