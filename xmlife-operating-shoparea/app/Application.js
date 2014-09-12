@@ -40,7 +40,8 @@ Ext.define('XMLifeOperating.Application', {
         'FeedbackList',
         'Deliverer',
         'RefundList',
-        'ShopTopShops'
+        'ShopTopShops',
+        'login'
     ],
 
     stores: [

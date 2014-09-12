@@ -1,9 +1,12 @@
+
+
 Ext.define('XMLifeOperating.generic.BaseProxy', {
     requires: ['XMLifeOperating.generic.Global'],
     extend: 'Ext.data.proxy.Rest',
     reader: 'json',
 
     constructor: function(resourceURL,root) {
+      //Ext.Ajax.useDefaultXhrHeader = false;
         if(!resourceURL || resourceURL.length < 1) {
             alert("bad resourceURL");
         }
@@ -62,6 +65,13 @@ var sendRequest = function(url, params, title, successMsg, errorMsg, success, fa
     }else{
         newUrl = XMLifeOperating.generic.Global.URL.biz + url;
     }
+    var sessionId = localStorage.getItem('sessionId');
+        if(sessionId){
+            this.headers = {
+                'auth-token' : sessionId
+            };  
+        }
+        
     Ext.Ajax.request({
         url: newUrl,
         params: params,
