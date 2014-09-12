@@ -82,6 +82,8 @@ Ext.define('XMLifeOperating.view.Toolbar', {
                                   success : function(response){
                                     if(response.responseText){
                                       localStorage.removeItem('sessionId');
+                                      localStorage.removeItem('username');
+                                      window.location.reload();
                                     }
                                   },
                                   failure : function(response){
@@ -99,7 +101,12 @@ Ext.define('XMLifeOperating.view.Toolbar', {
                 ]
             }
         },
-    ]
+    ],
+    listeners : {
+      added : function(view){
+        view.down('#txtUserName').setText(localStorage.getItem('username'));
+      }
+    }
 });
 
 
