@@ -68,7 +68,7 @@ Ext.define('XMLifeOperating.controller.login', {
               if(response.status==401){
                 var data = {
                   'Unauthorized' : '对不起，你登录失败了，请重新登录'
-                }
+                };
                 Ext.MessageBox.show({
                   title: '登录失败',
                   msg: data[response.statusText],
