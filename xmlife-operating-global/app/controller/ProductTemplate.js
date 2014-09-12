@@ -40,6 +40,8 @@ Ext.define('XMLifeOperating.controller.ProductTemplate', {
                     var cClass = this.getProductTemplateModel();
                     var productTemplate = new cClass();
                     var win = this.getEditWindow();
+                    win.down('#barCodeId').setDisabled(false);
+                    win.down('#skuIdId').setDisabled(false);
                     win.down('form').loadRecord(productTemplate);
                     win.show();
                 }
