@@ -183,7 +183,7 @@ Ext.define('XMLifeOperating.controller.ShopTopShops', {
                     var lstore = me.getShopShopGroupStore();
                     lstore.load({
                         params: {
-                            areaId: 1
+                            areaId: me.areaId
                         }
                     });
                     var content = this.getContentPanel();
@@ -193,8 +193,6 @@ Ext.define('XMLifeOperating.controller.ShopTopShops', {
                     var content = this.getContentPanel();
                     content.removeAll(false);
                     var url='shop/shopgroup';
-                   
-                   
                     content.add(tab);*/
                     //this.centralPointId = centralPointId;
                 }
@@ -202,6 +200,7 @@ Ext.define('XMLifeOperating.controller.ShopTopShops', {
             },
             'shopShopGroupList #add': {
                 click: function() {
+                    console.log(me.areaId);
                     var len = this.getShopShopGroupStore().getCount();
 
                     if (len >= 6) {
@@ -216,7 +215,7 @@ Ext.define('XMLifeOperating.controller.ShopTopShops', {
                     var store = this.getShopShopGroupAddStore();
                     store.load({
                         params: {
-                            areaId: 1
+                            areaId: me.areaId
                         },
                     });
 
@@ -246,7 +245,7 @@ Ext.define('XMLifeOperating.controller.ShopTopShops', {
                     shopId=s.substring(0,s.length-1);
                     var url = 'shop/shopgroup/store';
                     sendRequest(url, {
-                        areaId: 1,
+                        areaId: me.areaId,
                         name: 'name',
                         shopId:shopId
                     }, '编辑banner', '成功编辑banner', '编辑banner失败', function() {
@@ -256,7 +255,7 @@ Ext.define('XMLifeOperating.controller.ShopTopShops', {
                         var shopShopGroupStore = me.getShopShopGroupStore();
                         shopShopGroupStore.load({
                             params: {
-                                areaId: 1
+                                areaId: me.areaId
                             }
                         });
                     });
@@ -316,12 +315,12 @@ Ext.define('XMLifeOperating.controller.ShopTopShops', {
     },
 
     onShow: function() {
-        var store = this.getShopTopShopsStore();
+        /*var store = this.getShopTopShopsStore();
         store.load({
             params: {
                 areaId:1
             }
-        });
+        });*/
     },
     onEdit: function(view, rowIndex, colIndex, column, e) {
         console.log("start edit");
@@ -551,12 +550,12 @@ Ext.define('XMLifeOperating.controller.ShopTopShops', {
                                 Ext.Msg.alert('Invalid Data', '不能删除');
                                 return;
                             }
-                            /*var shopTopShopsStore = me.getShopTopShopsStore();
-                            shopTopShopsStore.load({
+                            var store = me.getShopShopGroupAddStore();
+                            store.load({
                                 params: {
-                                    areaId: areaId
-                                }
-                            });*/
+                                    areaId: me.areaId
+                                },
+                            });
 
                     });
                 }

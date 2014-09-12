@@ -11,7 +11,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.shopTopShops.ShopShopGroupLi
     store: 'ShopShopGroup',
     tbar: [{
         xtype: 'button',
-        text: '添加Banner',
+        text: '添加优质店铺',
         itemId: 'add'
     }, {
         xtype: 'button',
