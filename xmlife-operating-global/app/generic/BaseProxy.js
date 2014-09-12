@@ -12,7 +12,12 @@ Ext.define('XMLifeOperating.generic.BaseProxy', {
         }else{
             this.url = XMLifeOperating.generic.Global.URL.biz + resourceURL;
         }
-
+        var sessionId = localStorage.getItem('sessionId');
+        if(sessionId){
+            this.headers = {
+                'auth-token' : sessionId
+            };  
+        }
         if(root){
           this.reader = {
             type : 'json',

@@ -32,11 +32,6 @@ Ext.define('XMLifeOperating.controller.login', {
         this.control({
           '#login-bt' : {
             click : self.login
-          },
-          'HeaderToolbar':{
-            added : function(){
-                    debugger
-                  }
           }
         })
       }else{
@@ -70,7 +65,6 @@ Ext.define('XMLifeOperating.controller.login', {
               }
             },
             failure : function(response){
-              debugger;
               if(response.status==401){
                 var data = {
                   'Unauthorized' : '对不起，你登录失败了，请重新登录'

@@ -59,7 +59,17 @@ Ext.define('XMLifeOperating.Application', {
         ],
 
     launch: function() {
+
         // Setup a task to fadeOut the splashscreen
+        // 
+        var sessionId = localStorage.getItem('sessionId');
+        if(sessionId){
+            Ext.Ajax.defaultHeaders = {
+                'auth-token' : sessionId
+            };  
+        }
+        
+
         var task = new Ext.util.DelayedTask(function() {
             // Fade out the body mask
             splashscreen.fadeOut({
