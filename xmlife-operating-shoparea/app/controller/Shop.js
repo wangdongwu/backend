@@ -191,6 +191,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
                 click: function(view, column, rowIndex, colIndex, e) {
                     var me = this;
                     var tab = this.getShopShelfTab();
+                    // debugger
                     tab.setActiveTab('tab2');
                     var content = this.getContentPanel();
                     content.removeAll(false);
@@ -461,6 +462,10 @@ Ext.define('XMLifeOperating.controller.Shop', {
                             alert('请确认结束时间晚于开始时间！');
                             return;
                         }
+                        if(openTime==0 ||closeTime == 0){
+                            alert('开店与关店时间不能为零点');
+                            return;
+                        }
                         windowEl.mask('saving');
                         shopStore.set('city', XMLifeOperating.generic.Global.currentCity);
                         //var areaIds = [XMLifeOperating.generic.Global.SERVICECENEERID];
@@ -501,7 +506,6 @@ Ext.define('XMLifeOperating.controller.Shop', {
                             //me.fireEvent('refreshView');
                         };
                         var modifyFailureCallback = function(task, operation) {
-
                             var error = operation.getError(),
                                 msg = Ext.isObject(error) ? error.status + ' ' + error.statusText : error;
                             Ext.MessageBox.show({

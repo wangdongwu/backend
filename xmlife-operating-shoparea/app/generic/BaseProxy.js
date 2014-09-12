@@ -41,6 +41,7 @@ Ext.define('XMLifeOperating.generic.BaseProxy', {
                 if (error) {
                     msg = Ext.String.format('Error Code: {0}<br />Message: {1}', error.code, error.message);
                 } else {
+
                     title = '请重新登录';
                     msg = '您还没有登录或已登录过期请重新登录';
 
