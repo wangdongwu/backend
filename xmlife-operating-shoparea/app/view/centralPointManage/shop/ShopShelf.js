@@ -14,6 +14,8 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopShelf', {
     columns: [{
         xtype: 'rownumberer',
         align: 'center',
+        itemId:'rowIndex',
+        id:'rowIndex',
         tdCls: 'user-td'
     }, {
         text: '货架名称',
@@ -70,12 +72,18 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopShelf', {
     }, {
         xtype: 'button',
         text: '保存排序',
-        itemId: 'saveOrder'
+        itemId: 'saveShelvesOrder'
     }],
     viewConfig: {
         plugins: {
             ptype: 'gridviewdragdrop',
             dragText: 'Drag and drop to reorder'
+        },
+        listeners: {
+            drop: function(node, data, dropRec, dropPosition) {
+                var me = this;
+                //Ext.getCmp('rowIndex').update(this);
+            }
         }
     }
 });

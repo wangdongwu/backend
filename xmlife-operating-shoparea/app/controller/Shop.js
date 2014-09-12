@@ -528,17 +528,6 @@ Ext.define('XMLifeOperating.controller.Shop', {
                     var tabShopStore = this.getShopList();
                     /*var sstore = this.getShopStore();*/
                     me.showShopList();
-                    /*                    sstore.load({
-                        params: {
-                            city: XMLifeOperating.generic.Global.currentCity,
-                            areaId: XMLifeOperating.generic.Global.SERVICECENEERID
-                        }
-                    });*/
-                    /*                    sstore.getProxy().extraParams = {
-                        city: XMLifeOperating.generic.Global.currentCity,
-                        areaId: XMLifeOperating.generic.Global.SERVICECENEERID
-                    }
-                    sstore.loadPage(1);*/
                     content.add(tabShopStore);
                 }
             },
@@ -587,6 +576,34 @@ Ext.define('XMLifeOperating.controller.Shop', {
                     }
                 }
             },
+            'shopshelf #saveShelvesOrder': {
+                click: function() {
+                    var store = this.getCategoryRootsStore();
+                    var me = this;
+                    var data = {
+                       
+                        ids: []
+                    };
+                    var success = function(task, operation) {
+                        me.showCategoryRootsList(me.shopId);
+                    }
+                    var failure = function(task, operation) {
+                        var error = operation.getError(),
+                            msg = Ext.isObject(error) ? error.status + ' ' + error.statusText : error;
+                        Ext.MessageBox.show({
+                            title: 'Edit Task Failed',
+                            msg: msg,
+                            icon: Ext.Msg.ERROR,
+                            buttons: Ext.Msg.OK
+                        });
+              
+                    }
+                    store.each(function(e) {
+                        data.ids.push(e.data.id)
+                    });
+                    sendPutRequest('category/reorder', data, '一级货架排序', '排序成功', '排序失败', success, failure);
+                }
+            },
             'shopbuyer #reseachBuyer': {
                 click: function() {
                     var store = Ext.ComponentQuery.query('shopbuyer #searchBuyerId')[0].getStore();
@@ -627,20 +644,6 @@ Ext.define('XMLifeOperating.controller.Shop', {
                     }, '买手绑定店铺', '成功绑定买手', '绑定买手失败', function() {
                         editWindow.close();
                         me.showShopList();
-                        /*                        var dstore = me.getShopStore();
-                        dstore.getProxy.extraParams = {
-                            city: XMLifeOperating.generic.Global.currentCity,
-                            areaId: XMLifeOperating.generic.Global.SERVICECENEERID
-                        }
-                        dstore.loadPage(1);*/
-
-
-                        /*  dstore.load({
-                            params: {
-                                city: XMLifeOperating.generic.Global.currentCity,
-                                areaId: XMLifeOperating.generic.Global.SERVICECENEERID
-                            }
-                        });*/
                     });
 
                 }
