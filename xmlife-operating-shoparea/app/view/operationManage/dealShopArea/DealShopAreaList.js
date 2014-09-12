@@ -8,6 +8,13 @@ Ext.define('XMLifeOperating.view.operationManage.dealShopArea.DealShopAreaList',
     title: '货到中心管理',
 
     store: 'DealShopArea',
+    bbar: [{
+        xtype: 'pagingtoolbar',
+        itemId: 'pagetool',
+        store: 'DealShopArea',
+        displayInfo: true,
+        style:'border:none'
+    }],
     tbar: [
         {
             xtype:'combobox',

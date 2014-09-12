@@ -22,15 +22,18 @@ Ext.define('XMLifeOperating.controller.DealShopAreaList', {
             
             'dealShopAreaList #shopArea': {
             	select: function (combo) {
-                   console.log('hello shop dsitrict');
-                    var sstore = this.getDealShopAreaStore();
-                    sstore.load({
+                    var store = this.getDealShopAreaStore();
+                    store.getProxy().extraParams = {
+                        city: XMLifeOperating.generic.Global.currentCity,
+                        shopArea: combo.getValue()
+                    };
+                    store.loadPage(1,{
                         params: {
-                            city: XMLifeOperating.generic.Global.currentCity,
-                            shopArea: combo.getValue()
+                            start: 0,
+                            limint: 25,
+                            page: 1
                         }
                     });
-
                 },
             }, 
             'dealShopAreaList #arrivalOnCenter':{
