@@ -119,7 +119,6 @@ Ext.define('XMLifeOperating.controller.Navigation', {
         var alias = 'widget.' + xtype,
             contentPanel = this.getContentPanel();
         contentPanel.removeAll(false);
-        //debugger
         console.log("alias = " + alias);
         if (this.loadedClasses[xtype]) {
             cmp = this.loadedClasses[xtype];
