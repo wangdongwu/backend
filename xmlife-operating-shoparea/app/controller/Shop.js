@@ -696,9 +696,8 @@ Ext.define('XMLifeOperating.controller.Shop', {
                             sendPutRequest('category/update', {
                                 id: shelves.get('id'),
                                 name: shelves.get('name'),
-
-                                xImage: shelves.
-                                vImage:shelves.
+                                xImage: shelves.get('shopShelfxImage'),
+                                vImage: shelves.get('shopShelfVImage')
                             }, '编辑分类', '成功编辑分类', '编辑分类失败', function() {
                                 editWindow.close();
                                 if (parentId == '') {
