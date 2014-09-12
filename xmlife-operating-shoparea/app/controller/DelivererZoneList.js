@@ -121,7 +121,7 @@ Ext.define('XMLifeOperating.controller.DelivererZoneList', {
                             model.select(index, true);
                         }
                     });
-                    store.loadPage(1,{
+                    store.loadPage(1, {
                         params: {
                             start: 0,
                             limit: 25,
@@ -138,11 +138,11 @@ Ext.define('XMLifeOperating.controller.DelivererZoneList', {
                     store.getProxy().extraParams = {
                         name: me.getKeywordCommunity().getValue()
                     }
-                    store.loadPage(1,{
+                    store.loadPage(1, {
                         params: {
-                            start:0,
-                            limit:25,
-                            page:1
+                            start: 0,
+                            limit: 25,
+                            page: 1
                         }
                     });
                 }
@@ -203,10 +203,10 @@ Ext.define('XMLifeOperating.controller.DelivererZoneList', {
                         autoSync: true
                     });
                     this.getOldCourierId().bindStore(store, false);
+                    store.getProxy().extraParams = {
+                        deliveryZone: record.get('id')
+                    }
                     store.load({
-                        params: {
-                            deliveryZone: record.get('id'),
-                        },
                         callback: function(records) {
                             //初始化打勾
                             var model = Ext.ComponentQuery.query('#oldCourierId')[0].getSelectionModel();
@@ -221,7 +221,6 @@ Ext.define('XMLifeOperating.controller.DelivererZoneList', {
                         autoSync: true
                     });
                     this.getSearchCourierId().bindStore(store1, false);
-                    store.load();
                 }
             },
             'lineDelivererAdd #reseachCourier': {

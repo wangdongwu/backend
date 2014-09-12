@@ -24,6 +24,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopShelf', {
         text: '是否有次级货架',
         dataIndex: 'leaf',
         align: 'center',
+        tdCls:'user-td',
         renderer: function(value, metadata, model, rowIndex, colIndex, store) {
             if (value) {
                 return '无';
@@ -36,6 +37,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopShelf', {
         width: 420,
         sortable: false,
         align: 'center',
+        tdCls:'user-td',
         renderer: function(value) {
             return Ext.String.format('<img src="{0}{1}" height="100" />', XMLifeOperating.generic.Global.URL.res, value);
         }
@@ -45,6 +47,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopShelf', {
         width: 420,
         sortable: false,
         align: 'center',
+        tdCls:'user-td',
         renderer: function(value) {
             return Ext.String.format('<img src="{0}{1}" height="100" />', XMLifeOperating.generic.Global.URL.res, value);
         }
@@ -57,6 +60,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopShelf', {
         menuDisabled: true,
         sortable: false,
         itemId: 'openModifyShelvesWin',
+        tdCls:'user-td',
         align: 'center'
 
     }],

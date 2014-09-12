@@ -131,7 +131,7 @@ Ext.define('XMLifeOperating.controller.CustomerList', {
         var customerDetail = view.getRecord(view.findTargetByEvent(e));
         var uid = customerDetail.get('uid');
         var store = self.getAddressStore();
-        var win = self.getCustomerAddress()
+        var win = self.getCustomerAddress();
         store.on('load', function(store, addressList) {
             win.show();
         });

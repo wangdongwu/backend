@@ -44,11 +44,11 @@
          tooltip: 'Edit',
          menuDisabled: true,
          sortable: false,
-         itemId: 'openModifyShelvesWin',
+         itemId: 'openModifySecondShelvesWin',
 
      }, ],
      tbar: [{
          text: '添加货架',
-         itemId: 'openCreateShelvesWin'
+         itemId: 'openCreateSecondShelvesWin'
      }]
  });

@@ -26,7 +26,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopShelfAdd', {
             }, {
                 "value": true,
                 "leaf": '否'
-            }],
+            }]
         });
         this.items = [{
             xtype: 'form',
@@ -39,7 +39,6 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopShelfAdd', {
                     fieldLabel: '货架名称',
                     labelWidth: 90,
                     id: 'shelvesName',
-
                 }, {
                     fieldLabel: '是否有子类',
                     labelWidth: 90,
@@ -86,9 +85,9 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopShelfAdd', {
                     border: false,
                     items: [{
                         xtype: 'textfield',
-                        name: 'yImage',
+                        name: 'vImage',
                         fieldLabel: '货架图片（竖）',
-                        itemId: 'shopShelfyImage',
+                        itemId: 'shopShelfvImage',
                         labelWidth: 90,
                         width: 300,
                         readOnly: false,
@@ -99,7 +98,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopShelfAdd', {
                         margin: '0 30 0 0',
                         items: [{
                             xtype: 'filefield',
-                            name: 'shopShelfyImageUploadfile',
+                            name: 'shopShelfvImageUploadfile',
                             buttonOnly: true,
                             hideLabel: true,
                         }]
