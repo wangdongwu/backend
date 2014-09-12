@@ -38,7 +38,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopSecondShelfAdd', {
                     name: 'name',
                     fieldLabel: '货架名称',
                     labelWidth: 90,
-                    id: 'shelvesName',
+                    id: 'secondShelvesName',
                 }, {
                     fieldLabel: '是否有子类',
                     labelWidth: 90,
@@ -52,7 +52,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopSecondShelfAdd', {
                     displayField: 'leaf',
                     valueField: 'value',
                     allowBlank: false,
-                    id: 'shelvesLeaf'
+                    id: 'secondShelvesLeaf'
                 }
 
             ],
