@@ -94,9 +94,9 @@ Ext.define('XMLifeOperating.view.templateManage.shopBannerTemplate.ShopBannerTem
                     items:[
                         {
                             xtype: 'textfield',
-                            name: 'inco',
-                            fieldLabel: '上传店铺inco',
-                            itemId:'inco',
+                            name: 'icon',
+                            fieldLabel: '上传店铺icon',
+                            itemId:'icon',
                             labelWidth: 90,
                             readOnly: false,
                         },
@@ -108,7 +108,7 @@ Ext.define('XMLifeOperating.view.templateManage.shopBannerTemplate.ShopBannerTem
                                 {
                                   xtype: 'filefield',
                                   name: 'templateUploadfile',
-                                  buttonText: '上传inco',
+                                  buttonText: '上传icon',
                                   buttonOnly: true,
                                   hideLabel: true,
                                 },

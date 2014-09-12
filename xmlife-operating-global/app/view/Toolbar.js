@@ -60,7 +60,7 @@ Ext.define('XMLifeOperating.view.Toolbar', {
         },
         '-',
         {
-            text: 'admin',
+            text: '未登录',
             itemId: 'txtUserName',
             margin: '0 10 0 10',
             menu: {
@@ -87,7 +87,7 @@ Ext.define('XMLifeOperating.view.Toolbar', {
                                   failure : function(response){
                                       Ext.MessageBox.show({
                                         title: '注销失败',
-                                        msg: '很抱歉您注销失败了,请重新尝试!',
+                                        msg: '您现在已经注销了!',
                                         buttons: Ext.Msg.OK
                                      });
                                     
