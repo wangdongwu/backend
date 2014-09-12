@@ -233,7 +233,6 @@ Ext.define('XMLifeOperating.controller.Shop', {
                     win.show();
                     var store = this.getShopperStore();
                     var storeCount = store.getCount();
-                    debugger
                     store.removeAll();
                     store.getProxy().extraParams = {
                         shopId: record.get('id')
