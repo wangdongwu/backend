@@ -15,7 +15,12 @@ Ext.define('XMLifeOperating.generic.BaseProxy', {
         }else{
             this.url = XMLifeOperating.generic.Global.URL.biz + resourceURL;
         }
-
+        var sessionId = localStorage.getItem('sessionId');
+        if(sessionId){
+            this.headers = {
+                'auth-token' : sessionId
+            };  
+        }
         if(root){
           this.reader = {
             type : 'json',
@@ -36,19 +41,26 @@ Ext.define('XMLifeOperating.generic.BaseProxy', {
                 if (error) {
                     msg = Ext.String.format('Error Code: {0}<br />Message: {1}', error.code, error.message);
                 } else {
-                    msg = 'Unknow Error ' + proxy.url;
+                    title = '请重新登录';
+                    msg = '您还没有登录或已登录过期请重新登录';
+
                 }
             } catch(err) {
                 msg = Ext.String.format('Fail to handle exception message:<br />{0}<br /><br />URL: {1}', err.message, proxy.url);
                 title = 'Unexpected Return';
             }
 
-            Ext.MessageBox.show({
+            var ErrorMessage = Ext.MessageBox.show({
                 title: title,
                 msg: msg,
                 icon: Ext.Msg.ERROR,
                 buttons: Ext.Msg.OK
             });
+            ErrorMessage.on('hide',function(){
+              localStorage.removeItem('sessionId');
+              localStorage.removeItem('username');
+              window.location.reload();
+            })
         }
     }
 });
