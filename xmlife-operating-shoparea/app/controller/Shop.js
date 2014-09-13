@@ -196,7 +196,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
                     content.removeAll(false);
                     var record = view.getRecord(view.findTargetByEvent(e));
                     var shopId = record.get('id');
-                    tab.getActiveTab().setTitle(record.get('name')+'一级货架');
+                    tab.getActiveTab().setTitle(record.get('name') + '一级货架');
                     me.showCategoryRootsList(shopId);
                     content.add(tab);
                     this.shopId = shopId;
@@ -378,6 +378,9 @@ Ext.define('XMLifeOperating.controller.Shop', {
             'shopbanner #editShopStoreBanner': {
                 click: me.onShopStoreBannerEdit
             },
+            'shopbanner #deleteShopStoreBanner': {
+                click: me.onShopStoreBannerDelete
+            },
             'shopbanneradd #btnSave': {
                 click: me.saveEditShopStoreBannerWin
             },
@@ -462,7 +465,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
                             alert('请确认结束时间晚于开始时间！');
                             return;
                         }
-                        if(openTime==0 ||closeTime == 0){
+                        if (openTime == 0 || closeTime == 0) {
                             alert('开店与关店时间不能为零点');
                             return;
                         }
@@ -585,7 +588,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
                     var store = this.getCategoryRootsStore();
                     var me = this;
                     var data = {
-                       
+
                         ids: []
                     };
                     var success = function(task, operation) {
@@ -600,7 +603,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
                             icon: Ext.Msg.ERROR,
                             buttons: Ext.Msg.OK
                         });
-              
+
                     }
                     store.each(function(e) {
                         data.ids.push(e.data.id)
@@ -1198,10 +1201,46 @@ Ext.define('XMLifeOperating.controller.Shop', {
     onShopStoreBannerEdit: function(view, rowIndex, colIndex, column, e) {
         console.log("start edit");
         var ShopStoreBanner = view.getRecord(view.findTargetByEvent(e));
-        console.log(ShopStoreBanner);
         var win = this.getShopBannerAdd();
         win.down('form').loadRecord(ShopStoreBanner);
         win.show();
+    },
+    onShopStoreBannerDelete: function(view, rowIndex, colIndex, column, e) {
+        var me = this;
+        var  windowEl = this.getShopShelfTab().getEl();
+        var record = view.getRecord(view.findTargetByEvent(e));
+        var store = this.getShopBannerTemplateStore();
+        var deleteId = record.get('id');
+        var data = {
+            id: null,
+            bannerIds: [],
+            bannerUrls: [],
+            titles: []
+        }
+        store.each(function(e) {
+            if (e.getId() != deleteId) {
+                data.bannerIds.push(e.getId());
+                data.bannerUrls.push(e.url);
+                data.titles.push(e.title);
+            }
+        });
+        data.id = me.shopId;
+        var success = function(task, operation) {
+            store.remove(record);
+        };
+        var failure = function(task, operation) {
+            var error = operation.getError(),
+                msg = Ext.isObject(error) ? error.status + ' ' + error.statusText : error;
+            Ext.MessageBox.show({
+                title: 'Edit Task Failed',
+                msg: msg,
+                icon: Ext.Msg.ERROR,
+                buttons: Ext.Msg.OK
+            });
+        };
+        sendPutRequest('shop/updatebanners', data, '删除Banner模板', '删除Banner模板成功', '删除Banner模板失败', success, failure);
+
+
     },
     saveEditShopStoreBannerWin: function() {
         var editWindow = this.getShopBannerAdd(),
@@ -1229,8 +1268,6 @@ Ext.define('XMLifeOperating.controller.Shop', {
             }
             var allbaners = this.getShopBannerTemplateStore().data.items;
             var hash = inputs.image;
-
-
             this.getShopBannerTemplateStore().each(function(e) {
                 if (e.getId() == editBannerId) {
                     data.bannerIds.push(e.getId());
