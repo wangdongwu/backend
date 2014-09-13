@@ -12,8 +12,8 @@ Ext.define('XMLifeOperating.controller.DealList', {
         selector: 'dealList',
         xtype: 'dealList'
     }, {
-        ref: 'shopAread',
-        selector: '#shopAread',
+        ref: 'shopArea',
+        selector: '#shopArea',
     }, {
         ref: 'keyword',
         selector: '#keyword',
@@ -90,7 +90,7 @@ Ext.define('XMLifeOperating.controller.DealList', {
                 select: function(combo) {
                     var sstore = this.getDealStore();
                     sstore.getProxy().extraParams = {
-                        shopArea: Ext.getCmp('dealList').down('#shopAread').getValue(),
+                        shopArea: Ext.getCmp('dealList').down('#shopArea').getValue(),
                         status: combo.getValue()
                     }
                     sstore.loadPage(1, {
@@ -119,7 +119,7 @@ Ext.define('XMLifeOperating.controller.DealList', {
             keyWords = me.getDealList().down('#keyword').getValue(),
             store = this.getDealStore(),
             view = this.getDealList();
-        var shopAreaId = Ext.getCmp('dealList').down('#shopAread').getValue();
+        var shopAreaId = Ext.getCmp('dealList').down('#shopArea').getValue();
         if (keyWords == '') {
             if (shopAreaId) {
                 store.getProxy().extraParams = {

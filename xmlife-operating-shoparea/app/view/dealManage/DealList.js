@@ -10,7 +10,7 @@ Ext.define('XMLifeOperating.view.dealManage.DealList', {
 
     tbar: [{
             xtype: 'combobox',
-            name: 'shopAread',
+            name: 'shopArea',
             itemId: 'shopArea',
             store: 'ShopArea',
             emptyText: '请选择中心',
