@@ -152,7 +152,7 @@ Ext.define('XMLifeOperating.controller.ResidentalDistrict', {
                             isActive: isActive
                         }, '操作关闭或开启小区', '成功操作小区', '操作小区失败', function() {
 
-                            var store = this.getResidentalDistrictStore();
+                            var store = me.getResidentalDistrictStore();
                             store.getProxy().extraParams = {
                                 unbind: true
                             }
