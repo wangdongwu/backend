@@ -240,9 +240,10 @@ Ext.define('XMLifeOperating.controller.ShopTopShops', {
                             shopId += item.get('id')+'|';
                         }
                     });
-                    console.log(shopId);
+                    
                     var s=shopId;
                     shopId=s.substring(0,s.length-1);
+                    console.log(shopId);
                     var url = 'shop/shopgroup/store';
                     sendRequest(url, {
                         areaId: me.areaId,
