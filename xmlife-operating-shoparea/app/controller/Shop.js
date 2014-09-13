@@ -191,12 +191,12 @@ Ext.define('XMLifeOperating.controller.Shop', {
                 click: function(view, column, rowIndex, colIndex, e) {
                     var me = this;
                     var tab = this.getShopShelfTab();
-                     // debugger
                     tab.setActiveTab('tab2');
                     var content = this.getContentPanel();
                     content.removeAll(false);
                     var record = view.getRecord(view.findTargetByEvent(e));
                     var shopId = record.get('id');
+                    tab.getActiveTab().setTitle(record.get('name')+'一级货架');
                     me.showCategoryRootsList(shopId);
                     content.add(tab);
                     this.shopId = shopId;
