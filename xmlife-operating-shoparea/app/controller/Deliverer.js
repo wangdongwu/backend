@@ -287,7 +287,7 @@ Ext.define('XMLifeOperating.controller.Deliverer', {
                     
                     delivererWorkTimeStore.getProxy().extraParams = {
                         deliverer: delivererId,
-                        dayType: 1
+                        dayType: 3
                     }
                     delivererWorkTimeStore.loadPage(1, {
                         params: {
