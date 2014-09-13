@@ -163,6 +163,9 @@ Ext.define('XMLifeOperating.view.userManage.customer.CustomerDealList', {
                 case 7:
                     return '订单取消';
                     break;
+                case 6:
+                    return '全部退货';
+                    break;
                 case 20:
                     return '等待分配买手';
                     break;
