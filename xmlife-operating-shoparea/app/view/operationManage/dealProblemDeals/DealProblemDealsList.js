@@ -1,58 +1,58 @@
-
 Ext.define('XMLifeOperating.view.operationManage.dealProblemDeals.DealProblemDealsList', {
     extend: 'Ext.grid.Panel',
-    closable : false,
+    closable: false,
     xtype: 'dealProblemDealsList',
     title: '问题订单管理',
     store: 'DealProblemDeals',
-    id:'dealProblemDealsList',
-
-    tbar: [
-        {
-            xtype:'combobox',
-            name:'shopArea',
-            itemId:'shopArea',
-            store:'ShopArea',
-            emptyText:'请选择中心',
-            margin:10,
+    id: 'dealProblemDealsList',
+    bbar: [{
+        xtype: 'pagingtoolbar',
+        itemId: 'pagetool',
+        store: 'DealProblemDeals',
+        displayInfo: true,
+        style: 'border:none'
+    }],
+    tbar: [{
+            xtype: 'combobox',
+            name: 'shopArea',
+            itemId: 'shopArea',
+            store: 'ShopArea',
+            emptyText: '请选择中心',
+            margin: 10,
             editable: false,
-            queryMode:'local',
-            displayField:'name',
-            valueField:'id',
-            hidden:(XMLifeOperating.generic.Global.operating_type == 'center')
-        },
-        {
+            queryMode: 'local',
+            displayField: 'name',
+            valueField: 'id',
+            hidden: (XMLifeOperating.generic.Global.operating_type == 'center')
+        }, {
 
             xtype: 'button',
             text: '刷新',
             itemId: 'update',
-            hidden:(XMLifeOperating.generic.Global.operating_type == 'center')
+            hidden: (XMLifeOperating.generic.Global.operating_type == 'center')
         },
-        
-     ],
 
-    columns: [
-        {
+    ],
+
+    columns: [{
             xtype: 'rownumberer'
-        }, 
-        {
+        }, {
             text: '日期',
             dataIndex: 'created',
             width: 70,
             sortable: true,
-            align: 'center', 
-            renderer:function(value){
-               var newTime = new Date(value);
-               newDate = newTime.getFullYear()+'.'+(newTime.getMonth()+1)+'.'+newTime.getDate();
-               return newDate;
-            } 
-        },
-        {
+            align: 'center',
+            renderer: function(value) {
+                var newTime = new Date(value);
+                newDate = newTime.getFullYear() + '.' + (newTime.getMonth() + 1) + '.' + newTime.getDate();
+                return newDate;
+            }
+        }, {
             text: '订单号',
             dataIndex: 'shortId',
             width: 50,
             sortable: false,
-            align: 'center',  
+            align: 'center',
         },
 
         {
@@ -60,62 +60,60 @@ Ext.define('XMLifeOperating.view.operationManage.dealProblemDeals.DealProblemDea
             dataIndex: 'zoneName',
             width: 60,
             sortable: false,
-            align: 'center',  
-        },
-        {
+            align: 'center',
+        }, {
             text: '订单状态',
             dataIndex: 'status',
             width: 70,
             sortable: false,
-            align: 'center',  
-            renderer:function(value){
-                switch(value){
-                case 1:
-                    return '正在备货';
-                    break;
-                case 31:
-                    return '分配买手失败';
-                    break;
-                case 2:
-                  return '已出货';
-                  break;
-                case 32:
-                    return '分配快递员失败';
-                    break;
-                case 3:
-                    return '配送中';
-                    break;
-                case 4:
-                    return '完成配送';
-                    break;
-                case 7:
-                    return '订单取消';
-                    break;
-                case 6:
-                    return '全部退货';
-                    break;
-                case 20:
-                    return '等待分配买手';
-                    break;
-                case 21:
-                    return '货到中心';
-                    break;
-                case 22:
-                    return '等待快递员取货';
-                    break;
-                default:
-                    return '未知';
+            align: 'center',
+            renderer: function(value) {
+                switch (value) {
+                    case 1:
+                        return '正在备货';
+                        break;
+                    case 31:
+                        return '分配买手失败';
+                        break;
+                    case 2:
+                        return '已出货';
+                        break;
+                    case 32:
+                        return '分配快递员失败';
+                        break;
+                    case 3:
+                        return '配送中';
+                        break;
+                    case 4:
+                        return '完成配送';
+                        break;
+                    case 7:
+                        return '订单取消';
+                        break;
+                    case 6:
+                        return '全部退货';
+                        break;
+                    case 20:
+                        return '等待分配买手';
+                        break;
+                    case 21:
+                        return '货到中心';
+                        break;
+                    case 22:
+                        return '等待快递员取货';
+                        break;
+                    default:
+                        return '未知';
+                }
             }
-            }
-        },
-        {
+        }, {
             text: '问题原因',
             dataIndex: 'problem',
             width: 70,
             sortable: false,
-            align: 'center',  
-            renderer:function(value){
-                switch(value){
+            align: 'center',
+            renderer: function(value) {
+                switch (value) {
                     case 0:
                         return '默认';
                         break;
@@ -138,165 +136,147 @@ Ext.define('XMLifeOperating.view.operationManage.dealProblemDeals.DealProblemDea
                         return '默认';
                 }
             }
-        },
-        {
+        }, {
             text: '注册用户',
             dataIndex: 'customerName',
             width: 80,
             sortable: false,
-            align: 'center',  
-        },
-        {
+            align: 'center',
+        }, {
             text: '注册电话',
             dataIndex: 'customerPhone',
             width: 90,
             sortable: false,
-            align: 'center',  
-        },
-        {
+            align: 'center',
+        }, {
             text: '收货用户',
             dataIndex: 'contactsName',
             width: 80,
             sortable: false,
-            align: 'center',  
-        },
-        {
+            align: 'center',
+        }, {
             text: '收货电话',
             dataIndex: 'contactsPhone',
             width: 90,
             sortable: false,
-            align: 'center',  
-        },
-        {
+            align: 'center',
+        }, {
             text: '中心点',
             dataIndex: 'shopAreaName',
             width: 60,
             sortable: false,
-            align: 'center',  
-        },
-        {
+            align: 'center',
+        }, {
             text: '分配买手',
             dataIndex: 'shopperNames',
             width: 80,
             sortable: false,
             align: 'center',
-            renderer:function(value){
-                var str='';
-                for(var i=0;i<value.length;i++){
-                    str += value[i]+'<br />';
+            renderer: function(value) {
+                var str = '';
+                for (var i = 0; i < value.length; i++) {
+                    str += value[i] + '<br />';
                 }
                 return str;
             }
- 
-        },
-        {
+
+        }, {
             text: '购买店铺',
             dataIndex: 'shopNames',
             width: 80,
             sortable: false,
             align: 'left',
-            renderer:function(value){
-                var str='';
-                for(var i=0;i<value.length;i++){
-                    str += value[i]+'<br />';
+            renderer: function(value) {
+                var str = '';
+                for (var i = 0; i < value.length; i++) {
+                    str += value[i] + '<br />';
                 }
                 return str;
             }
-        },
-        {
+        }, {
             text: '配送员',
             dataIndex: 'delivererName',
             width: 60,
             sortable: false,
-            align: 'center',  
-        },
-        {
+            align: 'center',
+        }, {
             text: '下单时间',
             dataIndex: 'created',
             width: 60,
             sortable: false,
-            align: 'center', 
-            renderer:function(value){
-               var newTime = new Date(value);
-               newTime = newTime.getHours()+':'+newTime.getMinutes();
-               return newTime;
-            }  
-        },
-        {
+            align: 'center',
+            renderer: function(value) {
+                var newTime = new Date(value);
+                newTime = newTime.getHours() + ':' + newTime.getMinutes();
+                return newTime;
+            }
+        }, {
             text: '期望送达时间',
             dataIndex: 'deliverTime',
             width: 80,
             sortable: false,
-            align: 'center', 
-            renderer:function(value){
-               var newTime = new Date(value);
-               newTime = newTime.getHours()+':'+newTime.getMinutes();
-               return newTime;
-            }   
-        },
-        {
+            align: 'center',
+            renderer: function(value) {
+                var newTime = new Date(value);
+                newTime = newTime.getHours() + ':' + newTime.getMinutes();
+                return newTime;
+            }
+        }, {
             text: '剩余时间',
             dataIndex: 'remainTime',
             width: 80,
             sortable: false,
-            align: 'center', 
-            renderer:function(value){
-                var time = (value/(3600*1000)+'').split('.');
-                var time1=Math.abs(time[0]);
-                var time2=Math.floor(('0.'+time[1])*60);
-                time= time1+'时'+time2+'分';
-                if(value<=0){
-                    return '<span style="color:#ff0000">'+time+'</span>';
+            align: 'center',
+            renderer: function(value) {
+                var time = (value / (3600 * 1000) + '').split('.');
+                var time1 = Math.abs(time[0]);
+                var time2 = Math.floor(('0.' + time[1]) * 60);
+                time = time1 + '时' + time2 + '分';
+                if (value <= 0) {
+                    return '<span style="color:#ff0000">' + time + '</span>';
                 }
-                return '<span style="color:#000">'+time+'</span>';
+                return '<span style="color:#000">' + time + '</span>';
             }
-        },
-        {
+        }, {
             text: '完成购买时间',
             dataIndex: 'taskDone',
             width: 80,
             sortable: false,
-            align: 'center',  
-            renderer:function(value){
-                var str='';
-                for(var i=0;i<value.length;i++){
+            align: 'center',
+            renderer: function(value) {
+                var str = '';
+                for (var i = 0; i < value.length; i++) {
                     var newTime = new Date(value[i]);
-                    newTime = newTime.getHours()+':'+newTime.getMinutes();
-                    str += newTime+'<br />';
+                    newTime = newTime.getHours() + ':' + newTime.getMinutes();
+                    str += newTime + '<br />';
                 }
                 return str;
             }
-        },
-        {
+        }, {
             text: '出货时间',
             dataIndex: 'beginDeliverTime',
             width: 60,
             sortable: false,
             align: 'center',
-            renderer:function(value){
-               var newTime = new Date(value);
-               newTime = newTime.getHours()+':'+newTime.getMinutes();
-               return newTime;
-            }  
-        },
-       {
+            renderer: function(value) {
+                var newTime = new Date(value);
+                newTime = newTime.getHours() + ':' + newTime.getMinutes();
+                return newTime;
+            }
+        }, {
             text: '问题标记',
             dataIndex: 'problemMark',
             width: 60,
             sortable: false,
-            align: 'center',  
-            renderer:function(value){
-                if (value) 
-                {
+            align: 'center',
+            renderer: function(value) {
+                if (value) {
                     return Ext.String.format('已处理', value, value);
-                }
-                else
-                {
+                } else {
                     return Ext.String.format('未处理', value, value);
                 }
-            } 
-        },        
-        {
+            }
+        }, {
             text: '重新分配',
             width: 80,
             itemId: 'reapportion',
@@ -306,8 +286,7 @@ Ext.define('XMLifeOperating.view.operationManage.dealProblemDeals.DealProblemDea
             renderer: function(value, metadata, model, rowIndex, colIndex, store) {
                 return Ext.String.format('<a>重新分配</a>', value, value);
             }
-        },
-        {
+        }, {
             text: '取消订单',
             width: 80,
             itemId: 'cancellation',
@@ -318,7 +297,7 @@ Ext.define('XMLifeOperating.view.operationManage.dealProblemDeals.DealProblemDea
                 return Ext.String.format('<a>取消订单</a>', value, value);
             }
         },
-       
+
     ],
     viewConfig: {
         plugins: {
@@ -327,11 +306,11 @@ Ext.define('XMLifeOperating.view.operationManage.dealProblemDeals.DealProblemDea
         }
     },
     listeners: {
-        onShowView: function(view, viewName) {           
-            if(XMLifeOperating.generic.Global.operating_type != 'center') {
+        onShowView: function(view, viewName) {
+            if (XMLifeOperating.generic.Global.operating_type != 'center') {
                 return;
             }
-            if(XMLifeOperating.generic.Global.current_operating == -1) {
+            if (XMLifeOperating.generic.Global.current_operating == -1) {
                 alert('请先在右上角选择中心');
                 return;
             }
@@ -341,6 +320,6 @@ Ext.define('XMLifeOperating.view.operationManage.dealProblemDeals.DealProblemDea
         }
     },
     columnLines: true,
-    
-    
+
+
 });
