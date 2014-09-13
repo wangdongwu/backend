@@ -35,22 +35,22 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopShelf', {
         }
     }, {
         text: '货架图片（横）',
-        dataInde: 'xImage',
+        dataIndex: 'xImage',
         width: 420,
         sortable: false,
         align: 'center',
         tdCls: 'user-td',
-        renderer: function(value) {
+        renderer: function(value, metadata, model, rowIndex, colIndex, store) {
             return Ext.String.format('<img src="{0}{1}" height="100" />', XMLifeOperating.generic.Global.URL.res, value);
         }
     }, {
         text: '货架图片（竖）',
-        dataInde: 'vImage',
+        dataIndex: 'vImage',
         width: 420,
         sortable: false,
         align: 'center',
         tdCls: 'user-td',
-        renderer: function(value) {
+        renderer: function(value, metadata, model, rowIndex, colIndex, store) {
             return Ext.String.format('<img src="{0}{1}" height="100" />', XMLifeOperating.generic.Global.URL.res, value);
         }
     }, {

@@ -57,7 +57,10 @@ Ext.define('XMLifeOperating.controller.DealList', {
                     var me = this;
                     Ext.MessageBox.confirm('提示', '确认导出昨日商品对货单？', function(btn) {
                         if (btn == 'yes') {
-                            window.location.href = XMLifeOperating.generic.Global.URL.biz + 'deal/exportProductStatistic?' + 'shopArea=' + me.areaId + '&dayType=1';
+                            var sessionId = localStorage.getItem('sessionId');
+                            var username = localStorage.getItem('username');
+                            var url = XMLifeOperating.generic.Global.URL.biz + 'deal/exportProductStatistic?' + 'shopArea=' + me.areaId + '&dayType=1' + '&sessionId=' + sessionId + '&username=' + username;
+                            window.open(url, '昨日商品对货单', '', '_blank');
                         } else {
                             return;
                         }
@@ -69,10 +72,11 @@ Ext.define('XMLifeOperating.controller.DealList', {
                     var me = this;
                     Ext.MessageBox.confirm('提示', '确认导出昨日支付对账单？', function(btn) {
                         if (btn == 'yes') {
+                            var sessionId = localStorage.getItem('sessionId');
+                            var username = localStorage.getItem('username');
                             var url = XMLifeOperating.generic.Global.URL.biz + 'deal/exportDealCashflow?' + 'shopArea=' + me.areaId + '&dayType=1';
-                           
-                            // window.open(url,)
-                            window.location.href = XMLifeOperating.generic.Global.URL.biz + 'deal/exportDealCashflow?' + 'shopArea=' + me.areaId + '&dayType=1';
+                            window.location.href = XMLifeOperating.generic.Global.URL.biz + 'deal/exportDealCashflow?' + 'shopArea=' + me.areaId + '&dayType=1'+ '&sessionId=' + sessionId + '&username=' + username;
+                            window.open(url, '昨日支付对账单', '', '_blank');
                         } else {
                             return;
                         }

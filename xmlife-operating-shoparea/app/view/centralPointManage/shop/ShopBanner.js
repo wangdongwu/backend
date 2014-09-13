@@ -31,7 +31,6 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopBanner', {
         sortable: false,
         align: 'center',
         renderer: function(value) {
-
             return Ext.String.format('<img src="{0}{1}" height="100" />', XMLifeOperating.generic.Global.URL.res, value);
         }
     }, {
@@ -46,12 +45,22 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopBanner', {
         width: 250
     }, {
         xtype: 'actioncolumn',
-        width: 24,
+        text:'编辑',
+        width: 40,
         icon: 'resources/images/edit.png',
-        tooltip: 'Edit',
+        tooltip: '编辑',
         menuDisabled: true,
         sortable: false,
         itemId: 'editShopStoreBanner'
+    },{
+        xtype: 'actioncolumn',
+        text:'删除',
+        width: 40,
+        icon: 'resources/images/delete.png',
+        tooltip: '删除',
+        menuDisabled: true,
+        sortable: false,
+        itemId: 'deleteShopStoreBanner'
     }],
     viewConfig: {
         plugins: {
