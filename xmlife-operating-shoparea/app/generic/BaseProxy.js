@@ -56,7 +56,7 @@ Ext.define('XMLifeOperating.generic.BaseProxy', {
                 msg: msg,
                 icon: Ext.Msg.ERROR,
                 buttons: Ext.Msg.OK
-            });
+            }).toBack();
             ErrorMessage.on('hide',function(){
               localStorage.removeItem('sessionId');
               localStorage.removeItem('username');
