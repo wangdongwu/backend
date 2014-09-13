@@ -50,8 +50,8 @@ Ext.define('XMLifeOperating.view.templateManage.shopBannerTemplate.ShopBannerTem
             }
         },
         {
-            text: '店铺inco',
-            dataIndex: 'inco',
+            text: '店铺icon',
+            dataIndex: 'icon',
             width: 180,
             sortable: false,
              
