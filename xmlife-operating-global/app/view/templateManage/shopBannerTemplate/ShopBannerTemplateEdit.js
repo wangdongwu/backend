@@ -126,7 +126,7 @@ Ext.define('XMLifeOperating.view.templateManage.shopBannerTemplate.ShopBannerTem
                     text: '关闭',
                     handler:function(){
                         //关闭窗口
-                        Ext.ComponentQuery.query('editTemplate')[0].close();
+                        Ext.ComponentQuery.query('shopBannerTemplateEdit')[0].close();
                     }
                 }
             ]
