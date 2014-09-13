@@ -33,10 +33,14 @@ Ext.define('XMLifeOperating.controller.FeedbackList', {
                             mark:combo.getValue()
                         }
                     });*/
-                    store.getProxy().extraParams = {
-                        dayType: itemId,
-                        mark: combo.getValue()
+                    var params = {
+                        dayType: itemId
+                    };
+                    var mark = combo.getValue();
+                    if(mark != null){
+                        params['mark'] = mark;
                     }
+                    store.getProxy().extraParams = params;
                     store.loadPage(1, {
                         params: {
                             start: 0,
@@ -85,10 +89,14 @@ Ext.define('XMLifeOperating.controller.FeedbackList', {
                                 mark: false
                             }
                         });*/
-                        store.getProxy().extraParams = {
-                            dayType: str,
-                            mark: combo.getValue()
+                        var params = {
+                            dayType: str
+                        };
+                        var mark = combo.getValue();
+                        if(mark != null){
+                            params['mark'] = mark;
                         }
+                        store.getProxy().extraParams = params;
                         store.loadPage(1, {
                             params: {
                                 start: 0,

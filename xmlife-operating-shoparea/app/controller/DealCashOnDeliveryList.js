@@ -31,8 +31,8 @@ Ext.define('XMLifeOperating.controller.DealCashOnDeliveryList', {
 
         var me = this,
             CashDayType = -1,
-            CashMark = '',
-            CashPaid = '';
+            CashMark = null,
+            CashPaid = null;
         this.control({
             //查看中心下暂停或接单买手
             'dealCashOnDeliveryList #shopArea': {
@@ -113,13 +113,17 @@ Ext.define('XMLifeOperating.controller.DealCashOnDeliveryList', {
                         }
 
                     var store = this.getDealCashOnDeliveryStore();
-
-                    store.getProxy().extraParams = {
+                    var params = {
                         shopArea: Ext.getCmp('dealCashOnDeliveryList').down('#shopArea').getValue(),
-                        mark: CashMark,
-                        paid: CashPaid,
                         dayType: str
                     };
+                    if(CashPaid != null){
+                        params['codMark'] = CashPaid;
+                    }
+                    if(CashMark != null){
+                        params['codProblemMark'] = CashMark;
+                    }
+                    store.getProxy().extraParams = params;
                     store.loadPage(1, {
                         params: {
                             start: 0,
@@ -137,7 +141,6 @@ Ext.define('XMLifeOperating.controller.DealCashOnDeliveryList', {
                     Ext.getCmp('dealCashOnDeliveryList').down('#cashOnDeliveryPaidId').setValue('');
                     Ext.getCmp('dealCashOnDeliveryList').down('#cashOnDeliverySignId').setValue('');
                     var store = this.getDealCashOnDeliveryStore();
-
                     store.getProxy().extraParams = {
                         shopArea: Ext.getCmp('dealCashOnDeliveryList').down('#shopArea').getValue(),
                         deliverer: combo.getValue()
@@ -157,12 +160,17 @@ Ext.define('XMLifeOperating.controller.DealCashOnDeliveryList', {
                     Ext.getCmp('dealCashOnDeliveryList').down('#cashOnDeliveryPaidId').setValue('');
                     Ext.getCmp('dealCashOnDeliveryList').down('#cashUnderCourierId').setValue('');
                     var store = this.getDealCashOnDeliveryStore();
-                    store.getProxy().extraParams = {
+                    var params = {
                         shopArea: Ext.getCmp('dealCashOnDeliveryList').down('#shopArea').getValue(),
-                        dayType: CashDayType,
-                        mark: combo.getValue(),
-                        paid: ''
+                        dayType: CashDayType
                     };
+                    var mark = combo.getValue();
+                    if(mark != null){
+                        params['codProblemMark'] = mark;
+                    }
+                    CashMark = mark;
+                    CashPaid = null;
+                    store.getProxy().extraParams = params;
                     store.loadPage(1, {
                         params: {
                             start: 0,
@@ -180,12 +188,17 @@ Ext.define('XMLifeOperating.controller.DealCashOnDeliveryList', {
                     Ext.getCmp('dealCashOnDeliveryList').down('#cashOnDeliverySignId').setValue('');
                     Ext.getCmp('dealCashOnDeliveryList').down('#cashUnderCourierId').setValue('');
                     var store = this.getDealCashOnDeliveryStore();
-                    store.getProxy().extraParams = {
+                    var params = {
                         shopArea: Ext.getCmp('dealCashOnDeliveryList').down('#shopArea').getValue(),
-                        dayType: CashDayType,
-                        paid: combo.getValue(),
-                        mark: ''
+                        dayType: CashDayType
                     };
+                    var paid = combo.getValue();
+                    if(paid != null){
+                        params['codMark'] = paid;
+                    }
+                    CashPaid = paid;
+                    CashMark = null;
+                    store.getProxy().extraParams = params;
                     store.loadPage(1, {
                         params: {
                             start: 0,
