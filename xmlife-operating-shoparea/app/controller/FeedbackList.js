@@ -51,8 +51,10 @@ Ext.define('XMLifeOperating.controller.FeedbackList', {
                     if (newV == true) {
                         console.log(record);
                         console.log(record.itemId);
+
                         var itemId = record.itemId,
                             str;
+                        var combo = Ext.getCmp('feedbackList').down('#feedbackStatus');
                         switch (itemId) {
                             case 'dayType0':
                                 str = 0;
@@ -84,7 +86,7 @@ Ext.define('XMLifeOperating.controller.FeedbackList', {
                             }
                         });*/
                         store.getProxy().extraParams = {
-                            dayType: itemId,
+                            dayType: str,
                             mark: combo.getValue()
                         }
                         store.loadPage(1, {
