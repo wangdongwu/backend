@@ -46,6 +46,7 @@ Ext.define('XMLifeOperating.controller.DealProblemDealsList', {
             'dealProblemDealsList #shopArea': {
             	select: function (combo) {
                     var sstore = this.getDealProblemDealsStore();
+                    
                     sstore.load({
                         params: {
                             areaId: combo.getValue()

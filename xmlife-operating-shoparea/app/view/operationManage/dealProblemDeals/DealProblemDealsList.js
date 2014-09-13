@@ -5,13 +5,6 @@ Ext.define('XMLifeOperating.view.operationManage.dealProblemDeals.DealProblemDea
     title: '问题订单管理',
     store: 'DealProblemDeals',
     id: 'dealProblemDealsList',
-    bbar: [{
-        xtype: 'pagingtoolbar',
-        itemId: 'pagetool',
-        store: 'DealProblemDeals',
-        displayInfo: true,
-        style: 'border:none'
-    }],
     tbar: [{
             xtype: 'combobox',
             name: 'shopArea',
