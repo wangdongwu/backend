@@ -1,6 +1,8 @@
 Ext.define('XMLifeOperating.controller.login', {
   extend: 'Ext.app.Controller',
   views: ['login', 'Toolbar'],
+  stores:['ShopArea'],
+  models:['ShopArea'],
   refs: [{
     ref: 'login',
     selector: 'login',
@@ -24,6 +26,7 @@ Ext.define('XMLifeOperating.controller.login', {
   init: function() {
     var self = this;
     var sessionId = localStorage.getItem('sessionId');
+
     if (!sessionId) {
       this.getLogin().show();
       this.control({
@@ -36,7 +39,7 @@ Ext.define('XMLifeOperating.controller.login', {
       Ext.Ajax.defaultHeaders = {
         'auth-token': sessionId
       };
-      
+      this.getShopAreaStore().load();
     }
   },
   login: function() {
@@ -45,7 +48,6 @@ Ext.define('XMLifeOperating.controller.login', {
       username = view.down('[name=username]').getValue(),
       password = view.down('[name=password]').getValue(),
       loginUrl = XMLifeOperating.generic.Global.URL.biz + 'admin/login';
-
     Ext.Ajax.request({
       url: loginUrl,
       params: {
@@ -63,7 +65,7 @@ Ext.define('XMLifeOperating.controller.login', {
           };
           self.getCurrentUsername().setText(username);
           view.hide();
-          
+          self.getShopAreaStore().load();
         }
       },
       failure: function(response) {

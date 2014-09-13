@@ -25,6 +25,7 @@ Ext.define('XMLifeOperating.Application', {
     ],
 
     controllers: [
+        'login',
         'Navigation',
         'Shop',
         'ResidentalDistrict',
@@ -40,8 +41,7 @@ Ext.define('XMLifeOperating.Application', {
         'FeedbackList',
         'Deliverer',
         'RefundList',
-        'ShopTopShops',
-        'login'
+        'ShopTopShops'
     ],
 
     stores: [
@@ -141,7 +141,6 @@ var uploadBlobImage = function(blobImage) {
         xhr.send(form);
     };
 }
-
 var uploadImage = function(form, textfield) {
     console.log('uploadimge');
     form.submit({
