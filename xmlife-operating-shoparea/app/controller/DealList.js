@@ -70,7 +70,8 @@ Ext.define('XMLifeOperating.controller.DealList', {
                     Ext.MessageBox.confirm('提示', '确认导出昨日支付对账单？', function(btn) {
                         if (btn == 'yes') {
                             var url = XMLifeOperating.generic.Global.URL.biz + 'deal/exportDealCashflow?' + 'shopArea=' + me.areaId + '&dayType=1';
-                            window.open(url,)
+                           
+                            // window.open(url,)
                             window.location.href = XMLifeOperating.generic.Global.URL.biz + 'deal/exportDealCashflow?' + 'shopArea=' + me.areaId + '&dayType=1';
                         } else {
                             return;

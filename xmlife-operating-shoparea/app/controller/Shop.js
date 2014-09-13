@@ -191,7 +191,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
                 click: function(view, column, rowIndex, colIndex, e) {
                     var me = this;
                     var tab = this.getShopShelfTab();
-                    // debugger
+                     // debugger
                     tab.setActiveTab('tab2');
                     var content = this.getContentPanel();
                     content.removeAll(false);
