@@ -113,6 +113,8 @@ Ext.define('XMLifeOperating.view.staffManage.deliverer.GDelivererEdit', {
                     fieldLabel: '电话',
                     labelWidth: 90,
                     allowBlank:false,
+                    regex: XMLifeOperating.generic.Global.VALIDATION_CONSTANTS.PHONE,
+                    regexText: '请输入正确的手机号码',
                    
                 },
                 {
