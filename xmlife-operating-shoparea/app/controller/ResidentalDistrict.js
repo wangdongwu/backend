@@ -152,9 +152,15 @@ Ext.define('XMLifeOperating.controller.ResidentalDistrict', {
                             isActive: isActive
                         }, '操作关闭或开启小区', '成功操作小区', '操作小区失败', function() {
 
-                            var store = me.getResidentalDistrictStore();
+                            record.set('isActive',isActive);
+                            //me.fireEvent('refreshView');
+
+
+
+                           /* var store = me.getResidentalDistrictStore();
                             store.getProxy().extraParams = {
-                                unbind: true
+                                //unbind: true
+                                isActive:false
                             }
                             store.loadPage(1, {
                                 start: 0,
@@ -163,7 +169,7 @@ Ext.define('XMLifeOperating.controller.ResidentalDistrict', {
                             });
 
                             Ext.getCmp('residentaldistrictlist').down('#activeBind').setText('查看已绑定的小区');
-                            Ext.getCmp('residentaldistrictlist').down('#lineId').setValue('');
+                            Ext.getCmp('residentaldistrictlist').down('#lineId').setValue('');*/
                         });
                     });
                 }
