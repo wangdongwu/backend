@@ -219,7 +219,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
                         str = '确认要关闭该店铺吗？';
                     }
                     Ext.MessageBox.confirm("选择框", str, function(str) {
-                        if (str == 'no') {
+                        if (str != 'yes') {
                             return;
                         }
                         sendPutRequest(url, {
