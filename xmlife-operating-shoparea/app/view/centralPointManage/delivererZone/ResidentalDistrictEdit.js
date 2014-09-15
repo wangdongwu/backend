@@ -84,13 +84,14 @@ Ext.define('XMLifeOperating.view.centralPointManage.delivererZone.ResidentalDist
                     }, {
                         text: '小区名称',
                         dataIndex: 'name'
-                    }],
-                    bbar: [{
-                        xtype: 'pagingtoolbar',
-                        itemId: 'pagetool_search',
-                        displayInfo: true,
-                        style: 'border:none'
                     }]
+                    // ,
+                    // bbar: [{
+                    //     xtype: 'pagingtoolbar',
+                    //     itemId: 'pagetool_search',
+                    //     displayInfo: true,
+                    //     style: 'border:none'
+                    // }]
                 }, {
                     name: 'oldCommunityIds',
                     fieldLabel: '已绑定小区',
@@ -108,14 +109,15 @@ Ext.define('XMLifeOperating.view.centralPointManage.delivererZone.ResidentalDist
                     }, {
                         text: '已绑定小区名称',
                         dataIndex: 'name'
-                    }],
-                    bbar: [{
-                        xtype: 'pagingtoolbar',
-                        itemId: 'pagetool_has',
-                        displayInfo: true,
-                        style: 'border:none'
                     }]
-                },
+                    // ,
+                    // bbar: [{
+                    //     xtype: 'pagingtoolbar',
+                    //     itemId: 'pagetool_has',
+                    //     displayInfo: true,
+                    //     style: 'border:none'
+                    // }]
+                }
 
             ],
             buttons: [{

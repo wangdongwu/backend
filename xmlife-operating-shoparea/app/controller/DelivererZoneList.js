@@ -105,12 +105,11 @@ Ext.define('XMLifeOperating.controller.DelivererZoneList', {
                     win.show();
                     var store = Ext.create('XMLifeOperating.store.ResidentalDistrict');
                     this.getOldCommunityId().bindStore(store, false);
-                    Ext.ComponentQuery.query('residentalDistrictEdit #pagetool_has')[0].bindStore(store, false);
-
-
+                    // Ext.ComponentQuery.query('residentalDistrictEdit #pagetool_has')[0].bindStore(store, false);
                     store.getProxy().extraParams = {
                         deliveryZone: record.get('id'),
-                        isActive: true
+                        isActive: true,
+                        allDistricts: true
                     }
                     store.on('load', function(records) {
                         //初始化打勾
@@ -119,32 +118,19 @@ Ext.define('XMLifeOperating.controller.DelivererZoneList', {
                         for (var i = 0; i < records.data.length; i++) {
                             var index = store.indexOfId(records.data.items[i].get('id'));
                             model.select(index, true);
-                        }
+                        };
                     });
-                    store.loadPage(1, {
-                        params: {
-                            start: 0,
-                            limit: 25,
-                            page: 1
-                        }
-                    });
+                    store.load();
                 }
             },
             'residentalDistrictEdit #reseachCommunity': {
                 click: function() {
                     var view = this.getSearchCommunityId();
                     var store = view.store;
-                    Ext.ComponentQuery.query('residentalDistrictEdit #pagetool_search')[0].bindStore(store, false);
                     store.getProxy().extraParams = {
                         name: me.getKeywordCommunity().getValue()
                     }
-                    store.loadPage(1, {
-                        params: {
-                            start: 0,
-                            limit: 25,
-                            page: 1
-                        }
-                    });
+                    store.load();
                 }
             },
             'residentalDistrictEdit #save-bindLineWithCommunity': {
