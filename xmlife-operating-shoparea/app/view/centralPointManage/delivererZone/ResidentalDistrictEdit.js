@@ -61,10 +61,8 @@ Ext.define('XMLifeOperating.view.centralPointManage.delivererZone.ResidentalDist
                             xtype: 'button',
                             text: '搜索',
                             itemId: 'reseachCommunity'
-
                         }]
-
-                    }, ]
+                    }]
                 }, {
                     name: 'searchCommunityIds',
                     allowBlank: false,
@@ -102,7 +100,8 @@ Ext.define('XMLifeOperating.view.centralPointManage.delivererZone.ResidentalDist
                         mode: "SIMPLE"
                     }),
                     columns: [{
-                        xtype: 'rownumberer'
+                        xtype: 'rownumberer',
+                        resizable:true
                     }, {
                         text: 'id',
                         dataIndex: 'id'
