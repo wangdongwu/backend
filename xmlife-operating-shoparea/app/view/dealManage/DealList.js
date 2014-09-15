@@ -25,16 +25,44 @@ Ext.define('XMLifeOperating.view.dealManage.DealList', {
             xtype: 'datefield',
             name: 'beginTime',
             emptyText: '开始时间',
-            maxValue: new Date(),
-            value: new Date(),
+            minValue: (function() {
+                var date = new Date();
+                date.setMonth(date.getMonth() - 1);
+                date.setDate(1);
+                return date;
+            })(),
+            maxValue: (function() {
+                var date = new Date();
+                date.setDate(date.getDate() - 1);
+                return date;
+            })(),
+            value: (function() {
+                var date = new Date();
+                date.setDate(date.getDate() - 1);
+                return date;
+            })(),
             format: 'Y-m-d'
         },
         '到', {
             xtype: 'datefield',
             name: 'endTime',
             emptyText: '结束时间',
-            maxValue: new Date(),
-            value: new Date(),
+            minValue: (function() {
+                var date = new Date();
+                date.setMonth(date.getMonth() - 1);
+                date.setDate(1);
+                return date;
+            })(),
+            maxValue: (function() {
+                var date = new Date();
+                date.setDate(date.getDate() - 1);
+                return date;
+            })(),
+            value: (function() {
+                var date = new Date();
+                date.setDate(date.getDate() - 1);
+                return date;
+            })(),
             format: 'Y-m-d'
         }, {
             xtype: 'button',
