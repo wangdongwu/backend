@@ -116,8 +116,8 @@ Ext.define('XMLifeOperating.controller.DelivererZoneList', {
                         //初始化打勾
                         var model = Ext.ComponentQuery.query('#oldCommunityId')[0].getSelectionModel();
                         model.deselectAll();
-                        for (var i = 0; i < records.length; i++) {
-                            var index = store.indexOfId(records[i].get('id'));
+                        for (var i = 0; i < records.data.length; i++) {
+                            var index = store.indexOfId(records.data.items[i].get('id'));
                             model.select(index, true);
                         }
                     });

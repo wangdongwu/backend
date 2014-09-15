@@ -83,7 +83,6 @@ Ext.define('XMLifeOperating.controller.RefundList', {
                     store.getProxy().extraParams = {
                         mobile: mobile
                     };
-                    //self.storeFilter();
                     store.load();
                 }
             },
