@@ -111,7 +111,12 @@ Ext.define('XMLifeOperating.controller.DealList', {
             },
             '#toproblemdeal': {
                 click: me.onToProblemDeal
-            }
+            },
+            /*'dealList #checkUnallocatedOrder':{
+                click:{
+                    
+                }
+            }*/
         });
     },
     dealSearch: function() {
@@ -190,7 +195,7 @@ Ext.define('XMLifeOperating.controller.DealList', {
         var dealBackendId = dealitem.get('dealBackendId');
         var url = 'deal/transToProblem/' + dealBackendId;
         var me = this;
-        sendPutRequest(url, {}, '转为问题订单', '转为问题订单成功', '转为问题订单失败', function() {
+        /*sendPutRequest(url, {}, '转为问题订单', '转为问题订单成功', '转为问题订单失败', function() {
             var sstore = me.getDealStore();
             sstore.getProxy().extraParams = {
                 shopArea: combo.getValue()
@@ -202,7 +207,28 @@ Ext.define('XMLifeOperating.controller.DealList', {
                     page: 1
                 }
             });
-        });
+        });*/
+        Ext.MessageBox.confirm(
+            '确认删除',
+            Ext.String.format("确定要将'{0}'转为问题订单吗？", dealitem.get('shortId')),
+            function(result) {
+                if (result == 'yes') {
+                    sendPutRequest(url, {}, '转为问题订单', '转为问题订单成功', '转为问题订单失败', function() {
+                        var sstore = me.getDealStore();
+                        sstore.getProxy().extraParams = {
+                            shopArea: me.areaId
+                        }
+                        sstore.loadPage(1, {
+                            params: {
+                                start: 0,
+                                limit: 25,
+                                page: 1
+                            }
+                        });
+                    });
+                }
+            }
+        );
     },
 
 });

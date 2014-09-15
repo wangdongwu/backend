@@ -28,6 +28,10 @@ Ext.define('XMLifeOperating.view.dealManage.DealList', {
             xtype: 'button',
             itemId: 'paymentInvoice',
             text: '导出昨日支付对账单',
+        },{
+            xtype: 'button',
+            itemId: 'checkUnallocatedOrder',
+            text: '查看未分配订单',
         },
         '->', {
             xtype: 'textfield',
