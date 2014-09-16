@@ -12,7 +12,12 @@ Ext.define('XMLifeOperating.controller.ProductTemplate', {
              'ProductUnit'],
 
     refs: [
-
+        {
+          ref : 'productTemplateList',
+          selector : 'productTemplateList',
+          xtype : 'productTemplateList',
+          autoCreate : true
+        },
         {
              ref: 'editWindow',
              selector: 'productTemplateEdit',
@@ -34,7 +39,12 @@ Ext.define('XMLifeOperating.controller.ProductTemplate', {
 
         var me=this;
         this.control({
-           
+            'productTemplateList' : {
+              added : function(){
+                var store = this.getProductTemplateStore();
+                store.load();
+              }
+            },
             'productTemplateList #add':{
                 click: function() {
                     var cClass = this.getProductTemplateModel();

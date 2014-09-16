@@ -1,96 +1,175 @@
-Ext.define('XMLifeOperating.view.templateManage.productTemplate.ProductTemplateList', {
-    extend: 'Ext.grid.Panel',
-    id: 'productTemplateList',
-    xtype: 'productTemplateList',
-    title : '商品模板管理',
-    titleAlign : 'left',closable : true,
-    forceFit: true,
-    store: 'ProductTemplate',
-    id:'productTemplateList',
-    tbar: [
+Ext.define('XMLifeOperating.view.templateManage.productTemplate.ProductTemplateEdit', {
+    extend: 'Ext.window.Window',
+    xtype: 'productTemplateEdit',
+    
+    closeAction: 'hide',
+    modal: true,
+    width: 450,
+    height: 450,
+    resizable :false,
+    layout: 'fit',
+    
+    buttons: [
         {
-            xtype: 'button',
-            text: '添加商品模板',
-            itemId: 'add'
+            text: 'Save',
+            itemId: 'btnSave'
         },
-        '-',
         {
-            xtype:'textfield',
-            emptyText:'商品名称',
-            name:'keyword',
-            itemId: 'keyword',
-            },
-        {
-            xtype:'button',
-            itemId: 'productSearch',
-            text:'搜索'
+            text: 'Cancel',
+            itemId: 'btnCancel',
+            handler:function(){
+                this.up('productTemplateEdit').close();
+            }
         }
     ],
 
-    columns: [
-        {
-            xtype: 'rownumberer'
-        }, 
-        {
-            text: 'ID',
-            dataIndex: 'id',
-            width: 150,
-            sortable: false,
-            align: 'left'
+    items:{
+        xtype: 'form',
+        itemId:'productTemplateForm',
+        layout: 'anchor',
+        bodyPadding: 10,
+        border: false,
+        defaults:{
+            anchor: '100%'
         },
-        {
-            text: '商品名称',
-            dataIndex: 'name',
-            width: 200,
-            sortable: false,
-             
-            
-        },
-        {
-            text: '图片',
-            dataIndex: 'picture',
-            width: 150,
-            sortable: false,
-             
-            renderer: function (value) {
-                return Ext.String.format('<img src="{0}/image/id-{1}" height="100" />', XMLifeOperating.generic.Global.URL.res, value);
-            }
-        },
-        {
-            text: '单位',
-            dataIndex: 'unitname',
-            width: 65,
-            sortable: false,
-            align: 'center'
-        },
-        {
-            text: '是否部分退货',
-            dataIndex: 'canPartiallyReturn',
-            width: 130,
-            sortable: false,
-             
-            renderer:function(value){
-                if(value){
-                    return '可以';
+        items:[
+            {
+                xtype: 'textfield',
+                name: 'name1',
+                fieldLabel: '商品名称1',
+                labelWidth: 90,
+                allowBlank: false,
+                validator: function(str){
+                  var len = getStrLength(str);
+                  if(len > 14){
+                    return '商品名称最大长度为7';
+                  }else{
+                    return true;
+                  }
+                },
+                maxLengthText:'商品名称最大长度为7',
+            },
+            {
+                xtype: 'textfield',
+                name: 'name2',
+                fieldLabel: '商品名称2',
+                labelWidth: 90,
+                validator: function(str){
+                  var len = getStrLength(str);
+                  if(len > 14){
+                    return '商品名称最大长度为7';
+                  }else{
+                    return true;
+                  }
+                },
+                maxLengthText:'商品名称最大长度为7',
+            },
+            {
+                xtype: 'textfield',
+                name: 'name3',
+                fieldLabel: '商品名称3',
+                labelWidth: 90,
+                validator: function(str){
+                  var len = getStrLength(str);
+                  if(len > 14){
+                    return '商品名称最大长度为7';
+                  }else{
+                    return true;
+                  }
+                },
+                maxLengthText:'商品名称最大长度为7',
+
+            },
+            /*{
+                xtype: 'combobox',
+                name: 'unit',
+                fieldLabel: '商品单位',
+                allowBlank: false,
+                blankText: '请选择商品单位',
+                labelWidth: 90,
+                editable : false,
+                store:'ProductUnit',
+                displayField:'name',
+                valueField:'id',
+                queryMode:'local',
+                emptyText: "请选择商品单位",
+            },*/
+            {
+                xtype: 'textfield',
+                name: 'barCode',
+                fieldLabel: '条形码',
+                labelWidth: 90,
+                allowBlank: false,
+                itemId:'barCodeId'
+            },
+            {
+                xtype: 'textfield',
+                name: 'skuId',
+                fieldLabel: '商品编码',
+                labelWidth: 90,
+                allowBlank: false,
+                itemId:'skuIdId'
+            },
+            {
+                xtype: 'textfield',
+                name: 'tag',
+                fieldLabel: '标签',
+                labelWidth: 90,
+                blankText: '请输入标签，之间用空格隔开',
+            },
+            {
+                xtype: 'fieldset',
+                layout: 'column',
+                padding: 0,
+                border: false,
+                items:[
+                    {
+                        xtype: 'textfield',
+                        name: 'picture',
+                        fieldLabel: '上传图片',
+                        itemId:'picture',
+                        labelWidth: 90,
+                        width: 300,
+                        readOnly: true,
+                    },
+                    {
+                        xtype: 'form',
+                        border: false,
+                        itemId:'adf',
+                        margin: '0 30 0 0',
+                        items:[
+                            {
+                                xtype: 'filefield',
+                                name: 'productTemplateUploadfile',
+                                buttonOnly: true,
+                                hideLabel: true,
+                            },
+                        ]
+                    },
+                ]
+            },
+            {
+                xtype: 'textarea',
+                name: 'desc',
+                fieldLabel: '商品描述',
+                labelWidth: 90,
+                minLength: 2,
+                minLengthText:'商品描述最小长度为2',
+                validator: function(str){
+                  var len = getStrLength(str);
+                  if(len > 200){
+                    return '商品名称最大长度为200';
+                  }else{
+                    return true;
+                  }
                 }
-                return '不可以'
-            }
-        },
-        {
-            xtype: 'actioncolumn',
-            width: 24,
-            icon: 'resources/images/edit.png',
-            tooltip: 'Edit',
-            menuDisabled: true,
-            sortable: false,
-            itemId: 'editProductTemplate'
-        },
-        
-    ],
-    viewConfig: {
-        plugins: {
-            ptype: 'gridviewdragdrop',
-            dragText: 'Drag and drop to reorder'
-        }
+            },
+            
+        ]
+            
     }
+    
+
+        
 });
+
