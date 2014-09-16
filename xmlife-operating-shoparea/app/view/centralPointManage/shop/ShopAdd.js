@@ -31,16 +31,46 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopAdd', {
                     fieldLabel: '店铺主名称',
                     labelWidth: 90,
                     allowBlank: false,
-                    maxLength: 4,
-                    maxLengthText: '商品名称最大长度为4',
+                    validator: function(value) {
+                        var value = value;
+                        var length = 0;
+                        for (var i = 0, len = value.length; i < len; i++) {
+                            var chart = value.charCodeAt(i);
+                            if (chart >= 0 && chart <= 255) {
+                                length = length + 1;
+                            } else {
+                                length = length + 2;
+                            }
+                        }
+                        if (length > 16) {
+                            return '店铺主名称最大长度为8个汉字或16个字母'
+                        } else {
+                            return true
+                        }
+                    }
                 }, {
                     xtype: 'textfield',
                     name: 'desc',
                     fieldLabel: '店铺副名称',
                     labelWidth: 90,
                     allowBlank: false,
-                    maxLength: 10,
-                    maxLengthText: '商品名称最大长度为10',
+                    validator: function(value) {
+                        var value = value;
+                        var length = 0;
+                        for (var i = 0, len = value.length; i < len; i++) {
+                            var chart = value.charCodeAt(i);
+                            if (chart >= 0 && chart <= 255) {
+                                length = length + 1;
+                            } else {
+                                length = length + 2;
+                            }
+                        }
+                        if (length > 40) {
+                            return '店铺副名称最大长度为20个汉字或40个字母'
+                        } else {
+                            return true
+                        }
+                    }
                 }, {
                     xtype: 'combo',
                     name: 'shopBannerTemplateId',
@@ -49,7 +79,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopAdd', {
                     blankText: '请选择模板',
                     labelWidth: 90,
                     editable: false,
-                    mode:'local',
+                    mode: 'local',
                     store: 'ShopBannerTemplate',
                     displayField: 'name',
                     valueField: 'id',
