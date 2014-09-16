@@ -105,40 +105,40 @@ Ext.define('XMLifeOperating.view.dealManage.GDealList', {
             renderer:function(value){
                 switch(value){
                 case 1:
-                    return '正在备货';
+                    return '正在备货-'+value;
                     break;
                 case 31:
-                    return '分配买手失败';
+                    return '分配买手失败-'+value;
                     break;
                 case 2:
-                  return '已出货';
+                  return '已出货-'+value;
                   break;
                 case 32:
-                    return '分配快递员失败';
+                    return '分配快递员失败-'+value;
                     break;
                 case 3:
-                    return '配送中';
+                    return '配送中-'+value;
                     break;
                 case 4:
-                    return '完成配送';
+                    return '完成配送-'+value;
                     break;
                 case 7:
-                    return '订单取消';
+                    return '订单取消-'+value;
                     break;
                 case 6:
-                    return '全部退货';
+                    return '全部退货-'+value;
                     break;
                 case 20:
-                    return '等待分配买手';
+                    return '等待分配买手-'+value;
                     break;
                 case 21:
-                    return '货到中心';
+                    return '货到中心-'+value;
                     break;
                 case 22:
-                    return '等待快递员取货';
+                    return '等待快递员取货-'+value;
                     break;
                 default:
-                    return '未知';
+                    return '未知-'+value;
             }
             }
         },

@@ -140,7 +140,8 @@ Ext.define('XMLifeOperating.controller.CustomerList', {
         })
         store.load({
             params: {
-                customer: uid
+                customer: uid,
+                assignShopper : true
             }
         });
 
