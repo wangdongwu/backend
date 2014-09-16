@@ -166,7 +166,8 @@ Ext.define('XMLifeOperating.controller.CustomerList', {
             }
         });*/
         store.getProxy().extraParams = {
-            customer: uid
+            customer: uid,
+            assignShopper : true
         };
         store.loadPage(1, {
             params: {
