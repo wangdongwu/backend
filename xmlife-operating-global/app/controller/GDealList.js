@@ -52,8 +52,9 @@ Ext.define('XMLifeOperating.controller.GDealList', {
                         assignShopper : true
                     };
                   sstore.loadPage(1);
-                },
-                this.areaId = combo.getValue();
+                   this.areaId = combo.getValue();
+                }
+               
             },
 
             '#dealSearch': {

@@ -16,5 +16,10 @@ Ext.define("XMLifeOperating.generic.Global",{
         operating_type: 'global',
         // operating_type: 'center',
         current_operating: -1,
+        getLength : function(str){
+          //计算字符串的长途 
+           var c = str.match(/[^ -~]/g);  
+           return str.length + (c ? c.length : 0);  
+       }
     }
 });
