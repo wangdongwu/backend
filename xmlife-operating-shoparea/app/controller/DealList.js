@@ -40,7 +40,8 @@ Ext.define('XMLifeOperating.controller.DealList', {
                 select: function(combo) {
                     var sstore = this.getDealStore();
                     sstore.getProxy().extraParams = {
-                        shopArea: combo.getValue()
+                        shopArea: combo.getValue(),
+                        assignShopper:true,
                     }
                     sstore.loadPage(1, {
                         params: {
@@ -134,7 +135,8 @@ Ext.define('XMLifeOperating.controller.DealList', {
         if (keyWords == '') {
             if (shopAreaId) {
                 store.getProxy().extraParams = {
-                    shopArea: shopAreaId
+                    shopArea: shopAreaId,
+                    assignShopper:true,
                 };
                 store.loadPage(1, {
                     params: {
@@ -222,7 +224,8 @@ Ext.define('XMLifeOperating.controller.DealList', {
                     sendPutRequest(url, {}, '转为问题订单', '转为问题订单成功', '转为问题订单失败', function() {
                         var sstore = me.getDealStore();
                         sstore.getProxy().extraParams = {
-                            shopArea: me.areaId
+                            shopArea: me.areaId,
+                            assignShopper:true,
                         }
                         sstore.loadPage(1, {
                             params: {
