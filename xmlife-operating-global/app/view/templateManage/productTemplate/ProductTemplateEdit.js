@@ -99,7 +99,6 @@ Ext.define('XMLifeOperating.view.templateManage.productTemplate.ProductTemplateE
                 name: 'barCode',
                 fieldLabel: '条形码',
                 labelWidth: 90,
-                allowBlank: false,
                 itemId:'barCodeId'
             },
             {
@@ -143,9 +142,9 @@ Ext.define('XMLifeOperating.view.templateManage.productTemplate.ProductTemplateE
                                 name: 'productTemplateUploadfile',
                                 buttonOnly: true,
                                 hideLabel: true,
-                            },
+                            }
                         ]
-                    },
+                    }
                 ]
             },
             {

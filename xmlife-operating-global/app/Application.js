@@ -180,3 +180,8 @@ var uploadImage = function(form, textfield) {
         }
     });
 }
+var getStrLength =  function(str){
+    //返回字符串长度
+    var c = str.match(/[^ -~]/g);
+    return str.length + (c ? c.length : 0);
+}
