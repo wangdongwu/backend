@@ -164,17 +164,46 @@ Ext.define('XMLifeOperating.controller.DealProblemDealsList', {
         var taskId = reapportionBuyerS.parentStore.get('taskId');
         var dealId = reapportionBuyerS.parentStore.parentStore.get('dealBackendId');
         var me = this;
-        sendPutRequest('deal/assignShopper',{dealId:dealId, taskId:taskId, shopperId:uid},'分单','分单成功','分单失败',function(){
-                windowEl.unmask();
-                editWindow1.close();
-                editWindow2.close();
-                var sstore = me.getDealProblemDealsStore();
-                sstore.load({
-                    params: {
-                            areaId: Ext.getCmp('dealProblemDealsList').down('#shopArea').getValue()
-                    }
-                });
-            });
+
+        Ext.MessageBox.confirm(
+            '确认删除',
+            Ext.String.format("确定该订单重新分配给'{0}'吗？", reapportionBuyerS.get('name')),
+            function(result) {
+                if (result == 'yes') {
+                    sendPutRequest('deal/assignShopper',{dealId:dealId, taskId:taskId, shopperId:uid},'分单','分单成功','分单失败',function(response){
+
+                        if(response.responseText!=1){
+                            Ext.MessageBox.show({
+                                title: '订单重新分配失败',
+                                msg: '该买手未上班，订单重新分配失败',
+                                icon: Ext.Msg.ERROR,
+                                buttons: Ext.Msg.OK
+                            });
+                            windowEl.unmask();
+                            editWindow1.close();
+                            editWindow2.close();
+                        }else{
+                            Ext.MessageBox.show({
+                                title: '',
+                                msg: '该订单重新分配成功',
+                                icon: Ext.Msg.ERROR,
+                                buttons: Ext.Msg.OK
+                            });
+                            windowEl.unmask();
+                            editWindow1.close();
+                            editWindow2.close();
+                            var sstore = me.getDealProblemDealsStore();
+                            sstore.load({
+                                params: {
+                                        areaId: Ext.getCmp('dealProblemDealsList').down('#shopArea').getValue()
+                                }
+                            });
+                        }
+                    });
+                }
+            }
+        );
+            
     },
 
     onReapportionDeliverer: function(view, rowIndex, colIndex, column, e) {
