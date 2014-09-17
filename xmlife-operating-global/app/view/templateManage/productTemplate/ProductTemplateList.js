@@ -1,4 +1,4 @@
-Ext.define('XMLifeOperating.view.templateManage.productTemplate.ProductTemplateEdit', {
+Ext.define('XMLifeOperating.view.templateManage.productTemplate.ProductTemplateList', {
     extend: 'Ext.window.Window',
     xtype: 'productTemplateEdit',
     
