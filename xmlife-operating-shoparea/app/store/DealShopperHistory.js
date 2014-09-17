@@ -3,8 +3,8 @@ Ext.define('XMLifeOperating.store.DealShopperHistory', {
     model:'XMLifeOperating.model.DealShopperHistory',
     
     proxy : new XMLifeOperating.generic.BaseProxy('deal/shopperHistory','arrayResult'),
-    sorters: [{
+/*    sorters: [{
     	property: 'created',
     	direction: 'DESC',
-    }]
+    }]*/
 });

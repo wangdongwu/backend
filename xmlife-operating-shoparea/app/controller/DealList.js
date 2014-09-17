@@ -219,7 +219,7 @@ Ext.define('XMLifeOperating.controller.DealList', {
         });*/
         Ext.MessageBox.confirm(
             '确认删除',
-            Ext.String.format("确定要将'{0}'转为问题订单吗？", dealitem.get('shortId')),
+            Ext.String.format("确定要将<h5>'{0}'</h5>的订单转为问题订单吗？", '订单号为：'+dealitem.get('shortId')+' 顾客为：'+dealitem.get('customerName')),
             function(result) {
                 if (result == 'yes') {
                     sendPutRequest(url, {}, '转为问题订单', '转为问题订单成功', '转为问题订单失败', function() {

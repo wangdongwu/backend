@@ -494,7 +494,7 @@ Ext.define('XMLifeOperating.controller.Shopper', {
             };
             store.on('load', function() {
                 Ext.getCmp('shopperList').down('#activeBind').setText('查看未绑定的买手');
-
+                me.getShopperList().down('#searchBuyerKeyWords').setValue(keyWords);
             });
             store.loadPage(1, {
                 params: {
@@ -503,6 +503,7 @@ Ext.define('XMLifeOperating.controller.Shopper', {
                     page: 1
                 }
             });
+
         }
 
     },
