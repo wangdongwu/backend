@@ -111,9 +111,11 @@ Ext.define('XMLifeOperating.controller.Shopper', {
                     if (activeSearch == '查看停单买手') {
                         isActive = false;
                         isUnbind = '';
+                        activeSearch='查看接单买手';
                     } else if (activeSearch == '查看接单买手') {
                         isActive = true;
                         isUnbind = true;
+                        activeSearch='查看停单买手';
                     }
                     var store = me.getShopperStore();
                     /*                    store.load({
@@ -133,6 +135,7 @@ Ext.define('XMLifeOperating.controller.Shopper', {
                     store.on('load', function() {
                         Ext.getCmp('shopperList').down('#activeBind').setText('查看未绑定的买手');
                         me.getShopperList().down('#searchBuyerKeyWords').setValue('');
+                        me.getShopperList().down('#activeSearch').setText(activeSearch);
                     });
 
                     store.loadPage(1, {
@@ -150,8 +153,10 @@ Ext.define('XMLifeOperating.controller.Shopper', {
 
                     if (activeBindText == '查看已绑定的买手') {
                         isUnbind = '';
+                        activeBindText='查看未绑定的买手';
                     } else if (activeBindText == '查看未绑定的买手') {
                         isUnbind = true;
+                        activeBindText='查看已绑定的买手';
                     }
                     var lstore = this.getShopperStore();
                     /*                    lstore.load({
@@ -169,6 +174,7 @@ Ext.define('XMLifeOperating.controller.Shopper', {
                     lstore.on('load', function() {
                         Ext.getCmp('shopperList').down('#activeSearch').setText('查看停单买手');
                         me.getShopperList().down('#searchBuyerKeyWords').setValue('');
+                        me.getShopperList().down('#activeBind').setText(activeBindText);
                     });
                     lstore.loadPage(1, {
                         params: {

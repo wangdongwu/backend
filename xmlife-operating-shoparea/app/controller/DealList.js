@@ -222,19 +222,37 @@ Ext.define('XMLifeOperating.controller.DealList', {
             Ext.String.format("确定要将<h5>'{0}'</h5>的订单转为问题订单吗？", '订单号为：'+dealitem.get('shortId')+' 顾客为：'+dealitem.get('customerName')),
             function(result) {
                 if (result == 'yes') {
-                    sendPutRequest(url, {}, '转为问题订单', '转为问题订单成功', '转为问题订单失败', function() {
-                        var sstore = me.getDealStore();
-                        sstore.getProxy().extraParams = {
-                            shopArea: me.areaId,
-                            assignShopper:true
-                        }
-                        sstore.loadPage(1, {
-                            params: {
-                                start: 0,
-                                limit: 25,
-                                page: 1
+                    sendPutRequest(url, {}, '转为问题订单', '转为问题订单成功', '转为问题订单失败',
+                    function(response) {
+                        // alert(response);
+                        if(response.responseText!=0){
+                            Ext.MessageBox.show({
+                                title: '订单操作',
+                                msg: '转为问题订单失败',
+                                icon: Ext.Msg.ERROR,
+                                buttons: Ext.Msg.OK
+                            });
+                        }else{
+                            Ext.MessageBox.show({
+                                title: '订单操作',
+                                msg: '该订单被成功标记为问题订单',
+                                icon: Ext.Msg.INFO,
+                                buttons: Ext.Msg.OK
+                            });
+                            var sstore = me.getDealStore();
+                            sstore.getProxy().extraParams = {
+                                shopArea: me.areaId,
+                                assignShopper:true
                             }
-                        });
+                            sstore.loadPage(1, {
+                                params: {
+                                    start: 0,
+                                    limit: 25,
+                                    page: 1
+                                }
+                            });
+                            }
+                        
                     });
                 }
             }

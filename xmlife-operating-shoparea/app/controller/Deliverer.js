@@ -84,13 +84,16 @@ Ext.define('XMLifeOperating.controller.Deliverer', {
             //查看中心下暂停或接单快递员
             'delivererList #activeSearch': {
                 click: function() {
+                    alert(11111);
                     var activeSearch = Ext.getCmp('delivererList').down('#activeSearch').getText();
                     if (activeSearch == '查看停单快递员') {
                         isActive = false;
                         isUnbind = '';
+                        activeSearch='查看接单快递员';
                     } else if (activeSearch == '查看接单快递员') {
                         isActive = true;
                         isUnbind = true;
+                        activeSearch='查看停单快递员';
                     }
                     var store = me.getDelivererStore();
                     /*                    store.load({
@@ -108,6 +111,7 @@ Ext.define('XMLifeOperating.controller.Deliverer', {
                     };
                     store.on('load', function() {
                         Ext.getCmp('delivererList').down('#activeBind').setText('查看未绑定的快递员');
+                        me.getDelivererList().down('#activeSearch').setText(activeBindText);
                     });
                     store.loadPage(1, {
                         params: {
@@ -121,12 +125,15 @@ Ext.define('XMLifeOperating.controller.Deliverer', {
             },
             'delivererList #activeBind': {
                 click: function(grid) {
+                    alert(2222);
                     //Ext.getCmp('communityList').down('#lineId').setValue('');
                     var activeBindText = Ext.getCmp('delivererList').down('#activeBind').getText();
                     if (activeBindText == '查看已绑定的快递员') {
                         isUnbind = '';
+                        activeBindText='查看未绑定的快递员';
                     } else if (activeBindText == '查看未绑定的快递员') {
                         isUnbind = true;
+                        activeBindText='查看已绑定的快递员';
                     }
                     var lstore = this.getDelivererStore();
                     /*                    lstore.load({
@@ -144,6 +151,7 @@ Ext.define('XMLifeOperating.controller.Deliverer', {
                     lstore.on('load', function() {
                         Ext.getCmp('delivererList').down('#activeSearch').setText('查看停单快递员');
                         me.getDelivererList().down('#searchDelivererKeyWords').setValue('');
+                        me.getDelivererList().down('#activeBind').setText(activeBindText);
                     });
                     lstore.loadPage(1, {
                         params: {
