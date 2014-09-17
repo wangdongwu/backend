@@ -42,8 +42,8 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopAdd', {
                                 length = length + 2;
                             }
                         }
-                        if (length > 16) {
-                            return '店铺主名称最大长度为8个汉字或16个字母'
+                        if (length > 24) {
+                            return '店铺主名称最大长度为12个汉字或24个字母'
                         } else {
                             return true
                         }
@@ -117,135 +117,25 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopAdd', {
                     labelWidth: 90,
                     format: 'H:i',
                     allowBlank: false,
+                },{
+                    xtype:'radiogroup',
+                    fieldLabel:'商品是否每日自动上架',
+                    labelWidth: 130,
+                    defaults:{
+                        flex:1
+                    },
+                    layout:'hbox',
+                    items:[{
+                        boxLabel:'是',
+                        name:'autoOnline',
+                        inputValue:'true'
+                    },{
+                        boxLabel:'否',
+                        name:'autoOnline',
+                        inputValue:'false',
+                        checked:true
+                    }]
                 }
-
-                /*                {
-                    name: 'areaIds',
-                    store:'BusinessArea',
-                    fieldLabel: '中心',
-                    xtype:'gridpanel',
-                    itemId:'businessAreaScid',
-                    height:150,
-                    selModel:Ext.create('Ext.selection.CheckboxModel',{mode:"SIMPLE"}),
-                    columns:[
-                        {
-                            text:'id',
-                            dataIndex:'id'
-                        },
-                        {
-                            text:'中心名称',
-                            dataIndex:'name'
-                        }
-                    ],
-                     hidden:(XMLifeOperating.generic.Global.operating_type == 'center')
-                },*/
-                /*{
-                    xtype:'fieldset',
-                    border:false,
-                    padding:0,
-                    height:20,
-                    items:[
-                        
-                        {
-                            layout:'column',
-                            xtype:'fieldset',
-                            border:false,
-                            padding:0,
-                            items:[
-                                {
-                                    xtype:'radio',
-                                    
-                                    labelAlign:'left',
-                                    name:'beCopyedShopId'
-                                },
-                                {
-                                    xtype: 'textfield',
-                                    name: 'lat',
-                                    fieldLabel: '纬度',
-                                    labelWidth: 90,
-                                    allowBlank:false,
-                                    labelAlign:'left',
-                                },
-                                {
-                                    title:'天气',
-                                    height:100,
-                                    region:'center',
-                                }
-                                {
-                                    xtype:'radio',
-                                    fieldLabel:'复制店铺',
-                                    labelAlign:'right',
-                                    name:'beCopyedShopId'
-                                }
-                            ]
-                            
-                        },
-                        {
-                            layout:'column',
-                            xtype:'fieldset',
-                            border:false,
-                            padding:0,
-                            items:[
-                                {
-                                    xtype:'radio',
-                                    fieldLabel:'新建店铺',
-                                    labelAlign:'left',
-                                    name:'beCopyedShopId'
-                                },
-                                {
-                                    xtype: 'textfield',
-                                    name: 'lat',
-                                    fieldLabel: '纬度',
-                                    labelWidth: 90,
-                                    allowBlank:false,
-                                    labelAlign:'left',
-                                },
-                                {
-                                    xtype:'radio',
-                                    fieldLabel:'复制店铺',
-                                    labelAlign:'right',
-                                    name:'beCopyedShopId'
-                                }
-                            ]
-                            
-                        },
-                    ]   
-                },
-                {
-                    xtype:'fieldset',
-                    border:false,
-                    padding:0,
-                    items:[
-                        
-                        {
-                            layout:'column',
-                            xtype:'fieldset',
-                            border:false,
-                            padding:0,
-                            items:[
-                                {
-                                    xtype:'radio',
-                                    fieldLabel:'',
-                                    labelAlign:'left',
-                                    name:'beCopyedShopId'
-                                },
-                                {
-                                    xtype:'textfield',
-                                    fieldLabel:'选择复制店铺',
-                                    labelAlign:'right',
-                                    name:'beCopyedShopId'
-                                },
-                                {
-                                    xtype:'button',
-                                    text:'搜索',
-                                   
-                                    
-                                }
-                            ]
-                            
-                        },
-                    ]   
-                },*/
             ],
             buttons: [{
                 text: 'Save',

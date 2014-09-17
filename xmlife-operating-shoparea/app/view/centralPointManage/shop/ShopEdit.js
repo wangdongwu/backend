@@ -39,8 +39,8 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopEdit', {
                         length = length + 2;
                     }
                 }
-                if (length > 16) {
-                    return '店铺主名称最大长度为8个汉字或16个字母'
+                if (length > 24) {
+                    return '店铺主名称最大长度为12个汉字或24个字母'
                 } else {
                     return true
                 }
@@ -131,6 +131,24 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopEdit', {
             flex: 1,
             format: 'H:i',
             allowBlank: false,
+        }, {
+            xtype: 'radiogroup',
+            fieldLabel: '商品是否每日自动上架',
+            labelWidth: 130,
+            defaults: {
+                flex: 1
+            },
+            allowBlank: false,
+            layout: 'hbox',
+            items: [{
+                boxLabel: '是',
+                name: 'autoOnline',
+                inputValue: 'true',
+            }, {
+                boxLabel: '否',
+                name: 'autoOnline',
+                inputValue: 'false',
+            }]
         }],
         buttons: [{
             xtype: 'button',

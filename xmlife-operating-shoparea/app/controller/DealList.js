@@ -90,10 +90,10 @@ Ext.define('XMLifeOperating.controller.DealList', {
                     });
                 }
             },
-            '#dealSearch': {
+            'dealList #dealSearch': {
                 click: me.dealSearch
             },
-            '#statusSearch': {
+            'dealList #statusSearch': {
                 select: function(combo) {
                     var sstore = this.getDealStore();
                     sstore.getProxy().extraParams = {
@@ -111,13 +111,13 @@ Ext.define('XMLifeOperating.controller.DealList', {
 
                 },
             },
-            '#dealDetail': {
+            'dealList #dealDetail': {
                 click: me.onDealDetail
             },
-            '#customerDetail': {
+            'dealList #customerDetail': {
                 click: me.onCustomerDetail
             },
-            '#toproblemdeal': {
+            'dealList #toproblemdeal': {
                 click: me.onToProblemDeal
             },
             /*'dealList #checkUnallocatedOrder':{

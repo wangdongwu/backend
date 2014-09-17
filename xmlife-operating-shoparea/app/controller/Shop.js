@@ -275,9 +275,10 @@ Ext.define('XMLifeOperating.controller.Shop', {
                     var rightCloseTime = this.record.get('closeTime') % 60 < 10 ? '0' + this.record.get('closeTime') % 60 : this.record.get('closeTime') % 60;
                     var openTime = leftOpenTime + ':' + rightOpenTime;
                     var closeTime = leftCloseTime + ':' + rightCloseTime;
+                    var autoOnline = this.record.get('autoOnline')?'true':'false';
                     this.record.set('openTimeText', openTime);
                     this.record.set('closeTimeText', closeTime);
-                    console.log(this.record)
+                    this.record.set('autoOnline',autoOnline)
                     form.loadRecord(this.record);
                     this.shopId = this.record.raw.id;
                     tab.show();
@@ -294,7 +295,6 @@ Ext.define('XMLifeOperating.controller.Shop', {
                         shopStore = form.getRecord(),
                         me = this;
                     var jSting, wString;
-
                     if (form.isValid()) {
                         form.updateRecord(shopStore);
                         //经纬度检验
@@ -325,9 +325,10 @@ Ext.define('XMLifeOperating.controller.Shop', {
                         shopStore.set('city', XMLifeOperating.generic.Global.currentCity);
                         //var areaIds = [XMLifeOperating.generic.Global.SERVICECENEERID];
                         var areaIds = [this.areaId];
+                        var autoOnline = (shopStore.get('autoOnline')=='false')?false:true;
                         shopStore.set('areaIds', areaIds);
                         shopStore.set('beCopyedShopId', '123');
-                        shopStore.set('autoOnline', false);
+                        shopStore.set('autoOnline', autoOnline);
                         shopStore.set('openTime', (shopStore.get('openTime').getHours() * 60 + shopStore.get('openTime').getMinutes()));
                         shopStore.set('closeTime', (shopStore.get('closeTime').getHours() * 60 + shopStore.get('closeTime').getMinutes()));
                         shopStore.save({
@@ -471,13 +472,12 @@ Ext.define('XMLifeOperating.controller.Shop', {
                         }
                         windowEl.mask('saving');
                         shopStore.set('city', XMLifeOperating.generic.Global.currentCity);
-                        //var areaIds = [XMLifeOperating.generic.Global.SERVICECENEERID];
                         var areaIds = [shopStore.get('areas')[0].areaId];
                         var templateId = this.getShopBannerTemplateStore().data.items.length ? this.getShopBannerTemplateStore().findRecord('id', shopStore.get('shopBannerTemplateId')).getId() : null;
-                        //shopStore.set('templateName',templateName);
+                        var autoOnline = (shopStore.get('autoOnline')=='false')?false:true;
                         shopStore.set('areaIds', areaIds);
                         shopStore.set('beCopyedShopId', '123');
-                        shopStore.set('autoOnline', false);
+                        shopStore.set('autoOnline', autoOnline);
                         shopStore.set('openTime', openTime);
                         shopStore.set('closeTime', closeTime);
 
@@ -581,16 +581,6 @@ Ext.define('XMLifeOperating.controller.Shop', {
                         });
                         tab.setActiveTab('tab3_' + record.get('id'));
                     }
-                }
-            },
-            'shopshelf #returnShopStore': {
-                click: function() {
-                    var me = this;
-                    var tab = me.getShopList();
-                    me.showShopList();
-                    var content = this.getContentPanel();
-                    content.removeAll(false);
-                    content.add(tab);
                 }
             },
             'shopshelf #saveShelvesOrder': {
@@ -1217,7 +1207,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
     },
     onShopStoreBannerDelete: function(view, rowIndex, colIndex, column, e) {
         var me = this;
-        var windowEl = this.getShopShelfTab().getEl();
+        var  windowEl = this.getShopShelfTab().getEl();
         var record = view.getRecord(view.findTargetByEvent(e));
         var store = this.getShopBannerTemplateStore();
         var deleteId = record.get('id');

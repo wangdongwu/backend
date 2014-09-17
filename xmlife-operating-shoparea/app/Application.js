@@ -38,6 +38,7 @@ Ext.define('XMLifeOperating.Application', {
         'CustomerList',
         'DealCashOnDeliveryList',
         'DealList',
+        'DealTodayUnassignedDealList',
         'FeedbackList',
         'Deliverer',
         'RefundList',
