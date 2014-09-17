@@ -43,7 +43,7 @@ Ext.define('XMLifeOperating.view.templateManage.productTemplate.ProductTemplateL
             text: '商品名称',
             dataIndex: 'name',
             width: 200,
-            sortable: false,
+            sortable: false
 
 
         },
