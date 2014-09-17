@@ -6,7 +6,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopShelf', {
     id: 'ShelvesList',
     // tbar: [{
     //     xtype: 'toolbar',
-    //     style: {
+    //     style: { 
     //         border: 'none'
     //     },
     //     items: [{
@@ -97,7 +97,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopShelf', {
             xtype: 'button',
             text: '保存排序',
             itemId: 'saveShelvesOrder'
-        }, '->', {
+        },{
             xtype: 'button',
             text: '返回',
             itemId: 'returnShopStore'

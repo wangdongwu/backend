@@ -6,13 +6,6 @@
      header: false,
      store: 'CategorySubs',
      itemId: 'ShelvesNextList',
-     bbar: [{
-         xtype: 'pagingtoolbar',
-         itemId: 'pagetool',
-         store: 'CategorySubs',
-         displayInfo: true,
-         style: 'border:none'
-     }],
      columns: [{
          xtype: 'rownumberer'
      }, {
@@ -45,10 +38,26 @@
          menuDisabled: true,
          sortable: false,
          itemId: 'openModifySecondShelvesWin',
-
-     }, ],
-     tbar: [{
-         text: '添加货架',
-         itemId: 'openCreateSecondShelvesWin'
-     }]
+     }],
+     dockedItems: [{
+         xtype: 'toolbar',
+         dock: 'top',
+         style: {
+             border: 'none'
+         },
+         items: [{
+             text: '添加货架',
+             itemId: 'openCreateSecondShelvesWin'
+         }]
+     }, {
+         xtype: 'toolbar',
+         dock: 'bottom',
+         items: [{
+             xtype: 'pagingtoolbar',
+             itemId: 'pagetool',
+             store: 'CategorySubs',
+             displayInfo: true,
+             style: 'border:none'
+         }]
+     }],
  });
