@@ -40,8 +40,7 @@ Ext.define('XMLifeOperating.controller.DealList', {
                 select: function(combo) {
                     var sstore = this.getDealStore();
                     sstore.getProxy().extraParams = {
-                        shopArea: combo.getValue(),
-                        assignShopper:true
+                        shopArea: combo.getValue()
                     }
                     sstore.loadPage(1, {
                         params: {
@@ -98,8 +97,7 @@ Ext.define('XMLifeOperating.controller.DealList', {
                     var sstore = this.getDealStore();
                     sstore.getProxy().extraParams = {
                         shopArea: Ext.getCmp('dealList').down('#shopArea').getValue(),
-                        status: combo.getValue(),
-                        assignShopper : true
+                        status: combo.getValue()
                     }
                     sstore.loadPage(1, {
                         params: {
@@ -136,8 +134,7 @@ Ext.define('XMLifeOperating.controller.DealList', {
         if (keyWords == '') {
             if (shopAreaId) {
                 store.getProxy().extraParams = {
-                    shopArea: shopAreaId,
-                    assignShopper:true
+                    shopArea: shopAreaId
                 };
                 store.loadPage(1, {
                     params: {
@@ -241,8 +238,7 @@ Ext.define('XMLifeOperating.controller.DealList', {
                             });
                             var sstore = me.getDealStore();
                             sstore.getProxy().extraParams = {
-                                shopArea: me.areaId,
-                                assignShopper:true
+                                shopArea: me.areaId
                             }
                             sstore.loadPage(1, {
                                 params: {
