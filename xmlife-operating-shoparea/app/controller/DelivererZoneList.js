@@ -280,12 +280,7 @@ Ext.define('XMLifeOperating.controller.DelivererZoneList', {
         });
     },
     onShow: function() {
-        // var store = this.getDelivererZoneStore();
-        // store.load({
-        //     params: {
-        //         shopArea: XMLifeOperating.generic.Global.SERVICECENEERID
-        //     }
-        // });
+
     },
     onEdit: function(view, rowIndex, colIndex, column, e) {
         console.log("start edit");

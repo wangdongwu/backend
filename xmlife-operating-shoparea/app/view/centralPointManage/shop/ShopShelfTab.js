@@ -8,6 +8,9 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopShelfTab', {
     layout: 'fit',
     style:'border:none',
     enableTabScroll: true,
+    bodyStyle:{
+        border:'none'
+    },
     items: [{
         title: '一级货架',
         id: 'tab2',

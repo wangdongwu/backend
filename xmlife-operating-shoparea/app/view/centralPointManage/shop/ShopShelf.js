@@ -4,18 +4,36 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopShelf', {
     xtype: 'shopshelf',
     store: 'CategoryRoots',
     id: 'ShelvesList',
-    bbar: [{
-        xtype: 'pagingtoolbar',
-        itemId: 'pagetool',
-        store: 'CategoryRoots',
-        displayInfo: true,
-        style: 'border:none'
-    }],
+    // tbar: [{
+    //     xtype: 'toolbar',
+    //     style: {
+    //         border: 'none'
+    //     },
+    //     items: [{
+    //         text: '添加货架',
+    //         itemId: 'openCreateShelvesWin'
+    //     }, {
+    //         xtype: 'button',
+    //         text: '保存排序',
+    //         itemId: 'saveShelvesOrder'
+    //     }, '->', {
+    //         xtype: 'button',
+    //         text: '返回',
+    //         itemId: 'returnShopStore'
+    //     }]
+    // }],
+    // bbar: [{
+    //     xtype: 'pagingtoolbar',
+    //     itemId: 'pagetool',
+    //     store: 'CategoryRoots',
+    //     displayInfo: true,
+    //     style: 'border:none'
+    // }],
     columns: [{
         xtype: 'rownumberer',
         align: 'center',
-        itemId:'rowIndex',
-        id:'rowIndex',
+        itemId: 'rowIndex',
+        id: 'rowIndex',
         tdCls: 'user-td'
     }, {
         text: '货架名称',
@@ -66,13 +84,34 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopShelf', {
         align: 'center'
 
     }],
-    tbar: [{
-        text: '添加货架',
-        itemId: 'openCreateShelvesWin'
+    dockedItems: [{
+        xtype: 'toolbar',
+        dock: 'top',
+        style: {
+            border: 'none'
+        },
+        items: [{
+            text: '添加货架',
+            itemId: 'openCreateShelvesWin'
+        }, {
+            xtype: 'button',
+            text: '保存排序',
+            itemId: 'saveShelvesOrder'
+        }, '->', {
+            xtype: 'button',
+            text: '返回',
+            itemId: 'returnShopStore'
+        }]
     }, {
-        xtype: 'button',
-        text: '保存排序',
-        itemId: 'saveShelvesOrder'
+        xtype: 'toolbar',
+        dock: 'bottom',
+        items: [{
+            xtype: 'pagingtoolbar',
+            itemId: 'pagetool',
+            store: 'CategoryRoots',
+            displayInfo: true,
+            style: 'border:none'
+        }]
     }],
     viewConfig: {
         plugins: {

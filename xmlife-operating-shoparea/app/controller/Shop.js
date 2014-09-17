@@ -583,6 +583,16 @@ Ext.define('XMLifeOperating.controller.Shop', {
                     }
                 }
             },
+            'shopshelf #returnShopStore': {
+                click: function() {
+                    var me = this;
+                    var tab = me.getShopList();
+                    me.showShopList();
+                    var content = this.getContentPanel();
+                    content.removeAll(false);
+                    content.add(tab);
+                }
+            },
             'shopshelf #saveShelvesOrder': {
                 click: function() {
                     var store = this.getCategoryRootsStore();
@@ -1207,7 +1217,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
     },
     onShopStoreBannerDelete: function(view, rowIndex, colIndex, column, e) {
         var me = this;
-        var  windowEl = this.getShopShelfTab().getEl();
+        var windowEl = this.getShopShelfTab().getEl();
         var record = view.getRecord(view.findTargetByEvent(e));
         var store = this.getShopBannerTemplateStore();
         var deleteId = record.get('id');
