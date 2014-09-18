@@ -1,4 +1,4 @@
-/**
+﻿/**
  * @class SimpleTasks.view.lists.Tree
  * @extends Ext.tree.Panel
  * The task list view.  A tree that displays all of the task lists.
@@ -105,11 +105,14 @@ Ext.define('XMLifeOperating.view.staffManage.deliverer.DealDelivererHistoryList'
             format:'H:i',
             sortable: false,
             width: 100,
-            renderer:function(value){
-               var newTime = new Date(value);
-               newTime = newTime.getHours()+':'+newTime.getMinutes();
-               return newTime;
-            } 
+            renderer: function(value) {
+                var newTime = '';
+                for (var i = 0; i < value.length; i++) {
+                    newTime = new Date(value[i]);
+                    newTime = newTime.getHours()+':'+newTime.getMinutes()+'<br />';
+                }
+                return newTime;
+            }
         },
         {
             text: '出货时间',
