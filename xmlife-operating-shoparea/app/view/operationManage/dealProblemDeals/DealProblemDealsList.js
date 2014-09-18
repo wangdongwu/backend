@@ -141,7 +141,17 @@ Ext.define('XMLifeOperating.view.operationManage.dealProblemDeals.DealProblemDea
                         return '默认';
                 }
             }
-        }, {
+        },{
+            text: '重新分配',
+            width: 80,
+            itemId: 'reapportion',
+            menuDisabled: true,
+            sortable: false,
+            align: 'center',
+            renderer: function(value, metadata, model, rowIndex, colIndex, store) {
+                return Ext.String.format('<a>重新分配</a>', value, value);
+            }
+        },{
             text: '注册用户',
             dataIndex: 'customerName',
             width: 80,
@@ -165,13 +175,15 @@ Ext.define('XMLifeOperating.view.operationManage.dealProblemDeals.DealProblemDea
             width: 90,
             sortable: false,
             align: 'center',
-        }, {
+        }, 
+        /*{
             text: '中心点',
             dataIndex: 'shopAreaName',
             width: 60,
             sortable: false,
             align: 'center',
-        }, {
+        },*/ 
+        {
             text: '分配买手',
             dataIndex: 'shopperNames',
             width: 80,
@@ -296,16 +308,6 @@ Ext.define('XMLifeOperating.view.operationManage.dealProblemDeals.DealProblemDea
                 } else {
                     return Ext.String.format('未处理', value, value);
                 }
-            }
-        }, {
-            text: '重新分配',
-            width: 80,
-            itemId: 'reapportion',
-            menuDisabled: true,
-            sortable: false,
-            align: 'center',
-            renderer: function(value, metadata, model, rowIndex, colIndex, store) {
-                return Ext.String.format('<a>重新分配</a>', value, value);
             }
         }, {
             text: '取消订单',

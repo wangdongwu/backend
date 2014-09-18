@@ -136,13 +136,15 @@ Ext.define('XMLifeOperating.view.operationManage.dealShopArea.DealShopAreaList',
             width: 90,
             sortable: false,
             align: 'center',
-        }, {
+        }, 
+        /*{
             text: '中心点',
             dataIndex: 'shopAreaName',
             width: 80,
             sortable: false,
             align: 'center',
-        }, {
+        }, */
+        {
             text: '分配买手',
             dataIndex: 'shopperName',
             width: 60,

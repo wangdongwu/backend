@@ -1,7 +1,10 @@
 Ext.define('XMLifeOperating.controller.DealProblemDealsList', {
     extend: 'Ext.app.Controller',
 
-    views: ['operationManage.dealProblemDeals.DealProblemDealsList','operationManage.dealProblemDeals.DealProblemDealsReapportion','operationManage.dealProblemDeals.DealProblemDealsReapportionShopper','operationManage.dealProblemDeals.DealProblemDealsReapportionDeliverer'],
+    views: ['operationManage.dealProblemDeals.DealProblemDealsList',
+    'operationManage.dealProblemDeals.DealProblemDealsReapportion',
+    'operationManage.dealProblemDeals.DealProblemDealsReapportionShopper',
+    'operationManage.dealProblemDeals.DealProblemDealsReapportionDeliverer'],
 
     stores: ['DealProblemDeals','ShopArea','DealTasks','Shopper','Deliverer'],
 

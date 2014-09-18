@@ -122,13 +122,15 @@ Ext.define('XMLifeOperating.view.operationManage.dealCashOnDelivery.DealCashOnDe
             renderer: function(value) {
                 return '<span style="color:blue;cursor:pointer;">' + value + '</span>';
             }
-        }, {
+        }, 
+        /*{
             text: '中心点',
             dataIndex: 'shopAreaName',
             width: 60,
             sortable: false,
             align: 'center',
-        }, {
+        },*/ 
+        {
             text: '线路',
             dataIndex: 'zoneName',
             width: 60,

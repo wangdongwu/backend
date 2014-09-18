@@ -209,13 +209,15 @@ Ext.define('XMLifeOperating.view.dealManage.DealList', {
             width: 60,
             sortable: false,
             align: 'center',
-        }, {
+        }, 
+        /*{
             text: '中心点',
             dataIndex: 'shopAreaName',
             width: 60,
             sortable: false,
             align: 'center',
-        }, {
+        },*/ 
+        {
             text: '分配买手',
             dataIndex: 'shopperNames',
             width: 80,
