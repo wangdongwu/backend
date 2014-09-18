@@ -55,6 +55,10 @@ Ext.define('XMLifeOperating.view.operationManage.dealShopArea.DealShopAreaList',
             width: 60,
             sortable: false,
             align: 'center',
+            itemId:'dealDetail',
+            renderer:function(value){
+                return '<a style="cursor:pointer;">'+value+'</a>';
+            }
         },
 
         {

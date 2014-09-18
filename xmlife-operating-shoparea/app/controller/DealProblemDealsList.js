@@ -4,11 +4,24 @@ Ext.define('XMLifeOperating.controller.DealProblemDealsList', {
     views: ['operationManage.dealProblemDeals.DealProblemDealsList',
     'operationManage.dealProblemDeals.DealProblemDealsReapportion',
     'operationManage.dealProblemDeals.DealProblemDealsReapportionShopper',
-    'operationManage.dealProblemDeals.DealProblemDealsReapportionDeliverer'],
+    'operationManage.dealProblemDeals.DealProblemDealsReapportionDeliverer',
+    'operationManage.dealProblemDeals.DPDealDetail'],
 
-    stores: ['DealProblemDeals','ShopArea','DealTasks','Shopper','Deliverer'],
+    stores: [
+            'DealProblemDeals',
+            'ShopArea',
+            'DealTasks',
+            'Shopper',
+            'Deliverer',
+            'DealItems'],
 
-    models: ['DealProblemDeals','ShopArea','DealTasks','Shopper','Deliverer'],
+    models: [
+            'DealProblemDeals',
+            'ShopArea',
+            'DealTasks',
+            'Shopper',
+            'Deliverer',
+            'DealItems'],
  
     refs: [
         {
@@ -37,6 +50,12 @@ Ext.define('XMLifeOperating.controller.DealProblemDealsList', {
              ref: 'reapportionDealTasksDeliverer',
              selector: 'reapportionDealTasksDeliverer',
              xtype: 'reapportionDealTasksDeliverer',
+             autoCreate: true
+        },
+        {
+             ref: 'dPDealDetail',
+             selector: 'dPDealDetail',
+             xtype: 'dPDealDetail',
              autoCreate: true
         }
     ],
@@ -103,9 +122,7 @@ Ext.define('XMLifeOperating.controller.DealProblemDealsList', {
                  click: me.onPutReapportionDeliverer
             },
             'dealProblemDealsList #dealDetail':{
-                click:function(){
-                    alert(1111);
-                }
+                click:me.onDPDealDetail
             }
         });
     },
@@ -310,5 +327,27 @@ Ext.define('XMLifeOperating.controller.DealProblemDealsList', {
         var win = this.getCancellation();
         win.down('form').loadRecord(cancellation);
         win.show();
+    },
+    onDPDealDetail: function(view, rowIndex, colIndex, column, e) {
+        var dealDetail = view.getRecord(view.findTargetByEvent(e));
+        var win = this.getDPDealDetail();
+        win.down('form').loadRecord(dealDetail);
+        win.show();
+        var store = this.getDealItemsStore();
+        store.load({
+            params: {
+                deal: dealDetail.get('dealBackendId'),
+            },
+
+            callback: function(records) {
+                console.log(records);
+                var model = Ext.ComponentQuery.query('#dealDetails')[0].getSelectionModel();
+                model.deselectAll();
+                for (var i = 0; i < records.length; i++) {
+                    var index = store.indexOfId(records[i].get('id'));
+                    model.select(index, true);
+                }
+            }
+        });
     },
 });

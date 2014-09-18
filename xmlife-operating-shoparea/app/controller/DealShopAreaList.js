@@ -1,11 +1,19 @@
 Ext.define('XMLifeOperating.controller.DealShopAreaList', {
     extend: 'Ext.app.Controller',
 
-    views: ['operationManage.dealShopArea.DealShopAreaList'],
+    views: ['operationManage.dealShopArea.DealShopAreaList',
+            'operationManage.dealShopArea.DSADealDetail'],
 
-    stores: ['DealShopArea','ShopArea'],
+    stores: [
+            'DealShopArea',
+            'ShopArea',
+            'DealItems'
+            ],
 
-    models: ['DealShopArea','ShopArea'],
+    models: [
+            'DealShopArea',
+            'ShopArea',
+            'DealItems'],
  
 
      refs: [
@@ -13,6 +21,12 @@ Ext.define('XMLifeOperating.controller.DealShopAreaList', {
             ref: 'shopArea',
             selector: '#shopArea',
         },
+        {
+             ref: 'dSADealDetail',
+             selector: 'dSADealDetail',
+             xtype: 'dSADealDetail',
+             autoCreate: true
+        }
     ],
 
     init: function() {
@@ -67,10 +81,34 @@ Ext.define('XMLifeOperating.controller.DealShopAreaList', {
                         
                     });
                 }
-            },           
+            },
+            'dealShopAreaList #dealDetail':{
+                click:me.onDSADealDetail
+            }
+
 
         });
 
+    },
+     onDSADealDetail: function(view, rowIndex, colIndex, column, e) {
+        var dealDetail = view.getRecord(view.findTargetByEvent(e));
+        var win = this.getDSADealDetail();
+        win.down('form').loadRecord(dealDetail);
+        win.show();
+        var store = this.getDealItemsStore();
+        store.load({
+            params: {
+                deal: dealDetail.get('dealBackendId'),
+            },
+            callback: function(records) {
+                var model = Ext.ComponentQuery.query('#dealDetails')[0].getSelectionModel();
+                model.deselectAll();
+                for (var i = 0; i < records.length; i++) {
+                    var index = store.indexOfId(records[i].get('id'));
+                    model.select(index, true);
+                }
+            }
+        });
     },
 
    
