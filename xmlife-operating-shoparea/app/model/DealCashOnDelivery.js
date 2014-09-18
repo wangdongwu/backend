@@ -1,7 +1,7 @@
 var dataProxy = new XMLifeOperating.generic.BaseProxy('deal/cashOnDelivery');
 Ext.define('XMLifeOperating.model.DealCashOnDelivery', {
     extend: 'Ext.data.Model',
-    fields: ['id', 'created','dealBackendId','shortId','shopAreaName','zoneName','customerName','customerPhone','delivererName','actualDealPrice','dtoAddress','hasCancel','hasReturn','codMark','codMarkContent','codAmt','balance','cancelPrice','returnPrice','codProblemMark'],
+    fields: ['id', 'created','dealBackendId','shortId','shopAreaName','zoneName','customerName','customerPhone','delivererName','actualDealPrice','dtoAddress','hasCancel','hasReturn','codMark','codMarkContent','codAmt','balance','cancelPrice','returnPrice','codProblemMark','flowType'],
     proxy: dataProxy,
 });
 

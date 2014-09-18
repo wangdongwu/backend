@@ -159,10 +159,31 @@ Ext.define('XMLifeOperating.view.operationManage.dealCashOnDelivery.DealCashOnDe
             align: 'center',
         }, {
             text: '支付方式',
-            dataIndex: 'shopAreaName',
+            dataIndex: 'flowType',
             width: 60,
             sortable: false,
             align: 'center',
+            renderer: function(value) {
+                var str='';
+                for(var i=0;i<value.length;i++){
+                    switch(value[i]){
+                        case 'ALIPAY':
+                            str +='支付宝支付';
+                            break;
+                        case 'TENPAY':
+                            str += '腾讯支付';
+                            break;
+                        case 'BALANCE':
+                            str += '余额支付';
+                            break;
+                        case 'COD':
+                            str += '货到付款';
+                            break;
+                    }
+                    str += '<br />';
+                }
+                return str;                
+            }
         }, {
             text: '订单金额',
             dataIndex: 'actualDealPrice',
