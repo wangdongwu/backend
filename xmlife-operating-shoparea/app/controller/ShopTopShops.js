@@ -232,7 +232,7 @@ Ext.define('XMLifeOperating.controller.ShopTopShops', {
                         windowEl = editWindow.getEl(),
                         form = editWindow.down('form').getForm(),
                         shopShopGroup = form.getRecord();
-                    var selectModel = Ext.ComponentQuery.query('#shopTopShopsAddId')[0].getSelectionModel();
+                    var selectModel = Ext.ComponentQuery.query('#ShopShopGroupAddId')[0].getSelectionModel();
                     var selectRecords = selectModel.getSelection();
                     var shopId = '';
                     selectRecords.forEach(function(item) {

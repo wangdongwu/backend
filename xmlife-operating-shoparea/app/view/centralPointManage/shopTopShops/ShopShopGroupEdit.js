@@ -25,12 +25,12 @@ Ext.define('XMLifeOperating.view.centralPointManage.shopTopShops.ShopShopGroupEd
             border: false,
             items: [
                 {
-                    name: 'shopTopShopsAddIds',
+                    name: 'ShopShopGroupAddIds',
                     store:'ShopShopGroupAdd',
                     allowBlank: false,
                     fieldLabel: '展示店铺',
                     xtype:'gridpanel',
-                    itemId:'shopTopShopsAddId',
+                    itemId:'ShopShopGroupAddId',
 
                     height:150,
                     selModel:Ext.create('Ext.selection.CheckboxModel',{mode:"MULTI"}),
