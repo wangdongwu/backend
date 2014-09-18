@@ -50,7 +50,11 @@ Ext.define('XMLifeOperating.view.operationManage.dealProblemDeals.DealProblemDea
             dataIndex: 'shortId',
             width: 50,
             sortable: false,
+            itemId:'dealDetail',
             align: 'center',
+            renderer:function(value){
+                return '<a style="cursor:pointer;">'+value+'</a>';
+            }
         },
 
         {

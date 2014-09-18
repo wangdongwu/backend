@@ -99,6 +99,11 @@ Ext.define('XMLifeOperating.controller.DealProblemDealsList', {
             '#putReapportionDeliverer':{
                  click: me.onPutReapportionDeliverer
             },
+            'dealProblemDealsList #dealDetail':{
+                click:function(){
+                    alert(1111);
+                }
+            }
         });
     },
 
@@ -207,6 +212,7 @@ Ext.define('XMLifeOperating.controller.DealProblemDealsList', {
     },
 
     onReapportionDeliverer: function(view, rowIndex, colIndex, column, e) {
+        var me=this;
         var reapportionDeliverer = Ext.ComponentQuery.query('#dealForm')[0].getRecord();
 
         var win = this.getReapportionDealTasksDeliverer();
@@ -217,7 +223,9 @@ Ext.define('XMLifeOperating.controller.DealProblemDealsList', {
         console.log(reapportionDeliverer.get('zoneId'));
         store.load({
             params: {
-                deliveryZone: reapportionDeliverer.get('zoneId'),
+                // deliveryZone: reapportionDeliverer.get('zoneId'),
+                area:me.getDealProblemDealsList().down('#shopArea').getValue(),
+                isForAssign:true
             },
 
             callback:function(records){

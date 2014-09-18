@@ -31,9 +31,7 @@ Ext.define('XMLifeOperating.controller.DealList', {
         xtype: 'dealDetail',
         autoCreate: true
     }],
-
     init: function() {
-
         var me = this;
         this.control({
             'dealList #shopArea': {
