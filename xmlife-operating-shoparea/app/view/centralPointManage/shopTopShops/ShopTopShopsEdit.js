@@ -58,16 +58,12 @@ Ext.define('XMLifeOperating.view.centralPointManage.shopTopShops.ShopTopShopsEdi
                     selModel:Ext.create('Ext.selection.CheckboxModel',{mode:"SINGLE"}),
                     columns:[
                         {
-                            text:'uid',
+                            text:'店铺id',
                             dataIndex:'id'
                         },
                         {
-                            text:'配送员姓名',
+                            text:'店铺名称',
                             dataIndex:'name'
-                        },
-                        {
-                            text:'手机号',
-                            dataIndex:'phone'
                         },
                     ],
                 },
