@@ -42,7 +42,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.shopTopShops.ShopShopGroupEd
                         {
                             text:'店铺名称',
                             dataIndex:'name'
-                        },
+                        }
                     ],
                 },
             ],

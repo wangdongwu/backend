@@ -275,15 +275,30 @@ Ext.define('XMLifeOperating.view.dealManage.DealList', {
             width: 80,
             sortable: false,
             align: 'center',
-            renderer: function(value) {
-                var time = (value / (3600 * 1000) + '').split('.');
-                var time1 = Math.abs(time[0]);
-                var time2 = Math.floor(('0.' + time[1]) * 60);
-                time = time1 + '时' + time2 + '分';
-                if (value <= 0) {
-                    return '<span style="color:#ff0000">' + time + '</span>';
-                }
-                return '<span style="color:#000">' + time + '</span>';
+            renderer: function(value,da,record) {
+                var status = record.get('status');
+                var str='';
+                switch(status){
+                    case 4:
+                        return '完成配送';
+                        break;
+                    case 6:
+                        return '全部退货';
+                        break;
+                    case 7:
+                        return '已取消';
+                        break;
+                    default:
+                        var time = (value / (3600 * 1000) + '').split('.');
+                        var time1 = Math.abs(time[0]);
+                        var time2 = Math.floor(('0.' + time[1]) * 60);
+                        time = time1 + '时' + time2 + '分';
+                        if (value <= 0) {
+                            return '<span style="color:#ff0000">' + time + '</span>';
+                        }
+                        return '<span style="color:#000">' + time + '</span>';
+                        break;
+                } 
             }
         }, {
             text: '完成购买时间',
