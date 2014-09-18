@@ -534,10 +534,8 @@ Ext.define('XMLifeOperating.controller.ShopTopShops', {
     },
     onShopShopGroupDelete:function(view, rowIndex, colIndex, column, e) {
         var shopShopGroup = view.getRecord(view.findTargetByEvent(e));
-        // var areaId = this.areaId;
-        var areaId=1;
+        var areaId = this.areaId;
         var me = this;
-
         Ext.MessageBox.confirm(
             '确认删除',
             Ext.String.format("确定删除 '{0}' 吗？", "优质商铺"),
