@@ -19,10 +19,6 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopProduct', {
         dataIndex: 'skuId',
         sortable: true,
     },{
-        text: '编码',
-        dataIndex: 'barCode',
-        sortable: true,
-    },{
         text: 'id',
         dataIndex: 'id'
     },
