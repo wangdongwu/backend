@@ -23,15 +23,13 @@ Ext.define('XMLifeOperating.view.operationManage.dealProblemDeals.DealProblemDea
             text: '刷新',
             itemId: 'update',
             hidden: (XMLifeOperating.generic.Global.operating_type == 'center')
-        },
-
-    ],
-    bbar: ['->', {
+        },{
         xtype: 'button',
         itemId: 'refresh',
         text: '刷新'
-    }],
+    }
 
+    ],
     columns: [{
             xtype: 'rownumberer'
         }, {

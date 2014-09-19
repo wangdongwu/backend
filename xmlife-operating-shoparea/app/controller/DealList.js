@@ -61,7 +61,7 @@ Ext.define('XMLifeOperating.controller.DealList', {
                         if (btn == 'yes') {
                             var sessionId = localStorage.getItem('sessionId');
                             var username = localStorage.getItem('username');
-                            var url = XMLifeOperating.generic.Global.URL.biz + 'deal/exportProductStatistic?' + 'shopArea=' + me.areaId + '&dayType=1' + '&sessionId=' + sessionId + '&username=' + username+'&beginTime='+beginTime+'&endTime='+endTime;
+                            var url = XMLifeOperating.generic.Global.URL.biz + 'deal/exportProductStatistic?' + 'shopArea=' + me.areaId + '&dayType=1' + '&sessionId=' + sessionId + '&username=' + username + '&beginTime=' + beginTime + '&endTime=' + endTime;
                             window.open(url, '昨日商品对货单', '', '_blank');
                         } else {
                             return;
@@ -79,7 +79,7 @@ Ext.define('XMLifeOperating.controller.DealList', {
                         if (btn == 'yes') {
                             var sessionId = localStorage.getItem('sessionId');
                             var username = localStorage.getItem('username');
-                            var url = XMLifeOperating.generic.Global.URL.biz + 'deal/exportDealCashflow?' + 'shopArea=' + me.areaId + '&dayType=1'+ '&sessionId=' + sessionId + '&username=' + username+'&beginTime='+beginTime+'&endTime='+endTime;
+                            var url = XMLifeOperating.generic.Global.URL.biz + 'deal/exportDealCashflow?' + 'shopArea=' + me.areaId + '&dayType=1' + '&sessionId=' + sessionId + '&username=' + username + '&beginTime=' + beginTime + '&endTime=' + endTime;
                             window.open(url, '昨日支付对账单', '', '_blank');
                         } else {
                             return;
@@ -116,12 +116,52 @@ Ext.define('XMLifeOperating.controller.DealList', {
             'dealList #toproblemdeal': {
                 click: me.onToProblemDeal
             },
+            'dealList #refresh': {
+                click: me.onRefresh
+
+            }
             /*'dealList #checkUnallocatedOrder':{
                 click:{
                     
                 }
             }*/
         });
+    },
+    onRefresh: function(view, e, eOpts) {
+        var me = this;
+        if (!view.isDisabled()) {
+            //发送刷新请求
+            var sstore = this.getDealStore();
+            sstore.getProxy().extraParams = {
+                shopArea: this.areaId
+            }
+            sstore.loadPage(1, {
+                params: {
+                    start: 0,
+                    limit: 25,
+                    page: 1
+                }
+            });
+            //禁用按钮并进入倒计时
+            var count = function(t) {
+                var time = 5 - t;
+                view.setText(time + 's');
+            }
+            view.setDisabled(true);
+            for (var i = 0; i < 5; i++) {
+                (function(t) {
+                    setTimeout(function() {
+                        count(t)
+                    }, t * 1000);
+                }(i))
+            }
+            setTimeout(function() {
+                view.setDisabled(false);
+                view.setText('刷新');
+            }, 5000);
+        } else {
+            return
+        }
     },
     dealSearch: function() {
         var me = this,
@@ -215,43 +255,43 @@ Ext.define('XMLifeOperating.controller.DealList', {
                     page: 1
                 }
             });
-        });*/
+});*/
         Ext.MessageBox.confirm(
             '确认删除',
-            Ext.String.format("确定要将<h5>'{0}'</h5>的订单转为问题订单吗？", '订单号为：'+dealitem.get('shortId')+' 顾客为：'+dealitem.get('customerName')),
+            Ext.String.format("确定要将<h5>'{0}'</h5>的订单转为问题订单吗？", '订单号为：' + dealitem.get('shortId') + ' 顾客为：' + dealitem.get('customerName')),
             function(result) {
                 if (result == 'yes') {
                     sendPutRequest(url, {}, '转为问题订单', '转为问题订单成功', '转为问题订单失败',
-                    function(response) {
-                        // alert(response);
-                        if(response.responseText!=0){
-                            Ext.MessageBox.show({
-                                title: '订单操作',
-                                msg: '转为问题订单失败',
-                                icon: Ext.Msg.ERROR,
-                                buttons: Ext.Msg.OK
-                            });
-                        }else{
-                            Ext.MessageBox.show({
-                                title: '订单操作',
-                                msg: '该订单被成功标记为问题订单',
-                                icon: Ext.Msg.INFO,
-                                buttons: Ext.Msg.OK
-                            });
-                            var sstore = me.getDealStore();
-                            sstore.getProxy().extraParams = {
-                                shopArea: me.areaId
-                            }
-                            sstore.loadPage(1, {
-                                params: {
-                                    start: 0,
-                                    limit: 25,
-                                    page: 1
+                        function(response) {
+                            // alert(response);
+                            if (response.responseText != 0) {
+                                Ext.MessageBox.show({
+                                    title: '订单操作',
+                                    msg: '转为问题订单失败',
+                                    icon: Ext.Msg.ERROR,
+                                    buttons: Ext.Msg.OK
+                                });
+                            } else {
+                                Ext.MessageBox.show({
+                                    title: '订单操作',
+                                    msg: '该订单被成功标记为问题订单',
+                                    icon: Ext.Msg.INFO,
+                                    buttons: Ext.Msg.OK
+                                });
+                                var sstore = me.getDealStore();
+                                sstore.getProxy().extraParams = {
+                                    shopArea: me.areaId
                                 }
-                            });
+                                sstore.loadPage(1, {
+                                    params: {
+                                        start: 0,
+                                        limit: 25,
+                                        page: 1
+                                    }
+                                });
                             }
-                        
-                    });
+
+                        });
                 }
             }
         );

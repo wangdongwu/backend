@@ -60,6 +60,7 @@ Ext.define('XMLifeOperating.controller.DealCashOnDeliveryList', {
                             area: combo.getValue()
                         }
                     });
+                    this.areaId = combo.getValue();
                 },
             },
             'dealCashOnDeliveryList': {
@@ -112,25 +113,25 @@ Ext.define('XMLifeOperating.controller.DealCashOnDeliveryList', {
                             CashMark = null;
                         }
 
-                    var store = this.getDealCashOnDeliveryStore();
-                    var params = {
-                        shopArea: Ext.getCmp('dealCashOnDeliveryList').down('#shopArea').getValue(),
-                        dayType: str
-                    };
-                    if(CashPaid != null){
-                        params['codMark'] = CashPaid;
-                    }
-                    if(CashMark != null){
-                        params['codProblemMark'] = CashMark;
-                    }
-                    store.getProxy().extraParams = params;
-                    store.loadPage(1, {
-                        params: {
-                            start: 0,
-                            limit: 25,
-                            page: 1
+                        var store = this.getDealCashOnDeliveryStore();
+                        var params = {
+                            shopArea: Ext.getCmp('dealCashOnDeliveryList').down('#shopArea').getValue(),
+                            dayType: str
+                        };
+                        if (CashPaid != null) {
+                            params['codMark'] = CashPaid;
                         }
-                    });
+                        if (CashMark != null) {
+                            params['codProblemMark'] = CashMark;
+                        }
+                        store.getProxy().extraParams = params;
+                        store.loadPage(1, {
+                            params: {
+                                start: 0,
+                                limit: 25,
+                                page: 1
+                            }
+                        });
                         CashDayType = str;
                     }
                 }
@@ -165,7 +166,7 @@ Ext.define('XMLifeOperating.controller.DealCashOnDeliveryList', {
                         dayType: CashDayType
                     };
                     var mark = combo.getValue();
-                    if(mark != null){
+                    if (mark != null) {
                         params['codProblemMark'] = mark;
                     }
                     CashMark = mark;
@@ -193,7 +194,7 @@ Ext.define('XMLifeOperating.controller.DealCashOnDeliveryList', {
                         dayType: CashDayType
                     };
                     var paid = combo.getValue();
-                    if(paid != null){
+                    if (paid != null) {
                         params['codMark'] = paid;
                     }
                     CashPaid = paid;
@@ -294,6 +295,7 @@ Ext.define('XMLifeOperating.controller.DealCashOnDeliveryList', {
 
 
     },
+
     onShow: function() {
         // var store = this.getDealCashOnDeliveryStore();
         // store.load(

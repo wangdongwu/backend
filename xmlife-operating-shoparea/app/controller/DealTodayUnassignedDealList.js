@@ -41,7 +41,7 @@ Ext.define('XMLifeOperating.controller.DealTodayUnassignedDealList', {
                     var sstore = this.getDealStore();
                     sstore.getProxy().extraParams = {
                         shopArea: combo.getValue(),
-                        assignShopper:false
+                        assignShopper: false
                     }
                     sstore.loadPage(1, {
                         params: {
@@ -62,7 +62,7 @@ Ext.define('XMLifeOperating.controller.DealTodayUnassignedDealList', {
                     sstore.getProxy().extraParams = {
                         shopArea: Ext.getCmp('dealTodayUnassignedDealList').down('#shopArea').getValue(),
                         status: combo.getValue(),
-                        assignShopper : false
+                        assignShopper: false
                     }
                     sstore.loadPage(1, {
                         params: {
@@ -82,8 +82,52 @@ Ext.define('XMLifeOperating.controller.DealTodayUnassignedDealList', {
             },
             'dealtodayunassigneddeallist #toproblemdeal': {
                 click: me.onToProblemDeal
+            },
+            'dealtodayunassigneddeallist #oneKeyDistribute': {
+                click: me.onOneKeyDistribute
+            },
+            'dealtodayunassigneddeallist #refresh': {
+                click: me.onRefresh
+
             }
         });
+    },
+    onRefresh: function(view, e, eOpts) {
+        var me = this;
+        if (!view.isDisabled()) {
+            //发送刷新请求
+            var sstore = this.getDealStore();
+            sstore.getProxy().extraParams = {
+                shopArea: this.areaId,
+                assignShopper: false
+            }
+            sstore.loadPage(1, {
+                params: {
+                    start: 0,
+                    limit: 25,
+                    page: 1
+                }
+            });
+            //禁用按钮并进入倒计时
+            var count = function(t) {
+                var time = 5 - t;
+                view.setText(time + 's');
+            }
+            view.setDisabled(true);
+            for (var i = 0; i < 5; i++) {
+                (function(t) {
+                    setTimeout(function() {
+                        count(t)
+                    }, t * 1000);
+                }(i))
+            }
+            setTimeout(function() {
+                view.setDisabled(false);
+                view.setText('刷新');
+            }, 5000);
+        } else {
+            return
+        }
     },
     todayUnassignedDealSearch: function() {
         console.log(123);
@@ -96,7 +140,7 @@ Ext.define('XMLifeOperating.controller.DealTodayUnassignedDealList', {
             if (shopAreaId) {
                 store.getProxy().extraParams = {
                     shopArea: shopAreaId,
-                    assignShopper:false
+                    assignShopper: false
                 };
                 store.loadPage(1, {
                     params: {
@@ -112,7 +156,7 @@ Ext.define('XMLifeOperating.controller.DealTodayUnassignedDealList', {
             store.load({
                 params: {
                     phone: keyWords,
-                    assignShopper:false
+                    assignShopper: false
                 }
             });
         }
@@ -178,14 +222,14 @@ Ext.define('XMLifeOperating.controller.DealTodayUnassignedDealList', {
         });*/
         Ext.MessageBox.confirm(
             '确认删除',
-            Ext.String.format("确定要将<h5>'{0}'</h5>的订单转为问题订单吗？", '订单号为：'+dealitem.get('shortId')+' 顾客为：'+dealitem.get('customerName')),
+            Ext.String.format("确定要将<h5>'{0}'</h5>的订单转为问题订单吗？", '订单号为：' + dealitem.get('shortId') + ' 顾客为：' + dealitem.get('customerName')),
             function(result) {
                 if (result == 'yes') {
                     sendPutRequest(url, {}, '转为问题订单', '转为问题订单成功', '转为问题订单失败', function() {
                         var sstore = me.getDealStore();
                         sstore.getProxy().extraParams = {
                             shopArea: me.areaId,
-                            assignShopper:false
+                            assignShopper: false
                         }
                         sstore.loadPage(1, {
                             params: {
@@ -199,5 +243,36 @@ Ext.define('XMLifeOperating.controller.DealTodayUnassignedDealList', {
             }
         );
     },
+    onOneKeyDistribute: function() {
+        var me = this;
+        var areaId = me.areaId;
+        var data = {
+            shopArea: null
+        }
+        var success = function() {
+            var sstore = me.getDealStore();
+            sstore.getProxy().extraParams = {
+                shopArea: areaId,
+                assignShopper: false
+            }
+            sstore.loadPage(1, {
+                params: {
+                    start: 0,
+                    limit: 25,
+                    page: 1
+                }
+            });
+        };
+        var failure = function(message) {
+            Ext.MessageBox.show({
+                title: '无法上传图片',
+                msg: 'Error: <br />' + message,
+                icon: Ext.Msg.ERROR,
+                buttons: Ext.Msg.OK
+            });
+        };
+        data.shopArea = areaId;
+        sendPutRequest('deal/oneKeyAssignShopper', data, '一键分配', '一键分配成功', '一键分配失败', success, failure);
+    }
 
 });

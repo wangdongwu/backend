@@ -18,6 +18,14 @@ Ext.define('XMLifeOperating.view.operationManage.dealTodayUnassignedDeal.DealTod
             displayField: 'name',
             valueField: 'id',
             hidden: (XMLifeOperating.generic.Global.operating_type == 'center')
+        }, {
+            xtype: 'button',
+            itemId: 'oneKeyDistribute',
+            text: '一键分配'
+        }, {
+            xtype: 'button',
+            itemId: 'refresh',
+            text: '刷新'
         },
         '->', {
             xtype: 'textfield',
@@ -39,10 +47,6 @@ Ext.define('XMLifeOperating.view.operationManage.dealTodayUnassignedDeal.DealTod
         store: 'Deal',
         displayInfo: true,
         style: 'border:none'
-    }, '->', {
-        xtype: 'button',
-        itemId: 'refresh',
-        text: '刷新'
     }],
     columns: [{
         text: '日期',

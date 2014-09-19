@@ -13,11 +13,6 @@ Ext.define('XMLifeOperating.view.operationManage.dealShopArea.DealShopAreaList',
             store: 'DealShopArea',
             displayInfo: true,
             style: 'border:none'
-        },
-        '->', {
-            xtype: 'button',
-            itemId: 'refresh',
-            text: '刷新'
         }
     ],
     tbar: [{
@@ -32,8 +27,11 @@ Ext.define('XMLifeOperating.view.operationManage.dealShopArea.DealShopAreaList',
             displayField: 'name',
             valueField: 'id',
             hidden: (XMLifeOperating.generic.Global.operating_type == 'center')
-        },
-
+        }, {
+            xtype: 'button',
+            itemId: 'refresh',
+            text: '刷新'
+        }
     ],
 
     columns: [{
@@ -55,9 +53,9 @@ Ext.define('XMLifeOperating.view.operationManage.dealShopArea.DealShopAreaList',
             width: 60,
             sortable: false,
             align: 'center',
-            itemId:'dealDetail',
-            renderer:function(value){
-                return '<a style="cursor:pointer;">'+value+'</a>';
+            itemId: 'dealDetail',
+            renderer: function(value) {
+                return '<a style="cursor:pointer;">' + value + '</a>';
             }
         },
 
@@ -140,7 +138,7 @@ Ext.define('XMLifeOperating.view.operationManage.dealShopArea.DealShopAreaList',
             width: 90,
             sortable: false,
             align: 'center',
-        }, 
+        },
         /*{
             text: '中心点',
             dataIndex: 'shopAreaName',
@@ -194,10 +192,10 @@ Ext.define('XMLifeOperating.view.operationManage.dealShopArea.DealShopAreaList',
             width: 60,
             sortable: false,
             align: 'center',
-            renderer: function(value,da,record) {
+            renderer: function(value, da, record) {
                 var status = record.get('status');
-                var str='';
-                switch(status){
+                var str = '';
+                switch (status) {
                     case 4:
                         return '完成配送';
                         break;
@@ -208,7 +206,7 @@ Ext.define('XMLifeOperating.view.operationManage.dealShopArea.DealShopAreaList',
                         return '已取消';
                         break;
                     default:
-                        
+
                         var time = (value / (3600 * 1000) + '').split('.');
                         var time1 = Math.abs(time[0]);
                         var time2 = Math.floor(('0.' + time[1]) * 60);
@@ -218,7 +216,7 @@ Ext.define('XMLifeOperating.view.operationManage.dealShopArea.DealShopAreaList',
                         }
                         return '<span style="color:#000">' + time + '</span>';
                         break;
-                } 
+                }
             }
         }, {
             text: '完成购买时间',

@@ -50,6 +50,7 @@ Ext.define('XMLifeOperating.controller.ResidentalDistrict', {
                             shopArea: combo.getValue()
                         }
                     });
+                    this.areaId = combo.getValue();
                 },
             },
             'residentaldistrictlist #add': {

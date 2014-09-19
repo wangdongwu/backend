@@ -88,6 +88,7 @@ Ext.define('XMLifeOperating.controller.DelivererZoneList', {
                             shopArea: combo.getValue()
                         }
                     });
+                    this.areaId =combo.getValue()
                 },
             },
             'delivererZoneEdit #save-line-edit-btn': {

@@ -9,11 +9,11 @@ Ext.define('XMLifeOperating.view.dealManage.DealList', {
     id: 'dealList',
 
     tbar: [{
-            xtype: 'combobox',
-            name: 'shopArea',
-            itemId: 'shopArea',
-            store: 'ShopArea',
-            emptyText: '请选择中心',
+        xtype: 'combobox',
+        name: 'shopArea',
+        itemId: 'shopArea',
+        store: 'ShopArea',
+        emptyText: '请选择中心',
             // margin:10,
             editable: false,
             queryMode: 'local',
@@ -78,6 +78,11 @@ Ext.define('XMLifeOperating.view.dealManage.DealList', {
             itemId: 'checkUnallocatedOrder',
             text: '查看未分配订单',
         },*/
+        {
+            xtype: 'button',
+            itemId: 'refresh',
+            text: '刷新'
+        },
         '->', {
             xtype: 'textfield',
             emptyText: '输入搜索号码...',
@@ -106,20 +111,15 @@ Ext.define('XMLifeOperating.view.dealManage.DealList', {
             valueField: 'value',
         },
 
-    ],
-    bbar: [{
-        xtype: 'pagingtoolbar',
-        itemId: 'pagetool',
-        store: 'Deal',
-        displayInfo: true,
-        style: 'border:none'
-    }, '->',
-    {
-        xtype: 'button',
-        itemId: 'refresh',
-        text: '刷新'
-    }],
-    columns: [{
+        ],
+        bbar: [{
+            xtype: 'pagingtoolbar',
+            itemId: 'pagetool',
+            store: 'Deal',
+            displayInfo: true,
+            style: 'border:none'
+        }],
+        columns: [{
             text: '日期',
             dataIndex: 'created',
             width: 70,
@@ -157,40 +157,40 @@ Ext.define('XMLifeOperating.view.dealManage.DealList', {
             renderer: function(value) {
                 switch (value) {
                     case 1:
-                        return '正在备货-' + value;
-                        break;
+                    return '正在备货-' + value;
+                    break;
                     case 31:
-                        return '分配买手失败-' + value;
-                        break;
+                    return '分配买手失败-' + value;
+                    break;
                     case 2:
-                        return '已出货-' + value;
-                        break;
+                    return '已出货-' + value;
+                    break;
                     case 32:
-                        return '分配快递员失败-' + value;
-                        break;
+                    return '分配快递员失败-' + value;
+                    break;
                     case 3:
-                        return '配送中-' + value;
-                        break;
+                    return '配送中-' + value;
+                    break;
                     case 4:
-                        return '完成配送-' + value;
-                        break;
+                    return '完成配送-' + value;
+                    break;
                     case 7:
-                        return '订单取消-' + value;
-                        break;
+                    return '订单取消-' + value;
+                    break;
                     case 6:
-                        return '全部退货-' + value;
-                        break;
+                    return '全部退货-' + value;
+                    break;
                     case 20:
-                        return '等待分配买手-' + value;
-                        break;
+                    return '等待分配买手-' + value;
+                    break;
                     case 21:
-                        return '货到中心-' + value;
-                        break;
+                    return '货到中心-' + value;
+                    break;
                     case 22:
-                        return '等待快递员取货-' + value;
-                        break;
+                    return '等待快递员取货-' + value;
+                    break;
                     default:
-                        return '未知-' + value;
+                    return '未知-' + value;
                 }
             }
         }, {
@@ -282,24 +282,24 @@ Ext.define('XMLifeOperating.view.dealManage.DealList', {
                 var str='';
                 switch(status){
                     case 4:
-                        return '完成配送';
-                        break;
+                    return '完成配送';
+                    break;
                     case 6:
-                        return '全部退货';
-                        break;
+                    return '全部退货';
+                    break;
                     case 7:
-                        return '已取消';
-                        break;
+                    return '已取消';
+                    break;
                     default:
-                        var time = (value / (3600 * 1000) + '').split('.');
-                        var time1 = Math.abs(time[0]);
-                        var time2 = Math.floor(('0.' + time[1]) * 60);
-                        time = time1 + '时' + time2 + '分';
-                        if (value <= 0) {
-                            return '<span style="color:#ff0000">' + time + '</span>';
-                        }
-                        return '<span style="color:#000">' + time + '</span>';
-                        break;
+                    var time = (value / (3600 * 1000) + '').split('.');
+                    var time1 = Math.abs(time[0]);
+                    var time2 = Math.floor(('0.' + time[1]) * 60);
+                    time = time1 + '时' + time2 + '分';
+                    if (value <= 0) {
+                        return '<span style="color:#ff0000">' + time + '</span>';
+                    }
+                    return '<span style="color:#000">' + time + '</span>';
+                    break;
                 } 
             }
         }, {
@@ -354,15 +354,15 @@ Ext.define('XMLifeOperating.view.dealManage.DealList', {
                 return Ext.String.format('<a>转为问题订单</a>', value, value);
             }
         },
-    ],
-    viewConfig: {
-        plugins: {
-            ptype: 'gridviewdragdrop',
-            dragText: 'Drag and drop to reorder'
-        }
-    },
-    listeners: {
-        onShowView: function(view, viewName) {
+        ],
+        viewConfig: {
+            plugins: {
+                ptype: 'gridviewdragdrop',
+                dragText: 'Drag and drop to reorder'
+            }
+        },
+        listeners: {
+            onShowView: function(view, viewName) {
             /*if(XMLifeOperating.generic.Global.operating_type != 'center') {
                 return;
             }*/
