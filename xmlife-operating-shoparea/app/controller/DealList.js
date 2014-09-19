@@ -199,6 +199,10 @@ Ext.define('XMLifeOperating.controller.DealList', {
         var dealBackendId = dealitem.get('dealBackendId');
         var url = 'deal/transToProblem/' + dealBackendId;
         var me = this;
+        var status = dealitem.get('status');
+        if(status==7||status==4){
+            return;
+        }
         /*sendPutRequest(url, {}, '转为问题订单', '转为问题订单成功', '转为问题订单失败', function() {
             var sstore = me.getDealStore();
             sstore.getProxy().extraParams = {

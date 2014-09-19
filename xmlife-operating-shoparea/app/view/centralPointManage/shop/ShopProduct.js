@@ -14,13 +14,23 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopProduct', {
     }],
     columns: [{
         xtype: 'rownumberer'
-    }, {
+    },{
+        text: '编码',
+        dataIndex: 'skuId',
+        sortable: true,
+    },{
+        text: '编码',
+        dataIndex: 'barCode',
+        sortable: true,
+    },{
         text: 'id',
         dataIndex: 'id'
-    }, {
+    },
+    /*{
         text: 'shopId',
         dataIndex: 'shopId'
-    }, {
+    },*/
+    {
         text: '商品名称',
         dataIndex: 'name',
         sortable: false,

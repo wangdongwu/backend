@@ -110,7 +110,7 @@ Ext.define('XMLifeOperating.view.userManage.customer.CustomerDealList', {
         text: '订单价格',
         align: 'center',
         itemId: 'historyDealPrice',
-        dataIndex: 'dealPrice',
+        dataIndex: 'actualDealPrice',
         renderer: function(value) {
             return value / 100;
         }
