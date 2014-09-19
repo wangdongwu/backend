@@ -264,7 +264,7 @@ Ext.define('XMLifeOperating.controller.DelivererZoneList', {
                         if(response.responseText!=1){
                             Ext.MessageBox.show({
                                 title: '配送员绑定线路',
-                                msg: '配送员绑定失败！',
+                                msg: '快递员有任务，无法解绑！',
                                 icon: Ext.Msg.ERROR,
                                 buttons: Ext.Msg.OK
                             });
