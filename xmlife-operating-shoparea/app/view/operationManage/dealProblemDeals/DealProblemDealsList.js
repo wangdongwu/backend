@@ -233,7 +233,7 @@ Ext.define('XMLifeOperating.view.operationManage.dealProblemDeals.DealProblemDea
             align: 'center',
             renderer: function(value) {
                 var newTime = new Date(value);
-                newTime = newTime.getHours() + ':' + newTime.getMinutes();
+                newTime = (newTime.getMonth()+1)+'-'+newTime.getDate() +' '+ newTime.getHours() + ':' + newTime.getMinutes();
                 return newTime;
             }
         }, {

@@ -52,11 +52,11 @@ Ext.define('XMLifeOperating.view.operationManage.dealProblemDeals.DealProblemDea
                     fieldLabel: '期望送达时间',
                     allowBlank:false,
                     labelAlign:'left',
-                    renderer:function(value){
-                    var newTime = new Date(parseInt(value));
-               	 	newTime = newTime.getHours()+':'+newTime.getMinutes();
-               		return newTime;
-            		}   
+                    renderer: function(value) {
+                        var newTime = new Date(value);
+                        newTime = (newTime.getMonth()+1)+'-'+newTime.getDate() +' '+ newTime.getHours() + ':' + newTime.getMinutes();
+                        return newTime;
+                    }   
                 },
                 {
                     xtype: 'displayfield',
