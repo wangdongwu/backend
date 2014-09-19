@@ -261,10 +261,17 @@ Ext.define('XMLifeOperating.controller.DelivererZoneList', {
                         delivererIds: delivererIds,
                         zoneId: zoneId
                     }, '配送员绑定线路', '成功绑定线路', '绑定线路失败', function(response) {
-                        if(response.responseText!=1){
+                        if(response.responseText==-2){
                             Ext.MessageBox.show({
                                 title: '配送员绑定线路',
                                 msg: '快递员有任务，无法解绑！',
+                                icon: Ext.Msg.ERROR,
+                                buttons: Ext.Msg.OK
+                            });
+                        }else if(response.responseText!=1){
+                            Ext.MessageBox.show({
+                                title: '配送员绑定线路',
+                                msg: '操作失败',
                                 icon: Ext.Msg.ERROR,
                                 buttons: Ext.Msg.OK
                             });
