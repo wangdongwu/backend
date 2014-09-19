@@ -158,6 +158,11 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopProduct', {
         sortable: false,
         itemId: 'openModifyShelvesGoodsWin',
 
+    },{
+        text: '排序',
+        dataIndex: 'rank',
+        sortable: true,
+        align: 'center',
     }],
     tbar: [{
         text: '添加商品',
