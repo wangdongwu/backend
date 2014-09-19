@@ -257,20 +257,27 @@ Ext.define('XMLifeOperating.controller.DelivererZoneList', {
                     console.log(delivererIds);
 
                     zoneId = line.get('id');
-                    console.log(zoneId);
                     sendRequest('deliverer/bindToZone', {
                         delivererIds: delivererIds,
                         zoneId: zoneId
-                    }, '配送员绑定线路', '成功绑定线路', '绑定线路失败', function() {
-                        windowEl.unmask();
-                        editWindow.close();
-                        var lstore = me.getDelivererZoneStore();
-                        lstore.load({
-                            params: {
-                                shopArea: line.get('areaId')
-                            }
-                        });
-
+                    }, '配送员绑定线路', '成功绑定线路', '绑定线路失败', function(response) {
+                        if(response.responseText!=1){
+                            Ext.MessageBox.show({
+                                title: '配送员绑定线路',
+                                msg: '配送员绑定失败！',
+                                icon: Ext.Msg.ERROR,
+                                buttons: Ext.Msg.OK
+                            });
+                        }else{
+                            windowEl.unmask();
+                            editWindow.close();
+                            var lstore = me.getDelivererZoneStore();
+                            lstore.load({
+                                params: {
+                                    shopArea: line.get('areaId')
+                                }
+                            });
+                        }
                     });
                 }
             },
