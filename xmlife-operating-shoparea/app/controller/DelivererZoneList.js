@@ -268,13 +268,6 @@ Ext.define('XMLifeOperating.controller.DelivererZoneList', {
                                 icon: Ext.Msg.ERROR,
                                 buttons: Ext.Msg.OK
                             });
-                        }else if(response.responseText!=1){
-                            Ext.MessageBox.show({
-                                title: '配送员绑定线路',
-                                msg: '操作失败',
-                                icon: Ext.Msg.ERROR,
-                                buttons: Ext.Msg.OK
-                            });
                         }else{
                             windowEl.unmask();
                             editWindow.close();
