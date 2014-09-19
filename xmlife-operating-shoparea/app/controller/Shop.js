@@ -275,10 +275,10 @@ Ext.define('XMLifeOperating.controller.Shop', {
                     var rightCloseTime = this.record.get('closeTime') % 60 < 10 ? '0' + this.record.get('closeTime') % 60 : this.record.get('closeTime') % 60;
                     var openTime = leftOpenTime + ':' + rightOpenTime;
                     var closeTime = leftCloseTime + ':' + rightCloseTime;
-                    var autoOnline = this.record.get('autoOnline')?'true':'false';
+                    var autoOnline = this.record.get('autoOnline') ? 'true' : 'false';
                     this.record.set('openTimeText', openTime);
                     this.record.set('closeTimeText', closeTime);
-                    this.record.set('autoOnline',autoOnline)
+                    this.record.set('autoOnline', autoOnline)
                     form.loadRecord(this.record);
                     this.shopId = this.record.raw.id;
                     tab.show();
@@ -325,7 +325,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
                         shopStore.set('city', XMLifeOperating.generic.Global.currentCity);
                         //var areaIds = [XMLifeOperating.generic.Global.SERVICECENEERID];
                         var areaIds = [this.areaId];
-                        var autoOnline = (shopStore.get('autoOnline')=='false')?false:true;
+                        var autoOnline = (shopStore.get('autoOnline') == 'false') ? false : true;
                         shopStore.set('areaIds', areaIds);
                         shopStore.set('beCopyedShopId', '123');
                         shopStore.set('autoOnline', autoOnline);
@@ -474,7 +474,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
                         shopStore.set('city', XMLifeOperating.generic.Global.currentCity);
                         var areaIds = [shopStore.get('areas')[0].areaId];
                         var templateId = this.getShopBannerTemplateStore().data.items.length ? this.getShopBannerTemplateStore().findRecord('id', shopStore.get('shopBannerTemplateId')).getId() : null;
-                        var autoOnline = (shopStore.get('autoOnline')=='false')?false:true;
+                        var autoOnline = (shopStore.get('autoOnline') == 'false') ? false : true;
                         shopStore.set('areaIds', areaIds);
                         shopStore.set('beCopyedShopId', '123');
                         shopStore.set('autoOnline', autoOnline);
@@ -609,6 +609,23 @@ Ext.define('XMLifeOperating.controller.Shop', {
                         data.ids.push(e.data.id)
                     });
                     sendPutRequest('category/reorder', data, '一级货架排序', '排序成功', '排序失败', success, failure);
+                }
+            },
+            'shopshelf #returnShopStore': {
+                click: function() {
+                    var me = this;
+                    var tab = me.getShopList();
+                    var shelfTab = me.getShopShelfTab()
+                    var items = shelfTab.items.items;
+                    me.showShopList();
+                    for (var i = 0, len = items.length; i < len; i++) {
+                        if (items[i].id.search('tab3') != -1) {
+                            shelfTab.remove(items[i].id)
+                        }
+                    }
+                    var content = this.getContentPanel();
+                    content.removeAll(false);
+                    content.add(tab);
                 }
             },
             'shopbuyer #reseachBuyer': {
@@ -817,6 +834,38 @@ Ext.define('XMLifeOperating.controller.Shop', {
                     }
                 }
 
+            },
+            'shopsecondshelf #saveShelvesOrder': {
+                click: function() {
+                    var me = this;
+                    var store = me.getCategorySubsStore() || {};
+                    var tab = me.getShopShelfTab() || {};
+                    var tabId = tab.getActiveTab().getId().slice(5) || {};
+
+                    var data = {
+                        parentId: null,
+                        ids: []
+                    };
+                    var success = function(task, operation) {
+                        me.showCategorySubsList(me.shopId, tabId);
+                    }
+                    var failure = function(task, operation) {
+                        var error = operation.getError(),
+                            msg = Ext.isObject(error) ? error.status + ' ' + error.statusText : error;
+                        Ext.MessageBox.show({
+                            title: 'Edit Task Failed',
+                            msg: msg,
+                            icon: Ext.Msg.ERROR,
+                            buttons: Ext.Msg.OK
+                        });
+
+                    }
+                    data.parentId = tabId;
+                    store.each(function(e) {
+                        data.ids.push(e.data.id)
+                    });
+                    sendPutRequest('category/reorder', data, '一级货架排序', '排序成功', '排序失败', success, failure);
+                }
             },
             /*
              * 商品事件
@@ -1207,7 +1256,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
     },
     onShopStoreBannerDelete: function(view, rowIndex, colIndex, column, e) {
         var me = this;
-        var  windowEl = this.getShopShelfTab().getEl();
+        var windowEl = this.getShopShelfTab().getEl();
         var record = view.getRecord(view.findTargetByEvent(e));
         var store = this.getShopBannerTemplateStore();
         var deleteId = record.get('id');
@@ -1238,9 +1287,14 @@ Ext.define('XMLifeOperating.controller.Shop', {
                 buttons: Ext.Msg.OK
             });
         };
-        sendPutRequest('shop/updatebanners', data, '删除Banner模板', '删除Banner模板成功', '删除Banner模板失败', success, failure);
+        var str = '确认删除Banner？';
+        Ext.MessageBox.confirm('提示', str, function(str) {
+            if (str == 'yes') {
+                sendPutRequest('shop/updatebanners', data, '删除Banner模板', '删除Banner模板成功', '删除Banner模板失败', success, failure);
+                return;
+            }
 
-
+        });
     },
     saveEditShopStoreBannerWin: function() {
         var editWindow = this.getShopBannerAdd(),

@@ -30,7 +30,6 @@
          }
      }, {
          text: '编辑',
-
          xtype: 'actioncolumn',
          width: 50,
          icon: 'resources/images/edit.png',
@@ -48,6 +47,10 @@
          items: [{
              text: '添加货架',
              itemId: 'openCreateSecondShelvesWin'
+         }, {
+             xtype: 'button',
+             text: '保存排序',
+             itemId: 'saveShelvesOrder'
          }]
      }, {
          xtype: 'toolbar',
@@ -60,4 +63,10 @@
              style: 'border:none'
          }]
      }],
+     viewConfig: {
+         plugins: {
+             ptype: 'gridviewdragdrop',
+             dragText: 'Drag and drop to reorder'
+         }
+     }
  });
