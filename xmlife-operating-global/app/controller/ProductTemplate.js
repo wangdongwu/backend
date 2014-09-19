@@ -42,7 +42,7 @@ Ext.define('XMLifeOperating.controller.ProductTemplate', {
             'productTemplateList' : {
               added : function(){
                 var store = this.getProductTemplateStore();
-                store.load();
+                store.loadPage(1);
               }
             },
             'productTemplateList #add':{
@@ -60,11 +60,11 @@ Ext.define('XMLifeOperating.controller.ProductTemplate', {
                 click: function(){
                     // var form = this.getSearchForm();
                     var store = me.getProductTemplateStore();
-                    store.load({
-                        params:{
-                            keyword      : me.getKeyword().getValue()
+                    store.getProxy().extraParams={
+                                keyword : me.getKeyword().getValue()
                         }
-                    });
+                    store.loadPage(1);
+
                 }
             },
             'productTemplateList #editProductTemplate':{
@@ -141,11 +141,12 @@ Ext.define('XMLifeOperating.controller.ProductTemplate', {
                                     // me.fireEvent('refreshView');
                                     var keyword = productTemplate.get('name1');
                                     var store = me.getProductTemplateStore();
-                                    store.load({
-                                        params:{
-                                            keyword      : keyword
+
+                                    store.getProxy().extraParams={
+                                                keyword      : keyword
                                         }
-                                    });
+                                    store.loadPage(1);
+
                                     Ext.getCmp('productTemplateList').down('#keyword').setValue(keyword);
                                     
                             });
@@ -157,11 +158,11 @@ Ext.define('XMLifeOperating.controller.ProductTemplate', {
                     editWindow.close();
                     var keyword = productTemplate.get('name1');
                     var store = me.getProductTemplateStore();
-                    store.load({
-                        params:{
-                            keyword      : keyword
-                        }
-                    });
+                    store.getProxy().extraParams={
+                      keyword : keyword
+                    }
+                      store.loadPage(1);
+
                     Ext.getCmp('productTemplateList').down('#keyword').setValue(keyword);
 
                 },

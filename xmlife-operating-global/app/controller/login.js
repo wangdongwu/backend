@@ -79,3 +79,4 @@ Ext.define('XMLifeOperating.controller.login', {
           });
     }
 });
+
