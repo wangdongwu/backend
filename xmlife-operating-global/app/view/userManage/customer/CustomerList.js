@@ -29,7 +29,7 @@ Ext.define('XMLifeOperating.view.userManage.customer.CustomerList', {
                         store:'ShopArea',
                         emptyText:'请选择中心',
                         editable: false,
-                        queryMode:'local',
+                        // queryMode:'local',
                         displayField:'name',
                         valueField:'id',
                         hidden:(XMLifeOperating.generic.Global.operating_type == 'center')
@@ -120,7 +120,7 @@ Ext.define('XMLifeOperating.view.userManage.customer.CustomerList', {
                 alert('请先在右上角选择中心');
                 return;
             }
-            var combo = view.down('#businessArea');
+            var combo = view.down('#shopAreac');
             combo.setValue(XMLifeOperating.generic.Global.current_operating);
             combo.fireEvent('select', combo);
         }
