@@ -188,10 +188,15 @@ Ext.define('XMLifeOperating.view.operationManage.dealCashOnDelivery.DealCashOnDe
             }
         }, {
             text: '订单金额',
-            dataIndex: 'actualDealPrice',
+            //dataIndex: 'actualDealPrice',
+            dataIndex: 'dealPrice',
             width: 60,
             sortable: false,
             align: 'center',
+            /*renderer: function(value) {
+                
+                return value/100;
+            }*/
         }, {
             text: '使用账户余额',
             dataIndex: 'balance',
@@ -244,6 +249,10 @@ Ext.define('XMLifeOperating.view.operationManage.dealCashOnDelivery.DealCashOnDe
             width: 80,
             sortable: false,
             align: 'center',
+            /*renderer: function(value) {
+                
+                return value/100;
+            }*/
         }, {
             text: '是否到账',
             dataIndex: 'codMark',
