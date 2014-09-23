@@ -368,7 +368,6 @@ Ext.define('XMLifeOperating.controller.DealProblemDealsList', {
             params: {
                 deal: dealDetail.get('dealBackendId'),
             },
-
             callback: function(records) {
                 console.log(records);
                 var model = Ext.ComponentQuery.query('#dealDetails')[0].getSelectionModel();
