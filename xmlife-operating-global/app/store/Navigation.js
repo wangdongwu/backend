@@ -45,21 +45,21 @@ Ext.define('XMLifeOperating.store.Navigation', {
                 leaf: true
             }]
         },
-        {
-            id: 'rechargeableCardManage',
-            text: '充值卡管理',
-            expanded: true,
-            leaf: false,
-            children: [{
-                id: 'rechargeablecrdinstancelist',
-                text: '充值卡实例管理',
-                leaf: true
-            }, {
-                id: 'rechargeablecardtemplatelist',
-                text: '充值卡模板管理',
-                leaf: true
-            }]
-        }, 
+        // {
+        //     id: 'rechargeableCardManage',
+        //     text: '充值卡管理',
+        //     expanded: true,
+        //     leaf: false,
+        //     children: [{
+        //         id: 'rechargeablecrdinstancelist',
+        //         text: '充值卡实例管理',
+        //         leaf: true
+        //     }, {
+        //         id: 'rechargeablecardtemplatelist',
+        //         text: '充值卡模板管理',
+        //         leaf: true
+        //     }]
+        // }, 
 
         {
             id: 'customerManage',
@@ -94,6 +94,11 @@ Ext.define('XMLifeOperating.store.Navigation', {
         {
             id: 'shopareaList',
             text: '中心平台',
+            leaf: true
+        },
+        {
+            id: 'BatchAddEstate',
+            text: '批量添加小区',
             leaf: true
         }]
     }

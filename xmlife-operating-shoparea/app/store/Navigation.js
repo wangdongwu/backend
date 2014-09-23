@@ -99,6 +99,12 @@ Ext.define('XMLifeOperating.store.Navigation', {
             id: 'RefundList',
             text: '退款订单查询',
             leaf: true
-        }]
+        },
+            {
+                id: 'BatchUpdatePrice',
+                text: '批量更改价格',
+                leaf: true
+            }
+        ]
     }
 });

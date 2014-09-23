@@ -2,7 +2,8 @@ Ext.define('XMLifeOperating.controller.ProductTemplate', {
     extend: 'Ext.app.Controller',
 
     views: ['templateManage.productTemplate.ProductTemplateList',
-            'templateManage.productTemplate.ProductTemplateEdit'
+            'templateManage.productTemplate.ProductTemplateEdit',
+            'templateManage.productTemplate.batchAddWindow'
             ],
 
     stores: ['ProductTemplate',
@@ -25,6 +26,12 @@ Ext.define('XMLifeOperating.controller.ProductTemplate', {
              autoCreate: true
         },
         {
+          ref : 'batchAddWindow',
+          selector : 'batchAddWindow',
+          xtype : 'batchAddWindow',
+          autoCreate : true
+        },
+        {
             ref: 'keyword',
             selector: '#keyword',
         },
@@ -43,6 +50,11 @@ Ext.define('XMLifeOperating.controller.ProductTemplate', {
               added : function(){
                 var store = this.getProductTemplateStore();
                 store.loadPage(1);
+              }
+            },
+            'productTemplateList #batchAdd' : {
+              click : function(){
+                this.getBatchAddWindow().show();
               }
             },
             'productTemplateList #add':{
@@ -82,6 +94,26 @@ Ext.define('XMLifeOperating.controller.ProductTemplate', {
                   uploadImage(form, hash);
                 }
             },
+            'batchAddWindow button' : {
+              click : function(gird){
+
+                var form = gird.up('form').getForm();
+                if(form.isValid()){
+                  form.submit({
+                    waitMsg : '正在上传您的文件......',
+                    success : function(form, action){
+                      var data = action.response.responseText;
+                      console.log(data);
+                    },
+                    failure : function(form, action){
+                      var data = action.response.responseText;
+                      console.log(data);
+                    }
+                  });
+                }
+              
+              }
+            }
         });
 
     },

@@ -36,7 +36,8 @@ Ext.define('XMLifeOperating.Application', {
         'GDealList',
         'GFeedbackList',
         'Shoparea',
-        'login'
+        'login',
+        'BatchAddEstate'
         ],
 
     stores: [
@@ -181,7 +182,7 @@ var uploadImage = function(form, textfield) {
     });
 }
 var getStrLength =  function(str){
-    //返回字符串长度
-    var c = str.match(/[^ -~]/g);
-    return str.length + (c ? c.length : 0);
+  //返回字符串长度 
+   var c = str.match(/[^ -~]/g);  
+   return str.length + (c ? c.length : 0);  
 }
