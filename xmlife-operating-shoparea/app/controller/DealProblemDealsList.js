@@ -247,7 +247,7 @@ Ext.define('XMLifeOperating.controller.DealProblemDealsList', {
                             Ext.MessageBox.show({
                                 title: '',
                                 msg: '该订单重新分配成功',
-                                icon: Ext.Msg.ERROR,
+                                icon: Ext.Msg.INFO,
                                 buttons: Ext.Msg.OK
                             });
                             windowEl.unmask();
@@ -331,7 +331,7 @@ Ext.define('XMLifeOperating.controller.DealProblemDealsList', {
                             Ext.MessageBox.show({
                                 title: '',
                                 msg: '该订单重新分配成功',
-                                icon: Ext.Msg.ERROR,
+                                icon: Ext.Msg.INFO,
                                 buttons: Ext.Msg.OK
                             });
                             windowEl.unmask();

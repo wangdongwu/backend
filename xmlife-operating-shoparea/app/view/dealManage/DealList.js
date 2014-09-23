@@ -354,6 +354,21 @@ Ext.define('XMLifeOperating.view.dealManage.DealList', {
                 return Ext.String.format('<a>转为问题订单</a>', value, value);
             }
         },
+        {
+            text: '',
+            width: 80,
+            itemId: 'cancalDealId',
+            menuDisabled: true,
+            sortable: false,
+            align: 'center',
+            renderer: function(value, metadata, model, rowIndex, colIndex, store) {
+                var status = model.get('status');
+                if(status!=20&&status!=31){
+                    return '取消订单';
+                }
+                return Ext.String.format('<a href="javascript:void(0)">取消订单</a>', value, value);
+            }
+        },
         ],
         viewConfig: {
             plugins: {

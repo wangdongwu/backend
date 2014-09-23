@@ -119,6 +119,9 @@ Ext.define('XMLifeOperating.controller.DealList', {
             'dealList #refresh': {
                 click: me.onRefresh
 
+            },
+            'dealList #cancalDealId': {
+                click: me.onCancalDeal
             }
             /*'dealList #checkUnallocatedOrder':{
                 click:{
@@ -127,6 +130,7 @@ Ext.define('XMLifeOperating.controller.DealList', {
             }*/
         });
     },
+    
     onRefresh: function(view, e, eOpts) {
         var me = this;
         if (!view.isDisabled()) {
@@ -243,21 +247,8 @@ Ext.define('XMLifeOperating.controller.DealList', {
         if(status==7||status==4){
             return;
         }
-        /*sendPutRequest(url, {}, '转为问题订单', '转为问题订单成功', '转为问题订单失败', function() {
-            var sstore = me.getDealStore();
-            sstore.getProxy().extraParams = {
-                shopArea: combo.getValue()
-            }
-            sstore.loadPage(1, {
-                params: {
-                    start: 0,
-                    limit: 25,
-                    page: 1
-                }
-            });
-});*/
         Ext.MessageBox.confirm(
-            '确认删除',
+            '确认转为问题订单',
             Ext.String.format("确定要将<h5>'{0}'</h5>的订单转为问题订单吗？", '订单号为：' + dealitem.get('shortId') + ' 顾客为：' + dealitem.get('customerName')),
             function(result) {
                 if (result == 'yes') {
@@ -275,6 +266,58 @@ Ext.define('XMLifeOperating.controller.DealList', {
                                 Ext.MessageBox.show({
                                     title: '订单操作',
                                     msg: '该订单被成功标记为问题订单',
+                                    icon: Ext.Msg.INFO,
+                                    buttons: Ext.Msg.OK
+                                });
+                                var sstore = me.getDealStore();
+                                sstore.getProxy().extraParams = {
+                                    shopArea: me.areaId
+                                }
+                                sstore.loadPage(1, {
+                                    params: {
+                                        start: 0,
+                                        limit: 25,
+                                        page: 1
+                                    }
+                                });
+                            }
+
+                        });
+                }
+            }
+        );
+    },
+    onCancalDeal:function(view, rowIndex, colIndex, column, e) {
+        var dealitem = view.getRecord(view.findTargetByEvent(e));
+        //var dealBackendId = dealitem.get('dealBackendId');
+        //var url = 'deal/transToProblem/' + dealBackendId;
+        // deal/cancelDeal PUT参数{dealId}
+        var dealBackendId = dealitem.get('dealBackendId');
+        var url = 'deal/cancelDeal';
+        var me = this;
+        var status = dealitem.get('status');
+        if(status!=20&&status!=31){
+            return;
+        }
+        Ext.MessageBox.confirm(
+            '确认取消订单',
+            Ext.String.format("确定要取消<h5>'{0}'</h5>的订单吗？", '订单号为：' + dealitem.get('shortId') + ' 顾客为：' + dealitem.get('customerName')),
+            function(result) {
+                if (result == 'yes') {
+                    
+                    sendPutRequest(url, {dealId:dealBackendId}, '取消订单', '取消订单成功', '取消订单失败',
+                        function(response) {
+                            if (response.responseText != 1) {
+                                Ext.MessageBox.show({
+                                    title: '订单操作',
+                                    msg: '取消订单失败',
+                                    icon: Ext.Msg.ERROR,
+                                    buttons: Ext.Msg.OK
+                                });
+                            } else {
+                                Ext.MessageBox.show({
+                                    title: '订单操作',
+                                    msg: '该订单被成功取消',
                                     icon: Ext.Msg.INFO,
                                     buttons: Ext.Msg.OK
                                 });
