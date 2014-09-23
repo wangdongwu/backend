@@ -45,7 +45,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopEdit', {
                     return true
                 }
             }
-        }, {
+        }, /*{
             xtype: 'textfield',
             name: 'desc',
             fieldLabel: '店铺副名称',
@@ -69,7 +69,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopEdit', {
                     return true
                 }
             }
-        }, {
+        },*/ {
             xtype: 'combo',
             name: 'shopBannerTemplateId',
             fieldLabel: '模板',
