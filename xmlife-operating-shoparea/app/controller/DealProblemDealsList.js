@@ -166,12 +166,11 @@ Ext.define('XMLifeOperating.controller.DealProblemDealsList', {
         win.down('form').loadRecord(reapportion);
         win.show();
         var store = this.getDealTasksStore();
-        console.log(reapportion);
-
-        console.log(reapportion.get('dealBackendId'));
+        this.reapportionDealId = reapportion.get('dealBackendId');
+        console.log('所操作订单号：' + this.reapportionDealId);
         store.load({
             params: {
-                dealId: reapportion.get('dealBackendId'),
+                dealId: this.reapportionDealId,
             },
 
             callback: function(records) {
@@ -220,7 +219,7 @@ Ext.define('XMLifeOperating.controller.DealProblemDealsList', {
         var reapportionBuyerS = view.getRecord(view.findTargetByEvent(e));
         var uid = reapportionBuyerS.get('uid');
         var taskId = reapportionBuyerS.parentStore.get('taskId');
-        var dealId = reapportionBuyerS.parentStore.parentStore.get('dealBackendId');
+        var dealId = this.reapportionDealId;
         var me = this;
 
         Ext.MessageBox.confirm(
@@ -304,19 +303,10 @@ Ext.define('XMLifeOperating.controller.DealProblemDealsList', {
         var windowEl = editWindow1.getEl();
         var reapportionDeliverer = view.getRecord(view.findTargetByEvent(e));
         var uid = reapportionDeliverer.get('uid');
-        var dealId = reapportionDeliverer.parentStore.get('dealBackendId');
+        var dealId = this.reapportionDealId;
         var me = this;
-        /*sendPutRequest('deal/assignDeliverer',{dealId:dealId, delivererId:uid},'分单','分单成功','分单失败',function(){
-                windowEl.unmask();
-                editWindow1.close();
-                editWindow2.close();
-                var sstore = me.getDealProblemDealsStore();
-                sstore.load({
-                    params: {
-                            areaId: Ext.getCmp('dealProblemDealsList').down('#shopArea').getValue()
-                    }
-                });
-});*/
+        console.log('分配配送员时的订单号：' + dealId);
+
         Ext.MessageBox.confirm(
             '确认删除',
             Ext.String.format("确定该订单重新分配给'{0}'吗？", reapportionDeliverer.get('name')),
@@ -362,7 +352,7 @@ Ext.define('XMLifeOperating.controller.DealProblemDealsList', {
     },
 
     onCancellation: function(view, rowIndex, colIndex, column, e) {
-        alert(123);
+
         var cancellation = view.getRecord(view.findTargetByEvent(e));
         var win = this.getCancellation();
         win.down('form').loadRecord(cancellation);
