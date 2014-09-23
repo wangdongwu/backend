@@ -50,6 +50,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopBannerAdd', {
                 regex: XMLifeOperating.generic.Global.VALIDATION_CONSTANTS.URL,
                 regexText: '请输入正确的url地址',
                 labelWidth: 90,
+                allowBlank:true
             },
             {
                 xtype: 'fieldset',
