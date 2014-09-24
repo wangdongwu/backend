@@ -319,7 +319,11 @@ Ext.define('XMLifeOperating.view.operationManage.dealProblemDeals.DealProblemDea
             sortable: true,
             align: 'center',
             renderer: function(value, metadata, model, rowIndex, colIndex, store) {
-                return Ext.String.format('<a>取消订单</a>', value, value);
+                var status = model.get('status');
+                if(status!=20&&status!=31){
+                    return '取消订单';
+                }
+                return Ext.String.format('<a href="javascript:void(0)">取消订单</a>', value, value);
             }
         },
 

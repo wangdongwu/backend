@@ -351,13 +351,55 @@ onPutReapportionDeliverer: function(view, rowIndex, colIndex, column, e) {
 
 },
 
-onCancellation: function(view, rowIndex, colIndex, column, e) {
+onCancellation:function(view, rowIndex, colIndex, column, e) {
+        var dealitem = view.getRecord(view.findTargetByEvent(e));
+        var dealBackendId = dealitem.get('dealBackendId');
+        var url = 'deal/cancelDeal';
+        var me = this;
+        var status = dealitem.get('status');
+        if(status!=20&&status!=31){
+            return;
+        }
+        Ext.MessageBox.confirm(
+            '确认取消订单',
+            Ext.String.format("确定要取消<h5>'{0}'</h5>的订单吗？", '订单号为：' + dealitem.get('shortId') + ' 顾客为：' + dealitem.get('customerName')),
+            function(result) {
+                if (result == 'yes') {
+                    
+                    sendPutRequest(url, {dealId:dealBackendId}, '取消订单', '取消订单成功', '取消订单失败',
+                        function(response) {
+                            if (response.responseText != 1) {
+                                Ext.MessageBox.show({
+                                    title: '订单操作',
+                                    msg: '取消订单失败',
+                                    icon: Ext.Msg.ERROR,
+                                    buttons: Ext.Msg.OK
+                                });
+                            } else {
+                                Ext.MessageBox.show({
+                                    title: '订单操作',
+                                    msg: '该订单被成功取消',
+                                    icon: Ext.Msg.INFO,
+                                    buttons: Ext.Msg.OK
+                                });
+                                var sstore = me.getDealProblemDealsStore();
+                                sstore.getProxy().extraParams = {
+                                    shopArea: me.areaId
+                                }
+                                sstore.loadPage(1, {
+                                    params: {
+                                        start: 0,
+                                        limit: 25,
+                                        page: 1
+                                    }
+                                });
+                            }
 
-    var cancellation = view.getRecord(view.findTargetByEvent(e));
-    var win = this.getCancellation();
-    win.down('form').loadRecord(cancellation);
-    win.show();
-},
+                        });
+                }
+            }
+        );
+    },
 onDPDealDetail: function(view, rowIndex, colIndex, column, e) {
     var dealDetail = view.getRecord(view.findTargetByEvent(e));
     var win = this.getDPDealDetail();
