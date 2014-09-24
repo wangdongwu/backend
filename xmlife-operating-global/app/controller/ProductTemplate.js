@@ -134,75 +134,83 @@ Ext.define('XMLifeOperating.controller.ProductTemplate', {
         win.show();
     },
     saveEditWindow: function() {
-      
+
         var editWindow = this.getEditWindow(),
             windowEl = editWindow.getEl(),
             form = editWindow.down('form').getForm(),
             productTemplate = form.getRecord(),
             me = this;
 
-        if(form.isValid()) {
+        if (form.isValid()) {
 
             windowEl.mask('saving');
             form.updateRecord(productTemplate);
-            
+
 
             productTemplate.get('name1');
             productTemplate.get('name2');
             productTemplate.get('name3');
-            var names=[];
+            var names = [];
             names.push(productTemplate.get('name1'));
             names.push(productTemplate.get('name2'));
             names.push(productTemplate.get('name3'));
-            productTemplate.set('names',names);
+            productTemplate.set('names', names);
             console.log(productTemplate);
             console.log("try saving");
-            if(productTemplate.get('id')!=''&&productTemplate.get('id')!=null){
+            if (productTemplate.get('id') != '' && productTemplate.get('id') != null) {
                 console.log(names);
-                var id=productTemplate.get('id');
+                var id = productTemplate.get('id');
                 //var name=productTemplate.get('name');
-                var desc=productTemplate.get('desc');
-                var picture=productTemplate.get('picture');
-                var unit=productTemplate.get('unit');
-                var tag=productTemplate.get('tag');
-                
-              
-                sendPutRequest('producttemplate/update',{id:id,names:names,desc:desc,picture:picture,unit:unit,tag:tag},'编辑商品','成功编辑商品','编辑商品失败',function(){
-                                    windowEl.unmask();
-                                    editWindow.close();
-                                    // me.fireEvent('refreshView');
-                                    var keyword = productTemplate.get('name1');
-                                    var store = me.getProductTemplateStore();
+                var desc = productTemplate.get('desc');
+                var picture = productTemplate.get('picture');
+                var unit = productTemplate.get('unit');
+                var tag = productTemplate.get('tag');
 
-                                    store.getProxy().extraParams={
-                                                keyword      : keyword
-                                        }
-                                    store.loadPage(1);
 
-                                    Ext.getCmp('productTemplateList').down('#keyword').setValue(keyword);
-                                    
-                            });
+                sendPutRequest('producttemplate/update', {
+                    id: id,
+                    names: names,
+                    desc: desc,
+                    picture: picture,
+                    unit: 1,
+                    tag: tag
+                }, '编辑商品', '成功编辑商品', '编辑商品失败', function() {
+                    windowEl.unmask();
+                    editWindow.close();
+                    // me.fireEvent('refreshView');
+                    var keyword = productTemplate.get('name1');
+                    var store = me.getProductTemplateStore();
+                    store.getProxy().extraParams = {
+                        keyword: keyword
+                    }
+                    store.loadPage(1);
+                    Ext.getCmp('productTemplateList').down('#keyword').setValue(keyword);
+
+                });
                 return;
-            }
-            productTemplate.save({
-                success: function(task, operation) {
+            } else {
+                var id = productTemplate.get('id');
+                //var name=productTemplate.get('name');
+                var desc = productTemplate.get('desc');
+                var picture = productTemplate.get('picture');
+                var unit = productTemplate.get('unit');
+                var tag = productTemplate.get('tag');
+                var barCode = productTemplate.get('barCode');
+                var skuId = productTemplate.get('skuId')
+                var success = function(task, operation) {
                     windowEl.unmask();
                     editWindow.close();
                     var keyword = productTemplate.get('name1');
                     var store = me.getProductTemplateStore();
-                    store.getProxy().extraParams={
-                      keyword : keyword
+                    store.getProxy().extraParams = {
+                        keyword: keyword
                     }
-                      store.loadPage(1);
-
+                    store.loadPage(1);
                     Ext.getCmp('productTemplateList').down('#keyword').setValue(keyword);
-
-                },
-                failure: function(task, operation) {
-
+                }
+                var failure = function(task, operation) {
                     var error = operation.getError(),
                         msg = Ext.isObject(error) ? error.status + ' ' + error.statusText : error;
-
                     Ext.MessageBox.show({
                         title: 'Edit Task Failed',
                         msg: msg,
@@ -211,7 +219,17 @@ Ext.define('XMLifeOperating.controller.ProductTemplate', {
                     });
                     windowEl.unmask();
                 }
-            })
+                sendRequest('producttemplate', {
+                    names: names,
+                    desc: desc,
+                    picture: picture,
+                    unit: 1,
+                    tag: tag,
+                    skuId:skuId,
+                    barCode:barCode
+                }, '添加商品', '成功添加商品', '添加商品失败', success, failure);
+            }
+
         } else {
             Ext.Msg.alert('Invalid Data', 'Please correct form errors');
         }
