@@ -7,6 +7,7 @@ Ext.define('XMLifeOperating.model.Deal', {
     'dtoAddress',
     'dealBackendId',
     'zoneName',
+    'districtName',
     'status',
     'customerName',
     'customerPhone',
