@@ -2,28 +2,28 @@ Ext.define('XMLifeOperating.controller.DealProblemDealsList', {
     extend: 'Ext.app.Controller',
 
     views: ['operationManage.dealProblemDeals.DealProblemDealsList',
-        'operationManage.dealProblemDeals.DealProblemDealsReapportion',
-        'operationManage.dealProblemDeals.DealProblemDealsReapportionShopper',
-        'operationManage.dealProblemDeals.DealProblemDealsReapportionDeliverer',
-        'operationManage.dealProblemDeals.DPDealDetail'
+    'operationManage.dealProblemDeals.DealProblemDealsReapportion',
+    'operationManage.dealProblemDeals.DealProblemDealsReapportionShopper',
+    'operationManage.dealProblemDeals.DealProblemDealsReapportionDeliverer',
+    'operationManage.dealProblemDeals.DPDealDetail'
     ],
 
     stores: [
-        'DealProblemDeals',
-        'ShopArea',
-        'DealTasks',
-        'Shopper',
-        'Deliverer',
-        'DealItems'
+    'DealProblemDeals',
+    'ShopArea',
+    'DealTasks',
+    'Shopper',
+    'Deliverer',
+    'DealItems'
     ],
 
     models: [
-        'DealProblemDeals',
-        'ShopArea',
-        'DealTasks',
-        'Shopper',
-        'Deliverer',
-        'DealItems'
+    'DealProblemDeals',
+    'ShopArea',
+    'DealTasks',
+    'Shopper',
+    'Deliverer',
+    'DealItems'
     ],
 
     refs: [{
@@ -126,10 +126,10 @@ Ext.define('XMLifeOperating.controller.DealProblemDealsList', {
                 click: me.onDPDealDetail
             }
         });
-    },
-    onRefresh: function(view, e, eOpts) {
-        var me = this;
-        if (!view.isDisabled()) {
+},
+onRefresh: function(view, e, eOpts) {
+    var me = this;
+    if (!view.isDisabled()) {
             //发送刷新请求
             var sstore = this.getDealProblemDealsStore();
 
@@ -194,7 +194,7 @@ Ext.define('XMLifeOperating.controller.DealProblemDealsList', {
         win.show();
 
         var store = this.getShopperStore();
-
+        store.getProxy().extraParams={};
         console.log(reapportion.get('shopId'));
         store.load({
             params: {
@@ -261,24 +261,24 @@ Ext.define('XMLifeOperating.controller.DealProblemDealsList', {
                             });
                         }
                     });
-                }
-            }
-        );
+}
+}
+);
 
-    },
+},
 
-    onReapportionDeliverer: function(view, rowIndex, colIndex, column, e) {
-        var me = this;
-        var reapportionDeliverer = Ext.ComponentQuery.query('#dealForm')[0].getRecord();
+onReapportionDeliverer: function(view, rowIndex, colIndex, column, e) {
+    var me = this;
+    var reapportionDeliverer = Ext.ComponentQuery.query('#dealForm')[0].getRecord();
 
-        var win = this.getReapportionDealTasksDeliverer();
-        win.down('form').loadRecord(reapportionDeliverer);
-        win.show();
+    var win = this.getReapportionDealTasksDeliverer();
+    win.down('form').loadRecord(reapportionDeliverer);
+    win.show();
 
-        var store = this.getDelivererStore();
-        console.log(reapportionDeliverer.get('zoneId'));
-        store.load({
-            params: {
+    var store = this.getDelivererStore();
+    console.log(reapportionDeliverer.get('zoneId'));
+    store.load({
+        params: {
                 // deliveryZone: reapportionDeliverer.get('zoneId'),
                 area: me.getDealProblemDealsList().down('#shopArea').getValue(),
                 isForAssign: true
@@ -294,89 +294,89 @@ Ext.define('XMLifeOperating.controller.DealProblemDealsList', {
                 }
             }
         });
-    },
+},
 
-    onPutReapportionDeliverer: function(view, rowIndex, colIndex, column, e) {
-        var editWindow1 = this.getReapportionDealTasksDeliverer();
-        var editWindow2 = this.getReapportion();
+onPutReapportionDeliverer: function(view, rowIndex, colIndex, column, e) {
+    var editWindow1 = this.getReapportionDealTasksDeliverer();
+    var editWindow2 = this.getReapportion();
 
-        var windowEl = editWindow1.getEl();
-        var reapportionDeliverer = view.getRecord(view.findTargetByEvent(e));
-        var uid = reapportionDeliverer.get('uid');
-        var dealId = this.reapportionDealId;
-        var me = this;
-        console.log('分配配送员时的订单号：' + dealId);
+    var windowEl = editWindow1.getEl();
+    var reapportionDeliverer = view.getRecord(view.findTargetByEvent(e));
+    var uid = reapportionDeliverer.get('uid');
+    var dealId = this.reapportionDealId;
+    var me = this;
+    console.log('分配配送员时的订单号：' + dealId);
 
-        Ext.MessageBox.confirm(
-            '确认删除',
-            Ext.String.format("确定该订单重新分配给'{0}'吗？", reapportionDeliverer.get('name')),
-            function(result) {
-                if (result == 'yes') {
-                    sendPutRequest('deal/assignDeliverer', {
-                        dealId: dealId,
-                        delivererId: uid
-                    }, '分单', '分单成功', '分单失败', function(response) {
-                        console.log();
-                        if (response.responseText != 1) {
-                            Ext.MessageBox.show({
-                                title: '订单重新分配失败',
-                                msg: '订单重新分配失败',
-                                icon: Ext.Msg.ERROR,
-                                buttons: Ext.Msg.OK
-                            });
-                            windowEl.unmask();
-                            editWindow1.close();
-                            editWindow2.close();
-                        } else {
-                            Ext.MessageBox.show({
-                                title: '',
-                                msg: '该订单重新分配成功',
-                                icon: Ext.Msg.INFO,
-                                buttons: Ext.Msg.OK
-                            });
-                            windowEl.unmask();
-                            editWindow1.close();
-                            editWindow2.close();
-                            var sstore = me.getDealProblemDealsStore();
-                            sstore.load({
-                                params: {
-                                    areaId: Ext.getCmp('dealProblemDealsList').down('#shopArea').getValue()
-                                }
-                            });
-                        }
-                    });
-                }
+    Ext.MessageBox.confirm(
+        '确认删除',
+        Ext.String.format("确定该订单重新分配给'{0}'吗？", reapportionDeliverer.get('name')),
+        function(result) {
+            if (result == 'yes') {
+                sendPutRequest('deal/assignDeliverer', {
+                    dealId: dealId,
+                    delivererId: uid
+                }, '分单', '分单成功', '分单失败', function(response) {
+                    console.log();
+                    if (response.responseText != 1) {
+                        Ext.MessageBox.show({
+                            title: '订单重新分配失败',
+                            msg: '订单重新分配失败',
+                            icon: Ext.Msg.ERROR,
+                            buttons: Ext.Msg.OK
+                        });
+                        windowEl.unmask();
+                        editWindow1.close();
+                        editWindow2.close();
+                    } else {
+                        Ext.MessageBox.show({
+                            title: '',
+                            msg: '该订单重新分配成功',
+                            icon: Ext.Msg.INFO,
+                            buttons: Ext.Msg.OK
+                        });
+                        windowEl.unmask();
+                        editWindow1.close();
+                        editWindow2.close();
+                        var sstore = me.getDealProblemDealsStore();
+                        sstore.load({
+                            params: {
+                                areaId: Ext.getCmp('dealProblemDealsList').down('#shopArea').getValue()
+                            }
+                        });
+                    }
+                });
+}
+}
+);
+
+},
+
+onCancellation: function(view, rowIndex, colIndex, column, e) {
+
+    var cancellation = view.getRecord(view.findTargetByEvent(e));
+    var win = this.getCancellation();
+    win.down('form').loadRecord(cancellation);
+    win.show();
+},
+onDPDealDetail: function(view, rowIndex, colIndex, column, e) {
+    var dealDetail = view.getRecord(view.findTargetByEvent(e));
+    var win = this.getDPDealDetail();
+    win.down('form').loadRecord(dealDetail);
+    win.show();
+    var store = this.getDealItemsStore();
+    store.load({
+        params: {
+            deal: dealDetail.get('dealBackendId'),
+        },
+        callback: function(records) {
+            console.log(records);
+            var model = Ext.ComponentQuery.query('#dealDetails')[0].getSelectionModel();
+            model.deselectAll();
+            for (var i = 0; i < records.length; i++) {
+                var index = store.indexOfId(records[i].get('id'));
+                model.select(index, true);
             }
-        );
-
-    },
-
-    onCancellation: function(view, rowIndex, colIndex, column, e) {
-
-        var cancellation = view.getRecord(view.findTargetByEvent(e));
-        var win = this.getCancellation();
-        win.down('form').loadRecord(cancellation);
-        win.show();
-    },
-    onDPDealDetail: function(view, rowIndex, colIndex, column, e) {
-        var dealDetail = view.getRecord(view.findTargetByEvent(e));
-        var win = this.getDPDealDetail();
-        win.down('form').loadRecord(dealDetail);
-        win.show();
-        var store = this.getDealItemsStore();
-        store.load({
-            params: {
-                deal: dealDetail.get('dealBackendId'),
-            },
-            callback: function(records) {
-                console.log(records);
-                var model = Ext.ComponentQuery.query('#dealDetails')[0].getSelectionModel();
-                model.deselectAll();
-                for (var i = 0; i < records.length; i++) {
-                    var index = store.indexOfId(records[i].get('id'));
-                    model.select(index, true);
-                }
-            }
-        });
-    },
+        }
+    });
+},
 });
