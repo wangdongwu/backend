@@ -36,15 +36,10 @@ Ext.define('XMLifeOperating.controller.DealShopAreaList', {
             'dealShopAreaList #shopArea': {
                 select: function(combo) {
                     var store = this.getDealShopAreaStore();
-                    store.getProxy().extraParams = {
-                        city: XMLifeOperating.generic.Global.currentCity,
-                        shopArea: combo.getValue()
-                    };
-                    store.loadPage(1, {
+                    store.load({
                         params: {
-                            start: 0,
-                            limint: 25,
-                            page: 1
+                            city: XMLifeOperating.generic.Global.currentCity,
+                            shopArea: combo.getValue()
                         }
                     });
                     this.areaId = combo.getValue();
@@ -52,7 +47,6 @@ Ext.define('XMLifeOperating.controller.DealShopAreaList', {
             },
             'dealShopAreaList #arrivalOnCenter': {
                 click: function(component, column, rowIndex, colIndex, e) {
-                    var sstore = this.getDealShopAreaStore();
                     var dealShopArea = component.getRecord(component.findTargetByEvent(e));
                     if (dealShopArea.get('status') != 2) {
                         return;
@@ -68,13 +62,13 @@ Ext.define('XMLifeOperating.controller.DealShopAreaList', {
                                     console.log('失败');
                                     return;
                                 }
-                                dealShopArea.set('status', 21);
-                                /*sstore.load({
+                                var sstore = me.getDealShopAreaStore();
+                                sstore.load({
                                     params: {
                                         city: XMLifeOperating.generic.Global.currentCity,
-                                        shopArea: combo.getValue()
+                                        shopArea: me.areaId
                                     }
-                                });*/
+                                });
                             }, function(str) {
 
                             });
@@ -100,17 +94,12 @@ Ext.define('XMLifeOperating.controller.DealShopAreaList', {
         if (!view.isDisabled()) {
             //发送刷新请求
             var store = this.getDealShopAreaStore();
-            store.getProxy().extraParams = {
-                city: XMLifeOperating.generic.Global.currentCity,
-                shopArea: this.areaId
-            };
-            store.loadPage(1, {
-                params: {
-                    start: 0,
-                    limint: 25,
-                    page: 1
-                }
-            });
+                    store.load({
+                        params: {
+                            city: XMLifeOperating.generic.Global.currentCity,
+                            shopArea: this.areaId
+                        }
+                    });
             //禁用按钮并进入倒计时
             var count = function(t) {
                 var time = 5 - t;

@@ -43,7 +43,8 @@ Ext.define('XMLifeOperating.Application', {
         'Deliverer',
         'RefundList',
         'ShopTopShops',
-        'BatchUpdatePrice'
+        'BatchUpdatePrice',
+        'DealWaitAssignDelivererList'
     ],
 
     stores: [
@@ -68,6 +69,7 @@ Ext.define('XMLifeOperating.Application', {
         'FeedbackStatus',
         'Refund',
         'ShopTopShops',
+        'DealWaitAssignDeliverer'
     ],
 
     launch: function() {

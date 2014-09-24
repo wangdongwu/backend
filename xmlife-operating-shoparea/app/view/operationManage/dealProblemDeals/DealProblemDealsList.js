@@ -47,7 +47,7 @@ Ext.define('XMLifeOperating.view.operationManage.dealProblemDeals.DealProblemDea
             text: '订单号',
             dataIndex: 'shortId',
             width: 50,
-            sortable: false,
+            sortable: true,
             itemId:'dealDetail',
             align: 'center',
             renderer:function(value){
@@ -56,16 +56,16 @@ Ext.define('XMLifeOperating.view.operationManage.dealProblemDeals.DealProblemDea
         },
 
         {
-            text: '线路',
-            dataIndex: 'zoneName',
-            width: 60,
-            sortable: false,
+            text: '小区/写字楼',
+            dataIndex: 'districtName',
+            width: 80,
+            sortable: true,
             align: 'center',
         }, {
             text: '订单状态',
             dataIndex: 'status',
-            width: 70,
-            sortable: false,
+            width: 80,
+            sortable: true,
             align: 'center',
             renderer: function(value) {
                 switch (value) {
@@ -110,7 +110,7 @@ Ext.define('XMLifeOperating.view.operationManage.dealProblemDeals.DealProblemDea
             text: '问题原因',
             dataIndex: 'problem',
             width: 70,
-            sortable: false,
+            sortable: true,
             align: 'center',
             renderer: function(value) {
                 switch (value) {
@@ -141,37 +141,41 @@ Ext.define('XMLifeOperating.view.operationManage.dealProblemDeals.DealProblemDea
             }
         },{
             text: '重新分配',
-            width: 80,
+            width: 65,
             itemId: 'reapportion',
             menuDisabled: true,
-            sortable: false,
+            sortable: true,
             align: 'center',
             renderer: function(value, metadata, model, rowIndex, colIndex, store) {
                 return Ext.String.format('<a>重新分配</a>', value, value);
             }
-        },{
-            text: '注册用户',
-            dataIndex: 'customerName',
-            width: 80,
-            sortable: false,
-            align: 'center',
-        }, {
-            text: '注册电话',
-            dataIndex: 'customerPhone',
-            width: 90,
-            sortable: false,
-            align: 'center',
-        }, {
-            text: '收货用户',
-            dataIndex: 'contactsName',
-            width: 80,
-            sortable: false,
-            align: 'center',
-        }, {
+        },
+        // {
+        //     text: '注册用户',
+        //     dataIndex: 'customerName',
+        //     width: 80,
+        //     sortable: false,
+        //     align: 'center',
+        // }, 
+        // {
+        //     text: '注册电话',
+        //     dataIndex: 'customerPhone',
+        //     width: 90,
+        //     sortable: false,
+        //     align: 'center',
+        // }, 
+        // {
+        //     text: '收货用户',
+        //     dataIndex: 'contactsName',
+        //     width: 80,
+        //     sortable: false,
+        //     align: 'center',
+        // }, 
+        {
             text: '收货电话',
             dataIndex: 'contactsPhone',
             width: 90,
-            sortable: false,
+            sortable: true,
             align: 'center',
         }, 
         /*{
@@ -184,8 +188,8 @@ Ext.define('XMLifeOperating.view.operationManage.dealProblemDeals.DealProblemDea
         {
             text: '分配买手',
             dataIndex: 'shopperNames',
-            width: 80,
-            sortable: false,
+            width: 60,
+            sortable: true,
             align: 'center',
             renderer: function(value) {
                 var str = '';
@@ -199,7 +203,7 @@ Ext.define('XMLifeOperating.view.operationManage.dealProblemDeals.DealProblemDea
             text: '购买店铺',
             dataIndex: 'shopNames',
             width: 80,
-            sortable: false,
+            sortable: true,
             align: 'left',
             renderer: function(value) {
                 var str = '';
@@ -211,14 +215,14 @@ Ext.define('XMLifeOperating.view.operationManage.dealProblemDeals.DealProblemDea
         }, {
             text: '配送员',
             dataIndex: 'delivererName',
-            width: 60,
-            sortable: false,
+            width: 50,
+            sortable: true,
             align: 'center',
         }, {
             text: '下单时间',
             dataIndex: 'created',
             width: 60,
-            sortable: false,
+            sortable: true,
             align: 'center',
             renderer: function(value) {
                 var newTime = new Date(value);
@@ -229,7 +233,7 @@ Ext.define('XMLifeOperating.view.operationManage.dealProblemDeals.DealProblemDea
             text: '期望送达时间',
             dataIndex: 'deliverTime',
             width: 80,
-            sortable: false,
+            sortable: true,
             align: 'center',
             renderer: function(value) {
                 var newTime = new Date(value);
@@ -239,8 +243,8 @@ Ext.define('XMLifeOperating.view.operationManage.dealProblemDeals.DealProblemDea
         }, {
             text: '剩余时间',
             dataIndex: 'remainTime',
-            width: 80,
-            sortable: false,
+            width: 65,
+            sortable: true,
             align: 'center',
             renderer: function(value,da,record) {
                 var status = record.get('status');
@@ -272,7 +276,7 @@ Ext.define('XMLifeOperating.view.operationManage.dealProblemDeals.DealProblemDea
             text: '完成购买时间',
             dataIndex: 'taskDone',
             width: 80,
-            sortable: false,
+            sortable: true,
             align: 'center',
             renderer: function(value) {
                 var str = '';
@@ -287,7 +291,7 @@ Ext.define('XMLifeOperating.view.operationManage.dealProblemDeals.DealProblemDea
             text: '出货时间',
             dataIndex: 'beginDeliverTime',
             width: 60,
-            sortable: false,
+            sortable: true,
             align: 'center',
             renderer: function(value) {
                 var newTime = new Date(value);
@@ -298,7 +302,7 @@ Ext.define('XMLifeOperating.view.operationManage.dealProblemDeals.DealProblemDea
             text: '问题标记',
             dataIndex: 'problemMark',
             width: 60,
-            sortable: false,
+            sortable: true,
             align: 'center',
             renderer: function(value) {
                 if (value) {
@@ -309,10 +313,10 @@ Ext.define('XMLifeOperating.view.operationManage.dealProblemDeals.DealProblemDea
             }
         }, {
             text: '取消订单',
-            width: 80,
+            width: 65,
             itemId: 'cancellation',
             menuDisabled: true,
-            sortable: false,
+            sortable: true,
             align: 'center',
             renderer: function(value, metadata, model, rowIndex, colIndex, store) {
                 return Ext.String.format('<a>取消订单</a>', value, value);

@@ -3,7 +3,7 @@ Ext.define('XMLifeOperating.view.operationManage.dealTodayUnassignedDeal.DealTod
     closable: false,
 
     xtype: 'dealtodayunassigneddeallist',
-    title: '今日未分配订单',
+    title: '今日未分配买手订单',
 
     store: 'Deal',
     id: 'dealTodayUnassignedDealList',

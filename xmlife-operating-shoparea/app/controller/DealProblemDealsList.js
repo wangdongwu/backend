@@ -103,11 +103,11 @@ Ext.define('XMLifeOperating.controller.DealProblemDealsList', {
             },
 
 
-            '#cancellation': {
+            'dealProblemDealsList #cancellation': {
                 click: me.onCancellation
             },
 
-            '#reapportion': {
+            'dealProblemDealsList #reapportion': {
                 click: me.onReapportion
             },
             '#reapportionShopper': {
@@ -119,7 +119,7 @@ Ext.define('XMLifeOperating.controller.DealProblemDealsList', {
             "#reapportionDeliverer": {
                 click: me.onReapportionDeliverer
             },
-            '#putReapportionDeliverer': {
+            'reapportionDealTasksDeliverer #putReapportionDeliverer': {
                 click: me.onPutReapportionDeliverer
             },
             'dealProblemDealsList #dealDetail': {

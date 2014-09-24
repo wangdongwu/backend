@@ -7,14 +7,6 @@ Ext.define('XMLifeOperating.view.operationManage.dealShopArea.DealShopAreaList',
     title: '货到中心管理',
 
     store: 'DealShopArea',
-    bbar: [{
-            xtype: 'pagingtoolbar',
-            itemId: 'pagetool',
-            store: 'DealShopArea',
-            displayInfo: true,
-            style: 'border:none'
-        }
-    ],
     tbar: [{
             xtype: 'combobox',
             name: 'shopArea',
@@ -51,25 +43,24 @@ Ext.define('XMLifeOperating.view.operationManage.dealShopArea.DealShopAreaList',
             text: '订单号',
             dataIndex: 'shortBackendId',
             width: 60,
-            sortable: false,
+            sortable: true,
             align: 'center',
             itemId: 'dealDetail',
             renderer: function(value) {
                 return '<a style="cursor:pointer;">' + value + '</a>';
             }
         },
-
         {
-            text: '线路',
-            dataIndex: 'deliveryZoneName',
+            text: '小区/写字楼',
+            dataIndex: 'districtName',
             width: 80,
-            sortable: false,
+            sortable: true,
             align: 'center',
         }, {
             text: '订单状态',
             dataIndex: 'status',
             width: 70,
-            sortable: false,
+            sortable: true,
             align: 'center',
             renderer: function(value) {
                 switch (value) {
@@ -116,7 +107,7 @@ Ext.define('XMLifeOperating.view.operationManage.dealShopArea.DealShopAreaList',
             dataIndex: 'status',
             itemId: 'arrivalOnCenter',
             menuDisabled: true,
-            sortable: false,
+            sortable: true,
             align: 'center',
             renderer: function(value, metadata, model, rowIndex, colIndex, store) {
                 if (value == 2) {
@@ -130,13 +121,13 @@ Ext.define('XMLifeOperating.view.operationManage.dealShopArea.DealShopAreaList',
             text: '顾客',
             dataIndex: 'customName',
             width: 80,
-            sortable: false,
+            sortable: true,
             align: 'center',
         }, {
             text: '顾客电话',
             dataIndex: 'customPhone',
             width: 90,
-            sortable: false,
+            sortable: true,
             align: 'center',
         },
         /*{
@@ -150,25 +141,25 @@ Ext.define('XMLifeOperating.view.operationManage.dealShopArea.DealShopAreaList',
             text: '分配买手',
             dataIndex: 'shopperName',
             width: 60,
-            sortable: false,
+            sortable: true,
             align: 'center',
         }, {
             text: '购买店铺',
             dataIndex: 'shopName',
             width: 80,
-            sortable: false,
+            sortable: true,
             align: 'center',
         }, {
             text: '配送员',
             dataIndex: 'delivererName',
             width: 60,
-            sortable: false,
+            sortable: true,
             align: 'center',
         }, {
             text: '下单时间',
             dataIndex: 'created',
             width: 60,
-            sortable: false,
+            sortable: true,
             align: 'center',
             renderer: function(value) {
                 var newTime = new Date(value);
@@ -179,7 +170,7 @@ Ext.define('XMLifeOperating.view.operationManage.dealShopArea.DealShopAreaList',
             text: '期望送达时间',
             dataIndex: 'deliTime',
             width: 80,
-            sortable: false,
+            sortable: true,
             align: 'center',
             renderer: function(value) {
                 var newTime = new Date(value);
@@ -190,7 +181,7 @@ Ext.define('XMLifeOperating.view.operationManage.dealShopArea.DealShopAreaList',
             text: '剩余时间',
             dataIndex: 'remainTime',
             width: 60,
-            sortable: false,
+            sortable: true,
             align: 'center',
             renderer: function(value, da, record) {
                 var status = record.get('status');
@@ -222,20 +213,21 @@ Ext.define('XMLifeOperating.view.operationManage.dealShopArea.DealShopAreaList',
             text: '完成购买时间',
             dataIndex: 'taskDone',
             width: 80,
-            sortable: false,
+            sortable: true,
             align: 'center',
             renderer: function(value) {
                 var newTime = new Date(value);
                 newTime = newTime.getHours() + ':' + newTime.getMinutes();
                 return newTime;
             }
-        }, {
-            text: '操作',
-            dataIndex: 'name',
-            width: 60,
-            sortable: false,
-            align: 'center',
-        },
+        }, 
+        // {
+        //     text: '操作',
+        //     dataIndex: 'name',
+        //     width: 60,
+        //     sortable: false,
+        //     align: 'center',
+        // },
     ],
     viewConfig: {
         plugins: {
@@ -258,6 +250,4 @@ Ext.define('XMLifeOperating.view.operationManage.dealShopArea.DealShopAreaList',
         }
     },
     columnLines: true,
-
-
 });

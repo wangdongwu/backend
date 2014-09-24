@@ -1,7 +1,7 @@
-Ext.define('XMLifeOperating.view.operationManage.dealProblemDeals.DealProblemDealsReapportionDeliverer', {
+Ext.define('XMLifeOperating.view.operationManage.dealWaitAssignDeliverer.DealWaitReapportionDeliverer', {
     extend: 'Ext.window.Window',
-    xtype: 'reapportionDealTasksDeliverer',
-    id: 'reapportionDealTasksDeliverer',
+    xtype: 'dealWaitReapportionDeliverer',
+    id: 'dealWaitReapportionDeliverer',
 
     requires: [
         'Ext.form.Panel',
@@ -18,7 +18,7 @@ Ext.define('XMLifeOperating.view.operationManage.dealProblemDeals.DealProblemDea
     initComponent: function() {
         this.items = [{
             xtype: 'form',
-            title:'重新分配配送员',
+            title:'分配配送员',
             layout: 'anchor',
             bodyPadding: 5,
             border: false,

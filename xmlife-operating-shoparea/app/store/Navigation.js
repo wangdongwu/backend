@@ -48,9 +48,15 @@ Ext.define('XMLifeOperating.store.Navigation', {
                 leaf: true
             }, {
                 id:'dealtodayunassigneddeallist',
-                text:'今日未分配订单管理',
+                text:'今日未分配买手订单',
                 leaf:true
-            },{
+            },
+            {
+                id:'dealWaitAssignDelivererList',
+                text:'今日未分配配送订单',
+                leaf:true
+            },
+            {
                 id: 'realTimeList',
                 text: '数据中心',
                 leaf: true
