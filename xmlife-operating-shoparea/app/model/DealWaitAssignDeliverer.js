@@ -1,7 +1,7 @@
 var dataProxy = new XMLifeOperating.generic.BaseProxy('deal/waitAssignDeliverer');
 Ext.define('XMLifeOperating.model.DealWaitAssignDeliverer', {
     extend: 'Ext.data.Model',
-    fields: ['created', 'shortId','districtName','dtoAddress','contactsPhone','status','deliverTime','remainTime','dealBackendId','customerName','customerPhone','contactsName','contactsPhone','dtoAddress'],
+    fields: ['created', 'actualDealPrice','shortId','districtName','dtoAddress','contactsPhone','status','deliverTime','remainTime','dealBackendId','customerName','customerPhone','contactsName','contactsPhone','dtoAddress'],
     proxy: dataProxy
 });
  
