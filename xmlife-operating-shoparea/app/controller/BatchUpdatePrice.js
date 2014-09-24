@@ -53,12 +53,17 @@ Ext.define('XMLifeOperating.controller.BatchUpdatePrice', {
               //self.shopId = combo.getValue();
             }
           },
-        'BatchUpdatePrice #uploadfile':{
+        'BatchUpdatePrice button':{
           click : function(gird){
+            
+            var config = {
+              uploadPrice : 'backdoor/update/product/price',
+              uploadStatus : 'backdoor/update/product/status',
+            }
             var form = gird.up('form').getForm();
             if(form.isValid()){
               form.submit({
-                url : XMLifeOperating.generic.Global.URL.biz+'backdoor/update/product/price',
+                url : XMLifeOperating.generic.Global.URL.biz+config[gird.name],
                 waitMsg : '正在上传您的文件......',
                 success : function(form, action){
 

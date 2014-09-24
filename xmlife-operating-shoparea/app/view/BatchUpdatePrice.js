@@ -14,7 +14,7 @@ Ext.define('XMLifeOperating.view.BatchUpdatePrice', {
     tbar: [
             {
               xtype : 'form',
-              width : 700,
+              width : 1000,
               layout : 'column',
               bodyStyle: 'background: transparent;border:0',
               items : [
@@ -32,7 +32,7 @@ Ext.define('XMLifeOperating.view.BatchUpdatePrice', {
                 hidden: true
                 },
                {
-                columnWidth: 0.35,
+                columnWidth: 0.2,
                 xtype : 'combobox',
                 alias : 'ShopSelect',
                 name : 'shopId',
@@ -46,18 +46,28 @@ Ext.define('XMLifeOperating.view.BatchUpdatePrice', {
                 queryMode:'local'
                }, 
               {
-                columnWidth: 0.5,
+                columnWidth: 0.4,
                 xtype : 'filefield',
                 name : 'file',
                 fieldLabel : '价格Excel文件',
-                labelWidth: 80,
-                allowBlank: false,
+                labelWidth: 120,
                 buttonText : '选择Excel文件'
+            },{
+              xtype : 'button',
+              text : '上传',
+              name : 'uploadPrice'
+            },{
+                columnWidth: 0.4,
+                xtype : 'filefield',
+                name : 'statusfile',
+                fieldLabel : '状态Excel文件',
+                labelWidth: 120,
+                buttonText : '选择状态Excel文件'
             },
             {
               xtype : 'button',
               text : '上传',
-              itemId : 'uploadfile'
+              name : 'uploadStatus'
             }]
             }
     ],
