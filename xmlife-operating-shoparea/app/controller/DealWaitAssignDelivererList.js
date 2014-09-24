@@ -218,12 +218,12 @@ Ext.define('XMLifeOperating.controller.DealWaitAssignDelivererList', {
                             windowEl.unmask();
                             editWindow1.close();
                          } else {
-                            Ext.MessageBox.show({
-                                title: '',
-                                msg: '该订单重新分配成功',
-                                icon: Ext.Msg.INFO,
-                                buttons: Ext.Msg.OK
-                            });
+                            // Ext.MessageBox.show({
+                            //     title: '',
+                            //     msg: '该订单重新分配成功',
+                            //     icon: Ext.Msg.INFO,
+                            //     buttons: Ext.Msg.OK
+                            // });
                             windowEl.unmask();
                             editWindow1.close();
                              var sstore = me.getDealWaitAssignDelivererStore();
