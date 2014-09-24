@@ -10,7 +10,7 @@ Ext.define('XMLifeOperating.view.operationManage.dealWaitAssignDeliverer.DWDealD
     closeAction: 'hide',
     modal: true,
     width: 400,
-    height: 380,
+    height: 600,
     resizable: false,
     layout: 'fit',
 
@@ -34,16 +34,6 @@ Ext.define('XMLifeOperating.view.operationManage.dealWaitAssignDeliverer.DWDealD
                     allowBlank:false,
                     labelAlign:'left'
                 },
-				{
-					xtype: 'displayfield',
-                    name: 'actualDealPrice',
-                    fieldLabel: '总计',
-                    allowBlank:false,
-                    labelAlign:'left',               
-                    renderer : function(value){
-                        return value / 100;
-                    }
-             	},
                 {
                     xtype: 'displayfield',
                     name: 'customerName',
@@ -71,6 +61,23 @@ Ext.define('XMLifeOperating.view.operationManage.dealWaitAssignDeliverer.DWDealD
                     fieldLabel: '收货电话',
                     allowBlank:false,
                     labelAlign:'left'
+                },                
+                {
+                    xtype: 'displayfield',
+                    name: 'dtoAddress',
+                    fieldLabel: '收货地址',
+                    allowBlank:false,
+                    labelAlign:'left'
+                },
+                {
+                    xtype: 'displayfield',
+                    name: 'actualDealPrice',
+                    fieldLabel: '订单金额',
+                    allowBlank:false,
+                    labelAlign:'left',               
+                    renderer : function(value){
+                        return value / 100;
+                    }
                 },
                 {
                     name: 'dealDetails',
@@ -78,7 +85,7 @@ Ext.define('XMLifeOperating.view.operationManage.dealWaitAssignDeliverer.DWDealD
                     fieldLabel: '购买清单',
                     xtype:'gridpanel',
                     itemId:'dealDetails',
-                    height:200,
+                    height:300,
                     columns:[
 
                         {
