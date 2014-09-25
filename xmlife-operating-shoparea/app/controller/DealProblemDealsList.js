@@ -384,7 +384,7 @@ onCancellation:function(view, rowIndex, colIndex, column, e) {
                                 });
                                 var sstore = me.getDealProblemDealsStore();
                                 sstore.getProxy().extraParams = {
-                                    shopArea: me.areaId
+                                    areaId: me.areaId
                                 }
                                 sstore.loadPage(1, {
                                     params: {
