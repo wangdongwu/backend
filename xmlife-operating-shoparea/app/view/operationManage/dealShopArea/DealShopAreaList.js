@@ -8,23 +8,33 @@ Ext.define('XMLifeOperating.view.operationManage.dealShopArea.DealShopAreaList',
 
     store: 'DealShopArea',
     tbar: [{
-            xtype: 'combobox',
-            name: 'shopArea',
-            itemId: 'shopArea',
-            store: 'ShopArea',
-            emptyText: '请选择中心',
-            margin: 10,
-            editable: false,
-            queryMode: 'local',
-            displayField: 'name',
-            valueField: 'id',
-            hidden: (XMLifeOperating.generic.Global.operating_type == 'center')
-        }, {
-            xtype: 'button',
-            itemId: 'refresh',
-            text: '刷新'
-        }
-    ],
+        xtype: 'combobox',
+        name: 'shopArea',
+        itemId: 'shopArea',
+        store: 'ShopArea',
+        emptyText: '请选择中心',
+        margin: 10,
+        editable: false,
+        queryMode: 'local',
+        displayField: 'name',
+        valueField: 'id',
+        hidden: (XMLifeOperating.generic.Global.operating_type == 'center')
+    }, {
+        xtype: 'button',
+        itemId: 'refresh',
+        text: '刷新'
+    }, '->', {
+        xtype: 'textfield',
+        emptyText: '输入搜索号码...',
+        name: 'keyword',
+        itemId: 'keyword',
+        fieldLabel: '手机/订单号'
+
+    }, {
+        xtype: 'button',
+        itemId: 'dealSearch',
+        text: '搜索'
+    }],
 
     columns: [{
             xtype: 'rownumberer'
@@ -49,8 +59,7 @@ Ext.define('XMLifeOperating.view.operationManage.dealShopArea.DealShopAreaList',
             renderer: function(value) {
                 return '<a style="cursor:pointer;">' + value + '</a>';
             }
-        },
-        {
+        }, {
             text: '小区/写字楼',
             dataIndex: 'districtName',
             width: 80,
@@ -174,7 +183,7 @@ Ext.define('XMLifeOperating.view.operationManage.dealShopArea.DealShopAreaList',
             align: 'center',
             renderer: function(value) {
                 var newTime = new Date(value);
-                newTime = (newTime.getMonth()+1)+'-'+newTime.getDate() +' '+ newTime.getHours() + ':' + newTime.getMinutes();
+                newTime = (newTime.getMonth() + 1) + '-' + newTime.getDate() + ' ' + newTime.getHours() + ':' + newTime.getMinutes();
                 return newTime;
             }
         }, {
@@ -220,7 +229,7 @@ Ext.define('XMLifeOperating.view.operationManage.dealShopArea.DealShopAreaList',
                 newTime = newTime.getHours() + ':' + newTime.getMinutes();
                 return newTime;
             }
-        }, 
+        },
         // {
         //     text: '操作',
         //     dataIndex: 'name',

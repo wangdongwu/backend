@@ -130,7 +130,7 @@ Ext.define('XMLifeOperating.controller.DealList', {
             }*/
         });
     },
-    
+
     onRefresh: function(view, e, eOpts) {
         var me = this;
         if (!view.isDisabled()) {
@@ -191,7 +191,8 @@ Ext.define('XMLifeOperating.controller.DealList', {
         } else {
             store.load({
                 params: {
-                    phone: keyWords
+                    shopArea: shopAreaId,
+                    phoneOrDealId: keyWords
                 }
             });
         }
@@ -244,7 +245,7 @@ Ext.define('XMLifeOperating.controller.DealList', {
         var url = 'deal/transToProblem/' + dealBackendId;
         var me = this;
         var status = dealitem.get('status');
-        if(status==7||status==4){
+        if (status == 7 || status == 4) {
             return;
         }
         Ext.MessageBox.confirm(
@@ -287,7 +288,7 @@ Ext.define('XMLifeOperating.controller.DealList', {
             }
         );
     },
-    onCancalDeal:function(view, rowIndex, colIndex, column, e) {
+    onCancalDeal: function(view, rowIndex, colIndex, column, e) {
         var dealitem = view.getRecord(view.findTargetByEvent(e));
         //var dealBackendId = dealitem.get('dealBackendId');
         //var url = 'deal/transToProblem/' + dealBackendId;
@@ -296,7 +297,7 @@ Ext.define('XMLifeOperating.controller.DealList', {
         var url = 'deal/cancelDeal';
         var me = this;
         var status = dealitem.get('status');
-        if(status!=20&&status!=31){
+        if (status != 20 && status != 31) {
             return;
         }
         Ext.MessageBox.confirm(
@@ -304,8 +305,10 @@ Ext.define('XMLifeOperating.controller.DealList', {
             Ext.String.format("确定要取消<h5>'{0}'</h5>的订单吗？", '订单号为：' + dealitem.get('shortId') + ' 顾客为：' + dealitem.get('customerName')),
             function(result) {
                 if (result == 'yes') {
-                    
-                    sendPutRequest(url, {dealId:dealBackendId}, '取消订单', '取消订单成功', '取消订单失败',
+
+                    sendPutRequest(url, {
+                            dealId: dealBackendId
+                        }, '取消订单', '取消订单成功', '取消订单失败',
                         function(response) {
                             if (response.responseText != 1) {
                                 Ext.MessageBox.show({

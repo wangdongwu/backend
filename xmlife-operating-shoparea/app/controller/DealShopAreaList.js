@@ -84,7 +84,9 @@ Ext.define('XMLifeOperating.controller.DealShopAreaList', {
             'dealShopAreaList #refresh': {
                 click: me.onRefresh
             },
-
+            'dealShopAreaList #dealSearch': {
+                click: me.onShopAreaSearch
+            }
 
         });
 
@@ -94,12 +96,12 @@ Ext.define('XMLifeOperating.controller.DealShopAreaList', {
         if (!view.isDisabled()) {
             //发送刷新请求
             var store = this.getDealShopAreaStore();
-                    store.load({
-                        params: {
-                            city: XMLifeOperating.generic.Global.currentCity,
-                            shopArea: this.areaId
-                        }
-                    });
+            store.load({
+                params: {
+                    city: XMLifeOperating.generic.Global.currentCity,
+                    shopArea: this.areaId
+                }
+            });
             //禁用按钮并进入倒计时
             var count = function(t) {
                 var time = 5 - t;
@@ -141,6 +143,37 @@ Ext.define('XMLifeOperating.controller.DealShopAreaList', {
             }
         });
     },
+    onShopAreaSearch: function(view, e, eOpts) {
+        var me = this,
+            keyWords = me.getDealShopAreaList().down('#keyword').getValue(),
+            store = this.getDealShopAreaStore(),
+            view = this.getDealShopAreaList();
+        var shopAreaId = Ext.getCmp('dealShopAreaList').down('#shopArea').getValue();
+        if (keyWords == '') {
+            if (shopAreaId) {
+                store.getProxy().extraParams = {
+                    shopArea: shopAreaId
+                };
+                store.loadPage(1, {
+                    params: {
+                        start: 0,
+                        limit: 25,
+                        page: 1
+                    }
+                });
+            } else {
+                return;
+            }
+        } else {
+            store.load({
+                params: {
+                    shopArea: shopAreaId,
+                    phoneOrDealId: keyWords
+                }
+            });
+        }
+
+    }
 
 
 });

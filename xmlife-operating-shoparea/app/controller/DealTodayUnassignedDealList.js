@@ -54,7 +54,7 @@ Ext.define('XMLifeOperating.controller.DealTodayUnassignedDealList', {
                 }
             },
             'dealtodayunassigneddeallist #dealSearch': {
-                click: me.todayUnassignedDealSearch
+                click: me.onTodayUnassignedDealSearch
             },
             'dealtodayunassigneddeallist #statusSearch': {
                 select: function(combo) {
@@ -129,8 +129,8 @@ Ext.define('XMLifeOperating.controller.DealTodayUnassignedDealList', {
             return
         }
     },
-    todayUnassignedDealSearch: function() {
-        console.log(123);
+    onTodayUnassignedDealSearch: function() {
+
         var me = this,
             keyWords = me.getDealTodayUnassignedDealList().down('#keyword').getValue(),
             store = this.getDealStore(),
@@ -155,7 +155,8 @@ Ext.define('XMLifeOperating.controller.DealTodayUnassignedDealList', {
         } else {
             store.load({
                 params: {
-                    phone: keyWords,
+                    shopArea: shopAreaId,
+                    phoneOrDealId: keyWords,
                     assignShopper: false
                 }
             });

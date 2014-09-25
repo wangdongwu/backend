@@ -32,9 +32,8 @@ Ext.define('XMLifeOperating.view.operationManage.dealTodayUnassignedDeal.DealTod
             emptyText: '输入搜索号码...',
             name: 'keyword',
             itemId: 'keyword',
-            fieldLabel: '手机号码',
-            regex: XMLifeOperating.generic.Global.VALIDATION_CONSTANTS.PHONE,
-            regexText: '请输入正确的手机号'
+            fieldLabel: '手机/订单号'
+           
         }, {
             xtype: 'button',
             itemId: 'dealSearch',

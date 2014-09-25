@@ -23,11 +23,23 @@ Ext.define('XMLifeOperating.view.operationManage.dealProblemDeals.DealProblemDea
             text: '刷新',
             itemId: 'update',
             hidden: (XMLifeOperating.generic.Global.operating_type == 'center')
-        },{
-        xtype: 'button',
-        itemId: 'refresh',
-        text: '刷新'
-    }
+        }, {
+            xtype: 'button',
+            itemId: 'refresh',
+            text: '刷新'
+        },
+        '->', {
+            xtype: 'textfield',
+            emptyText: '输入搜索号码...',
+            name: 'keyword',
+            itemId: 'keyword',
+            fieldLabel: '手机/订单号'
+
+        }, {
+            xtype: 'button',
+            itemId: 'dealSearch',
+            text: '搜索'
+        }
 
     ],
     columns: [{
@@ -48,10 +60,10 @@ Ext.define('XMLifeOperating.view.operationManage.dealProblemDeals.DealProblemDea
             dataIndex: 'shortId',
             width: 50,
             sortable: true,
-            itemId:'dealDetail',
+            itemId: 'dealDetail',
             align: 'center',
-            renderer:function(value){
-                return '<a style="cursor:pointer;">'+value+'</a>';
+            renderer: function(value) {
+                return '<a style="cursor:pointer;">' + value + '</a>';
             }
         },
 
@@ -139,7 +151,7 @@ Ext.define('XMLifeOperating.view.operationManage.dealProblemDeals.DealProblemDea
                         return '默认';
                 }
             }
-        },{
+        }, {
             text: '重新分配',
             width: 65,
             itemId: 'reapportion',
@@ -177,14 +189,14 @@ Ext.define('XMLifeOperating.view.operationManage.dealProblemDeals.DealProblemDea
             width: 90,
             sortable: true,
             align: 'center',
-        }, 
+        },
         /*{
             text: '中心点',
             dataIndex: 'shopAreaName',
             width: 60,
             sortable: false,
             align: 'center',
-        },*/ 
+        },*/
         {
             text: '分配买手',
             dataIndex: 'shopperNames',
@@ -237,7 +249,7 @@ Ext.define('XMLifeOperating.view.operationManage.dealProblemDeals.DealProblemDea
             align: 'center',
             renderer: function(value) {
                 var newTime = new Date(value);
-                newTime = (newTime.getMonth()+1)+'-'+newTime.getDate() +' '+ newTime.getHours() + ':' + newTime.getMinutes();
+                newTime = (newTime.getMonth() + 1) + '-' + newTime.getDate() + ' ' + newTime.getHours() + ':' + newTime.getMinutes();
                 return newTime;
             }
         }, {
@@ -246,10 +258,10 @@ Ext.define('XMLifeOperating.view.operationManage.dealProblemDeals.DealProblemDea
             width: 65,
             sortable: true,
             align: 'center',
-            renderer: function(value,da,record) {
+            renderer: function(value, da, record) {
                 var status = record.get('status');
-                var str='';
-                switch(status){
+                var str = '';
+                switch (status) {
                     case 4:
                         return '完成配送';
                         break;
@@ -260,7 +272,7 @@ Ext.define('XMLifeOperating.view.operationManage.dealProblemDeals.DealProblemDea
                         return '已取消';
                         break;
                     default:
-                        
+
                         var time = (value / (3600 * 1000) + '').split('.');
                         var time1 = Math.abs(time[0]);
                         var time2 = Math.floor(('0.' + time[1]) * 60);
@@ -270,7 +282,7 @@ Ext.define('XMLifeOperating.view.operationManage.dealProblemDeals.DealProblemDea
                         }
                         return '<span style="color:#000">' + time + '</span>';
                         break;
-                } 
+                }
             }
         }, {
             text: '完成购买时间',
@@ -320,7 +332,7 @@ Ext.define('XMLifeOperating.view.operationManage.dealProblemDeals.DealProblemDea
             align: 'center',
             renderer: function(value, metadata, model, rowIndex, colIndex, store) {
                 var status = model.get('status');
-                if(status!=20&&status!=31){
+                if (status != 20 && status != 31) {
                     return '取消订单';
                 }
                 return Ext.String.format('<a href="javascript:void(0)">取消订单</a>', value, value);

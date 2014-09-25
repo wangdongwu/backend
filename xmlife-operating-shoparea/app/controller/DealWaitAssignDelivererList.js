@@ -2,8 +2,8 @@ Ext.define('XMLifeOperating.controller.DealWaitAssignDelivererList', {
     extend: 'Ext.app.Controller',
 
     views: ['operationManage.dealWaitAssignDeliverer.DealWaitAssignDelivererList',
-            'operationManage.dealWaitAssignDeliverer.DWDealDetail',
-            'operationManage.dealWaitAssignDeliverer.DealWaitReapportionDeliverer'
+        'operationManage.dealWaitAssignDeliverer.DWDealDetail',
+        'operationManage.dealWaitAssignDeliverer.DealWaitReapportionDeliverer'
     ],
 
     stores: [
@@ -17,35 +17,30 @@ Ext.define('XMLifeOperating.controller.DealWaitAssignDelivererList', {
     models: [
         'DealWaitAssignDeliverer',
         'ShopArea',
-		'DealItems',
+        'DealItems',
         'Deliverer',
 
     ],
 
-    refs: [
-    {
+    refs: [{
         ref: 'dealWaitAssignDelivererList',
         selector: 'dealWaitAssignDelivererList',
         xtype: 'dealWaitAssignDelivererList',
         autoCreate: true
-    },
-    {
+    }, {
         ref: 'shopArea',
         selector: '#shopArea',
-    },
-    {
+    }, {
         ref: 'dWDealDetail',
         selector: 'dWDealDetail',
         xtype: 'dWDealDetail',
         autoCreate: true
-    },
-    {
+    }, {
         ref: 'dealWaitReapportionDeliverer',
         selector: 'dealWaitReapportionDeliverer',
         xtype: 'dealWaitReapportionDeliverer',
         autoCreate: true
-    }
-    ],
+    }],
 
     init: function() {
 
@@ -98,9 +93,12 @@ Ext.define('XMLifeOperating.controller.DealWaitAssignDelivererList', {
             'dealWaitAssignDelivererList #reapportion': {
                 click: me.onReapportionDeliverer
             },
-           
+
             'dealWaitAssignDelivererList #dealDetail': {
                 click: me.onDealDetail
+            },
+            'dealWaitAssignDelivererList #dealSearch': {
+                click: me.onWaitAssignDelivererSearch
             }
         });
     },
@@ -189,7 +187,7 @@ Ext.define('XMLifeOperating.controller.DealWaitAssignDelivererList', {
 
     onPutReapportionDeliverer: function(view, rowIndex, colIndex, column, e) {
         var editWindow1 = this.getDealWaitReapportionDeliverer();
- 
+
         var windowEl = editWindow1.getEl();
         var reapportionDeliverer = view.getRecord(view.findTargetByEvent(e));
         var uid = reapportionDeliverer.get('uid');
@@ -217,7 +215,7 @@ Ext.define('XMLifeOperating.controller.DealWaitAssignDelivererList', {
                             });
                             windowEl.unmask();
                             editWindow1.close();
-                         } else {
+                        } else {
                             // Ext.MessageBox.show({
                             //     title: '',
                             //     msg: '该订单重新分配成功',
@@ -226,7 +224,7 @@ Ext.define('XMLifeOperating.controller.DealWaitAssignDelivererList', {
                             // });
                             windowEl.unmask();
                             editWindow1.close();
-                             var sstore = me.getDealWaitAssignDelivererStore();
+                            var sstore = me.getDealWaitAssignDelivererStore();
                             sstore.load({
                                 params: {
                                     shopArea: Ext.getCmp('dealWaitAssignDelivererList').down('#shopArea').getValue()
@@ -238,4 +236,35 @@ Ext.define('XMLifeOperating.controller.DealWaitAssignDelivererList', {
             }
         );
     },
+    onWaitAssignDelivererSearch: function(view, e, eOpts) {
+        var me = this,
+            keyWords = me.getDealWaitAssignDelivererList().down('#keyword').getValue(),
+            store = this.getDealWaitAssignDelivererStore(),
+            view = this.getDealWaitAssignDelivererList();
+        var shopAreaId = Ext.getCmp('dealWaitAssignDelivererList').down('#shopArea').getValue();
+        if (keyWords == '') {
+            if (shopAreaId) {
+                store.getProxy().extraParams = {
+                    shopArea: shopAreaId
+                };
+                store.loadPage(1, {
+                    params: {
+                        start: 0,
+                        limit: 25,
+                        page: 1
+                    }
+                });
+            } else {
+                return;
+            }
+        } else {
+            store.load({
+                params: {
+                    shopArea: shopAreaId,
+                    phoneOrDealId: keyWords
+                }
+            });
+        }
+
+    }
 });

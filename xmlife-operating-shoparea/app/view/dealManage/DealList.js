@@ -33,7 +33,7 @@ Ext.define('XMLifeOperating.view.dealManage.DealList', {
             })(),
             maxValue: (function() {
                 var date = new Date();
-                date.setDate(date.getDate() - 1);
+                date.setDate(date.getDate());
                 return date;
             })(),
             value: (function() {
@@ -55,7 +55,7 @@ Ext.define('XMLifeOperating.view.dealManage.DealList', {
             })(),
             maxValue: (function() {
                 var date = new Date();
-                date.setDate(date.getDate() - 1);
+                date.setDate(date.getDate());
                 return date;
             })(),
             value: (function() {
@@ -88,9 +88,7 @@ Ext.define('XMLifeOperating.view.dealManage.DealList', {
             emptyText: '输入搜索号码...',
             name: 'keyword',
             itemId: 'keyword',
-            fieldLabel: '手机号码',
-            regex: XMLifeOperating.generic.Global.VALIDATION_CONSTANTS.PHONE,
-            regexText: '请输入正确的手机号',
+            fieldLabel: '手机/订单号'
             // margin:10
         }, {
             xtype: 'button',
