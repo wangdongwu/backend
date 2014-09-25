@@ -41,7 +41,7 @@ Ext.define('XMLifeOperating.view.templateManage.productTemplate.ProductTemplateE
                 allowBlank: false,
                 validator: function(str){
                     var len = getStrLength(str);
-                    if(len > 14){
+                    if(len >= 14){
                         return '商品名称最大长度为7';
                     }else{
                         return true;
@@ -56,7 +56,7 @@ Ext.define('XMLifeOperating.view.templateManage.productTemplate.ProductTemplateE
                 labelWidth: 90,
                 validator: function(str){
                     var len = getStrLength(str);
-                    if(len > 14){
+                    if(len >= 14){
                         return '商品名称最大长度为7';
                     }else{
                         return true;
@@ -71,7 +71,7 @@ Ext.define('XMLifeOperating.view.templateManage.productTemplate.ProductTemplateE
                 labelWidth: 90,
                 validator: function(str){
                     var len = getStrLength(str);
-                    if(len > 14){
+                    if(len >= 14){
                         return '商品名称最大长度为7';
                     }else{
                         return true;
