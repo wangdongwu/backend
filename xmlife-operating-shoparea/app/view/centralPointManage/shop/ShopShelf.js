@@ -97,10 +97,18 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopShelf', {
             xtype: 'button',
             text: '保存排序',
             itemId: 'saveShelvesOrder'
-        },{
+        }, {
             xtype: 'button',
             text: '返回',
             itemId: 'returnShopStore'
+        }, '->', {
+            xtype: 'button',
+            text: '查看所有下架商品',
+            itemId: 'viewAllSoldOutProduct'
+        }, {
+            xtype: 'button',
+            text: '查看所有雪藏商品',
+            itemId: 'viewAllHiddenProduct'
         }]
     }, {
         xtype: 'toolbar',

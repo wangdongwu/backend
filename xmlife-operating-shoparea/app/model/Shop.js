@@ -28,6 +28,6 @@ Ext.define('XMLifeOperating.model.Shop', {
 		'beCopyedShopId',
 		'autoOnline'
 	],
-	idProperty: 'shopId',
+	idProperty: 'id',
 	proxy: dataProxy,
 });
