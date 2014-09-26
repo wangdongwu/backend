@@ -103,7 +103,7 @@ Ext.define('XMLifeOperating.controller.DealList', {
                             return;
                         }
                     });
-                }
+                }  
             },
             'dealList #dealSearch': {
                 click: me.dealSearch
