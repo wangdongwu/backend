@@ -230,7 +230,7 @@ Ext.define('XMLifeOperating.controller.DealProblemDealsList', {
             Ext.String.format("确定该订单重新分配给'{0}'吗？", reapportionBuyerS.get('name')),
             function(result) {
                 if (result == 'yes') {
-                    sendPutRequest('deal/assignShopper', {
+                    sendPutRequest('deal/reAssignShopper', {
                         dealId: dealId,
                         taskId: taskId,
                         shopperId: uid
@@ -399,7 +399,6 @@ Ext.define('XMLifeOperating.controller.DealProblemDealsList', {
                                     }
                                 });
                             }
-
                         });
                 }
             }
