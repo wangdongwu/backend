@@ -722,7 +722,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
                     var className = e.target.className;
                     var statusValue = Ext.query("." + className)[rowIndex].getAttribute("statusValue");
                     var url = 'product/soldout';
-                    var status = 3;//商品下架（目前处于雪藏）
+                    var status = 3; //商品下架（目前处于雪藏）
                     var shopId = this.shopId;
                     var success = function(task, operation) {
                         me.showProductSoldOutOrOffLineList(shopId, 'offline');
@@ -1371,10 +1371,12 @@ Ext.define('XMLifeOperating.controller.Shop', {
     showProductSoldOutList: function(shopId) {
         var me = this,
             categoryStore = me.getShopCategoriesStore(); //在货架页，category已经加载
+        categoryStore.getProxy().extraParams = {
+            shopId: shopId,
+            status: 3
+        }
         categoryStore.loadPage(1, {
             params: {
-                shopId: shopId,
-                status: 3,
                 start: 0,
                 limit: 25,
                 page: 1
@@ -1385,10 +1387,12 @@ Ext.define('XMLifeOperating.controller.Shop', {
     showProductOffLineList: function(shopId) {
         var me = this,
             categoryStore = me.getShopCategoriesStore();
+        categoryStore.getProxy().extraParams = {
+            shopId: shopId,
+            status: 1
+        }
         categoryStore.loadPage(1, {
             params: {
-                shopId: shopId,
-                status: 1,
                 start: 0,
                 limit: 25,
                 page: 1
