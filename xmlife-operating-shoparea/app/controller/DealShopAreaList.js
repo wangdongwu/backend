@@ -26,6 +26,9 @@ Ext.define('XMLifeOperating.controller.DealShopAreaList', {
         selector: 'dSADealDetail',
         xtype: 'dSADealDetail',
         autoCreate: true
+    },{
+        ref:'dealShopAreaList',
+        selector:'dealShopAreaList'
     }],
 
     init: function() {
@@ -145,6 +148,8 @@ Ext.define('XMLifeOperating.controller.DealShopAreaList', {
         });
     },
     onShopAreaSearch: function(view, e, eOpts) {
+        debugger
+
         var me = this,
             keyWords = me.getDealShopAreaList().down('#keyword').getValue(),
             store = this.getDealShopAreaStore(),

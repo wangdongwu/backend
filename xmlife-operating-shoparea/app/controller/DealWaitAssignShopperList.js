@@ -49,7 +49,7 @@ Ext.define('XMLifeOperating.controller.DealWaitAssignShopperList', {
                             page: 1
                         }
                     });
-                    this.areaId = combo.getValassignShopperue();
+                    this.areaId = combo.getValue();
                 }
             },
             'dealwaitassignshopperlist #dealSearch': {

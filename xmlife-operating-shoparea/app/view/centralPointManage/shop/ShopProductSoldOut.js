@@ -24,7 +24,21 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopProductSoldOut', {
     }, {
         text: '所属货架',
         dataIndex: 'id',
-        align: 'center'
+        align: 'center',
+        renderer: function(value, e) {
+            var categories = e.record.get('categories');
+            var str = '';
+            for (var i = 0, len = categories.length; i < len; i++) {
+                if (i != len - 1) {
+                    str += categories[len - i - 1].name + '|';
+
+                } else {
+                    str += categories[len - i - 1].name;
+                }
+
+            }
+            return str;
+        }
     }, {
         text: '操作',
         width: 90,
@@ -33,7 +47,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopProductSoldOut', {
         menuDisabled: true,
         sortable: false,
         align: 'center',
-        style:'cursor:pointer',
+        style: 'cursor:pointer',
         renderer: function() {
             return '<input type="button" value="重新上架" class="putaway" />'
         }
