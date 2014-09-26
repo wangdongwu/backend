@@ -167,6 +167,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
                     var cClass = this.getShopModel();
                     var shop = new cClass();
                     var win = this.getShopAdd();
+                   win.down('#shopeditform').getForm().reset()
                     win.down('#shopeditform').loadRecord(shop);
                     win.show();
                 }
