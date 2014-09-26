@@ -1,16 +1,16 @@
-Ext.define('XMLifeOperating.controller.DealTodayUnassignedDealList', {
+Ext.define('XMLifeOperating.controller.DealWaitAssignShopperList', {
     extend: 'Ext.app.Controller',
 
-    views: ['operationManage.dealTodayUnassignedDeal.DealTodayUnassignedDealList'],
+    views: ['operationManage.dealWaitAssignShopper.DealWaitAssignShopperList'],
 
-    stores: ['Deal', 'ShopArea', 'DealStatus', 'Customer', 'DealItems'],
+    stores: ['DealWaitAssignShopper', 'ShopArea', 'DealStatus', 'Customer', 'DealItems'],
 
-    models: ['Deal', 'ShopArea', 'Customer', 'DealItems'],
+    models: ['DealWaitAssignShopper', 'ShopArea', 'Customer', 'DealItems'],
 
     refs: [{
-        ref: 'dealTodayUnassignedDealList',
-        selector: 'dealtodayunassigneddeallist',
-        xtype: 'dealtodayunassigneddeallist'
+        ref: 'dealWaitAssignShopperList',
+        selector: 'dealwaitassignshopperlist',
+        xtype: 'dealwaitassignshopperlist'
     }, {
         ref: 'shopArea',
         selector: '#shopArea',
@@ -36,12 +36,11 @@ Ext.define('XMLifeOperating.controller.DealTodayUnassignedDealList', {
 
         var me = this;
         this.control({
-            'dealtodayunassigneddeallist #shopArea': {
+            'dealwaitassignshopperlist #shopArea': {
                 select: function(combo) {
-                    var sstore = this.getDealStore();
+                    var sstore = this.getDealWaitAssignShopperStore();
                     sstore.getProxy().extraParams = {
-                        shopArea: combo.getValue(),
-                        assignShopper: false
+                        shopArea: combo.getValue()
                     }
                     sstore.loadPage(1, {
                         params: {
@@ -50,19 +49,18 @@ Ext.define('XMLifeOperating.controller.DealTodayUnassignedDealList', {
                             page: 1
                         }
                     });
-                    this.areaId = combo.getValue();
+                    this.areaId = combo.getValassignShopperue();
                 }
             },
-            'dealtodayunassigneddeallist #dealSearch': {
-                click: me.onTodayUnassignedDealSearch
+            'dealwaitassignshopperlist #dealSearch': {
+                click: me.onWaitAssignShopperSearch
             },
-            'dealtodayunassigneddeallist #statusSearch': {
+            'dealwaitassignshopperlist #statusSearch': {
                 select: function(combo) {
-                    var sstore = this.getDealStore();
+                    var sstore = this.getDealWaitAssignShopperStore();
                     sstore.getProxy().extraParams = {
-                        shopArea: Ext.getCmp('dealTodayUnassignedDealList').down('#shopArea').getValue(),
-                        status: combo.getValue(),
-                        assignShopper: false
+                        shopArea: Ext.getCmp('dealWaitAssignShopperList').down('#shopArea').getValue(),
+                        status: combo.getValue()
                     }
                     sstore.loadPage(1, {
                         params: {
@@ -74,19 +72,19 @@ Ext.define('XMLifeOperating.controller.DealTodayUnassignedDealList', {
 
                 },
             },
-            'dealtodayunassigneddeallist #dealDetail': {
+            'dealwaitassignshopperlist #dealDetail': {
                 click: me.onDealDetail
             },
-            'dealtodayunassigneddeallist #customerDetail': {
+            'dealwaitassignshopperlist #customerDetail': {
                 click: me.onCustomerDetail
             },
-            'dealtodayunassigneddeallist #toproblemdeal': {
+            'dealwaitassignshopperlist #toproblemdeal': {
                 click: me.onToProblemDeal
             },
-            'dealtodayunassigneddeallist #oneKeyDistribute': {
+            'dealwaitassignshopperlist #oneKeyDistribute': {
                 click: me.onOneKeyDistribute
             },
-            'dealtodayunassigneddeallist #refresh': {
+            'dealwaitassignshopperlist #refresh': {
                 click: me.onRefresh
 
             }
@@ -96,10 +94,9 @@ Ext.define('XMLifeOperating.controller.DealTodayUnassignedDealList', {
         var me = this;
         if (!view.isDisabled()) {
             //发送刷新请求
-            var sstore = this.getDealStore();
+            var sstore = this.getDealWaitAssignShopperStore();
             sstore.getProxy().extraParams = {
-                shopArea: this.areaId,
-                assignShopper: false
+                shopArea: this.areaId
             }
             sstore.loadPage(1, {
                 params: {
@@ -129,18 +126,17 @@ Ext.define('XMLifeOperating.controller.DealTodayUnassignedDealList', {
             return
         }
     },
-    onTodayUnassignedDealSearch: function() {
+    onWaitAssignShopperSearch: function() {
 
         var me = this,
-            keyWords = me.getDealTodayUnassignedDealList().down('#keyword').getValue(),
-            store = this.getDealStore(),
-            view = this.getDealTodayUnassignedDealList();
-        var shopAreaId = Ext.getCmp('dealTodayUnassignedDealList').down('#shopArea').getValue();
+            keyWords = me.getDealWaitAssignShopperList().down('#keyword').getValue(),
+            store = this.getDealWaitAssignShopperStore(),
+            view = this.getDealWaitAssignShopperList();
+        var shopAreaId = Ext.getCmp('dealWaitAssignShopperList').down('#shopArea').getValue();
         if (keyWords == '') {
             if (shopAreaId) {
                 store.getProxy().extraParams = {
-                    shopArea: shopAreaId,
-                    assignShopper: false
+                    shopArea: shopAreaId
                 };
                 store.loadPage(1, {
                     params: {
@@ -156,8 +152,7 @@ Ext.define('XMLifeOperating.controller.DealTodayUnassignedDealList', {
             store.load({
                 params: {
                     shopArea: shopAreaId,
-                    phoneOrDealId: keyWords,
-                    assignShopper: false
+                    phoneOrDealId: keyWords
                 }
             });
         }
@@ -208,29 +203,15 @@ Ext.define('XMLifeOperating.controller.DealTodayUnassignedDealList', {
         var dealBackendId = dealitem.get('dealBackendId');
         var url = 'deal/transToProblem/' + dealBackendId;
         var me = this;
-        /*sendPutRequest(url, {}, '转为问题订单', '转为问题订单成功', '转为问题订单失败', function() {
-            var sstore = me.getDealStore();
-            sstore.getProxy().extraParams = {
-                shopArea: combo.getValue()
-            }
-            sstore.loadPage(1, {
-                params: {
-                    start: 0,
-                    limit: 25,
-                    page: 1
-                }
-            });
-        });*/
         Ext.MessageBox.confirm(
             '确认删除',
             Ext.String.format("确定要将<h5>'{0}'</h5>的订单转为问题订单吗？", '订单号为：' + dealitem.get('shortId') + ' 顾客为：' + dealitem.get('customerName')),
             function(result) {
                 if (result == 'yes') {
                     sendPutRequest(url, {}, '转为问题订单', '转为问题订单成功', '转为问题订单失败', function() {
-                        var sstore = me.getDealStore();
+                        var sstore = me.getDealWaitAssignShopperStore();
                         sstore.getProxy().extraParams = {
-                            shopArea: me.areaId,
-                            assignShopper: false
+                            shopArea: me.areaId
                         }
                         sstore.loadPage(1, {
                             params: {
@@ -251,10 +232,9 @@ Ext.define('XMLifeOperating.controller.DealTodayUnassignedDealList', {
             shopArea: null
         }
         var success = function() {
-            var sstore = me.getDealStore();
+            var sstore = me.getDealWaitAssignShopperStore();
             sstore.getProxy().extraParams = {
-                shopArea: areaId,
-                assignShopper: false
+                shopArea: areaId
             }
             sstore.loadPage(1, {
                 params: {

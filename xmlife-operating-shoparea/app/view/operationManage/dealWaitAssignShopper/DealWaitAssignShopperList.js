@@ -1,12 +1,10 @@
-Ext.define('XMLifeOperating.view.operationManage.dealTodayUnassignedDeal.DealTodayUnassignedDealList', {
+Ext.define('XMLifeOperating.view.operationManage.dealWaitAssignShopper.DealWaitAssignShopperList', {
     extend: 'Ext.grid.Panel',
     closable: false,
-
-    xtype: 'dealtodayunassigneddeallist',
+    xtype: 'dealwaitassignshopperlist',
     title: '今日未分配买手订单',
-
-    store: 'Deal',
-    id: 'dealTodayUnassignedDealList',
+    store: 'DealWaitAssignShopper',
+    id: 'dealWaitAssignShopperList',
     tbar: [{
             xtype: 'combobox',
             name: 'shopArea',

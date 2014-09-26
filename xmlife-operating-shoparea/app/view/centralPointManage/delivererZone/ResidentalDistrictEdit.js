@@ -72,7 +72,8 @@ Ext.define('XMLifeOperating.view.centralPointManage.delivererZone.ResidentalDist
                     height: 180,
                     store: Ext.create('XMLifeOperating.store.ResidentalDistrict'),
                     selModel: Ext.create('Ext.selection.CheckboxModel', {
-                        mode: "SIMPLE"
+                        mode: "SIMPLE",
+                        checkOnly:true
                     }),
                     columns: [{
                         xtype: 'rownumberer'
@@ -97,7 +98,8 @@ Ext.define('XMLifeOperating.view.centralPointManage.delivererZone.ResidentalDist
                     itemId: 'oldCommunityId',
                     height: 180,
                     selModel: Ext.create('Ext.selection.CheckboxModel', {
-                        mode: "SIMPLE"
+                        mode: "SIMPLE",
+                        checkOnly:true
                     }),
                     columns: [{
                         xtype: 'rownumberer',

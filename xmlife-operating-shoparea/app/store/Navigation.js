@@ -47,7 +47,7 @@ Ext.define('XMLifeOperating.store.Navigation', {
                 text: '问题订单管理',
                 leaf: true
             }, {
-                id:'dealtodayunassigneddeallist',
+                id:'dealwaitassignshopperlist',
                 text:'今日未分配买手订单',
                 leaf:true
             },

@@ -57,12 +57,12 @@ Ext.define('XMLifeOperating.controller.DealList', {
                     var beginTime = dealList.down('[name=beginTime]').rawValue;
                     var endTime = dealList.down('[name=endTime]').rawValue;
 
-                    Ext.MessageBox.confirm('提示', '确认导出昨日商品对货单？', function(btn) {
+                    Ext.MessageBox.confirm('提示', '确认导出商品对货单？', function(btn) {
                         if (btn == 'yes') {
                             var sessionId = localStorage.getItem('sessionId');
                             var username = localStorage.getItem('username');
                             var url = XMLifeOperating.generic.Global.URL.biz + 'deal/exportProductStatistic?' + 'shopArea=' + me.areaId + '&dayType=1' + '&sessionId=' + sessionId + '&username=' + username + '&beginTime=' + beginTime + '&endTime=' + endTime;
-                            window.open(url, '昨日商品对货单', '', '_blank');
+                            window.open(url, '商品对货单', '', '_blank');
                         } else {
                             return;
                         }
@@ -75,12 +75,30 @@ Ext.define('XMLifeOperating.controller.DealList', {
                     var dealList = me.getDealList();
                     var beginTime = dealList.down('[name=beginTime]').rawValue;
                     var endTime = dealList.down('[name=endTime]').rawValue;
-                    Ext.MessageBox.confirm('提示', '确认导出昨日支付对账单？', function(btn) {
+                    Ext.MessageBox.confirm('提示', '确认导出支付对账单？', function(btn) {
                         if (btn == 'yes') {
                             var sessionId = localStorage.getItem('sessionId');
                             var username = localStorage.getItem('username');
                             var url = XMLifeOperating.generic.Global.URL.biz + 'deal/exportDealCashflow?' + 'shopArea=' + me.areaId + '&dayType=1' + '&sessionId=' + sessionId + '&username=' + username + '&beginTime=' + beginTime + '&endTime=' + endTime;
-                            window.open(url, '昨日支付对账单', '', '_blank');
+                            window.open(url, '支付对账单', '', '_blank');
+                        } else {
+                            return;
+                        }
+                    });
+                }
+            },
+            'dealList #deallistInvoice': {
+                click: function() {
+                    var me = this;
+                    var dealList = me.getDealList();
+                    var beginTime = dealList.down('[name=beginTime]').rawValue;
+                    var endTime = dealList.down('[name=endTime]').rawValue;
+                    Ext.MessageBox.confirm('提示', '确认导出订单？', function(btn) {
+                        if (btn == 'yes') {
+                            var sessionId = localStorage.getItem('sessionId');
+                            var username = localStorage.getItem('username');
+                            var url = XMLifeOperating.generic.Global.URL.biz + 'deal/exportDeal?' + 'shopArea=' + me.areaId + '&dayType=1' + '&sessionId=' + sessionId + '&username=' + username + '&beginTime=' + beginTime + '&endTime=' + endTime;
+                            window.open(url, '订单', '', '_blank');
                         } else {
                             return;
                         }

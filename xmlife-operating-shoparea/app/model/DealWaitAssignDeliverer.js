@@ -4,9 +4,6 @@ Ext.define('XMLifeOperating.model.DealWaitAssignDeliverer', {
     fields: ['created', 'actualDealPrice','shortId','districtName','dtoAddress','contactsPhone','status','deliverTime','remainTime','dealBackendId','customerName','customerPhone','contactsName','contactsPhone','dtoAddress'],
     proxy: dataProxy
 });
- 
-
-
 // 日期：created
 // 订单号：shortId
 // 小区：districtName

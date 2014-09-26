@@ -9,11 +9,11 @@ Ext.define('XMLifeOperating.view.dealManage.DealList', {
     id: 'dealList',
 
     tbar: [{
-        xtype: 'combobox',
-        name: 'shopArea',
-        itemId: 'shopArea',
-        store: 'ShopArea',
-        emptyText: '请选择中心',
+            xtype: 'combobox',
+            name: 'shopArea',
+            itemId: 'shopArea',
+            store: 'ShopArea',
+            emptyText: '请选择中心',
             // margin:10,
             editable: false,
             queryMode: 'local',
@@ -33,7 +33,7 @@ Ext.define('XMLifeOperating.view.dealManage.DealList', {
             })(),
             maxValue: (function() {
                 var date = new Date();
-                date.setDate(date.getDate());
+                date.setDate(date.getDate() - 1);
                 return date;
             })(),
             value: (function() {
@@ -55,7 +55,7 @@ Ext.define('XMLifeOperating.view.dealManage.DealList', {
             })(),
             maxValue: (function() {
                 var date = new Date();
-                date.setDate(date.getDate());
+                date.setDate(date.getDate() - 1);
                 return date;
             })(),
             value: (function() {
@@ -72,6 +72,10 @@ Ext.define('XMLifeOperating.view.dealManage.DealList', {
             xtype: 'button',
             itemId: 'paymentInvoice',
             text: '导出支付对账单',
+        }, {
+            xtype: 'button',
+            itemId: 'deallistInvoice',
+            text: '导出订单',
         },
         /*{
             xtype: 'button',
@@ -109,15 +113,15 @@ Ext.define('XMLifeOperating.view.dealManage.DealList', {
             valueField: 'value',
         },
 
-        ],
-        bbar: [{
-            xtype: 'pagingtoolbar',
-            itemId: 'pagetool',
-            store: 'Deal',
-            displayInfo: true,
-            style: 'border:none'
-        }],
-        columns: [{
+    ],
+    bbar: [{
+        xtype: 'pagingtoolbar',
+        itemId: 'pagetool',
+        store: 'Deal',
+        displayInfo: true,
+        style: 'border:none'
+    }],
+    columns: [{
             text: '日期',
             dataIndex: 'created',
             width: 70,
@@ -138,15 +142,13 @@ Ext.define('XMLifeOperating.view.dealManage.DealList', {
             renderer: function(value, metadata, model, rowIndex, colIndex, store) {
                 return '<a>' + value + '</a>'
             }
-        },
-        {
+        }, {
             text: '小区/写字楼',
             dataIndex: 'districtName',
             width: 100,
             sortable: false,
             align: 'center',
-        }, 
-        {
+        }, {
             text: '订单状态',
             dataIndex: 'status',
             width: 80,
@@ -155,40 +157,40 @@ Ext.define('XMLifeOperating.view.dealManage.DealList', {
             renderer: function(value) {
                 switch (value) {
                     case 1:
-                    return '正在备货-' + value;
-                    break;
+                        return '正在备货-' + value;
+                        break;
                     case 31:
-                    return '分配买手失败-' + value;
-                    break;
+                        return '分配买手失败-' + value;
+                        break;
                     case 2:
-                    return '已出货-' + value;
-                    break;
+                        return '已出货-' + value;
+                        break;
                     case 32:
-                    return '分配快递员失败-' + value;
-                    break;
+                        return '分配快递员失败-' + value;
+                        break;
                     case 3:
-                    return '配送中-' + value;
-                    break;
+                        return '配送中-' + value;
+                        break;
                     case 4:
-                    return '完成配送-' + value;
-                    break;
+                        return '完成配送-' + value;
+                        break;
                     case 7:
-                    return '订单取消-' + value;
-                    break;
+                        return '订单取消-' + value;
+                        break;
                     case 6:
-                    return '全部退货-' + value;
-                    break;
+                        return '全部退货-' + value;
+                        break;
                     case 20:
-                    return '等待分配买手-' + value;
-                    break;
+                        return '等待分配买手-' + value;
+                        break;
                     case 21:
-                    return '货到中心-' + value;
-                    break;
+                        return '货到中心-' + value;
+                        break;
                     case 22:
-                    return '等待快递员取货-' + value;
-                    break;
+                        return '等待快递员取货-' + value;
+                        break;
                     default:
-                    return '未知-' + value;
+                        return '未知-' + value;
                 }
             }
         }, {
@@ -207,14 +209,14 @@ Ext.define('XMLifeOperating.view.dealManage.DealList', {
             width: 90,
             sortable: false,
             align: 'center',
-        }, 
+        },
         /*{
             text: '中心点',
             dataIndex: 'shopAreaName',
             width: 60,
             sortable: false,
             align: 'center',
-        },*/ 
+        },*/
         {
             text: '分配买手',
             dataIndex: 'shopperNames',
@@ -266,7 +268,7 @@ Ext.define('XMLifeOperating.view.dealManage.DealList', {
             align: 'center',
             renderer: function(value) {
                 var newTime = new Date(value);
-                newTime = (newTime.getMonth()+1)+'-'+newTime.getDate() +' '+ newTime.getHours() + ':' + newTime.getMinutes();
+                newTime = (newTime.getMonth() + 1) + '-' + newTime.getDate() + ' ' + newTime.getHours() + ':' + newTime.getMinutes();
                 return newTime;
             }
         }, {
@@ -275,30 +277,30 @@ Ext.define('XMLifeOperating.view.dealManage.DealList', {
             width: 70,
             sortable: false,
             align: 'center',
-            renderer: function(value,da,record) {
+            renderer: function(value, da, record) {
                 var status = record.get('status');
-                var str='';
-                switch(status){
+                var str = '';
+                switch (status) {
                     case 4:
-                    return '完成配送';
-                    break;
+                        return '完成配送';
+                        break;
                     case 6:
-                    return '全部退货';
-                    break;
+                        return '全部退货';
+                        break;
                     case 7:
-                    return '已取消';
-                    break;
+                        return '已取消';
+                        break;
                     default:
-                    var time = (value / (3600 * 1000) + '').split('.');
-                    var time1 = Math.abs(time[0]);
-                    var time2 = Math.floor(('0.' + time[1]) * 60);
-                    time = time1 + '时' + time2 + '分';
-                    if (value <= 0) {
-                        return '<span style="color:#ff0000">' + time + '</span>';
-                    }
-                    return '<span style="color:#000">' + time + '</span>';
-                    break;
-                } 
+                        var time = (value / (3600 * 1000) + '').split('.');
+                        var time1 = Math.abs(time[0]);
+                        var time2 = Math.floor(('0.' + time[1]) * 60);
+                        time = time1 + '时' + time2 + '分';
+                        if (value <= 0) {
+                            return '<span style="color:#ff0000">' + time + '</span>';
+                        }
+                        return '<span style="color:#000">' + time + '</span>';
+                        break;
+                }
             }
         }, {
             text: '完成购买时间',
@@ -346,13 +348,12 @@ Ext.define('XMLifeOperating.view.dealManage.DealList', {
             align: 'center',
             renderer: function(value, metadata, model, rowIndex, colIndex, store) {
                 var status = model.get('status');
-                if(status==7||status==4){
+                if (status == 7 || status == 4) {
                     return '转为问题订单';
                 }
                 return Ext.String.format('<a>转为问题订单</a>', value, value);
             }
-        },
-        {
+        }, {
             text: '',
             width: 75,
             itemId: 'cancalDealId',
@@ -361,21 +362,21 @@ Ext.define('XMLifeOperating.view.dealManage.DealList', {
             align: 'center',
             renderer: function(value, metadata, model, rowIndex, colIndex, store) {
                 var status = model.get('status');
-                if(status!=20&&status!=31){
+                if (status != 20 && status != 31) {
                     return '取消订单';
                 }
                 return Ext.String.format('<a href="javascript:void(0)">取消订单</a>', value, value);
             }
         },
-        ],
-        viewConfig: {
-            plugins: {
-                ptype: 'gridviewdragdrop',
-                dragText: 'Drag and drop to reorder'
-            }
-        },
-        listeners: {
-            onShowView: function(view, viewName) {
+    ],
+    viewConfig: {
+        plugins: {
+            ptype: 'gridviewdragdrop',
+            dragText: 'Drag and drop to reorder'
+        }
+    },
+    listeners: {
+        onShowView: function(view, viewName) {
             /*if(XMLifeOperating.generic.Global.operating_type != 'center') {
                 return;
             }*/

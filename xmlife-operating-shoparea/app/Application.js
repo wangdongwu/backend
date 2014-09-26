@@ -38,13 +38,13 @@ Ext.define('XMLifeOperating.Application', {
         'CustomerList',
         'DealCashOnDeliveryList',
         'DealList',
-        'DealTodayUnassignedDealList',
         'FeedbackList',
         'Deliverer',
         'RefundList',
         'ShopTopShops',
         'BatchUpdatePrice',
-        'DealWaitAssignDelivererList'
+        'DealWaitAssignDelivererList',
+        'DealWaitAssignShopperList'
     ],
 
     stores: [
