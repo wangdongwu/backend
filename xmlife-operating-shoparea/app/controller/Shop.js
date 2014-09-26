@@ -428,9 +428,9 @@ Ext.define('XMLifeOperating.controller.Shop', {
                             //商品
                             me.showProductList(tabIdArray[1]);
                             break;
-                            /*                        case 'tab5':
+                        case 'tab5':
                             me.showProductSoldOutOrOffLineList(this.shopId, tabIdArray[1]);
-                            break;*/
+                            break;
 
                     }
                 }
@@ -660,14 +660,6 @@ Ext.define('XMLifeOperating.controller.Shop', {
                         // me.showProductSoldOutList(this.shopId);
                         tab.setActiveTab('tab5_soldout');
                     }
-                    /*                    for (var i = 0; i < toolbar.items.length; i++) {
-                        if (toolbar.items.keys[i].split('_')[1] == shopId) {
-                            tab.setActiveTab(toolbar.items.keys[i])
-                            return;
-                        }
-                    };*/
-
-
                 }
             },
             'shopshelf #viewAllHiddenProduct': {
@@ -691,17 +683,64 @@ Ext.define('XMLifeOperating.controller.Shop', {
                             },
                             closable: true
                         });
-                        /*me.showProductSoldOutList(this.shopId);*/
                         tab.setActiveTab('tab5_offline');
                     }
-                    /*                    for (var i = 0; i < toolbar.items.length; i++) {
-                        if (toolbar.items.keys[i].split('_')[1] == shopId) {
-                            tab.setActiveTab(toolbar.items.keys[i])
-                            return;
-                        }
-                    };*/
+
                 }
 
+            },
+            'shopproductsoldout #putawayOrOut': {
+                click: function(component, column, rowIndex, colIndex, e) {
+                    var me = this;
+                    var model = component.getStore().getAt(rowIndex);
+                    var className = e.target.className;
+                    var url = 'product/online';
+                    var status = 0; //让商品上架（目前处于售罄状态）
+                    var shopId = this.shopId;
+                    var success = function(task, operation) {
+                        me.showProductSoldOutOrOffLineList(shopId, 'soldout');
+                    };
+                    var failure = function(task, operation) {
+                        var error = operation.getError(),
+                            msg = Ext.isObject(error) ? error.status + ' ' + error.statusText : error;
+                        Ext.MessageBox.show({
+                            title: '商品上架失败',
+                            msg: msg,
+                            icon: Ext.Msg.ERROR,
+                            buttons: Ext.Msg.OK
+                        });
+                    };
+                    sendPutRequest(url, {
+                        productId: model.get('id')
+                    }, '上架商品', '上架商品成功', '创建分类失败', success, failure);
+                }
+            },
+            'shopproductoffline #frozen': {
+                click: function(component, column, rowIndex, colIndex, e) {
+                    var me = this;
+                    var model = component.getStore().getAt(rowIndex);
+                    var className = e.target.className;
+                    var statusValue = Ext.query("." + className)[rowIndex].getAttribute("statusValue");
+                    var url = 'product/soldout';
+                    var status = 3;//商品下架（目前处于雪藏）
+                    var shopId = this.shopId;
+                    var success = function(task, operation) {
+                        me.showProductSoldOutOrOffLineList(shopId, 'offline');
+                    };
+                    var failure = function(task, operation) {
+                        var error = operation.getError(),
+                            msg = Ext.isObject(error) ? error.status + ' ' + error.statusText : error;
+                        Ext.MessageBox.show({
+                            title: '商品取消雪藏失败',
+                            msg: msg,
+                            icon: Ext.Msg.ERROR,
+                            buttons: Ext.Msg.OK
+                        });
+                    };
+                    sendPutRequest(url, {
+                        productId: model.get('id')
+                    }, '取消雪藏商品', '取消雪藏成功', '取消雪藏失败', success, failure);
+                }
             },
             /**
              **店铺买手事件
@@ -1337,7 +1376,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
                 shopId: shopId,
                 status: 3,
                 start: 0,
-                limit: 2,
+                limit: 25,
                 page: 1
             }
         });
@@ -1518,7 +1557,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
         };
         return false
     },
-    closeAllTabs: function() {//实际删除的是一级货架意外的货架
+    closeAllTabs: function() { //实际删除的是一级货架意外的货架
         var me = this;
         var shelfTab = me.getShopShelfTab();
         var items = shelfTab.items.items;

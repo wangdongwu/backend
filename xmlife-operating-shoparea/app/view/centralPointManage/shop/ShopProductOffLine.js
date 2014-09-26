@@ -2,9 +2,10 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopProductOffLine', {
     extend: 'Ext.grid.Panel',
     closable: true,
     xtype: 'shopproductoffline',
+
     header: false,
     store: 'ShopCategories',
-   bbar: [{
+    bbar: [{
         xtype: 'pagingtoolbar',
         itemId: 'pagetool',
         store: 'ShopCategories',
@@ -23,18 +24,32 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopProductOffLine', {
         align: 'center'
     }, {
         text: '所属货架',
-        dataIndex: 'id',
-        align: 'center'
+        dataIndex: 'categories',
+        align: 'center',
+        renderer: function(value, e) {
+            var categories = e.record.get('categories');
+            var str = '';
+            for (var i = 0, len = categories.length; i < len; i++) {
+                if (i != len - 1) {
+                    str += categories[len - i - 1].name + '|';
+
+                } else {
+                    str += categories[len - i - 1].name;
+                }
+
+            }
+            return str;
+        }
     }, {
         text: '操作',
         width: 90,
         dataIndex: 'status',
-        itemId: 'putawayOrOut',
+        itemId: 'frozen',
         menuDisabled: true,
         sortable: false,
         align: 'center',
         renderer: function(value) {
-            return '取消雪藏'
+            return '<input type="button" value="取消雪藏" class="frozen" />'
         }
     }],
     viewConfig: {

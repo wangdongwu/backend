@@ -33,8 +33,9 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopProductSoldOut', {
         menuDisabled: true,
         sortable: false,
         align: 'center',
+        style:'cursor:pointer',
         renderer: function() {
-            return '重新上架'
+            return '<input type="button" value="重新上架" class="putaway" />'
         }
     }],
     viewConfig: {
