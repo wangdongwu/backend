@@ -36,8 +36,8 @@ Ext.define('XMLifeOperating.view.operationManage.dealShopArea.DSADealDetail', {
                 },
 				{
 					xtype: 'displayfield',
-                    name: 'actualDealPrice',
-                    fieldLabel: '总计',
+                    name: 'taskPrice',
+                    fieldLabel: '订单金额',
                     allowBlank:false,
                     labelAlign:'left',               
                     renderer : function(value){

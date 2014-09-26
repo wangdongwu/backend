@@ -132,6 +132,7 @@ Ext.define('XMLifeOperating.controller.DealShopAreaList', {
         store.load({
             params: {
                 deal: dealDetail.get('dealBackendId'),
+                task: dealDetail.get('taskId')
             },
             callback: function(records) {
                 var model = Ext.ComponentQuery.query('#dealDetails')[0].getSelectionModel();
