@@ -195,7 +195,7 @@ Ext.define('XMLifeOperating.controller.WechatRefund', {
                                 self.rendenWechatRefundList(self.getWechatRefundList());
                         }
                     },function(response){
-
+                        Ext.Msg.alert('提示', '微信退款操作失败');
                     })
                 }
             }
