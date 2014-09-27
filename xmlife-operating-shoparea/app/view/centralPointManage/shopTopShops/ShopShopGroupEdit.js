@@ -33,7 +33,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.shopTopShops.ShopShopGroupEd
                     itemId:'ShopShopGroupAddId',
 
                     height:150,
-                    selModel:Ext.create('Ext.selection.CheckboxModel',{mode:"MULTI"}),
+                    selModel:Ext.create('Ext.selection.CheckboxModel',{mode:"SIMPLE"}),
                     columns:[
                         {
                             text:'店铺id',
