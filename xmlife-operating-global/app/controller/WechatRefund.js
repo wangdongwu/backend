@@ -183,13 +183,14 @@ Ext.define('XMLifeOperating.controller.WechatRefund', {
                     var username = TenpayLogin.down('#username').getValue();
                     var password = TenpayLogin.down('#password').getValue();
                     var idObj = self.getWechatRefundIdList({type:'agree'});
+
                     idObj && sendPutRequest('refund/'+idObj.refundType,{
                             ids : idObj.idList,
                             username : username,
                             password : password
 
                     },'','','',function(response){
-                        if(response.responseText == 1){
+                        if(response.responseText >= 1){
                                 TenpayLogin.hide();
                                 Ext.Msg.alert('提示', '成功同意'+self.sm.getCount()+'条退款记录');                                
                                 self.rendenWechatRefundList(self.getWechatRefundList());
