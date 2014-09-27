@@ -194,6 +194,8 @@ Ext.define('XMLifeOperating.controller.WechatRefund', {
                                 TenpayLogin.hide();
                                 Ext.Msg.alert('提示', '成功同意'+self.sm.getCount()+'条退款记录');                                
                                 self.rendenWechatRefundList(self.getWechatRefundList());
+                        }else{
+                               Ext.Msg.alert('提示', '微信退款失败'); 
                         }
                     },function(response){
                         Ext.Msg.alert('提示', '微信退款操作失败');
