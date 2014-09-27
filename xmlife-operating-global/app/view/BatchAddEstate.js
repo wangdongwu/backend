@@ -42,7 +42,7 @@ Ext.define('XMLifeOperating.view.BatchAddEstate', {
                 columnWidth: 0.6,
                 name : 'file',
                 fieldLabel : '小区Excel文件',
-                labelWidth: 80,
+                labelWidth: 120,
                 allowBlank: false,
                 buttonText : '选择Excel文件'
             },

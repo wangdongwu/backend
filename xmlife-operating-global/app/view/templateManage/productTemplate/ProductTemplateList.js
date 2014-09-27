@@ -39,7 +39,12 @@ Ext.define('XMLifeOperating.view.templateManage.productTemplate.ProductTemplateL
         '->',
         {
           xtype : 'button',
-          text : '批量添加',
+          text : '批量修改商品',
+          itemId : 'batchModifi'
+        },
+        {
+          xtype : 'button',
+          text : '添加商品属性',
           itemId : 'batchAdd'
         }
     ],

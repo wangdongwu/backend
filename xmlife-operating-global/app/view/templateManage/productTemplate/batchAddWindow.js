@@ -1,94 +1,48 @@
 Ext.define('XMLifeOperating.view.templateManage.productTemplate.batchAddWindow', {
     extend: 'Ext.window.Window',
-    xtype: 'batchAddWindow',
+    id : 'batchAddWindow',
+    xtype : 'batchAddWindow',
+    alias : 'widget.batchAddWindow',
+    title : '批量添加商品',
     closeAction: 'hide',
     modal: true,
-    width: 600,
+    width: 350,
     resizable :false,
-
-    items:[{
-      xtype : 'panel',
+    items : [{
+      xtype : 'form',
+      url : XMLifeOperating.generic.Global.URL.biz+'backdoor/update/product/addtemplates',
+      bodyPadding : '10 20',
       defaults : {
-        margin : '8 5',
-        border : '0'
+        width : 300
       },
       items : [
       {
-              xtype : 'form',
-              width : 600,
-              layout : 'column',
-              border : 0,
-              defaults : {
-                margin : '0 5'
-              },
-              url : XMLifeOperating.generic.Global.URL.biz+'backdoor/update/product/name',
-              items : [
-              {
-                xtype : 'filefield',
-                columnWidth: 0.8,
-                name : 'file',
-                allowBlank: false,
-                buttonText : '商品名称Excel文件'
-            },
-            {
-              xtype : 'button',
-              text : '上传',
-              itemId : 'uploadfile'
-            }]
-            },{
-              xtype : 'form',
-              width : 600,
-              layout : 'column',
-              border : 0,
-              defaults : {
-                margin : '0 5'
-              },
-              url : XMLifeOperating.generic.Global.URL.biz+'backdoor/update/product/desc',
-              items : [
-              {
-                xtype : 'filefield',
-                columnWidth: 0.8,
-                name : 'file',
-                allowBlank: false,
-                buttonText : '商品描述Excel文件'
-            },
-            {
-              xtype : 'button',
-              text : '上传',
-              itemId : 'uploadfile'
-            }]
-            },{
-              xtype : 'form',
-              width : 600,
-              layout : 'column',
-              border : 0,
-              defaults : {
-                margin : '0 5'
-              },
-              url : XMLifeOperating.generic.Global.URL.biz+'backdoor/update/product/img2',
-              items : [
-              {
-                xtype : 'filefield',
-                columnWidth: 0.8,
-                name : 'file',
-                allowBlank: false,
-                buttonText : '选择图片文件',
-                listeners : {
-                  render : function(gird){
-                    gird.fileInputEl.set({multiple:'multiple'});
-                  }
-                }
-            },
-            {
-              xtype : 'button',
-              text : '上传',
-              itemId : 'uploadfile'
-            }]
-            }]
+          xtype : 'filefield',
+          name : 'file',
+          allowBlank: false,
+          buttonText : '商品xcel文件'
+      },
+      {
+        xtype : 'filefield',
+        name : 'pictures',
+        allowBlank: false,
+        buttonText : '选择图片文件',
+        listeners : {
+          render : function(gird){
+            gird.fileInputEl.set({multiple:'multiple'});
+          }
+        }
+      }
+    ],
+    buttons : [{
+      text : '取消',
+      handler : function(){
+        this.up('window').close();
+      }
+    },{
+      text : '上传',
+      itemId : 'addProduct'
     }]
-
-
-
-
+    }]
+    
 });
-
