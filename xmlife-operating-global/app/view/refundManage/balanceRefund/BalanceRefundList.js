@@ -320,13 +320,14 @@ Ext.define('XMLifeOperating.view.refundManage.balanceRefund.BalanceRefundList', 
             renderer : function(value){
                 return value / 100;
             }
-        }, {
+        }
+        /*, {
             text: '三方反馈时间',
             dataIndex: 'onThirdFeedBack',
             width: 50,
             sortable: false,
             align: 'left'
-        }
+        }*/
     ],
     viewConfig: {
         plugins: {
