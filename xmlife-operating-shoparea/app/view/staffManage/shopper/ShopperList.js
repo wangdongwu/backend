@@ -1,86 +1,79 @@
 Ext.define('XMLifeOperating.view.staffManage.shopper.ShopperList', {
     extend: 'Ext.grid.Panel',
-    closable : false,
+    closable: false,
     xtype: 'shopperList',
 
     title: '买手管理',
     store: 'Shopper',
     id: 'shopperList',
-    tbar: [
-    {
-        xtype: 'button',
-        text: '添加买手',
-        itemId: 'add',
-        hidden:(XMLifeOperating.generic.Global.operating_type == 'center')
-    }, 
-    {
-        xtype: 'combobox',
-        name: 'area',
-        itemId: 'shopArea',
-        store: 'ShopArea',
-        emptyText: '请选择中心',
-        // margin: 10,
-        editable: false,
-        displayField: 'name',
-        valueField: 'id',
-        hidden:(XMLifeOperating.generic.Global.operating_type == 'center')
-    }, 
-    '->',
-    {
-        xtype: 'textfield',
-        name: 'searchbuyer',
-        fieldLabel: '手机号码',
+    tbar: [{
+            xtype: 'button',
+            text: '添加买手',
+            itemId: 'add',
+            hidden: (XMLifeOperating.generic.Global.operating_type == 'center')
+        }, {
+            xtype: 'combobox',
+            name: 'area',
+            itemId: 'shopArea',
+            store: 'ShopArea',
+            emptyText: '请选择中心',
+            // margin: 10,
+            editable: false,
+            displayField: 'name',
+            valueField: 'id',
+            hidden: (XMLifeOperating.generic.Global.operating_type == 'center')
+        },
+        '->', {
+            xtype: 'textfield',
+            name: 'searchbuyer',
+            fieldLabel: '手机号码',
 
-        itemId: 'searchBuyerKeyWords',
-        emptyText: '输入搜索号码...',
-        // margin: 10
-    }, 
-    {
-        xtype: 'button',
-        name: 'searchbutton',
-        itemId: 'searchButton',
-        text: '搜索'
-    },
-    {
-        xtype: 'button',
-        itemId: 'activeSearch',
-        text: '查看停单买手',
-        // margin: 10,
-        handler: function() {
+            itemId: 'searchBuyerKeyWords',
+            emptyText: '输入搜索号码...',
+            // margin: 10
+        }, {
+            xtype: 'button',
+            name: 'searchbutton',
+            itemId: 'searchButton',
+            text: '搜索'
+        }, {
+            xtype: 'button',
+            itemId: 'activeSearch',
+            text: '查看停单买手',
+            // margin: 10,
+            handler: function() {
 
-            if (this.text == '查看停单买手') {
-                this.setText('查看接单买手');
-            } else {
-                this.setText('查看停单买手');
+                if (this.text == '查看停单买手') {
+                    this.setText('查看接单买手');
+                } else {
+                    this.setText('查看停单买手');
+                }
+
             }
-
-        }
-    }, 
-    {
-        xtype: 'button',
-        itemId: 'activeBind',
-        text: '查看未绑定的买手',
-        // margin: 10,
-        handler: function() {
-            if (this.text == '查看未绑定的买手') {
-                this.setText('查看已绑定的买手');
-            } else {
-                this.setText('查看未绑定的买手');
+        }, {
+            xtype: 'button',
+            itemId: 'activeBind',
+            text: '查看未绑定的买手',
+            // margin: 10,
+            handler: function() {
+                if (this.text == '查看未绑定的买手') {
+                    this.setText('查看已绑定的买手');
+                } else {
+                    this.setText('查看未绑定的买手');
+                }
             }
         }
-    }
     ],
-        bbar: [{
+    bbar: [{
         xtype: 'pagingtoolbar',
         itemId: 'pagetool',
         store: 'Shopper',
-        displayInfo: true
+        displayInfo: true,
+        style: 'border:none'
     }],
-    columns: [
-        {
+    columns: [{
             xtype: 'rownumberer'
-        }, 
-        {
+        }, {
             text: 'uid',
             dataIndex: 'uid',
             width: 60,
@@ -106,7 +99,7 @@ Ext.define('XMLifeOperating.view.staffManage.shopper.ShopperList', {
             width: 90,
             sortable: false,
             align: 'center',
-        }, 
+        },
         /*{
             text: '密码',
             dataIndex: 'pwd',
@@ -130,7 +123,7 @@ Ext.define('XMLifeOperating.view.staffManage.shopper.ShopperList', {
                 }
                 return htmlStr;
             }
-        }, 
+        },
         // {
         //     text: '服务商圈',
         //     dataIndex: 'areaNames',
@@ -177,8 +170,7 @@ Ext.define('XMLifeOperating.view.staffManage.shopper.ShopperList', {
             width: 50,
             sortable: false,
             align: 'center'
-        }, 
-        {
+        }, {
             xtype: 'actioncolumn',
             width: 24,
             icon: 'resources/images/edit.png',
@@ -186,9 +178,8 @@ Ext.define('XMLifeOperating.view.staffManage.shopper.ShopperList', {
             menuDisabled: true,
             sortable: false,
             itemId: 'editShopperId',
-            hidden:(XMLifeOperating.generic.Global.operating_type == 'center')
-        }, 
-        {
+            hidden: (XMLifeOperating.generic.Global.operating_type == 'center')
+        }, {
             header: "考勤管理",
             width: 90,
             itemId: 'shopperWorkTimeId',
@@ -213,24 +204,23 @@ Ext.define('XMLifeOperating.view.staffManage.shopper.ShopperList', {
                 var seeBtn = '<a>查看</a>';
                 return seeBtn;
             }
-        },
-        {
-            header:"",
+        }, {
+            header: "",
             width: 90,
             dataIndex: 'isActive',
             itemId: 'closeOrOpenOrder',
             menuDisabled: true,
             sortable: false,
             align: 'center',
-            renderer : function(value) {
-                var str='';
-                if(value==true){
-                    str+='<input type="button" value="关闭" statusValue="open" /><br/>';
-                }else{
-                    str+='<input type="button" value="开启" statusValue="close"  /><br/>';
+            renderer: function(value) {
+                var str = '';
+                if (value == true) {
+                    str += '<input type="button" value="关闭" statusValue="open" /><br/>';
+                } else {
+                    str += '<input type="button" value="开启" statusValue="close"  /><br/>';
                 }
                 return str;
-            } 
+            }
         },
 
 
@@ -242,11 +232,11 @@ Ext.define('XMLifeOperating.view.staffManage.shopper.ShopperList', {
         }
     },
     listeners: {
-        onShowView: function(view, viewName) {          
-            if(XMLifeOperating.generic.Global.operating_type != 'center') {
+        onShowView: function(view, viewName) {
+            if (XMLifeOperating.generic.Global.operating_type != 'center') {
                 return;
             }
-            if(XMLifeOperating.generic.Global.current_operating == -1) {
+            if (XMLifeOperating.generic.Global.current_operating == -1) {
                 alert('请先在右上角选择中心');
                 return;
             }
@@ -256,6 +246,6 @@ Ext.define('XMLifeOperating.view.staffManage.shopper.ShopperList', {
         }
     },
     columnLines: true,
-    
-    
+
+
 });

@@ -79,7 +79,8 @@ Ext.define('XMLifeOperating.view.staffManage.deliverer.DelivererList', {
         xtype: 'pagingtoolbar',
         itemId: 'pagetool',
         store: 'Deliverer',
-        displayInfo: true
+        displayInfo: true,
+        style:'border:none'
     }],
     columns: [{
             xtype: 'rownumberer'

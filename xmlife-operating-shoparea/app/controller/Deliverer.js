@@ -88,11 +88,11 @@ Ext.define('XMLifeOperating.controller.Deliverer', {
                     if (activeSearch == '查看停单快递员') {
                         isActive = false;
                         isUnbind = '';
-                        activeSearch='查看接单快递员';
+                        activeSearch = '查看接单快递员';
                     } else if (activeSearch == '查看接单快递员') {
                         isActive = true;
                         isUnbind = true;
-                        activeSearch='查看停单快递员';
+                        activeSearch = '查看停单快递员';
                     }
                     var store = me.getDelivererStore();
                     /*                    store.load({
@@ -128,10 +128,10 @@ Ext.define('XMLifeOperating.controller.Deliverer', {
                     var activeBindText = Ext.getCmp('delivererList').down('#activeBind').getText();
                     if (activeBindText == '查看已绑定的快递员') {
                         isUnbind = '';
-                        activeBindText='查看未绑定的快递员';
+                        activeBindText = '查看未绑定的快递员';
                     } else if (activeBindText == '查看未绑定的快递员') {
                         isUnbind = true;
-                        activeBindText='查看已绑定的快递员';
+                        activeBindText = '查看已绑定的快递员';
                     }
                     var lstore = this.getDelivererStore();
                     /*                    lstore.load({
@@ -192,20 +192,30 @@ Ext.define('XMLifeOperating.controller.Deliverer', {
 
                     var delivererId = deliverer.get('uid');
                     var dealDelivererHistoryStroe = this.getDealDelivererHistoryStore();
-                    dealDelivererHistoryStroe.getProxy().extraParams = {
-                        deliverer: delivererId,
-                        dayType: 0
-                    }
-                    dealDelivererHistoryStroe.loadPage(1, {
-                        params: {
-                            start: 0,
-                            limit: 25,
-                            page: 1
-                        }
-                    });
-
-                    content.add(tab);
+                    var radios = tab.down('#historyorderradios');
                     this.delivererId = delivererId;
+                    if (radios.getValue().dayType == 0) {
+                        radios.setValue({
+                            dayType: 0
+                        });
+                        dealDelivererHistoryStroe.getProxy().extraParams = {
+                            deliverer: delivererId,
+                            dayType: 0
+                        }
+                        dealDelivererHistoryStroe.loadPage(1, {
+                            params: {
+                                start: 0,
+                                limit: 25,
+                                page: 1
+                            }
+                        });
+                    } else {
+                        radios.setValue({
+                            dayType: 0
+                        });
+                    }
+                    content.add(tab);
+
                 }
             },
             'dealDelivererHistoryList radio[name="dayType"]': {
@@ -289,22 +299,30 @@ Ext.define('XMLifeOperating.controller.Deliverer', {
 
                     var delivererId = deliverer.get('uid');
                     var delivererWorkTimeStore = this.getDelivererWorkTimeStore();
-
-                    
-                    delivererWorkTimeStore.getProxy().extraParams = {
-                        deliverer: delivererId,
-                        dayType: 3
-                    }
-                    delivererWorkTimeStore.loadPage(1, {
-                        params: {
-                            start: 0,
-                            limit: 25,
-                            page: 1
-                        }
-                    });
-
-                    content.add(tab);
+                    var radios = tab.down('#delivererworktimeradios');
                     this.delivererId = delivererId;
+                    if (radios.getValue().dayType == 3) {
+                        radios.setValue({
+                            dayType: 3
+                        });
+                        delivererWorkTimeStore.getProxy().extraParams = {
+                            deliverer: delivererId,
+                            dayType: 3
+                        }
+                        delivererWorkTimeStore.loadPage(1, {
+                            params: {
+                                start: 0,
+                                limit: 25,
+                                page: 1
+                            }
+                        });
+                    } else {
+                        radios.setValue({
+                            dayType: 3
+                        });
+                    }
+                    content.add(tab);
+
                 }
             },
             'delivererWorkTimeList radio[name="dayType"]': {
