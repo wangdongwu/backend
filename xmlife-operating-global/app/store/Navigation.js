@@ -81,11 +81,30 @@ Ext.define('XMLifeOperating.store.Navigation', {
             text: '订单管理',
             leaf: true
         }, 
-        {
+        /*{
             id: 'refundList',
             text: '退款管理',
             leaf: true
-        },
+        },*/
+        {
+            id: 'refundManage',
+            text: '退款管理',
+            leaf: false,
+            expanded: true,
+            children: [{
+                id: 'wechatRefundList',
+                text: '微信退款管理',
+                leaf: true
+            }, {
+                id: 'alipayRefundList',
+                text: '支付宝退款管理',
+                leaf: true
+            },{
+                id: 'balanceRefundList',
+                text: '余额退款管理',
+                leaf: true
+            }]
+        }, 
         {
             /*id: 'authorityManage',*/
             text: '权限管理',

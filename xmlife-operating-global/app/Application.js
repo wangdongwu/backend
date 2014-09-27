@@ -1,5 +1,3 @@
-
-
 Ext.define('XMLifeOperating.Application', {
     name: 'XMLifeOperating',
 
@@ -31,13 +29,16 @@ Ext.define('XMLifeOperating.Application', {
         'GDeliverer',
         'ProductTemplate',
         'ShopBannerTemplate',     
-        'Refund',    
+        //'Refund',    
         'CustomerList',
         'GDealList',
         'GFeedbackList',
         'Shoparea',
         'login',
-        'BatchAddEstate'
+        'BatchAddEstate',
+        'WechatRefund',
+        'BalanceRefund',
+        'AlipayRefund'
         ],
 
     stores: [
@@ -56,7 +57,7 @@ Ext.define('XMLifeOperating.Application', {
         'Customer',
         'DealItems',
         'Feedback',
-        'FeedbackStatus'
+        'FeedbackStatus',
         ],
 
     launch: function() {
