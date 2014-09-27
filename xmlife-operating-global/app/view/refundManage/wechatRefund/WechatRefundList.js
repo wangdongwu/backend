@@ -134,15 +134,15 @@ Ext.define('XMLifeOperating.view.refundManage.wechatRefund.WechatRefundList', {
                     border:'1px solid #99bce8'
                 }
             },
-            /*{
+            {
                 xtype : 'button',
-                name :'',
+                name :'agreeRefund',
                 text : '重新发起退款',
                 align : 'right',
                 style:{
                     border:'1px solid #99bce8'
                 }
-            }*/]
+            }]
     },
     {
         xtype : 'toolbar',
