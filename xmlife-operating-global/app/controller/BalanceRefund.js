@@ -51,7 +51,7 @@ Ext.define('XMLifeOperating.controller.BalanceRefund', {
                         beginTime = RefundList.down('[name=beginTime]'),
                         endTime = RefundList.down('[name=endTime]');
                         beginTime.setValue(new Date(+new Date()-86400000));
-                        endTime.setValue(new Date());
+                        endTime.setValue(new Date(+new Date()-86400000));
                 }
             },
             'balanceRefundList button[name=oldSevenDay]':{
@@ -116,6 +116,7 @@ Ext.define('XMLifeOperating.controller.BalanceRefund', {
             },
             'balanceRefundList button[name=agreeRefund]' : {
                 click : function(){
+
                     var idObj = self.getBalanceRefundIdList({type:'agree'});
                     if(idObj && idObj.refundType == 'tenpay'){
                         self.getTenpayLogin().show();

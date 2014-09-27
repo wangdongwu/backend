@@ -51,7 +51,7 @@ Ext.define('XMLifeOperating.controller.AlipayRefund', {
                         beginTime = RefundList.down('[name=beginTime]'),
                         endTime = RefundList.down('[name=endTime]');
                         beginTime.setValue(new Date(+new Date()-86400000));
-                        endTime.setValue(new Date());
+                        endTime.setValue(new Date(+new Date()-86400000));
                 }
             },
             'alipayRefundList button[name=oldSevenDay]':{
