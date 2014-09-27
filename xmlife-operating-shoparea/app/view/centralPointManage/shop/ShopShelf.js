@@ -4,31 +4,6 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopShelf', {
     xtype: 'shopshelf',
     store: 'CategoryRoots',
     id: 'ShelvesList',
-    // tbar: [{
-    //     xtype: 'toolbar',
-    //     style: { 
-    //         border: 'none'
-    //     },
-    //     items: [{
-    //         text: '添加货架',
-    //         itemId: 'openCreateShelvesWin'
-    //     }, {
-    //         xtype: 'button',
-    //         text: '保存排序',
-    //         itemId: 'saveShelvesOrder'
-    //     }, '->', {
-    //         xtype: 'button',
-    //         text: '返回',
-    //         itemId: 'returnShopStore'
-    //     }]
-    // }],
-    // bbar: [{
-    //     xtype: 'pagingtoolbar',
-    //     itemId: 'pagetool',
-    //     store: 'CategoryRoots',
-    //     displayInfo: true,
-    //     style: 'border:none'
-    // }],
     columns: [{
         xtype: 'rownumberer',
         align: 'center',
@@ -109,6 +84,16 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopShelf', {
             xtype: 'button',
             text: '查看所有雪藏商品',
             itemId: 'viewAllHiddenProduct'
+        }, {
+            xtype: 'textfield',
+            emptyText: '输入商品名称',
+            name: 'keyword',
+            itemId: 'keyword'
+           
+        }, {
+            xtype: 'button',
+            itemId: 'productSearch',
+            text: '搜索',
         }]
     }, {
         xtype: 'toolbar',

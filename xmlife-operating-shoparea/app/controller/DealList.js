@@ -141,11 +141,6 @@ Ext.define('XMLifeOperating.controller.DealList', {
             'dealList #cancalDealId': {
                 click: me.onCancalDeal
             }
-            /*'dealList #checkUnallocatedOrder':{
-                click:{
-                    
-                }
-            }*/
         });
     },
 
