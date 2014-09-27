@@ -106,7 +106,6 @@ Ext.define('XMLifeOperating.controller.AlipayRefund', {
                                 w.document.write(response.responseText);
                                 var confirmMsg = Ext.Msg.confirm('提示', '你已经完成退款了吗',function(value){
                                     if(value == 'yes'){
-                                        alert(1111);
                                         self.getAlipayRefundStore().reload()
                                     }
                                 });  

@@ -119,7 +119,7 @@ Ext.define('XMLifeOperating.controller.WechatRefund', {
                         },'','','',function(response){
                             if(response.responseText == 1){
                                 Ext.Msg.alert('提示', '成功同意'+self.sm.getCount()+'条退款记录');                                
-                                self.rendenRefundList(self.getRefundList());
+                                self.rendenWechatRefundList(self.getWechatRefundList());
                             }
                             if(idObj.refundType == 'alipay'){
                                 var w = window.open();
@@ -127,7 +127,7 @@ Ext.define('XMLifeOperating.controller.WechatRefund', {
                                 w.document.write(response.responseText);
                                 var confirmMsg = Ext.Msg.confirm('提示', '你已经完成退款了吗',function(value){
                                     if(value = 'yes'){
-                                        self.getRefundStoreStore().reload()
+                                        self.getAlipayRefundStore().reload()
                                     }
                                 });  
                             }
