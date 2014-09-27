@@ -82,7 +82,7 @@ Ext.define('XMLifeOperating.view.refundManage.wechatRefund.WechatRefundList', {
                     fields: ['value','type'],
                     data : [
                         {"value": '0', "type": '待处理'},
-                        {"value": '1-7-4', "type": '已处理'},
+                        {"value": '1-7-4-8', "type": '已处理'},
                         {"value": '3', "type": '退款失败'},
                         {"value": '5', "type": '人工处理'}
                     ],
@@ -286,7 +286,8 @@ Ext.define('XMLifeOperating.view.refundManage.wechatRefund.WechatRefundList', {
                     '3' : '退款失败',
                     '5' : '人工处理',
                     '4' : '拒绝退款',
-                    '7' : '退款成功2'
+                    '7' : '退款成功2',
+                    '8' : '人工已处理'
                 }
                 if(v==5){
                     if(returnCode==7){

@@ -93,7 +93,7 @@ Ext.define('XMLifeOperating.view.refundManage.alipayRefund.AlipayRefundList', {
                     data : [
                         {"value": '0', "type": '待处理'},
                         {"value": '2', "type": '处理中'},
-                        {"value": '1-4', "type": '已处理'},
+                        {"value": '1-4-8', "type": '已处理'},
                         {"value": '5', "type": '人工处理'}
                     ],
                 })
@@ -295,7 +295,8 @@ Ext.define('XMLifeOperating.view.refundManage.alipayRefund.AlipayRefundList', {
                     '1' : '已处理',
                     '2' : '处理中',
                     '5' : '人工处理',
-                    '4' : '拒绝退款'
+                    '4' : '拒绝退款',
+                    '8' : '人工已处理'
                 }
                 return data[v];
             }

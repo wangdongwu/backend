@@ -126,7 +126,7 @@ Ext.define('XMLifeOperating.controller.WechatRefund', {
                                 w.document.open();
                                 w.document.write(response.responseText);
                                 var confirmMsg = Ext.Msg.confirm('提示', '你已经完成退款了吗',function(value){
-                                    if(value = 'yes'){
+                                    if(value =='yes'){
                                         self.getAlipayRefundStore().reload()
                                     }
                                 });  
@@ -228,7 +228,7 @@ Ext.define('XMLifeOperating.controller.WechatRefund', {
                     grid.down('#handledId').setVisible(false);
 	        		break;
                 //已处理
-	        	case '1-7-4':
+	        	case '1-7-4-8':
                     grid.down('#manualHandingId').setVisible(false);
                     grid.down('#refundFailureId').setVisible(false);
                     grid.down('#pengdingId').setVisible(false);

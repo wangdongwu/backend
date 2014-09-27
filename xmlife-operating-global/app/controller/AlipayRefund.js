@@ -182,7 +182,7 @@ Ext.define('XMLifeOperating.controller.AlipayRefund', {
                     grid.down('#handledId').setVisible(false);
 	        		break;
                 //已处理
-	        	case '1-4':
+	        	case '1-4-8':
                     grid.down('#manualHandingId').setVisible(false);
                     grid.down('#refundFailureId').setVisible(false);
                     grid.down('#pengdingId').setVisible(false);
