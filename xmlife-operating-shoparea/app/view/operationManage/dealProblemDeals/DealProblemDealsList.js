@@ -159,6 +159,18 @@ Ext.define('XMLifeOperating.view.operationManage.dealProblemDeals.DealProblemDea
             sortable: true,
             align: 'center',
             renderer: function(value, metadata, model, rowIndex, colIndex, store) {
+                var shopperNames = model.get('shopperNames');
+                var mark=0;
+                for(var j=0;j<shopperNames.length;j++){
+                    if(shopperNames[j]!=null){
+                        mark=1;
+                        break;
+                    }
+                }
+                if(mark==0){
+                    return '重新分配';
+                }
+
                 return Ext.String.format('<a>重新分配</a>', value, value);
             }
         },
@@ -203,7 +215,18 @@ Ext.define('XMLifeOperating.view.operationManage.dealProblemDeals.DealProblemDea
             width: 60,
             sortable: true,
             align: 'center',
+            itemId:'autoAllocation',
             renderer: function(value) {
+                var mark=0;
+                for(var j=0;j<value.length;j++){
+                    if(value[j]!=null){
+                        mark=1;
+                        break;
+                    }
+                }
+                if(mark==0){
+                    return '<a href="javascript:void(0)">自动分配</a>';
+                }
                 var str = '';
                 for (var i = 0; i < value.length; i++) {
                     str += value[i] + '<br />';

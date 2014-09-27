@@ -127,8 +127,62 @@ Ext.define('XMLifeOperating.controller.DealProblemDealsList', {
             },
             'dealProblemDealsList #dealSearch': {
                 click: me.onProblemDealsSearch
+            },
+            'dealProblemDealsList #autoAllocation':{
+                click: me.onAutoAllocation
             }
         });
+    },
+    onAutoAllocation:function(view, rowIndex, colIndex, column, e) {
+        var record = view.getRecord(view.findTargetByEvent(e));
+        var shopperNamesLen = record.get('shopperNames');
+        var me = this;
+        var mark=0;
+        for(var j=0;j<shopperNamesLen.length;j++){
+            if(shopperNamesLen[j]!=null){
+                mark=1;
+                break;
+            }
+        }
+        if(mark==1){
+            return;
+        }
+       
+        Ext.MessageBox.confirm(
+            '确认删除',
+            Ext.String.format("确定要对该'{0}'订单自动分配买手吗？", record.get('shortId')),
+            function(result) {
+                if (result == 'yes') {
+                    sendPutRequest('deal/assignShopper', {
+                        dealId:record.get('dealBackendId')
+                    }, '分单', '分单成功', '分单失败', function(response) {
+
+                        if (response.responseText == -2) {
+                            Ext.MessageBox.show({
+                                title: '订单自动分配',
+                                msg: '有买手未上班，无法自动分配',
+                                icon: Ext.Msg.ERROR,
+                                buttons: Ext.Msg.OK
+                            });
+                        } else if(response.responseText==1){
+                            Ext.MessageBox.show({
+                                title: '',
+                                msg: '该订单自动分配成功',
+                                icon: Ext.Msg.INFO,
+                                buttons: Ext.Msg.OK
+                            });
+
+                            var sstore = me.getDealProblemDealsStore();
+                            sstore.load({
+                                params: {
+                                    areaId: me.areaId
+                                }
+                            });
+                        }
+                    });
+                }
+            }
+        );
     },
     onRefresh: function(view, e, eOpts) {
         var me = this;
@@ -166,6 +220,17 @@ Ext.define('XMLifeOperating.controller.DealProblemDealsList', {
     onReapportion: function(view, rowIndex, colIndex, column, e) {
         var reapportion = view.getRecord(view.findTargetByEvent(e));
         var win = this.getReapportion();
+        var shopperNamesLen = reapportion.get('shopperNames');
+        var mark=0;
+        for(var j=0;j<shopperNamesLen.length;j++){
+            if(shopperNamesLen[j]!=null){
+                mark=1;
+                break;
+            }
+        }
+        if(mark==0){
+            return;
+        }
         win.down('form').loadRecord(reapportion);
         win.show();
         var store = this.getDealTasksStore();
