@@ -165,7 +165,7 @@ Ext.define('XMLifeOperating.view.refundManage.alipayRefund.AlipayRefundList', {
             {
                 xtype : 'button',
                 name :'disAgreeRefund',
-                text : '驳回退款',
+                text : '拒绝退款',
                 style:{
                     border:'1px solid #99bce8'
                 }
@@ -294,7 +294,7 @@ Ext.define('XMLifeOperating.view.refundManage.alipayRefund.AlipayRefundList', {
                     '0' : '待处理',
                     '1' : '已处理',
                     '2' : '处理中',
-                    '5' : '人工处理',
+                    '5' : '退款失败',
                     '4' : '拒绝退款',
                     '8' : '人工已处理'
                 }
