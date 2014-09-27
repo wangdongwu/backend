@@ -136,19 +136,25 @@ Ext.define('XMLifeOperating.controller.AlipayRefund', {
             },
             'alipayRefundList button[name=markRead]' : {
                 click : function(){
-                    
                     var idObj = self.getAlipayRefundIdList({type:'markRead'});
-                        idObj && sendPutRequest('refund/mark',{
-                            ids : idObj.idList
-                        },'','','',function(response){
-                            if(response.responseText == 1){
-                                Ext.Msg.alert('提示', '成功标记'+self.sm.getCount()+'条记录');
-                            }
-                            self.rendenAlipayRefundList(self.getAlipayRefundList());
-                        },function(){
- 
-                        })
+                    Ext.MessageBox.confirm(
+                        '标记人工处理',
+                        Ext.String.format("确定要将'{0}'订单标记为人工处理吗？", idObj.idList),
+                        function(result) {
+                            idObj && sendPutRequest('refund/mark',{
+                                ids : idObj.idList
+                            },'','','',function(response){
+                                if(response.responseText == 1){
+                                    Ext.Msg.alert('提示', '成功标记'+self.sm.getCount()+'条记录');
+                                }
+                                self.rendenAlipayRefundList(self.getAlipayRefundList());
+                            },function(){
+     
+                            })
+                        }
+                    );
                 }
+                
             },
         });
     },

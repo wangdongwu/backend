@@ -140,7 +140,7 @@ Ext.define('XMLifeOperating.view.operationManage.refund.refundList', {
 				name :'disAgreeRefund',
 				text : '驳回退款'
 			},
-		{
+			{
 				xtype : 'button',
 				name :'agreeRefund',
 				text : '同意退款',

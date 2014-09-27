@@ -141,18 +141,25 @@ Ext.define('XMLifeOperating.controller.WechatRefund', {
             },
             'wechatRefundList button[name=markRead]' : {
                 click : function(){
-                    alert(1111);
-                    /*var idObj = self.getWechatRefundIdList({type:'markRead'});
-                        idObj && sendPutRequest('refund/refuse',{
-                            ids : idObj.idList
-                        },'','','',function(response){
-                            if(response.responseText == 1){
-                                Ext.Msg.alert('提示', '成功拒绝'+self.sm.getCount()+'条退款记录');
+                    var idObj = self.getWechatRefundIdList({type:'markRead'});
+                    Ext.MessageBox.confirm(
+                        '标记人工处理',
+                        Ext.String.format("确定要将'{0}'订单标记为人工处理吗？", idObj.idList),
+                        function(result) {
+                            if (result == 'yes') {
+                               idObj && sendPutRequest('refund/mark',{
+                                    ids : idObj.idList
+                                },'','','',function(response){
+                                    if(response.responseText == 1){
+                                        Ext.Msg.alert('提示', '成功拒绝'+self.sm.getCount()+'条退款记录');
+                                    }
+                                    self.rendenWechatRefundList(self.getWechatRefundList());
+                                },function(){
+         
+                                })
                             }
-                            self.rendenWechatRefundList(self.getWechatRefundList());
-                        },function(){
- 
-                        })*/
+                        }
+                    );
                 }
             },
             'wechatRefundList button[name=disAgreeRefund]' : {

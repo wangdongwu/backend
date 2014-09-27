@@ -279,10 +279,7 @@ Ext.define('XMLifeOperating.view.refundManage.wechatRefund.WechatRefundList', {
             sortable: false,
             align: 'left',
             renderer : function(v, da, record) {
-                //console.log(record.get('returnCode'));
-
                 var returnCode = record.get('returnCode');
-                console.log(returnCode);
                 var data = {
                     '0' : '待处理',
                     '1' : '退款成功1',
