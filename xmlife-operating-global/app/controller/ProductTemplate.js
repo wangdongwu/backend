@@ -3,6 +3,7 @@ Ext.define('XMLifeOperating.controller.ProductTemplate', {
 
     views: ['templateManage.productTemplate.ProductTemplateList',
             'templateManage.productTemplate.ProductTemplateEdit',
+            'templateManage.productTemplate.batchModifiWindow',
             'templateManage.productTemplate.batchAddWindow'
             ],
 
@@ -24,6 +25,12 @@ Ext.define('XMLifeOperating.controller.ProductTemplate', {
              selector: 'productTemplateEdit',
              xtype: 'productTemplateEdit',
              autoCreate: true
+        },
+        {
+          ref : 'batchModifiWindow',
+          selector : 'batchModifiWindow',
+          xtype : 'batchModifiWindow',
+          autoCreate : true
         },
         {
           ref : 'batchAddWindow',
@@ -52,11 +59,17 @@ Ext.define('XMLifeOperating.controller.ProductTemplate', {
                 store.loadPage(1);
               }
             },
+            'productTemplateList #batchModifi' : {
+              click : function(){
+                this.getBatchModifiWindow().show();
+              }
+            },
             'productTemplateList #batchAdd' : {
               click : function(){
                 this.getBatchAddWindow().show();
               }
-            },
+            }
+            ,
             'productTemplateList #add':{
                 click: function() {
                     var cClass = this.getProductTemplateModel();
@@ -73,7 +86,7 @@ Ext.define('XMLifeOperating.controller.ProductTemplate', {
                     // var form = this.getSearchForm();
                     var store = me.getProductTemplateStore();
                     store.getProxy().extraParams={
-                                keyword : me.getKeyword().getValue()
+                            keyword : me.getKeyword().getValue()
                         }
                     store.loadPage(1);
 
@@ -94,28 +107,37 @@ Ext.define('XMLifeOperating.controller.ProductTemplate', {
                   uploadImage(form, hash);
                 }
             },
-            'batchAddWindow button' : {
+            'batchAddWindow #addProduct' : {
               click : function(gird){
-
-                var form = gird.up('form').getForm();
-                if(form.isValid()){
-                  form.submit({
-                    waitMsg : '正在上传您的文件......',
-                    success : function(form, action){
-                      var data = action.response.responseText;
-                      console.log(data);
-                    },
-                    failure : function(form, action){
-                      var data = action.response.responseText;
-                      console.log(data);
-                    }
-                  });
-                }
-              
+                me.subForm(gird);
+              }
+            },
+            'batchModifiWindow button' : {
+              click : function(gird){
+                me.subForm(gird);
               }
             }
         });
 
+    },
+    subForm : function(gird){
+      var form = gird.up('form').getForm();
+      var sessionId = localStorage.getItem('sessionId') || '';
+      if(form.isValid()){
+        form.url = form.url+'/?sessionId='+sessionId;
+        form.submit({
+          params: {'sessionId':sessionId},
+          waitMsg : '正在上传您的文件......',
+          success : function(form, action){
+            var data = action.response.responseText;
+            console.log(data);
+          },
+          failure : function(form, action){
+            var data = action.response.responseText;
+            console.log(data);
+          }
+        });
+      }
     },
     onEdit: function(view, rowIndex, colIndex, column, e) {
         console.log("start edit");

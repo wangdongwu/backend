@@ -36,6 +36,7 @@ Ext.define('XMLifeOperating.Application', {
         'Shoparea',
         'login',
         'BatchAddEstate',
+        'Authority',
         'WechatRefund',
         'BalanceRefund',
         'AlipayRefund'
@@ -146,8 +147,11 @@ var uploadBlobImage = function(blobImage){
 
 var uploadImage = function(form, textfield) {
     console.log('uploadimge');
+    var sessionId = localStorage.getItem('sessionId') || '';
+        
     form.submit({
-        url : XMLifeOperating.generic.Global.URL.upload,
+        url : XMLifeOperating.generic.Global.URL.upload+'/?sessionId='+sessionId,
+        params: {'sessionId':sessionId},
         success: function(form, action) {
             console.log('success');
             var resid = action.response.responseText;

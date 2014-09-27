@@ -19,10 +19,12 @@ Ext.define('XMLifeOperating.controller.BatchAddEstate', {
       self.control({
         'BatchAddEstate #uploadfile':{
           click : function(gird){
+            var sessionId = localStorage.getItem('sessionId') || '';
             var form = gird.up('form').getForm();
             if(form.isValid()){
               form.submit({
-                url : XMLifeOperating.generic.Global.URL.biz+'residentalDistrict/genDistrict',
+                url : XMLifeOperating.generic.Global.URL.biz+'residentalDistrict/genDistrict/?sessionId='+sessionId,
+                params: {'sessionId':sessionId}, 
                 waitMsg : '正在上传您的文件......',
                 success : function(form, action){
                   var data = action.response.responseText;

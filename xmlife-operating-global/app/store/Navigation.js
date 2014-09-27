@@ -106,7 +106,7 @@ Ext.define('XMLifeOperating.store.Navigation', {
             }]
         }, 
         {
-            /*id: 'authorityManage',*/
+            id: 'AuthorityTabPanel',
             text: '权限管理',
             leaf: true
         },
