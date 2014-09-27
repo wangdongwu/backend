@@ -5,13 +5,13 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopProduct', {
     header: false,
     store: 'Product',
     itemId: 'ShelvesGoodsList',
-    bbar: [{
+    /*bbar: [{
         xtype: 'pagingtoolbar',
         itemId: 'pagetool',
         store: 'Product',
         displayInfo: true,
         style: 'border:none'
-    }],
+    }],*/
     columns: [{
         xtype: 'rownumberer'
     },{
