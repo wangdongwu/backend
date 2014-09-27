@@ -111,11 +111,11 @@ Ext.define('XMLifeOperating.controller.Shopper', {
                     if (activeSearch == '查看停单买手') {
                         isActive = false;
                         isUnbind = '';
-                        activeSearch='查看接单买手';
+                        activeSearch = '查看接单买手';
                     } else if (activeSearch == '查看接单买手') {
                         isActive = true;
                         isUnbind = true;
-                        activeSearch='查看停单买手';
+                        activeSearch = '查看停单买手';
                     }
                     var store = me.getShopperStore();
                     /*                    store.load({
@@ -153,10 +153,10 @@ Ext.define('XMLifeOperating.controller.Shopper', {
 
                     if (activeBindText == '查看已绑定的买手') {
                         isUnbind = '';
-                        activeBindText='查看未绑定的买手';
+                        activeBindText = '查看未绑定的买手';
                     } else if (activeBindText == '查看未绑定的买手') {
                         isUnbind = true;
-                        activeBindText='查看已绑定的买手';
+                        activeBindText = '查看已绑定的买手';
                     }
                     var lstore = this.getShopperStore();
                     /*                    lstore.load({
@@ -212,20 +212,33 @@ Ext.define('XMLifeOperating.controller.Shopper', {
                     var Shopper = view.getRecord(view.findTargetByEvent(e));
                     var shopperId = Shopper.get('uid');
                     var dealShopperHistoryStroe = this.getDealShopperHistoryStore();
+                    var dealShopperHistory = this.getDealShopperHistoryList()
 
-                    dealShopperHistoryStroe.getProxy().extraParams = {
-                        shopper: shopperId,
-                        dayType: 0
-                    };
-                    dealShopperHistoryStroe.loadPage(1, {
-                        params: {
-                            start: 0,
-                            limit: 25,
-                            page: 1
-                        }
-                    });
-                    content.add(tab);
+
+
                     this.shopperId = shopperId;
+                    var radios = dealShopperHistory.down('#historyorderradios');
+                    if (radios.getValue().dayType == 0) {
+                        radios.setValue({
+                            dayType: 0
+                        });
+                        dealShopperHistoryStroe.getProxy().extraParams = {
+                            shopper: shopperId,
+                            dayType: 0
+                        };
+                        dealShopperHistoryStroe.loadPage(1, {
+                            params: {
+                                start: 0,
+                                limit: 25,
+                                page: 1
+                            }
+                        });
+                    } else {
+                        radios.setValue({
+                            dayType: 0
+                        });
+                    }
+                    content.add(tab);
                 }
             },
             'dealShopperHistoryList radio[name="dayType"]': {
@@ -311,20 +324,31 @@ Ext.define('XMLifeOperating.controller.Shopper', {
 
                     var shopperId = shopper.get('uid');
                     var ShopperWorkTimeStore = this.getShopperWorkTimeStore();
-
-                    ShopperWorkTimeStore.getProxy().extraParams = {
-                        shopper: shopperId,
-                        dayType: 3
-                    }
-                    ShopperWorkTimeStore.loadPage(1, {
-                        params: {
-                            start: 0,
-                            limit: 25,
-                            page: 1
-                        }
-                    });
-                    content.add(tab);
+                    var shopperWorkTimeList = this.getShopperWorkTimeList();
+                    var radios = shopperWorkTimeList.down('#shopperworktimeradios');
                     this.shopperId = shopperId;
+                    if (radios.getValue().dayType == 3) {
+                        radios.setValue({
+                            dayType: 3
+                        });
+                        ShopperWorkTimeStore.getProxy().extraParams = {
+                            shopper: shopperId,
+                            dayType: 3
+                        }
+                        ShopperWorkTimeStore.loadPage(1, {
+                            params: {
+                                start: 0,
+                                limit: 25,
+                                page: 1
+                            }
+                        });
+                    } else {
+                        radios.setValue({
+                            dayType: 3
+                        });
+                    }
+                    content.add(tab);
+
                 }
             },
             'shopperWorkTimeList radio[name="dayType"]': {

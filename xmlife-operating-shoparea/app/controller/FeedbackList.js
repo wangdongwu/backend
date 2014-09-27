@@ -151,6 +151,6 @@ Ext.define('XMLifeOperating.controller.FeedbackList', {
         });
         this.dayType = 0;
 
-    },
+    }
 
 });

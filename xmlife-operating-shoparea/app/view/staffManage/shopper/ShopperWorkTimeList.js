@@ -16,7 +16,8 @@ Ext.define('XMLifeOperating.view.staffManage.shopper.ShopperWorkTimeList', {
         itemId: 'pagetoll',
         store: 'ShopperWorkTime',
         dock: 'bottom',
-        displayInfo: true
+        displayInfo: true,
+        style:'border:none'
         /*,
       items : ['->'],   
       prependButtons: true*/
@@ -26,9 +27,10 @@ Ext.define('XMLifeOperating.view.staffManage.shopper.ShopperWorkTimeList', {
         text: '返回',
         itemId: 'shopperReturn'
     }, {
-        xtype: 'fieldcontainer',
+        xtype: 'radiogroup',
         fieldLabel: '按时间过滤',
         defaultType: 'radiofield',
+        itemId:'shopperworktimeradios',
         defaults: {
             flex: 1,
             margin: '0 5 0 5'
@@ -38,27 +40,25 @@ Ext.define('XMLifeOperating.view.staffManage.shopper.ShopperWorkTimeList', {
             boxLabel: '本周',
             checked: true,
             name: 'dayType',
-            itemId: 'dayType3'
+            itemId: 'dayType3',
+            inputValue:3
         }, {
             boxLabel: '上周',
             name: 'dayType',
-            itemId: 'dayType4'
+            itemId: 'dayType4',
+             inputValue:4
         }, {
             boxLabel: '本月',
             name: 'dayType',
-            itemId: 'dayType5'
+            itemId: 'dayType5',
+             inputValue:5
         }, {
             boxLabel: '上月',
             name: 'dayType',
-            itemId: 'dayType6'
+            itemId: 'dayType6',
+             inputValue:6
         }]
     }, ],
-    bbar: [{
-        xtype: 'pagingtoolbar',
-        itemId: 'pagetool',
-        store: 'ShopperWorkTime',
-        displayInfo: true
-    }],
     columns: [{
             xtype: 'rownumberer'
         }, {

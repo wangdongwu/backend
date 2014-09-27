@@ -12,6 +12,11 @@ Ext.define('XMLifeOperating.controller.DealCashOnDeliveryList', {
     models: ['DealCashOnDelivery', 'Customer', 'DealItems', 'Deliverer'],
 
     refs: [{
+        ref: 'dealCashOnDeliveryList',
+        selector: 'dealCashOnDeliveryList',
+        xtype: 'dealCashOnDeliveryList',
+
+    }, {
         ref: 'customerDetail',
         selector: 'customerDetail',
         xtype: 'customerDetail',
@@ -38,7 +43,12 @@ Ext.define('XMLifeOperating.controller.DealCashOnDeliveryList', {
             'dealCashOnDeliveryList #shopArea': {
                 select: function(combo) {
                     var store = this.getDealCashOnDeliveryStore();
-                    store.getProxy().extraParams = {
+                    var radios = this.getDealCashOnDeliveryList().down('#sex');
+                    radios.reset();
+                    radios.setValue({
+                        dayType: 0
+                    })
+                    /*                    store.getProxy().extraParams = {
                         shopArea: combo.getValue(),
                         dayType: 0
                     };
@@ -48,12 +58,8 @@ Ext.define('XMLifeOperating.controller.DealCashOnDeliveryList', {
                             limit: 25,
                             page: 1
                         }
-                    });
+                    });*/
                     var deliveryStore = this.getDelivererStore();
-                    /*                    deliveryStore.getProxy().extraParmas = {
-                        city: XMLifeOperating.generic.Global.currentCity,
-                        area: combo.getValue()
-                    }*/
                     deliveryStore.load({
                         params: {
                             city: XMLifeOperating.generic.Global.currentCity,
@@ -80,11 +86,7 @@ Ext.define('XMLifeOperating.controller.DealCashOnDeliveryList', {
             },
             'dealCashOnDeliveryList radio[name="dayType"]': {
                 change: function(record, newV, oldV) {
-                    console.log(record);
-                    console.log(record.itemId);
                     if (newV == true) {
-                        console.log(record);
-                        console.log(record.itemId);
                         var itemId = record.itemId,
                             str;
                         switch (itemId) {
@@ -297,19 +299,14 @@ Ext.define('XMLifeOperating.controller.DealCashOnDeliveryList', {
     },
 
     onShow: function() {
-        // var store = this.getDealCashOnDeliveryStore();
-        // store.load(
-        //     {
-        //         params:
-        //         {
-        //             shopArea:2,
-        //             dayType:0
-        //         }
-        //     });
-        // var deliveryStore = this.getDelivererStore();
-        // deliveryStore.load({params:{
-        //                     city:XMLifeOperating.generic.Global.currentCity,
-        //                     area:2}});
+        /*        var radios = this.getDealCashOnDeliveryList().down('#sex');
+        radios.reset();*/
+        /*
+        radios.setValue({
+            dayType: 0
+        });*/
+
+        this.dayType = 0;
     },
     onCustomerDetail: function(view, column, rowIndex, colIndex, e) {
         var customerDetail = view.getRecord(view.findTargetByEvent(e));

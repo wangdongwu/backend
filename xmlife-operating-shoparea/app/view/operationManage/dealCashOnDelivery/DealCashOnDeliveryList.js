@@ -40,31 +40,30 @@ Ext.define('XMLifeOperating.view.operationManage.dealCashOnDelivery.DealCashOnDe
         items: [{
             boxLabel: '今日',
             name: 'dayType',
-            checked: true,
-            inputValue: '',
+            inputValue: 0,
             itemId: 'dayType0',
             labelWidth: 75,
 
         }, {
             boxLabel: '本周',
             name: 'dayType',
-            inputValue: '',
+            inputValue: 3,
             itemId: 'dayType3',
             labelWidth: 75,
         }, {
             boxLabel: '本月',
             name: 'dayType',
-            inputValue: '',
+            inputValue: 5,
             itemId: 'dayType5'
         }, {
             boxLabel: '上月',
             name: 'dayType',
-            inputValue: '',
+            inputValue: 6,
             itemId: 'dayType6'
         }, {
             boxLabel: '全部',
             name: 'dayType',
-            inputValue: '',
+            inputValue: 7,
             itemId: 'dayType7'
         }, ]
     }, {
