@@ -96,7 +96,7 @@ Ext.define('XMLifeOperating.controller.AlipayRefund', {
                     idObj && sendPutRequest('refund/'+idObj.refundType,{
                             ids : idObj.idList
                         },'','','',function(response){
-                            if(response.responseText == 1){
+                            if(response.responseText >= 1){
                                 Ext.Msg.alert('提示', '成功同意'+self.sm.getCount()+'条退款记录');                                
                                 self.rendenAlipayRefundList(self.getAlipayRefundList());
                             }
