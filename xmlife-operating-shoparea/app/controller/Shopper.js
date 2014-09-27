@@ -73,18 +73,6 @@ Ext.define('XMLifeOperating.controller.Shopper', {
                         isActive = false;
                     }
                     var sstore = this.getShopperStore();
-                    /*                    sstore.load({
-                        params: {
-                            city: XMLifeOperating.generic.Global.currentCity,
-                            area: combo.getValue(),
-                            isActive: isActive
-                        },
-                        callback: function() {
-                            Ext.getCmp('shopperList').down('#activeBind').setText('查看未绑定的买手');
-                            me.getShopperList().down('#searchBuyerKeyWords').setValue('');
-                        }
-
-                    });*/
                     sstore.getProxy().extraParams = {
                         city: XMLifeOperating.generic.Global.currentCity,
                         area: combo.getValue(),
@@ -213,8 +201,6 @@ Ext.define('XMLifeOperating.controller.Shopper', {
                     var shopperId = Shopper.get('uid');
                     var dealShopperHistoryStroe = this.getDealShopperHistoryStore();
                     var dealShopperHistory = this.getDealShopperHistoryList()
-
-
 
                     this.shopperId = shopperId;
                     var radios = dealShopperHistory.down('#historyorderradios');

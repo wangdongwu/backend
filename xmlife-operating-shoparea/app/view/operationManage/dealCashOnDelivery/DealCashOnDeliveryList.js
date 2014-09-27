@@ -31,11 +31,9 @@ Ext.define('XMLifeOperating.view.operationManage.dealCashOnDelivery.DealCashOnDe
         fieldLabel: '',
         hideLabels: false,
         fieldLabel: '按时间过滤',
-
         defaults: {
             flex: 2
         },
-
         layout: 'hbox',
         items: [{
             boxLabel: '今日',

@@ -41,7 +41,8 @@ Ext.define('XMLifeOperating.view.staffManage.deliverer.DealDelivererHistoryList'
                 checked: true,    
                 boxLabel:'今天',
                 name : 'dayType',
-                itemId: 'dayType0'
+                itemId: 'dayType0',
+                inputValue:0
             },
             {
                 boxLabel:'昨天',

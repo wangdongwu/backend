@@ -499,7 +499,7 @@ Ext.define('XMLifeOperating.controller.DealProblemDealsList', {
         if (keyWords == '') {
             if (shopAreaId) {
                 store.getProxy().extraParams = {
-                    shopArea: shopAreaId
+                    areaId: shopAreaId
                 };
                 store.loadPage(1, {
                     params: {
@@ -514,7 +514,7 @@ Ext.define('XMLifeOperating.controller.DealProblemDealsList', {
         } else {
             store.load({
                 params: {
-                    shopArea: shopAreaId,
+                    areaId: shopAreaId,
                     phoneOrDealId: keyWords
                 }
             });
