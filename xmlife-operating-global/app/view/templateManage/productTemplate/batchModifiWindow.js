@@ -69,7 +69,7 @@ Ext.define('XMLifeOperating.view.templateManage.productTemplate.batchModifiWindo
                 allowBlank: false,
                 buttonText : '选择图片文件',
                 listeners : {
-                  render : function(gird){
+                  afterrender : function(gird){
                     gird.fileInputEl.set({multiple:'multiple'});
                   }
                 }
