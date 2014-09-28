@@ -115,7 +115,7 @@ Ext.define('XMLifeOperating.controller.CustomerList', {
                 click: me.onAddressCustomer
             },
 
-            '#orderHistory': {
+            'customerList #orderHistory': {
                 click: me.onOrderHistory
             },
 
@@ -150,21 +150,18 @@ Ext.define('XMLifeOperating.controller.CustomerList', {
         var win = self.getCustomerDealList()
         var content = self.getContentPanel();
         var oldProxyUrl = store.getProxy().url;
+        content.removeAll(false);
+        content.add(win);
         store.getProxy().url = XMLifeOperating.generic.Global.URL.biz + 'deal/customerHistory';
         store.on('load', function() {
-            content.removeAll(false);
-            content.add(win);
+            // content.removeAll(false);
+            // content.add(win);
             /*
                 还原原来的deal url
                  */
             //store.getProxy().url = oldProxyUrl;             
         })
 
-        /*        store.load({
-            params: {
-                customer: uid
-            }
-        });*/
         store.getProxy().extraParams = {
             customer: uid,
             assignShopper : true
