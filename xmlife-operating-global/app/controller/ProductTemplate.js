@@ -124,7 +124,9 @@ Ext.define('XMLifeOperating.controller.ProductTemplate', {
       var form = gird.up('form').getForm();
       var sessionId = localStorage.getItem('sessionId') || '';
       if(form.isValid()){
-        form.url = form.url+'/?sessionId='+sessionId;
+        if(form.url.indexOf('sessionId') < 0){
+          form.url = form.url+'/?sessionId='+sessionId;
+        }
         form.submit({
           params: {'sessionId':sessionId},
           waitMsg : '正在上传您的文件......',
