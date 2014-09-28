@@ -37,6 +37,7 @@ Ext.define('XMLifeOperating.controller.DealList', {
             'dealList #shopArea': {
                 select: function(combo) {
                     var sstore = this.getDealStore();
+                    sstore.getProxy().url = XMLifeOperating.generic.Global.URL.biz + 'deal';
                     sstore.getProxy().extraParams = {
                         shopArea: combo.getValue()
                     }
