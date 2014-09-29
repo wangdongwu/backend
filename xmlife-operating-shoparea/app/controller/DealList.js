@@ -37,10 +37,12 @@ Ext.define('XMLifeOperating.controller.DealList', {
             'dealList #shopArea': {
                 select: function(combo) {
                     var sstore = this.getDealStore();
-                    var data = new Date();
+                    me.dateReset();
                     sstore.getProxy().url = XMLifeOperating.generic.Global.URL.biz + 'deal';
                     sstore.getProxy().extraParams = {
-                        shopArea: combo.getValue()
+                        shopArea: combo.getValue(),
+                        beginTime:me.beginTime,
+                        endTime:me.endTime
                     }
                     sstore.loadPage(1, {
                         params: {
@@ -51,6 +53,9 @@ Ext.define('XMLifeOperating.controller.DealList', {
                     });
                     this.areaId = combo.getValue();
                 }
+            },
+            'dealList':{
+
             },
             'dealList #productInvoice': {
                 click: function() {
@@ -105,10 +110,10 @@ Ext.define('XMLifeOperating.controller.DealList', {
                             return;
                         }
                     });
-                }  
+                }
             },
-            'dealList #getDealListByDate':{
-                click:function(){
+            'dealList #getDealListByDate': {
+                click: function() {
                     var me = this;
                     var dealList = me.getDealList();
                     var beginTime = dealList.down('[name=beginTime]').rawValue;
@@ -116,8 +121,8 @@ Ext.define('XMLifeOperating.controller.DealList', {
                     var sstore = this.getDealStore();
                     sstore.getProxy().extraParams = {
                         shopArea: this.areaId,
-                        beginTime:beginTime,
-                        endTime:endTime
+                        beginTime: beginTime,
+                        endTime: endTime
                     }
                     sstore.loadPage(1, {
                         params: {
@@ -167,15 +172,34 @@ Ext.define('XMLifeOperating.controller.DealList', {
             }
         });
 },
+dateReset:function(){
 
+    var me =this;
+    var dealList = me.getDealList();
+    var beginTimeCmp = dealList.down('[name=beginTime]');
+    var endTimeCmp  = dealList.down('[name=endTime]');
+    beginTimeCmp.reset();
+    endTimeCmp.reset();
+    this.beginTime = beginTimeCmp.rawValue;
+    this.endTime = endTimeCmp.rawValue;
+    
+},
+
+dateString: function(date) {
+    var date  = date||{};
+    return date.getFullYear() + '-' + (date.getMonth() + 1) +'-'+ date.getDate();
+},
 onRefresh: function(view, e, eOpts) {
     var me = this;
     if (!view.isDisabled()) {
             //发送刷新请求
             var sstore = this.getDealStore();
+            me.dateReset();//日期号码重置
             sstore.getProxy().extraParams = {
-                shopArea: this.areaId
-            }
+                shopArea: this.areaId,
+                endTime:me.endTime,
+                beginTime:me.beginTime
+            };
             sstore.loadPage(1, {
                 params: {
                     start: 0,

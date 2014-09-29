@@ -33,12 +33,12 @@ Ext.define('XMLifeOperating.view.dealManage.DealList', {
             })(),
             maxValue: (function() {
                 var date = new Date();
-                date.setDate(date.getDate() - 1);
+                date.setDate(date.getDate());
                 return date;
             })(),
             value: (function() {
                 var date = new Date();
-                date.setDate(date.getDate() - 1);
+                date.setDate(date.getDate() - 6);
                 return date;
             })(),
             format: 'Y-m-d'
@@ -55,12 +55,12 @@ Ext.define('XMLifeOperating.view.dealManage.DealList', {
             })(),
             maxValue: (function() {
                 var date = new Date();
-                date.setDate(date.getDate() - 1);
+                date.setDate(date.getDate());
                 return date;
             })(),
             value: (function() {
                 var date = new Date();
-                date.setDate(date.getDate() - 1);
+                date.setDate(date.getDate());
                 return date;
             })(),
             format: 'Y-m-d'
@@ -86,11 +86,11 @@ Ext.define('XMLifeOperating.view.dealManage.DealList', {
             itemId: 'checkUnallocatedOrder',
             text: '查看未分配订单',
         },*/
-        {
+/*        {
             xtype: 'button',
             itemId: 'refresh',
             text: '刷新'
-        },
+        },*/
         '->', {
             xtype: 'textfield',
             emptyText: '输入搜索号码...',
