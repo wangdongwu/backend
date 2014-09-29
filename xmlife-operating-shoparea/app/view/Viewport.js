@@ -33,8 +33,7 @@ Ext.define('XMLifeOperating.view.Viewport', {
             }
             ],
             layout: 'fit',
-            header: false,
-            autoScroll: true
+            header: false
         }
     ]
 

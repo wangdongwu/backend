@@ -64,6 +64,10 @@ Ext.define('XMLifeOperating.view.dealManage.DealList', {
                 return date;
             })(),
             format: 'Y-m-d'
+        },{
+            xtype: 'button',
+            itemId: 'getDealListByDate',
+            text: '查询',
         }, {
             xtype: 'button',
             itemId: 'productInvoice',
