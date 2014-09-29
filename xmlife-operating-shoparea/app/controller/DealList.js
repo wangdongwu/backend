@@ -140,9 +140,14 @@ Ext.define('XMLifeOperating.controller.DealList', {
             'dealList #statusSearch': {
                 select: function(combo) {
                     var sstore = this.getDealStore();
+                    var dealList = me.getDealList();
+                    var beginTime = dealList.down('[name=beginTime]').rawValue;
+                    var endTime = dealList.down('[name=endTime]').rawValue;
                     sstore.getProxy().extraParams = {
                         shopArea: Ext.getCmp('dealList').down('#shopArea').getValue(),
-                        status: combo.getValue()
+                        status: combo.getValue(),
+                        beginTime:beginTime,
+                        endTime:endTime
                     }
                     sstore.loadPage(1, {
                         params: {
