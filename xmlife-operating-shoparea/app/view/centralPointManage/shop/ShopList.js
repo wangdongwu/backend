@@ -28,7 +28,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopList', {
             valueField: 'id',
             hidden: (XMLifeOperating.generic.Global.operating_type == 'center')
         },
-        '->', {
+        '->'/*, {
             xtype: 'textfield',
             name: 'searchshop',
             itemId: 'searchShopKeyWords',
@@ -39,7 +39,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopList', {
             name: 'searchbutton',
             itemId: 'searchButton',
             text: '搜索'
-        }
+        }*/
     ],
 
     columns: [{
