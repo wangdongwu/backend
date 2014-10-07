@@ -30,7 +30,7 @@ Ext.define('XMLifeOperating.view.operationManage.realTime.RealTimeList', {
             text: '线路名称',
             dataIndex: 'zoneName',
             width: 100,
-            sortable: false,
+            sortable: true,
             align: 'center',  
         },
 
@@ -38,14 +38,14 @@ Ext.define('XMLifeOperating.view.operationManage.realTime.RealTimeList', {
             text: '等待取货',
             dataIndex: 'waitPickUps',
             width: 100,
-            sortable: false,
+            sortable: true,
             align: 'center',  
         },
         {
             text: '问题订单',
             dataIndex: 'problemDeals',
             width: 100,
-            sortable: false,
+            sortable: true,
             align: 'center',  
         },
        

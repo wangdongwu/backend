@@ -93,14 +93,14 @@ Ext.define('XMLifeOperating.view.staffManage.deliverer.DealDelivererHistoryList'
         {
             text: '订单号',
             dataIndex: 'dealBackendId',
-            sortable: false,
+            sortable: true,
             width: 150
         },
         {
             text: '下单时间',
             dataIndex: 'created',
             format:'H:i',
-            sortable: false,
+            sortable: true,
             width: 100,
             renderer:function(value){
                var newTime = new Date(value);
@@ -112,7 +112,7 @@ Ext.define('XMLifeOperating.view.staffManage.deliverer.DealDelivererHistoryList'
             text: '买完时间',
             dataIndex: 'taskDone',
             format:'H:i',
-            sortable: false,
+            sortable: true,
             width: 100,
             renderer: function(value) {
                 var newTime = '';
@@ -127,7 +127,7 @@ Ext.define('XMLifeOperating.view.staffManage.deliverer.DealDelivererHistoryList'
             text: '出货时间',
             dataIndex: 'beginDeliverTime',
             format:'H:i',
-            sortable: false,
+            sortable: true,
             width: 100,
             renderer:function(value){
                var newTime = new Date(value);
@@ -139,7 +139,7 @@ Ext.define('XMLifeOperating.view.staffManage.deliverer.DealDelivererHistoryList'
             text: '完成时间',
             dataIndex: 'completeTime',
             format:'H:i',
-            sortable: false,
+            sortable: true,
             width: 100,
             renderer:function(value){
                var newTime = new Date(value);
@@ -150,19 +150,19 @@ Ext.define('XMLifeOperating.view.staffManage.deliverer.DealDelivererHistoryList'
         {
             text: '顾客',
             dataIndex: 'customerName',
-            sortable: false,
+            sortable: true,
             width: 100
         },
         {
             text: '联系方式',
             dataIndex: 'customerPhone',
-            sortable: false,
+            sortable: true,
             width: 100
         },
         {
             text: '店铺',
             dataIndex: 'shopNames',
-            sortable: false,
+            sortable: true,
             width: 100
         },
         {
@@ -170,7 +170,7 @@ Ext.define('XMLifeOperating.view.staffManage.deliverer.DealDelivererHistoryList'
             width: 90,
             itemId: 'dealItemsId',
             menuDisabled: true,
-            sortable: false,
+            sortable: true,
             align: 'center',
             renderer : function(value, metadata, model, rowIndex, colIndex, store) { 
 
@@ -181,13 +181,13 @@ Ext.define('XMLifeOperating.view.staffManage.deliverer.DealDelivererHistoryList'
         {
             text: '订单情况',
             dataIndex: 'status',
-            sortable: false,
+            sortable: true,
             width: 60
         },
         {
             text: '评价',
             dataIndex: 'review',
-            sortable: false,
+            sortable: true,
             width: 100
         },
         

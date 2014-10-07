@@ -39,25 +39,29 @@ Ext.define('XMLifeOperating.view.operationManage.dealWaitAssignDeliverer.DealWai
                     columns:[
                         {
                             text:'配送员姓名',
+                            sortable: true,
                             dataIndex:'name'
                         },
                         {
                             text:'联系电话',
+                            sortable: true,
                             dataIndex:'phone'
                         },
                         {
                             text:'线路',
+                            sortable: true,
                             dataIndex:'zoneName',
                         },
                         {
                             text:'当前订单数',
                             width: 80,
                             align: 'center',
+                            sortable: true,
                             dataIndex:'activeDealNum'
                         },
                         {
                             text: '操作',
-                            sortable: false,
+                            sortable: true,
                             align: 'center',
                             itemId: 'putReapportionDeliverer',
                             renderer: function (value) {

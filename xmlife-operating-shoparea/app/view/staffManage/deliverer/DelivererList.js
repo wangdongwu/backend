@@ -88,26 +88,26 @@ Ext.define('XMLifeOperating.view.staffManage.deliverer.DelivererList', {
             text: 'ID',
             dataIndex: 'uid',
             width: 60,
-            sortable: false,
+            sortable: true,
             align: 'center'
         }, {
             text: '姓名',
             dataIndex: 'name',
             width: 80,
-            sortable: false,
+            sortable: true,
             align: 'center',
 
         }, {
             text: '职称',
             dataIndex: 'title',
             width: 80,
-            sortable: false,
+            sortable: true,
             align: 'center'
         }, {
             text: '电话',
             dataIndex: 'phone',
             width: 90,
-            sortable: false,
+            sortable: true,
             align: 'center'
         },
         // {
@@ -121,7 +121,7 @@ Ext.define('XMLifeOperating.view.staffManage.deliverer.DelivererList', {
             text: '头像',
             dataIndex: 'avatar',
             width: 80,
-            sortable: false,
+            sortable: true,
             align: 'center'
         },
         // {
@@ -146,31 +146,31 @@ Ext.define('XMLifeOperating.view.staffManage.deliverer.DelivererList', {
             text: '订单数',
             dataIndex: 'deals',
             width: 50,
-            sortable: false,
+            sortable: true,
             align: 'center'
         }, {
             text: '退单数',
             dataIndex: 'returnDealNum',
             width: 50,
-            sortable: false,
+            sortable: true,
             align: 'center'
         }, {
             text: '好评数',
             dataIndex: 'goods',
             width: 50,
-            sortable: false,
+            sortable: true,
             align: 'center'
         }, {
             text: '中评数',
             dataIndex: 'mediums',
             width: 50,
-            sortable: false,
+            sortable: true,
             align: 'center'
         }, {
             text: '差评数',
             dataIndex: 'bads',
             width: 50,
-            sortable: false,
+            sortable: true,
             align: 'center'
         }, {
             xtype: 'actioncolumn',
@@ -178,7 +178,7 @@ Ext.define('XMLifeOperating.view.staffManage.deliverer.DelivererList', {
             icon: 'resources/images/edit.png',
             tooltip: 'Edit',
             menuDisabled: true,
-            sortable: false,
+            sortable: true,
             itemId: 'delivererEditId',
             hidden: (XMLifeOperating.generic.Global.operating_type == 'center')
         }, {
@@ -186,7 +186,7 @@ Ext.define('XMLifeOperating.view.staffManage.deliverer.DelivererList', {
             width: 90,
             itemId: 'delivererWorkTimeId',
             menuDisabled: true,
-            sortable: false,
+            sortable: true,
             align: 'center',
             renderer: function(value, metadata, model, rowIndex, colIndex, store) {
 
@@ -198,7 +198,7 @@ Ext.define('XMLifeOperating.view.staffManage.deliverer.DelivererList', {
             width: 90,
             itemId: 'dealDelivererHistoryId',
             menuDisabled: true,
-            sortable: false,
+            sortable: true,
             align: 'center',
             renderer: function(value, metadata, model, rowIndex, colIndex, store) {
 
@@ -211,7 +211,7 @@ Ext.define('XMLifeOperating.view.staffManage.deliverer.DelivererList', {
             dataIndex: 'isActive',
             itemId: 'closeOrOpenOrder',
             menuDisabled: true,
-            sortable: false,
+            sortable: true,
             align: 'center',
             renderer: function(value) {
                 var str = '';

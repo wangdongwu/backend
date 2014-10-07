@@ -134,7 +134,7 @@ Ext.define('XMLifeOperating.view.operationManage.dealProblemDeals.DealProblemDea
                         },
                         {
                             text: '操作',
-                            sortable: false,
+                            sortable: true,
                             align: 'center',
                             itemId: 'reapportionShopper',
                             renderer: function (value) {

@@ -103,7 +103,7 @@ Ext.define('XMLifeOperating.view.operationManage.dealCashOnDelivery.DealCashOnDe
             text: '创建时间',
             dataIndex: 'created',
             width: 80,
-            sortable: false,
+            sortable: true,
             align: 'center',
             renderer: function(value) {
                 var date = new Date(value);
@@ -113,7 +113,7 @@ Ext.define('XMLifeOperating.view.operationManage.dealCashOnDelivery.DealCashOnDe
             text: '订单号',
             dataIndex: 'shortId',
             width: 60,
-            sortable: false,
+            sortable: true,
             align: 'center',
             itemId: 'orderShortId',
             renderer: function(value) {
@@ -131,13 +131,13 @@ Ext.define('XMLifeOperating.view.operationManage.dealCashOnDelivery.DealCashOnDe
             text: '线路',
             dataIndex: 'zoneName',
             width: 60,
-            sortable: false,
+            sortable: true,
             align: 'center',
         }, {
             text: '顾客',
             dataIndex: 'customerName',
             width: 80,
-            sortable: false,
+            sortable: true,
             align: 'center',
             itemId: 'customerDetailId',
             renderer: function(value) {
@@ -147,20 +147,20 @@ Ext.define('XMLifeOperating.view.operationManage.dealCashOnDelivery.DealCashOnDe
             text: '顾客电话',
             dataIndex: 'customerPhone',
             width: 90,
-            sortable: false,
+            sortable: true,
             align: 'center',
 
         }, {
             text: '分配配送员',
             dataIndex: 'delivererName',
             width: 80,
-            sortable: false,
+            sortable: true,
             align: 'center',
         }, {
             text: '支付方式',
             dataIndex: 'flowType',
             width: 60,
-            sortable: false,
+            sortable: true,
             align: 'center',
             renderer: function(value) {
                 var str='';
@@ -188,7 +188,7 @@ Ext.define('XMLifeOperating.view.operationManage.dealCashOnDelivery.DealCashOnDe
             //dataIndex: 'actualDealPrice',
             dataIndex: 'dealPrice',
             width: 60,
-            sortable: false,
+            sortable: true,
             align: 'center',
             /*renderer: function(value) {
                 
@@ -198,13 +198,13 @@ Ext.define('XMLifeOperating.view.operationManage.dealCashOnDelivery.DealCashOnDe
             text: '使用账户余额',
             dataIndex: 'balance',
             width: 90,
-            sortable: false,
+            sortable: true,
             align: 'center',
         }, {
             text: '是否取消订单',
             dataIndex: 'hasCancel',
             width: 90,
-            sortable: false,
+            sortable: true,
             align: 'center',
             itemId: 'hasCancelId',
             renderer: function(value) {
@@ -219,13 +219,13 @@ Ext.define('XMLifeOperating.view.operationManage.dealCashOnDelivery.DealCashOnDe
             text: '取消金额',
             dataIndex: 'cancelPrice',
             width: 80,
-            sortable: false,
+            sortable: true,
             align: 'center',
         }, {
             text: '是否有退货',
             dataIndex: 'hasReturn',
             width: 80,
-            sortable: false,
+            sortable: true,
             align: 'center',
             itemId: 'hasReturnId',
             renderer: function(value) {
@@ -238,13 +238,13 @@ Ext.define('XMLifeOperating.view.operationManage.dealCashOnDelivery.DealCashOnDe
             text: '退款金额',
             dataIndex: 'returnPrice',
             width: 60,
-            sortable: false,
+            sortable: true,
             align: 'center',
         }, {
             text: '线下应收',
             dataIndex: 'codAmt',
             width: 80,
-            sortable: false,
+            sortable: true,
             align: 'center',
             /*renderer: function(value) {
                 
@@ -254,7 +254,7 @@ Ext.define('XMLifeOperating.view.operationManage.dealCashOnDelivery.DealCashOnDe
             text: '是否到账',
             dataIndex: 'codMark',
             width: 80,
-            sortable: false,
+            sortable: true,
             align: 'center',
             itemId: 'closeOrOpenCodMark',
             renderer: function(value) {
@@ -267,7 +267,7 @@ Ext.define('XMLifeOperating.view.operationManage.dealCashOnDelivery.DealCashOnDe
             text: '标记',
             dataIndex: 'codProblemMark',
             width: 80,
-            sortable: false,
+            sortable: true,
             align: 'center',
             itemId: 'closeOrOpenProblemMark',
             renderer: function(value) {
@@ -280,7 +280,7 @@ Ext.define('XMLifeOperating.view.operationManage.dealCashOnDelivery.DealCashOnDe
             text: '操作',
             dataIndex: '',
             width: 60,
-            sortable: false,
+            sortable: true,
             align: 'center',
             itemId: 'remarkId',
             renderer: function(value) {
@@ -299,7 +299,7 @@ Ext.define('XMLifeOperating.view.operationManage.dealCashOnDelivery.DealCashOnDe
             text: '备注',
             dataIndex: 'codMarkContent',
             width: 80,
-            sortable: false,
+            sortable: true,
             align: 'center',
         },
     ],
