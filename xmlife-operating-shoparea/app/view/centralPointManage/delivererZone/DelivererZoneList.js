@@ -32,14 +32,14 @@ Ext.define('XMLifeOperating.view.centralPointManage.delivererZone.DelivererZoneL
             text: 'ID',
             dataIndex: 'id',
             width: 50,
-            sortable: false,
+            sortable: true,
             align: 'left'
         },
         {
             text: '线路名称',
             dataIndex: 'name',
             width: 100,
-            sortable: false,
+            sortable: true,
             align: 'left',
             itemId:'lineName'
         },
@@ -54,7 +54,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.delivererZone.DelivererZoneL
             text: '小区数',
             dataIndex: 'districts',
             width: 60,
-            sortable: false,
+            sortable: true,
             align: 'left',
             itemId:'bindCommunity'
         },
@@ -62,7 +62,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.delivererZone.DelivererZoneL
             text: '配送员',
             dataIndex: 'deliverers',
             width: 60,
-            sortable: false,
+            sortable: true,
             align: 'left',
             itemId:'bindCourier'
         },
@@ -73,7 +73,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.delivererZone.DelivererZoneL
             icon: 'resources/images/delete.png',
             tooltip: 'Delete',
             menuDisabled: true,
-            sortable: false,
+            sortable: true,
             itemId: 'deleteLineId',
             // hidden:(XMLifeOperating.generic.Global.operating_type == 'center')
         }

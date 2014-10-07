@@ -46,7 +46,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopProductOffLine', {
         dataIndex: 'status',
         itemId: 'frozen',
         menuDisabled: true,
-        sortable: false,
+        sortable: true,
         align: 'center',
         renderer: function(value) {
             return '<input type="button" value="取消雪藏" class="frozen" />'

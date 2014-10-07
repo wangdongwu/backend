@@ -49,21 +49,21 @@ Ext.define('XMLifeOperating.view.centralPointManage.shopTopShops.ShopTopShopsLis
             text: '编号',
             dataIndex: 'id',
             width: 150,
-            sortable: false,
+            sortable: true,
             align: 'left'
         },
         {
             text: '展示店铺',
             dataIndex: 'shopName',
             width: 90,
-            sortable: false,
+            sortable: true,
             align: 'left',
         },
         {
             text: '展示店铺分类',
             dataIndex: 'names',
             width: 100,
-            sortable: false,
+            sortable: true,
             align: 'left',
             renderer:function(value){
                 var str='';
@@ -80,7 +80,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.shopTopShops.ShopTopShopsLis
             icon: 'resources/images/delete.png',
             tooltip: 'Delete',
             menuDisabled: true,
-            sortable: false,
+            sortable: true,
             itemId: 'deleteShopTopShopsId',
             align:'center'
             // hidden:(XMLifeOperating.generic.Global.operating_type == 'center')

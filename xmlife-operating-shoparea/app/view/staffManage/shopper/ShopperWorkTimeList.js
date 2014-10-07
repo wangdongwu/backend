@@ -64,7 +64,7 @@ Ext.define('XMLifeOperating.view.staffManage.shopper.ShopperWorkTimeList', {
         }, {
             text: '日期',
             dataIndex: 'created',
-            sortable: false,
+            sortable: true,
             width: 100,
             format: 'Y-m-d',
             renderer: function(value) {
@@ -76,7 +76,7 @@ Ext.define('XMLifeOperating.view.staffManage.shopper.ShopperWorkTimeList', {
             text: '上班时间',
             dataIndex: 'onlineTime',
             format: 'H:i',
-            sortable: false,
+            sortable: true,
             width: 100,
             renderer: function(value) {
                 var time = Math.floor(value / 60) + ':' + (value % 60);
@@ -86,7 +86,7 @@ Ext.define('XMLifeOperating.view.staffManage.shopper.ShopperWorkTimeList', {
             text: '下班时间',
             dataIndex: 'offlineTime',
             format: 'H:i',
-            sortable: false,
+            sortable: true,
             width: 100,
             renderer: function(value) {
                 var time = Math.floor(value / 60) + ':' + (value % 60);
@@ -95,7 +95,7 @@ Ext.define('XMLifeOperating.view.staffManage.shopper.ShopperWorkTimeList', {
         }, {
             text: '本次工时',
             dataIndex: 'workTime',
-            sortable: false,
+            sortable: true,
             width: 100,
             renderer: function(value) {
                 var time = Math.floor(value / 60) + '时' + (value % 60) + '分';
@@ -105,7 +105,7 @@ Ext.define('XMLifeOperating.view.staffManage.shopper.ShopperWorkTimeList', {
             text: '完成订单数',
             dataIndex: 'deals',
 
-            sortable: false,
+            sortable: true,
             width: 100
         },
         /* {

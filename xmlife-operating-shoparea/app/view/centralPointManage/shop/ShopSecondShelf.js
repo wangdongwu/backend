@@ -35,7 +35,7 @@
          icon: 'resources/images/edit.png',
          tooltip: 'Edit',
          menuDisabled: true,
-         sortable: false,
+         sortable: true,
          itemId: 'openModifySecondShelvesWin',
      }],
      dockedItems: [{

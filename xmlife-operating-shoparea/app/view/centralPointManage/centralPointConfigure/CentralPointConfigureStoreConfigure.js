@@ -21,14 +21,14 @@ Ext.define('XMLifeOperating.view.centralPointManage.centralPointConfigure.Centra
             text: '编号',
             dataIndex: 'id',
             width: 220,
-            sortable: false,
+            sortable: true,
             align: 'center',
            
         },
         {
             text: '店铺名',
             dataIndex: 'name',
-            sortable: false,
+            sortable: true,
             width: 150,
         }   
     ],

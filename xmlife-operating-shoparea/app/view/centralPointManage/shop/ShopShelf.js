@@ -30,7 +30,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopShelf', {
         text: '货架图片（横）',
         dataIndex: 'xImage',
         width: 420,
-        sortable: false,
+        sortable: true,
         align: 'center',
         tdCls: 'user-td',
         renderer: function(value, metadata, model, rowIndex, colIndex, store) {
@@ -40,7 +40,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopShelf', {
         text: '货架图片（竖）',
         dataIndex: 'vImage',
         width: 420,
-        sortable: false,
+        sortable: true,
         align: 'center',
         tdCls: 'user-td',
         renderer: function(value, metadata, model, rowIndex, colIndex, store) {
@@ -53,7 +53,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopShelf', {
         icon: 'resources/images/edit.png',
         tooltip: 'Edit',
         menuDisabled: true,
-        sortable: false,
+        sortable: true,
         itemId: 'openModifyShelvesWin',
         tdCls: 'user-td',
         align: 'center'

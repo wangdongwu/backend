@@ -25,7 +25,7 @@ Ext.define('XMLifeOperating.view.userManage.customer.CustomerDealList', {
         text: '订单号',
         dataIndex: 'shortId',
         width: 80,
-        sortable: false,
+        sortable: true,
         align: 'center',
         itemId: 'dealDetail',
         renderer: function(value, metadata, model, rowIndex, colIndex, store) {
@@ -35,7 +35,7 @@ Ext.define('XMLifeOperating.view.userManage.customer.CustomerDealList', {
         text: '下单时间',
         dataIndex: 'created',
         width: 60,
-        sortable: false,
+        sortable: true,
         align: 'center',
         renderer: function(value) {
             var newTime = new Date(value);
@@ -46,14 +46,14 @@ Ext.define('XMLifeOperating.view.userManage.customer.CustomerDealList', {
         text: '地址',
         dataIndex: 'dtoAddress',
         width: 80,
-        sortable: false,
+        sortable: true,
         align: 'center',
         itemId: 'dealAddress'
     }, {
         text: '期望送达时间',
         dataIndex: 'deliverTime',
         width: 80,
-        sortable: false,
+        sortable: true,
         align: 'center',
         renderer: function(value) {
             var newTime = new Date(value);
@@ -64,7 +64,7 @@ Ext.define('XMLifeOperating.view.userManage.customer.CustomerDealList', {
         text: '送达时间',
         dataIndex: 'completeTime',
         width: 80,
-        sortable: false,
+        sortable: true,
         align: 'center',
         renderer: function(value) {
             var newTime = new Date(value);
@@ -75,7 +75,7 @@ Ext.define('XMLifeOperating.view.userManage.customer.CustomerDealList', {
         text: '分配买手',
         dataIndex: 'shopperNames',
         width: 80,
-        sortable: false,
+        sortable: true,
         align: 'left',
         renderer: function(value) {
             var str = '';
@@ -89,7 +89,7 @@ Ext.define('XMLifeOperating.view.userManage.customer.CustomerDealList', {
         text: '购买店铺',
         dataIndex: 'shopNames',
         width: 60,
-        sortable: false,
+        sortable: true,
         align: 'left',
         renderer: function(value) {
             var str = '';
@@ -100,7 +100,7 @@ Ext.define('XMLifeOperating.view.userManage.customer.CustomerDealList', {
         }
     }, {
         text: '订单详情',
-        sortable: false,
+        sortable: true,
         align: 'center',
         itemId: 'dealDetail',
         renderer: function() {
@@ -125,13 +125,13 @@ Ext.define('XMLifeOperating.view.userManage.customer.CustomerDealList', {
         text: '配送员',
         dataIndex: 'delivererName',
         width: 60,
-        sortable: false,
+        sortable: true,
         align: 'center',
     }, {
         text: '订单状态',
         dataIndex: 'status',
         width: 60,
-        sortable: false,
+        sortable: true,
         align: 'center',
         renderer: function(value) {
             switch (value) {

@@ -27,7 +27,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.centralPointConfigure.Centra
             text: '编号',
             dataIndex: 'id',
             width: 60,
-            sortable: false,
+            sortable: true,
             align: 'left'
         },
         // {
@@ -42,7 +42,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.centralPointConfigure.Centra
             text: '管辖线路',
             dataIndex: 'zoneNames',
             width: 100,
-            sortable: false,
+            sortable: true,
             align: 'left',
             renderer:function(value){
                 var str='';
@@ -56,7 +56,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.centralPointConfigure.Centra
             text: '店铺',
             dataIndex: 'shopNames',
             width: 100,
-            sortable: false,
+            sortable: true,
             align: 'left',
             renderer:function(value){
                 var str='';
@@ -71,7 +71,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.centralPointConfigure.Centra
             width: 70,
             itemId: 'seeBannerBtn',
             menuDisabled: true,
-            sortable: false,
+            sortable: true,
             align: 'center',
             renderer : function(value, metadata, model, rowIndex, colIndex, store) { 
 

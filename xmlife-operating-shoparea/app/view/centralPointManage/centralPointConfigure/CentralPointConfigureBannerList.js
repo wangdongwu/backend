@@ -31,7 +31,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.centralPointConfigure.Centra
             text: '图片',
             dataIndex: 'image',
             width: 420,
-            sortable: false,
+            sortable: true,
             align: 'center',
             renderer: function (value) {
 
@@ -41,13 +41,13 @@ Ext.define('XMLifeOperating.view.centralPointManage.centralPointConfigure.Centra
         {
             text: 'title',
             dataIndex: 'title',
-            sortable: false,
+            sortable: true,
             width: 150
         },
         {
             text: 'url',
             dataIndex: 'url',
-            sortable: false,
+            sortable: true,
             width: 250
             
         },
@@ -57,7 +57,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.centralPointConfigure.Centra
             icon: 'resources/images/edit.png',
             tooltip: 'Edit',
             menuDisabled: true,
-            sortable: false,
+            sortable: true,
             itemId: 'editCentralPointBanner'
         },
         {
@@ -67,7 +67,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.centralPointConfigure.Centra
             icon: 'resources/images/delete.png',
             tooltip: 'Delete',
             menuDisabled: true,
-            sortable: false,
+            sortable: true,
             itemId: 'deleteBannerId',
             align: 'center',
             // hidden:(XMLifeOperating.generic.Global.operating_type == 'center')

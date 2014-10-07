@@ -82,25 +82,25 @@ Ext.define('XMLifeOperating.view.userManage.feedback.FeedbackList', {
             text: '时间',
             width: 130,
             format: 'Y-M-D',
-            sortable: false,
+            sortable: true,
             align: 'center',
         }, {
             text: '用户',
             dataIndex: 'name',
             width: 100,
-            sortable: false,
+            sortable: true,
             align: 'center',
         }, {
             text: '注册号码',
             dataIndex: 'phone',
             width: 90,
-            sortable: false,
+            sortable: true,
             align: 'center',
         }, {
             text: '反馈意见',
             dataIndex: 'content',
             width: 140,
-            sortable: false,
+            sortable: true,
             align: 'center',
         }, {
             header: "标记",
@@ -108,7 +108,7 @@ Ext.define('XMLifeOperating.view.userManage.feedback.FeedbackList', {
             dataIndex: 'mark',
             itemId: 'mark',
             menuDisabled: true,
-            sortable: false,
+            sortable: true,
             align: 'center',
             renderer: function(value) {
                 var str = '';

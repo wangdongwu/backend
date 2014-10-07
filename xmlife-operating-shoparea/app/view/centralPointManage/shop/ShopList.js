@@ -48,7 +48,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopList', {
             text: 'shopId',
             dataIndex: 'id',
             width: 100,
-            sortable: false,
+            sortable: true,
             align: 'center',
         },
 
@@ -56,44 +56,44 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopList', {
             text: '店铺名',
             dataIndex: 'name',
             width: 100,
-            sortable: false,
+            sortable: true,
             align: 'center',
         }, {
             text: '店铺副名称',
             dataIndex: 'desc',
             width: 100,
-            sortable: false,
+            sortable: true,
             align: 'center',
         }, {
             text: '模板',
             dataIndex: 'templateName',
             width: 100,
-            sortable: false,
+            sortable: true,
             align: 'center',
         }, {
             text: '地址',
             dataIndex: 'address',
             width: 100,
-            sortable: false,
+            sortable: true,
             align: 'center',
         }, {
             text: '营业时间',
             dataIndex: 'time',
             width: 100,
-            sortable: false,
+            sortable: true,
             align: 'center',
         }, {
             text: '所属中心',
             dataIndex: 'areaNames',
             width: 80,
-            sortable: false,
+            sortable: true,
             align: 'center',
         }, {
             header: "Banner配置",
             width: 90,
             itemId: 'seeBannerBtn',
             menuDisabled: true,
-            sortable: false,
+            sortable: true,
             align: 'center',
             renderer: function(value, metadata, model, rowIndex, colIndex, store) {
                 var seeBtn = '<a href="javascript:void(0)">查看</a>';
@@ -104,14 +104,14 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopList', {
             dataIndex: 'shopperCount',
             itemId: 'shopperCountId',
             width: 80,
-            sortable: false,
+            sortable: true,
             align: 'center',
         }, {
             header: "货架",
             width: 90,
             itemId: 'seeCategoryBtn',
             menuDisabled: true,
-            sortable: false,
+            sortable: true,
             align: 'center',
             renderer: function(value, metadata, model, rowIndex, colIndex, store) {
                 var seeBtn = '<a href="javascript:void(0)">查看</a>';
@@ -126,7 +126,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopList', {
             dataIndex: 'status',
             itemId: 'closeOrOpenShopStore',
             menuDisabled: true,
-            sortable: false,
+            sortable: true,
             align: 'center',
             renderer: function(value) {
                 var str = '';
@@ -147,7 +147,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopList', {
             icon: 'resources/images/edit.png',
             tooltip: 'Edit',
             menuDisabled: true,
-            sortable: false,
+            sortable: true,
             itemId: 'modifyShopList',
 
         }

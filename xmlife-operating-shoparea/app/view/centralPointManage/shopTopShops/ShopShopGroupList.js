@@ -29,13 +29,13 @@ Ext.define('XMLifeOperating.view.centralPointManage.shopTopShops.ShopShopGroupLi
         {
             text: '店铺名称',
             dataIndex: 'name',
-            sortable: false,
+            sortable: true,
             width: 150
         },
         {
             text: 'logo图片',
             dataIndex: 'logo',
-            sortable: false,
+            sortable: true,
             width: 250
             
         },
@@ -46,7 +46,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.shopTopShops.ShopShopGroupLi
             icon: 'resources/images/delete.png',
             tooltip: 'Delete',
             menuDisabled: true,
-            sortable: false,
+            sortable: true,
             itemId: 'shopShopGroupDelete',
             // hidden:(XMLifeOperating.generic.Global.operating_type == 'center')
         }],

@@ -90,38 +90,38 @@ Ext.define('XMLifeOperating.view.centralPointManage.residentalDistrict.Residenta
             text: 'ID',
             dataIndex: 'id',
             width: 180,
-            sortable: false,
+            sortable: true,
             align: 'left'
         }, 
         {
             text: '小区名',
             dataIndex: 'name',
             width: 150,
-            sortable: false,
+            sortable: true,
             align: 'left'
         }, {
             text: '经度',
             dataIndex: 'lng',
             width: 80,
-            sortable: false,
+            sortable: true,
             align: 'left'
         }, {
             text: '纬度',
             dataIndex: 'lat',
             width: 80,
-            sortable: false,
+            sortable: true,
             align: 'left'
         }, {
             text: '地址',
             dataIndex: 'address',
             width: 150,
-            sortable: false,
+            sortable: true,
             align: 'left'
         }, {
             text: '操作',
             dataIndex: 'isActive',
             width: 50,
-            sortable: false,
+            sortable: true,
             align: 'center',
             itemId: 'isActiveId',
             renderer: function(value) {
@@ -136,7 +136,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.residentalDistrict.Residenta
             icon: 'resources/images/edit.png',
             tooltip: 'Edit',
             menuDisabled: true,
-            sortable: false,
+            sortable: true,
             itemId: 'ediCommunityId',
             hidden: (XMLifeOperating.generic.Global.operating_type == 'center')
         },

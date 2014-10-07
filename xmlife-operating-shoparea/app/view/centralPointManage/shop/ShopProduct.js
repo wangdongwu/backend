@@ -29,25 +29,25 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopProduct', {
     {
         text: '商品名称',
         dataIndex: 'name',
-        sortable: false,
+        sortable: true,
         align: 'center',
     }, {
         text: '所属店铺',
         dataIndex: 'shopname',
         width: 60,
-        sortable: false,
+        sortable: true,
         align: 'center',
     }, {
         text: '单位',
         dataIndex: 'unitname',
         width: 60,
-        sortable: false,
+        sortable: true,
         align: 'center',
     }, {
         text: '进价',
         dataIndex: 'pprice',
         width: 60,
-        sortable: false,
+        sortable: true,
         align: 'center',
         renderer: function(value) {
 
@@ -57,7 +57,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopProduct', {
         text: '原价',
         dataIndex: 'fprice',
         width: 60,
-        sortable: false,
+        sortable: true,
         align: 'center',
         renderer: function(value) {
 
@@ -67,7 +67,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopProduct', {
         text: '售价',
         dataIndex: 'dprice',
         width: 60,
-        sortable: false,
+        sortable: true,
         align: 'center',
         renderer: function(value) {
 
@@ -77,7 +77,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopProduct', {
         text: '限购类型',
         dataIndex: 'limitType',
         width: 100,
-        sortable: false,
+        sortable: true,
         align: 'center',
         renderer: function(value) {
             var str = '';
@@ -92,7 +92,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopProduct', {
         text: '限购数量',
         dataIndex: 'limitCount',
         width: 60,
-        sortable: false,
+        sortable: true,
         align: 'center',
         renderer: function(value) {
             if (value == 0) {
@@ -106,7 +106,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopProduct', {
         dataIndex: 'status',
         itemId: 'putawayOrOut',
         menuDisabled: true,
-        sortable: false,
+        sortable: true,
         align: 'center',
         renderer: function(value) {
             var str = '';
@@ -129,7 +129,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopProduct', {
         dataIndex: 'status',
         itemId: 'frozen',
         menuDisabled: true,
-        sortable: false,
+        sortable: true,
         align: 'center',
         renderer: function(value) {
 
@@ -155,7 +155,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopProduct', {
         icon: 'resources/images/edit.png',
         tooltip: 'Edit',
         menuDisabled: true,
-        sortable: false,
+        sortable: true,
         itemId: 'openModifyShelvesGoodsWin',
 
     },{
