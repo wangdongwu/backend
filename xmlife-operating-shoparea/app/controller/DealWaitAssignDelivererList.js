@@ -99,6 +99,9 @@ Ext.define('XMLifeOperating.controller.DealWaitAssignDelivererList', {
             },
             'dealWaitAssignDelivererList #dealSearch': {
                 click: me.onWaitAssignDelivererSearch
+            },
+            'dealWaitAssignDelivererList #returnGoods':{
+                click: me.onReturnGoods
             }
         });
     },
@@ -266,5 +269,40 @@ Ext.define('XMLifeOperating.controller.DealWaitAssignDelivererList', {
             });
         }
 
+    },
+    onReturnGoods:function(view, e, eOpts){
+        var record = view.getStore().getAt(eOpts);
+        var dealId = record.get('dealBackendId');
+        var me = this;
+        console.log(record);
+        console.log(dealId);
+        var str = '订单全部退货吗？';
+        var url = 'deal/returnDeal';
+        Ext.MessageBox.confirm("选择框", str, function(str) {
+                if (str != 'yes') {
+                    return;
+                }
+                sendPutRequest(url, {
+                    dealId: dealId,
+                }, '操作退货', '成功操作退货', '退货失败', function(response) {
+                    if (response.responseText == -2) {
+                                Ext.MessageBox.show({
+                                    title: '订单操作',
+                                    msg: '退货失败',
+                                    icon: Ext.Msg.ERROR,
+                                    buttons: Ext.Msg.OK
+                                });
+                    } else {
+                        Ext.MessageBox.show({
+                            title: '订单操作',
+                            msg: '退货成功',
+                            icon: Ext.Msg.INFO,
+                            buttons: Ext.Msg.OK
+                        });
+                        me.fireEvent('refreshView');
+                    }
+                });
+
+        })
     }
 });

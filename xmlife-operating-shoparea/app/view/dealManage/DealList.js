@@ -352,7 +352,7 @@ Ext.define('XMLifeOperating.view.dealManage.DealList', {
             align: 'center',
             renderer: function(value, metadata, model, rowIndex, colIndex, store) {
                 var status = model.get('status');
-                if (status == 7 || status == 4) {
+                if (status == 7 || status == 4 || status==6) {
                     return '转为问题订单';
                 }
                 return Ext.String.format('<a>转为问题订单</a>', value, value);

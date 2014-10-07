@@ -311,7 +311,7 @@ onRefresh: function(view, e, eOpts) {
         var url = 'deal/transToProblem/' + dealBackendId;
         var me = this;
         var status = dealitem.get('status');
-        if (status == 7 || status == 4) {
+        if (status == 7 || status == 4 || status==6) {
             return;
         }
         Ext.MessageBox.confirm(

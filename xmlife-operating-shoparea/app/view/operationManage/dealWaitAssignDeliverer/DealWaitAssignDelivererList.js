@@ -140,7 +140,18 @@ Ext.define('XMLifeOperating.view.operationManage.dealWaitAssignDeliverer.DealWai
                     break;
             }
         }
-    }, ],
+    },{
+        header: "",
+        width: 90,
+        dataIndex: '',
+        itemId: 'returnGoods',
+        menuDisabled: true,
+        sortable: false,
+        align: 'center',
+        renderer: function(value) {           
+            return '<input type="button" value="退货" statusValue="open" /><br/>';
+        }
+    }],
     viewConfig: {
         plugins: {
             ptype: 'gridviewdragdrop',
