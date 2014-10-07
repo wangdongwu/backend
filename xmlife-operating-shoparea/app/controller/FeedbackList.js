@@ -78,7 +78,7 @@ Ext.define('XMLifeOperating.controller.FeedbackList', {
                         if (mark != null) {
                             params['mark'] = mark;
                         }
-                        console.log(mark)
+                        console.log(mark);
                         store.getProxy().extraParams = params;
                         store.loadPage(1, {
                             params: {
@@ -118,7 +118,7 @@ Ext.define('XMLifeOperating.controller.FeedbackList', {
                         store.getProxy().extraParams = {
                             dayType: dayType,
                             mark: false
-                        }
+                        };
                         store.loadPage(1, {
                             params: {
                                 start: 0,
@@ -134,7 +134,7 @@ Ext.define('XMLifeOperating.controller.FeedbackList', {
     },
 
     onShow: function() {
-/*        var store = this.getFeedbackStore();
+ /*        var store = this.getFeedbackStore();
         store.getProxy().extraParams = {
             dayType: 0,
             mark: false
