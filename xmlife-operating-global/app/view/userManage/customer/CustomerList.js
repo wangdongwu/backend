@@ -103,7 +103,25 @@ Ext.define('XMLifeOperating.view.userManage.customer.CustomerList', {
             renderer: function(value, metadata, model, rowIndex, colIndex, store) {
                 return '<a class="showDealList">查看历史订单</a>';
                 }
+        },{
+            header: "",
+            width: 40,
+            dataIndex: 'enable',
+            itemId: 'operationc',
+            menuDisabled: true,
+            sortable: false,
+            align: 'center',
+            renderer: function(value) {           
+                var str = '';
+                if (value == true) {
+                    str += '<input type="button" value="封号" statusValue="open" /><br/>';
+                } else {
+                    str += '<input type="button" value="解封" statusValue="close"  /><br/>';
+                }
+                return str;
+            }
         }
+
     ],
     viewConfig: {
         plugins: {

@@ -98,7 +98,7 @@ Ext.define('XMLifeOperating.controller.CustomerList', {
                  click: me.onOrderHistory
             },
 
-            '#operationc':{
+            'CustomerList #operationc':{
                  click: me.onOperationc
             },
 
@@ -148,23 +148,33 @@ Ext.define('XMLifeOperating.controller.CustomerList', {
     },
 
     onOperationc: function(view, rowIndex, colIndex, column, e) {
-        alert(789);
         var customerDetail = view.getRecord(view.findTargetByEvent(e));
         var uid = customerDetail.get('uid');
-        var enable = !customerDetail.get('enable');
+        var enable = customerDetail.get('enable');
         var me = this;
         var url = 'customer/enable/'+uid;
-        alert(url);
-
-        sendPutRequest(url,{enable:enable},'封号','封号成功','封号失败',function(){
+        var str='确认要此操作吗？';
+        if(enable == true){
+            str='确认要封号吗？';
+            enable =false;
+        }else{
+            str='确认要解封?';
+            enable =true;
+        }
+        Ext.MessageBox.confirm("选择框", str,function(str){
+            if(str!='yes'){
+                return;
+            }
+            sendPutRequest(url,{enable:enable},'操作封号或解封','成功操作用户','操作用户失败',function(){
                 var store = me.getCustomerStore();
                
                 store.getProxy().extraParams={
-                        shopArea: Ext.getCmp('customerList').down('#businessAreac').getValue(),
+                        shopArea: Ext.getCmp('CustomerList').down('#shopAreac').getValue(),
                         nameOrPhone: me.getKeywordc().getValue()
                     };
                 store.loadPage(1);
             });
-    },
+        });
+    }
 
 });
