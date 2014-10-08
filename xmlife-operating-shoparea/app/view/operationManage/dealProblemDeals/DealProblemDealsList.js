@@ -174,6 +174,13 @@ Ext.define('XMLifeOperating.view.operationManage.dealProblemDeals.DealProblemDea
                 return Ext.String.format('<a>重新分配</a>', value, value);
             }
         },
+        {
+            text: '处理次数',
+            dataIndex: 'resolveNum',
+            width: 80,
+            sortable: false,
+            align: 'center',
+        },
         // {
         //     text: '注册用户',
         //     dataIndex: 'customerName',
