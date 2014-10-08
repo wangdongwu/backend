@@ -177,7 +177,7 @@ Ext.define('XMLifeOperating.view.operationManage.dealProblemDeals.DealProblemDea
         {
             text: '处理次数',
             dataIndex: 'resolveNum',
-            width: 80,
+            width: 40,
             sortable: false,
             align: 'center',
         },
