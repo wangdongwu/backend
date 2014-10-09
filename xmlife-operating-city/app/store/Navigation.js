@@ -14,11 +14,11 @@ Ext.define('XMLifeOperating.store.Navigation', {
             text: '运费管理',
             leaf: true
         }, {
-            id: 'shopareaList',
+            id: 'shopAreaList',
             text: '中心平台管理',
             leaf: true
         }, {
-            id: 'AuthorityTabPanel',
+            id: 'authorityList',
             text: '中心权限管理',
             leaf: true
         },{
@@ -26,11 +26,6 @@ Ext.define('XMLifeOperating.store.Navigation', {
             text: '个人中心',
             leaf: true
         }
-            /*, {
-                id: 'BatchAddEstate',
-                text: '批量添加小区',
-                leaf: true
-            }*/
             ]
         }
     });

@@ -8,12 +8,13 @@ Ext.define('XMLifeOperating.Application', {
         'Ext.selection.CheckboxModel',
         'XMLifeOperating.generic.Global',
         'XMLifeOperating.generic.BaseProxy',
-        'Ext.grid.plugin.DragDrop',
-        'Ext.form.field.Radio',
-        'Ext.form.RadioGroup',
+        'Ext.form.*',
         'Ext.data.*',
         'Ext.util.*',
-        'Ext.layout.container.Card'
+        'Ext.layout.container.Card',
+        'Ext.panel.Panel',
+        'Ext.grid.*',
+        'Ext.ux.RowExpander',
     ],
 
     views: [
@@ -23,11 +24,13 @@ Ext.define('XMLifeOperating.Application', {
     controllers: [
         'Navigation',
         'ShopArea',
-        'login'
+        'login',
+        'Authority'
     ],
 
     stores: [
-    'ShopArea',
+        'ShopArea',
+        'SupportedCity'
     ],
 
     launch: function() {

@@ -4,29 +4,33 @@ Ext.define('XMLifeOperating.controller.ShopArea', {
   stores: ['ShopArea'],
   models: ['ShopArea'],
   refs : [
-    {
-      ref: 'shopareaList',
-      selector: 'shopareaList',
-      xtype: 'shopareaList',
-      autoCreate: true
-    },
-    {
-      ref: 'addShopArea',
-      selector: 'addShopArea',
-      xtype: 'addShopArea',
-      autoCreate: true
-    }
+  {
+    ref: 'shopAreaList',
+    selector: 'shopAreaList',
+    xtype: 'shopAreaList',
+    autoCreate: true
+  },
+  {
+    ref: 'addShopArea',
+    selector: 'addShopArea',
+    xtype: 'addShopArea',
+    autoCreate: true
+  }
   ],
   init : function(){
     var self = this;
     self.control({
-      'shopareaList' : {
-          added : self.renderShopareaList
+      'shopAreaList' : {
+        added : self.renderShopareaList,
+        show:self.onShow
       },
-      'shopareaList #addShopArea' : {
+      'shopAreaList #addShopArea' : {
         click : function(){
           this.getAddShopArea().show();
         }
+      },
+      'addShopArea #add-new-shopArea':{
+        click : self.addShopArea
       }
     });
   },
@@ -34,5 +38,14 @@ Ext.define('XMLifeOperating.controller.ShopArea', {
     var me  = this ;
     var store = me.getShopAreaStore();
     store.load();
+    console.log(123)
+  },
+  onShow:function(){
+    var me  = this ;
+    var store = me.getShopAreaStore();
+    store.load(); 
+  },
+  addShopArea:function(){
+    var me = this;
   }
 })

@@ -1,38 +1,34 @@
 Ext.define('XMLifeOperating.view.shopAreaManage.shopAreaList', {
   extend: 'Ext.grid.Panel',
-  id: 'shopareaList',
-  xtype: 'shopareaList',
-  alias: 'widget.shopareaList',
-  autoScroll: true,
+  id: 'shopAreaList',
+  xtype: 'shopAreaList',
+  alias: 'widget.shopAreaList',
   store: 'ShopArea',
   title: '中心平台管理',
   titleAlign: 'left',
   closable: true,
   forceFit: true,
-  requires: [
-    'Ext.panel.Panel',
-    'Ext.grid.*',
-    'Ext.data.*',
-    'Ext.ux.RowExpander',
-    'Ext.selection.CheckboxModel'
-  ],
   tbar: [{
     xtype: 'button',
     text: '添加中心',
     itemId: 'addShopArea'
   }],
   columns: [{
-      width: 60,
+      width: 30,
       header: '编号',
       dataIndex: 'id'
     }, {
       header: '中心名称',
       dataIndex: 'name'
-    }, {
-      header: '地址',
+    },{
+      header:'中心门店名称'
+    },{
+      header:'中心门店电话'
+    },{
+      header: '中心门店地址',
       dataIndex: 'address'
     }, {
-      header: '区域',
+      header: '管辖线路',
       dataIndex: 'zoneNames',
       renderer: function(value) {
         return value.join('/');

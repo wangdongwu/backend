@@ -1,4 +1,8 @@
+var dataProxy = new XMLifeOperating.generic.BaseProxy('supportedcity');
 Ext.define('XMLifeOperating.store.SupportedCity', {
     extend: 'Ext.data.Store',
-    model:'XMLifeOperating.model.SupportedCity'
+    storeId:'supportedCity',
+    model:'XMLifeOperating.model.SupportedCity',
+    autoLoad: false,
+    proxy: dataProxy,
 });

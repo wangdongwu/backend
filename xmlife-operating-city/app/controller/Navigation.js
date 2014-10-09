@@ -4,13 +4,13 @@ Ext.define('XMLifeOperating.controller.Navigation', {
     'Navigation',
     'Toolbar',
   ],
-  stores : [
+  stores: [
     'Navigation',
   ],
   requires: [
     'Ext.grid.column.Action'
   ],
-  init: function () {
+  init: function() {
     var me = this;
     me.control({
       'moduleNavigation': {
@@ -35,36 +35,36 @@ Ext.define('XMLifeOperating.controller.Navigation', {
     selector: '#contentPanel',
     xtype: 'panel'
   }, {
-      ref: 'moduleTitle',
-      selector: '#txtModuleTitle'
+    ref: 'moduleTitle',
+    selector: '#txtModuleTitle'
   }, {
-      ref: 'cmbGlobalCenter',
-      selector: '#cmbGlobalCenter'
+    ref: 'cmbGlobalCenter',
+    selector: '#cmbGlobalCenter'
   }],
-  changeCurrentCity : function (combo, records, eOpts) {
+  changeCurrentCity: function(combo, records, eOpts) {
     if (records.length === 0) {
       console.log('no entry selected');
       return;
-  }
-  XMLifeOperating.generic.Global.currentCity = records[0].data.code;
-  this.switchToView(this.currentXType);
-
-  var defaultHeaders = Ext.Ajax.defaultHeaders || {};
-  defaultHeaders["City"] = XMLifeOperating.generic.Global.currentCity;
-  Ext.Ajax.defaultHeaders = defaultHeaders;
+    }
+    XMLifeOperating.generic.Global.currentCity = records[0].data.code;
+    this.switchToView(this.currentXType);
+/*
+    var defaultHeaders = Ext.Ajax.defaultHeaders || {};
+    defaultHeaders["City"] = XMLifeOperating.generic.Global.currentCity;
+    Ext.Ajax.defaultHeaders = defaultHeaders;*/
   },
 
-  changeCurrentCenter : function (combo, records, eOpts) {
+  changeCurrentCenter: function(combo, records, eOpts) {
     if (records.length === 0) {
-        console.log('no entry selected');
-        return;
+      console.log('no entry selected');
+      return;
     }
 
     XMLifeOperating.generic.Global.current_operating = combo.getValue();
-    
+
     if (this.currentXType && this.loadedClasses[this.currentXType]) {
-        var cmp = this.loadedClasses[this.currentXType];
-        cmp.fireEvent('onShowView', cmp, this.currentXType);
+      var cmp = this.loadedClasses[this.currentXType];
+      cmp.fireEvent('onShowView', cmp, this.currentXType);
     }
   },
 
@@ -76,26 +76,33 @@ Ext.define('XMLifeOperating.controller.Navigation', {
    * @param  {[type]} Selectarr [当前选择项的list]
    * @return {[type]} Ext.Component [当前处于激活状态的panel]
    */
-  switchToView : function (model,Selectarr) {
+  switchToView: function(model, Selectarr) {
     var selected = Selectarr[0],
-        contentPanel = this.getContentPanel(),
-        contentItems = contentPanel.items.items,
-        id = selected.raw.id
-        isNew = true;
-    if (!selected.raw.leaf) {return false}
+      contentPanel = this.getContentPanel(),
+      contentItems = contentPanel.items.items,
+      id = selected.raw.id
+    isNew = true;
+    var toolbar = Ext.getCmp('toolbar');
+    if (!selected.raw.leaf) {
+      return false
+    }
 
     this.getModuleTitle().setText(selected.raw.text);
-        
-    Ext.Array.each(contentItems,function(item) {
+
+    Ext.Array.each(contentItems, function(item) {
       if (item.id === id) {
         contentPanel.setActiveTab(item.show());
         isNew = false;
       }
     });
-    if (isNew) {
+
+    if (isNew && Ext.ClassManager.getByAlias('widget.' + id)) {
       contentPanel.add({
-        xtype : id
-      });
+        id: id,
+        layout: 'fit',
+        xtype: id,
+        closable: true
+      })
       contentPanel.setActiveTab(id);
     }
     return contentPanel.getActiveTab();
