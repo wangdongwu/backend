@@ -830,16 +830,21 @@ Ext.ClassManager.addNameAlternateMappings({
   "XMLifeOperating.Application": [],
   "XMLifeOperating.controller.Main": [],
   "XMLifeOperating.controller.Navigation": [],
+  "XMLifeOperating.controller.ShopArea": [],
   "XMLifeOperating.generic.BaseProxy": [],
   "XMLifeOperating.generic.Global": [],
+  "XMLifeOperating.model.ShopArea": [],
   "XMLifeOperating.model.SupportedCity": [],
-  "XMLifeOperating.store.AssignedCity": [],
   "XMLifeOperating.store.Navigation": [],
+  "XMLifeOperating.store.ShopArea": [],
+  "XMLifeOperating.store.SupportedCity": [],
   "XMLifeOperating.view.Main": [],
   "XMLifeOperating.view.Navigation": [],
   "XMLifeOperating.view.Toolbar": [],
   "XMLifeOperating.view.Viewport": [],
-  "XMLifeOperating.view.login": []
+  "XMLifeOperating.view.login": [],
+  "XMLifeOperating.view.shopAreaManage.addShopArea": [],
+  "XMLifeOperating.view.shopAreaManage.shopAreaList": []
 });
 Ext.ClassManager.addNameAliasMappings({
   "Ext.AbstractComponent": [],
@@ -1829,11 +1834,14 @@ Ext.ClassManager.addNameAliasMappings({
   "XMLifeOperating.Application": [],
   "XMLifeOperating.controller.Main": [],
   "XMLifeOperating.controller.Navigation": [],
+  "XMLifeOperating.controller.ShopArea": [],
   "XMLifeOperating.generic.BaseProxy": [],
   "XMLifeOperating.generic.Global": [],
+  "XMLifeOperating.model.ShopArea": [],
   "XMLifeOperating.model.SupportedCity": [],
-  "XMLifeOperating.store.AssignedCity": [],
   "XMLifeOperating.store.Navigation": [],
+  "XMLifeOperating.store.ShopArea": [],
+  "XMLifeOperating.store.SupportedCity": [],
   "XMLifeOperating.view.Main": [
     "widget.app-main"
   ],
@@ -1846,6 +1854,12 @@ Ext.ClassManager.addNameAliasMappings({
   "XMLifeOperating.view.Viewport": [],
   "XMLifeOperating.view.login": [
     "widget.login"
+  ],
+  "XMLifeOperating.view.shopAreaManage.addShopArea": [
+    "widget.addShopArea"
+  ],
+  "XMLifeOperating.view.shopAreaManage.shopAreaList": [
+    "widget.shopareaList"
   ]
 });
 Ext.setVersion("ext-theme-base", "4.2.1");

@@ -25,7 +25,7 @@ Ext.define('XMLifeOperating.Application', {
         'Navigation',
         'ShopArea',
         'login',
-        'Authority'
+        'Freight'
     ],
 
     stores: [

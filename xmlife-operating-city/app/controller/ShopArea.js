@@ -23,6 +23,7 @@ Ext.define('XMLifeOperating.controller.ShopArea', {
       'shopAreaList' : {
         added : self.renderShopareaList,
         show:self.onShow
+
       },
       'shopAreaList #addShopArea' : {
         click : function(){
@@ -37,6 +38,7 @@ Ext.define('XMLifeOperating.controller.ShopArea', {
   renderShopareaList : function(){
     var me  = this ;
     var store = me.getShopAreaStore();
+    
     store.load();
     console.log(123)
   },
