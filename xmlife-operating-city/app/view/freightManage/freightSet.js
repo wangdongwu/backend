@@ -14,24 +14,44 @@ Ext.define('XMLifeOperating.view.freightManage.freightSet', {
     layout: 'fit',
     initComponent: function() {
         this.items = [{
-            xtype : 'grid',
-            store : 'Address',
-            layout: 'fit',
-            forceFit: true,
-                columns: [
-                    {
-                        text: '属性',
-                        renderer : function(a,b,c,row){
-                            return row == 0 ? ' 默认地址' : '其他地址';
-                        }
-                    },
-                     {
-                        text: '收货地址',
-                        dataIndex: 'addressDetail',
-                        renderer : function(value){
-                            return value ? value : '暂时还没有地址';
-                        }
-                    }
+            xtype: 'form',
+            title:'运费设置',
+            itemId:'dealForm',
+            layout: 'anchor',
+            bodyPadding: 5,
+            border: false,
+            
+            defaults:{
+                anchor: '100%'
+            },
+            items: [
+                {
+                    xtype: 'displayfield',
+                    name: 'name',
+                    fieldLabel: '城市',
+                    allowBlank:false,
+                    labelAlign:'left'
+                },
+                {
+                    xtype: 'textfield',
+                    name: 'shipfee',
+                    fieldLabel: '运费',
+                    allowBlank:false,
+                    
+                    labelAlign:'left',
+
+                    minWidth: 138,
+                    maxWidth: 138,
+                    labelWidth: 100,
+                    
+                },
+                {
+                    xtype: 'label',
+                    text: '元',
+                    textAlign: 'left',
+                    cls: 'user-text-label'
+                }
+
                 ]
         }]
 

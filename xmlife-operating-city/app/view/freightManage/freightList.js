@@ -12,9 +12,11 @@ Ext.define('XMLifeOperating.view.freightManage.freightList', {
   columns: [{
       width: 60,
       header: '运费',
+      
       dataIndex: 'shipfee'
     }, {
       header: '满免',
+      width:100,
       dataIndex: 'deductd'
     }, {
         text: '操作',

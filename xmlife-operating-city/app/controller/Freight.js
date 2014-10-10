@@ -29,26 +29,32 @@ Ext.define('XMLifeOperating.controller.Freight', {
       'freightList' : {
           added : me.renderFreightList       
       },
-      '#addressFreight': {
-                click: me.onAddressFreight
+      '#setFreight': {
+          click : me.onSetFreight
             },
 
       
     });
 
   },
-  onAddressFreight: function(view, rowIndex, colIndex, column, e) {
-        var self = this;
-        var customerDetail = view.getRecord(view.findTargetByEvent(e));
-        var uid = customerDetail.get('uid');
-        var store = self.getSupportedCitySetShipfeeStore();
-        var win = self.getFreightSet();
-        store.on('load', function(store, addressList) {
+  onSetFreight: function(view, rowIndex, colIndex, column, e) {    
+        var me = this;
+        var customerDetail = view.getRecord(view.findTargetByEvent(e));  
+        var name = customerDetail.get('name');        
+        var store = me.getSupportedCitySetShipfeeStore();
+        
+        
+        var win = me.getFreightSet();
+        win.down('form').loadRecord(customerDetail);
+        win.show();
+        
+        //win.show();
+       /* store.on('load', function(store, freightList) {
             win.show();
-        });
+        });*/
         store.load({
             params: {
-                customer: uid
+                name: name
             }
         });
     },
