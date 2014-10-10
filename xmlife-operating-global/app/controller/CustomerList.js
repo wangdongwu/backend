@@ -65,7 +65,7 @@ Ext.define('XMLifeOperating.controller.CustomerList', {
                     var store = this.getCustomerStore();
                     
                     store.getProxy().extraParams={
-                        shopArea: Ext.getCmp('customerList').down('#shopAreac').getValue(),
+                        shopArea: Ext.getCmp('CustomerList').down('#shopAreac').getValue(),
                         nameOrPhone: me.getKeywordc().getValue()
                     };
                     store.loadPage(1);
