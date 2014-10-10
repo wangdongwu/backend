@@ -193,12 +193,21 @@ body.dragging{background-color:#888fa3;}
 }
 .user-text-label{
 	display: inline-block !important;
+	width: 20px !important;
 	height: 20px;
 	line-height: 20px;
 	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
 	font-weight: normal;
-	left: 238px !important;
+	left: 148px !important;
+	position: absolute;
+	margin-top: -25px;
 }
+.user-text-label1{
+	margin-left: 5px;
+	margin-top: 3px;
+}
+
+
 
 
 .x-btn-toolbar {
