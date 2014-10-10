@@ -30,14 +30,14 @@ Ext.define('XMLifeOperating.controller.Freight', {
           added : me.renderFreightList       
       },
       '#setFreight': {
-          click : me.onSetFreight
+          click : me.showSetFreight
             },
 
       
     });
 
   },
-  onSetFreight: function(view, rowIndex, colIndex, column, e) {    
+  showSetFreight: function(view, rowIndex, colIndex, column, e) {    
         var me = this;
         var customerDetail = view.getRecord(view.findTargetByEvent(e));  
         var name = customerDetail.get('name');        
