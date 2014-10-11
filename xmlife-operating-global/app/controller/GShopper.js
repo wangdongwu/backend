@@ -160,7 +160,17 @@ Ext.define('XMLifeOperating.controller.GShopper', {
             'gShopperEdit #save-shopper-edit-btn': {
                 click: me.saveEditWindow
             },
-            'gShopperEdit filefield[name="shopperUploadfile"]': {
+            /*'gShopperEdit filefield[name="shopperUploadfile"]': {
+                change: function(uploadfile) {
+                    console.log(uploadfile);
+                    var form = uploadfile.ownerCt;
+
+                    var hash = uploadfile.previousNode().previousNode();
+
+                    uploadImage(form, hash);
+                }
+            },*/
+            'gShopperEdit filefield[name="gShopperUploadfile"]': {
                 change: function(uploadfile) {
                     var form = uploadfile.ownerCt;
 

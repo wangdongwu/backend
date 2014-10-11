@@ -64,7 +64,7 @@ Ext.define('XMLifeOperating.view.staffManage.shopper.GShopperEdit', {
                     valueField: 'value',
                     allowBlank:false                  
                 },
-                {
+                /*{
                     xtype: 'fieldset',
                     layout: 'column',
                     padding: 0,
@@ -88,6 +88,37 @@ Ext.define('XMLifeOperating.view.staffManage.shopper.GShopperEdit', {
                                 {
                                     xtype: 'filefield',
                                     name: 'shopperUploadfile',
+                                    buttonOnly: true,
+                                    hideLabel: true,
+                                },
+                            ]
+                        },
+                    ]
+                },*/
+                {
+                    xtype: 'fieldset',
+                    layout: 'column',
+                    padding: 0,
+                    border: false,
+                    items:[
+                        {
+                            xtype: 'textfield',
+                            name: 'avatar',
+                            fieldLabel: '上传图片',
+                            itemId:'buyerAvater',
+                            labelWidth: 90,
+                            
+                            readOnly: false,
+                        },
+                        {
+                            xtype: 'form',
+                            border: false,
+                            itemId:'adf',
+                            margin: '0 30 0 0',
+                            items:[
+                                {
+                                    xtype: 'filefield',
+                                    name: 'gShopperUploadfile',
                                     buttonOnly: true,
                                     hideLabel: true,
                                 },
