@@ -2,7 +2,8 @@ Ext.define('XMLifeOperating.controller.Authority', {
   extend: 'Ext.app.Controller',
   views: [
     'authorityManage.AuthorityList',
-    'authorityManage.AuthorityAdd'
+    'authorityManage.AuthorityAdd',
+    'authorityManage.AuthorityEdit'
   ],
   stores: ['AdminList', 'ShopArea'],
   models: ['AdminList', 'ShopArea'],
@@ -20,6 +21,11 @@ Ext.define('XMLifeOperating.controller.Authority', {
     selector: '#authorityAdd',
     xtype: 'authorityAdd',
     autoCreate: true
+  }, {
+    ref: 'authorityEdit',
+    selector: '#authorityEdit',
+    xtype: 'authorityEdit',
+    autoCreate: true
   }],
   init: function() {
     var self = this;
@@ -30,9 +36,11 @@ Ext.define('XMLifeOperating.controller.Authority', {
       'authorityList #createCenterExecutive': {
         click: self.showAddAuthorityWindow
       },
+      'authorityList #editCenterExecutive': {
+        click: self.showEditAuthorityWindow
+      },
       'authorityList #centerExecutiveOpenCount': {
         click: self.showOpenCount
-
       },
       'authorityList #centerExecutiveCloseCount': {
         click: self.showCloseCount
@@ -45,8 +53,10 @@ Ext.define('XMLifeOperating.controller.Authority', {
       },
       'authorityAdd #save': {
         click: self.addAuthority
+      },
+      'authorityEdit #save': {
+        click: self.editAuthority
       }
-
     });
   },
   renderAuthorityList: function() {
@@ -66,6 +76,21 @@ Ext.define('XMLifeOperating.controller.Authority', {
     var form = addWindow.down('form');
     addWindow.show();
   },
+  showEditAuthorityWindow: function(view, column, rowIndex, colIndex, e) {
+    var me = this;
+    var editWindow = me.getAuthorityEdit();
+    var form = editWindow.down('form');
+    var record = view.getRecord(view.findTargetByEvent(e));
+    var data = {
+      account: record.get('account'),
+      /* password: record.get('pwd'),*/
+      name: record.get('name'),
+      shoparea: record.get('shopAreaName'),
+      areaId: record.get('areaId')
+    }
+    form.getForm().setValues(data);
+    editWindow.show();
+  },
   showOpenCount: function() {
     var me = this;
     var store = me.getAdminListStore();
@@ -73,7 +98,6 @@ Ext.define('XMLifeOperating.controller.Authority', {
     store.filterBy(function(record, id) {
       return record.get('enable') == true;
     });
-
   },
   showCloseCount: function() {
     var me = this;
@@ -81,7 +105,6 @@ Ext.define('XMLifeOperating.controller.Authority', {
     store.filterBy(function(record, id) {
       return record.get('enable') == false;
     });
-
   },
   searchCount: function() {},
   openAndCloseCount: function(view, column, rowIndex, colIndex, e) {
@@ -96,7 +119,7 @@ Ext.define('XMLifeOperating.controller.Authority', {
           city: XMLifeOperating.generic.Global.currentCity,
           type: 'Area'
         }
-      })
+      });
     };
     var failure = function() {
       Ext.MessageBox.show({
@@ -180,5 +203,41 @@ Ext.define('XMLifeOperating.controller.Authority', {
     } else {
       Ext.Msg.alert('错误', '请确认表单输入格式');
     }
+  },
+  editAuthority: function() {
+    var me = this;
+    var editWindow = me.getAuthorityEdit();
+    var form = editWindow.down('form');
+    var data = form.getForm().getValues();
+    var store = me.getAdminListStore();
+    var ajaxParams = {
+      account: null,
+      name: null,
+      areaId: null
+    };
+    var success = function() {
+      store.load({
+        params: {
+          city: XMLifeOperating.generic.Global.currentCity,
+          type: 'Area'
+        }
+      });
+    };
+    var failure = function() {
+      Ext.MessageBox.show({
+        title: '提示',
+        msg: '修改失败',
+        icon: Ext.Msg.ERROR,
+        buttons: Ext.Msg.OK
+      });
+    };
+    ajaxParams.account = data.account;
+    ajaxParams.name = data.name;
+    ajaxParams.areaId = data.areaId;
+    if(data.password){
+         ajaxParams.pwd = data.password;
+    }
+    sendPutRequest('admin/update/areaAdmin', ajaxParams, '修改中心长账号', '修改中心长账号成功', '修改中心长账号失败', success, failure);
+    
   }
 })

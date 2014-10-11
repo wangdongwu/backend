@@ -40,8 +40,9 @@ Ext.define('XMLifeOperating.view.authorityManage.AuthorityList', {
     }, {
       align: 'center',
       header: '编辑',
+      itemId:'editCenterExecutive',
       renderer:function(){
-        return '<a>编辑</a>'
+        return '<a style="cursor:pointer;text-decoration:none">编辑</a>'
       }
     },{
       align: 'center',
