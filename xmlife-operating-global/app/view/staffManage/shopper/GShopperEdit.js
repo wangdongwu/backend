@@ -64,31 +64,6 @@ Ext.define('XMLifeOperating.view.staffManage.shopper.GShopperEdit', {
                     valueField: 'value',
                     allowBlank:false                  
                 },
-                /*{
-                    fieldLabel : '市场类型',
-                    labelWidth: 90,
-                    store : typeStore,
-                    name : 'type',
-                    allowBlank : false,
-                    xtype : 'combo',
-                    editable : false,
-                    queryMode : 'local',
-                    triggerAction : 'all',
-                    displayField: 'type',
-                    valueField: 'value',
-                    allowBlank:false                  
-                },*/
-                /*{
-                    xtype: 'textfield',
-                    name: 'avatar',
-                    fieldLabel: '图片',
-                    labelWidth: 90,
-                    allowBlank:false,
-                    minLength: 2,
-                    minLengthText:'图片最小长度为2',
-                    maxLength: 10,
-                    maxLengthText:'图片最大长度为10',
-                },*/
                 {
                     xtype: 'fieldset',
                     layout: 'column',
