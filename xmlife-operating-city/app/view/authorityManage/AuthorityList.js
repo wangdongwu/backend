@@ -3,11 +3,10 @@ Ext.define('XMLifeOperating.view.authorityManage.AuthorityList', {
   id: 'authorityList',
   xtype: 'authorityList',
   alias: 'widget.authorityList',
-  store: '',
+  store: 'AdminList',
   title: '中心权限管理',
   titleAlign: 'left',
   closable: true,
-  forceFit: true,
   tbar: [{
     xtype: 'button',
     text: '创建中心长账号',
@@ -18,7 +17,7 @@ Ext.define('XMLifeOperating.view.authorityManage.AuthorityList', {
     itemId: 'centerExecutiveOpenCount'
   },{
     xtype: 'button',
-    text: '查看关闭账号',
+    text: '查看注销账号',
     itemId: 'centerExecutiveCloseCount'
   },'->',{
     xtype: 'textfield',
@@ -34,9 +33,10 @@ Ext.define('XMLifeOperating.view.authorityManage.AuthorityList', {
       dataIndex: 'name'
     }, {
       header: '账号',
-      dataIndex: 'name'
+      dataIndex: 'acount'
     },{
-      header:'管辖中心'
+      header:'管辖中心',
+      dataIndex:'shopAreaName'
     }, {
       align: 'center',
       header: '编辑',
@@ -46,9 +46,11 @@ Ext.define('XMLifeOperating.view.authorityManage.AuthorityList', {
     },{
       align: 'center',
       header: '操作',
-      dataIndex: 'isActive',
+      dataIndex: 'enable',
+      itemId:'openAndCloseCountBtn',
       renderer: function(value) {
-        return value ? '<a>注销</a>' : '<a>开启</a>'
+
+        return value ? '<button>开启</button>' : '<button>注销</button>'
       }
     }
 

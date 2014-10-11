@@ -29,7 +29,7 @@ Ext.define('XMLifeOperating.view.Toolbar', {
             store: 'SupportedCity',
             fieldLabel: '城市',
             autoSelect: true,
-            labelWidth: 30,
+            labelWidth: 40,
             maxWitdh: 60,
             queryMode: 'local',
             editable: false,

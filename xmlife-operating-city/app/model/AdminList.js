@@ -1,5 +1,5 @@
 Ext.define('XMLifeOperating.model.AdminList', {
     extend: 'Ext.data.Model',
-    fields: [],
-    proxy: new XMLifeOperating.generic.BaseProxy('admin/list?type=2')
+    fields: ['acount','adminType','name','creater','enable','models','name','shopAreaName'],
+    proxy: new XMLifeOperating.generic.BaseProxy('admin/list')
 });
