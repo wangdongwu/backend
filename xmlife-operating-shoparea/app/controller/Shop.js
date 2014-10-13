@@ -909,7 +909,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
                             discountPrice: discountPrice,
                             limitType: limitType,
                             limitCount: limitCount,
-                            productLimitCount:productLimitCount,
+                            productLimitCount: productLimitCount,
                         }, '编辑商品', '成功编辑商品', '编辑商品失败', function() {
                             windowEl.unmask();
                             editWindow.close();
@@ -1253,7 +1253,6 @@ Ext.define('XMLifeOperating.controller.Shop', {
                         form.updateRecord(shelvesGoods);
                         shopId = this.shopId;
                         limitType = form.getValues()['limitType'];
-
                         if (limitType == 1) {
                             limitCount = form.getValues()['dayLimitCount'];
                             productLimitCount = form.getValues()['dayTodayLimitCount'];
@@ -1342,7 +1341,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
                     model.set('purchasePrice', (Math.abs(model.get('pprice') / 100)));
                     model.set('discountPrice', (Math.abs(model.get('dprice') / 100)));
                     model.set('name', name);
-                    
+
                     if (limitType == 1) {
                         model.set('dayLimitCount', limitCount);
                         model.set('dayTodayLimitCount', productLimitCount);
@@ -1355,7 +1354,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
                         model.set('dayTodayLimitCount', '');
                         model.set('totalTodayLimitCount', '');
                     }
-                    
+
                     me.openWin(win, model);
                 }
             },
@@ -1412,12 +1411,11 @@ Ext.define('XMLifeOperating.controller.Shop', {
                         shelvesGoods.set('productLimitCount', productLimitCount);
                         console.log("try saving");
                         windowEl.mask('saving');
-                        /*if (shelvesGoods.get('id') != null) {*/
+
                         console.log('编辑');
                         var id = shelvesGoods.get('id');
                         var facePrice = Math.abs(parseInt(shelvesGoods.get('facePrice')));
                         var purchasePrice = Math.abs(parseInt(shelvesGoods.get('purchasePrice')));
-                        // var discountPrice = Math.abs(parseInt(shelvesGoods.get('discountPrice')));
                         sendPutRequest('product/update', {
                             id: id,
                             facePrice: facePrice,

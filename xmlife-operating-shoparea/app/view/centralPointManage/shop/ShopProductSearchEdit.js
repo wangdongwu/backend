@@ -95,13 +95,20 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopProductSearchEdit',
                                 labelWidth: 120,
                                 labelAlign: 'left',
                                 width: 180,
+
                                 validator: function(value) {
-                                    if (value < 1 || value > 10) {
-                                        return '设置范围为1~10'
+                                    var radio = Ext.ComponentQuery.query('#limitType1')[0];
+                                    if (radio.checked) {
+                                        if (value < 1 || value > 10) {
+                                            return '设置范围为1~10'
+                                        } else {
+                                            return true
+                                        }
                                     } else {
                                         return true
                                     }
                                 }
+
                             }, {
                                 xtype: 'numberfield',
                                 name: 'dayTodayLimitCount',
@@ -109,7 +116,6 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopProductSearchEdit',
                                 labelWidth: 110,
                                 labelAlign: 'left',
                                 width: 180,
-                                value: 999,
                                 minValue: 0
                             }]
 
@@ -131,9 +137,15 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopProductSearchEdit',
                                 labelWidth: 120,
                                 labelAlign: 'left',
                                 width: 180,
+
                                 validator: function(value) {
-                                    if (value < 1 || value > 10) {
-                                        return '设置范围为1~10'
+                                    var radio = Ext.ComponentQuery.query('#limitType2')[0];
+                                    if (radio.checked) {
+                                        if (value < 1 || value > 10) {
+                                            return '设置范围为1~10'
+                                        } else {
+                                            return true
+                                        }
                                     } else {
                                         return true
                                     }
@@ -145,7 +157,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopProductSearchEdit',
                                 labelWidth: 110,
                                 labelAlign: 'left',
                                 width: 180,
-                                value: 999,
+
                                 minValue: 0
                             }]
                         }

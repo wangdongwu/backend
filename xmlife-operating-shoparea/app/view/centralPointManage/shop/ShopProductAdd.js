@@ -115,7 +115,6 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopProductAdd', {
                     padding: 0,
                     itemId: 'limitTypeFieldset',
                     items: [
-
                         {
                             layout: 'column',
                             xtype: 'fieldset',
@@ -127,7 +126,6 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopProductAdd', {
                                 name: 'limitType',
                                 inputValue: 1,
                                 itemId: 'limitType1',
-
                             }, {
                                 xtype: 'numberfield',
                                 name: 'dayLimitCount',
@@ -136,8 +134,13 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopProductAdd', {
                                 labelAlign: 'left',
                                 width: 200,
                                 validator: function(value) {
-                                    if (value < 1 || value > 10) {
-                                        return '设置范围为1~10'
+                                    var radio = Ext.ComponentQuery.query('#limitType1')[0];
+                                    if (radio.checked) {
+                                        if (value < 1 || value > 10) {
+                                            return '设置范围为1~10'
+                                        } else {
+                                            return true
+                                        }
                                     } else {
                                         return true
                                     }
@@ -150,7 +153,6 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopProductAdd', {
                                 labelWidth: 110,
                                 labelAlign: 'left',
                                 width: 200,
-                                value: 999,
                                 minValue: 0
                             }]
 
@@ -173,8 +175,13 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopProductAdd', {
                                 labelAlign: 'left',
                                 width: 200,
                                 validator: function(value) {
-                                    if (value < 1 || value > 10) {
-                                        return '设置范围为1~10'
+                                    var radio = Ext.ComponentQuery.query('#limitType2')[0];
+                                    if (radio.checked) {
+                                        if (value < 1 || value > 10) {
+                                            return '设置范围为1~10'
+                                        } else {
+                                            return true
+                                        }
                                     } else {
                                         return true
                                     }
@@ -186,11 +193,11 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopProductAdd', {
                                 labelWidth: 110,
                                 labelAlign: 'left',
                                 width: 200,
-                                value: 999,
                                 minValue: 0
                             }]
                         }
                     ]
+
                 }
             ],
             buttons: [{
