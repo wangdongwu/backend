@@ -78,51 +78,59 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopProductEdit', {
                     items:[
                         
                         {
-                            layout:'column',
-                            xtype:'fieldset',
-                            border:false,
-                            padding:0,
-                            items:[
-                                {
-                                    xtype:'radio',
-                                    labelAlign:'right',
-                                    name:'limitType',
-                                    inputValue: 1,
-                                    itemId:'limitType1',
+                            layout: 'column',
+                            xtype: 'fieldset',
+                            border: false,
+                            padding: 0,
+                            items: [{
+                                xtype: 'radio',
+                                labelAlign: 'right',
+                                name: 'limitType',
+                                inputValue: 1,
+                                itemId: 'limitType1',
 
-                                },
-                                {
-                                    xtype: 'textfield',
-                                    name: 'dayLimitCount',
-                                    fieldLabel: '每日限购数量',
+                            }, {
+                                xtype: 'textfield',
+                                name: 'dayLimitCount',
+                                fieldLabel: '每人当日限购数量',
+                                labelWidth: 120,
+                                labelAlign: 'left',
+                                width:180
+                            }, {
+                                xtype: 'textfield',
+                                name: 'dayTodayLimitCount',
+                                fieldLabel: '当日限购数量',
+                                labelWidth: 110,
+                                labelAlign: 'left',
+                                width:180
+                            }]
 
-                                    labelWidth: 90,
-                                    labelAlign:'left',
-                                }
-                            ]
-                            
-                        },
-                        {
-                            layout:'column',
-                            xtype:'fieldset',
-                            border:false,
-                            padding:0,
-                            items:[
-                                {
-                                    xtype:'radio',
-                                    labelAlign:'right',
-                                    name:'limitType',
-                                    inputValue: 2,
-                                    itemId:'limitType2',
-                                },
-                                {
-                                    xtype: 'textfield',
-                                    name: 'totalLimitCount',
-                                    fieldLabel: '累计限购数量',
-                                    labelWidth: 90,
-                                    labelAlign:'left',
-                                }
-                            ] 
+                        }, {
+                            layout: 'column',
+                            xtype: 'fieldset',
+                            border: false,
+                            padding: 0,
+                            items: [{
+                                xtype: 'radio',
+                                labelAlign: 'right',
+                                name: 'limitType',
+                                inputValue: 2,
+                                itemId: 'limitType2',
+                            }, {
+                                xtype: 'textfield',
+                                name: 'totalLimitCount',
+                                fieldLabel: '每人累计限购数量',
+                                labelWidth: 120,
+                                labelAlign: 'left',
+                                width:180
+                            }, {
+                                xtype: 'textfield',
+                                name: 'totalTodayLimitCount',
+                                fieldLabel: '当日限购数量',
+                                labelWidth: 110,
+                                labelAlign: 'left',
+                                width:180
+                            }]
                         }
                     ] 
                 }

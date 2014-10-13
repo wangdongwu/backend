@@ -94,6 +94,18 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopProductSearch', {
             return value;
         }
     }, {
+        text: '当日总限购数量',
+        dataIndex: 'productLimitCount',
+        width: 60,
+        sortable: false,
+        align: 'center',
+        renderer: function(value) {
+            if (value == 0) {
+                value = '';
+            }
+            return value;
+        }
+    }, {
         header: "",
         width: 90,
         dataIndex: 'status',
