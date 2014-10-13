@@ -89,19 +89,28 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopProductSearchEdit',
                                 itemId: 'limitType1',
 
                             }, {
-                                xtype: 'textfield',
+                                xtype: 'numberfield',
                                 name: 'dayLimitCount',
                                 fieldLabel: '每人当日限购数量',
                                 labelWidth: 120,
                                 labelAlign: 'left',
-                                width: 180
+                                width: 180,
+                                validator: function(value) {
+                                    if (value < 1 || value > 10) {
+                                        return '设置范围为1~10'
+                                    } else {
+                                        return true
+                                    }
+                                }
                             }, {
-                                xtype: 'textfield',
+                                xtype: 'numberfield',
                                 name: 'dayTodayLimitCount',
                                 fieldLabel: '当日限购数量',
                                 labelWidth: 110,
                                 labelAlign: 'left',
-                                width: 180
+                                width: 180,
+                                value: 999,
+                                minValue: 0
                             }]
 
                         }, {
@@ -116,19 +125,28 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopProductSearchEdit',
                                 inputValue: 2,
                                 itemId: 'limitType2',
                             }, {
-                                xtype: 'textfield',
+                                xtype: 'numberfield',
                                 name: 'totalLimitCount',
                                 fieldLabel: '每人累计限购数量',
                                 labelWidth: 120,
                                 labelAlign: 'left',
-                                width: 180
+                                width: 180,
+                                validator: function(value) {
+                                    if (value < 1 || value > 10) {
+                                        return '设置范围为1~10'
+                                    } else {
+                                        return true
+                                    }
+                                }
                             }, {
-                                xtype: 'textfield',
+                                xtype: 'numberfield',
                                 name: 'totalTodayLimitCount',
                                 fieldLabel: '当日限购数量',
                                 labelWidth: 110,
                                 labelAlign: 'left',
-                                width: 180
+                                width: 180,
+                                value: 999,
+                                minValue: 0
                             }]
                         }
                     ]
