@@ -1,7 +1,7 @@
 Ext.define('XMLifeOperating.controller.login', {
   extend: 'Ext.app.Controller',
-  views: ['login', 'Toolbar'],
-  stores:['ShopArea'],
+  views: ['login', 'Toolbar','Navigation'],
+  stores:['ShopArea','Navigation'],
   models:['ShopArea'],
   refs: [{
     ref: 'login',
@@ -39,7 +39,8 @@ Ext.define('XMLifeOperating.controller.login', {
       Ext.Ajax.defaultHeaders = {
         'auth-token': sessionId
       };
-      this.getShopAreaStore().load();
+      //this.getShopAreaStore().load();
+      self.getNavigationStore().setRootNode({expanded:true});
     }
   },
   login: function() {
@@ -64,6 +65,9 @@ Ext.define('XMLifeOperating.controller.login', {
             'auth-token': data.sessionId
           };
           self.getCurrentUsername().setText(username);
+          /*加载tree*/
+          self.getNavigationStore().setRootNode({expanded:true});
+
           view.hide();
           self.getShopAreaStore().load();
         }

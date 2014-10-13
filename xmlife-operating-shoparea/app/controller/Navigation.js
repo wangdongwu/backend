@@ -153,10 +153,8 @@ Ext.define('XMLifeOperating.controller.Navigation', {
         if (this.viewStack.length < 2) {
             return;
         }
-
         var previousViewXType = this.viewStack[this.viewStack.lenth - 2];
         this.viewStack.pop();
-
         this.switchToView(previousViewXType);
     }
 });
