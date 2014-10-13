@@ -31,7 +31,7 @@ Ext.define('XMLifeOperating.controller.Authority', {
     var self = this;
     self.control({
       'authorityList': {
-        added: self.renderAuthorityList
+        show: self.renderAuthorityList
       },
       'authorityList #createCenterExecutive': {
         click: self.showAddAuthorityWindow

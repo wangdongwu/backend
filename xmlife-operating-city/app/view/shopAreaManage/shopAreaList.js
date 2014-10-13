@@ -39,14 +39,15 @@ Ext.define('XMLifeOperating.view.shopAreaManage.shopAreaList', {
       renderer: function(value) {
         return value.join('/');
       }
-    }, {
+    },/* {
       align: 'center',
       header: '操作',
       dataIndex: 'isActive',
+      itemId:'openAndCloseCenterBtn',
       renderer: function(value) {
-        return value ? '<a>关闭</a>' : '<a>开启</a>'
+        return value ? '<button>关闭</button>' : '<button>开启</button>'
       }
-    }
+    }*/
 
   ]
 });

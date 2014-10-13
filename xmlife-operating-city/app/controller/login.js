@@ -1,7 +1,7 @@
 Ext.define('XMLifeOperating.controller.login', {
   extend: 'Ext.app.Controller',
   views: ['login', 'Toolbar'],
-  stores: ['SupportedCity'],
+  stores: ['Navigation','SupportedCity'],
   models: ['SupportedCity'],
   refs: [{
     ref: 'login',
@@ -38,6 +38,7 @@ Ext.define('XMLifeOperating.controller.login', {
         'auth-token': sessionId
       }
       cityStore.load();
+     /* self.loadNavigateTree();*/
     }
   },
   login: function() {
@@ -65,6 +66,7 @@ Ext.define('XMLifeOperating.controller.login', {
           self.getCurrentUsername().setText(username);
           view.hide();
           cityStore.load();
+         /* self.loadNavigateTree();*/
         }
       },
       failure: function(response) {
@@ -80,5 +82,13 @@ Ext.define('XMLifeOperating.controller.login', {
         }
       }
     });
+  },
+  loadNavigateTree: function() {
+    var me = this;
+    var  treeStore = me.getNavigationStore();
+    var success =function(){}
+    var failure = function(){}
+    /*treeStore.load();*/
+    sendGetRequest('module/getUserModulesTree',null,'','','',success,failure);
   }
 });

@@ -3,12 +3,10 @@ Ext.define('XMLifeOperating.view.freightManage.freightList', {
   id: 'freightList',
   xtype: 'freightList',
   alias: 'widget.freightList',
-  autoScroll: true,
   store: 'SupportedCitySetShipfee',
   title: '运费管理',
   titleAlign: 'left',
   closable: true,
-  forceFit: true,
   columns: [{
       width: 60,
       header: '运费',

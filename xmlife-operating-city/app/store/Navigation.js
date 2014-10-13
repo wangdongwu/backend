@@ -5,7 +5,6 @@ Ext.define('XMLifeOperating.store.Navigation', {
     ],
     extend: 'Ext.data.TreeStore',
     fields: ['id', 'text', 'code', 'leaf'],
-    autoLoad: true,
     root: {
         text: 'Root',
         expanded: true,
@@ -21,11 +20,10 @@ Ext.define('XMLifeOperating.store.Navigation', {
             id: 'authorityList',
             text: '中心权限管理',
             leaf: true
-        },{
+        }, {
             id: 'personalCenter',
             text: '个人中心',
             leaf: true
-        }
-            ]
-        }
+        }]
+    }
     });
