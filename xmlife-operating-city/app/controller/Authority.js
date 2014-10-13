@@ -81,20 +81,22 @@ Ext.define('XMLifeOperating.controller.Authority', {
     var editWindow = me.getAuthorityEdit();
     var form = editWindow.down('form');
     var record = view.getRecord(view.findTargetByEvent(e));
+    var shopAreaComboxStore = me.getShopAreaStore();
     var data = {
       account: record.get('account'),
-      /* password: record.get('pwd'),*/
       name: record.get('name'),
-      shoparea: record.get('shopAreaName'),
-      areaId: record.get('areaId')
-    }
-    form.getForm().setValues(data);
-    editWindow.show();
+      shoparea: record.get('areaId'),
+    };
+    shopAreaComboxStore.load({
+      callback: function() {
+        form.getForm().setValues(data);
+        editWindow.show();
+      }
+    })
   },
   showOpenCount: function() {
     var me = this;
     var store = me.getAdminListStore();
-
     store.filterBy(function(record, id) {
       return record.get('enable') == true;
     });
@@ -111,7 +113,7 @@ Ext.define('XMLifeOperating.controller.Authority', {
     var me = this;
     var store = me.getAdminListStore();
     var row = view.getRecord(view.findTargetByEvent(e));
-    var account = row.get('acount');
+    var account = row.get('account');
     var status = row.get('enable');
     var success = function() {
       store.load({
@@ -210,6 +212,8 @@ Ext.define('XMLifeOperating.controller.Authority', {
     var form = editWindow.down('form');
     var data = form.getForm().getValues();
     var store = me.getAdminListStore();
+
+
     var ajaxParams = {
       account: null,
       name: null,
@@ -222,6 +226,7 @@ Ext.define('XMLifeOperating.controller.Authority', {
           type: 'Area'
         }
       });
+      editWindow.close();
     };
     var failure = function() {
       Ext.MessageBox.show({
@@ -233,11 +238,11 @@ Ext.define('XMLifeOperating.controller.Authority', {
     };
     ajaxParams.account = data.account;
     ajaxParams.name = data.name;
-    ajaxParams.areaId = data.areaId;
-    if(data.password){
-         ajaxParams.pwd = data.password;
+    ajaxParams.areaId = data.shoparea;
+    if (data.password) {
+      ajaxParams.pwd = data.password;
     }
     sendPutRequest('admin/update/areaAdmin', ajaxParams, '修改中心长账号', '修改中心长账号成功', '修改中心长账号失败', success, failure);
-    
+
   }
 })

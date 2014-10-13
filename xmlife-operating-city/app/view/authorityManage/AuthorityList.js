@@ -33,7 +33,7 @@ Ext.define('XMLifeOperating.view.authorityManage.AuthorityList', {
       dataIndex: 'name'
     }, {
       header: '账号',
-      dataIndex: 'acount'
+      dataIndex: 'account'
     },{
       header:'管辖中心',
       dataIndex:'shopAreaName'

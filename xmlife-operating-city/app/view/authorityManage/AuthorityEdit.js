@@ -22,6 +22,7 @@ Ext.define('XMLifeOperating.view.authorityManage.AuthorityEdit', {
       name: 'account',
       fieldLabel: '账号',
       allowBlank: false,
+      readOnly: true,
       validator: function(value) {
         var value = value;
         var length = 0;
@@ -30,7 +31,7 @@ Ext.define('XMLifeOperating.view.authorityManage.AuthorityEdit', {
           if (chart >= 0 && chart <= 255) {
             length = length + 1;
           } else {
-           return '账号只能为2~12位数字或字母'
+            return '账号只能为2~12位数字或字母'
           }
         }
         if (length < 2) {
@@ -55,7 +56,7 @@ Ext.define('XMLifeOperating.view.authorityManage.AuthorityEdit', {
           if (chart >= 0 && chart <= 255) {
             length = length + 1;
           } else {
-          return '密码只能为6~32位数字或字母'
+            return '密码只能为6~32位数字或字母'
           }
         }
         if (length < 6) {
@@ -71,9 +72,10 @@ Ext.define('XMLifeOperating.view.authorityManage.AuthorityEdit', {
       xtype: 'combo',
       name: 'shoparea',
       fieldLabel: '中心',
-      itemId:'editAreaStore',
+      itemId: 'editAreaStore',
       store: 'ShopArea',
       valueField: 'id',
+      queryMode: 'local',
       displayField: 'name',
       allowBlank: false
     }],
