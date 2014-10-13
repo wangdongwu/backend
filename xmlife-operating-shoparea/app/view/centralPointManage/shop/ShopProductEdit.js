@@ -86,8 +86,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopProductEdit', {
                                 labelAlign: 'right',
                                 name: 'limitType',
                                 inputValue: 1,
-                                itemId: 'limitType1',
-                                inputType:'checkbox'
+                                itemId: 'limitType1'
 
                             }, {
                                 xtype: 'numberfield',
