@@ -19,27 +19,33 @@ Ext.define('XMLifeOperating.view.shopAreaManage.shopAreaList', {
       dataIndex: 'id'
     }, {
       header: '中心名称',
-      dataIndex: 'name'
-    },{
-      header:'中心门店名称'
-    },{
-      header:'中心门店电话'
-    },{
+      dataIndex: 'name',
+      width: 135
+    }, {
+      header: '中心门店名称',
+      width: 135
+    }, {
+      header: '中心门店电话',
+      width: 125
+    }, {
       header: '中心门店地址',
-      dataIndex: 'address'
+      dataIndex: 'address',
+      width: 250
     }, {
       header: '管辖线路',
       dataIndex: 'zoneNames',
+      width: 200,
       renderer: function(value) {
-        return value.join('/');
+        return value.join('</br>');
       }
     }, {
       header: '店铺',
       dataIndex: 'shopNames',
       renderer: function(value) {
-        return value.join('/');
+        return value.join('</br>');
       }
-    },/* {
+    },
+    /* {
       align: 'center',
       header: '操作',
       dataIndex: 'isActive',

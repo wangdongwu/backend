@@ -47,7 +47,7 @@ Ext.define('XMLifeOperating.view.authorityManage.AuthorityEdit', {
       xtype: 'textfield',
       name: 'password',
       fieldLabel: '密码',
-      allowBlank: false,
+      allowBlank: true,
       validator: function(value) {
         var value = value;
         var length = 0;

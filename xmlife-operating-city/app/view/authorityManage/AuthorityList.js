@@ -30,7 +30,7 @@ Ext.define('XMLifeOperating.view.authorityManage.AuthorityList', {
   }],
   columns: [{
       header: '姓名',
-      dataIndex: 'name'
+      dataIndex: 'name',
     }, {
       header: '账号',
       dataIndex: 'account'
@@ -51,7 +51,7 @@ Ext.define('XMLifeOperating.view.authorityManage.AuthorityList', {
       itemId:'openAndCloseCountBtn',
       renderer: function(value) {
 
-        return value ? '<button>开启</button>' : '<button>注销</button>'
+        return value ? '<button>注销</button>' : '<button>开启</button>'
       }
     }
 
