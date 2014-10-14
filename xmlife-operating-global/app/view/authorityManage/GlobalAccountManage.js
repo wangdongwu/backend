@@ -18,9 +18,6 @@ Ext.define('XMLifeOperating.view.authorityManage.GlobalAccountManage', {
       itemId : 'addGlobalAccount'
     },
     {
-      xtype : 'combo',
-    },
-    {
       xtype : 'button',
       text : '查看开启账号',
       itemId : 'lookActiveAccount'

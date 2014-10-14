@@ -214,7 +214,8 @@ Ext.define('XMLifeOperating.controller.Authority', {
         '#submit' : {
           click : function(button){
 
-            var form = button.up('window').down('form'),
+            var windowEl = button.up('window'),
+                form = button.up('window').down('form'),
                 account = form.down('#accountField') && form.down('#accountField').getValue(),
                 subData = form.getValues(),
                 editUrl = form.editUrl;
@@ -232,6 +233,7 @@ Ext.define('XMLifeOperating.controller.Authority', {
                         Ext.Msg.alert('成功', '成功更新账户'+account);
                         var store = self.getAccountStore();
                         store.clearFilter(true);
+                        windowEl.close();
                         store.load()
                       }else{
                         Ext.Msg.alert('失败', '更新账户'+account+'失败');
@@ -245,6 +247,7 @@ Ext.define('XMLifeOperating.controller.Authority', {
                     Ext.Msg.alert('添加成功', '成功添加');
                     var store = self.getAccountStore();
                     store.clearFilter(true);
+                    windowEl.close();
                     store.load();
                   }else{
                     Ext.Msg.alert('失败', '失败');
