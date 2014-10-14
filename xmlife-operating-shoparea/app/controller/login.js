@@ -1,7 +1,7 @@
 Ext.define('XMLifeOperating.controller.login', {
   extend: 'Ext.app.Controller',
-  views: ['login', 'Toolbar'],
-  stores:['ShopArea'],
+  views: ['login', 'Toolbar','Navigation'],
+  stores:['ShopArea','Navigation'],
   models:['ShopArea'],
   refs: [{
     ref: 'login',
@@ -22,11 +22,16 @@ Ext.define('XMLifeOperating.controller.login', {
   }, {
     ref: 'cmbGlobalCenter',
     selector: 'headerToolbar #cmbGlobalCenter',
+  },{
+    ref: 'txtShopAreaName',
+    selector:'headerToolbar #txtShopAreaName'
   }],
   init: function() {
     var self = this;
     var sessionId = localStorage.getItem('sessionId');
+    var areaId = localStorage.getItem('areaId');
 
+    XMLifeOperating.generic.Global.current_operating = areaId;
     if (!sessionId) {
       this.getLogin().show();
       this.control({
@@ -35,11 +40,12 @@ Ext.define('XMLifeOperating.controller.login', {
         }
       })
     } else {
-      //self.getCurrentUsername().setText(username);
       Ext.Ajax.defaultHeaders = {
         'auth-token': sessionId
       };
       this.getShopAreaStore().load();
+      //Ext.getCmp('cmbGlobalCenter').setValue(areaId);
+      self.getNavigationStore().setRootNode({expanded:true});
     }
   },
   login: function() {
@@ -60,12 +66,21 @@ Ext.define('XMLifeOperating.controller.login', {
           var data = Ext.JSON.decode(response.responseText);
           localStorage.setItem("sessionId", data.sessionId);
           localStorage.setItem("username", username);
+          localStorage.setItem("areaId",data.areaId);
+          localStorage.setItem("areaName",data.areaName);
+          XMLifeOperating.generic.Global.current_operating=data.areaId;
           Ext.Ajax.defaultHeaders = {
             'auth-token': data.sessionId
           };
           self.getCurrentUsername().setText(username);
+          /*加载tree*/
+          self.getNavigationStore().setRootNode({expanded:true});
+
           view.hide();
           self.getShopAreaStore().load();
+          //Ext.getCmp('cmbGlobalCenter').setValue(data.areaId);
+          self.getTxtShopAreaName().setText(data.areaName);
+          console.log(Ext.getCmp('cmbGlobalCenter').getValue());
         }
       },
       failure: function(response) {
