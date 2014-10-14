@@ -8,7 +8,6 @@ Ext.define('XMLifeOperating.view.Navigation', {
     xtype: 'moduleNavigation',
     hideHeaders: true,
     rootVisible: false,
-    store: 'Navigation',
-    lines: false,
-    useArrows: true
+    useArrows: true,
+    store : 'Navigation'
 });

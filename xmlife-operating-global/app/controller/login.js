@@ -1,6 +1,7 @@
 Ext.define('XMLifeOperating.controller.login', {
     extend: 'Ext.app.Controller',
-    views : ['login','Toolbar'],
+    views : ['login','Toolbar','Navigation'],
+    stores : ['Navigation'],
     refs : [
         {
              ref: 'login',
@@ -36,9 +37,8 @@ Ext.define('XMLifeOperating.controller.login', {
         })
       }else{
         //self.getCurrentUsername().setText(username);
-        Ext.Ajax.defaultHeaders = {
-                    'auth-token' : sessionId
-                  }
+        Ext.Ajax.defaultHeaders = {'auth-token' : sessionId};
+        self.getNavigationStore().setRootNode({expanded:true});
       }
     },
     login : function(){
@@ -55,12 +55,18 @@ Ext.define('XMLifeOperating.controller.login', {
             success : function(response){
               if(response.responseText){
                 var data =  Ext.JSON.decode(response.responseText);
+                /*本地储存信息*/
                 localStorage.setItem("sessionId", data.sessionId);
                 localStorage.setItem("username", username);
+                /*更改页头*/
                 Ext.Ajax.defaultHeaders = {
                     'auth-token' : data.sessionId
                 };
+                /*设置用户名字*/
                 self.getCurrentUsername().setText(username);
+                /*加载tree*/
+                self.getNavigationStore().setRootNode({expanded:true});
+
                 view.hide();
               }
             },

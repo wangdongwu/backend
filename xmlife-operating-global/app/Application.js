@@ -36,7 +36,7 @@ Ext.define('XMLifeOperating.Application', {
         'Shoparea',
         'login',
         'BatchAddEstate',
-        //'Authority',
+        'Authority',
         'WechatRefund',
         'BalanceRefund',
         'AlipayRefund'

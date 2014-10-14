@@ -9,11 +9,19 @@ Ext.define('XMLifeOperating.controller.Navigation', {
     'AssignedCity',
     'ShopArea'
   ],
+  refs : [{
+    ref : 'Navigation',
+    selector : 'Navigation',
+    xtype : 'Navigation'
+  }]
+  ,
   requires: [
     'Ext.grid.column.Action'
   ],
   init: function () {
     var me = this;
+    
+
     me.control({
       'moduleNavigation': {
         selectionchange: me.switchToView

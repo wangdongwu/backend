@@ -71,6 +71,9 @@ Ext.define('XMLifeOperating.view.templateManage.productTemplate.batchModifiWindo
                 listeners : {
                   afterrender : function(gird){
                     gird.fileInputEl.set({multiple:'multiple'});
+                    var el = gird.getEl();
+                    el.dom.onchange = function(e){
+                    }
                   }
                 }
             },
