@@ -1,8 +1,8 @@
 Ext.define('XMLifeOperating.controller.login', {
   extend: 'Ext.app.Controller',
   views: ['login', 'Toolbar'],
-  stores: ['Navigation','SupportedCity'],
-  models: ['SupportedCity'],
+  stores: ['Navigation'],
+  models: ['Navigation'],
   refs: [{
     ref: 'login',
     selector: 'login',
@@ -23,7 +23,6 @@ Ext.define('XMLifeOperating.controller.login', {
   init: function() {
     var self = this;
     var sessionId = localStorage.getItem('sessionId');
-    var cityStore = self.getSupportedCityStore();
 
     if (!sessionId) {
       this.getLogin().show();
@@ -37,9 +36,9 @@ Ext.define('XMLifeOperating.controller.login', {
       Ext.Ajax.defaultHeaders = {
         'auth-token': sessionId
       }
-      cityStore.load();
-     /* self.loadNavigateTree();*/
+      self.loadNavigateTree();
     }
+
   },
   login: function() {
     var self = this,
@@ -47,7 +46,7 @@ Ext.define('XMLifeOperating.controller.login', {
       username = view.down('[name=username]').getValue(),
       password = view.down('[name=password]').getValue(),
       loginUrl = XMLifeOperating.generic.Global.URL.biz + 'admin/login';
-    var cityStore = self.getSupportedCityStore();
+    
     Ext.Ajax.request({
       url: loginUrl,
       params: {
@@ -64,9 +63,10 @@ Ext.define('XMLifeOperating.controller.login', {
             'auth-token': data.sessionId
           };
           self.getCurrentUsername().setText(username);
+          XMLifeOperating.generic.Global.currentCity = data.cityCode;
           view.hide();
-          cityStore.load();
-         /* self.loadNavigateTree();*/
+          /*cityStore.load();*/
+          self.loadNavigateTree();
         }
       },
       failure: function(response) {
@@ -85,10 +85,9 @@ Ext.define('XMLifeOperating.controller.login', {
   },
   loadNavigateTree: function() {
     var me = this;
-    var  treeStore = me.getNavigationStore();
-    var success =function(){}
-    var failure = function(){}
-    /*treeStore.load();*/
-    sendGetRequest('module/getUserModulesTree',null,'','','',success,failure);
+    var treeStore = me.getNavigationStore();
+    treeStore.setRootNode({
+      expanded: true
+    });
   }
 });

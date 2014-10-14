@@ -7,6 +7,7 @@ Ext.define('XMLifeOperating.controller.Navigation', {
   stores: [
     'Navigation',
   ],
+  models:['Navigation'],
   requires: [
     'Ext.grid.column.Action'
   ],

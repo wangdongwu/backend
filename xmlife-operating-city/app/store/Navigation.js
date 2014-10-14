@@ -3,9 +3,14 @@ Ext.define('XMLifeOperating.store.Navigation', {
     'Ext.grid.*',
     'Ext.data.TreeStore',
     ],
+    defaultRootId : '',
     extend: 'Ext.data.TreeStore',
-    fields: ['id', 'text', 'code', 'leaf'],
-    root: {
+    model:'XMLifeOperating.model.Navigation',
+    autoLoad:false,
+    root:{
+        expanded:false
+    }
+/*    root: {
         text: 'Root',
         expanded: true,
         children: [{
@@ -25,5 +30,5 @@ Ext.define('XMLifeOperating.store.Navigation', {
             text: '个人中心',
             leaf: true
         }]
-    }
+    }*/
     });
