@@ -28,6 +28,9 @@ Ext.define('XMLifeOperating.controller.ShopArea', {
       'shopAreaList #openAndCloseCenterBtn': {
         click: self.openAndCloseCenter
       },
+      'shopAreaList #jumpToCenter': {
+        click: self.jumpToCenter
+      },
       'addShopArea #add-new-shopArea': {
         click: self.addShopArea
       }
@@ -86,9 +89,9 @@ Ext.define('XMLifeOperating.controller.ShopArea', {
 
     if (form.getForm().isValid()) {
       var ajaxParamas = {
-        city:XMLifeOperating.generic.Global.currentCity,
-        name:data.areaName,
-        address:data.shopAreaAddress
+        city: XMLifeOperating.generic.Global.currentCity,
+        name: data.areaName,
+        address: data.shopAreaAddress
       }
       var success = function(responseText) {
         me.renderShopareaList();
@@ -106,6 +109,24 @@ Ext.define('XMLifeOperating.controller.ShopArea', {
     } else {
       Ext.Msg.alert('Invalid Data', 'Please correct form errors');
     }
+
+  },
+  jumpToCenter: function(view, column, rowIndex, colIndex, e) {
+    var me = this;
+    var store = me.getShopAreaStore();
+    var clickDom = view.getRecord(view.findTargetByEvent(e));
+    var areaId = clickDom.get('id');
+    var host = window.location.host;
+
+    window.open(host + '/xmlife-operating-shoparea/');
+    
+
+
+/*    if (host.match('localhost')) {
+      window.open(host + '/xmlife-operating-shoparea/');
+    } else {
+      window.open(host + '/center-backend-client?areaId=' + areaId);
+    }*/
 
   }
 })
