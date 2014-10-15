@@ -234,12 +234,26 @@ Ext.define('XMLifeOperating.controller.Authority', {
             var windowEl = button.up('window'),
                 form = button.up('window').down('form'),
                 account = form.down('#accountField') && form.down('#accountField').getValue(),
+                isHaveCities = form.down('#isHaveCities') && form.down('#isHaveCities').getValue(),
+                citiesCheckboxs = form.down('#citiesCheckbox') && form.down('#citiesCheckbox').query('checkboxfield'),
                 subData = form.getValues(),
-                editUrl = form.editUrl;
+                editUrl = form.editUrl
+                cityNum = 0;
                  if(account){
                   subData['account'] = account
                  }
 
+             if(isHaveCities){
+              Ext.each(citiesCheckboxs, function(checkbox) {
+                if(checkbox.getValue()){
+                  cityNum++;
+                }
+              });
+              if(cityNum <= 0){
+                Ext.Msg.alert('失败', '请至少选择一个城市');
+                return false;
+              }
+             }
             if (form.edit) {
               Ext.Ajax.request({
                   method : "PUT",

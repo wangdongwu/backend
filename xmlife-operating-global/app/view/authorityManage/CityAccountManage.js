@@ -49,6 +49,7 @@ Ext.define('XMLifeOperating.view.authorityManage.CityAccountManage', {
           text : '城市',
           dataIndex : 'cities',
           renderer : function(v){
+            //var str = '<a href="/city-backend-client/index.html?city=">'+v[0]+'</a>'
             return v.join('</br>');
           }
         },
