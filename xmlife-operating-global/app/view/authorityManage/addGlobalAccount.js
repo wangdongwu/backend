@@ -72,7 +72,7 @@ Ext.define('XMLifeOperating.view.authorityManage.addGlobalAccount', {
     {
         xtype: 'checkbox',
         boxLabel  : '杭州',
-        name      : 'city',
+        name      : 'cities',
         inputValue: '330100'
       },
     {
