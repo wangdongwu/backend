@@ -82,12 +82,13 @@ Ext.define('XMLifeOperating.controller.Authority', {
             var authorityStore = self.getAuthorityStore(),
                 cityStore = self.getAllCitiesStore(),
                 addGlobalAccount = self.getAddGlobalAccount(),
-                checkGroup = addGlobalAccount.down('checkboxgroup'),
+                modulesCheckbox = addGlobalAccount.down('#modulesCheckbox'),
                 radiogroup = addGlobalAccount.down('radiogroup');
+                isHaveCities = addGlobalAccount.down('#isHaveCities');
                 authorityStore.load({
                   callback : function(stores){
                     Ext.each(stores, function(model) {
-                      checkGroup.add({
+                      modulesCheckbox.add({
                         xtype: 'checkboxfield',
                         boxLabel  : model.get('text'),
                         name      : 'modules',
@@ -139,18 +140,34 @@ Ext.define('XMLifeOperating.controller.Authority', {
             var addGlobalAccount = self.getAddGlobalAccount(),
                 form = addGlobalAccount.down('form'),
                 accountField = form.down('#accountField'),
-                checkboxList = form.down('checkboxgroup').query('checkboxfield'),
+                modulesCheckbox = form.down('#modulesCheckbox').query('checkboxfield'),
+                citiesCheckbox = form.down('#citiesCheckbox').query('checkboxfield'),
+                isHaveCities = form.down('#isHaveCities'),
                 model = arguments[5],
+                cityIds = model.get('cityIds'),
                 moduleIds = model.get('moduleIds'); 
                 form.loadRecord(model);
                 accountField.setDisabled(true);
-                Ext.each(checkboxList, function(checkbox) {
+                Ext.each(modulesCheckbox, function(checkbox) {
                    for(var i = 0 , l = moduleIds.length; i < l ; i++){
                     if(checkbox.inputValue == moduleIds[i]){
                       checkbox.setValue(true);
                     }
                    }
                 });
+
+                if(cityIds.length>0){
+                  isHaveCities.setValue(true);
+                }
+
+                Ext.each(citiesCheckbox, function(checkbox) {
+                   for(var i = 0 , l = cityIds.length; i < l ; i++){
+                    if(checkbox.inputValue == cityIds[i]){
+                      checkbox.setValue(true);
+                    }
+                   }
+                });
+
                 form.edit = true;
                 addGlobalAccount.show();
 

@@ -56,6 +56,7 @@ Ext.define('XMLifeOperating.view.authorityManage.addGlobalAccount', {
       xtype : 'checkboxgroup',
       fieldLabel : '权限管理(可多选:)',
       defaultType: 'checkboxfield',
+      itemId : 'modulesCheckbox',
       width : 300,
       labelWidth : 60,
       columns: 2,
@@ -65,15 +66,41 @@ Ext.define('XMLifeOperating.view.authorityManage.addGlobalAccount', {
     {
       xtype : 'checkbox',
       boxLabel  : '城市权限管理',
+      itemId : 'isHaveCities',
       name      : 'topping',
-      inputValue: '2'
+      inputValue: '2',
+      listeners : {
+        change : function(gird,newValue){
+          var citiesCheckbox = gird.up('form').down('#citiesCheckbox'),
+              citycheckboxFields = citiesCheckbox.query('checkboxfield');
+          if(newValue){
+            citiesCheckbox.show();
+          }else{
+            citiesCheckbox.hide();
+            
+            Ext.each(citycheckboxFields, function(checkboxfield) {
+              checkboxfield.setValue(false);
+            });
+          }
+        }
+      }
       
     },
     {
+      xtype : 'checkboxgroup',
+      defaultType: 'checkboxfield',
+      hidden : true,
+      itemId : 'citiesCheckbox',
+      width : 300,
+      labelWidth : 60,
+      columns: 2,
+      vertical: true,
+      items : [{
         xtype: 'checkbox',
         boxLabel  : '杭州',
         name      : 'cities',
         inputValue: '330100'
+      }]
       },
     {
       xtype : 'radiogroup',
