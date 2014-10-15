@@ -33,8 +33,17 @@ Ext.define('XMLifeOperating.controller.login', {
         this.control({
           '#login-bt' : {
             click : self.login
+          },
+          'headerToolbar #txtUserName' : {
+          click : function(){
+            var sessionId = localStorage.getItem('sessionId');
+            if(!sessionId){
+              this.getLogin().show();
+            }
           }
-        })
+        }
+        }
+        )
       }else{
         //self.getCurrentUsername().setText(username);
         Ext.Ajax.defaultHeaders = {'auth-token' : sessionId};

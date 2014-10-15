@@ -87,6 +87,7 @@ Ext.define('XMLifeOperating.controller.Authority', {
                 isHaveCities = addGlobalAccount.down('#isHaveCities');
                 authorityStore.load({
                   callback : function(stores){
+                    modulesCheckbox.removeAll();
                     Ext.each(stores, function(model) {
                       modulesCheckbox.add({
                         xtype: 'checkboxfield',
