@@ -3,13 +3,12 @@
  */
 Ext.define('XMLifeOperating.view.BatchAddEstate', {
     extend: 'Ext.grid.Panel',
-    closable : false,
     id : 'BatchAddEstate',
     xtype: 'BatchAddEstate',
     alias:  'widget.BatchAddEstate',
     autoScroll: true,
     title: '批量添加小区',
-    closable : false,
+    closable : true,
     forceFit: true,
     tbar: [
             {
