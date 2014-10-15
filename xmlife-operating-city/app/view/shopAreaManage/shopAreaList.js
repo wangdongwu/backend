@@ -23,7 +23,7 @@ Ext.define('XMLifeOperating.view.shopAreaManage.shopAreaList', {
       width: 135,
       itemId:'jumpToCenter',
       renderer:function(value){
-        return '<a>华商区域</a>';
+        return '<a>'+value+'</a>';
       }
     }, {
       header: '中心门店名称',
