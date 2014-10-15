@@ -87,7 +87,7 @@ Ext.define('XMLifeOperating.view.authorityManage.addCityManagerAccount', {
             valueField: 'code',
             queryMode:'local',
             emptyText: "请先选择省份"
-          }],
+          }]
         }
       ]
     }
