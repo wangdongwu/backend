@@ -118,15 +118,11 @@ Ext.define('XMLifeOperating.controller.ShopArea', {
     var areaId = clickDom.get('id');
     var host = window.location.host;
 
-    window.open(host + '/xmlife-operating-shoparea/');
-    
-
-
-/*    if (host.match('localhost')) {
+    if (host.match('localhost')) {
       window.open(host + '/xmlife-operating-shoparea/');
     } else {
-      window.open(host + '/center-backend-client?areaId=' + areaId);
-    }*/
+      window.open(host + '/center-backend-client/');
+    }
 
   }
 })
