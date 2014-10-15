@@ -123,10 +123,10 @@ Ext.define('XMLifeOperating.controller.ShopArea', {
     } else if (host.match('citybc')) {
       if (host.match('rc')) {
         
-        window.open('http://cbc.rc.xiaomei.com/xmlife-operating-shoparea/'); //rc
+        window.open('http://cbc.rc.xiaomei.com/center-backend-client/'); //rc
 
       } else {
-        window.open('http://cbc.xiaomei.com/xmlife-operating-shoparea/'); //正式
+        window.open('http://cbc.xiaomei.com/center-backend-client/'); //正式
       }
 
     } else {
