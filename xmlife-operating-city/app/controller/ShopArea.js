@@ -119,9 +119,18 @@ Ext.define('XMLifeOperating.controller.ShopArea', {
     var host = window.location.host;
     console.log(host);
     if (host.match('localhost')) {
-      window.open('http://'+host + '/xmlife-operating-shoparea/');
+      window.open('http://' + host + '/xmlife-operating-shoparea/'); //本地
+    } else if (host.match('citybc')) {
+      if (host.match('rc')) {
+        
+        window.open('http://cbc.rc.xiaomei.com/xmlife-operating-shoparea/'); //rc
+
+      } else {
+        window.open('http://cbc.xiaomei.com/xmlife-operating-shoparea/'); //正式
+      }
+
     } else {
-      window.open('http://'+host + '/center-backend-client/');
+      window.open('http://' + host + '/center-backend-client/'); //dev
     }
 
   }
