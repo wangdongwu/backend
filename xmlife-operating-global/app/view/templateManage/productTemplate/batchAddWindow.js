@@ -28,8 +28,24 @@ Ext.define('XMLifeOperating.view.templateManage.productTemplate.batchAddWindow',
         allowBlank: false,
         buttonText : '选择图片文件',
         listeners : {
-          render : function(gird){
+          afterrender : function(gird){
             gird.fileInputEl.set({multiple:'multiple'});
+            var el = gird.getEl();
+
+            var maxSize = 1000;
+            var fileSize =  gird.getActionEl().dom.size,
+                button = gird.up('form').down('#addProduct');
+
+            var fileSize ;
+            el.dom.onchange = function(e){
+              fileSize = e.srcElement.files.length;
+              if(fileSize > maxSize){
+              Ext.Msg.alert('警告', '你选择的文件数量多余'+maxSize);
+                button.setDisabled(true);
+              }else{
+                button.setDisabled(false);
+              }
+            }
           }
         }
       }

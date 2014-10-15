@@ -72,7 +72,20 @@ Ext.define('XMLifeOperating.view.templateManage.productTemplate.batchModifiWindo
                   afterrender : function(gird){
                     gird.fileInputEl.set({multiple:'multiple'});
                     var el = gird.getEl();
+
+                    var maxSize = 1000;
+                    var fileSize =  gird.getActionEl().dom.size,
+                        button = gird.up('form').down('#uploadfile');
+
+                    var fileSize ;
                     el.dom.onchange = function(e){
+                      fileSize = e.srcElement.files.length;
+                      if(fileSize > maxSize){
+                      Ext.Msg.alert('警告', '你选择的文件数量多余'+maxSize);
+                        button.setDisabled(true);
+                      }else{
+                        button.setDisabled(false);
+                      }
                     }
                   }
                 }
