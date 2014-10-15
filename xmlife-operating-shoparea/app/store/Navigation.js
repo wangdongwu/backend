@@ -5,5 +5,7 @@ Ext.define('XMLifeOperating.store.Navigation', {
     defaultRootId : '',
     autoSync: false,
     autoLoad: false,
-    root: {}
+    root: {
+    	expand:false
+    }
 });

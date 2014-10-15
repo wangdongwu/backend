@@ -44,7 +44,7 @@ Ext.define('XMLifeOperating.view.Toolbar', {
             value: XMLifeOperating.generic.Global.currentCity,
             tooltip: 'Choose current city'
         },*/
-       /*{
+       {
             xtype: 'combobox',
             itemId: 'cmbGlobalCenter',
             store: 'ShopArea',
@@ -56,8 +56,8 @@ Ext.define('XMLifeOperating.view.Toolbar', {
             valueField: 'id',
             tooltip: 'Choose current center',
             queryMode:'local',
-            hidden:(XMLifeOperating.generic.Global.operating_type != 'center')
-        },*/
+            hidden:(XMLifeOperating.generic.Global.operating_type == 'center')
+        },
         {
             xtype: 'label',
             text: '中心',
