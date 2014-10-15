@@ -28,6 +28,13 @@ Ext.define('XMLifeOperating.view.Toolbar', {
         },
         '->',
         {
+          xtype: 'button',
+          text : '城市管理平台',
+          handler : function(){
+            window.open('/city-backend-client/index.html')
+          }
+        },
+        {
             xtype: 'combo',
             itemId: 'cmbGlobalCity',
             store: 'AssignedCity',
