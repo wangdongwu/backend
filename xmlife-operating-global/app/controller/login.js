@@ -59,7 +59,7 @@ Ext.define('XMLifeOperating.controller.login', {
 
           Ext.Ajax.request({
             url: loginUrl,
-            params: {user:username,pwd:password},
+            params: {user:username,pwd:password,type:"Global"},
             method: 'post',
             success : function(response){
               if(response.responseText){
