@@ -146,6 +146,11 @@ Ext.define('XMLifeOperating.controller.Authority', {
     var data = form.getValues();
     var store = me.getAdminListStore();
     if (form.isValid()) {
+      /*      //判断是否有该商圈账号
+      store.each(function(index){
+        console.log(index)
+      })*/
+
       //Ajax参数
       var ajaxParams = {
         account: null,
@@ -158,6 +163,13 @@ Ext.define('XMLifeOperating.controller.Authority', {
           Ext.MessageBox.show({
             title: '提示',
             msg: '该账户名已存在',
+            icon: Ext.Msg.ERROR,
+            buttons: Ext.Msg.OK
+          });
+        } else if (returnObj.responseText == -6) {
+          Ext.MessageBox.show({
+            title: '提示',
+            msg: '该中心已存在账号',
             icon: Ext.Msg.ERROR,
             buttons: Ext.Msg.OK
           });
