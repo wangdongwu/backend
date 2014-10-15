@@ -72,7 +72,7 @@ Ext.define('XMLifeOperating.view.authorityManage.GlobalAccountManage', {
           align : 'center',
           itemId : 'edit',
           renderer : function(){
-            var id = Ext.id();
+            /*var id = Ext.id();
              Ext.defer(function() {
                 Ext.widget('button', {
                    renderTo: id,
@@ -81,7 +81,8 @@ Ext.define('XMLifeOperating.view.authorityManage.GlobalAccountManage', {
                    
                 });
              }, 50);
-             return Ext.String.format('<div id="{0}"></div>', id);
+             return Ext.String.format('<div id="{0}"></div>', id);*/
+             return '<a href="#">修改</a>';
           }
         },
         {
@@ -89,20 +90,12 @@ Ext.define('XMLifeOperating.view.authorityManage.GlobalAccountManage', {
         align : 'center',
         itemId : 'handel',
         dataIndex : 'enable',
-          renderer: function(val,meta,rec) {
-            var text = '开启';
+          renderer: function(val,meta,rec) { 
+            var text = '<a href="#">开启</a>';
             if(val){
-              text = '关闭';
+              text = '<a href="#">关闭</a>';
             }
-             var id = Ext.id();
-             Ext.defer(function() {
-                Ext.widget('button', {
-                   renderTo: id,
-                   text: text,
-                   scale: 'small'
-                });
-             }, 50);
-             return Ext.String.format('<div id="{0}"></div>', id);
-          }}
+             return text;
+           }}
         ]
 });

@@ -39,9 +39,9 @@ Ext.define('XMLifeOperating.controller.Authority', {
       xtype: 'addCityManagerAccount',
       autoCreate: true
     },{
-            ref: 'cmbCity',
-            selector: '#cmbCity',
-            xtype: 'combobox'
+        ref: 'cmbCity',
+        selector: '#cmbCity',
+        xtype: 'combobox'
         }
         ],
     init : function(){
@@ -186,7 +186,7 @@ Ext.define('XMLifeOperating.controller.Authority', {
                   cityId = cityIds[0],
                   allCitiesStore = self.getAllCitiesStore(),
                   cityModel = allCitiesStore.findRecord('code',cityId),
-                  provinceId = cityModel.get('parent');;
+                  provinceId = cityModel.get('parent');
 
                   cmbProvince.setValue(provinceId);
                   cmbCity.setValue(cityId);
