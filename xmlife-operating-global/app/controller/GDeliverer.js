@@ -84,9 +84,11 @@ Ext.define('XMLifeOperating.controller.GDeliverer', {
                 click: function() {
                     var activeSearch = Ext.getCmp('gDelivererList').down('#activeSearch').getText();
                     if (activeSearch == '查看停单快递员') {
+                        activeSearch='查看接单快递员';
                         isActive=false;
                         isUnbind = '';
                     } else if (activeSearch == '查看接单快递员') {
+                        activeSearch='查看停单快递员';
                         isActive=true;
                         isUnbind = true;
                     }
@@ -98,6 +100,7 @@ Ext.define('XMLifeOperating.controller.GDeliverer', {
                           };
                     store.loadPage(1);
                     store.on('load',function(){
+                      Ext.getCmp('gDelivererList').down('#activeSearch').setText(activeSearch);
                       Ext.getCmp('gDelivererList').down('#activeBind').setText('查看未绑定的快递员');
                     })
                 }
@@ -107,8 +110,10 @@ Ext.define('XMLifeOperating.controller.GDeliverer', {
                     //Ext.getCmp('communityList').down('#lineId').setValue('');
                     var activeBindText = Ext.getCmp('gDelivererList').down('#activeBind').getText();
                     if (activeBindText == '查看已绑定的快递员') {
+                        activeBindText='查看未绑定的快递员';
                         isUnbind = '';
                     } else if (activeBindText == '查看未绑定的快递员') {
+                        activeBindText='查看已绑定的快递员';
                         isUnbind = true;
                     }
                     var store = this.getDelivererStore();
@@ -118,9 +123,10 @@ Ext.define('XMLifeOperating.controller.GDeliverer', {
                           };
                     store.loadPage(1);
                     store.on('load',function(){
-                      Ext.getCmp('gDelivererList').down('#activeSearch').setText('查看停单快递员');
-                      Ext.getCmp('gDelivererList').down('#shopArea').setValue('');
-                      me.getGDelivererList().down('#searchDelivererKeyWords').setValue('');
+                        Ext.getCmp('gDelivererList').down('#activeBind').setText(activeBindText);
+                        Ext.getCmp('gDelivererList').down('#activeSearch').setText('查看停单快递员');
+                        Ext.getCmp('gDelivererList').down('#shopArea').setValue('');
+                        me.getGDelivererList().down('#searchDelivererKeyWords').setValue('');
                     })
                 }
             },

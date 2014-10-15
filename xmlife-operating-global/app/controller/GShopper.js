@@ -110,9 +110,11 @@ Ext.define('XMLifeOperating.controller.GShopper', {
                 click: function() {
                     var activeSearch = Ext.getCmp('gShopperList').down('#activeSearch').getText();
                     if (activeSearch == '查看停单买手') {
+                        activeSearch='查看接单买手';
                         isActive=false;
                         isUnbind = '';
                     } else if (activeSearch == '查看接单买手') {
+                        activeSearch='查看停单买手';
                         isActive=true;
                         isUnbind = true;
                     }
@@ -123,6 +125,7 @@ Ext.define('XMLifeOperating.controller.GShopper', {
                           };
                     store.loadPage(1);
                     store.on('load',function(){
+                        Ext.getCmp('gShopperList').down('#activeSearch').setText(activeSearch);
                         Ext.getCmp('gShopperList').down('#activeBind').setText('查看未绑定的买手');
                             me.getGShopperList().down('#searchBuyerKeyWords').setValue('');
                     });
@@ -133,11 +136,13 @@ Ext.define('XMLifeOperating.controller.GShopper', {
             'gShopperList #activeBind': {
                 click: function(grid) {
                     var activeBindText = Ext.getCmp('gShopperList').down('#activeBind').getText();
-
                     if (activeBindText == '查看已绑定的买手') {
+                        activeBindText='查看未绑定的买手';
                         isUnbind = '';
                     } else if (activeBindText == '查看未绑定的买手') {
+                        activeBindText='查看已绑定的买手';
                         isUnbind = true;
+
                     }
                     var store = this.getShopperStore();
                     store.getProxy().extraParams={
@@ -145,6 +150,7 @@ Ext.define('XMLifeOperating.controller.GShopper', {
                           };
                     store.loadPage(1);
                     store.on('load',function(){
+                        Ext.getCmp('gShopperList').down('#activeBind').setText(activeBindText);
                         Ext.getCmp('gShopperList').down('#activeSearch').setText('查看停单买手');
                         Ext.getCmp('gShopperList').down('#shopArea').setValue('');
                         me.getGShopperList().down('#searchBuyerKeyWords').setValue('');
@@ -437,7 +443,7 @@ Ext.define('XMLifeOperating.controller.GShopper', {
                   };
             store.loadPage(1);
             store.on('load',function(){
-              Ext.getCmp('gShopperList').down('#activeBind').setText('查看未绑定的买手');
+                Ext.getCmp('gShopperList').down('#activeBind').setText('查看未绑定的买手');
             });
         }
     },
