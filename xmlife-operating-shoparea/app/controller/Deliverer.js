@@ -262,6 +262,7 @@ Ext.define('XMLifeOperating.controller.Deliverer', {
                                 page: 1
                             }
                         });
+                        console.log(record.itemId);
 
                     }
                 }
@@ -393,7 +394,7 @@ Ext.define('XMLifeOperating.controller.Deliverer', {
             },
             ///返回历史订单
             'dealItemsList #dealDelivererHistoryListReturn': {
-                click: function() {
+                click: function() {                   
                     var tab = me.getDealDelivererHistoryList();
                     var content = this.getContentPanel();
                     content.removeAll(false);

@@ -5,7 +5,7 @@ Ext.define('XMLifeOperating.controller.Shopper', {
         'staffManage.shopper.EditShopper',
         'staffManage.shopper.DealShopperHistoryList',
         'staffManage.shopper.ShopperWorkTimeList',
-        'staffManage.shopper.DealItemsList'
+        'staffManage.shopper.DealItemsLists'
     ],
 
     stores: ['Shopper',
@@ -46,9 +46,9 @@ Ext.define('XMLifeOperating.controller.Shopper', {
         xtype: 'shopperWorkTimeList',
         autoCreate: true
     }, {
-        ref: 'dealItemsList',
-        selector: 'dealItemsList',
-        xtype: 'dealItemsList',
+        ref: 'dealItemsLists',
+        selector: 'dealItemsLists',
+        xtype: 'dealItemsLists',
         autoCreate: true
     }],
     init: function() {
@@ -274,6 +274,7 @@ Ext.define('XMLifeOperating.controller.Shopper', {
                                 page: 1
                             }
                         });
+
                         this.dayType = str;
                         console.log(record.itemId);
                     }
@@ -396,7 +397,7 @@ Ext.define('XMLifeOperating.controller.Shopper', {
             'dealShopperHistoryList #dealItemsId': {
                 click: function(view, column, rowIndex, colIndex, e) {
 
-                    var tab = this.getDealItemsList();
+                    var tab = this.getDealItemsLists();
                     var content = this.getContentPanel();
                     content.removeAll(false);
 
@@ -415,9 +416,11 @@ Ext.define('XMLifeOperating.controller.Shopper', {
 
             },
             ///返回历史订单
-            'dealItemsList #dealShopperHistoryListReturn': {
+            'dealItemsLists #dealShopperHistoryListReturn': {
                 click: function() {
+                    
                     var tab = me.getDealShopperHistoryList();
+
                     var content = this.getContentPanel();
                     content.removeAll(false);
                     content.add(tab);
