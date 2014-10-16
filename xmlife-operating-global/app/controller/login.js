@@ -1,6 +1,6 @@
 Ext.define('XMLifeOperating.controller.login', {
     extend: 'Ext.app.Controller',
-    views : ['login','Toolbar','Navigation'],
+    views : ['admin.login','Toolbar','Navigation'],
     stores : ['Navigation'],
     refs : [
         {
@@ -26,10 +26,17 @@ Ext.define('XMLifeOperating.controller.login', {
     ],
     init : function(){
       var self = this;
-      var sessionId = localStorage.getItem('sessionId');
+      var sessionId = localStorage.getItem('sessionId'),
+          username = localStorage.getItem('username');
 
       if(!sessionId){
         this.getLogin().show();
+        }else{
+        //self.getCurrentUsername().setText(username);
+        Ext.Ajax.defaultHeaders = {'auth-token' : sessionId};
+        self.getNavigationStore().setRootNode({expanded:true});
+      };
+
         this.control({
           '#login-bt' : {
             click : self.login
@@ -41,23 +48,76 @@ Ext.define('XMLifeOperating.controller.login', {
               this.getLogin().show();
             }
           }
+        },
+        'headerToolbar #editAdmin' : {
+          click : function(){
+            var loginView = this.getLogin(),
+                form = loginView.down('form'),
+                nickField = loginView.down('[name=nick]'),
+                usernameField = loginView.down('[name=username]'),
+                loginBt = loginView.down('#login-bt');
+
+                usernameField.setValue(username).setDisabled(true);
+                nickField.show();
+                loginBt.setText('确定');
+                self.edit = true;
+                loginView.show();
+
+          }
+        },
+        'headerToolbar #btnSignOut' : {
+          click : function(){
+              var loginOutUrl = XMLifeOperating.generic.Global.URL.biz + 'admin/logout',
+                  sessionId = localStorage.getItem('sessionId');
+                  Ext.Ajax.request({
+                      url: loginOutUrl,
+                      method: 'post',
+                      success : function(response){
+                        if(response.responseText){
+                          localStorage.removeItem('sessionId');
+                          localStorage.removeItem('username');
+                          window.location.reload();
+                        }
+                      },
+                      failure : function(response){
+                          Ext.MessageBox.show({
+                            title: '注销失败',
+                            msg: '您现在已经注销了!',
+                            buttons: Ext.Msg.OK
+                         });
+                        
+                      }
+                    })
+                              
+          }
         }
         }
         )
-      }else{
-        //self.getCurrentUsername().setText(username);
-        Ext.Ajax.defaultHeaders = {'auth-token' : sessionId};
-        self.getNavigationStore().setRootNode({expanded:true});
-      }
+      
     },
     login : function(){
       var self = this,
           view = this.getLogin(),
           username = view.down('[name=username]').getValue(),
           password = view.down('[name=password]').getValue(),
-          loginUrl = XMLifeOperating.generic.Global.URL.biz + 'admin/login';
-
-          Ext.Ajax.request({
+          loginUrl = XMLifeOperating.generic.Global.URL.biz + 'admin/login',
+          updateUrl = XMLifeOperating.generic.Global.URL.biz + 'admin/update/ownAccount';
+          if(self.edit){
+            var nick = view.down('[name=nick]').getValue();
+            Ext.Ajax.request({
+              url : updateUrl,
+              params : {account:username , name : nick , pwd : password},
+              method : 'put',
+              success : function(){
+                self.getLogin().hide();
+                Ext.Msg.alert('成功', '成功更新'+username+'账户');
+              },
+              failure : function(){
+                Ext.Msg.alert('失败', '更新'+username+'账户时失败');
+              }
+            })
+          }else{
+            Ext.Ajax.request({
             url: loginUrl,
             params: {user:username,pwd:password},
             method: 'post',
@@ -91,7 +151,9 @@ Ext.define('XMLifeOperating.controller.login', {
                });
               }
             }
-          });
+          });  
+          }
+          
     }
 });
 
