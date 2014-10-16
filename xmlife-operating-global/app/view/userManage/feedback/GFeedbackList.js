@@ -3,20 +3,21 @@ Ext.define('XMLifeOperating.view.userManage.feedback.GFeedbackList', {
     id: 'gFeedbackList',
     xtype: 'gFeedbackList',
     title: '用户反馈管理',
-    titleAlign : 'left',closable : true,
+    titleAlign : 'left',
+    closable : true,
     forceFit :true,
     
     store: 'Feedback',
     dockedItems : [
-      {
-      xtype : 'pagingtoolbar',
-      itemId : 'pagetoll',
-      store : 'Feedback',
-      dock : 'bottom',
-      displayInfo : true/*,
-      items : ['->'],   
-      prependButtons: true*/
-    }
+        {
+          xtype : 'pagingtoolbar',
+          itemId : 'pagetoll',
+          store : 'Feedback',
+          dock : 'bottom',
+          displayInfo : true/*,
+          items : ['->'],   
+          prependButtons: true*/
+        }
     ],
     tbar: [
         { 
