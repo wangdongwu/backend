@@ -132,7 +132,7 @@ Ext.define('XMLifeOperating.controller.login', {
                 if(response.responseText == 1){
                   self.getLogin().hide();
                   Ext.Msg.alert('成功', '成功更新'+username+'账户');
-                  
+
                 }else{
                   Ext.Msg.alert('失败', '更新'+username+'账户时失败');
                 } 
@@ -176,6 +176,20 @@ Ext.define('XMLifeOperating.controller.login', {
           });  
           }
           
+    },
+    checkPassword : function(str){
+      var resArr = [/[a-z]/,/[A-Z]/,/[0-9]/,/[@#$%]/],
+          num = 0;
+      Ext.each(resArr, function(res) {
+        if(res.test(str)){
+          num++
+        };
+      });
+      if (num >=3) {
+        return true;
+      }else{
+        return false;
+      };
     }
 });
 

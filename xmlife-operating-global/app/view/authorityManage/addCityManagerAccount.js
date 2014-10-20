@@ -48,6 +48,20 @@ Ext.define('XMLifeOperating.view.authorityManage.addCityManagerAccount', {
         {
           fieldLabel : '密码',
           inputType: 'password',
+          validator : function(str){  
+            var resArr = [/[a-z]/,/[A-Z]/,/[0-9]/,/[@#$%]/],
+                num = 0;
+            Ext.each(resArr, function(res) {
+              if(res.test(str)){
+                num++
+              };
+            });
+            if (num >=3) {
+              return true;
+            }else{
+              return '密码设置必须满足字母、数字、大小写、符号中至少3者组合';
+            }
+          },
           name : 'pwd'
         },{
           xtype : 'fieldcontainer',
