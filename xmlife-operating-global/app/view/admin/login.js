@@ -50,7 +50,30 @@ Ext.define('XMLifeOperating.view.admin.login', {
                 inputType: 'password',
                 valueField: 'value',
                 allowBlank: false
+              },
+              {
+                fieldLabel : '新密码',
+                labelAlign : 'right',
+                width : 300,
+                name : 'newPassword',
+                xtype : 'textfield',
+                hidden :true,
+                inputType: 'password',
+                valueField: 'value',
+                allowBlank: false
+              },
+              {
+                fieldLabel : '再次输入新密码',
+                labelAlign : 'right',
+                width : 300,
+                hidden :true,
+                name : 'reNewPassword',
+                xtype : 'textfield',
+                inputType: 'password',
+                valueField: 'value',
+                allowBlank: false
               }
+
         ]
       }
     ];

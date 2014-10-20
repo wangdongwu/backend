@@ -58,61 +58,13 @@ Ext.define('XMLifeOperating.controller.Authority', {
                 }
                 store.clearFilter(true);
                 store.load();
-          },
-          tabchange : function(tab,currentPanel){
-            var data = {
-              'GlobalAccountManage' : 'Global',
-              'CityAccountManage' : 'City'
-            }
-            var type = currentPanel.getXType();
-            
-            self.activeType = data[type];
-
-            var store = self.getAccountStore(),
-                proxy = store.getProxy();
-                proxy.extraParams = { type : self.activeType};
-                store.clearFilter(true);
-                store.load();
-            
           }
         }
         ,
         'GlobalAccountManage' : {
-          added : function(){
-            var authorityStore = self.getAuthorityStore(),
-                cityStore = self.getAllCitiesStore(),
-                addGlobalAccount = self.getAddGlobalAccount(),
-                modulesCheckbox = addGlobalAccount.down('#modulesCheckbox'),
-                radiogroup = addGlobalAccount.down('radiogroup');
-                isHaveCities = addGlobalAccount.down('#isHaveCities');
-                authorityStore.load({
-                  callback : function(stores){
-                    modulesCheckbox.removeAll();
-                    Ext.each(stores, function(model) {
-                      modulesCheckbox.add({
-                        xtype: 'checkboxfield',
-                        boxLabel  : model.get('text'),
-                        name      : 'modules',
-                        inputValue: model.get('uid')
-                      }) 
-                    });
-                  }
-                });
-                /**
-                 * 选择城市
-                 */
-                /*
-                cityStore.load({
-                  callback : function(stores){
-                    Ext.each(stores, function(model) {
-                      radiogroup.add({ 
-                        boxLabel: model.get('name'), 
-                        name: 'city', 
-                        inputValue: model.get('name') })
-                    });
-                  }
-                });*/
-
+          activate : function(){
+            self.loadData('GlobalAccountManage');
+            self.initGlobalAuthority();
           }
         },
         'GlobalAccountManage #addGlobalAccount' : {
@@ -172,6 +124,11 @@ Ext.define('XMLifeOperating.controller.Authority', {
                 form.edit = true;
                 addGlobalAccount.show();
 
+          }
+        },
+        'CityAccountManage' : {
+          activate : function(){
+            self.loadData('CityAccountManage');
           }
         },
         'CityAccountManage #edit' : {
@@ -345,5 +302,59 @@ Ext.define('XMLifeOperating.controller.Authority', {
             }
         }
       })
+    },
+    loadData : function(type){
+      var type = type || 'GlobalAccountManage';
+      var data = {
+        'GlobalAccountManage' : 'Global',
+        'CityAccountManage' : 'City'
+      }
+      
+      this.activeType = data[type];
+
+      var store = this.getAccountStore(),
+          proxy = store.getProxy();
+          proxy.extraParams = { type : this.activeType};
+          store.clearFilter(true);
+          store.load();
+      
+    },
+    initGlobalAuthority : function(){
+
+            var authorityStore = this.getAuthorityStore(),
+                cityStore = this.getAllCitiesStore(),
+                addGlobalAccount = this.getAddGlobalAccount(),
+                modulesCheckbox = addGlobalAccount.down('#modulesCheckbox'),
+                radiogroup = addGlobalAccount.down('radiogroup');
+                isHaveCities = addGlobalAccount.down('#isHaveCities');
+
+                authorityStore.load({
+                  callback : function(stores){
+                    modulesCheckbox.removeAll();
+                    Ext.each(stores, function(model) {
+                      modulesCheckbox.add({
+                        xtype: 'checkboxfield',
+                        boxLabel  : model.get('text'),
+                        name      : 'modules',
+                        inputValue: model.get('uid')
+                      }) 
+                    });
+                  }
+                });
+                /**
+                 * 选择城市
+                 */
+                /*
+                cityStore.load({
+                  callback : function(stores){
+                    Ext.each(stores, function(model) {
+                      radiogroup.add({ 
+                        boxLabel: model.get('name'), 
+                        name: 'city', 
+                        inputValue: model.get('name') })
+                    });
+                  }
+                });*/
+
     }
 });

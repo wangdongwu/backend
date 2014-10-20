@@ -53,12 +53,29 @@ Ext.define('XMLifeOperating.controller.login', {
           click : function(){
             var loginView = this.getLogin(),
                 form = loginView.down('form'),
+                formEl = form.getForm(),
+                username = localStorage.getItem('username'),
                 nickField = loginView.down('[name=nick]'),
                 usernameField = loginView.down('[name=username]'),
+                passwordField = loginView.down('[name=password]'),
+                newPasswordField = loginView.down('[name=newPassword]'),
+                reNewPasswordField = loginView.down('[name=reNewPassword]'),
                 loginBt = loginView.down('#login-bt');
 
-                usernameField.setValue(username).setDisabled(true);
-                nickField.show();
+                formEl.reset();
+                Ext.Ajax.request({
+                  url : XMLifeOperating.generic.Global.URL.biz +'admin/getInfo',
+                  success : function(result){
+                    var data = Ext.decode(result.responseText);
+                    nickField.show().setValue(data.name).setDisabled(true);
+                    usernameField.setValue(data.account).setDisabled(true);
+                  }
+                })
+
+                newPasswordField.show();
+                reNewPasswordField.show()
+
+                passwordField.setFieldLabel('旧密码');
                 loginBt.setText('确定');
                 self.edit = true;
                 loginView.show();
@@ -100,20 +117,25 @@ Ext.define('XMLifeOperating.controller.login', {
           view = this.getLogin(),
           username = view.down('[name=username]').getValue(),
           password = view.down('[name=password]').getValue(),
+          newPassword = view.down('[name=newPassword]').getValue();
+          reNewPassword = view.down('[name=reNewPassword]').getValue();
           loginUrl = XMLifeOperating.generic.Global.URL.biz + 'admin/login',
           updateUrl = XMLifeOperating.generic.Global.URL.biz + 'admin/update/ownAccount';
           if(self.edit){
-            var nick = view.down('[name=nick]').getValue();
+            var newPassword = view.down('[name=newPassword]').getValue(),
+                name = view.down('[name=nick]').getValue();
             Ext.Ajax.request({
               url : updateUrl,
-              params : {account:username , name : nick , pwd : password},
+              params : {account:username , name : name, oldPwd : password,newPwd : newPassword},
               method : 'put',
-              success : function(){
-                self.getLogin().hide();
-                Ext.Msg.alert('成功', '成功更新'+username+'账户');
-              },
-              failure : function(){
-                Ext.Msg.alert('失败', '更新'+username+'账户时失败');
+              success : function(response){
+                if(response.responseText == 1){
+                  self.getLogin().hide();
+                  Ext.Msg.alert('成功', '成功更新'+username+'账户');
+                  
+                }else{
+                  Ext.Msg.alert('失败', '更新'+username+'账户时失败');
+                } 
               }
             })
           }else{

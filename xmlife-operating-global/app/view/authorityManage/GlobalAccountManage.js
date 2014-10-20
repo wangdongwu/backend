@@ -9,9 +9,11 @@
 Ext.define('XMLifeOperating.view.authorityManage.GlobalAccountManage', {
     extend: 'Ext.grid.Panel',
     alias : 'widget.GlobalAccountManage',
+    id : 'GlobalAccountManage',
     title : '全局账号管理',
     store : 'Account',
     forceFit: true,
+    closable : true,
     tbar : [{
       xtype : 'button',
       text : '创建管理员账号',

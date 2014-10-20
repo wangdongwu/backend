@@ -9,8 +9,10 @@
 Ext.define('XMLifeOperating.view.authorityManage.CityAccountManage', {
     extend: 'Ext.grid.Panel',
     alias : 'widget.CityAccountManage',
+    id : 'CityAccountManage',
     title : '城市账号管理',
     store : 'Account',
+    closable : true,
     forceFit: true,
     tbar : [{
       xtype : 'button',
