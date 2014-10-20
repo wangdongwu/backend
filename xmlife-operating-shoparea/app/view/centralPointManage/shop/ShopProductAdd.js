@@ -114,89 +114,88 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopProductAdd', {
                     border: false,
                     padding: 0,
                     itemId: 'limitTypeFieldset',
-                    items: [
-                        {
-                            layout: 'column',
-                            xtype: 'fieldset',
-                            border: false,
-                            padding: 0,
-                            items: [{
-                                xtype: 'radio',
-                                labelAlign: 'right',
-                                name: 'limitType',
-                                inputValue: 1,
-                                itemId: 'limitType1',
-                            }, {
-                                xtype: 'numberfield',
-                                name: 'dayLimitCount',
-                                fieldLabel: '每人当日限购数量',
-                                labelWidth: 120,
-                                labelAlign: 'left',
-                                width: 200,
-                                validator: function(value) {
-                                    var radio = Ext.ComponentQuery.query('#limitType1')[0];
-                                    if (radio.checked) {
-                                        if (value < 1 || value > 10) {
-                                            return '设置范围为1~10'
-                                        } else {
-                                            return true
-                                        }
+                    items: [{
+                        layout: 'column',
+                        xtype: 'fieldset',
+                        border: false,
+                        padding: 0,
+                        items: [{
+                            xtype: 'radio',
+                            labelAlign: 'right',
+                            name: 'limitType',
+                            inputValue: 1,
+                            itemId: 'limitType1',
+                        }, {
+                            xtype: 'numberfield',
+                            name: 'dayLimitCount',
+                            fieldLabel: '每人当日限购数量',
+                            labelWidth: 120,
+                            labelAlign: 'left',
+                            width: 200,
+                            validator: function(value) {
+                                var radio = Ext.ComponentQuery.query('#limitType1')[0];
+                                if (radio.checked) {
+                                    debugger
+                                    if (value < 1 || value > 10) {
+                                        return '设置范围为1~10'
                                     } else {
                                         return true
                                     }
+                                } else {
+                                    return true
                                 }
-
-                            }, {
-                                xtype: 'numberfield',
-                                name: 'dayTodayLimitCount',
-                                fieldLabel: '当日限购数量',
-                                labelWidth: 110,
-                                labelAlign: 'left',
-                                width: 200,
-                                minValue: 0
-                            }]
+                            }
 
                         }, {
-                            layout: 'column',
-                            xtype: 'fieldset',
-                            border: false,
-                            padding: 0,
-                            items: [{
-                                xtype: 'radio',
-                                labelAlign: 'right',
-                                name: 'limitType',
-                                inputValue: 2,
-                                itemId: 'limitType2',
-                            }, {
-                                xtype: 'numberfield',
-                                name: 'totalLimitCount',
-                                fieldLabel: '每人累计限购数量',
-                                labelWidth: 120,
-                                labelAlign: 'left',
-                                width: 200,
-                                validator: function(value) {
-                                    var radio = Ext.ComponentQuery.query('#limitType2')[0];
-                                    if (radio.checked) {
-                                        if (value < 1 || value > 10) {
-                                            return '设置范围为1~10'
-                                        } else {
-                                            return true
-                                        }
+                            xtype: 'numberfield',
+                            name: 'dayTodayLimitCount',
+                            fieldLabel: '当日限购数量',
+                            labelWidth: 110,
+                            labelAlign: 'left',
+                            width: 200,
+                            minValue: 0
+                        }]
+
+                    }, {
+                        layout: 'column',
+                        xtype: 'fieldset',
+                        border: false,
+                        padding: 0,
+                        items: [{
+                            xtype: 'radio',
+                            labelAlign: 'right',
+                            name: 'limitType',
+                            inputValue: 2,
+                            itemId: 'limitType2',
+                        }, {
+                            xtype: 'numberfield',
+                            name: 'totalLimitCount',
+                            fieldLabel: '每人累计限购数量',
+                            labelWidth: 120,
+                            labelAlign: 'left',
+                            width: 200,
+                            validator: function(value) {
+                                var radio = Ext.ComponentQuery.query('#limitType2')[0];
+                                if (radio.checked) {
+                                    if (value < 1 || value > 10) {
+                                        return '设置范围为1~10'
                                     } else {
                                         return true
                                     }
+                                } else {
+                                    return true
                                 }
-                            }, {
-                                xtype: 'numberfield',
-                                name: 'totalTodayLimitCount',
-                                fieldLabel: '当日限购数量',
-                                labelWidth: 110,
-                                labelAlign: 'left',
-                                width: 200,
-                                minValue: 0
-                            }]
-                        }
-                    ]
+                            }
+                        }, {
+                            xtype: 'numberfield',
+                            name: 'totalTodayLimitCount',
+                            fieldLabel: '当日限购数量',
+                            labelWidth: 110,
+                            labelAlign: 'left',
+                            width: 200,
+                            minValue: 0
+                        }]
+                    }]
 
                 }
             ],

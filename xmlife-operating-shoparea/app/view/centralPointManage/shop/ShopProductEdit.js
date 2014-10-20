@@ -95,9 +95,9 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopProductEdit', {
                                 labelWidth: 120,
                                 labelAlign: 'left',
                                 width: 180,
- 
+
                                 validator: function(value) {
-                                    
+
                                     var radio = Ext.ComponentQuery.query('#limitType1')[0];
                                     if (radio.checked) {
                                         if (value < 1 || value > 10) {
@@ -139,7 +139,6 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopProductEdit', {
                                 labelWidth: 120,
                                 labelAlign: 'left',
                                 width: 180,
-
                                 validator: function(value) {
                                     var radio = Ext.ComponentQuery.query('#limitType2')[0];
                                     if (radio.checked) {
@@ -159,11 +158,36 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopProductEdit', {
                                 labelWidth: 110,
                                 labelAlign: 'left',
                                 width: 180,
-
                                 minValue: 0
                             }]
                         }
                     ]
+                }, {
+                    xtype: 'fieldset',
+                    layout: 'column',
+                    border: false,
+                    padding: 0,
+                    items: [{
+                        xtype: 'checkbox',
+                        itemId: 'changeBelongShelf',
+                        name: 'changeBelongShelf'
+
+                    }, {
+                        xtype: 'combo',
+                        name: 'belngShelf',
+                        itemId:'belngShelf',
+                        fieldLabel: '移动货架',
+                        blankText: '请选择货架',
+                        labelWidth: 80,
+                        editable: false,
+                        width: 360,
+                        store: 'CategoryLeafCategorys',
+                        queryMode:'local',
+                        displayField: 'name',
+                        valueField: 'id',
+                        emptyText: "请选择货架"
+                    }]
+
                 }
             ],
             buttons: [{

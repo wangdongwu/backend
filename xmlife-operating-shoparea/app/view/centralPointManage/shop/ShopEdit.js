@@ -45,31 +45,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopEdit', {
                     return true
                 }
             }
-        }, /*{
-            xtype: 'textfield',
-            name: 'desc',
-            fieldLabel: '店铺副名称',
-            flex: 1,
-            labelWidth: 90,
-            allowBlank: false,
-            validator: function(value) {
-                var value = value;
-                var length = 0;
-                for (var i = 0, len = value.length; i < len; i++) {
-                    var chart = value.charCodeAt(i);
-                    if (chart >= 0 && chart <= 255) {
-                        length = length + 1;
-                    } else {
-                        length = length + 2;
-                    }
-                }
-                if (length > 40) {
-                    return '店铺副名称最大长度为20个汉字或40个字母'
-                } else {
-                    return true
-                }
-            }
-        },*/ {
+        }, {
             xtype: 'combo',
             name: 'shopBannerTemplateId',
             fieldLabel: '模板',

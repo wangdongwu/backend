@@ -13,7 +13,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopAdd', {
     height: 650,
     resizable: false,
     layout: 'fit',
-    bodyStyle: 'text-align:center;border-style: none;',
+    bodyStyle: 'text-align:center;border-style: nosne;',
     initComponent: function() {
         this.items = [{
             xtype: 'form',
@@ -48,7 +48,8 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopAdd', {
                             return true
                         }
                     }
-                },/* {
+                },
+                /* {
                     xtype: 'textfield',
                     name: 'desc',
                     fieldLabel: '店铺副名称',
@@ -71,7 +72,8 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopAdd', {
                             return true
                         }
                     }
-                },*/ {
+                },*/
+                {
                     xtype: 'combo',
                     name: 'shopBannerTemplateId',
                     fieldLabel: '模板',
@@ -117,23 +119,43 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopAdd', {
                     labelWidth: 90,
                     format: 'H:i',
                     allowBlank: false,
-                },{
-                    xtype:'radiogroup',
-                    fieldLabel:'商品是否每日自动上架',
-                    labelWidth: 130,
-                    defaults:{
-                        flex:1
+                }, {
+                    xtype: 'radiogroup',
+                    fieldLabel: '商品是否每日自动上架',
+                    labelWidth: 140,
+                    defaults: {
+                        flex: 1
                     },
-                    layout:'hbox',
-                    items:[{
-                        boxLabel:'是',
-                        name:'autoOnline',
-                        inputValue:'true'
-                    },{
-                        boxLabel:'否',
-                        name:'autoOnline',
-                        inputValue:'false',
-                        checked:true
+                    layout: 'hbox',
+                    items: [{
+                        boxLabel: '是',
+                        name: 'autoOnline',
+                        inputValue: 'true'
+                    }, {
+                        boxLabel: '否',
+                        name: 'autoOnline',
+                        inputValue: 'false',
+                        checked: true
+                    }]
+                }, {
+                    xtype: 'fieldset',
+                    layout: 'column',
+                    border: false,
+                    padding: 0,
+                    items: [{
+                        xtype: 'checkbox',
+                        itemId: 'copyShopCheckbox',
+                        name:'copyShopCheckbox'
+                    }, {
+                        xtype: 'textfield',
+                        name: 'copyShop',
+                        fieldLabel: '复制店铺',
+                        labelWidth: 90,
+/*                        editable: false,*/
+                        width:390,
+/*                        displayField: 'name',
+                        valueField: 'id',*/
+                        emptyText: '请输入店铺ID'
                     }]
                 }
             ],

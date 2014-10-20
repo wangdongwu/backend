@@ -6,8 +6,8 @@ window.URLMap = {
 	//biz:'http://192.168.5.190:8089/',//mzg
 
 	//biz: 'http://192.168.7.119:8089/',//sc
-	//biz: 'http://192.168.5.86:8089/', //cjh
-	biz: 'http://dev.xiaomei.com:1550/', //dev
+	biz: 'http://192.168.5.86:1550/', //cjh
+	//biz: 'http://dev.xiaomei.com:1550/', //dev
 	//biz: 'http://192.168.7.155:8089/',//lc note
 	res: 'http://dev.xiaomei.com/res/image/id-',
 	upload: 'http://dev.xiaomei.com/res/upload'

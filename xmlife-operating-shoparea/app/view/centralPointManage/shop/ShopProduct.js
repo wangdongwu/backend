@@ -50,7 +50,6 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopProduct', {
             sortable: true,
             align: 'center',
             renderer: function(value) {
-
                 return value / 100;
             }
         }, {
@@ -60,7 +59,6 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopProduct', {
             sortable: true,
             align: 'center',
             renderer: function(value) {
-
                 return value / 100;
             }
         }, {
@@ -161,7 +159,6 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopProduct', {
             }
         }, {
             text: '编辑',
-
             xtype: 'actioncolumn',
             width: 50,
             icon: 'resources/images/edit.png',
@@ -175,6 +172,21 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopProduct', {
             dataIndex: 'rank',
             sortable: true,
             align: 'center',
+        },{
+            text:'置顶',
+            dataIndex:'top',
+            itemId:'setProductTop',
+            sortable:true,
+            align:'center',
+            renderer:function(value){
+                if(value){
+                    return '<input type="button"  value="取消置顶"/>'
+
+                }else{
+                    return '<input type="button"  value="置顶"/>'
+                }
+
+            }
         }
     ],
     tbar: [{
