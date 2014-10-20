@@ -153,7 +153,7 @@ Ext.define('XMLifeOperating.controller.ProductTemplate', {
         productTemplate.set('name1',names[0]);
         productTemplate.set('name2',names[1]);
         productTemplate.set('name3',names[2]);
-        win.down('#barCodeId').setDisabled(true);
+        /*win.down('#barCodeId').setDisabled(true);*/
         win.down('#skuIdId').setDisabled(true);
         win.down('form').loadRecord(productTemplate);
         win.show();
@@ -190,6 +190,7 @@ Ext.define('XMLifeOperating.controller.ProductTemplate', {
                 var picture = productTemplate.get('picture');
                 var unit = productTemplate.get('unit');
                 var tag = productTemplate.get('tag');
+                var barcode = productTemplate.get('barCode');
 
 
                 sendPutRequest('producttemplate/update', {
@@ -198,7 +199,8 @@ Ext.define('XMLifeOperating.controller.ProductTemplate', {
                     desc: desc,
                     picture: picture,
                     unit: 1,
-                    tag: tag
+                    tag: tag,
+                    barCode:barcode
                 }, '编辑商品', '成功编辑商品', '编辑商品失败', function() {
                     windowEl.unmask();
                     editWindow.close();
