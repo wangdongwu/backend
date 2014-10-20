@@ -30,7 +30,23 @@ Ext.define('XMLifeOperating.controller.login', {
           username = localStorage.getItem('username');
 
       if(!sessionId){
-        this.getLogin().show();
+        var loginPanel = this.getLogin();
+            loginPanel.show();
+        var ele = loginPanel.getEl();
+            new Ext.util.KeyMap({
+              target : ele,
+              binding : [
+                {
+                  key : 13,
+                  fn : function(){
+                    this.login();
+                  },
+                  scope: this,
+                  defaultEventAction: 'preventDefault'
+                }
+              ]
+            });
+
         }else{
         //self.getCurrentUsername().setText(username);
         Ext.Ajax.defaultHeaders = {'auth-token' : sessionId};

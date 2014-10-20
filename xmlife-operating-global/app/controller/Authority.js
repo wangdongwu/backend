@@ -320,7 +320,6 @@ Ext.define('XMLifeOperating.controller.Authority', {
       
     },
     initGlobalAuthority : function(){
-
             var authorityStore = this.getAuthorityStore(),
                 cityStore = this.getAllCitiesStore(),
                 addGlobalAccount = this.getAddGlobalAccount(),

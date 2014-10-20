@@ -1,5 +1,6 @@
 Ext.define('XMLifeOperating.view.admin.login', {
     extend: 'Ext.window.Window',
+    alias : 'widget.login',
     xtype: 'login',
     requires: [
         'Ext.form.Panel',
