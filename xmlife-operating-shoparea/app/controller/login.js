@@ -35,13 +35,82 @@ Ext.define('XMLifeOperating.controller.login', {
       XMLifeOperating.generic.Global.current_operating = areaId;
     }
 
+    this.control({
+          '#login-bt' : {
+            click : self.login
+          },
+          'headerToolbar #txtUserName' : {
+          click : function(){
+            var sessionId = localStorage.getItem('sessionId');
+            if(!sessionId){
+              this.getLogin().show();
+            }
+          }
+        },
+        'headerToolbar #editAdmin' : {
+          click : function(){
+            var loginView = this.getLogin(),
+                form = loginView.down('form'),
+                formEl = form.getForm(),
+                username = localStorage.getItem('username'),
+                nickField = loginView.down('[name=nick]'),
+                usernameField = loginView.down('[name=username]'),
+                passwordField = loginView.down('[name=password]'),
+                newPasswordField = loginView.down('[name=newPassword]'),
+                reNewPasswordField = loginView.down('[name=reNewPassword]'),
+                loginBt = loginView.down('#login-bt');
+
+                formEl.reset();
+                Ext.Ajax.request({
+                  url : XMLifeOperating.generic.Global.URL.biz +'admin/getInfo',
+                  success : function(result){
+                    var data = Ext.decode(result.responseText);
+                    nickField.show().setValue(data.name).setDisabled(true);
+                    usernameField.setValue(data.account).setDisabled(true);
+                  }
+                })
+
+                newPasswordField.show();
+                reNewPasswordField.show()
+
+                passwordField.setFieldLabel('旧密码');
+                loginBt.setText('确定');
+                self.edit = true;
+                loginView.show();
+
+          }
+        },
+        'headerToolbar #btnSignOut' : {
+          click : function(){
+              var loginOutUrl = XMLifeOperating.generic.Global.URL.biz + 'admin/logout',
+                  sessionId = localStorage.getItem('sessionId');
+                  Ext.Ajax.request({
+                      url: loginOutUrl,
+                      method: 'post',
+                      success : function(response){
+                        if(response.responseText){
+                          localStorage.removeItem('sessionId');
+                          localStorage.removeItem('username');
+                          window.location.reload();
+                        }
+                      },
+                      failure : function(response){
+                          Ext.MessageBox.show({
+                            title: '注销失败',
+                            msg: '您现在已经注销了!',
+                            buttons: Ext.Msg.OK
+                         });
+                        
+                      }
+                    })
+                              
+          }
+        }
+        });
+    
     if (!sessionId) {
       this.getLogin().show();
-      this.control({
-        '#login-bt': {
-          click: self.login
-        }
-      });
+      
 
     } else { //有session
       Ext.Ajax.defaultHeaders = {
