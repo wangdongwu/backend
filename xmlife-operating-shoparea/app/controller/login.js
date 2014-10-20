@@ -36,6 +36,12 @@ Ext.define('XMLifeOperating.controller.login', {
     }
 
     this.control({
+          'login' : {
+            show : function(panel){
+            var ele = panel.getEl();
+            self.bindKeyMap(ele);
+            }
+          },
           '#login-bt' : {
             click : self.login
           },
@@ -179,6 +185,21 @@ Ext.define('XMLifeOperating.controller.login', {
       }
     });
   },
+  bindKeyMap : function(ele){
+      new Ext.util.KeyMap({
+              target : ele,
+              binding : [
+                {
+                  key : 13,
+                  fn : function(){
+                    this.login();
+                  },
+                  scope: this,
+                  defaultEventAction: 'preventDefault'
+                }
+              ]
+            });
+    },
   detectAccount: function() {
     var me = this;
     var store = me.getNavigationStore();
