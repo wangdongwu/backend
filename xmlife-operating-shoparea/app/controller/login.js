@@ -94,7 +94,7 @@ Ext.define('XMLifeOperating.controller.login', {
           self.getShopAreaStore().load();
           //Ext.getCmp('cmbGlobalCenter').setValue(data.areaId);
           self.getTxtShopAreaName().setText(data.areaName);
-          
+        }
       },
       failure: function(response) {
         if (response.status == 401) {
