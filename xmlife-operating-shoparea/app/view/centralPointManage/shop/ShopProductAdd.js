@@ -135,7 +135,6 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopProductAdd', {
                             validator: function(value) {
                                 var radio = Ext.ComponentQuery.query('#limitType1')[0];
                                 if (radio.checked) {
-                                    debugger
                                     if (value < 1 || value > 10) {
                                         return '设置范围为1~10'
                                     } else {
