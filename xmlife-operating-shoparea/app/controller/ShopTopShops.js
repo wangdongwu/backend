@@ -174,7 +174,7 @@ Ext.define('XMLifeOperating.controller.ShopTopShops', {
                     });
                     var content = this.getContentPanel();
                     content.removeAll(false);
-                    content.add(tab);
+                    content. add(tab);
                 }
             },
             'shopTopShopsList #seeShopShopGroupBtn':{
@@ -265,6 +265,9 @@ Ext.define('XMLifeOperating.controller.ShopTopShops', {
             },
             'shopShopGroupList #shopShopGroupDelete': {
                 click:me.onShopShopGroupDelete
+            },
+            'shopShopGroupList #saveOrder':{
+                click:me.saveShopGroupOrder
             },
             
 
@@ -532,7 +535,7 @@ Ext.define('XMLifeOperating.controller.ShopTopShops', {
             }
         );
     },
-    onShopShopGroupDelete:function(view, rowIndex, colIndex, column, e) {
+    /*onShopShopGroupDelete:function(view, rowIndex, colIndex, column, e) {
         var shopShopGroup = view.getRecord(view.findTargetByEvent(e));
         var areaId = this.areaId;
         var me = this;
@@ -560,5 +563,61 @@ Ext.define('XMLifeOperating.controller.ShopTopShops', {
                 }
             }
         );
-    }
+    },*/
+    onShopShopGroupDelete:function(view, rowIndex, colIndex, column, e) {
+        var shopShopGroup = view.getRecord(view.findTargetByEvent(e));
+        var areaId = this.areaId;
+        var me = this;
+        Ext.MessageBox.confirm(
+            '确认删除',
+            Ext.String.format("确定删除 '{0}' 吗？", "优质商铺"),
+            function(result) {
+                if (result == 'yes') {
+                    var shopId = shopShopGroup.get('id');
+                    var url = 'shop/shopgroup/delete';
+                    sendRequest(url, {areaId:areaId,shopId:shopId}, '删除展示店铺', '成功删除展示店铺', '删除展示店铺失败', function(response) {
+                            console.log(response);
+                            if(response.responseText=='-2'){
+                                Ext.Msg.alert('Invalid Data', '不能删除');
+                                return;
+                            }
+                            var store = me.getShopShopGroupStore();
+                            store.load({
+                                params: {
+                                    areaId: me.areaId
+                                },
+                            });
+
+                    });
+                }
+            }
+        );
+    },
+    saveShopGroupOrder: function() {
+        var store = this.getShopShopGroupStore();
+        var len = store.getCount();
+        var orderedIds = [];
+        var me=this;
+        var shopId = '';
+        for (var i = 0; i < len; i++) {
+            shopId += store.getAt(i).get('id') + '|';
+        }
+                    
+        var s=shopId;
+        shopId=s.substring(0,s.length-1); 
+        var areaId = this.areaId;
+        var params = {
+            areaId: areaId,
+            shopId:shopId
+        };
+        var url = 'shop/shopgroup/order';
+        sendRequest(url, params, '保存顺序', '顺序已成功保存', '保存顺序失败',function(){
+            var shopShopGroupStore = me.getShopShopGroupStore();
+            shopShopGroupStore.load({
+                params: {
+                    areaId: areaId
+                }
+            });
+        });      
+    },
 });

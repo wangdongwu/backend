@@ -13,6 +13,10 @@ Ext.define('XMLifeOperating.view.centralPointManage.shopTopShops.ShopShopGroupLi
         xtype: 'button',
         text: '添加优质店铺',
         itemId: 'add'
+    },{
+        xtype: 'button',
+        text: '保存排序',
+        itemId: 'saveOrder'
     }, {
         xtype: 'button',
         text: '返回',
@@ -21,8 +25,6 @@ Ext.define('XMLifeOperating.view.centralPointManage.shopTopShops.ShopShopGroupLi
         xtype:'button',
         text:'删除',
         itemId: 'shopShopGroupDelete'
-
-
     }*/],
 
     columns: [
