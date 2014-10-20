@@ -60,10 +60,12 @@ Ext.define('XMLifeOperating.controller.BatchUpdatePrice', {
               uploadPrice : 'backdoor/update/product/price',
               uploadStatus : 'backdoor/update/product/status',
             }
+            var sessionId = localStorage.getItem('sessionId') || '';
             var form = gird.up('form').getForm();
             if(form.isValid()){
               form.submit({
                 url : XMLifeOperating.generic.Global.URL.biz+config[gird.name],
+                params: {'sessionId':sessionId},
                 waitMsg : '正在上传您的文件......',
                 success : function(form, action){
 
