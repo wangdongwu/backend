@@ -29,31 +29,13 @@ Ext.define('XMLifeOperating.controller.login', {
       var sessionId = localStorage.getItem('sessionId'),
           username = localStorage.getItem('username');
 
-      if(!sessionId){
-        var loginPanel = this.getLogin();
-            loginPanel.show();
-        var ele = loginPanel.getEl();
-            new Ext.util.KeyMap({
-              target : ele,
-              binding : [
-                {
-                  key : 13,
-                  fn : function(){
-                    this.login();
-                  },
-                  scope: this,
-                  defaultEventAction: 'preventDefault'
-                }
-              ]
-            });
-
-        }else{
-        //self.getCurrentUsername().setText(username);
-        Ext.Ajax.defaultHeaders = {'auth-token' : sessionId};
-        self.getNavigationStore().setRootNode({expanded:true});
-      };
-
         this.control({
+          'login' : {
+            show : function(panel){
+            var ele = panel.getEl();
+            self.bindKeyMap(ele);
+            }
+          },
           '#login-bt' : {
             click : self.login
           },
@@ -125,7 +107,14 @@ Ext.define('XMLifeOperating.controller.login', {
           }
         }
         }
-        )
+        );
+        if(!sessionId){
+          self.getLogin().show();
+        }else{
+          //self.getCurrentUsername().setText(username);
+          Ext.Ajax.defaultHeaders = {'auth-token' : sessionId};
+          self.getNavigationStore().setRootNode({expanded:true});
+      };
       
     },
     login : function(){
@@ -193,19 +182,20 @@ Ext.define('XMLifeOperating.controller.login', {
           }
           
     },
-    checkPassword : function(str){
-      var resArr = [/[a-z]/,/[A-Z]/,/[0-9]/,/[@#$%]/],
-          num = 0;
-      Ext.each(resArr, function(res) {
-        if(res.test(str)){
-          num++
-        };
-      });
-      if (num >=3) {
-        return true;
-      }else{
-        return false;
-      };
+    bindKeyMap : function(ele){
+      new Ext.util.KeyMap({
+              target : ele,
+              binding : [
+                {
+                  key : 13,
+                  fn : function(){
+                    this.login();
+                  },
+                  scope: this,
+                  defaultEventAction: 'preventDefault'
+                }
+              ]
+            });
     }
 });
 
