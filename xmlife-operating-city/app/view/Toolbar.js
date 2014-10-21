@@ -45,36 +45,16 @@ Ext.define('XMLifeOperating.view.Toolbar', {
             itemId: 'txtUserName',
             margin: '0 10 0 10',
             menu: {
-                items: [{
-                        text: '修改密码'
+                items: [
+                    {
+                        text: '修改密码',
+                        itemId : 'editAdmin'
                         // iconCls: 'tasks-new'
                     },
-                    '-', {
+                    '-',
+                    {
                         text: '注销',
-                        itemId: 'btnSignOut',
-                        handler: function() {
-                            var loginOutUrl = XMLifeOperating.generic.Global.URL.biz + 'admin/logout',
-                                sessionId = localStorage.getItem('sessionId');
-                            Ext.Ajax.request({
-                                url: loginOutUrl,
-                                method: 'post',
-                                success: function(response) {
-                                    if (response.responseText) {
-                                        localStorage.removeItem('sessionId');
-                                        localStorage.removeItem('username');
-                                        window.location.reload();
-                                    }
-                                },
-                                failure: function(response) {
-                                    Ext.MessageBox.show({
-                                        title: '注销失败',
-                                        msg: '您现在已经注销了!',
-                                        buttons: Ext.Msg.OK
-                                    });
-
-                                }
-                            })
-                        }
+                        itemId: 'btnSignOut'
                         // iconCls: 'tasks-new-list'
                     },
                 ]
