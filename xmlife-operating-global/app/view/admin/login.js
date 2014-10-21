@@ -55,6 +55,10 @@ Ext.define('XMLifeOperating.view.admin.login', {
               {
                 fieldLabel : '新密码',
                 labelAlign : 'right',
+                minLength : 6,
+                maxLength : 26,
+                maxLengthText : '最多可输入26个字符',
+                minLengthText : '最少输入6个字符',
                 width : 300,
                 name : 'newPassword',
                 xtype : 'textfield',

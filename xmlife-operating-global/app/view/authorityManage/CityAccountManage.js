@@ -14,6 +14,12 @@ Ext.define('XMLifeOperating.view.authorityManage.CityAccountManage', {
     store : 'Account',
     closable : true,
     forceFit: true,
+    bbar: [{
+        xtype: 'pagingtoolbar',
+        itemId: 'pagetool',
+        store: 'Account',
+        displayInfo: true
+    }],
     tbar : [{
       xtype : 'button',
       text : '创建城市经理账号',

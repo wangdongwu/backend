@@ -48,6 +48,10 @@ Ext.define('XMLifeOperating.view.authorityManage.addGlobalAccount', {
         {
           fieldLabel : '密码',
           inputType: 'password',
+          minLength : 6,
+          maxLength : 26,
+          maxLengthText : '最多可输入26个字符',
+          minLengthText : '最少输入6个字符',
           validator : function(str){  
             var resArr = [/[a-z]/,/[A-Z]/,/[0-9]/,/[@#$%]/],
                 num = 0;

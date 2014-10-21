@@ -47,6 +47,10 @@ Ext.define('XMLifeOperating.view.authorityManage.addCityManagerAccount', {
         },
         {
           fieldLabel : '密码',
+          minLength : 6,
+          maxLength : 26,
+          maxLengthText : '最多可输入26个字符',
+          minLengthText : '最少输入6个字符',
           inputType: 'password',
           validator : function(str){  
             var resArr = [/[a-z]/,/[A-Z]/,/[0-9]/,/[@#$%]/],

@@ -14,6 +14,12 @@ Ext.define('XMLifeOperating.view.authorityManage.GlobalAccountManage', {
     store : 'Account',
     forceFit: true,
     closable : true,
+    bbar: [{
+        xtype: 'pagingtoolbar',
+        itemId: 'pagetool',
+        store: 'Account',
+        displayInfo: true
+    }],
     tbar : [{
       xtype : 'button',
       text : '创建管理员账号',
