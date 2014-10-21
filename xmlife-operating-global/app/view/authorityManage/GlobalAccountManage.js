@@ -36,7 +36,9 @@ Ext.define('XMLifeOperating.view.authorityManage.GlobalAccountManage', {
       itemId : 'lookDisableAccount'
     },
     {
-      xtype : 'textfield'
+      xtype : 'textfield',
+      itemId : 'seachKeyword'
+
     },
     {
       xtype : 'button',

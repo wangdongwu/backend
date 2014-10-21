@@ -47,20 +47,6 @@ Ext.define('XMLifeOperating.controller.Authority', {
     init : function(){
       var self = this;
       self.control({
-        'AuthorityTabPanel' : {
-          activate : function(){
-            var store = self.getAccountStore(),
-                proxy = store.getProxy();
-                if(self.activeType){
-                  proxy.extraParams = { type : self.activeType };
-                }else{
-                  proxy.extraParams = { type : 'Global' };
-                }
-                store.clearFilter(true);
-                store.load();
-          }
-        }
-        ,
         'GlobalAccountManage' : {
           activate : function(){
             self.loadData('GlobalAccountManage');
@@ -85,8 +71,14 @@ Ext.define('XMLifeOperating.controller.Authority', {
         'GlobalAccountManage #seachAccount' : {
           click : function(){
             //搜索全局账号
-            console.log('搜索全局账号');
-          }
+            var store = self.getAccountStore();
+                seachKeyword = self.getGlobalAccountManage().down('#seachKeyword').getValue();
+                store.getProxy().extraParams = {
+                   keyword : seachKeyword,
+                   type : 'Global'
+                    };
+                store.loadPage(1);
+              }
         },
         'GlobalAccountManage #edit' : {
           click : function(a,b,c,d,e,f,g){
@@ -282,7 +274,14 @@ Ext.define('XMLifeOperating.controller.Authority', {
         'CityAccountManage #seachAccount' : {
           click : function(){
             //搜索城市经理账号
-            console.log('搜索城市经理账号');
+            var store = self.getAccountStore();
+                seachKeyword = self.getCityAccountManage().down('#seachKeyword').getValue();
+                store.getProxy().extraParams = {
+                   keyword : seachKeyword,
+                   type : 'City'
+                    };
+                store.loadPage(1);
+          
           }
         },
         'addCityManagerAccount combobox[name=cpro]' : {
