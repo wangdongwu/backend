@@ -130,59 +130,70 @@ Ext.define('XMLifeOperating.controller.login', {
     }
   },
   login: function() {
-    var self = this,
-      view = this.getLogin(),
-      username = view.down('[name=username]').getValue(),
-      password = view.down('[name=password]').getValue(),
-      loginUrl = XMLifeOperating.generic.Global.URL.biz + 'admin/login';
-    Ext.Ajax.request({
-      url: loginUrl,
-      params: {
-        user: username,
-        pwd: password
-      },
-      method: 'post',
-      success: function(response) {
-        if (response.responseText) {
-          var data = Ext.JSON.decode(response.responseText);
-          localStorage.setItem("sessionId", data.sessionId);
-          localStorage.setItem("username", username);
-          if (data.areaId) {
-            localStorage.setItem("areaId", data.areaId);
-            XMLifeOperating.generic.Global.current_operating = data.areaId
-          }
-          if (data.areaName) {
-            localStorage.setItem("areaName", data.areaName);
-          }
 
-          Ext.Ajax.defaultHeaders = {
-            'auth-token': data.sessionId
-          };
-          self.getCurrentUsername().setText(username);
-          /*加载tree*/
-          /*self.getNavigationStore().setRootNode({
-            expanded: true
-          });*/
-          self.detectAccount();
-          view.hide();
-          self.getShopAreaStore().load();
-          //Ext.getCmp('cmbGlobalCenter').setValue(data.areaId);
-          self.getTxtShopAreaName().setText(data.areaName);
-        }
-      },
-      failure: function(response) {
-        if (response.status == 401) {
-          var data = {
-            'Unauthorized': '对不起，你登录失败了，请重新登录'
-          }
-          Ext.MessageBox.show({
-            title: '登录失败',
-            msg: data[response.statusText],
-            buttons: Ext.Msg.OK
+      var self = this,
+          view = this.getLogin(),
+          username = view.down('[name=username]').getValue(),
+          password = view.down('[name=password]').getValue(),
+          newPassword = view.down('[name=newPassword]').getValue();
+      reNewPassword = view.down('[name=reNewPassword]').getValue();
+      loginUrl = XMLifeOperating.generic.Global.URL.biz + 'admin/login',
+          updateUrl = XMLifeOperating.generic.Global.URL.biz + 'admin/update/ownAccount';
+      if(self.edit){
+          var newPassword = view.down('[name=newPassword]').getValue(),
+              name = view.down('[name=nick]').getValue();
+          Ext.Ajax.request({
+              url : updateUrl,
+              params : {account:username , name : name, oldPwd : password,newPwd : newPassword},
+              method : 'put',
+              success : function(response){
+                  if(response.responseText == 1){
+                      self.getLogin().hide();
+                      Ext.Msg.alert('成功', '成功更新'+username+'账户');
+
+                  }else{
+                      Ext.Msg.alert('失败', '更新'+username+'账户时失败');
+                  }
+              }
+          })
+      }else{
+          Ext.Ajax.request({
+              url: loginUrl,
+              params: {user:username,pwd:password},
+              method: 'post',
+              success : function(response){
+                  if(response.responseText){
+                      var data =  Ext.JSON.decode(response.responseText);
+                      /*本地储存信息*/
+                      localStorage.setItem("sessionId", data.sessionId);
+                      localStorage.setItem("username", username);
+                      /*更改页头*/
+                      Ext.Ajax.defaultHeaders = {
+                          'auth-token' : data.sessionId
+                      };
+                      /*设置用户名字*/
+                      self.getCurrentUsername().setText(username);
+                      /*加载tree*/
+                      self.getNavigationStore().setRootNode({expanded:true});
+
+                      view.hide();
+                  }
+              },
+              failure : function(response){
+                  if(response.status==401){
+                      var data = {
+                          'Unauthorized' : '对不起，你登录失败了，请重新登录'
+                      };
+                      Ext.MessageBox.show({
+                          title: '登录失败',
+                          msg: data[response.statusText],
+                          buttons: Ext.Msg.OK
+                      });
+                  }
+              }
           });
-        }
       }
-    });
+
   },
   bindKeyMap : function(ele){
       new Ext.util.KeyMap({
