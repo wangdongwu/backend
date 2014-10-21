@@ -78,7 +78,6 @@ Ext.define('XMLifeOperating.controller.login', {
 
                 newPasswordField.show();
                 reNewPasswordField.show()
-
                 passwordField.setFieldLabel('旧密码');
                 loginBt.setText('确定');
                 self.edit = true;
