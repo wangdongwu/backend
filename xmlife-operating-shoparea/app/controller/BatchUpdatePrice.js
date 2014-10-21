@@ -64,7 +64,7 @@ Ext.define('XMLifeOperating.controller.BatchUpdatePrice', {
             var form = gird.up('form').getForm();
             if(form.isValid()){
               form.submit({
-                url : XMLifeOperating.generic.Global.URL.biz+config[gird.name],
+                url : XMLifeOperating.generic.Global.URL.biz+config[gird.name]+'?/sessionId='+sessionId,
                 params: {'sessionId':sessionId},
                 waitMsg : '正在上传您的文件......',
                 success : function(form, action){
