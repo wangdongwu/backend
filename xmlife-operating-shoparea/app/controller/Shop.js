@@ -63,96 +63,86 @@ Ext.define('XMLifeOperating.controller.Shop', {
       @param xtype     类型
       */
     refs: [{
-            ref: 'shopList',
-            selector: 'shoplist',
-            xtype: 'shoplist',
-            autoCreate: true
-        }, {
-            ref: 'shopAdd',
-            selector: 'shopadd',
-            xtype: 'shopadd',
-            autoCreate: true
-        }, {
-            ref: 'contentPanel',
-            selector: '#contentPanel',
-            xtype: 'panel'
-        }, {
-            ref: 'shopBanner',
-            selector: 'shopbanner',
-            xtype: 'shopbanner',
-            autoCreate: true
-        }, {
-            ref: 'shopBannerAdd',
-            selector: 'shopbanneradd',
-            xtype: 'shopbanneradd',
-            autoCreate: true
-        }, {
-            ref: 'shopEdit',
-            selector: 'shopedit',
-            xtype: 'shopedit',
-            autoCreate: true
-        }, {
-            ref: 'shopTab',
-            selector: 'shoptab',
-            xtype: 'shoptab',
-            autoCreate: true
-        }, {
-            ref: 'shopShelfTab',
-            selector: 'shopshelftab',
-            xtype: 'shopshelftab',
-            autoCreate: true
-        }, {
-            ref: 'shopShelfAdd',
-            selector: 'shopshelfadd',
-            xtype: 'shopshelfadd',
-            autoCreate: true
-        }, {
+        ref: 'shopList',
+        selector: 'shoplist',
+        xtype: 'shoplist',
+        autoCreate: true
+    }, {
+        ref: 'shopAdd',
+        selector: 'shopadd',
+        xtype: 'shopadd',
+        autoCreate: true
+    }, {
+        ref: 'contentPanel',
+        selector: '#contentPanel',
+        xtype: 'panel'
+    }, {
+        ref: 'shopBanner',
+        selector: 'shopbanner',
+        xtype: 'shopbanner',
+        autoCreate: true
+    }, {
+        ref: 'shopBannerAdd',
+        selector: 'shopbanneradd',
+        xtype: 'shopbanneradd',
+        autoCreate: true
+    }, {
+        ref: 'shopEdit',
+        selector: 'shopedit',
+        xtype: 'shopedit',
+        autoCreate: true
+    }, {
+        ref: 'shopTab',
+        selector: 'shoptab',
+        xtype: 'shoptab',
+        autoCreate: true
+    }, {
+        ref: 'shopShelfTab',
+        selector: 'shopshelftab',
+        xtype: 'shopshelftab',
+        autoCreate: true
+    }, {
+        ref: 'shopShelfAdd',
+        selector: 'shopshelfadd',
+        xtype: 'shopshelfadd',
+        autoCreate: true
+    }, {
 
-            ref: 'shopSecondShelfAdd',
-            selector: 'shopsecondshelfadd',
-            xtype: 'shopsecondshelfadd',
-            autoCreate: true
-        }, {
-            ref: 'shopProductAdd',
-            selector: 'shopproductadd',
-            xtype: 'shopproductadd',
-            autoCreate: true
-        }, {
-            ref: 'shopProductEdit',
-            selector: 'shopproductedit',
-            xtype: 'shopproductedit',
-            autoCreate: true
-        }, {
-            ref: 'shopBuyer',
-            selector: 'shopbuyer',
-            xtype: 'shopbuyer',
-            autoCreate: true
-        }, {
-            ref: 'keywordProductTemplate',
-            selector: '#keywordProductTemplate',
-        }, {
-            ref: 'keywordBuyer',
-            selector: '#keywordBuyer',
-        }, {
-            ref: 'shopProductSearch',
-            selector: 'shopproductsearch',
-            xtype: 'shopproductsearch'
-        }, {
-            ref: 'shopProductSearchEdit',
-            selector: 'shopproductsearchedit',
-            xtype: 'shopproductsearchedit',
-            autoCreate: true
-        }
-        // {
-        //     ref: 'editWindow',
-        //     selector: 'editShopStore',
-        //     xtype: 'editShopStore',
-        //     autoCreate: true
-        // }, {
-        //     ref: 'keywordBuyer',
-        //     selector: '#keywordBuyer',
-        // }
-    ],
+        ref: 'shopSecondShelfAdd',
+        selector: 'shopsecondshelfadd',
+        xtype: 'shopsecondshelfadd',
+        autoCreate: true
+    }, {
+        ref: 'shopProductAdd',
+        selector: 'shopproductadd',
+        xtype: 'shopproductadd',
+        autoCreate: true
+    }, {
+        ref: 'shopProductEdit',
+        selector: 'shopproductedit',
+        xtype: 'shopproductedit',
+        autoCreate: true
+    }, {
+        ref: 'shopBuyer',
+        selector: 'shopbuyer',
+        xtype: 'shopbuyer',
+        autoCreate: true
+    }, {
+        ref: 'keywordProductTemplate',
+        selector: '#keywordProductTemplate',
+    }, {
+        ref: 'keywordBuyer',
+        selector: '#keywordBuyer',
+    }, {
+        ref: 'shopProductSearch',
+        selector: 'shopproductsearch',
+        xtype: 'shopproductsearch'
+    }, {
+        ref: 'shopProductSearchEdit',
+        selector: 'shopproductsearchedit',
+        xtype: 'shopproductsearchedit',
+        autoCreate: true
+    }],
     init: function() {
         var me = this,
             isSuccess = true;
@@ -296,9 +286,11 @@ Ext.define('XMLifeOperating.controller.Shop', {
                     var openTime = leftOpenTime + ':' + rightOpenTime;
                     var closeTime = leftCloseTime + ':' + rightCloseTime;
                     var autoOnline = this.record.get('autoOnline') ? 'true' : 'false';
+                    var showAllProducts = this.record.get('showAllProducts')?'true' : 'false';
                     this.record.set('openTimeText', openTime);
                     this.record.set('closeTimeText', closeTime);
-                    this.record.set('autoOnline', autoOnline)
+                    this.record.set('autoOnline', autoOnline);
+                    this.record.set('showAllProducts',showAllProducts);
                     form.loadRecord(this.record);
                     this.shopId = this.record.raw.id;
                     tab.show();
@@ -342,6 +334,9 @@ Ext.define('XMLifeOperating.controller.Shop', {
                             return;
                         }
 
+                        //展开所有商品判断
+                        var showAllProducts = form.getValues()['showAllProducts'];
+                        shopStore.set('showAllProducts', showAllProducts);
                         //复制店铺
                         if (form.getValues()['copyShopCheckbox'] && form.getValues()['copyShopCheckbox'] == 'on') {
                             shopStore.set('beCopyedShopId', form.getValues()['copyShop']);
@@ -355,6 +350,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
                         shopStore.set('autoOnline', autoOnline);
                         shopStore.set('openTime', (shopStore.get('openTime').getHours() * 60 + shopStore.get('openTime').getMinutes()));
                         shopStore.set('closeTime', (shopStore.get('closeTime').getHours() * 60 + shopStore.get('closeTime').getMinutes()));
+
                         shopStore.save({
                             success: function(task, operation) {
                                 windowEl.unmask();
@@ -528,13 +524,6 @@ Ext.define('XMLifeOperating.controller.Shop', {
                             windowEl.unmask();
                             editWindow.close();
                             me.showShopList();
-                            /*                            me.getShopStore().load({
-                                params: {
-                                    city: XMLifeOperating.generic.Global.currentCity,
-                                    areaId: me.areaId
-                                }
-                            });*/
-
                         };
                         var modifyFailureCallback = function(task, operation) {
                             var error = operation.getError(),
@@ -1398,8 +1387,8 @@ Ext.define('XMLifeOperating.controller.Shop', {
                         model.set('dayTodayLimitCount', '');
                         model.set('totalTodayLimitCount', '');
                     }
-/*  me.openWin(win, model);*/
-                   categoryStore.load({
+                    /*  me.openWin(win, model);*/
+                    categoryStore.load({
                         params: {
                             shopId: me.shopId
                         },

@@ -110,7 +110,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopEdit', {
         }, {
             xtype: 'radiogroup',
             fieldLabel: '商品是否每日自动上架',
-            labelWidth: 130,
+            labelWidth: 140,
             defaults: {
                 flex: 1
             },
@@ -119,11 +119,29 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopEdit', {
             items: [{
                 boxLabel: '是',
                 name: 'autoOnline',
-                inputValue: 'true',
+                inputValue: 'true'
             }, {
                 boxLabel: '否',
                 name: 'autoOnline',
-                inputValue: 'false',
+                inputValue: 'false'
+            }]
+        }, {
+            xtype: 'radiogroup',
+            fieldLabel: '首页展示所有商品',
+            labelWidth: 140,
+            defaults: {
+                flex: 1
+            },
+            allowBlank: false,
+            layout: 'hbox',
+            items: [{
+                boxLabel: '是',
+                name: 'showAllProducts',
+                inputValue: 'true'
+            }, {
+                boxLabel: '否',
+                name: 'showAllProducts',
+                inputValue: 'false'
             }]
         }],
         buttons: [{
