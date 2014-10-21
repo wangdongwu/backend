@@ -10,7 +10,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopList', {
         itemId: 'pagetool',
         store: 'Shop',
         displayInfo: true,
-        style:'border:none'        
+        style: 'border:none'
     }],
     tbar: [{
             xtype: 'button',
@@ -28,7 +28,8 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopList', {
             valueField: 'id',
             hidden: (XMLifeOperating.generic.Global.operating_type == 'center')
         },
-        '->'/*, {
+        '->'
+        /*, {
             xtype: 'textfield',
             name: 'searchshop',
             itemId: 'searchShopKeyWords',
@@ -121,6 +122,15 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopList', {
                 // return seeBtn;
             }
         }, {
+            text: '商品展开',
+            dataIndex: 'showAllProducts',
+            width: 80,
+            sortable: true,
+            align: 'center',
+            renderer:function(value){
+                return value?'是':'否'
+            }
+        }, {
             header: "",
             width: 90,
             dataIndex: 'status',
@@ -154,7 +164,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopList', {
     ],
     viewConfig: {
 
-        enableTextSelection:true
+        enableTextSelection: true
     },
     listeners: {
         onShowView: function(view, viewName) {
