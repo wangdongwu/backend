@@ -1742,6 +1742,191 @@ rpc.RpcMessageBase.prototype.convertFrom  = function(from, confusionMode, clone)
     return true;
 };
 
+rpc.LogReportRespose = function() {};
+rpc.LogReportRespose.prototype.getInterval = function() {
+	if(!this.mObj) {
+		return 0;
+	}
+	
+	this.mValueCache = this.mValueCache || {};
+	var cacheValue = this.mValueCache["interval"];
+	if(cacheValue) return cacheValue;
+	
+	var value = this.mObj["interval"];
+	if(!value){
+		value = this.mObj["i"];
+		if(value) {
+			delete this.mObj["i"];
+			this.mObj["interval"] = value;
+		}
+	}
+	
+	var objRet = ConvertUtils.jsonObjectToObject(value, Number, null, false);
+	
+	if(objRet) {
+		this.mValueCache["interval"] = objRet;
+		return objRet;
+	}
+	
+	return 0;
+};
+
+rpc.LogReportRespose.prototype.setInterval = function(value) {
+    this.checkAndCreate();
+	this.mValueCache = this.mValueCache || {};
+	this.mObj = this.mObj || {};
+	delete this.mObj["i"];
+	
+	var _value_value0 = (value);
+	if(!_value_value0) 
+		delete this.mObj["interval"];
+	else
+		this.mObj["interval"] = _value_value0;
+
+	if(value) {
+		this.mValueCache["interval"] = value;
+	} else {
+		delete this.mValueCache["interval"];
+	}
+	return this;
+};
+
+rpc.LogReportRespose.FIELD_INTERVAL="interval";
+rpc.LogReportRespose.FIELD_INTERVAL_CONFUSION="i";
+
+rpc.LogReportRespose.checkAndInitial = function() {
+    if(rpc.LogReportRespose.mFieldToConfusionMap)
+        return;
+	
+	rpc.LogReportRespose.mHasConfusionField = true;
+	rpc.LogReportRespose.mFieldToConfusionMap = {
+		"interval":"i"
+	};
+	rpc.LogReportRespose.mConfusionToFieldMap = {
+		"i":"interval"
+	};
+
+};
+
+rpc.LogReportRespose.prototype.toString = function() {
+	if(this.mObj) {
+		return JSON.stringify(this.mObj);
+	}
+	return "{}";
+};
+
+rpc.LogReportRespose.prototype.getRpcJSONObject  = function() {
+	return this.mObj;
+};
+
+rpc.LogReportRespose.prototype.checkAndCreate = function() {
+    if (!this.mObj) {
+        this.mObj = {};
+    }
+};
+
+
+rpc.LogReportRespose.prototype.getAsObject  = function(confusionMode, clone) {
+    if(this.mObj == null) {
+		this.checkAndCreate();
+        return clone ? objectClone(this.mObj) : this.mObj;
+    }
+    if(!confusionMode)
+        return clone ? objectClone(this.mObj) : this.mObj;
+    return rpc.LogReportRespose.toConfusionObject(this.mObj, clone);
+};
+
+rpc.LogReportRespose.getConfusionName = function(name) {
+    rpc.LogReportRespose.checkAndInitial();
+    var value = rpc.LogReportRespose.mFieldToConfusionMap[name];
+    if(value)
+        return value;
+    return null;
+};
+    
+rpc.LogReportRespose.getRawName = function(confusionName) {
+    rpc.LogReportRespose.checkAndInitial();
+    var value = rpc.LogReportRespose.mConfusionToFieldMap[confusionName];
+    if(value)
+        return value;
+    return null;
+};
+
+rpc.LogReportRespose.toConfusionObject  = function(from, clone) {
+    if(!from)
+        return from;
+
+	rpc.LogReportRespose.checkAndInitial();
+    if (!rpc.LogReportRespose.mHasConfusionField) {
+        return clone ? objectClone(from) : from;
+    }
+        
+    var ret = {};
+    for (var key in from) {
+        var rawKey = rpc.LogReportRespose.getConfusionName(key);
+        if(!rawKey)
+            rawKey = key;
+        ret[rawKey] = from[key];
+    }
+      
+    return ret;
+};
+    
+rpc.LogReportRespose.confusionToRawObject  = function(from, clone) {
+    if(!from)
+        return from;
+    
+    rpc.LogReportRespose.checkAndInitial();
+    if (!rpc.LogReportRespose.mHasConfusionField) {
+        return clone ? objectClone(from) : from;
+    }
+        
+    var ret = {};
+    for(var key in from) {
+        var rawKey = rpc.LogReportRespose.getRawName(key);
+        if(!rawKey)
+            rawKey = key;
+        ret[rawKey] = from[key];
+    }
+    return ret;
+};
+
+rpc.LogReportRespose.prototype.clearCache = function() {
+	if(this.mValueCache) {
+		this.mValueCache = {};
+	}
+};
+
+rpc.LogReportRespose.prototype.convertFrom  = function(from, confusionMode, clone) {
+    if (!from)
+        return false;
+    
+    if (from.prototype && from.prototype.convertFrom) {
+        this.clearCache();
+        this.mObj = from.getAsObject(false, clone);
+        return true;
+    }
+    
+    if (from instanceof String && from[0] == '{') {
+        this.clearCache();
+        var jsonObj = JSON.parse(from);
+        if(confusionMode) {
+            this.mObj = rpc.LogReportRespose.confusionToRawObject(jsonObj, clone);
+        } else {
+            this.mObj = clone ? objectClone(jsonObj) : jsonObj;
+        }
+        return true;
+    }
+    
+    this.clearCache();
+    if(confusionMode) {
+         this.mObj = rpc.LogReportRespose.confusionToRawObject(from, clone);
+    } else {
+         this.mObj = clone ? objectClone(from) : from;
+    }
+    return true;
+};
+
 rpc.SendMsgRespose = function() {};
 rpc.SendMsgRespose.prototype.getMsgId = function() {
 	if(!this.mObj) {
@@ -29790,7 +29975,8 @@ rpc.ILogReport.log = function(data, success, fail){
 	if(arguments.length < 3) alert("com.paitao.generic.rpc.protocol.ILogReport.log param count dismatch");
 
 	var successWrapper = success ? function(returnCode, jsonObj) {
-		success(returnCode, null);
+		var obj = ConvertUtils.jsonObjectToObject(jsonObj, rpc.LogReportRespose, null, true);
+		success(returnCode, obj);
 	} : null;
 	var _jsonDict = {};
 	var _uploadDict = {};
@@ -33015,9 +33201,9 @@ rpc.ServerConfig.loadDefaultConfig();
 // category: CDN
 // arg 1: hash
 
-rpc.HttpImageResource = {};
+rpc.ProductImageResource = {};
 
-rpc.HttpImageResource.hashToUrl = function(
+rpc.ProductImageResource.hashToUrl = function(
 		hash 
 	) {
 	var _url = hash;
@@ -33046,16 +33232,16 @@ rpc.HttpImageResource.hashToUrl = function(
 	return _sb;
 };
 
-rpc.HttpImageResource.hashToSmallUrl = function(
+rpc.ProductImageResource.hashToSmallUrl = function(
 		hash 
 	) {
-	var _url = rpc.HttpImageResource.hashToUrl(
+	var _url = rpc.ProductImageResource.hashToUrl(
 		hash 
 	);
 	if(!_url || _url.length < 3 || _url.indexOf("http") < 0)
 		return _url;
 	
-	//if(_url.indexOf("w-40") > 1) {
+	//if(_url.indexOf("w-202") > 1) {
 	//	return _url;
 	//}
 	
@@ -33065,22 +33251,22 @@ rpc.HttpImageResource.hashToSmallUrl = function(
 		_sb += "@";
 	}
 	
-	_sb += "w-40";
+	_sb += "w-202";
 	
 	
 	return _sb;
 };
 
-rpc.HttpImageResource.hashToMediumUrl = function(
+rpc.ProductImageResource.hashToMediumUrl = function(
 		hash 
 	) {
-	var _url = rpc.HttpImageResource.hashToUrl(
+	var _url = rpc.ProductImageResource.hashToUrl(
 		hash 
 	);
 	if(!_url || _url.length < 3 || _url.indexOf("http") < 0)
 		return _url;
 	
-	//if(_url.indexOf("w-200") > 1) {
+	//if(_url.indexOf("w-372") > 1) {
 	//	return _url;
 	//}
 	
@@ -33090,41 +33276,16 @@ rpc.HttpImageResource.hashToMediumUrl = function(
 		_sb += "@";
 	}
 	
-	_sb += "w-200";
+	_sb += "w-372";
 	
 	
 	return _sb;
 };
 
-rpc.HttpImageResource.hashToBigUrl = function(
+rpc.ProductImageResource.hashToFullUrl = function(
 		hash 
 	) {
-	var _url = rpc.HttpImageResource.hashToUrl(
-		hash 
-	);
-	if(!_url || _url.length < 3 || _url.indexOf("http") < 0)
-		return _url;
-	
-	//if(_url.indexOf("w-360") > 1) {
-	//	return _url;
-	//}
-	
-	var _sb = _url;
-	var _c = _sb.charAt(_sb.length - 1);
-	if(_c != '@') {
-		_sb += "@";
-	}
-	
-	_sb += "w-360";
-	
-	
-	return _sb;
-};
-
-rpc.HttpImageResource.hashToFullUrl = function(
-		hash 
-	) {
-	var _url = rpc.HttpImageResource.hashToUrl(
+	var _url = rpc.ProductImageResource.hashToUrl(
 		hash 
 	);
 	if(!_url || _url.length < 3 || _url.indexOf("http") < 0)
@@ -33261,16 +33422,12 @@ rpc.AvatarImageResource.hashToFullUrl = function(
 rpc.RpcProxyStub = {};
 
 
-
-rpc.LongPolling = {};
-
-
 // category: CDN
 // arg 1: hash
 
-rpc.ProductImageResource = {};
+rpc.HttpImageResource = {};
 
-rpc.ProductImageResource.hashToUrl = function(
+rpc.HttpImageResource.hashToUrl = function(
 		hash 
 	) {
 	var _url = hash;
@@ -33299,16 +33456,16 @@ rpc.ProductImageResource.hashToUrl = function(
 	return _sb;
 };
 
-rpc.ProductImageResource.hashToSmallUrl = function(
+rpc.HttpImageResource.hashToSmallUrl = function(
 		hash 
 	) {
-	var _url = rpc.ProductImageResource.hashToUrl(
+	var _url = rpc.HttpImageResource.hashToUrl(
 		hash 
 	);
 	if(!_url || _url.length < 3 || _url.indexOf("http") < 0)
 		return _url;
 	
-	//if(_url.indexOf("w-202") > 1) {
+	//if(_url.indexOf("w-40") > 1) {
 	//	return _url;
 	//}
 	
@@ -33318,22 +33475,22 @@ rpc.ProductImageResource.hashToSmallUrl = function(
 		_sb += "@";
 	}
 	
-	_sb += "w-202";
+	_sb += "w-40";
 	
 	
 	return _sb;
 };
 
-rpc.ProductImageResource.hashToMediumUrl = function(
+rpc.HttpImageResource.hashToMediumUrl = function(
 		hash 
 	) {
-	var _url = rpc.ProductImageResource.hashToUrl(
+	var _url = rpc.HttpImageResource.hashToUrl(
 		hash 
 	);
 	if(!_url || _url.length < 3 || _url.indexOf("http") < 0)
 		return _url;
 	
-	//if(_url.indexOf("w-372") > 1) {
+	//if(_url.indexOf("w-200") > 1) {
 	//	return _url;
 	//}
 	
@@ -33343,16 +33500,41 @@ rpc.ProductImageResource.hashToMediumUrl = function(
 		_sb += "@";
 	}
 	
-	_sb += "w-372";
+	_sb += "w-200";
 	
 	
 	return _sb;
 };
 
-rpc.ProductImageResource.hashToFullUrl = function(
+rpc.HttpImageResource.hashToBigUrl = function(
 		hash 
 	) {
-	var _url = rpc.ProductImageResource.hashToUrl(
+	var _url = rpc.HttpImageResource.hashToUrl(
+		hash 
+	);
+	if(!_url || _url.length < 3 || _url.indexOf("http") < 0)
+		return _url;
+	
+	//if(_url.indexOf("w-360") > 1) {
+	//	return _url;
+	//}
+	
+	var _sb = _url;
+	var _c = _sb.charAt(_sb.length - 1);
+	if(_c != '@') {
+		_sb += "@";
+	}
+	
+	_sb += "w-360";
+	
+	
+	return _sb;
+};
+
+rpc.HttpImageResource.hashToFullUrl = function(
+		hash 
+	) {
+	var _url = rpc.HttpImageResource.hashToUrl(
 		hash 
 	);
 	if(!_url || _url.length < 3 || _url.indexOf("http") < 0)
@@ -33373,6 +33555,10 @@ rpc.ProductImageResource.hashToFullUrl = function(
 	
 	return _sb;
 };
+
+
+
+rpc.LongPolling = {};
 
 rpc.RpcClassMap = {};
 rpc.RpcClassMap.gMsgClassMap = {};
