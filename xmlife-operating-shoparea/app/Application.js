@@ -31,6 +31,7 @@ Ext.define('XMLifeOperating.Application', {
         'ResidentalDistrict',
         'DelivererZoneList',
         // 'CentralPointConfigure',
+        'Capacity',
         'Shopper',
         'DealShopAreaList',
         'DealProblemDealsList',
@@ -54,6 +55,7 @@ Ext.define('XMLifeOperating.Application', {
         'ShopBannerTemplate',
         'ShopAreaBanner',
         'ResidentalDistrict',
+        'Capacity',
         'Shopper',
         'DealProblemDeals',
         'DealTasks',
@@ -73,6 +75,7 @@ Ext.define('XMLifeOperating.Application', {
     ],
 
     launch: function() {
+
         // Setup a task to fadeOut the splashscreen
         var task = new Ext.util.DelayedTask(function() {
             // Fade out the body mask
