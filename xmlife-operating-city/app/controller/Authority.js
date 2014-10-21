@@ -62,6 +62,11 @@ Ext.define('XMLifeOperating.controller.Authority', {
   renderAuthorityList: function() {
     var me = this;
     var store = me.getAdminListStore();
+    store.getProxy().extraParams = {
+      page:1,
+      limit: 25,
+      start: 0
+    }
     store.load({
       params: {
         city: XMLifeOperating.generic.Global.currentCity,
@@ -116,7 +121,12 @@ Ext.define('XMLifeOperating.controller.Authority', {
     var account = row.get('account');
     var status = row.get('enable');
     var success = function() {
-      store.load({
+      store.getProxy().extraParams = {
+        page: 1,
+        limit: 25,
+        start: 0
+      }
+      store.loadPage(1,{
         params: {
           city: XMLifeOperating.generic.Global.currentCity,
           type: 'Area'
@@ -174,7 +184,12 @@ Ext.define('XMLifeOperating.controller.Authority', {
             buttons: Ext.Msg.OK
           });
         }
-        store.load({
+        store.getProxy().extraParams = {
+          page: 1,
+          limit: 25,
+          start: 0
+        }
+        store.loadPage(1,{
           params: {
             city: XMLifeOperating.generic.Global.currentCity,
             type: 'Area'
@@ -232,7 +247,12 @@ Ext.define('XMLifeOperating.controller.Authority', {
       areaId: null
     };
     var success = function() {
-      store.load({
+      store.getProxy().extraParams = {
+        page: 1,
+        limit: 25,
+        start: 0
+      }
+      store.loadPage(1,{
         params: {
           city: XMLifeOperating.generic.Global.currentCity,
           type: 'Area'
