@@ -12168,6 +12168,245 @@ rpc.DealDeliverTime.prototype.convertFrom  = function(from, confusionMode, clone
     return true;
 };
 
+rpc.DealDeliverTimeResult = function() {};
+rpc.DealDeliverTimeResult.prototype.getTodayDeliverTime = function() {
+	if(!this.mObj) {
+		return null;
+	}
+	
+	this.mValueCache = this.mValueCache || {};
+	var cacheValue = this.mValueCache["todayDeliverTime"];
+	if(cacheValue) return cacheValue;
+	
+	var value = this.mObj["todayDeliverTime"];
+	
+	var objRet = ConvertUtils.jsonObjectToObject(value, Array, [rpc.DealDeliverTime], false);
+	
+	if(objRet) {
+		this.mValueCache["todayDeliverTime"] = objRet;
+		return objRet;
+	}
+	
+	return null;
+};
+
+rpc.DealDeliverTimeResult.prototype.setTodayDeliverTime = function(value) {
+    this.checkAndCreate();
+	this.mValueCache = this.mValueCache || {};
+	this.mObj = this.mObj || {};
+	
+	var _arr_0 = (!value) ? null : [];
+	if(value) {
+		var _len_0 = value.length;
+		for(var _i_0 = 0; _i_0 < _len_0; _i_0++) {
+			var _l_0 = value[_i_0];
+			var _value__l_02 = _l_0.getAsObject(false);
+			_arr_0.push(_value__l_02);
+		}
+	}
+	var _value_value0 = _arr_0;
+	if(!_value_value0) 
+		delete this.mObj["todayDeliverTime"];
+	else
+		this.mObj["todayDeliverTime"] = _value_value0;
+
+	if(value) {
+		this.mValueCache["todayDeliverTime"] = value;
+	} else {
+		delete this.mValueCache["todayDeliverTime"];
+	}
+	return this;
+};
+
+rpc.DealDeliverTimeResult.prototype.getTomorrowDeliverTime = function() {
+	if(!this.mObj) {
+		return null;
+	}
+	
+	this.mValueCache = this.mValueCache || {};
+	var cacheValue = this.mValueCache["tomorrowDeliverTime"];
+	if(cacheValue) return cacheValue;
+	
+	var value = this.mObj["tomorrowDeliverTime"];
+	
+	var objRet = ConvertUtils.jsonObjectToObject(value, Array, [rpc.DealDeliverTime], false);
+	
+	if(objRet) {
+		this.mValueCache["tomorrowDeliverTime"] = objRet;
+		return objRet;
+	}
+	
+	return null;
+};
+
+rpc.DealDeliverTimeResult.prototype.setTomorrowDeliverTime = function(value) {
+    this.checkAndCreate();
+	this.mValueCache = this.mValueCache || {};
+	this.mObj = this.mObj || {};
+	
+	var _arr_0 = (!value) ? null : [];
+	if(value) {
+		var _len_0 = value.length;
+		for(var _i_0 = 0; _i_0 < _len_0; _i_0++) {
+			var _l_0 = value[_i_0];
+			var _value__l_02 = _l_0.getAsObject(false);
+			_arr_0.push(_value__l_02);
+		}
+	}
+	var _value_value0 = _arr_0;
+	if(!_value_value0) 
+		delete this.mObj["tomorrowDeliverTime"];
+	else
+		this.mObj["tomorrowDeliverTime"] = _value_value0;
+
+	if(value) {
+		this.mValueCache["tomorrowDeliverTime"] = value;
+	} else {
+		delete this.mValueCache["tomorrowDeliverTime"];
+	}
+	return this;
+};
+
+rpc.DealDeliverTimeResult.FIELD_TOMORROWDELIVERTIME="tomorrowDeliverTime";
+rpc.DealDeliverTimeResult.FIELD_TOMORROWDELIVERTIME_CONFUSION="tomorrowDeliverTime";
+rpc.DealDeliverTimeResult.FIELD_TODAYDELIVERTIME="todayDeliverTime";
+rpc.DealDeliverTimeResult.FIELD_TODAYDELIVERTIME_CONFUSION="todayDeliverTime";
+
+rpc.DealDeliverTimeResult.checkAndInitial = function() {
+    if(rpc.DealDeliverTimeResult.mFieldToConfusionMap)
+        return;
+	
+	rpc.DealDeliverTimeResult.mHasConfusionField = false;
+	rpc.DealDeliverTimeResult.mFieldToConfusionMap = {
+		"tomorrowDeliverTime":"tomorrowDeliverTime", 
+		"todayDeliverTime":"todayDeliverTime"
+	};
+	rpc.DealDeliverTimeResult.mConfusionToFieldMap = {
+		"tomorrowDeliverTime":"tomorrowDeliverTime", 
+		"todayDeliverTime":"todayDeliverTime"
+	};
+
+};
+
+rpc.DealDeliverTimeResult.prototype.toString = function() {
+	if(this.mObj) {
+		return JSON.stringify(this.mObj);
+	}
+	return "{}";
+};
+
+rpc.DealDeliverTimeResult.prototype.getRpcJSONObject  = function() {
+	return this.mObj;
+};
+
+rpc.DealDeliverTimeResult.prototype.checkAndCreate = function() {
+    if (!this.mObj) {
+        this.mObj = {};
+    }
+};
+
+
+rpc.DealDeliverTimeResult.prototype.getAsObject  = function(confusionMode, clone) {
+    if(this.mObj == null) {
+		this.checkAndCreate();
+        return clone ? objectClone(this.mObj) : this.mObj;
+    }
+    if(!confusionMode)
+        return clone ? objectClone(this.mObj) : this.mObj;
+    return rpc.DealDeliverTimeResult.toConfusionObject(this.mObj, clone);
+};
+
+rpc.DealDeliverTimeResult.getConfusionName = function(name) {
+    rpc.DealDeliverTimeResult.checkAndInitial();
+    var value = rpc.DealDeliverTimeResult.mFieldToConfusionMap[name];
+    if(value)
+        return value;
+    return null;
+};
+    
+rpc.DealDeliverTimeResult.getRawName = function(confusionName) {
+    rpc.DealDeliverTimeResult.checkAndInitial();
+    var value = rpc.DealDeliverTimeResult.mConfusionToFieldMap[confusionName];
+    if(value)
+        return value;
+    return null;
+};
+
+rpc.DealDeliverTimeResult.toConfusionObject  = function(from, clone) {
+    if(!from)
+        return from;
+
+	rpc.DealDeliverTimeResult.checkAndInitial();
+    if (!rpc.DealDeliverTimeResult.mHasConfusionField) {
+        return clone ? objectClone(from) : from;
+    }
+        
+    var ret = {};
+    for (var key in from) {
+        var rawKey = rpc.DealDeliverTimeResult.getConfusionName(key);
+        if(!rawKey)
+            rawKey = key;
+        ret[rawKey] = from[key];
+    }
+      
+    return ret;
+};
+    
+rpc.DealDeliverTimeResult.confusionToRawObject  = function(from, clone) {
+    if(!from)
+        return from;
+    
+    rpc.DealDeliverTimeResult.checkAndInitial();
+    if (!rpc.DealDeliverTimeResult.mHasConfusionField) {
+        return clone ? objectClone(from) : from;
+    }
+        
+    var ret = {};
+    for(var key in from) {
+        var rawKey = rpc.DealDeliverTimeResult.getRawName(key);
+        if(!rawKey)
+            rawKey = key;
+        ret[rawKey] = from[key];
+    }
+    return ret;
+};
+
+rpc.DealDeliverTimeResult.prototype.clearCache = function() {
+	if(this.mValueCache) {
+		this.mValueCache = {};
+	}
+};
+
+rpc.DealDeliverTimeResult.prototype.convertFrom  = function(from, confusionMode, clone) {
+    if (!from)
+        return false;
+    
+    if (from.prototype && from.prototype.convertFrom) {
+        this.clearCache();
+        this.mObj = from.getAsObject(false, clone);
+        return true;
+    }
+    
+    if (from instanceof String && from[0] == '{') {
+        this.clearCache();
+        var jsonObj = JSON.parse(from);
+        if(confusionMode) {
+            this.mObj = rpc.DealDeliverTimeResult.confusionToRawObject(jsonObj, clone);
+        } else {
+            this.mObj = clone ? objectClone(jsonObj) : jsonObj;
+        }
+        return true;
+    }
+    
+    this.clearCache();
+    if(confusionMode) {
+         this.mObj = rpc.DealDeliverTimeResult.confusionToRawObject(from, clone);
+    } else {
+         this.mObj = clone ? objectClone(from) : from;
+    }
+    return true;
+};
+
 rpc.DealItem = function() {};
 rpc.DealItem.prototype.getBarCode = function() {
 	if(!this.mObj) {
@@ -30854,7 +31093,7 @@ rpc.IDealService.getDeliverTime = function(areaId, shopIds, success, fail){
 	if(arguments.length < 4) alert("com.paitao.xmlife.rpc.IDealService.getDeliverTime param count dismatch");
 
 	var successWrapper = success ? function(returnCode, jsonObj) {
-		var obj = ConvertUtils.jsonObjectToObject(jsonObj, Array, [rpc.DealDeliverTime], true);
+		var obj = ConvertUtils.jsonObjectToObject(jsonObj, rpc.DealDeliverTimeResult, null, true);
 		success(returnCode, obj);
 	} : null;
 	var _jsonDict = {};
@@ -32776,230 +33015,6 @@ rpc.ServerConfig.loadDefaultConfig();
 // category: CDN
 // arg 1: hash
 
-rpc.ProductImageResource = {};
-
-rpc.ProductImageResource.hashToUrl = function(
-		hash 
-	) {
-	var _url = hash;
-	if(!_url || _url.length < 3)
-		return _url;
-	if(_url.indexOf("http:") == 0 ||
-		   _url.indexOf("https:") == 0 ||
-           _url.indexOf("file:") == 0 ||
-           _url.indexOf("res:") == 0 ||
-           _url.indexOf("/") == 0) {
-           return _url;
-	}
-	var _url1 = rpc.ServerConfig.getUrlPrefix("CDN");
-	if(!_url1 || _url1.length < 2)
-		return null;
-	var _sb =_url1;
-	var _c;
-	_c = _sb.charAt(_sb.length - 1);
-	if(_c != '/') {
-		_sb += "/";
-	}
-	//_sb += "id-";
-
-	_sb += hash;
-	
-	return _sb;
-};
-
-rpc.ProductImageResource.hashToSmallUrl = function(
-		hash 
-	) {
-	var _url = rpc.ProductImageResource.hashToUrl(
-		hash 
-	);
-	if(!_url || _url.length < 3 || _url.indexOf("http") < 0)
-		return _url;
-	
-	//if(_url.indexOf("w-202") > 1) {
-	//	return _url;
-	//}
-	
-	var _sb = _url;
-	var _c = _sb.charAt(_sb.length - 1);
-	if(_c != '@') {
-		_sb += "@";
-	}
-	
-	_sb += "w-202";
-	
-	
-	return _sb;
-};
-
-rpc.ProductImageResource.hashToMediumUrl = function(
-		hash 
-	) {
-	var _url = rpc.ProductImageResource.hashToUrl(
-		hash 
-	);
-	if(!_url || _url.length < 3 || _url.indexOf("http") < 0)
-		return _url;
-	
-	//if(_url.indexOf("w-372") > 1) {
-	//	return _url;
-	//}
-	
-	var _sb = _url;
-	var _c = _sb.charAt(_sb.length - 1);
-	if(_c != '@') {
-		_sb += "@";
-	}
-	
-	_sb += "w-372";
-	
-	
-	return _sb;
-};
-
-rpc.ProductImageResource.hashToFullUrl = function(
-		hash 
-	) {
-	var _url = rpc.ProductImageResource.hashToUrl(
-		hash 
-	);
-	if(!_url || _url.length < 3 || _url.indexOf("http") < 0)
-		return _url;
-	
-	//if(_url.indexOf("w-640/m-fw") > 1) {
-	//	return _url;
-	//}
-	
-	var _sb = _url;
-	var _c = _sb.charAt(_sb.length - 1);
-	if(_c != '@') {
-		_sb += "@";
-	}
-	
-	_sb += "w-640/m-fw";
-	
-	
-	return _sb;
-};
-
-
-
-rpc.LongPolling = {};
-
-
-// category: CDN
-// arg 1: hash
-
-rpc.AvatarImageResource = {};
-
-rpc.AvatarImageResource.hashToUrl = function(
-		hash 
-	) {
-	var _url = hash;
-	if(!_url || _url.length < 3)
-		return _url;
-	if(_url.indexOf("http:") == 0 ||
-		   _url.indexOf("https:") == 0 ||
-           _url.indexOf("file:") == 0 ||
-           _url.indexOf("res:") == 0 ||
-           _url.indexOf("/") == 0) {
-           return _url;
-	}
-	var _url1 = rpc.ServerConfig.getUrlPrefix("CDN");
-	if(!_url1 || _url1.length < 2)
-		return null;
-	var _sb =_url1;
-	var _c;
-	_c = _sb.charAt(_sb.length - 1);
-	if(_c != '/') {
-		_sb += "/";
-	}
-	//_sb += "id-";
-
-	_sb += hash;
-	
-	return _sb;
-};
-
-rpc.AvatarImageResource.hashToSmallUrl = function(
-		hash 
-	) {
-	var _url = rpc.AvatarImageResource.hashToUrl(
-		hash 
-	);
-	if(!_url || _url.length < 3 || _url.indexOf("http") < 0)
-		return _url;
-	
-	//if(_url.indexOf("w-72") > 1) {
-	//	return _url;
-	//}
-	
-	var _sb = _url;
-	var _c = _sb.charAt(_sb.length - 1);
-	if(_c != '@') {
-		_sb += "@";
-	}
-	
-	_sb += "w-72";
-	
-	
-	return _sb;
-};
-
-rpc.AvatarImageResource.hashToMediumUrl = function(
-		hash 
-	) {
-	var _url = rpc.AvatarImageResource.hashToUrl(
-		hash 
-	);
-	if(!_url || _url.length < 3 || _url.indexOf("http") < 0)
-		return _url;
-	
-	//if(_url.indexOf("w-92") > 1) {
-	//	return _url;
-	//}
-	
-	var _sb = _url;
-	var _c = _sb.charAt(_sb.length - 1);
-	if(_c != '@') {
-		_sb += "@";
-	}
-	
-	_sb += "w-92";
-	
-	
-	return _sb;
-};
-
-rpc.AvatarImageResource.hashToFullUrl = function(
-		hash 
-	) {
-	var _url = rpc.AvatarImageResource.hashToUrl(
-		hash 
-	);
-	if(!_url || _url.length < 3 || _url.indexOf("http") < 0)
-		return _url;
-	
-	//if(_url.indexOf("w-640/m-fw") > 1) {
-	//	return _url;
-	//}
-	
-	var _sb = _url;
-	var _c = _sb.charAt(_sb.length - 1);
-	if(_c != '@') {
-		_sb += "@";
-	}
-	
-	_sb += "w-640/m-fw";
-	
-	
-	return _sb;
-};
-
-
-// category: CDN
-// arg 1: hash
-
 rpc.HttpImageResource = {};
 
 rpc.HttpImageResource.hashToUrl = function(
@@ -33132,8 +33147,232 @@ rpc.HttpImageResource.hashToFullUrl = function(
 };
 
 
+// category: CDN
+// arg 1: hash
+
+rpc.AvatarImageResource = {};
+
+rpc.AvatarImageResource.hashToUrl = function(
+		hash 
+	) {
+	var _url = hash;
+	if(!_url || _url.length < 3)
+		return _url;
+	if(_url.indexOf("http:") == 0 ||
+		   _url.indexOf("https:") == 0 ||
+           _url.indexOf("file:") == 0 ||
+           _url.indexOf("res:") == 0 ||
+           _url.indexOf("/") == 0) {
+           return _url;
+	}
+	var _url1 = rpc.ServerConfig.getUrlPrefix("CDN");
+	if(!_url1 || _url1.length < 2)
+		return null;
+	var _sb =_url1;
+	var _c;
+	_c = _sb.charAt(_sb.length - 1);
+	if(_c != '/') {
+		_sb += "/";
+	}
+	//_sb += "id-";
+
+	_sb += hash;
+	
+	return _sb;
+};
+
+rpc.AvatarImageResource.hashToSmallUrl = function(
+		hash 
+	) {
+	var _url = rpc.AvatarImageResource.hashToUrl(
+		hash 
+	);
+	if(!_url || _url.length < 3 || _url.indexOf("http") < 0)
+		return _url;
+	
+	//if(_url.indexOf("w-72") > 1) {
+	//	return _url;
+	//}
+	
+	var _sb = _url;
+	var _c = _sb.charAt(_sb.length - 1);
+	if(_c != '@') {
+		_sb += "@";
+	}
+	
+	_sb += "w-72";
+	
+	
+	return _sb;
+};
+
+rpc.AvatarImageResource.hashToMediumUrl = function(
+		hash 
+	) {
+	var _url = rpc.AvatarImageResource.hashToUrl(
+		hash 
+	);
+	if(!_url || _url.length < 3 || _url.indexOf("http") < 0)
+		return _url;
+	
+	//if(_url.indexOf("w-92") > 1) {
+	//	return _url;
+	//}
+	
+	var _sb = _url;
+	var _c = _sb.charAt(_sb.length - 1);
+	if(_c != '@') {
+		_sb += "@";
+	}
+	
+	_sb += "w-92";
+	
+	
+	return _sb;
+};
+
+rpc.AvatarImageResource.hashToFullUrl = function(
+		hash 
+	) {
+	var _url = rpc.AvatarImageResource.hashToUrl(
+		hash 
+	);
+	if(!_url || _url.length < 3 || _url.indexOf("http") < 0)
+		return _url;
+	
+	//if(_url.indexOf("w-640/m-fw") > 1) {
+	//	return _url;
+	//}
+	
+	var _sb = _url;
+	var _c = _sb.charAt(_sb.length - 1);
+	if(_c != '@') {
+		_sb += "@";
+	}
+	
+	_sb += "w-640/m-fw";
+	
+	
+	return _sb;
+};
+
+
 
 rpc.RpcProxyStub = {};
+
+
+
+rpc.LongPolling = {};
+
+
+// category: CDN
+// arg 1: hash
+
+rpc.ProductImageResource = {};
+
+rpc.ProductImageResource.hashToUrl = function(
+		hash 
+	) {
+	var _url = hash;
+	if(!_url || _url.length < 3)
+		return _url;
+	if(_url.indexOf("http:") == 0 ||
+		   _url.indexOf("https:") == 0 ||
+           _url.indexOf("file:") == 0 ||
+           _url.indexOf("res:") == 0 ||
+           _url.indexOf("/") == 0) {
+           return _url;
+	}
+	var _url1 = rpc.ServerConfig.getUrlPrefix("CDN");
+	if(!_url1 || _url1.length < 2)
+		return null;
+	var _sb =_url1;
+	var _c;
+	_c = _sb.charAt(_sb.length - 1);
+	if(_c != '/') {
+		_sb += "/";
+	}
+	//_sb += "id-";
+
+	_sb += hash;
+	
+	return _sb;
+};
+
+rpc.ProductImageResource.hashToSmallUrl = function(
+		hash 
+	) {
+	var _url = rpc.ProductImageResource.hashToUrl(
+		hash 
+	);
+	if(!_url || _url.length < 3 || _url.indexOf("http") < 0)
+		return _url;
+	
+	//if(_url.indexOf("w-202") > 1) {
+	//	return _url;
+	//}
+	
+	var _sb = _url;
+	var _c = _sb.charAt(_sb.length - 1);
+	if(_c != '@') {
+		_sb += "@";
+	}
+	
+	_sb += "w-202";
+	
+	
+	return _sb;
+};
+
+rpc.ProductImageResource.hashToMediumUrl = function(
+		hash 
+	) {
+	var _url = rpc.ProductImageResource.hashToUrl(
+		hash 
+	);
+	if(!_url || _url.length < 3 || _url.indexOf("http") < 0)
+		return _url;
+	
+	//if(_url.indexOf("w-372") > 1) {
+	//	return _url;
+	//}
+	
+	var _sb = _url;
+	var _c = _sb.charAt(_sb.length - 1);
+	if(_c != '@') {
+		_sb += "@";
+	}
+	
+	_sb += "w-372";
+	
+	
+	return _sb;
+};
+
+rpc.ProductImageResource.hashToFullUrl = function(
+		hash 
+	) {
+	var _url = rpc.ProductImageResource.hashToUrl(
+		hash 
+	);
+	if(!_url || _url.length < 3 || _url.indexOf("http") < 0)
+		return _url;
+	
+	//if(_url.indexOf("w-640/m-fw") > 1) {
+	//	return _url;
+	//}
+	
+	var _sb = _url;
+	var _c = _sb.charAt(_sb.length - 1);
+	if(_c != '@') {
+		_sb += "@";
+	}
+	
+	_sb += "w-640/m-fw";
+	
+	
+	return _sb;
+};
 
 rpc.RpcClassMap = {};
 rpc.RpcClassMap.gMsgClassMap = {};
