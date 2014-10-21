@@ -500,6 +500,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
                         var areaIds = [shopStore.get('areas')[0].areaId];
                         var templateId = this.getShopBannerTemplateStore().data.items.length ? this.getShopBannerTemplateStore().findRecord('id', shopStore.get('shopBannerTemplateId')).getId() : null;
                         var autoOnline = (shopStore.get('autoOnline') == 'false') ? false : true;
+                        var showAllProducts = (shopStore.get('showAllProducts' )== 'false')?false : true;
                         shopStore.set('areaIds', areaIds);
                         shopStore.set('beCopyedShopId', '123');
                         shopStore.set('autoOnline', autoOnline);
@@ -518,6 +519,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
                             shopBannerTemplateId: templateId ? templateId : shopStore.get('templateId'),
                             city: XMLifeOperating.generic.Global.currentCity,
                             autoOnline: shopStore.get('autoOnline'),
+                            showAllProducts:showAllProducts,
                             desc: shopStore.get('desc')
                         };
                         var modifySuccessCallback = function(task, operation) {
