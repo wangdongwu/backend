@@ -12,8 +12,7 @@ Ext.define('XMLifeOperating.controller.RechargeableCardTemplate', {
     models: ['CardTemplate'],
 
 
-    refs: [
-    {
+    refs: [{
         ref: 'rechargeableCardTemplateList',
         selector: 'rechargeablecardtemplatelist',
         xtype: 'rechargeablecardtemplatelist',
@@ -89,73 +88,64 @@ Ext.define('XMLifeOperating.controller.RechargeableCardTemplate', {
                     if (count >= 1 && count <= 24) {
                         var firstcontainer = Ext.create('Ext.container.Container', {
                             layout: {
-                                type: 'hbox'
+                                type: 'column'
                             },
+                            width: 300,
                             items: [{
                                 xtype: 'textfield',
-                                flex: 1,
                                 name: 'chargedayamount_1',
-                                fieldLabel: '返还规则：充值第',
+                                fieldLabel: '返还规则:&nbsp;&nbsp;&nbsp;&nbsp;第',
+                                labelWidth: 90,
                                 labelSeparator: '',
-                                minWidth: 138,
-                                maxWidth: 138,
-                                labelWidth: 100,
+                                width: 130,
                                 allowBlank: false,
-                                margin: '0 5 10 4',
+                                margin: '0 0 10 0',
                                 cls: 'user-text-field-charge'
                             }, {
-                                flex: 1,
                                 xtype: 'textfield',
                                 name: 'chargearrivemoney_1',
-                                fieldLabel: '天，到账',
+                                fieldLabel: '天,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;到账',
                                 labelSeparator: '',
-                                minWidth: 90,
-                                maxWidth: 90,
-                                labelWidth: 50,
-                                allowBlank: false,
-                                cls: 'user-text-field-secondary'
+                                labelWidth: 70,
+                                width: 130,
+                                allowBlank: false
                             }, {
                                 xtype: 'label',
                                 text: '元',
-                                textAlign: 'left',
-                                cls: 'user-text-label'
+                                textAlign: 'left'
+
                             }]
                         });
                         appendTarget.add(firstcontainer).doLayout();
                         for (var i = 1; i < count; i++) {
                             var container = Ext.create('Ext.container.Container', {
                                 layout: {
-                                    type: 'hbox'
+                                    type: 'column'
                                 },
+                                width: 300,
                                 items: [{
                                     xtype: 'textfield',
-                                    flex: 1,
                                     name: 'chargedayamount_' + (i + 1),
-                                    fieldLabel: '充值第',
+                                    fieldLabel: '第',
+                                    labelWidth: 90,
                                     labelSeparator: '',
-                                    minWidth: 138,
-                                    maxWidth: 138,
-                                    labelWidth: 100,
-                                    labelAlign: 'right',
+                                    width: 130,
                                     allowBlank: false,
-                                    margin: '0 5 10 4',
+                                    margin: '0 0 10 0',
+                                    labelAlign:'right',
                                     cls: 'user-text-field-charge'
                                 }, {
-                                    flex: 1,
                                     xtype: 'textfield',
                                     name: 'chargearrivemoney_' + (i + 1),
-                                    fieldLabel: '天，到账',
+                                    fieldLabel: '天,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;到账',
                                     labelSeparator: '',
-                                    minWidth: 90,
-                                    maxWidth: 90,
-                                    labelWidth: 50,
-                                    allowBlank: false,
-                                    cls: 'user-text-field-secondary'
+                                    labelWidth: 70,
+                                    width: 130,
+                                    allowBlank: false
                                 }, {
                                     xtype: 'label',
                                     text: '元',
                                     textAlign: 'left',
-                                    cls: 'user-text-label'
                                 }]
                             });
                             appendTarget.add(container).doLayout();
@@ -286,13 +276,12 @@ Ext.define('XMLifeOperating.controller.RechargeableCardTemplate', {
                 windowEl.unmask();
                 addWindow.close();
                 var store = me.getStore('CardTemplate')
-                    // store.load({
-                    //     params: data
-                    // });
+/*                     store.load({
+                        params: data
+                   });*/
                 me.fireEvent('refreshView');
             };
             var failure = function(task, operation) {
-                console.log(this.arguments)
                 var error = operation.getError(),
                     msg = Ext.isObject(error) ? error.status + ' ' + error.statusText : error;
                 Ext.MessageBox.show({
@@ -304,24 +293,7 @@ Ext.define('XMLifeOperating.controller.RechargeableCardTemplate', {
                 windowEl.unmask();
             };
             console.log("try saving");
-            // {
-            //         name: data.name,
-            //         amount: data.amount,
-            //         type: 2,
-            //         desc: data.desc,
-            //         immediatelyAmount: data.immediatelyAmount,
-            //         batchAmount: data.amount - data.immediatelyAmount,
-            //         count: data.count,
-            //         newAccount: data.newAccount,
-            //         days: Ext.encode(data.days),
-            //         amounts: Ext.encode(data.amounts),
-            //     }
-            sendRequest('cardTemplate', $.param(data),
-                '添加分次返回卡模板',
-                '添加模板成功',
-                '添加模板失败',
-                success,
-                failure);
+            sendRequest('cardTemplate',data,'添加分次返回卡模板','添加模板成功','添加模板失败',success,failure);
 
         } else {
             Ext.Msg.alert('Invalid Data', 'Please correct form errors');
@@ -334,5 +306,4 @@ Ext.define('XMLifeOperating.controller.RechargeableCardTemplate', {
         win.down('form').loadRecord(rechargeableCardTemplate);
         win.show();
     },
-
 });
