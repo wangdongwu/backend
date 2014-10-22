@@ -51,6 +51,9 @@ Ext.define('XMLifeOperating.controller.Authority', {
       'authorityList #openAndCloseCountBtn': {
         click: self.openAndCloseCount
       },
+      'authorityList #searchCenterExecutive': {
+        click: self.searchCount
+      },
       'authorityAdd #save': {
         click: self.addAuthority
       },
@@ -63,11 +66,11 @@ Ext.define('XMLifeOperating.controller.Authority', {
     var me = this;
     var store = me.getAdminListStore();
     store.getProxy().extraParams = {
-      page:1,
+      page: 1,
       limit: 25,
       start: 0
     }
-    store.load({
+    store.loadPage(1,{
       params: {
         city: XMLifeOperating.generic.Global.currentCity,
         type: 'Area'
@@ -113,7 +116,34 @@ Ext.define('XMLifeOperating.controller.Authority', {
       return record.get('enable') == false;
     });
   },
-  searchCount: function() {},
+  searchCount: function() {
+    var me = this;
+    var store = me.getAdminListStore();
+    var view = me.getAuthorityList();
+    var keywords = view.down('#centerExecutiveNameOrCount').getValue();
+
+    store.getProxy().extraParams = {
+      page: 1,
+      limit: 25,
+      start: 0
+    }
+    if (!keywords) {
+      store.loadPage(1,{
+        params: {
+          city: XMLifeOperating.generic.Global.currentCity,
+          type: 'Area'
+        }
+      });
+    } else {
+      store.loadPage(1,{
+        params: {
+          city: XMLifeOperating.generic.Global.currentCity,
+          type: 'Area',
+          keyword:keywords
+        }
+      })
+    }
+  },
   openAndCloseCount: function(view, column, rowIndex, colIndex, e) {
     var me = this;
     var store = me.getAdminListStore();
@@ -126,7 +156,7 @@ Ext.define('XMLifeOperating.controller.Authority', {
         limit: 25,
         start: 0
       }
-      store.loadPage(1,{
+      store.loadPage(1, {
         params: {
           city: XMLifeOperating.generic.Global.currentCity,
           type: 'Area'
@@ -189,7 +219,7 @@ Ext.define('XMLifeOperating.controller.Authority', {
           limit: 25,
           start: 0
         }
-        store.loadPage(1,{
+        store.loadPage(1, {
           params: {
             city: XMLifeOperating.generic.Global.currentCity,
             type: 'Area'
@@ -252,7 +282,7 @@ Ext.define('XMLifeOperating.controller.Authority', {
         limit: 25,
         start: 0
       }
-      store.loadPage(1,{
+      store.loadPage(1, {
         params: {
           city: XMLifeOperating.generic.Global.currentCity,
           type: 'Area'
