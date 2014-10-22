@@ -55,6 +55,7 @@ Ext.define('XMLifeOperating.controller.ProductTemplate', {
         this.control({
             'productTemplateList' : {
               added : function(){
+
                 var store = this.getProductTemplateStore();
                 store.loadPage(1);
               }
@@ -180,6 +181,7 @@ Ext.define('XMLifeOperating.controller.ProductTemplate', {
             names.push(productTemplate.get('name2'));
             names.push(productTemplate.get('name3'));
             productTemplate.set('names', names);
+
             console.log(productTemplate);
             console.log("try saving");
             if (productTemplate.get('id') != '' && productTemplate.get('id') != null) {
@@ -191,7 +193,8 @@ Ext.define('XMLifeOperating.controller.ProductTemplate', {
                 var unit = productTemplate.get('unit');
                 var tag = productTemplate.get('tag');
                 var barcode = productTemplate.get('barCode');
-
+                var rank = productTemplate.get('rank');
+                var rank2 = productTemplate.get('rank2');
 
                 sendPutRequest('producttemplate/update', {
                     id: id,
@@ -200,7 +203,9 @@ Ext.define('XMLifeOperating.controller.ProductTemplate', {
                     picture: picture,
                     unit: 1,
                     tag: tag,
-                    barCode:barcode
+                    barCode:barcode,
+                    rank:rank,
+                    rank2:rank2,
                 }, '编辑商品', '成功编辑商品', '编辑商品失败', function() {
                     windowEl.unmask();
                     editWindow.close();
@@ -223,7 +228,9 @@ Ext.define('XMLifeOperating.controller.ProductTemplate', {
                 var unit = productTemplate.get('unit');
                 var tag = productTemplate.get('tag');
                 var barCode = productTemplate.get('barCode');
-                var skuId = productTemplate.get('skuId')
+                var skuId = productTemplate.get('skuId');
+                var rank = productTemplate.get('rank');
+                var rank2 = productTemplate.get('rank2');
                 var success = function(task, operation) {
                     windowEl.unmask();
                     editWindow.close();
@@ -253,7 +260,9 @@ Ext.define('XMLifeOperating.controller.ProductTemplate', {
                     unit: 1,
                     tag: tag,
                     skuId:skuId,
-                    barCode:barCode
+                    barCode:barCode,
+                    rank:rank,
+                    rank2:rank2,
                 }, '添加商品', '成功添加商品', '添加商品失败', success, failure);
             }
 

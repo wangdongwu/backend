@@ -79,13 +79,20 @@ Ext.define('XMLifeOperating.view.templateManage.productTemplate.ProductTemplateL
             }
         },
         {
-            text: '单位',
-            dataIndex: 'unitname',
+            text: 'rank',
+            dataIndex: 'rank',
             width: 65,
-            sortable: false,
+            sortable: true,
             align: 'center'
         },
-        {
+        {   
+            text: 'rank2',
+            dataIndex: 'rank2',
+            width: 65,
+            sortable: true,
+            align: 'center'
+        },
+        /*{
             text: '是否部分退货',
             dataIndex: 'canPartiallyReturn',
             width: 130,
@@ -97,7 +104,7 @@ Ext.define('XMLifeOperating.view.templateManage.productTemplate.ProductTemplateL
                 }
                 return '不可以'
             }
-        },
+        },*/
         {
             xtype: 'actioncolumn',
             width: 24,

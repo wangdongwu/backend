@@ -117,6 +117,22 @@ Ext.define('XMLifeOperating.view.templateManage.productTemplate.ProductTemplateE
                 blankText: '请输入标签，之间用空格隔开',
             },
             {
+                xtype: 'textfield',
+                name: 'rank',
+                fieldLabel: 'rank',
+                labelWidth: 90,
+                allowBlank: false,
+                itemId:'rank'
+            },
+            {
+                xtype: 'textfield',
+                name: 'rank2',
+                fieldLabel: 'rank2',
+                labelWidth: 90,
+                allowBlank: false,
+                itemId:'rank2'
+            },
+            {
                 xtype: 'fieldset',
                 layout: 'column',
                 padding: 0,
