@@ -26,7 +26,7 @@ Ext.define('XMLifeOperating.view.userManage.feedback.GFeedbackList', {
             defaultType: 'radiofield',
             defaults: {
                 flex: 1,
-                margin : '0 5 0 5'
+                margin : '0 5'
             },
             layout: 'hbox',
             items : [
