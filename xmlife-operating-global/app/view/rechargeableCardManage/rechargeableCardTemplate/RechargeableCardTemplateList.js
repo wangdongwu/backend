@@ -50,8 +50,9 @@ Ext.define('XMLifeOperating.view.rechargeableCardManage.rechargeableCardTemplate
             dataIndex: 'amount',
             width: 130,
             sortable: false,
-             
-           
+            renderer:function(value){
+                return value/100;
+            }           
         },
         {
             text: '返还规则',

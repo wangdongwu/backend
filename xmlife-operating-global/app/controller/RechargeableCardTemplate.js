@@ -40,7 +40,7 @@ Ext.define('XMLifeOperating.controller.RechargeableCardTemplate', {
             },
             'rechargeablecardtemplatelist #addCardTemplate': {
                 click: function() {
-                    console.log(123);
+
                     var cClass = me.getCardTemplateModel();
                     var rechargeableCardTemplate = new cClass();
                     var win = this.getRechargeableCardTemplateAdd();
@@ -97,7 +97,7 @@ Ext.define('XMLifeOperating.controller.RechargeableCardTemplate', {
                                 fieldLabel: '返还规则:&nbsp;&nbsp;&nbsp;&nbsp;第',
                                 labelWidth: 90,
                                 labelSeparator: '',
-                                width: 130,
+                                width: 140,
                                 allowBlank: false,
                                 margin: '0 0 10 0',
                                 cls: 'user-text-field-charge'
@@ -110,9 +110,9 @@ Ext.define('XMLifeOperating.controller.RechargeableCardTemplate', {
                                 width: 130,
                                 allowBlank: false
                             }, {
-                                xtype: 'label',
-                                text: '元',
-                                textAlign: 'left'
+                                xtype: 'displayfield',
+                                value: '元',
+                                style: 'margin-left:5px;'
 
                             }]
                         });
@@ -129,10 +129,10 @@ Ext.define('XMLifeOperating.controller.RechargeableCardTemplate', {
                                     fieldLabel: '第',
                                     labelWidth: 90,
                                     labelSeparator: '',
-                                    width: 130,
+                                    width: 140,
                                     allowBlank: false,
                                     margin: '0 0 10 0',
-                                    labelAlign:'right',
+                                    labelAlign: 'right',
                                     cls: 'user-text-field-charge'
                                 }, {
                                     xtype: 'textfield',
@@ -143,9 +143,10 @@ Ext.define('XMLifeOperating.controller.RechargeableCardTemplate', {
                                     width: 130,
                                     allowBlank: false
                                 }, {
-                                    xtype: 'label',
-                                    text: '元',
-                                    textAlign: 'left',
+                                    xtype: 'displayfield',
+                                    value: '元',
+                                    style: 'margin-left:5px;'
+
                                 }]
                             });
                             appendTarget.add(container).doLayout();
@@ -181,24 +182,16 @@ Ext.define('XMLifeOperating.controller.RechargeableCardTemplate', {
             RechargeableCardTemplate = form.getRecord(),
             me = this,
             addWindow = this.getRechargeableCardTemplateAdd();
+        var store = this.getCardTemplateStore();
         if (form.isValid()) {
             // windowEl.mask('saving');
-
             RechargeableCardTemplate.data.type = 0;
             form.updateRecord(RechargeableCardTemplate);
 
             var success = function(task, operation) {
                 windowEl.unmask();
                 addWindow.close();
-                var store = me.getStore('CardTemplate')
-                store.load({
-                    params: {
-                        type: RechargeableCardTemplate.data.type,
-                        name: RechargeableCardTemplate.data.name,
-                        desc: RechargeableCardTemplate.data.desc,
-                        amount: RechargeableCardTemplate.data.amount
-                    }
-                });
+                store.load();
                 me.fireEvent('refreshView');
             };
             var failure = function(task, operation) {
@@ -213,11 +206,11 @@ Ext.define('XMLifeOperating.controller.RechargeableCardTemplate', {
                 windowEl.unmask();
             };
             console.log("try saving");
-            sendRequest('cardTemplate', {
+            sendPutRequest('cardTemplate/create', {
                     type: RechargeableCardTemplate.data.type,
                     name: RechargeableCardTemplate.data.name,
                     desc: RechargeableCardTemplate.data.desc,
-                    amount: RechargeableCardTemplate.data.amount
+                    amount: RechargeableCardTemplate.data.amount * 100
                 },
                 '添加普通充值卡模板',
                 '添加模板成功',
@@ -246,39 +239,63 @@ Ext.define('XMLifeOperating.controller.RechargeableCardTemplate', {
             RechargeableCardTemplate = form.getRecord(),
             me = this,
             addWindow = this.getRechargeableCardTemplateReturnCardAdd();
+        var store = this.getCardTemplateStore();
         if (form.isValid()) {
             windowEl.mask('saving');
             var values = form.getValues();
-            var data = {
-                name: values.name,
-                amount: values.amount,
-                type: 2,
-                desc: values.desc,
-                immediatelyAmount: values.immediatelyAmount,
-                batchAmount: values.amount - values.immediatelyAmount,
-                count: values.count,
-                newAccount: null,
-                days: [],
-                amounts: [],
-            }
-            if (values.newAccount == 'on') {
-                data.newAccount = true;
+            var name = values.name,
+                amount = values.immediatelyAmount * 100 + values.returnAmount * 100,
+                desc = values.desc,
+                immediatelyAmount = values.immediatelyAmount * 100,
+                batchAmount = values.returnAmount * 100,
+                count = values.count,
+                newAccount = values.newAccount,
+                days = [],
+                amounts = [];
+            var sum = 0;
+            //数据处理
+            if (newAccount == 'on') {
+                newAccount = true;
             } else {
-                data.newAccount = false;
+                newAccount = false;
             }
 
-            for (var j = 0, length = values.count; j < length; j++) {
-                data.days.push(values['chargearrivemoney_' + (j + 1)]);
-                data.amounts.push(values['chargedayamount_' + (j + 1)]);
+            for (var j = 0, length = count; j < length; j++) {
+
+                days.push(values['chargearrivemoney_' + (j + 1)] * 100);
+                amounts.push(values['chargearrivemoney_' + (j + 1)] * 100);
+                sum += values['chargearrivemoney_' + (j + 1)] * 100;
+            }
+            //返还价格判断
+            if (sum != batchAmount) {
+                Ext.MessageBox.show({
+                    title: '提示',
+                    msg: '分出返还价格总和与输入不一致！',
+                    icon: Ext.Msg.ERROR,
+                    buttons: Ext.Msg.OK
+                });
+                windowEl.unmask();
+                return;
+            }
+            //Ajax 参数赋值
+            var data = {
+                name: name,
+                amount: amount,
+                type: 2,
+                desc: desc,
+                immediatelyAmount: immediatelyAmount,
+                batchAmount: batchAmount,
+                count: count,
+                newAccount: newAccount,
+                days: days,
+                amounts: amounts,
             }
 
             var success = function(task, operation) {
                 windowEl.unmask();
                 addWindow.close();
-                var store = me.getStore('CardTemplate')
-/*                     store.load({
-                        params: data
-                   });*/
+
+                store.load();
                 me.fireEvent('refreshView');
             };
             var failure = function(task, operation) {
@@ -293,7 +310,7 @@ Ext.define('XMLifeOperating.controller.RechargeableCardTemplate', {
                 windowEl.unmask();
             };
             console.log("try saving");
-            sendRequest('cardTemplate',data,'添加分次返回卡模板','添加模板成功','添加模板失败',success,failure);
+            sendPutRequest('cardTemplate/create', data, '添加分次返回卡模板', '添加模板成功', '添加模板失败', success, failure);
 
         } else {
             Ext.Msg.alert('Invalid Data', 'Please correct form errors');
