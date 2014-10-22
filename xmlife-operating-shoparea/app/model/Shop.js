@@ -27,7 +27,9 @@ Ext.define('XMLifeOperating.model.Shop', {
 		'areas',
 		'beCopyedShopId',
 		'autoOnline',
-		'showAllProducts'
+		'showAllProducts',
+		'needAuditPrice',
+		'storeLimitEnable'
 	],
 	idProperty: 'id',
 	proxy: dataProxy,

@@ -131,6 +131,25 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopAdd', {
                     checked: true
                 }]
             }, {
+                xtype: 'radiogroup',
+                fieldLabel: '改价是否审核',
+                labelWidth: 140,
+                defaults: {
+                    flex: 1
+                },
+                allowBlank: false,
+                layout: 'hbox',
+                items: [{
+                    boxLabel: '是',
+                    name: 'needAuditPrice',
+                    inputValue: 'true',
+                    checked: true
+                }, {
+                    boxLabel: '否',
+                    name: 'needAuditPrice',
+                    inputValue: 'false'
+                }]
+            }, {
                 xtype: 'fieldset',
                 layout: 'column',
                 border: false,

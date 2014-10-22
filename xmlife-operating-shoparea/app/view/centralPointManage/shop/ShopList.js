@@ -117,9 +117,6 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopList', {
             renderer: function(value, metadata, model, rowIndex, colIndex, store) {
                 var seeBtn = '<a href="javascript:void(0)">查看</a>';
                 return seeBtn;
-                // var style = ['color:blue;cursor:pointer;', 'color:#AAA;cursor:default;'];
-                // var seeBtn = '<span style="' + style[0] + '" class="affirm" ><input type="button" value="货到中心" /></span>&nbsp&nbsp';
-                // return seeBtn;
             }
         }, {
             text: '商品展开',
@@ -127,8 +124,28 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopList', {
             width: 80,
             sortable: true,
             align: 'center',
+            renderer: function(value) {
+                return (value == true || value == 'true') ? '是' : '否'
+            }
+        }, {
+            text: '价格审核',
+            dataIndex: 'needAuditPrice',
+            width: 80,
+            sortable: true,
+            align: 'center',
+            renderer: function(value) {
+                return (value == true || value == 'true') ? '是' : '否'
+            }
+        }, {
+            text: '库存管理',
+            dataIndex: 'storeLimitEnable',
+            width: 80,
+            sortable: true,
+            align: 'center',
+            itemId:'storeLimitEnableBtn',
             renderer:function(value){
-                return value?'是':'否'
+                return value?'<input type="button" value="关闭"/>' :'<input type="button" value="开启"/>' 
+
             }
         }, {
             header: "",
