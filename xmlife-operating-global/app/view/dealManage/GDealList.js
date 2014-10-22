@@ -84,10 +84,9 @@ Ext.define('XMLifeOperating.view.dealManage.GDealList', {
             text: '订单号',
             dataIndex: 'shortId',
             sortable: false,
-               
             itemId: 'dealDetail',
             renderer: function(value, metadata, model, rowIndex, colIndex, store) {
-                return '<a>'+value+'</a>'
+                return '<a style="color:#248bca;">'+value+'</a>'
             }
         },
 
@@ -144,17 +143,17 @@ Ext.define('XMLifeOperating.view.dealManage.GDealList', {
         },
         {
             text: '顾客',
-            dataIndex: 'customerName',
+            dataIndex: 'contactsName',
             sortable: false,
              
             itemId: 'customerDetail',  
             renderer: function(value, metadata, model, rowIndex, colIndex, store) {
-                return '<a>'+value+'</a>'
+                return '<a style="color:#248bca;">'+value+'</a>'
             }
         },
         {
             text: '顾客电话',
-            dataIndex: 'customerPhone',
+            dataIndex: 'contactsPhone',
             sortable: false,
                
         },
