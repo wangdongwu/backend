@@ -417,10 +417,8 @@ Ext.define('XMLifeOperating.controller.Shopper', {
             },
             ///返回历史订单
             'dealItemsLists #dealShopperHistoryListReturn': {
-                click: function() {
-                    
+                click: function() {                   
                     var tab = me.getDealShopperHistoryList();
-
                     var content = this.getContentPanel();
                     content.removeAll(false);
                     content.add(tab);

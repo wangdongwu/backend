@@ -199,7 +199,7 @@ Ext.define('XMLifeOperating.view.dealManage.DealList', {
             }
         }, {
             text: '顾客',
-            dataIndex: 'customerName',
+            dataIndex: 'contactsName',
             width: 60,
             sortable: true,
             align: 'center',
@@ -209,7 +209,7 @@ Ext.define('XMLifeOperating.view.dealManage.DealList', {
             }
         }, {
             text: '顾客电话',
-            dataIndex: 'customerPhone',
+            dataIndex: 'contactsPhone',
             width: 90,
             sortable: true,
             align: 'center',
