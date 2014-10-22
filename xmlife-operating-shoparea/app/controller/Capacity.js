@@ -1,7 +1,7 @@
 Ext.define('XMLifeOperating.controller.Capacity', {
 	extend: 'Ext.app.Controller',
 
-	views: ['centralPointManage.capacity.Capacity', 'centralPointManage.capacity.CapacityEdit','Toolbar'],
+	views: ['operationManage.capacity.Capacity', 'operationManage.capacity.CapacityEdit','Toolbar'],
 
 	stores: ['Capacity'],
 
