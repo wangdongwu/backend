@@ -55,7 +55,6 @@ Ext.define('XMLifeOperating.controller.ResidentalDistrict', {
             },
             'residentaldistrictlist #add': {
                 click: function() {
-
                     var cClass = this.getResidentalDistrictModel();
                     var community = new cClass();
                     var win = this.getResidentalDistrictAdd();
@@ -65,9 +64,6 @@ Ext.define('XMLifeOperating.controller.ResidentalDistrict', {
             },
             'residentaldistrictlist #lineId': {
                 select: function(combo) {
-                    //console.log(Ext.getCmp('communityList'));
-                    //console.log(Ext.getCmp('communityList').down('#lineId').getValue());
-                    console.log('hello shop dsitrict');
                     Ext.getCmp('residentaldistrictlist').down('#activeBind').setText('查看未绑定的小区');
                     isUnbind = true;
                     var store = this.getResidentalDistrictStore();
@@ -125,15 +121,20 @@ Ext.define('XMLifeOperating.controller.ResidentalDistrict', {
             'residentaldistrictlist': {
                 added: me.onShow,
             },
-            'residentaldistrictlist #ediCommunityId': {
-                click: me.onEdit
+            'residentaldistrictlist #editCommunity': {
+                click: function(view, rowIndex, colIndex, column, e){
+                    var record = view.getRecord(view.findTargetByEvent(e));
+                    var win = this.getResidentalDistrictAdd();
+                    win.down('form').loadRecord(record);
+                    win.show();
+                }
             },
             'residentaldistrictlist #isActiveId': {
                 click: function(grid, column, rowIndex) {
                     var record = grid.getStore().getAt(rowIndex);
                     var district = record.get('id');
                     var isActive = record.get('isActive');
-                    console.log(district);
+
                     var url = '';
                     var str = '确认要此操作吗？';
                     if (isActive == true) {
@@ -155,8 +156,6 @@ Ext.define('XMLifeOperating.controller.ResidentalDistrict', {
 
                             record.set('isActive',isActive);
                             //me.fireEvent('refreshView');
-
-
 
                            /* var store = me.getResidentalDistrictStore();
                             store.getProxy().extraParams = {
@@ -240,7 +239,7 @@ Ext.define('XMLifeOperating.controller.ResidentalDistrict', {
             windowEl.mask('saving');
             form.updateRecord(community);
             community.set('city', XMLifeOperating.generic.Global.currentCity);
-            console.log("try saving");
+
             community.save({
                 success: function(task, operation) {
                     windowEl.unmask();
@@ -273,14 +272,7 @@ Ext.define('XMLifeOperating.controller.ResidentalDistrict', {
                 }
             })
         } else {
-            Ext.Msg.alert('Invalid Data', 'Please correct form errors');
+            Ext.Msg.alert('错误提示', '格式输入有误或内容为空！');
         }
-    },
-    onEdit: function(view, rowIndex, colIndex, column, e) {
-        console.log("start edit");
-        var community = view.getRecord(view.findTargetByEvent(e));
-        var win = this.getResidentalDistrictAdd();
-        win.down('form').loadRecord(community);
-        win.show();
-    },
+    }
 });
