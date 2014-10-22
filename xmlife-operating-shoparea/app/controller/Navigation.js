@@ -62,7 +62,6 @@ Ext.define('XMLifeOperating.controller.Navigation', {
         if (eOpts.length == 0) {
             return;
         }
-        console.log(eOpts);
         var xtype = eOpts[0].raw.id,
             text = eOpts[0].raw.text;
 
@@ -119,16 +118,16 @@ Ext.define('XMLifeOperating.controller.Navigation', {
         var alias = 'widget.' + xtype,
             contentPanel = this.getContentPanel();
         contentPanel.removeAll(false);
-        console.log("alias = " + alias);
+
         if (this.loadedClasses[xtype]) {
             cmp = this.loadedClasses[xtype];
         } else {
             var ViewClass = Ext.ClassManager.getByAlias(alias);
             cmp = new ViewClass();
             this.loadedClasses[xtype] = cmp;
-            console.log("init module " + xtype);
+
+            console.log('module:',xtype);
         }
-        //debugger
 
         // var clsProto = ViewClass.prototype;
         // if (clsProto.themes) {
