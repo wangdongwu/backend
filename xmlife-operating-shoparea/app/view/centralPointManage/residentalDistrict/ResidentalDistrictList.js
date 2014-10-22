@@ -24,15 +24,15 @@ Ext.define('XMLifeOperating.view.centralPointManage.residentalDistrict.Residenta
         itemId: 'add'
     }, 
     {
-        xtype:'combobox',
-        name:'shopArea',
-        itemId:'shopArea',
-        store:'ShopArea',
-        emptyText:'请选择中心',
-        margin:10,
+        xtype: 'combobox',
+        name: 'shopArea',
+        itemId: 'shopArea',
+        store: 'ShopArea',
+        emptyText: '请选择中心',
+        margin: 10,
         editable: false,
-        displayField:'name',
-        valueField:'id',
+        displayField: 'name',
+        valueField: 'id',
         hidden:(XMLifeOperating.generic.Global.operating_type == 'center')
     },
     {
@@ -41,8 +41,8 @@ Ext.define('XMLifeOperating.view.centralPointManage.residentalDistrict.Residenta
         itemId: 'lineId',
         emptyText: '请选择线路',
         editable: false,
-        queryMode:'local',
-        store:'DelivererZone',
+        queryMode: 'local',
+        store: 'DelivererZone',
         displayField: 'name',
         valueField: 'id'
     }, 
@@ -85,15 +85,13 @@ Ext.define('XMLifeOperating.view.centralPointManage.residentalDistrict.Residenta
     columns: [
         {
             xtype: 'rownumberer'
-        }, 
-        {
+        }, {
             text: 'ID',
             dataIndex: 'id',
             width: 180,
             sortable: true,
             align: 'left'
-        }, 
-        {
+        }, {
             text: '小区名',
             dataIndex: 'name',
             width: 150,
@@ -120,7 +118,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.residentalDistrict.Residenta
         }, {
             text: '操作',
             dataIndex: 'isActive',
-            width: 50,
+            width: 60,
             sortable: true,
             align: 'center',
             itemId: 'isActiveId',
@@ -131,16 +129,17 @@ Ext.define('XMLifeOperating.view.centralPointManage.residentalDistrict.Residenta
                 return '<span style="color:blue;cursor:pointer;">开启</span>';
             }
         }, {
+            text: '编辑',
             xtype: 'actioncolumn',
-            width: 24,
+            width: 50,
+            align: 'center',
             icon: 'resources/images/edit.png',
             tooltip: 'Edit',
             menuDisabled: true,
             sortable: true,
-            itemId: 'ediCommunityId',
-            hidden: (XMLifeOperating.generic.Global.operating_type == 'center')
-        },
-
+            itemId: 'editCommunity'
+            //hidden: (XMLifeOperating.generic.Global.operating_type == 'center')
+        }
     ],
     viewConfig: {
         plugins: {
