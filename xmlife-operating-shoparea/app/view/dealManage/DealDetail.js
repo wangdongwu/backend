@@ -34,6 +34,41 @@ Ext.define('XMLifeOperating.view.dealManage.DealDetail', {
                     allowBlank:false,
                     labelAlign:'left'
                 },
+                {
+                    xtype: 'displayfield',
+                    name: 'customerName',
+                    fieldLabel: '注册用户',
+                    allowBlank:false,
+                    labelAlign:'left'
+                },
+                {
+                    xtype: 'displayfield',
+                    name: 'customerPhone',
+                    fieldLabel: '注册电话',
+                    allowBlank:false,
+                    labelAlign:'left'
+                },
+                {
+                    xtype: 'displayfield',
+                    name: 'contactsName',
+                    fieldLabel: '收货用户',
+                    allowBlank:false,
+                    labelAlign:'left'
+                },
+                {
+                    xtype: 'displayfield',
+                    name: 'contactsPhone',
+                    fieldLabel: '收货电话',
+                    allowBlank:false,
+                    labelAlign:'left'
+                },                
+                {
+                    xtype: 'displayfield',
+                    name: 'dtoAddress',
+                    fieldLabel: '收货地址',
+                    allowBlank:false,
+                    labelAlign:'left'
+                },
 				{
 					xtype: 'displayfield',
                     name: 'actualDealPrice',

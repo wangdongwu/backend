@@ -20,6 +20,8 @@ Ext.define('XMLifeOperating.model.Deal', {
     'completeTime',
     'actualDealPrice',
     'dealPrice',
+    'contactsName',
+    'contactsPhone',
     'shortId'],
     proxy: new XMLifeOperating.generic.BaseProxy('deal')
 });
