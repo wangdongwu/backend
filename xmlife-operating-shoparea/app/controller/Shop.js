@@ -1168,6 +1168,38 @@ Ext.define('XMLifeOperating.controller.Shop', {
                     }
                 }
             },
+            'shopproductsearch #setProductTop': {
+                click: function(component, rowIndex, colIndex) {
+                    var me = this;
+                    var model = component.getStore().getAt(colIndex);
+                    var productId = model.get('id');
+                    var status = model.get('top');
+                    var requestStr = null;
+                    var categoryId = null;
+                    var tabIdstrArray = this.tabIdStr.split('_');
+
+                    if (status) {
+                        requestStr = 'product/canceltop';
+
+                    } else {
+                        requestStr = 'product/top';
+                    }
+                    var success = function(response) {
+                        me.showProductSearchList(me.shopId);
+                    }
+                    var failure = function() {
+                        Ext.MessageBox.show({
+                            title: '提示',
+                            msg: '修改置顶失败',
+                            icon: Ext.Msg.ERROR,
+                            buttons: Ext.Msg.OK
+                        });
+                    }
+                    sendPutRequest(requestStr, {
+                        productId: productId
+                    }, '修改置顶', '修改置顶成功', '修改置顶失败', success, failure);
+                }
+            },
             /*
              *shopbuyer事件
              */
@@ -1644,7 +1676,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
     showProductSearchList: function(shopId) {
         var me = this;
         var view = me.getShopProductSearch(),
-            keyWords = me.getShopShelfTab().down('#keyword').getValue(),
+            keyWords = me.getShopShelf().down('#keyword').getValue(),
             store = me.getProductSearchStore();
         if (keyWords == '') {
             return;

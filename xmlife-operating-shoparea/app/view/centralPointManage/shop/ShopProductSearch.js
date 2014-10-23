@@ -168,6 +168,25 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopProductSearch', {
         dataIndex: 'rank',
         sortable: true,
         align: 'center',
+    }, {
+        text: '首页排序值',
+        dataIndex: 'rank2',
+        sortable: true,
+        align: 'center',
+    }, {
+        text: '置顶',
+        dataIndex: 'top',
+        itemId: 'setProductTop',
+        sortable: true,
+        align: 'center',
+        renderer: function(value) {
+            if (value) {
+                return '<input type="button"  value="取消置顶"/>'
+            } else {
+                return '<input type="button"  value="置顶"/>'
+            }
+
+        }
     }]
 
 });

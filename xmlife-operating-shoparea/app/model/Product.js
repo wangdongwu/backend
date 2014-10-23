@@ -25,6 +25,7 @@ Ext.define('XMLifeOperating.model.Product', {
 		'barCode',
 		'skuId',
 		'rank',
+		'rank2',
 		'dayTodayLimitCount',
 		'totalTodayLimitCount'
 	],
