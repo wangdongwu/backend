@@ -80,7 +80,7 @@ Ext.define('XMLifeOperating.view.rechargeableCardManage.onlineCard.OnlineCardMan
         },
         {
             text: '模板',
-            dataIndex: 'tid'
+            dataIndex: 'tname'
             
         },
         {
