@@ -4,6 +4,11 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopShelf', {
     xtype: 'shopshelf',
     store: 'CategoryRoots',
     id: 'ShelvesList',
+    features: [{
+        id: 'summary',
+        ftype: 'summary',
+        showSummaryRow: true
+    }],
     columns: [{
         xtype: 'rownumberer',
         align: 'center',
@@ -14,13 +19,13 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopShelf', {
         text: '货架名称',
         dataIndex: 'name',
         align: 'center',
-        width:150,
+        width: 150,
         tdCls: 'user-td'
     }, {
         text: '是否有次级货架',
         dataIndex: 'leaf',
         align: 'center',
-        width:110,
+        width: 110,
         tdCls: 'user-td',
         renderer: function(value, metadata, model, rowIndex, colIndex, store) {
             if (value) {
@@ -49,27 +54,60 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopShelf', {
             return Ext.String.format('<img src="{0}{1}" height="100" />', XMLifeOperating.generic.Global.URL.res, value);
         }
     }, {
-        text:'在线商品数',
-        dataIndex:'onlineProductsCount',
-        width:100,
+        text: '在线商品数',
+        dataIndex: 'onlineProductsCount',
+        width: 100,
         sortable: true,
         align: 'center',
+        groupable: false,
+        summaryType: function(records) {
+            var i = 0,
+                length = records.length,
+                total = 0;
+            for (; i < length; i++) {
+                record = records[i];
+                total += record.get('onlineProductsCount');
+            }
+            return '合计' + total;
+        },
         tdCls: 'user-td'
-    },{
-        text:'下架商品数',
-        dataIndex:'soldoutProductsCount',
-        width:100,
+
+    }, {
+        text: '下架商品数',
+        dataIndex: 'soldoutProductsCount',
+        width: 100,
         sortable: true,
         align: 'center',
+        summaryType: 'sum',
+        summaryType: function(records) {
+            var i = 0,
+                length = records.length,
+                total = 0;
+            for (; i < length; i++) {
+                record = records[i];
+                total += record.get('onlineProductsCount');
+            }
+            return '合计' + total;
+        },
         tdCls: 'user-td'
-    },{
-        text:'雪藏商品数',
-        dataIndex:'unlineProductsCount',
-        width:100,
+    }, {
+        text: '雪藏商品数',
+        dataIndex: 'unlineProductsCount',
+        width: 100,
         sortable: true,
         align: 'center',
+        summaryType: function(records) {
+            var i = 0,
+                length = records.length,
+                total = 0;
+            for (; i < length; i++) {
+                record = records[i];
+                total += record.get('onlineProductsCount');
+            }
+            return '合计' + total;
+        },
         tdCls: 'user-td'
-    },{
+    }, {
         text: '编辑',
         xtype: 'actioncolumn',
         width: 50,
@@ -80,7 +118,6 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopShelf', {
         itemId: 'openModifyShelvesWin',
         tdCls: 'user-td',
         align: 'center'
-
     }],
     dockedItems: [{
         xtype: 'toolbar',
@@ -112,7 +149,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopShelf', {
             emptyText: '输入商品名称',
             name: 'keyword',
             itemId: 'keyword'
-           
+
         }, {
             xtype: 'button',
             itemId: 'productSearch',

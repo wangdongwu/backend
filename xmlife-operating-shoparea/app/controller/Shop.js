@@ -102,6 +102,11 @@ Ext.define('XMLifeOperating.controller.Shop', {
         xtype: 'shopshelftab',
         autoCreate: true
     }, {
+        ref: 'shopShelf',
+        selector: 'shopshelf',
+        xtype: 'shopshelf',
+        autoCreate: true
+    }, {
         ref: 'shopShelfAdd',
         selector: 'shopshelfadd',
         xtype: 'shopshelfadd',
@@ -320,9 +325,9 @@ Ext.define('XMLifeOperating.controller.Shop', {
                     var rightCloseTime = this.record.get('closeTime') % 60 < 10 ? '0' + this.record.get('closeTime') % 60 : this.record.get('closeTime') % 60;
                     var openTime = leftOpenTime + ':' + rightOpenTime;
                     var closeTime = leftCloseTime + ':' + rightCloseTime;
-                    var autoOnline = (this.record.get('autoOnline') ==true || this.record.get('needAuditPrice')=='true')? 'true' : 'false';
-                    var showAllProducts =(this.record.get('showAllProducts') ==true || this.record.get('needAuditPrice')=='true')? 'true' : 'false';
-                    var needAuditPrice = (this.record.get('needAuditPrice') ==true || this.record.get('needAuditPrice')=='true')? 'true' : 'false';
+                    var autoOnline = (this.record.get('autoOnline') == true || this.record.get('needAuditPrice') == 'true') ? 'true' : 'false';
+                    var showAllProducts = (this.record.get('showAllProducts') == true || this.record.get('needAuditPrice') == 'true') ? 'true' : 'false';
+                    var needAuditPrice = (this.record.get('needAuditPrice') == true || this.record.get('needAuditPrice') == 'true') ? 'true' : 'false';
                     this.record.set('openTimeText', openTime);
                     this.record.set('closeTimeText', closeTime);
                     this.record.set('autoOnline', autoOnline);
@@ -1550,7 +1555,9 @@ Ext.define('XMLifeOperating.controller.Shop', {
         });
     },
     showCategoryRootsList: function(shopId) {
+        var me = this;
         var shopShelfStore = this.getCategoryRootsStore();
+        var view = me.getShopShelf();
         shopShelfStore.removeAll();
         shopShelfStore.getProxy().extraParams = {
             shopId: shopId

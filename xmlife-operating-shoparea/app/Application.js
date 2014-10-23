@@ -11,6 +11,8 @@ Ext.define('XMLifeOperating.Application', {
         'XMLifeOperating.generic.BaseProxy',
         'Ext.grid.plugin.DragDrop',
         'Ext.grid.column.Action',
+        'Ext.grid.feature.Summary',
+        'Ext.grid.feature.GroupingSummary',
         'Ext.form.field.Radio',
         'Ext.form.RadioGroup',
         'Ext.form.field.Time',
