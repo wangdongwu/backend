@@ -1,5 +1,5 @@
 Ext.define('XMLifeOperating.model.CardTemplate', {
     extend: 'Ext.data.Model',
-    fields: ['id','name','type','amount','newAccount','desc'],
+    fields: ['amount','batchBackType','create','creator','desc','id','name','newAccount','rule','simpleDesc','status','type','updated','updater'],
     proxy: new XMLifeOperating.generic.BaseProxy('cardTemplate'),
 });

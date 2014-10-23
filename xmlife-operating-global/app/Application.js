@@ -39,7 +39,8 @@ Ext.define('XMLifeOperating.Application', {
         'Authority',
         'WechatRefund',
         'BalanceRefund',
-        'AlipayRefund'
+        'AlipayRefund',
+        'OnlineCardManage'
         ],
 
     stores: [

@@ -178,65 +178,14 @@ Ext.define('XMLifeOperating.controller.Authority', {
               });
           }
         },
-        '#submit' : {
+        'addGlobalAccount #submit' : {
           click : function(button){
-
-            var windowEl = button.up('window'),
-                form = button.up('window').down('form'),
-                account = form.down('#accountField') && form.down('#accountField').getValue(),
-                isHaveCities = form.down('#isHaveCities') && form.down('#isHaveCities').getValue(),
-                citiesCheckboxs = form.down('#citiesCheckbox') && form.down('#citiesCheckbox').query('checkboxfield'),
-                subData = form.getValues(),
-                editUrl = form.editUrl
-                cityNum = 0;
-                 if(account){
-                  subData['account'] = account
-                 }
-
-             if(isHaveCities){
-              Ext.each(citiesCheckboxs, function(checkbox) {
-                if(checkbox.getValue()){
-                  cityNum++;
-                }
-              });
-              if(cityNum <= 0){
-                Ext.Msg.alert('失败', '请至少选择一个城市');
-                return false;
-              }
-             }
-            if (form.edit) {
-              Ext.Ajax.request({
-                  method : "PUT",
-                  url: editUrl,
-                  params: subData,
-                  success : function(data){
-                      if(data.responseText == '1'){
-                        Ext.Msg.alert('成功', '成功更新账户'+account);
-                        var store = self.getAccountStore();
-                        store.clearFilter(true);
-                        windowEl.close();
-                        store.load()
-                      }else{
-                        Ext.Msg.alert('失败', '更新账户'+account+'失败');
-                      }
-                  }
-              });
-            }else{
-              form.submit({
-                failure : function(form, action) {
-                  if(action.response.responseText == '1'){
-                    Ext.Msg.alert('添加成功', '成功添加');
-                    var store = self.getAccountStore();
-                    store.clearFilter(true);
-                    windowEl.close();
-                    store.load();
-                  }else{
-                    Ext.Msg.alert('失败', '失败');
-                  }
-                }
-              });  
-            };
-            
+            self.submitData(button);
+          }
+        },
+        'addCityManagerAccount #submit' : {
+          click : function(button){
+            self.submitData(button);
           }
         },
         'CityAccountManage #addCityAccount' : {
@@ -354,5 +303,64 @@ Ext.define('XMLifeOperating.controller.Authority', {
                   }
                 });*/
 
+    },
+    submitData : function(button){
+            var windowEl = button.up('window'),
+                form = button.up('window').down('form'),
+                account = form.down('#accountField') && form.down('#accountField').getValue(),
+                isHaveCities = form.down('#isHaveCities') && form.down('#isHaveCities').getValue(),
+                citiesCheckboxs = form.down('#citiesCheckbox') && form.down('#citiesCheckbox').query('checkboxfield'),
+                subData = form.getValues(),
+                editUrl = form.editUrl
+                cityNum = 0;
+                 if(account){
+                  subData['account'] = account
+                 }
+
+             if(isHaveCities){
+              Ext.each(citiesCheckboxs, function(checkbox) {
+                if(checkbox.getValue()){
+                  cityNum++;
+                }
+              });
+              if(cityNum <= 0){
+                Ext.Msg.alert('失败', '请至少选择一个城市');
+                return false;
+              }
+             }
+            if (form.edit) {
+              Ext.Ajax.request({
+                  method : "PUT",
+                  url: editUrl,
+                  params: subData,
+                  success : function(data){
+                      if(data.responseText == '1'){
+                        Ext.Msg.alert('成功', '成功更新账户'+account);
+                        var store = self.getAccountStore();
+                        store.clearFilter(true);
+                        windowEl.close();
+                        store.load()
+                      }else{
+                        Ext.Msg.alert('失败', '更新账户'+account+'失败');
+                      }
+                  }
+              });
+            }else{
+              form.submit({
+                failure : function(form, action) {
+                  if(action.response.responseText == '1'){
+                    Ext.Msg.alert('添加成功', '成功添加');
+                    var store = self.getAccountStore();
+                    store.clearFilter(true);
+                    windowEl.close();
+                    store.load();
+                  }else{
+                    Ext.Msg.alert('失败', '失败');
+                  }
+                }
+              });  
+            };
+            
+          
     }
 });
