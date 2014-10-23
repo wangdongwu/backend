@@ -70,7 +70,9 @@ Ext.define('XMLifeOperating.controller.RechargeableCardTemplate', {
                     var cClass = me.getCardTemplateModel();
                     var rechargeableCardTemplate = new cClass();
                     var win = this.getRechargeableCardTemplateReturnCardAdd();
-                    win.down('form').loadRecord(rechargeableCardTemplate);
+                    var form = win.down('form');
+                    form.getForm().reset();
+                    form.loadRecord(rechargeableCardTemplate);
                     win.show();
                 }
             },
