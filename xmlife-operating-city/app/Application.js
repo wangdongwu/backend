@@ -26,12 +26,13 @@ Ext.define('XMLifeOperating.Application', {
         'ShopArea',
         'login',
         'Authority',
-        'Freight'
+        'Freight',
+        'WaitForAudit'
     ],
 
     stores: [
         'ShopArea',
-        'SupportedCity'
+        'SupportedCity',
     ],
 
     launch: function() {

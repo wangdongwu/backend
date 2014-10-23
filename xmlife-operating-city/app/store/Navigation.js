@@ -9,13 +9,17 @@ Ext.define('XMLifeOperating.store.Navigation', {
     autoLoad:false,
     root:{
         expanded:false
-    }
-/*    root: {
+    },
+    /*root: {
         text: 'Root',
         expanded: true,
         children: [{
             id: 'freightList',
             text: '运费管理',
+            leaf: true
+        }, {
+            id: 'freightList',
+            text: '改价审核',
             leaf: true
         }, {
             id: 'shopAreaList',
