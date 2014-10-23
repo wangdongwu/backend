@@ -1198,11 +1198,14 @@ Ext.define('XMLifeOperating.controller.Shop', {
                             windowEl.unmask();
                             editWindow.close();
                             if (response.responseText == 2) {
-                                Ext.MessageBox.show({
+                                var message = Ext.MessageBox.show({
                                     title: '提示',
                                     msg: '价格修改成功，等待审核…',
                                     buttons: Ext.Msg.OK
                                 });
+                                setTimeout(function() {
+                                    message.close();
+                                }, 1000);
                             }
                             me.showProductSearchList(shopId);
                         });
@@ -1597,13 +1600,16 @@ Ext.define('XMLifeOperating.controller.Shop', {
                         sendPutRequest('product/update', data, '编辑商品', '成功编辑商品', '编辑商品失败', function(response) {
                             windowEl.unmask();
                             if (response.responseText == '2') {
-                                Ext.MessageBox.show({
+                                var message = Ext.MessageBox.show({
                                     title: '提示',
                                     msg: '价格修改成功，等待审核…',
-                                    icon: Ext.Msg.ERROR,
                                     buttons: Ext.Msg.OK
                                 });
+                                setTimeout(function() {
+                                    message.close();
+                                }, 1000);
                             }
+
                             editWindow.close();
                             me.showProductList(categoryId);
                         });
