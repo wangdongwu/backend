@@ -14,11 +14,13 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopShelf', {
         text: '货架名称',
         dataIndex: 'name',
         align: 'center',
+        width:150,
         tdCls: 'user-td'
     }, {
         text: '是否有次级货架',
         dataIndex: 'leaf',
         align: 'center',
+        width:110,
         tdCls: 'user-td',
         renderer: function(value, metadata, model, rowIndex, colIndex, store) {
             if (value) {
@@ -29,7 +31,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopShelf', {
     }, {
         text: '货架图片（横）',
         dataIndex: 'xImage',
-        width: 420,
+        width: 190,
         sortable: true,
         align: 'center',
         tdCls: 'user-td',
@@ -39,7 +41,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopShelf', {
     }, {
         text: '货架图片（竖）',
         dataIndex: 'vImage',
-        width: 420,
+        width: 190,
         sortable: true,
         align: 'center',
         tdCls: 'user-td',
@@ -47,6 +49,27 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopShelf', {
             return Ext.String.format('<img src="{0}{1}" height="100" />', XMLifeOperating.generic.Global.URL.res, value);
         }
     }, {
+        text:'在线商品数',
+        dataIndex:'onlineProductsCount',
+        width:100,
+        sortable: true,
+        align: 'center',
+        tdCls: 'user-td'
+    },{
+        text:'下架商品数',
+        dataIndex:'soldoutProductsCount',
+        width:100,
+        sortable: true,
+        align: 'center',
+        tdCls: 'user-td'
+    },{
+        text:'雪藏商品数',
+        dataIndex:'unlineProductsCount',
+        width:100,
+        sortable: true,
+        align: 'center',
+        tdCls: 'user-td'
+    },{
         text: '编辑',
         xtype: 'actioncolumn',
         width: 50,
