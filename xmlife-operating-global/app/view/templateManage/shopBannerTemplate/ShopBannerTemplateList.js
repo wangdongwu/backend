@@ -36,6 +36,8 @@ Ext.define('XMLifeOperating.view.templateManage.shopBannerTemplate.ShopBannerTem
                     return '农贸市场';
                 }else if(value==2){
                     return '生活超市';
+                }else{
+                    return '优质店铺';
                 }
             }
         },
