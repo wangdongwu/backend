@@ -1,7 +1,7 @@
 Ext.define('XMLifeOperating.controller.Capacity', {
 	extend: 'Ext.app.Controller',
 
-	views: ['operationManage.capacity.Capacity', 'operationManage.capacity.CapacityEdit','Toolbar'],
+	views: ['operationManage.capacity.Capacity', 'operationManage.capacity.CapacityEdit'],
 
 	stores: ['Capacity'],
 
@@ -26,10 +26,18 @@ Ext.define('XMLifeOperating.controller.Capacity', {
 
 	init: function(){
 		this.control({
-            'headerToolbar #cmbGlobalCenter': {
-                select: function(combo) {
+			'capacity': {
+                onShowView: function(view, viewName) {
                     var self = this;
-                    this.areaId = combo.getValue();
+
+                    if (XMLifeOperating.generic.Global.operating_type != 'center') {
+                        return;
+                    }
+                    if (XMLifeOperating.generic.Global.current_operating == -1) {
+                        alert('请先在右上角选择中心');
+                        return;
+                    }
+                    this.areaId = XMLifeOperating.generic.Global.current_operating;
 
                     var store = this.getCapacityStore();
                     store.load({
@@ -46,29 +54,6 @@ Ext.define('XMLifeOperating.controller.Capacity', {
                         }
                     });
                 }
-            },
-			'capacity': {
-				added: function(src){
-                    var self = this;
-                    this.areaId = this.areaId || XMLifeOperating.generic.Global.current_operating;
-
-					var store = this.getCapacityStore();
-                    store.load({
-                        params: {
-                            shopArea: this.areaId
-
-                        }, callback: function(records, options, success){
-                            if(success){
-                                self.record = records[0].data;
-
-                                var capContent = self.getCapacity();
-                                capContent.down('#capacityLimit').setValue(self.record.limit);
-                            }else{
-                                Ext.Msg.alert('提示','数据加载失败!');
-                            }
-                        }
-                    });
-				}
 			},
 			'capacity #modifyCapacity': {
                 click: function() {
