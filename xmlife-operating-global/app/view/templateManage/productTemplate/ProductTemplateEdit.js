@@ -40,12 +40,31 @@ Ext.define('XMLifeOperating.view.templateManage.productTemplate.ProductTemplateE
                 labelWidth: 90,
                 allowBlank: false,
                 validator: function(str){
-                    var len = getStrLength(str);
+                    /*var len = getStrLength(str);
                     if(len > 14){
                         return '商品名称最大长度为7';
                     }else{
                         return true;
+                    }*/
+                    var value = str;
+                    var length = 0;
+                    for (var i = 0, len = value.length; i < len; i++) {
+                        var chart = value.charCodeAt(i);
+                        console.log(chart);
+                        if(chart==32||chart==12288){
+                            length = length + 0;
+                        }else if (chart >= 0 && chart <= 255) {
+                            length = length + 1;
+                        }else{
+                            length = length + 2;
+                        }
                     }
+                    if (length > 14) {
+                        return '店铺主名称最大长度为7个汉字或14个字母'
+                    } else {
+                        return true
+                    }
+
                 },
                 maxLengthText:'商品名称最大长度为7',
             },
@@ -55,11 +74,29 @@ Ext.define('XMLifeOperating.view.templateManage.productTemplate.ProductTemplateE
                 fieldLabel: '商品名称2',
                 labelWidth: 90,
                 validator: function(str){
-                    var len = getStrLength(str);
+                    /*var len = getStrLength(str);
                     if(len > 14){
                         return '商品名称最大长度为7';
                     }else{
                         return true;
+                    }*/
+                    var value = str;
+                    var length = 0;
+                    for (var i = 0, len = value.length; i < len; i++) {
+                        var chart = value.charCodeAt(i);
+                        console.log(chart);
+                        if(chart==32||chart==12288){
+                            length = length + 0;
+                        }else if (chart >= 0 && chart <= 255) {
+                            length = length + 1;
+                        }else{
+                            length = length + 2;
+                        }
+                    }
+                    if (length > 14) {
+                        return '店铺主名称最大长度为7个汉字或14个字母'
+                    } else {
+                        return true
                     }
                 },
                 maxLengthText:'商品名称最大长度为7',
@@ -70,11 +107,29 @@ Ext.define('XMLifeOperating.view.templateManage.productTemplate.ProductTemplateE
                 fieldLabel: '商品名称3',
                 labelWidth: 90,
                 validator: function(str){
-                    var len = getStrLength(str);
+                    /*var len = getStrLength(str);
                     if(len > 14){
                         return '商品名称最大长度为7';
                     }else{
                         return true;
+                    }*/
+                    var value = str;
+                    var length = 0;
+                    for (var i = 0, len = value.length; i < len; i++) {
+                        var chart = value.charCodeAt(i);
+                        console.log(chart);
+                        if(chart==32||chart==12288){
+                            length = length + 0;
+                        }else if (chart >= 0 && chart <= 255) {
+                            length = length + 1;
+                        }else{
+                            length = length + 2;
+                        }
+                    }
+                    if (length > 14) {
+                        return '店铺主名称最大长度为7个汉字或14个字母'
+                    } else {
+                        return true
                     }
                 },
                 maxLengthText:'商品名称最大长度为7',
