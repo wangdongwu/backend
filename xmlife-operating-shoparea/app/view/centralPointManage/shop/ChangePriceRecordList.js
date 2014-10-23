@@ -81,11 +81,46 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ChangePriceRecordList',
         { header: '商品类型',dataIndex:'categoryName'},
         { header: '所属店铺',dataIndex:'shopName'},
         { header: '单位',dataIndex:''},
-        { header: '原进价',dataIndex:'proPprice'},
-        { header: '改后进价',dataIndex:'pprice'},
-        { header: '原售价',dataIndex:'proDprice'},
-        { header: '改后售价',dataIndex:'dprice'},
-        { header: '修改时间',dataIndex:'updated'},
+        { header: '原进价',dataIndex:'proPprice',
+            renderer: function(value, da, record) {
+               return value/100;
+            }
+        },
+        { header: '改后进价',dataIndex:'pprice',
+            renderer: function(value, da, record) {
+               var pprice = record.get('pprice');
+               var proPprice = record.get('proPprice');
+               value = value/100;
+               if(pprice!=proPprice){
+                    return '<span style="color:red;">'+value+'</span>';
+               }
+               return value;
+            }
+        },
+        { header: '原售价',dataIndex:'proDprice',
+            renderer: function(value, da, record) {
+               return value/100;
+            }
+        },
+        { header: '改后售价',dataIndex:'dprice',
+          renderer: function(value, da, record) {
+               var dprice = record.get('dprice');
+               var proPprice = record.get('proDprice');
+               value = value/100;
+               if(dprice!=proPprice){
+                    return '<span style="color:red;">'+value+'</span>';
+               }
+               return value;
+            }
+        },
+        { header: '修改时间',dataIndex:'updated',
+            renderer:function(value){
+               var newTime = new Date(value);
+               var newDate = newTime.getFullYear()+'.'+(newTime.getMonth()+1)+'.'+newTime.getDate();
+               newDate += '<br />'+newTime.getHours()+':'+newTime.getMinutes();
+               return newDate;
+            } 
+        },
         { header: '审核人',dataIndex:''},
         { header: '审核时间',dataIndex:''},
         { header: '状态',dataIndex:'status',
