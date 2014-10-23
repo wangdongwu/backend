@@ -119,6 +119,17 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopList', {
                 return seeBtn;
             }
         }, {
+            header: "改价审核",
+            width: 90,
+            itemId: 'seeChangePriceRecord',
+            menuDisabled: true,
+            sortable: true,
+            align: 'center',
+            renderer: function(value, metadata, model, rowIndex, colIndex, store) {
+                var seeBtn = '<a href="javascript:void(0)">查看</a>';
+                return seeBtn;
+            }
+        }, {
             text: '商品展开',
             dataIndex: 'showAllProducts',
             width: 80,

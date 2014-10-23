@@ -20,7 +20,8 @@ Ext.define('XMLifeOperating.controller.Shop', {
         'centralPointManage.shop.ShopProductSoldOut',
         'centralPointManage.shop.ShopProductOffLine',
         'centralPointManage.shop.ShopProductSearch',
-        'centralPointManage.shop.ShopProductSearchEdit'
+        'centralPointManage.shop.ShopProductSearchEdit',
+        'centralPointManage.shop.ChangePriceRecordList'
     ],
 
     stores: [
@@ -33,7 +34,8 @@ Ext.define('XMLifeOperating.controller.Shop', {
         'CategorySubs',
         'ProductTemplate',
         'ProductSearch',
-        'CategoryLeafCategorys'
+        'CategoryLeafCategorys',
+        'ChangePriceRecordMyRecords'
         // 'Buyer',
         // 'Shelves',
         // 'Template',
@@ -50,7 +52,8 @@ Ext.define('XMLifeOperating.controller.Shop', {
         'CategorySubs',
         'ProductTemplate',
         'ProductSearch',
-        'CategoryLeafCategorys'
+        'CategoryLeafCategorys',
+        'ChangePriceRecord'
         // 'Template',
         // 'Buyer',
         // 'Template',
@@ -146,6 +149,11 @@ Ext.define('XMLifeOperating.controller.Shop', {
         ref: 'shopProductSearchEdit',
         selector: 'shopproductsearchedit',
         xtype: 'shopproductsearchedit',
+        autoCreate: true
+    }, {
+        ref: 'changePriceRecordList',
+        selector: 'changePriceRecordList',
+        xtype: 'changePriceRecordList',
         autoCreate: true
     }],
     init: function() {
@@ -339,6 +347,42 @@ Ext.define('XMLifeOperating.controller.Shop', {
                     tab.show();
                 }
             },
+            'shoplist #seeChangePriceRecord': {
+                click: function(view, column, rowIndex, colIndex, e) {
+                    var me = this;
+                    var tab=this.getChangePriceRecordList();
+                    var content = this.getContentPanel();
+                    content.removeAll(false);
+                    var record = view.getRecord(view.findTargetByEvent(e));
+                    var shopId = record.get('id');
+                    this.shopId = shopId;
+                    var changePriceRecordMyRecordsStore = this.getChangePriceRecordMyRecordsStore();
+                    changePriceRecordMyRecordsStore.removeAll();
+                    changePriceRecordMyRecordsStore.getProxy().extraParams = {
+                        shopId: shopId
+                    }
+                    changePriceRecordMyRecordsStore.loadPage(1, {
+                        params: {
+                            start: 0,
+                            limit: 25,
+                            page: 1
+                        }
+                    });
+                    content.add(tab);
+                }
+            },
+            /*
+            *changePriceRecordList 改价审核事件
+            */
+            'changePriceRecordList #isverifyCombo':{
+                change:function(){
+                    me.changePriceRecordList(this.getChangePriceRecordList());
+                }
+            },
+            //改价审核搜索商品
+            'changePriceRecordList button[name=skuIdSearch]': {
+                click: me.skuIdSearch
+            },
             //shopadd事件
             'shopadd #save-shopStore-edit-btn': {
                 click: function(button) {
@@ -526,7 +570,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
                 }
             },
             //shopbanner事件
-            'shopbanner #returnShopStore': {
+            'shopbanner #returnShopStore,changePriceRecordList #returnShopStore': {
                 click: function() {
                     var me = this;
                     var tab = me.getShopList();
@@ -1865,6 +1909,42 @@ Ext.define('XMLifeOperating.controller.Shop', {
         for (var j = 0, len = deleteIds.length; j < len; j++) {
             shelfTab.remove(deleteIds[j]);
         }
+    },
+    changePriceRecordList:function(grid){
+        var status = grid.down('#isverifyCombo').getValue();
+        var shopId = this.shopId;
+        store = grid.store;
+        store.getProxy().extraParams={
+            shopId : shopId,
+            status : status || ''
+        }; 
+        store.loadPage(1,{
+            params: {
+                        start: 0,
+                        limit: 25,
+                        page: 1
+                    }
+        });
+    },
+    skuIdSearch:function(){
+        var changePriceRecordList = this.getChangePriceRecordList(),
+            goodsSkuIdObj = changePriceRecordList.down('[name=goodsSkuId]');
+        var shopId = this.shopId; 
+        goodsSkuId = goodsSkuIdObj.getValue();
+        store = changePriceRecordList.store;
+        store.getProxy().extraParams={
+            shopId : shopId,
+            skuId : goodsSkuId || ''
+        }; 
+        store.loadPage(1,{
+            params: {
+                        start: 0,
+                        limit: 25,
+                        page: 1
+                    }
+        });
+
+
     }
 
 });
