@@ -48,7 +48,6 @@ Ext.define('XMLifeOperating.view.rechargeableCardManage.onlineCard.CardDetail', 
       itemId : 'delet',
       text : '删除'
     }*/,{
-      itemId : 'disable',
-      text : '下架'
+      itemId : 'hander'
     }]
 });
