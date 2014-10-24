@@ -17,7 +17,7 @@ Ext.define('XMLifeOperating.view.rechargeableCardManage.onlineCard.CardDetail', 
     closeAction: 'destroy',
     modal: true,
     width : 490,
-    height : 450,
+    height : 530,
     layout : 'fit',
     resizable: false,
     bodyPadding : '10 20',
@@ -28,8 +28,8 @@ Ext.define('XMLifeOperating.view.rechargeableCardManage.onlineCard.CardDetail', 
       '<p style="clear:both;"><span style="width:80px;margin-right:10px;float:left;text-align:right">长描述:</span><span style="display:block;width:350px;float:left;">{desc}</span></p>'+
       '<p style="clear:both;"><span style="width:80px;margin-right:10px;float:left;text-align:right">售价:</span><span style="display:block;width:350px;float:left;">{soldPrice}元</span></p>'+
       '<p style="clear:both;"><span style="width:80px;margin-right:10px;float:left;text-align:right">生成日:</span><span style="display:block;width:350px;float:left;">{create}</span></p>'+
-      '<p style="clear:both;"><span style="width:80px;margin-right:10px;float:left;text-align:right">开始展示:</span><span style="display:block;width:350px;float:left;">{displayStartTime}</span></p>'+
-      '<p style="clear:both;"><span style="width:80px;margin-right:10px;float:left;text-align:right">有效日期:</span><span style="display:block;width:350px;float:left;">{startTime}至{endTime}</span></p>'+
+      '<p style="clear:both;"><span style="width:80px;margin-right:10px;float:left;text-align:right">开始展示:</span><span style="display:block;width:350px;float:left;">{displayStartTime}至<span <tpl if="disRed">style="color:red"</tpl>>{displayEndTime}</span></span></p>'+
+      '<p style="clear:both;"><span style="width:80px;margin-right:10px;float:left;text-align:right">有效日期:</span><span style="display:block;width:350px;float:left;">{startTime}至<span <tpl if="endRed">style="color:red"</tpl>>{endTime}</span></span></p>'+
       '<p style="clear:both;"><span style="width:80px;margin-right:10px;float:left;text-align:right">已售数量:</span><span style="display:block;width:350px;float:left;">{total}张</span></p>'+
       '<p style="clear:both;"><span style="width:80px;margin-right:10px;float:left;text-align:right">模板:</span><span style="display:block;width:350px;float:left;">{tname}</span></p>'+
       '<p style="clear:both;"><span style="width:80px;margin-right:10px;float:left;text-align:right">类型:</span><span style="display:block;width:350px;float:left;">{type}</span></p>'+
@@ -40,6 +40,7 @@ Ext.define('XMLifeOperating.view.rechargeableCardManage.onlineCard.CardDetail', 
       '<p style="clear:both;"><span style="width:80px;margin-right:10px;float:left;text-align:right">返还次数:</span><span style="display:block;width:350px;float:left;">{rule.count}次</span></p>'+
       '</tpl>'+
       '<p style="clear:both;"><span style="width:80px;margin-right:10px;float:left;text-align:right">是否新手卡:</span><span style="display:block;width:350px;float:left;">{newAccount}</span></p>'+
+      '<p style="clear:both;"><span style="width:80px;margin-right:10px;float:left;text-align:right">状态:</span><span style="display:block;width:350px;float:left;">{status}</span></p>'+
     '</div>',
     buttons : [{
       text : '编辑',

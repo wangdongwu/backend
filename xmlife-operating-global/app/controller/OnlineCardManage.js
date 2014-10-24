@@ -35,26 +35,14 @@ Ext.define('XMLifeOperating.controller.OnlineCardManage', {
                 self.getCardTemplateStore().load();
               }
             },
-            'OnlineCardManage #online':{
-              click : function(){
-                /*加载在架的*/
+            'OnlineCardManage #status':{
+              change : function(combo,v){
                 var store = self.getOnlineCardStore();
-                self.status = 1;
-                store.getProxy().extraParams={
-                  status : 1
-                };
-                store.load();
-              }
-            },
-            'OnlineCardManage #offline':{
-              click : function(){
-                /*加载下架的*/
-                 var store = self.getOnlineCardStore();
-                 self.status = 0;
-                 store.getProxy().extraParams={
-                  status : 0
-                };
-                store.load();
+                 self.status = v;
+                  store.getProxy().extraParams={
+                    status : v
+                  };
+                  store.load()
               }
             },
             'OnlineCardManage #addNewCart' : {
@@ -75,9 +63,20 @@ Ext.define('XMLifeOperating.controller.OnlineCardManage', {
                     data = model.getData(),
                     cardDetail = self.getCardDetail(),
                     status = model.get('status'),
-                    button = cardDetail.down('#hander');
-                    
-                    if(status){
+                    button = cardDetail.down('#hander'),
+                    date = new Date();
+
+                    if(new Date(data.endTime) < date){
+                      button.setDisabled(true);
+                    }
+                    if(new Date(data.endTime) < date){
+                      data.endRed = true;
+                    }
+                    if(new Date(data.displayEndTime) < date){
+                      data.disRed = true;
+                    }
+
+                    if(status == 1){
                       button.setText('下架');
                       cardDetail.url = 'cardBatch/close';
                     }else{
@@ -120,7 +119,11 @@ Ext.define('XMLifeOperating.controller.OnlineCardManage', {
                         },
                         failure : function(form,result){
                           if(result.response.responseText == 1){
-                            self.loadCartData();
+                            self.loadCartData(function(cartStore){
+                              var cardDetail = self.getCardDetail(),
+                                  data = cartStore.findRecord('id',cardDetail.currentId).getData();
+                                  cardDetail.show().update(data);
+                            });
                           };
                         }
                       })
@@ -132,6 +135,7 @@ Ext.define('XMLifeOperating.controller.OnlineCardManage', {
                         },
                         failure : function(form,result){
                           if(result.response.responseText == 1){
+                            Ext.Msg.alert('成功','添加成功');
                             self.loadCartData();
                           }
                         }
@@ -152,10 +156,10 @@ Ext.define('XMLifeOperating.controller.OnlineCardManage', {
                     store = self.getOnlineCardStore(),
                     model = store.getById(id);
 
+                    CardDetail.hide();
                     templeteCombo.setDisabled(true);
                     soldPrice.setDisabled(true);
 
-                    CardDetail.destroy();
                     form.loadRecord(model);
                     addOnlineCard.setTitle('修改充值卡');
                     addOnlineCard.isEdit = true;
@@ -190,10 +194,11 @@ Ext.define('XMLifeOperating.controller.OnlineCardManage', {
             }
         });
     },
-    loadCartData : function(){
+    loadCartData : function(callback){
       var status = this.status;
-      Ext.Msg.alert('成功','更新成功');
-      this.getOnlineCardStore().load({params:{status:status}});
+      this.getOnlineCardStore().load({params:{status:status},callback:function(){
+        callback && callback(this);
+      }});
       this.getAddOnlineCard().destroy();
     }
 });

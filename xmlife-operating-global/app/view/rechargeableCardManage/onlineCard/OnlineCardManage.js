@@ -15,14 +15,23 @@ Ext.define('XMLifeOperating.view.rechargeableCardManage.onlineCard.OnlineCardMan
             itemId: 'addNewCart'
         },
         {
-            xtype: 'button',
-            text: '上架中',
-            itemId: 'online'
-        },
-        {
-            xtype: 'button',
-            text: '已下架',
-            itemId: 'offline'
+              xtype : 'combo',
+              name : 'status',
+              itemId : 'status',
+              queryMode: 'local',
+              triggerAction : 'all',
+              emptyText : '选择状态',
+              displayField: 'type',
+              width : 120,
+              valueField: 'value',
+              store : Ext.create('Ext.data.Store', {
+                    fields: ['value','type'],
+                    data : [
+                        {"value": '1', "type": '上架中'},
+                        {"value": '0', "type": '已下架'}
+                    ],
+                })
+          
         }
     ],
     columns: [

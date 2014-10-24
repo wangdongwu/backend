@@ -51,6 +51,11 @@ Ext.define('XMLifeOperating.view.rechargeableCardManage.onlineCard.addOnlineCard
             name : 'batchName'
           },
           {
+            fieldLabel : 'id',
+            hidden : true,
+            name : 'id'
+          },
+          {
             fieldLabel : '短描述',
             name : 'simpleDesc'
           },
@@ -94,7 +99,14 @@ Ext.define('XMLifeOperating.view.rechargeableCardManage.onlineCard.addOnlineCard
             {
               name : 'endTime',
               itemId : 'endTime',
-              allowBlank : false
+              allowBlank : false,
+              listeners : {
+                change : function(field,v){
+                  var form = this.up('form'),
+                      displayEndTime = form.down('#displayEndTime');
+                      displayEndTime.setValue(v);
+                }
+              }
 
             }
             ]
@@ -133,10 +145,11 @@ Ext.define('XMLifeOperating.view.rechargeableCardManage.onlineCard.addOnlineCard
               xtype : 'text'
             },
             {
-              name : 'displayEndTime'
+              name : 'displayEndTime',
+              itemId : 'displayEndTime'
             }
             ]
-          },
+          }/*,
           {
         xtype: 'radiogroup',
         fieldLabel: '对外展示',
@@ -146,7 +159,7 @@ Ext.define('XMLifeOperating.view.rechargeableCardManage.onlineCard.addOnlineCard
             { boxLabel: '上架', name: 'status', inputValue: '1'},
             { boxLabel: '下架', name: 'status', inputValue: '0',checked: true},
          ]
-          }
+          }*/
         ]
       },
       {

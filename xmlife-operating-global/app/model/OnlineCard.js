@@ -12,8 +12,7 @@ Ext.define('XMLifeOperating.model.OnlineCard', {
         convert : function(v){
           return (v/100).toFixed(2);
         }
-      },
-      {
+      },{
         name:'batchName'
       },
       {
@@ -75,7 +74,20 @@ Ext.define('XMLifeOperating.model.OnlineCard', {
         }
       },
       {
-        name:'status'
+        name:'status',
+        convert : function(v){
+          var str;
+          if(v == 0){
+            str = '已下架'
+          }
+          if(v == 1){
+            str = '已上架'
+          }
+          if(v == 4){
+            str = '已强制下架'
+          }
+          return str;
+        }
       },
       {
         name:'tid'
