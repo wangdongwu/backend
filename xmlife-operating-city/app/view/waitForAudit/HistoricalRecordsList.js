@@ -143,8 +143,6 @@ Ext.define('XMLifeOperating.view.waitForAudit.HistoricalRecordsList', {
                return newDate;
             } 
         },
-        { header: '审核人',dataIndex:''},
-        { header: '审核时间',dataIndex:''},
         { header: '状态',dataIndex:'status',
             renderer : function(v){
               //状态 0:提交 1:通过 2:拒绝
@@ -156,16 +154,6 @@ Ext.define('XMLifeOperating.view.waitForAudit.HistoricalRecordsList', {
               return data[v];
             }
         },
-        /*{ header: '',dataIndex:'status',
-            renderer : function(v){
-              var data = {
-                '0' : '待处理',
-                '1' : '完成退款',
-                '2' : '退款不成功'
-              }
-              return data[v];
-            }
-        },*/
     ],
     columnLines: true,
     

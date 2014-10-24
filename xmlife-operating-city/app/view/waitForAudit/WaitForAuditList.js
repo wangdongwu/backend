@@ -19,7 +19,7 @@ Ext.define('XMLifeOperating.view.waitForAudit.WaitForAuditList', {
         {
             xtype : 'button',
             name :'aKeyBy',
-            text : '一键通过',
+            text : '批量通过',
             style:{
                 border:'1px solid #99bce8'
             }
@@ -27,7 +27,7 @@ Ext.define('XMLifeOperating.view.waitForAudit.WaitForAuditList', {
         {
             xtype : 'button',
             name :'aKeyNoBy',
-            text : '一键不通过',
+            text : '批量不通过',
             style:{
                 border:'1px solid #99bce8'
             }
@@ -142,8 +142,6 @@ Ext.define('XMLifeOperating.view.waitForAudit.WaitForAuditList', {
                return newDate;
             } 
         },
-        { header: '审核人',dataIndex:''},
-        { header: '审核时间',dataIndex:''},
         { header: '状态',dataIndex:'status',
             renderer : function(v){
               //状态 0:提交 1:通过 2:拒绝
