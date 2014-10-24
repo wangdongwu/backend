@@ -395,8 +395,8 @@ Ext.define('XMLifeOperating.controller.RechargeableCardTemplate', {
             cardDetail.show();
         } else if (type == 2) {
             rule = record.get('rule');
-            values.returnAmount = rule.batchAmount;
-            values.immediatelyAmount = record.get('amount') - rule.batchAmount;
+            values.returnAmount = rule.batchAmount/100;
+            values.immediatelyAmount = (record.get('amount') - rule.batchAmount)/100;
             values.count = rule.count;
             var days = [];
             var amounts = [];
