@@ -108,7 +108,10 @@ Ext.define('XMLifeOperating.controller.OnlineCardManage', {
             'addOnlineCard #submit' : {
               click : function(button){
                 var addOnlineCard = button.up('window'),
-                    form = addOnlineCard.down('form');
+                    form = addOnlineCard.down('form'),
+                    soldPrice = form.down('#soldPrice'),
+                    price = form.down('#soldPrice').getValue();
+                    soldPrice.setValue(price*100);
                     if(addOnlineCard.isEdit){
                       /*修改*/
                       form.submit({
@@ -129,6 +132,7 @@ Ext.define('XMLifeOperating.controller.OnlineCardManage', {
                       })
                     }else{
                       /*添加*/
+
                       form.submit({
                         method : 'put',
                         success : function(response){

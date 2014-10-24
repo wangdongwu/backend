@@ -22,7 +22,7 @@ Ext.define('XMLifeOperating.view.rechargeableCardManage.onlineCard.CardDetail', 
     resizable: false,
     bodyPadding : '10 20',
     tpl : '<div style="line-height:25px;">'+
-      '<p style="clear:both;"><span style="width:80px;margin-right:10px;float:left;text-align:right">名字:</span><span style="display:block;width:350px;float:left;">{name}</span></p>'+
+      '<p style="clear:both;"><span style="width:80px;margin-right:10px;float:left;text-align:right">名字:</span><span style="display:block;width:350px;float:left;">{batchName}</span></p>'+
       '<p style="clear:both;"><span style="width:80px;margin-right:10px;float:left;text-align:right">批次号:</span><span style="display:block;width:350px;float:left;">{id}</span></p>'+
       '<p style="clear:both;"><span style="width:80px;margin-right:10px;float:left;text-align:right">短描述:</span><span style="display:block;width:350px;float:left;">{simpleDesc}</span></p>'+
       '<p style="clear:both;"><span style="width:80px;margin-right:10px;float:left;text-align:right">长描述:</span><span style="display:block;width:350px;float:left;">{desc}</span></p>'+
