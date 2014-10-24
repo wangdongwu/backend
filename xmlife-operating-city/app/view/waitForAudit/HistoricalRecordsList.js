@@ -91,17 +91,17 @@ Ext.define('XMLifeOperating.view.waitForAudit.HistoricalRecordsList', {
         },
 
     ],
-    // dockedItems : [
-    //   {
-    //     xtype : 'pagingtoolbar',
-    //     itemId : 'pagetoll',
-    //     store : 'WaitForAudit',
-    //     dock : 'bottom',
-    //     displayInfo : true/*,
-    //     items : ['->'],   
-    //     prependButtons: true*/
-    //   }
-    // ],
+    dockedItems : [
+      {
+        xtype : 'pagingtoolbar',
+        itemId : 'pagetoll',
+        store : 'HistoricalRecords',
+        dock : 'bottom',
+        displayInfo : true/*,
+        items : ['->'],   
+        prependButtons: true*/
+      }
+    ],
     columns: [
         {
             xtype: 'rownumberer'

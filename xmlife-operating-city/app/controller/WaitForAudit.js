@@ -211,7 +211,39 @@ Ext.define('XMLifeOperating.controller.WaitForAudit', {
                     var id = grid.get('id');
                     var ids=[];
                     ids.push(id);
-                    Ext.MessageBox.confirm(
+                    Ext.MessageBox.show({
+                        title: '审核改价商品',
+                        msg: '确认通过价格修改吗？',
+                        buttons: Ext.MessageBox.YESNO,
+                        buttonText:{ 
+                            yes: "通过", 
+                            no: "拒绝" 
+                        },
+                        fn: function(result){
+                            console.log(result);
+                            if (result == 'yes') {
+                                pass=true;
+
+                            }else if(result == 'no'){
+                                pass=false;
+                            }else{
+                                return;
+                            }
+                            var url = 'changePriceRecord/audit';
+                            var params = {
+                                ids:ids,
+                                pass:pass,
+                                description:''
+                            };
+                           
+                            sendPutRequest(url, params, '一键审核商品改价', '一键审核商品改价不通过成功', '一键审核商品改价不通过失败',
+                                function(response) {
+                                    self.rendenWaitForAuditList(self.getWaitForAuditList());
+
+                                });
+                        }
+                    });
+                    /*Ext.MessageBox.confirm(
                         '审核改价商品',
                         Ext.String.format("确认通过价格修改吗？", ''),
                         function(result) {
@@ -238,7 +270,7 @@ Ext.define('XMLifeOperating.controller.WaitForAudit', {
                                 });
                            
                         }
-                    );
+                    );*/
                 }
             }
         });
