@@ -48,7 +48,8 @@ Ext.define('XMLifeOperating.view.rechargeableCardManage.onlineCard.addOnlineCard
           },
           {
             fieldLabel : '名称',
-            name : 'batchName'
+            name : 'batchName',
+            itemId : 'batchName'
           },
           {
             fieldLabel : 'id',
@@ -177,11 +178,11 @@ Ext.define('XMLifeOperating.view.rechargeableCardManage.onlineCard.addOnlineCard
             bodyPadding : '0 5',
             tpl : '<div>'+
             '<p>类型: {type} 编号: {id}</p>'+
+            '<p>即时到账: {immediatelyAmount}</p>'+
             '<tpl if="rule != null">'+
-            '<p>即时到账: {rule.immediatelyAmount}</p>'+
             '<p>返现总额 : {rule.batchAmount} 返现次数 : {rule.count} </p>'+
-            '<p>是否新手卡 : {rule.newAccount} </p>'+
             '</tpl>'+
+            '<p>是否新手卡 : {newAccount} </p>'+
             '</div>'
           }
         ]

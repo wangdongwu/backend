@@ -96,11 +96,16 @@ Ext.define('XMLifeOperating.controller.OnlineCardManage', {
             'addOnlineCard #templeteCombo' : {
               change : function(combo,newValue,oldValue){
                 var addOnlineCard = combo.up('window'),
+                    form = addOnlineCard.down('form'),
                     templeteCon = addOnlineCard.down('#templeteCon'),
                     templeteWorp = addOnlineCard.down('#templeteWorp'),
+                    batchName = addOnlineCard.down('#batchName'),
                     tstore = self.getCardTemplateStore(),
-                    data = tstore.getById(newValue).getData();
-                   
+                    model = tstore.getById(newValue),
+                    data = model.getData();
+                    batchName.setValue(model.get('name'));
+                    self.formatData(data);
+                    form.loadRecord(model)
                     templeteWorp.show();
                     templeteCon.update(data);
               }
@@ -156,6 +161,7 @@ Ext.define('XMLifeOperating.controller.OnlineCardManage', {
                     addOnlineCard = self.getAddOnlineCard(),
                     templeteCombo = addOnlineCard.down('#templeteCombo'),
                     soldPrice = addOnlineCard.down('#soldPrice'),
+                    batchName = addOnlineCard.down('#batchName'),
                     form = addOnlineCard.down('form'),
                     store = self.getOnlineCardStore(),
                     model = store.getById(id);
@@ -163,6 +169,7 @@ Ext.define('XMLifeOperating.controller.OnlineCardManage', {
                     CardDetail.hide();
                     templeteCombo.setDisabled(true);
                     soldPrice.setDisabled(true);
+
 
                     form.loadRecord(model);
                     addOnlineCard.setTitle('修改充值卡');
@@ -204,5 +211,18 @@ Ext.define('XMLifeOperating.controller.OnlineCardManage', {
         callback && callback(this);
       }});
       this.getAddOnlineCard().destroy();
+    },
+    formatData : function(data){
+      if(data.type == 0){
+        data.type = '普通卡';
+      }else if(data.type == 2){
+        data.type = '返现卡';
+      }
+      if(data.newAccount){
+        data.newAccount = '是';
+      }else{
+        data.newAccount = '否'
+      }
+      data.soldPrice = data.soldPrice/100;
     }
 });

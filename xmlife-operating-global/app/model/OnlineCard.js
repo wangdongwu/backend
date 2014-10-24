@@ -44,6 +44,8 @@ Ext.define('XMLifeOperating.model.OnlineCard', {
       },
       {
         name:'name'
+      },{
+        name:'batchName'
       },
       {
         name:'newAccount',
@@ -102,7 +104,7 @@ Ext.define('XMLifeOperating.model.OnlineCard', {
         name:'type',
         convert : function(v){
           var str = '';
-          if(v==0){
+          if(v == 0){
             str = '普通卡'
           };
           if(v == 2){
