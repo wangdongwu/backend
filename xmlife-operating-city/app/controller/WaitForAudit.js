@@ -53,6 +53,8 @@ Ext.define('XMLifeOperating.controller.WaitForAudit', {
                     grid.down('#shopArea').setValue('');
                     grid.down('[name=goodsSkuId]').setValue('');
                     self.rendenWaitForAuditList(grid);
+                    var shopStore = self.getShopStore();
+                    shopStore.removeAll(false);
                 }
             },
             'waitForAuditList #shopArea': {
@@ -69,25 +71,6 @@ Ext.define('XMLifeOperating.controller.WaitForAudit', {
                         areaId: combo.getValue()
                     };
                     shopStore.loadPage(1);
-
-                    /*shopStore.load({
-                        params: {
-                            city: XMLifeOperating.generic.Global.currentCity,
-                            areaId: combo.getValue()
-                        },
-                        callback: function(records, operation, success) {
-                            //创建行对象
-                            var rec = new (records.recordType)();
-                            //写入数据
-                            rec.set('name', 'somebody');
-                            rec.set('id', 'a');
-                            //添加数据
-                            records.add(rec);
-
-                        },
-                    });
-                    console.log(shopStore);*/
-                    //shopStore.add({"value":'',"type":'全部'});
                 }
             },
             'waitForAuditList #shopList': {
@@ -97,7 +80,8 @@ Ext.define('XMLifeOperating.controller.WaitForAudit', {
             },
             'historicalRecordsList button[name=allRefresh]':{
                 click:function(){
-
+                    var shopStore = self.getShopStore();
+                    shopStore.removeAll(false);
                     var grid = self.getHistoricalRecordsList();
                     grid.down('#shopList').setValue('');
                     grid.down('#shopArea').setValue('');
@@ -133,6 +117,8 @@ Ext.define('XMLifeOperating.controller.WaitForAudit', {
                     var tab=this.getHistoricalRecordsList();
                     var content = this.getContentPanel();
                     content.removeAll(false);
+                    var shopStore = self.getShopStore();
+                    shopStore.removeAll(false);
                     var historicalRecords = this.getHistoricalRecordsStore();
                     historicalRecords.removeAll();
                     historicalRecords.getProxy().extraParams = {
