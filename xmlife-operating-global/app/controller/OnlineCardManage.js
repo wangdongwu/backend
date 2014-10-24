@@ -75,7 +75,6 @@ Ext.define('XMLifeOperating.controller.OnlineCardManage', {
                     if(new Date(data.displayEndTime) < date){
                       data.disRed = true;
                     }
-
                     if(status == 1){
                       button.setText('下架');
                       cardDetail.url = 'cardBatch/close';

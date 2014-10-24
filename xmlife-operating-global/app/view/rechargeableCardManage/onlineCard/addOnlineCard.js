@@ -178,8 +178,8 @@ Ext.define('XMLifeOperating.view.rechargeableCardManage.onlineCard.addOnlineCard
             bodyPadding : '0 5',
             tpl : '<div>'+
             '<p>类型: {type} 编号: {id}</p>'+
-            '<p>即时到账: {immediatelyAmount}</p>'+
             '<tpl if="rule != null">'+
+            '<p>即时到账: {rule.immediatelyAmount}</p>'+
             '<p>返现总额 : {rule.batchAmount} 返现次数 : {rule.count} </p>'+
             '</tpl>'+
             '<p>是否新手卡 : {newAccount} </p>'+
