@@ -218,7 +218,7 @@ Ext.define('XMLifeOperating.controller.OnlineCardManage', {
         data.type = '返现卡';
       }
       if(data.amount){
-        data.amount = data.amount.toFixed(2);
+        data.amount = (data.amount/100).toFixed(2);
       }
       if(data.rule){
         data.rule.immediatelyAmount = (data.rule.immediatelyAmount/100).toFixed(2);
