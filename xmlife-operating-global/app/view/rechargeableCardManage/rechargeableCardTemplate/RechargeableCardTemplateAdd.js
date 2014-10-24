@@ -34,7 +34,6 @@ Ext.define('XMLifeOperating.view.rechargeableCardManage.rechargeableCardTemplate
                 name: 'simpleDesc',
                 fieldLabel: '短描述',
                 labelWidth: 90,
-                width: 300,
                 height: 61,
                 allowBlank: false,
                 maxLengthText: '充值成功描述最大长度为28',

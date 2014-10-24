@@ -33,7 +33,6 @@ Ext.define('XMLifeOperating.view.rechargeableCardManage.rechargeableCardTemplate
                 name: 'simpleDesc',
                 fieldLabel: '短描述',
                 labelWidth: 90,
-                width: 300,
                 height: 61,
             }, {
                 xtype: 'textarea',

@@ -206,7 +206,8 @@ Ext.define('XMLifeOperating.controller.RechargeableCardTemplate', {
             RechargeableCardTemplate.data.type = 0;
             form.updateRecord(RechargeableCardTemplate);
             var newAccount = false;
-            if (RechargeableCardTemplate.data.newAccount == 'on') {
+
+            if (RechargeableCardTemplate.data.newAccount == 'true' || RechargeableCardTemplate.data.newAccount == true) {
                 newAccount = true;
             } else {
                 newAccount = false;
@@ -390,7 +391,7 @@ Ext.define('XMLifeOperating.controller.RechargeableCardTemplate', {
 
 
         if (type == 0) {
-            values.amount = record.get('amount');
+            values.amount = record.get('amount')/100;
             cardDetail.down('form').getForm().setValues(values);
             cardDetail.show();
         } else if (type == 2) {
