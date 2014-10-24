@@ -217,11 +217,15 @@ Ext.define('XMLifeOperating.controller.OnlineCardManage', {
       }else if(data.type == 2){
         data.type = '返现卡';
       }
+      if(data.rule){
+        data.rule.immediatelyAmount = (data.rule.immediatelyAmount/100).toFixed(2);
+        data.rule.batchAmount = (data.rule.batchAmount/100).toFixed(2);
+      }
       if(data.newAccount){
         data.newAccount = '是';
       }else{
         data.newAccount = '否'
       }
-      data.soldPrice = data.soldPrice/100;
+      data.soldPrice = (data.soldPrice/100).toFixed(2);
     }
 });
