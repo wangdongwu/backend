@@ -5,6 +5,7 @@ Ext.define('XMLifeOperating.controller.RechargeableCardTemplate', {
         'rechargeableCardManage.rechargeableCardTemplate.RechargeableCardTemplateList',
         'rechargeableCardManage.rechargeableCardTemplate.RechargeableCardTemplateAdd',
         'rechargeableCardManage.rechargeableCardTemplate.RechargeableCardTemplateReturnCardAdd',
+        'rechargeableCardManage.rechargeableCardTemplate.RechargeableCardTemplateDetail',
         'rechargeableCardManage.rechargeableCardTemplate.RechargeableCardTemplateReturnCardDetail'
     ],
 
@@ -32,6 +33,11 @@ Ext.define('XMLifeOperating.controller.RechargeableCardTemplate', {
         ref: 'rechargeableCardTemplateReturnCardDetail',
         selector: 'rechargeableCardTemplateReturnCardDetail',
         xtype: 'rechargeableCardTemplateReturnCardDetail',
+        autoCreate: true
+    },{
+        ref: 'rechargeableCardTemplateDetail',
+        selector: 'rechargeableCardTemplateDetail',
+        xtype: 'rechargeableCardTemplateDetail',
         autoCreate: true
     }],
 
@@ -372,7 +378,7 @@ Ext.define('XMLifeOperating.controller.RechargeableCardTemplate', {
         desc = record.get('desc');
         newAccount = (record.get('newAccount') == 'true' || record.get('newAccount') == true) ? '是' : '否';
         var returnCardDetail = me.getRechargeableCardTemplateReturnCardDetail();
-
+        var   cardDetail   = me.getRechargeableCardTemplateDetail()
         var values = {
             id: record.get('id'),
             type: record.get('type'),
@@ -384,8 +390,9 @@ Ext.define('XMLifeOperating.controller.RechargeableCardTemplate', {
 
 
         if (type == 0) {
-
-
+            values.amount = record.get('amount');
+            cardDetail.down('form').getForm().setValues(values);
+            cardDetail.show();
         } else if (type == 2) {
             rule = record.get('rule');
             values.returnAmount = rule.batchAmount;
@@ -399,7 +406,7 @@ Ext.define('XMLifeOperating.controller.RechargeableCardTemplate', {
                 var amount = rule.details[i].amount / 100;
                 days.push(day);
                 amounts.push(amount);
-                str.push('第'+day+'天,到账'+amount+'元'+'\n');
+                str.push('第' + day + '天,到账' + amount + '元' + '\n');
             }
             values.ruleText = str.join('');
             returnCardDetail.down('form').getForm().setValues(values);
