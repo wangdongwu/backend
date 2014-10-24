@@ -4,7 +4,8 @@ Ext.define('XMLifeOperating.controller.RechargeableCardTemplate', {
     views: [
         'rechargeableCardManage.rechargeableCardTemplate.RechargeableCardTemplateList',
         'rechargeableCardManage.rechargeableCardTemplate.RechargeableCardTemplateAdd',
-        'rechargeableCardManage.rechargeableCardTemplate.RechargeableCardTemplateReturnCardAdd'
+        'rechargeableCardManage.rechargeableCardTemplate.RechargeableCardTemplateReturnCardAdd',
+        'rechargeableCardManage.rechargeableCardTemplate.RechargeableCardTemplateReturnCardDetail'
     ],
 
     stores: ['CardTemplate'],
@@ -27,7 +28,12 @@ Ext.define('XMLifeOperating.controller.RechargeableCardTemplate', {
         selector: 'rechargeablecardtemplatereturncardadd',
         xtype: 'rechargeablecardtemplatereturncardadd',
         autoCreate: true
-    }, ],
+    }, {
+        ref: 'rechargeableCardTemplateReturnCardDetail',
+        selector: 'rechargeableCardTemplateReturnCardDetail',
+        xtype: 'rechargeableCardTemplateReturnCardDetail',
+        autoCreate: true
+    }],
 
 
     init: function() {
@@ -75,6 +81,10 @@ Ext.define('XMLifeOperating.controller.RechargeableCardTemplate', {
                     form.loadRecord(rechargeableCardTemplate);
                     win.show();
                 }
+            },
+            'rechargeablecardtemplatelist #showDetail': {
+                click: me.showDetailWin
+
             },
             'rechargeablecardtemplatereturncardadd #save-addReturnTemplate-edit-btn': {
                 click: me.saveEditReturnWindow
@@ -189,6 +199,12 @@ Ext.define('XMLifeOperating.controller.RechargeableCardTemplate', {
             // windowEl.mask('saving');
             RechargeableCardTemplate.data.type = 0;
             form.updateRecord(RechargeableCardTemplate);
+            var newAccount = false;
+            if (RechargeableCardTemplate.data.newAccount == 'on') {
+                newAccount = true;
+            } else {
+                newAccount = false;
+            }
 
             var success = function(task, operation) {
                 windowEl.unmask();
@@ -212,7 +228,9 @@ Ext.define('XMLifeOperating.controller.RechargeableCardTemplate', {
                     type: RechargeableCardTemplate.data.type,
                     name: RechargeableCardTemplate.data.name,
                     desc: RechargeableCardTemplate.data.desc,
-                    amount: RechargeableCardTemplate.data.amount * 100
+                    amount: RechargeableCardTemplate.data.amount * 100,
+                    simpleDesc: RechargeableCardTemplate.data.simpleDesc,
+                    newAccount: newAccount
                 },
                 '添加普通充值卡模板',
                 '添加模板成功',
@@ -247,13 +265,16 @@ Ext.define('XMLifeOperating.controller.RechargeableCardTemplate', {
             var values = form.getValues();
             var name = values.name,
                 amount = values.immediatelyAmount * 100 + values.returnAmount * 100,
+                simpleDesc = values.simpleDesc,
                 desc = values.desc,
                 immediatelyAmount = values.immediatelyAmount * 100,
                 batchAmount = values.returnAmount * 100,
                 count = values.count,
                 newAccount = values.newAccount,
                 days = [],
-                amounts = [];
+                amounts = [],
+                dayCount = [],
+                dayErrorFlag = false;
             var sum = 0;
             //数据处理
             if (newAccount == 'on') {
@@ -263,8 +284,11 @@ Ext.define('XMLifeOperating.controller.RechargeableCardTemplate', {
             }
 
             for (var j = 0, length = count; j < length; j++) {
-
-                days.push(values['chargearrivemoney_' + (j + 1)] * 100);
+                dayCount.push(values['chargedayamount_' + (j + 1)]);
+                if (values['chargedayamount_' + (j + 1)] <= values['chargedayamount_' + (j)]) {
+                    dayErrorFlag = true
+                }
+                days.push(values['chargedayamount_' + (j + 1)]);
                 amounts.push(values['chargearrivemoney_' + (j + 1)] * 100);
                 sum += values['chargearrivemoney_' + (j + 1)] * 100;
             }
@@ -272,7 +296,18 @@ Ext.define('XMLifeOperating.controller.RechargeableCardTemplate', {
             if (sum != batchAmount) {
                 Ext.MessageBox.show({
                     title: '提示',
-                    msg: '分出返还价格总和与输入不一致！',
+                    msg: '分次返还加和与总额不符，请更正！',
+                    icon: Ext.Msg.ERROR,
+                    buttons: Ext.Msg.OK
+                });
+                windowEl.unmask();
+                return;
+            }
+            //天数判断
+            if (dayErrorFlag) {
+                Ext.MessageBox.show({
+                    title: '提示',
+                    msg: '分次返还日期不合规，请更正！',
                     icon: Ext.Msg.ERROR,
                     buttons: Ext.Msg.OK
                 });
@@ -291,6 +326,7 @@ Ext.define('XMLifeOperating.controller.RechargeableCardTemplate', {
                 newAccount: newAccount,
                 days: days,
                 amounts: amounts,
+                simpleDesc: simpleDesc
             }
 
             var success = function(task, operation) {
@@ -325,4 +361,52 @@ Ext.define('XMLifeOperating.controller.RechargeableCardTemplate', {
         win.down('form').loadRecord(rechargeableCardTemplate);
         win.show();
     },
+    showDetailWin: function(view, rowIndex, colIndex, column, e) {
+        var me, record, type, name, simpleDesc, desc, newAccount, id, rule;
+        me = this;
+        record = view.getRecord(view.findTargetByEvent(e));
+        id = record.get('id');
+        type = record.get('type');
+        name = record.get('name');
+        simpleDesc = record.get('simpleDesc');
+        desc = record.get('desc');
+        newAccount = (record.get('newAccount') == 'true' || record.get('newAccount') == true) ? '是' : '否';
+        var returnCardDetail = me.getRechargeableCardTemplateReturnCardDetail();
+
+        var values = {
+            id: record.get('id'),
+            type: record.get('type'),
+            name: record.get('name'),
+            simpleDesc: record.get('simpleDesc'),
+            desc: record.get('desc'),
+            newAccount: newAccount,
+        }
+
+
+        if (type == 0) {
+
+
+        } else if (type == 2) {
+            rule = record.get('rule');
+            values.returnAmount = rule.batchAmount;
+            values.immediatelyAmount = record.get('amount') - rule.batchAmount;
+            values.count = rule.count;
+            var days = [];
+            var amounts = [];
+            var str = [];
+            for (var i = 0, len = rule.details.length; i < len; i++) {
+                var day = rule.details[i].days;
+                var amount = rule.details[i].amount / 100;
+                days.push(day);
+                amounts.push(amount);
+                str.push('第'+day+'天,到账'+amount+'元'+'\n');
+            }
+            values.ruleText = str.join('');
+            returnCardDetail.down('form').getForm().setValues(values);
+            returnCardDetail.show();
+        }
+
+
+
+    }
 });

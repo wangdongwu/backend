@@ -31,13 +31,21 @@ Ext.define('XMLifeOperating.view.rechargeableCardManage.rechargeableCardTemplate
                 allowBlank: false
             }, {
                 xtype: 'textfield',
+                name: 'simpleDesc',
+                fieldLabel: '短描述',
+                labelWidth: 90,
+                width: 300,
+                height: 61,
+                allowBlank: false,
+                maxLengthText: '充值成功描述最大长度为28',
+            }, {
+                xtype: 'textfield',
                 name: 'desc',
                 fieldLabel: '描述',
                 labelWidth: 90,
                 width: 300,
                 height: 61,
                 allowBlank: false,
-                maxLength: 28,
                 maxLengthText: '充值成功描述最大长度为28',
             }, {
                 xtype: 'container',
@@ -107,7 +115,7 @@ Ext.define('XMLifeOperating.view.rechargeableCardManage.rechargeableCardTemplate
                 fieldLabel: '是否新手卡',
                 //labelWidth: 90,
                 allowBlank: false,
-            }, ],
+            }],
             buttons: [{
                 text: 'Save',
                 itemId: 'save-addReturnTemplate-edit-btn'

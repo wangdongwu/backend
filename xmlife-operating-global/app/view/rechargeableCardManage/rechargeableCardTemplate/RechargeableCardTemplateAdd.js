@@ -23,49 +23,54 @@ Ext.define('XMLifeOperating.view.rechargeableCardManage.rechargeableCardTemplate
             layout: 'anchor',
             bodyPadding: 10,
             border: false,
-            items: [
-                {
-                    xtype: 'textfield',
-                    name: 'name',
-                    fieldLabel: '名称',
-                    labelWidth: 90,
-                    allowBlank:false,
-                },
-                {
-                    xtype: 'textareafield',
-                    name: 'desc',
-                    fieldLabel: '充值成功描述',
-                    labelWidth: 90,
-                    allowBlank:false,
-                    maxLength: 28,
-                    maxLengthText:'充值成功描述最大长度为28',
-                },
-                {
-                    xtype: 'textfield',
-                    name: 'amount',
-                    fieldLabel: '面额/元',
-                    labelWidth: 90,
-                    allowBlank:false,  
+            items: [{
+                xtype: 'textfield',
+                name: 'name',
+                fieldLabel: '名称',
+                labelWidth: 90,
+                allowBlank: false,
+            },{
+                xtype: 'textfield',
+                name: 'simpleDesc',
+                fieldLabel: '短描述',
+                labelWidth: 90,
+                width: 300,
+                height: 61,
+                allowBlank: false,
+                maxLengthText: '充值成功描述最大长度为28',
+            }, {
+                xtype: 'textareafield',
+                name: 'desc',
+                fieldLabel: '描述',
+                labelWidth: 90,
+                allowBlank: false,
+                maxLengthText: '充值成功描述最大长度为28'
+            }, {
+                xtype: 'textfield',
+                name: 'amount',
+                fieldLabel: '面额/元',
+                labelWidth: 90,
+                allowBlank: false
+            }, {
+                xtype: 'checkbox',
+                name: 'newAccount',
+                fieldLabel: '是否新手卡',
+                allowBlank: false
+            }],
+            buttons: [{
+                text: 'Save',
+                itemId: 'save-addCardTemplate-edit-btn'
+            }, {
+                text: 'Cancel',
+                handler: function() {
+                    //关闭窗口
+                    Ext.ComponentQuery.query('rechargeablecardtemplateadd')[0].close();
                 }
-                
-            ],
-            buttons: [
-                {
-                    text: 'Save',
-                    itemId: 'save-addCardTemplate-edit-btn'
-                },
-                {
-                    text: 'Cancel',
-                    handler:function(){
-                        //关闭窗口
-                        Ext.ComponentQuery.query('rechargeablecardtemplateadd')[0].close();
-                    }
-                }
-            ]
+            }]
         }]
 
         this.callParent(arguments);
 
     }
 
-});      
+});
