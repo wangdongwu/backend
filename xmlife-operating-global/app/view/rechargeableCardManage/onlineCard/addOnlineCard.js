@@ -22,7 +22,7 @@ Ext.define('XMLifeOperating.view.rechargeableCardManage.onlineCard.addOnlineCard
     items : [{
       xtype : 'form',
       edit : false,
-      url : XMLifeOperating.generic.Global.URL.biz+'cardBatch/create',
+      url : XMLifeOperating.generic.Global.URL.biz+'cardBatch/create?bizType=1',
       editUrl : XMLifeOperating.generic.Global.URL.biz+'cardBatch/update',
       defaults : {
         bodyPadding : 5
