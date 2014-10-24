@@ -27,7 +27,7 @@ Ext.define('XMLifeOperating.controller.OnlineCardManage', {
     ],
     init: function() {
       var self = this;
-
+        self.status = 1;
         self.control({
             'OnlineCardManage' : {
               activate : function(){
@@ -39,6 +39,7 @@ Ext.define('XMLifeOperating.controller.OnlineCardManage', {
               click : function(){
                 /*加载在架的*/
                 var store = self.getOnlineCardStore();
+                self.status = 1;
                 store.getProxy().extraParams={
                   status : 1
                 };
@@ -49,6 +50,7 @@ Ext.define('XMLifeOperating.controller.OnlineCardManage', {
               click : function(){
                 /*加载下架的*/
                  var store = self.getOnlineCardStore();
+                 self.status = 0;
                  store.getProxy().extraParams={
                   status : 0
                 };
@@ -189,8 +191,9 @@ Ext.define('XMLifeOperating.controller.OnlineCardManage', {
         });
     },
     loadCartData : function(){
+      var status = this.status;
       Ext.Msg.alert('成功','更新成功');
-      this.getOnlineCardStore().load({params:{status:1}});
+      this.getOnlineCardStore().load({params:{status:status}});
       this.getAddOnlineCard().destroy();
     }
 });
