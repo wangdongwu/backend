@@ -22,6 +22,14 @@ Ext.define('XMLifeOperating.view.waitForAudit.HistoricalRecordsList', {
             itemId: 'returnWaitForAuditList'
         },
         {
+            xtype : 'button',
+            name :'allRefresh',
+            text : '全部',
+            style:{
+                border:'1px solid #99bce8'
+            }
+        },
+        {
             xtype:'combobox',
             name:'shopArea',
             itemId:'shopArea',

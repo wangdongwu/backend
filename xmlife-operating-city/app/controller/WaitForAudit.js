@@ -45,23 +45,65 @@ Ext.define('XMLifeOperating.controller.WaitForAudit', {
                     sm.on('selectionchange',self.selectChange,self)
                 }
             },
+            'waitForAuditList button[name=allRefresh]':{
+                click:function(){
+
+                    var grid = self.getWaitForAuditList();
+                    grid.down('#shopList').setValue('');
+                    grid.down('#shopArea').setValue('');
+                    grid.down('[name=goodsSkuId]').setValue('');
+                    self.rendenWaitForAuditList(grid);
+                }
+            },
             'waitForAuditList #shopArea': {
+                 
                 select: function(combo) {
                     var grid = self.getWaitForAuditList();
                     grid.down('#shopList').setValue('');
                     self.rendenWaitForAuditList(grid);
 
                     var shopStore = self.getShopStore();
+                    
                     shopStore.getProxy().extraParams = {
                         city: XMLifeOperating.generic.Global.currentCity,
                         areaId: combo.getValue()
                     };
                     shopStore.loadPage(1);
+
+                    /*shopStore.load({
+                        params: {
+                            city: XMLifeOperating.generic.Global.currentCity,
+                            areaId: combo.getValue()
+                        },
+                        callback: function(records, operation, success) {
+                            //创建行对象
+                            var rec = new (records.recordType)();
+                            //写入数据
+                            rec.set('name', 'somebody');
+                            rec.set('id', 'a');
+                            //添加数据
+                            records.add(rec);
+
+                        },
+                    });
+                    console.log(shopStore);*/
+                    //shopStore.add({"value":'',"type":'全部'});
                 }
             },
             'waitForAuditList #shopList': {
                 select: function(combo) {
                     self.rendenWaitForAuditList(self.getWaitForAuditList());
+                }
+            },
+            'historicalRecordsList button[name=allRefresh]':{
+                click:function(){
+
+                    var grid = self.getHistoricalRecordsList();
+                    grid.down('#shopList').setValue('');
+                    grid.down('#shopArea').setValue('');
+                    grid.down('#isverifyCombo').setValue('');
+                    grid.down('[name=goodsSkuId]').setValue('');
+                    self.rendenHistoricalRecordsList(grid);
                 }
             },
             'historicalRecordsList #shopArea': {
