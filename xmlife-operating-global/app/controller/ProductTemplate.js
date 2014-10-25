@@ -216,7 +216,7 @@ Ext.define('XMLifeOperating.controller.ProductTemplate', {
                         keyword: keyword
                     }
                     store.loadPage(1);
-                    Ext.getCmp('productTemplateList').down('#keyword').setValue(keyword);
+                    /*Ext.getCmp('productTemplateList').down('#keyword').setValue(keyword);*/
 
                 });
                 return;
