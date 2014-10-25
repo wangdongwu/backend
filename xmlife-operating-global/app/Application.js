@@ -73,9 +73,11 @@ Ext.define('XMLifeOperating.Application', {
             };  
         }
         
+      var splashscreen = Ext.getBody().mask('<div style="text-align:center;width:300px;">正在加载小美后台应用...<br/>请稍等</div>', 'splashscreen');
 
         var task = new Ext.util.DelayedTask(function() {
             // Fade out the body mask
+            
             splashscreen.fadeOut({
                 duration: 1000,
                 remove:true
