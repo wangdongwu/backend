@@ -28,7 +28,7 @@
     
 .x-splash-icon {
         /* Important required due to the loading symbols CSS selector */
-        background-image: url('../images/logo.png') !important;
+        /*background-image: url('../images/logo.png') !important;*/
         width: 235px;
         height: 154px;
 }
