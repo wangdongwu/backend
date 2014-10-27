@@ -126,7 +126,7 @@ Ext.define('XMLifeOperating.controller.ProductTemplate', {
       var sessionId = localStorage.getItem('sessionId') || '';
       if(form.isValid()){
         if(form.url.indexOf('sessionId') < 0){
-          form.url = form.url+'/?sessionId='+sessionId;
+          form.url = form.url+'?sessionId='+sessionId;
         }
         form.submit({
           params: {'sessionId':sessionId},
