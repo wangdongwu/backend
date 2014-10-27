@@ -84,31 +84,28 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopProductAdd', {
                         dataIndex: 'name'
                     }]
                 }, {
-                    xtype: 'textfield',
+                    xtype: 'numberfield',
                     name: 'purchasePrice',
                     fieldLabel: '进价',
                     labelWidth: 90,
-                    allowBlank: false,
-                    // regex: /^([0-9]{2}\.[0-9]{2})$/,
-                    // regexText: '请输入如下格式111.1,11.11,1.11,只允许除了点的4位数字',
+                    step:0.1,
+                    allowBlank: false
                 }, {
-                    xtype: 'textfield',
+                    xtype: 'numberfield',
                     name: 'facePrice',
                     fieldLabel: '原价',
                     labelWidth: 90,
-                    allowBlank: false,
-                    /*regex: /^[1-9][0-9]{2}\.[0-9]|[0-9]{1-2}\.[0-9]{1-2}|[0-9]{4}$/,
-                    regexText: '请输入如下格式111.1,11.11,1.11,只允许除了点的4位数字',*/
+                    step:0.1,
+                    allowBlank: false
                 },
 
                 {
-                    xtype: 'textfield',
+                    xtype: 'numberfield',
                     name: 'discountPrice',
                     fieldLabel: '折扣价',
                     allowBlank: true,
-                    labelWidth: 90,
-                    /*regex: /^[1-9][0-9]{2}\.[0-9]|[0-9]{1-2}\.[0-9]{1-2}|[0-9]{4}$/,
-                    regexText: '请输入如下格式111.1,11.11,1.11,只允许除了点的4位数字',*/
+                    step:0.1,
+                    labelWidth: 90
                 }, {
                     xtype: 'fieldset',
                     border: false,

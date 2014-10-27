@@ -44,25 +44,28 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopProductSearchEdit',
                     padding: 0,
                     readOnly: true
                 }, {
-                    xtype: 'textfield',
+                    xtype: 'numberfield',
                     name: 'purchasePrice',
                     fieldLabel: '进价',
                     labelWidth: 90,
+                    step:0.1,
                     allowBlank: false,
                 }, {
-                    xtype: 'textfield',
+                    xtype: 'numberfield',
                     name: 'facePrice',
                     fieldLabel: '原价',
                     labelWidth: 90,
+                    step:0.1,
                     allowBlank: false,
                 },
 
                 {
-                    xtype: 'textfield',
+                    xtype: 'numberfield',
                     name: 'discountPrice',
                     fieldLabel: '折扣价',
                     allowBlank: true,
-                    labelWidth: 90,
+                    step:0.1,
+                    labelWidth: 90
                 }, {
                     xtype: 'fieldset',
                     border: false,
