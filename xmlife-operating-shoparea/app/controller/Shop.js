@@ -350,7 +350,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
             'shoplist #seeChangePriceRecord': {
                 click: function(view, column, rowIndex, colIndex, e) {
                     var me = this;
-                    var tab=this.getChangePriceRecordList();
+                    var tab = this.getChangePriceRecordList();
                     var content = this.getContentPanel();
                     content.removeAll(false);
                     var record = view.getRecord(view.findTargetByEvent(e));
@@ -372,10 +372,10 @@ Ext.define('XMLifeOperating.controller.Shop', {
                 }
             },
             /*
-            *changePriceRecordList 改价审核事件
-            */
-            'changePriceRecordList #isverifyCombo':{
-                change:function(){
+             *changePriceRecordList 改价审核事件
+             */
+            'changePriceRecordList #isverifyCombo': {
+                change: function() {
                     me.changePriceRecordList(this.getChangePriceRecordList());
                 }
             },
@@ -1162,10 +1162,10 @@ Ext.define('XMLifeOperating.controller.Shop', {
                         if (limitCount == 0 || limitCount == null || limitCount == '') {
                             limitType = 0;
                         }
-                        var facePrice = Math.abs(parseInt(shelvesGoods.get('facePrice') * 100));
+                        var facePrice = Math.abs(parseFloat(shelvesGoods.get('facePrice')) * 100).toFixed();
                         var discountPrice = shelvesGoods.get('discountPrice');
                         if (discountPrice != "") {
-                            discountPrice = Math.abs(parseInt(shelvesGoods.get('discountPrice') * 100));
+                            discountPrice = Math.abs(parseFloat(shelvesGoods.get('discountPrice')) * 100).toFixed();
                             if (discountPrice >= facePrice) {
                                 Ext.Msg.alert('Invalid Data', '折扣价不能大于等于原价');
                                 return;
@@ -1173,8 +1173,8 @@ Ext.define('XMLifeOperating.controller.Shop', {
                         }
                         shelvesGoods.set('shopId', shopId);
                         shelvesGoods.set('categoryId', categoryId);
-                        shelvesGoods.set('facePrice', (Math.abs(parseInt(shelvesGoods.get('facePrice') * 100))));
-                        shelvesGoods.set('purchasePrice', (Math.abs(parseInt(shelvesGoods.get('purchasePrice') * 100))));
+                        shelvesGoods.set('facePrice', Math.abs(parseFloat(shelvesGoods.get('facePrice')) * 100).toFixed());
+                        shelvesGoods.set('purchasePrice', Math.abs(parseFloat(shelvesGoods.get('purchasePrice')) * 100).toFixed());
                         shelvesGoods.set('discountPrice', discountPrice);
                         shelvesGoods.set('limitType', limitType);
                         shelvesGoods.set('limitCount', limitCount);
@@ -1183,8 +1183,8 @@ Ext.define('XMLifeOperating.controller.Shop', {
                         windowEl.mask('saving');
 
                         var id = shelvesGoods.get('id');
-                        var facePrice = Math.abs(parseInt(shelvesGoods.get('facePrice')));
-                        var purchasePrice = Math.abs(parseInt(shelvesGoods.get('purchasePrice')));
+                        var facePrice = Math.abs(parseFloat(shelvesGoods.get('facePrice')));
+                        var purchasePrice = Math.abs(parseFloat(shelvesGoods.get('purchasePrice')));
                         // var discountPrice = Math.abs(parseInt(shelvesGoods.get('discountPrice')));
                         sendPutRequest('product/update', {
                             id: id,
@@ -1470,10 +1470,10 @@ Ext.define('XMLifeOperating.controller.Shop', {
                         if (limitCount == 0 || limitCount == null || limitCount == '') {
                             limitType = 0;
                         }
-                        var facePrice = Math.abs(parseInt(shelvesGoods.get('facePrice') * 100));
+                        var facePrice = Math.abs(parseFloat(shelvesGoods.get('facePrice')) * 100).toFixed();
                         var discountPrice = shelvesGoods.get('discountPrice');
                         if (discountPrice != "") {
-                            discountPrice = Math.abs(parseInt(shelvesGoods.get('discountPrice') * 100));
+                            discountPrice = Math.abs(parseFloat(shelvesGoods.get('discountPrice')) * 100).toFixed();
                             if (discountPrice >= facePrice) {
                                 Ext.Msg.alert('Invalid Data', '折扣价不能大于等于原价');
                                 return;
@@ -1482,8 +1482,8 @@ Ext.define('XMLifeOperating.controller.Shop', {
                         //添加参数
                         shelvesGoods.set('shopId', shopId);
                         shelvesGoods.set('categoryId', categoryId);
-                        shelvesGoods.set('facePrice', (Math.abs(parseInt(shelvesGoods.get('facePrice') * 100))));
-                        shelvesGoods.set('purchasePrice', (Math.abs(parseInt(shelvesGoods.get('purchasePrice') * 100))));
+                        shelvesGoods.set('facePrice', Math.abs(parseFloat(shelvesGoods.get('facePrice')) * 100).toFixed());
+                        shelvesGoods.set('purchasePrice', Math.abs(parseFloat(shelvesGoods.get('purchasePrice')) * 100).toFixed());
                         shelvesGoods.set('discountPrice', discountPrice);
                         shelvesGoods.set('limitType', limitType);
                         shelvesGoods.set('limitCount', limitCount);
@@ -1571,12 +1571,11 @@ Ext.define('XMLifeOperating.controller.Shop', {
                         if (form.getValues()['changeBelongShelf'] && form.getValues()['changeBelongShelf'] == 'on') {
                             data.newCategory = form.getValues()['belngShelf'];
                         }
-
                         //价格限制参数
-                        var facePrice = Math.abs(parseInt(shelvesGoods.get('facePrice') * 100));
+                        var facePrice = Math.abs(parseFloat(shelvesGoods.get('facePrice'))* 100).toFixed();
                         var discountPrice = shelvesGoods.get('discountPrice');
                         if (discountPrice != "") {
-                            data.discountPrice = Math.abs(parseInt(shelvesGoods.get('discountPrice') * 100));
+                            data.discountPrice = Math.abs(parseFloat(shelvesGoods.get('discountPrice'))* 100).toFixed();
                             if (discountPrice >= facePrice) {
                                 Ext.Msg.alert('Invalid Data', '折扣价不能大于等于原价');
                                 return;
@@ -1585,8 +1584,8 @@ Ext.define('XMLifeOperating.controller.Shop', {
                         //
                         shelvesGoods.set('shopId', shopId);
                         shelvesGoods.set('categoryId', categoryId);
-                        shelvesGoods.set('facePrice', (Math.abs(parseInt(shelvesGoods.get('facePrice') * 100))));
-                        shelvesGoods.set('purchasePrice', (Math.abs(parseInt(shelvesGoods.get('purchasePrice') * 100))));
+                        shelvesGoods.set('facePrice', Math.abs(parseFloat(shelvesGoods.get('facePrice'))* 100).toFixed());
+                        shelvesGoods.set('purchasePrice', Math.abs(parseFloat(shelvesGoods.get('purchasePrice')* 100)).toFixed());
                         shelvesGoods.set('discountPrice', discountPrice);
                         shelvesGoods.set('limitType', limitType);
                         shelvesGoods.set('limitCount', limitCount);
@@ -1594,8 +1593,8 @@ Ext.define('XMLifeOperating.controller.Shop', {
                         windowEl.mask('saving');
 
                         data.id = shelvesGoods.get('id');
-                        data.facePrice = Math.abs(parseInt(shelvesGoods.get('facePrice')));
-                        data.purchasePrice = Math.abs(parseInt(shelvesGoods.get('purchasePrice')));
+                        data.facePrice = Math.abs(parseFloat(shelvesGoods.get('facePrice')));
+                        data.purchasePrice = Math.abs(parseFloat(shelvesGoods.get('purchasePrice')));
 
                         sendPutRequest('product/update', data, '编辑商品', '成功编辑商品', '编辑商品失败', function(response) {
                             windowEl.unmask();
@@ -1916,38 +1915,38 @@ Ext.define('XMLifeOperating.controller.Shop', {
             shelfTab.remove(deleteIds[j]);
         }
     },
-    changePriceRecordList:function(grid){
+    changePriceRecordList: function(grid) {
         var status = grid.down('#isverifyCombo').getValue();
         var shopId = this.shopId;
         store = grid.store;
-        store.getProxy().extraParams={
-            shopId : shopId,
-            status : status || ''
-        }; 
-        store.loadPage(1,{
+        store.getProxy().extraParams = {
+            shopId: shopId,
+            status: status || ''
+        };
+        store.loadPage(1, {
             params: {
-                        start: 0,
-                        limit: 25,
-                        page: 1
-                    }
+                start: 0,
+                limit: 25,
+                page: 1
+            }
         });
     },
-    skuIdSearch:function(){
+    skuIdSearch: function() {
         var changePriceRecordList = this.getChangePriceRecordList(),
             goodsSkuIdObj = changePriceRecordList.down('[name=goodsSkuId]');
-        var shopId = this.shopId; 
+        var shopId = this.shopId;
         goodsSkuId = goodsSkuIdObj.getValue();
         store = changePriceRecordList.store;
-        store.getProxy().extraParams={
-            shopId : shopId,
-            skuId : goodsSkuId || ''
-        }; 
-        store.loadPage(1,{
+        store.getProxy().extraParams = {
+            shopId: shopId,
+            skuId: goodsSkuId || ''
+        };
+        store.loadPage(1, {
             params: {
-                        start: 0,
-                        limit: 25,
-                        page: 1
-                    }
+                start: 0,
+                limit: 25,
+                page: 1
+            }
         });
 
 
