@@ -23,7 +23,7 @@ Ext.define('XMLifeOperating.controller.BatchAddEstate', {
             var form = gird.up('form').getForm();
             if(form.isValid()){
               form.submit({
-                url : XMLifeOperating.generic.Global.URL.biz+'residentalDistrict/genDistrict/?sessionId='+sessionId,
+                url : XMLifeOperating.generic.Global.URL.biz+'residentalDistrict/genDistrict?sessionId='+sessionId,
                 params: {'sessionId':sessionId}, 
                 waitMsg : '正在上传您的文件......',
                 success : function(form, action){

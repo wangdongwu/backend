@@ -153,7 +153,7 @@ var uploadImage = function(form, textfield) {
     var sessionId = localStorage.getItem('sessionId') || '';
         
     form.submit({
-        url : XMLifeOperating.generic.Global.URL.upload+'/?sessionId='+sessionId,
+        url : XMLifeOperating.generic.Global.URL.upload+'?sessionId='+sessionId,
         params: {'sessionId':sessionId},
         success: function(form, action) {
             console.log('success');
