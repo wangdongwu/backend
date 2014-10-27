@@ -1,6 +1,3 @@
-/**
- * Created by wangdongwu on 14-9-17.
- */
 Ext.define('XMLifeOperating.view.BatchUpdatePrice', {
     extend: 'Ext.grid.Panel',
     closable : false,
@@ -14,11 +11,13 @@ Ext.define('XMLifeOperating.view.BatchUpdatePrice', {
     tbar: [
             {
               xtype : 'form',
-              width : 1000,
-              layout : 'column',
-              bodyStyle: 'background: transparent;border:0',
-              items : [
-              {
+              layout: 'column',
+              width: '100%',
+              bodyStyle: 'padding:8px;background:transparent;border:0;',
+              defaults: {
+                margin: '5 2'
+              },
+              items: [{
                 columnWidth: 0,
                 xtype: 'combobox',
                 name: 'shopArea',
@@ -30,14 +29,14 @@ Ext.define('XMLifeOperating.view.BatchUpdatePrice', {
                 displayField: 'name',
                 valueField: 'id',
                 hidden: true
-                },
-               {
+                }, {
                 columnWidth: 0.2,
                 xtype : 'combobox',
                 alias : 'ShopSelect',
                 name : 'shopId',
                 fieldLabel : '选择店铺',
-                labelWidth : 60,
+                labelWidth : 62,
+                labelAlign: 'right',
                 store : 'Shop',
                 itemId : 'ShopSelect',
                 displayField: 'name',
@@ -50,32 +49,49 @@ Ext.define('XMLifeOperating.view.BatchUpdatePrice', {
                 xtype : 'filefield',
                 name : 'file',
                 fieldLabel : '价格Excel文件',
-                labelWidth: 120,
-                buttonText : '选择Excel文件'
+                emptyText: '请选择Excel文件...',
+                labelWidth: 100,
+                labelAlign: 'right',
+                buttonText : '选择文件'
             },{
-              xtype : 'button',
-              text : '上传',
-              name : 'uploadPrice'
+              xtype: 'button',
+              text: '上传',
+              name: 'uploadPrice'
             },{
                 columnWidth: 0.4,
-                xtype : 'filefield',
-                name : 'statusfile',
+                xtype: 'filefield',
+                name: 'statusfile',
                 fieldLabel : '状态Excel文件',
-                labelWidth: 120,
-                buttonText : '选择状态Excel文件'
+                emptyText: '请选择Excel文件...',
+                labelWidth: 100,
+                labelAlign: 'right',
+                buttonText: '选择文件'
             },
             {
-              xtype : 'button',
-              text : '上传',
-              name : 'uploadStatus'
+              xtype: 'button',
+              text: '上传',
+              name: 'uploadStatus'
+            },{
+                columnWidth: 0.4,
+                xtype: 'filefield',
+                name: 'stockfile',
+                fieldLabel: '库存Excel文件',
+                emptyText: '请选择Excel文件...',
+                labelWidth: 90,
+                labelAlign: 'right',
+                buttonText: '选择文件'
+            },
+            {
+              xtype: 'button',
+              text: '上传',
+              name: 'uploadStock'
             }]
-            }
-    ],
-    columns : [
-        {
-            text: '价格'
         }
-    ],listeners: {
+    ],
+
+    columns: [],
+
+    listeners: {
         onShowView: function(view, viewName) {
             if (XMLifeOperating.generic.Global.operating_type != 'center') {
                 return;
@@ -89,4 +105,5 @@ Ext.define('XMLifeOperating.view.BatchUpdatePrice', {
             combo.fireEvent('select', combo);
         }
     }
-  })
+
+});
