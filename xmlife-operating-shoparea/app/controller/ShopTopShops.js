@@ -70,7 +70,7 @@ Ext.define('XMLifeOperating.controller.ShopTopShops', {
             {
                 select: function(combo) {
 
-                    console.log('hello shop dsitrict');
+
                     var lstore = this.getShopTopShopsStore();
                     lstore.load({
                         params: {
@@ -87,7 +87,7 @@ Ext.define('XMLifeOperating.controller.ShopTopShops', {
                     var win = this.getShopTopShopsEdit();
                     win.down('form').loadRecord(shopTopShops);
                     win.show();
-                    console.log(this.areaId);
+
                     var store = this.getShopTopShopsAddStore();
                     store.load({
                         params: {
@@ -121,7 +121,7 @@ Ext.define('XMLifeOperating.controller.ShopTopShops', {
                         form.updateRecord(shopTopShopsStore);
                         var areaId = me.areaId;
                         var type = shopTopShopsStore.get('type');
-                        console.log(shopTopShopsStore);
+
                         var shopId = selectRecords[0].get('id');
                         var params = {
                             areaId:areaId,
@@ -200,7 +200,7 @@ Ext.define('XMLifeOperating.controller.ShopTopShops', {
             },
             'shopShopGroupList #add': {
                 click: function() {
-                    console.log(me.areaId);
+
                     var len = this.getShopShopGroupStore().getCount();
 
                     if (len >= 6) {
@@ -243,7 +243,7 @@ Ext.define('XMLifeOperating.controller.ShopTopShops', {
                     
                     var s=shopId;
                     shopId=s.substring(0,s.length-1);
-                    console.log(shopId);
+
                     var url = 'shop/shopgroup/store';
                     sendRequest(url, {
                         areaId: me.areaId,
@@ -327,16 +327,15 @@ Ext.define('XMLifeOperating.controller.ShopTopShops', {
         });*/
     },
     onEdit: function(view, rowIndex, colIndex, column, e) {
-        console.log("start edit");
+
         var centralPoint = view.getRecord(view.findTargetByEvent(e));
         var win = this.getEditWindow();
         win.down('form').loadRecord(centralPoint);
         win.show();
     },
     onCentralPointBannerEdit: function(view, rowIndex, colIndex, column, e) {
-        console.log("start edit");
+
         var centralPointBanner = view.getRecord(view.findTargetByEvent(e));
-        console.log(centralPointBanner);
         var win = this.getCentralPointConfigureBannerEdit();
         centralPointBanner.set('oldUrl', centralPointBanner.get('url'));
         win.down('form').loadRecord(centralPointBanner);
@@ -395,7 +394,7 @@ Ext.define('XMLifeOperating.controller.ShopTopShops', {
             var orderStrArr = store.getAt(i).get('id').split('-');
             orderedIds[i] = orderStrArr[1];
         }
-        console.log(this.centralPointId);
+
         var centralPointId = this.centralPointId;
         var params = {
             orders: orderedIds
@@ -416,7 +415,7 @@ Ext.define('XMLifeOperating.controller.ShopTopShops', {
             form = editWindow.down('form').getForm(),
             centralPointBanner = form.getRecord(),
             me = this;
-        //console.log(centralPointBanner.get());
+
         var areaId = this.centralPointId;
         centralPointBanner.set('area', areaId);
         if (form.isValid()) {
@@ -486,9 +485,9 @@ Ext.define('XMLifeOperating.controller.ShopTopShops', {
                     var order = banner.get('order');
                     
                     var url='shopArea/banner/'+order;
-                    console.log(url);
+
                     sendDeleteRequest(url, {areaId:areaId}, '删除线路', '成功删除线路', '删除线路失败', function(response) {
-                            console.log(response);
+
                             if(response.responseText=='-2'){
                                 Ext.Msg.alert('Invalid Data', '不能删除');
                                 return;
@@ -518,7 +517,7 @@ Ext.define('XMLifeOperating.controller.ShopTopShops', {
 
                     var url = 'shop/topshops/'+id;
                     sendDeleteRequest(url, {areaId:areaId}, '删除展示店铺', '成功删除展示店铺', '删除展示店铺失败', function(response) {
-                            console.log(response);
+
                             if(response.responseText=='-2'){
                                 Ext.Msg.alert('Invalid Data', '不能删除');
                                 return;
@@ -547,7 +546,7 @@ Ext.define('XMLifeOperating.controller.ShopTopShops', {
                     var id = shopShopGroup.get('shopGroupId');
                     var url = 'shop/shopgroup/'+id;
                     sendDeleteRequest(url, {areaId:areaId}, '删除展示店铺', '成功删除展示店铺', '删除展示店铺失败', function(response) {
-                            console.log(response);
+
                             if(response.responseText=='-2'){
                                 Ext.Msg.alert('Invalid Data', '不能删除');
                                 return;
@@ -576,7 +575,7 @@ Ext.define('XMLifeOperating.controller.ShopTopShops', {
                     var shopId = shopShopGroup.get('id');
                     var url = 'shop/shopgroup/delete';
                     sendRequest(url, {areaId:areaId,shopId:shopId}, '删除展示店铺', '成功删除展示店铺', '删除展示店铺失败', function(response) {
-                            console.log(response);
+
                             if(response.responseText=='-2'){
                                 Ext.Msg.alert('Invalid Data', '不能删除');
                                 return;

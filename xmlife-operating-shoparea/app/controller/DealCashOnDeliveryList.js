@@ -140,7 +140,7 @@ Ext.define('XMLifeOperating.controller.DealCashOnDeliveryList', {
             },
             'dealCashOnDeliveryList #cashUnderCourierId': {
                 select: function(combo) {
-                    console.log('hello cashUnderCourier');
+                
                     Ext.getCmp('dealCashOnDeliveryList').down('#cashOnDeliveryPaidId').setValue('');
                     Ext.getCmp('dealCashOnDeliveryList').down('#cashOnDeliverySignId').setValue('');
                     var store = this.getDealCashOnDeliveryStore();
@@ -155,7 +155,7 @@ Ext.define('XMLifeOperating.controller.DealCashOnDeliveryList', {
                             page: 1
                         }
                     });
-                    console.log(Ext.getCmp('dealCashOnDeliveryList'));
+                   
                 },
             },
             'dealCashOnDeliveryList #cashOnDeliverySignId': {
@@ -187,7 +187,7 @@ Ext.define('XMLifeOperating.controller.DealCashOnDeliveryList', {
             },
             'dealCashOnDeliveryList #cashOnDeliveryPaidId': {
                 select: function(combo) {
-                    console.log(combo.getValue());
+               
                     Ext.getCmp('dealCashOnDeliveryList').down('#cashOnDeliverySignId').setValue('');
                     Ext.getCmp('dealCashOnDeliveryList').down('#cashUnderCourierId').setValue('');
                     var store = this.getDealCashOnDeliveryStore();

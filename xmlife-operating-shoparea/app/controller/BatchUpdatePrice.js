@@ -70,11 +70,11 @@ Ext.define('XMLifeOperating.controller.BatchUpdatePrice', {
                 success : function(form, action){
 
                   var data = action.response.responseText;
-                  console.log(data);
+                 
                 },
                 failure : function(form, action){
                   var data = action.response.responseText;
-                  console.log(data);
+               
                 }
               });
             }

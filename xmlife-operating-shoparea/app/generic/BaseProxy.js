@@ -5,6 +5,7 @@ Ext.define('XMLifeOperating.generic.BaseProxy', {
 
     constructor: function(resourceURL, root) {
         //Ext.Ajax.useDefaultXhrHeader = false;
+        var me = this;
         if (!resourceURL || resourceURL.length < 1) {
             alert("bad resourceURL");
         }
@@ -26,6 +27,7 @@ Ext.define('XMLifeOperating.generic.BaseProxy', {
                 totalProperty: 'total'
             }
         }
+        //添加版本号
         this.callParent(arguments);
     },
 

@@ -169,7 +169,7 @@ Ext.define('XMLifeOperating.controller.DealWaitAssignShopperList', {
                 deal: dealDetail.get('dealBackendId'),
             },
             callback: function(records) {
-                console.log(records);
+
                 var model = Ext.ComponentQuery.query('#dealDetails')[0].getSelectionModel();
                 model.deselectAll();
                 for (var i = 0; i < records.length; i++) {
@@ -183,11 +183,11 @@ Ext.define('XMLifeOperating.controller.DealWaitAssignShopperList', {
     onCustomerDetail: function(view, rowIndex, colIndex, column, e) {
         var dealDetail = view.getRecord(view.findTargetByEvent(e));
         var store = this.getCustomerStore();
-        console.log(dealDetail.get('customId'));
+
         var win = this.getDealCustomerDetail();
         store.on('load', function(store, records, successful, eOpts) {
             store.data.items[0].data['dtoAddress'] = dealDetail.getData()['dtoAddress'];
-            console.log(store.data.items[0]);
+
             win.down('form').loadRecord(store.data.items[0]);
             win.show();
         });

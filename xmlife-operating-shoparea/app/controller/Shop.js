@@ -623,7 +623,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
                         case 'tab1': //form
                             break;
                         case 'tab2': //collection一级货架
-                            console.log('tab2 shopId:' + shopId);
+
                             me.showCategoryRootsList(this.shopId);
                             break;
                         case 'tab3': //次级货架
@@ -1075,7 +1075,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
                     var statusValue = Ext.query("." + className)[rowIndex].getAttribute("statusValue");
                     var url = 'product/' + statusValue;
                     var status;
-                    console.log(statusValue)
+
                     //statusValue为点击事件后商品的状态
                     switch (statusValue) {
                         case 'soldout': //让商品下架（目前处于上架状态）
@@ -1179,7 +1179,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
                         shelvesGoods.set('limitType', limitType);
                         shelvesGoods.set('limitCount', limitCount);
                         shelvesGoods.set('productLimitCount', productLimitCount);
-                        console.log("try saving");
+
                         windowEl.mask('saving');
 
                         var id = shelvesGoods.get('id');
@@ -1305,7 +1305,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
                     var statusValue = Ext.query("." + className)[rowIndex].getAttribute("statusValue");
                     var url = 'product/' + statusValue;
                     var status;
-                    console.log(statusValue)
+
                     //statusValue为点击事件后商品的状态
                     switch (statusValue) {
                         case 'soldout': //让商品下架（目前处于上架状态）
@@ -1358,7 +1358,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
                     sendPutRequest(requestStr, {
                         productId: productId
                     }, '修改置顶', '修改置顶成功', '修改置顶失败', success, failure);
-                    console.log(model)
+
                 }
             },
             '#ShelvesGoodsList #openCreateShelvesGoodsWin': {
@@ -1490,7 +1490,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
                         shelvesGoods.set('productLimitCount', productLimitCount);
 
                         //保存
-                        console.log("try saving");
+
                         windowEl.mask('saving');
                         var selectModel = Ext.ComponentQuery.query('#productTemplateId')[0].getSelectionModel();
                         var selectRecords = selectModel.getSelection();
@@ -1596,7 +1596,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
                         data.id = shelvesGoods.get('id');
                         data.facePrice = Math.abs(parseInt(shelvesGoods.get('facePrice')));
                         data.purchasePrice = Math.abs(parseInt(shelvesGoods.get('purchasePrice')));
-                        console.log('编辑');
+
                         sendPutRequest('product/update', data, '编辑商品', '成功编辑商品', '编辑商品失败', function(response) {
                             windowEl.unmask();
                             if (response.responseText == '2') {
@@ -1749,7 +1749,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
         win.show();
     },
     onShopStoreBannerEdit: function(view, rowIndex, colIndex, column, e) {
-        console.log("start edit");
+
         var ShopStoreBanner = view.getRecord(view.findTargetByEvent(e));
         var win = this.getShopBannerAdd();
         win.down('form').loadRecord(ShopStoreBanner);
@@ -1956,5 +1956,5 @@ Ext.define('XMLifeOperating.controller.Shop', {
 });
 
 function putawayOrOut(obj) {
-    console.log($(obj));
+
 }

@@ -21,8 +21,6 @@ Ext.define('XMLifeOperating.controller.RealTimeList', {
             
             'realTimeList #shopArea': {
             	select: function (combo) {
-
-                   console.log('hello shop dsitrict');
                     var sstore = this.getRealTimeStore();
                     sstore.load({
                         params: {

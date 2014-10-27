@@ -62,7 +62,7 @@ Ext.define('XMLifeOperating.controller.DealShopAreaList', {
                                 dealId: dealShopArea.get('dealBackendId')
                             }, '', '', '', function(str) {
                                 if (str.responseText != 0) {
-                                    console.log('失败');
+                                  
                                     return;
                                 }
                                 var sstore = me.getDealShopAreaStore();

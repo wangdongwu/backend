@@ -149,7 +149,7 @@ Ext.define('XMLifeOperating.controller.DealWaitAssignDelivererList', {
                 deal: dealDetail.get('dealBackendId'),
             },
             callback: function(records) {
-                console.log(records);
+               
                 var model = Ext.ComponentQuery.query('#dealDetails')[0].getSelectionModel();
                 model.deselectAll();
                 for (var i = 0; i < records.length; i++) {
@@ -196,9 +196,7 @@ Ext.define('XMLifeOperating.controller.DealWaitAssignDelivererList', {
         var uid = reapportionDeliverer.get('uid');
         var dealId = this.reapportionDealId;
         var me = this;
-        console.log('分配配送员时的订单号：' + dealId);
-        console.log('uid' + uid);
-
+       
         Ext.MessageBox.confirm(
             '确认删除',
             Ext.String.format("确定该订单分配给'{0}'吗？", reapportionDeliverer.get('name')),
@@ -208,7 +206,7 @@ Ext.define('XMLifeOperating.controller.DealWaitAssignDelivererList', {
                         dealId: dealId,
                         delivererId: uid
                     }, '分单', '分单成功', '分单失败', function(response) {
-                        console.log();
+                       
                         if (response.responseText != 1) {
                             Ext.MessageBox.show({
                                 title: '订单重新分配失败',
@@ -274,8 +272,7 @@ Ext.define('XMLifeOperating.controller.DealWaitAssignDelivererList', {
         var record = view.getStore().getAt(eOpts);
         var dealId = record.get('dealBackendId');
         var me = this;
-        console.log(record);
-        console.log(dealId);
+
         var str = '订单全部退货吗？';
         var url = 'deal/returnDeal';
         Ext.MessageBox.confirm("选择框", str, function(str) {

@@ -110,7 +110,7 @@ Ext.define('XMLifeOperating.view.operationManage.dealProblemDeals.DealProblemDea
                             width: 60,
                             renderer:function(value){
                                 //return value;
-                                console.log(value);
+
                                 switch(value){
                                     case 0:
                                         return '正常单';

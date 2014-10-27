@@ -80,7 +80,6 @@ Ext.define('XMLifeOperating.controller.DelivererZoneList', {
             'delivererZoneList #shopArea': {
                 select: function(combo) {
 
-                    console.log('hello shop dsitrict');
                     var lstore = this.getDelivererZoneStore();
 
                     lstore.load({
@@ -140,7 +139,7 @@ Ext.define('XMLifeOperating.controller.DelivererZoneList', {
                         windowEl = editWindow.getEl(),
                         form = editWindow.down('form').getForm(),
                         line = form.getRecord();
-                    console.log(line);
+
                     var selectModel = Ext.ComponentQuery.query('#searchCommunityId')[0].getSelectionModel();
                     var selectRecords = selectModel.getSelection();
                     var communityIds = [],
@@ -220,9 +219,7 @@ Ext.define('XMLifeOperating.controller.DelivererZoneList', {
                             isActive: true,
                         },
                         callback: function(records) {
-                            console.log('----');
-                            console.log(records);
-                            console.log('-----');
+
                         }
                     });
                 }
@@ -245,7 +242,7 @@ Ext.define('XMLifeOperating.controller.DelivererZoneList', {
                             courierIds.push(item.get("uid"));
                         }
                     });
-                    console.log(courierIds);
+
                     var oldSelectModel = Ext.ComponentQuery.query('#oldCourierId')[0].getSelectionModel();
                     var oldSelectRecords = oldSelectModel.getSelection();
                     oldSelectRecords.forEach(function(item) {
@@ -254,7 +251,7 @@ Ext.define('XMLifeOperating.controller.DelivererZoneList', {
                         }
                     });
                     delivererIds = courierIds;
-                    console.log(delivererIds);
+
 
                     zoneId = line.get('id');
                     sendRequest('deliverer/bindToZone', {
@@ -291,7 +288,7 @@ Ext.define('XMLifeOperating.controller.DelivererZoneList', {
 
     },
     onEdit: function(view, rowIndex, colIndex, column, e) {
-        console.log("start edit");
+
         var line = view.getRecord(view.findTargetByEvent(e));
         var win = this.getDelivererZoneEdit();
         line.set('shopArea', line.get('areaId'));
@@ -376,14 +373,14 @@ Ext.define('XMLifeOperating.controller.DelivererZoneList', {
                     var zoneId = line.get('id');
                     var url = 'delivererZone/' + zoneId;
                     sendDeleteRequest(url, {}, '删除线路', '成功删除线路', '删除线路失败', function(response) {
-                        console.log(response);
+
                         if (response.responseText == '-2') {
                             Ext.Msg.alert('Invalid Data', '不能删除');
                             return;
                         }
                         line.destroy({
                             success: function() {
-                                console.log('line deleted!');
+
                             }
                         });
 

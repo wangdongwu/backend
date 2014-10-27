@@ -173,6 +173,9 @@ Ext.define('XMLifeOperating.controller.login', {
             /*本地储存信息*/
             localStorage.setItem("sessionId", data.sessionId);
             localStorage.setItem("username", username);
+            //saveUidAndSession(username + "@c", data.sessionId);
+            
+
             /*更改页头*/
             Ext.Ajax.defaultHeaders = {
               'auth-token': data.sessionId
@@ -238,6 +241,23 @@ Ext.define('XMLifeOperating.controller.login', {
         });
         shopAreaStore.load();
       }
+
+/*      saveUidAndSession("1055871@c", "-251f06f9f0da84f8cb1203593f4f9078");
+      rpc.ServerConfig.setUrls("IM", ["http://dev.xiaomei.com/biz/"]);
+      rpc.ServerConfig.setUrls("Long", [XMLifeOperating.generic.Global.URL.ws]);*/
+
+      rpc.IMClientManager.createClient(getCurrentUid(), new rpc.XMLifeIMClient());
+
+      var NotificationCls = window.Notification || window.webkitNotification || window.mozNotification || window.msNotification;
+      if (!window.cordova && NotificationCls) {
+                if (NotificationCls.permission !== 'denied') {
+                    NotificationCls.requestPermission(function (permission) {
+                        if (!('permission' in NotificationCls)) {
+                            NotificationCls.permission = permission;
+                        }
+                    });
+                }
+            }
     }
     var failure = function(response) {
       Ext.MessageBox.show({

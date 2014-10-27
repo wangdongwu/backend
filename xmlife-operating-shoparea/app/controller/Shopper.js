@@ -276,7 +276,7 @@ Ext.define('XMLifeOperating.controller.Shopper', {
                         });
 
                         this.dayType = str;
-                        console.log(record.itemId);
+
                     }
                 }
             },
@@ -545,7 +545,7 @@ Ext.define('XMLifeOperating.controller.Shopper', {
         win.show();
     },
     onEdit: function(view, rowIndex, colIndex, column, e) {
-        console.log("start edit");
+
         var shopper = view.getRecord(view.findTargetByEvent(e));
         var win = this.getEditWindow();
         var record = shopper;
@@ -577,9 +577,9 @@ Ext.define('XMLifeOperating.controller.Shopper', {
             shopper.set('onlineTime', (shopper.get('onlineTime').getHours() * 60 + shopper.get('onlineTime').getMinutes()));
             shopper.set('offlineTime', (shopper.get('offlineTime').getHours() * 60 + shopper.get('offlineTime').getMinutes()));
             shopper.set('pwd', hex_md5(shopper.get('pwd')));
-            console.log(shopper);
 
-            console.log("try saving");
+
+
             if (shopper.get('id') != null && shopper.get('id') != '') {
                 var url = 'shopper/' + shopper.get('uid')
                 sendPutRequest(url, {
@@ -625,7 +625,7 @@ Ext.define('XMLifeOperating.controller.Shopper', {
                             errorStr = '手机号码格式错误';
                             break;
                     }
-                    console.log(errorStr);
+
                     if (operation.response.responseText < 0) {
                         Ext.MessageBox.show({
                             title: 'Edit Task Failed',

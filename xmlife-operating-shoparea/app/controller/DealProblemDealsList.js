@@ -235,14 +235,14 @@ Ext.define('XMLifeOperating.controller.DealProblemDealsList', {
         win.show();
         var store = this.getDealTasksStore();
         this.reapportionDealId = reapportion.get('dealBackendId');
-        console.log('所操作订单号：' + this.reapportionDealId);
+        
         store.load({
             params: {
                 dealId: this.reapportionDealId,
             },
 
             callback: function(records) {
-                console.log(records);
+              
                 var model = Ext.ComponentQuery.query('#dealTasks')[0].getSelectionModel();
                 model.deselectAll();
                 for (var i = 0; i < records.length; i++) {
@@ -263,7 +263,7 @@ Ext.define('XMLifeOperating.controller.DealProblemDealsList', {
 
         var store = this.getShopperStore();
         store.getProxy().extraParams = {};
-        console.log(reapportion.get('shopId'));
+      
         store.load({
             params: {
                 shopId: reapportion.get('shopId'),
@@ -344,7 +344,7 @@ Ext.define('XMLifeOperating.controller.DealProblemDealsList', {
         win.show();
 
         var store = this.getDelivererStore();
-        console.log(reapportionDeliverer.get('zoneId'));
+       
         store.load({
             params: {
                 // deliveryZone: reapportionDeliverer.get('zoneId'),
@@ -373,7 +373,7 @@ Ext.define('XMLifeOperating.controller.DealProblemDealsList', {
         var uid = reapportionDeliverer.get('uid');
         var dealId = this.reapportionDealId;
         var me = this;
-        console.log('分配配送员时的订单号：' + dealId);
+       
 
         Ext.MessageBox.confirm(
             '确认删除',
@@ -384,7 +384,7 @@ Ext.define('XMLifeOperating.controller.DealProblemDealsList', {
                         dealId: dealId,
                         delivererId: uid
                     }, '分单', '分单成功', '分单失败', function(response) {
-                        console.log();
+                       
                         if (response.responseText != 1) {
                             Ext.MessageBox.show({
                                 title: '订单重新分配失败',
@@ -480,7 +480,7 @@ Ext.define('XMLifeOperating.controller.DealProblemDealsList', {
                 deal: dealDetail.get('dealBackendId'),
             },
             callback: function(records) {
-                console.log(records);
+               
                 var model = Ext.ComponentQuery.query('#dealDetails')[0].getSelectionModel();
                 model.deselectAll();
                 for (var i = 0; i < records.length; i++) {

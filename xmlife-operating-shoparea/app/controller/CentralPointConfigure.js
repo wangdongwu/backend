@@ -156,16 +156,16 @@ Ext.define('XMLifeOperating.controller.CentralPointConfigure', {
         });
     },
     onEdit: function(view, rowIndex, colIndex, column, e) {
-        console.log("start edit");
+
         var centralPoint = view.getRecord(view.findTargetByEvent(e));
         var win = this.getEditWindow();
         win.down('form').loadRecord(centralPoint);
         win.show();
     },
     onCentralPointBannerEdit: function(view, rowIndex, colIndex, column, e) {
-        console.log("start edit");
+      
         var centralPointBanner = view.getRecord(view.findTargetByEvent(e));
-        console.log(centralPointBanner);
+        
         var win = this.getCentralPointConfigureBannerEdit();
         centralPointBanner.set('oldUrl', centralPointBanner.get('url'));
         win.down('form').loadRecord(centralPointBanner);
@@ -224,7 +224,7 @@ Ext.define('XMLifeOperating.controller.CentralPointConfigure', {
             var orderStrArr = store.getAt(i).get('id').split('-');
             orderedIds[i] = orderStrArr[1];
         }
-        console.log(this.centralPointId);
+      
         var centralPointId = this.centralPointId;
         var params = {
             orders: orderedIds
@@ -246,10 +246,10 @@ Ext.define('XMLifeOperating.controller.CentralPointConfigure', {
             form = editWindow.down('form').getForm(),
             centralPointBanner = form.getRecord(),
             me = this;
-        //console.log(centralPointBanner.get());
+      
         var areaId = this.centralPointId;
         centralPointBanner.set('area', areaId);
-        console.log(this.centralPointId);
+      
         if (form.isValid()) {
             windowEl.mask('saving');
             form.updateRecord(centralPointBanner);
@@ -308,7 +308,7 @@ Ext.define('XMLifeOperating.controller.CentralPointConfigure', {
         var banner = view.getRecord(view.findTargetByEvent(e));
         var areaId = this.centralPointId;
         me=this;
-        console.log(banner);
+  
 
         Ext.MessageBox.confirm(
             '确认删除',
@@ -318,9 +318,9 @@ Ext.define('XMLifeOperating.controller.CentralPointConfigure', {
                     var order = banner.get('order');
                     
                     var url='shopArea/banner/'+order;
-                    console.log(url);
+               
                     sendDeleteRequest(url, {areaId:areaId}, '删除线路', '成功删除线路', '删除线路失败', function(response) {
-                            console.log(response);
+                 
                             if(response.responseText=='-2'){
                                 Ext.Msg.alert('Invalid Data', '不能删除');
                                 return;

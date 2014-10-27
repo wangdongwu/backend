@@ -78,7 +78,7 @@ Ext.define('XMLifeOperating.controller.FeedbackList', {
                         if (mark != null) {
                             params['mark'] = mark;
                         }
-                        console.log(mark);
+
                         store.getProxy().extraParams = params;
                         store.loadPage(1, {
                             params: {
@@ -96,7 +96,7 @@ Ext.define('XMLifeOperating.controller.FeedbackList', {
                 click: function(component, column, rowIndex, colIndex, e) {
 
                     var model = component.getStore().getAt(rowIndex);
-                    console.log(model);
+
                     var feedbackId = model.get('id');
 
                     var className = e.target.className;
