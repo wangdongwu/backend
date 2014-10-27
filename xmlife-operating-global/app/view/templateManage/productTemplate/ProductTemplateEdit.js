@@ -50,7 +50,7 @@ Ext.define('XMLifeOperating.view.templateManage.productTemplate.ProductTemplateE
                     var length = 0;
                     for (var i = 0, len = value.length; i < len; i++) {
                         var chart = value.charCodeAt(i);
-                        console.log(chart);
+    
                         if(chart==32||chart==12288){
                             length = length + 0;
                         }else if (chart >= 0 && chart <= 255) {
@@ -84,7 +84,7 @@ Ext.define('XMLifeOperating.view.templateManage.productTemplate.ProductTemplateE
                     var length = 0;
                     for (var i = 0, len = value.length; i < len; i++) {
                         var chart = value.charCodeAt(i);
-                        console.log(chart);
+              
                         if(chart==32||chart==12288){
                             length = length + 0;
                         }else if (chart >= 0 && chart <= 255) {
@@ -117,7 +117,7 @@ Ext.define('XMLifeOperating.view.templateManage.productTemplate.ProductTemplateE
                     var length = 0;
                     for (var i = 0, len = value.length; i < len; i++) {
                         var chart = value.charCodeAt(i);
-                        console.log(chart);
+                   
                         if(chart==32||chart==12288){
                             length = length + 0;
                         }else if (chart >= 0 && chart <= 255) {

@@ -65,7 +65,7 @@ Ext.define('XMLifeOperating.controller.Authority', {
                 formEl.reset();
                 form.edit = false;
                 addGlobalAccount.show();
-                console.log('创建全局账号');
+                
           }
         },
         'GlobalAccountManage #seachAccount' : {
@@ -200,7 +200,7 @@ Ext.define('XMLifeOperating.controller.Authority', {
                 formEl.reset();
                 form.edit =false;
                 addCityManagerAccount.show();
-                console.log('创建城市经理');
+               
             
           }
         },
@@ -236,7 +236,7 @@ Ext.define('XMLifeOperating.controller.Authority', {
         'addCityManagerAccount combobox[name=cpro]' : {
             select: function(combo, records, eOpts) {
                 if (records.length == 0) {
-                    console.log('no entry selected');
+                    
                     return;
                 }
                 var store = this.getAllCitiesStore();

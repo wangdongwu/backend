@@ -107,7 +107,7 @@ Ext.define('XMLifeOperating.controller.SupportedCityList', {
         this.getSupportedCityStore().load();
     },
     onEdit: function(view, rowIndex, colIndex, column, e) {
-        console.log("start edit");
+
         var city = view.getRecord(view.findTargetByEvent(e));
         var win = this.getSupportedCityEdit();
         win.down('form').loadRecord(city);
@@ -125,7 +125,7 @@ Ext.define('XMLifeOperating.controller.SupportedCityList', {
     },
     onProvinceChanged: function(combo, records, eOpts) {
         if (records.length == 0) {
-            console.log('no entry selected');
+         
             return;
         }
         var store = this.getAllCitiesStore();
@@ -151,7 +151,7 @@ Ext.define('XMLifeOperating.controller.SupportedCityList', {
             windowEl.mask('saving');
             form.updateRecord(city);
 
-            console.log("try saving");
+
 
             city.save({
                 success: function(task, operation) {
@@ -177,7 +177,7 @@ Ext.define('XMLifeOperating.controller.SupportedCityList', {
     }, 
 
     saveAddWindow: function() {
-        console.log(this);
+
         var addWindow = this.getSupportedCityAdd(),
             windowEl = addWindow.getEl(),
             form = addWindow.down('form').getForm(),

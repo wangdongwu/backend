@@ -40,10 +40,7 @@ Ext.define('XMLifeOperating.controller.RechargeableCardTemplate', {
         xtype: 'rechargeableCardTemplateDetail',
         autoCreate: true
     }],
-
-
     init: function() {
-
         var me = this;
         this.control({
 
@@ -184,8 +181,6 @@ Ext.define('XMLifeOperating.controller.RechargeableCardTemplate', {
             },
 
         });
-
-
     },
     onShow: function() {
         var store = this.getCardTemplateStore();
@@ -230,7 +225,7 @@ Ext.define('XMLifeOperating.controller.RechargeableCardTemplate', {
                 });
                 windowEl.unmask();
             };
-            console.log("try saving");
+
             sendPutRequest('cardTemplate/create', {
                     type: RechargeableCardTemplate.data.type,
                     name: RechargeableCardTemplate.data.name,
@@ -250,7 +245,7 @@ Ext.define('XMLifeOperating.controller.RechargeableCardTemplate', {
         }
     },
     onEdit: function(view, rowIndex, colIndex, column, e) {
-        console.log("start edit");
+
         var addCardTemplate = view.getRecord(view.findTargetByEvent(e));
         var win = this.getEditWindow();
         win.down('form').loadRecord(addCardTemplate);
@@ -354,7 +349,7 @@ Ext.define('XMLifeOperating.controller.RechargeableCardTemplate', {
                 });
                 windowEl.unmask();
             };
-            console.log("try saving");
+
             sendPutRequest('cardTemplate/create', data, '添加分次返回卡模板', '添加模板成功', '添加模板失败', success, failure);
 
         } else {
@@ -362,7 +357,7 @@ Ext.define('XMLifeOperating.controller.RechargeableCardTemplate', {
         }
     },
     onEdit: function(view, rowIndex, colIndex, column, e) {
-        console.log("start edit");
+
         var rechargeableCardTemplate = view.getRecord(view.findTargetByEvent(e));
         var win = this.getRechargeableCardTemplateReturnCardAdd();
         win.down('form').loadRecord(rechargeableCardTemplate);
@@ -413,8 +408,5 @@ Ext.define('XMLifeOperating.controller.RechargeableCardTemplate', {
             returnCardDetail.down('form').getForm().setValues(values);
             returnCardDetail.show();
         }
-
-
-
     }
 });

@@ -28,11 +28,11 @@ Ext.define('XMLifeOperating.controller.BatchAddEstate', {
                 waitMsg : '正在上传您的文件......',
                 success : function(form, action){
                   var data = action.response.responseText;
-                  console.log(data);
+
                 },
                 failure : function(form, action){
                   var data = action.response.responseText;
-                  console.log(data);
+
                 }
               });
             }

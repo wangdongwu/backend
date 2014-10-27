@@ -126,7 +126,7 @@ Ext.define('XMLifeOperating.controller.ShopBannerTemplate', {
         }
     },
     onEdit: function(view, rowIndex, colIndex, column, e,template) {
-        console.log("start edit");
+
         /* var template = view.getRecord(view.findTargetByEvent(e));
         var win = this.getEditWindow();
         win.down('form').loadRecord(template);

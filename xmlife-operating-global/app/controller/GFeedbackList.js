@@ -23,8 +23,6 @@ Ext.define('XMLifeOperating.controller.GFeedbackList', {
             'gFeedbackList radio[name="dayType"]':{
                 change:function(record,newV,oldV){
                     if(newV==true){
-                        console.log(record);
-                        console.log(record.itemId);
                         var itemId=record.itemId,str;
                         switch(itemId){
                             case 'dayType1':
@@ -62,7 +60,7 @@ Ext.define('XMLifeOperating.controller.GFeedbackList', {
                 click: function (component, column, rowIndex,colIndex,e) {
                     
                     var model=component.getStore().getAt(rowIndex);
-                    console.log(model);
+
                     var feedbackId=model.get('id');
 
                     var className = e.target.className;            

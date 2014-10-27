@@ -73,7 +73,7 @@ Ext.define('XMLifeOperating.controller.GShopper', {
                     } else if (activeSearch == '查看接单买手') {
                         isActive=false;
                     }
-                    console.log('hello shop dsitrict');
+
                     var store = this.getShopperStore();
                     store.getProxy().extraParams={
                             city: XMLifeOperating.generic.Global.currentCity,
@@ -92,7 +92,7 @@ Ext.define('XMLifeOperating.controller.GShopper', {
                     } else if (activeSearch == '查看接单买手') {
                         isActive=false;
                     }
-                    console.log('hello shop dsitrict');
+             
                     var store = this.getShopperStore();
                     store.getProxy().extraParams={
                             city: XMLifeOperating.generic.Global.currentCity,
@@ -168,7 +168,7 @@ Ext.define('XMLifeOperating.controller.GShopper', {
             },
             /*'gShopperEdit filefield[name="shopperUploadfile"]': {
                 change: function(uploadfile) {
-                    console.log(uploadfile);
+              
                     var form = uploadfile.ownerCt;
 
                     var hash = uploadfile.previousNode().previousNode();
@@ -242,7 +242,7 @@ Ext.define('XMLifeOperating.controller.GShopper', {
                         dealShopperHistoryStroe.loadPage(1);
 
                         this.dayType = str;
-                        console.log(record.itemId);
+                     
                     }
                 }
             },
@@ -290,11 +290,11 @@ Ext.define('XMLifeOperating.controller.GShopper', {
             'gShopperWorkTimeList radio[name="dayType"]': {
                 change: function(record, newV, oldV) {
                     var shopperId=this.shopperId;
-                    console.log(shopperId);
+                
 
                     if (newV == true) {
-                        console.log(record);
-                        //console.log(record.itemId);
+                      
+               
                         var itemId = record.itemId,
                             str;
                         switch (itemId) {
@@ -468,7 +468,7 @@ Ext.define('XMLifeOperating.controller.GShopper', {
         win.show();
     },
     onEdit: function(view, rowIndex, colIndex, column, e) {
-        console.log("start edit");
+       
         var shopper = view.getRecord(view.findTargetByEvent(e));
         var win = this.getEditWindow();
         var record = shopper;
@@ -498,8 +498,8 @@ Ext.define('XMLifeOperating.controller.GShopper', {
             shopper.set('onlineTime', (shopper.get('onlineTime').getHours()*60+shopper.get('onlineTime').getMinutes()));
             shopper.set('offlineTime',(shopper.get('offlineTime').getHours()*60+shopper.get('offlineTime').getMinutes()));
             shopper.set('pwd',hex_md5(shopper.get('pwd')));
-            console.log("try saving");
-            console.log(shopper.get('id'));
+          
+           
             if(shopper.get('id')!=null&&shopper.get('id')!=''&&shopper.get('id')!=undefined){
 
                 var url='shopper/'+shopper.get('uid')

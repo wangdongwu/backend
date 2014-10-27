@@ -66,7 +66,7 @@ Ext.define('XMLifeOperating.controller.GDeliverer', {
             'gDelivererList #shopArea': {
                 select: function(combo) {
 
-                    console.log('hello shop dsitrict');
+                  
                     var store = this.getDelivererStore();
                     Ext.getCmp('gDelivererList').down('#activeBind').setText('查看未绑定的快递员');
                     isUnbind = true;
@@ -214,7 +214,7 @@ Ext.define('XMLifeOperating.controller.GDeliverer', {
                         dealDelivererHistoryStroe.loadPage(1);
 
                         this.dayType = str;
-                        console.log(record.itemId);
+                       
                     }
                 }
             },
@@ -337,7 +337,7 @@ Ext.define('XMLifeOperating.controller.GDeliverer', {
             'gDelivererList #closeOrOpenOrder':{
                 click:function(grid, column, rowIndex) { 
                     var record = grid.getStore().getAt(rowIndex);
-                    console.log(record);
+         
                     var deliverer = record.get('uid');
                     var isActive = record.get('isActive');
                     var url='';
@@ -435,7 +435,7 @@ Ext.define('XMLifeOperating.controller.GDeliverer', {
         win.show();
     },
     onEdit: function(view, rowIndex, colIndex, column, e) {
-        console.log("start edit");
+   
         var deliverer = view.getRecord(view.findTargetByEvent(e));
         var win = this.getGDelivererEdit();
         var record = deliverer;
@@ -464,7 +464,7 @@ Ext.define('XMLifeOperating.controller.GDeliverer', {
             deliverer.set('onlineTime', (deliverer.get('onlineTime').getHours() * 60 + deliverer.get('onlineTime').getMinutes()));
             deliverer.set('offlineTime', (deliverer.get('offlineTime').getHours() * 60 + deliverer.get('offlineTime').getMinutes()));
             deliverer.set('pwd', hex_md5(deliverer.get('pwd')));
-            console.log("try saving");
+      
             if(deliverer.get('id')!=null&&deliverer.get('id')!=''){
                 var url='deliverer/'+deliverer.get('uid')
                 sendPutRequest(url,{
