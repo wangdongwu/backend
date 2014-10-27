@@ -10,7 +10,7 @@ Ext.define('XMLifeOperating.view.dealManage.DealDetail', {
     closeAction: 'hide',
     modal: true,
     width: 400,
-    height: 380,
+    height: 500,
     resizable: false,
     layout: 'fit',
 
