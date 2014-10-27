@@ -40,7 +40,8 @@ Ext.define('XMLifeOperating.Application', {
         'WechatRefund',
         'BalanceRefund',
         'AlipayRefund',
-        'OnlineCardManage'
+        'OnlineCardManage',
+        'Message'
         ],
 
     stores: [
@@ -60,6 +61,7 @@ Ext.define('XMLifeOperating.Application', {
         'DealItems',
         'Feedback',
         'FeedbackStatus',
+        'Message'
         ],
 
     launch: function() {
