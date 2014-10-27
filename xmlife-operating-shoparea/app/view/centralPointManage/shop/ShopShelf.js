@@ -110,14 +110,24 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopShelf', {
     },*/ {
         text: '编辑',
         xtype: 'actioncolumn',
+        dataIndex: 'type',
         width: 50,
-        icon: 'resources/images/edit.png',
         tooltip: 'Edit',
         menuDisabled: true,
         sortable: true,
         itemId: 'openModifyShelvesWin',
         tdCls: 'user-td',
-        align: 'center'
+        align: 'center',
+        items: [{
+          icon: 'resources/images/edit.png',
+          getClass: function(value, metaData, record){
+            if(value === 0) {
+                metaData.css = 'x-hide-display';
+            } else {
+                metaData.css = 'x-grid-icon';
+            }
+          }
+        }]
     }],
     dockedItems: [{
         xtype: 'toolbar',

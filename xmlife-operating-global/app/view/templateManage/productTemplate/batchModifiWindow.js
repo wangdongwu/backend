@@ -67,7 +67,8 @@ Ext.define('XMLifeOperating.view.templateManage.productTemplate.batchModifiWindo
                 name : 'file',
                 fieldLabel : '批量修改商品图片',
                 allowBlank: false,
-                buttonText : '选择图片文件',
+                buttonText : '选择商品图片文件',
+                width: 469,
                 listeners : {
                   afterrender : function(gird){
                     gird.fileInputEl.set({multiple:'multiple'});
