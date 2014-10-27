@@ -148,7 +148,7 @@ Ext.define('XMLifeOperating.controller.WaitForAudit', {
                         Ext.String.format("确定要将'{0}'项商品记录批量通过审核吗？", self.sm.getCount()),
                         function(result) {
                             if (result == 'yes') {
-                                console.log(idObj);
+
                                 sendPutRequest(url, params, '批量审核商品改价', '批量审核商品改价成功', '批量审核商品改价失败',
                                     function(response) {
                                         self.rendenWaitForAuditList(self.getWaitForAuditList());
@@ -173,7 +173,7 @@ Ext.define('XMLifeOperating.controller.WaitForAudit', {
                         Ext.String.format("确定要将'{0}'项商品记录批量不通过吗？", self.sm.getCount()),
                         function(result) {
                             if (result == 'yes') {
-                                console.log(idObj);
+
                                 sendPutRequest(url, params, '批量审核商品改价', '批量审核商品改价不通过成功', '批量审核商品改价不通过失败',
                                     function(response) {
                                         self.rendenWaitForAuditList(self.getWaitForAuditList());
@@ -220,7 +220,7 @@ Ext.define('XMLifeOperating.controller.WaitForAudit', {
                             no: "拒绝" 
                         },
                         fn: function(result){
-                            console.log(result);
+
                             if (result == 'yes') {
                                 pass=true;
 

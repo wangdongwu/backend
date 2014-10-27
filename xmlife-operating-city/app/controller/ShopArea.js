@@ -117,7 +117,7 @@ Ext.define('XMLifeOperating.controller.ShopArea', {
     var clickDom = view.getRecord(view.findTargetByEvent(e));
     var areaId = clickDom.get('id');
     var host = window.location.host;
-    console.log(host);
+
     if (host.match('localhost')) {
       window.open('http://' + host + '/xmlife-operating-shoparea/'); //本地
     } else if (host.match('citybc')) {

@@ -188,7 +188,7 @@ Ext.define('XMLifeOperating.controller.Authority', {
     if (form.isValid()) {
       /*      //判断是否有该商圈账号
       store.each(function(index){
-        console.log(index)
+
       })*/
 
       //Ajax参数

@@ -44,7 +44,7 @@ Ext.define('XMLifeOperating.controller.Navigation', {
   }],
   changeCurrentCity: function(combo, records, eOpts) {
     if (records.length === 0) {
-      console.log('no entry selected');
+
       return;
     }
     XMLifeOperating.generic.Global.currentCity = records[0].data.code;
@@ -57,7 +57,7 @@ Ext.define('XMLifeOperating.controller.Navigation', {
 
   changeCurrentCenter: function(combo, records, eOpts) {
     if (records.length === 0) {
-      console.log('no entry selected');
+
       return;
     }
 

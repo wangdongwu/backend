@@ -85,9 +85,9 @@ var uploadBlobImage = function(blobImage) {
         xhr.onreadystatechange = function() {
             if (xhr.readyState == 4) {
                 if (xhr.status == 200) {
-                    console.log('success');
+
                     var resid = xhr.responseText;
-                    console.log(resid);
+
                     if (resid.length != 26) {
                         Ext.MessageBox.show({
                             title: '无法上传图片',
@@ -99,7 +99,7 @@ var uploadBlobImage = function(blobImage) {
                     }
                     window.RECENT_UPLOADS.push(resid);
                 } else {
-                    console.log('failure');
+
                     var resid = xhr.responseText;
                     if (resid.length != 26) {
                         Ext.MessageBox.show({
@@ -114,14 +114,14 @@ var uploadBlobImage = function(blobImage) {
             }
         };
         xhr.ontimeout = function() {
-            console.log('failure');
+
         };
         xhr.send(form);
     };
 }
 
 var uploadImage = function(form, textfield) {
-    console.log('uploadimge');
+
     var sessionId = localStorage.getItem('sessionId') || '';
 
     form.submit({
@@ -130,7 +130,7 @@ var uploadImage = function(form, textfield) {
             'sessionId': sessionId
         },
         success: function(form, action) {
-            console.log('success');
+
             var resid = action.response.responseText;
             if (resid.length != 26) {
                 Ext.MessageBox.show({
@@ -147,7 +147,7 @@ var uploadImage = function(form, textfield) {
 
         // If you don't pass success:true, it will always go here
         failure: function(form, action) {
-            console.log('failure');
+ 
             var resid = action.response.responseText;
             if (resid.length != 26) {
                 Ext.MessageBox.show({
