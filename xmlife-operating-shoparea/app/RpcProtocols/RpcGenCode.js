@@ -4674,6 +4674,322 @@ rpc.BackAmountMessage.prototype.convertFrom  = function(from, confusionMode, clo
     return true;
 };
 
+rpc.BackendDealNotificationMessage = function() {this.checkAndCreate();};
+deepExtend(rpc.BackendDealNotificationMessage.prototype, rpc.RpcMessageBase.prototype);
+rpc.BackendDealNotificationMessage.prototype.getContent = function() {
+	if(!this.mObj) {
+		return null;
+	}
+	
+	this.mValueCache = this.mValueCache || {};
+	var cacheValue = this.mValueCache["content"];
+	if(cacheValue) return cacheValue;
+	
+	var value = this.mObj["content"];
+	
+	var objRet = ConvertUtils.jsonObjectToObject(value, String, null, false);
+	
+	if(objRet) {
+		this.mValueCache["content"] = objRet;
+		return objRet;
+	}
+	
+	return null;
+};
+
+rpc.BackendDealNotificationMessage.prototype.setContent = function(value) {
+    this.checkAndCreate();
+	this.mValueCache = this.mValueCache || {};
+	this.mObj = this.mObj || {};
+	
+	var _value_value0 = value;
+	if(!_value_value0) 
+		delete this.mObj["content"];
+	else
+		this.mObj["content"] = _value_value0;
+
+	if(value) {
+		this.mValueCache["content"] = value;
+	} else {
+		delete this.mValueCache["content"];
+	}
+	return this;
+};
+
+rpc.BackendDealNotificationMessage.prototype.getDealId = function() {
+	if(!this.mObj) {
+		return 0;
+	}
+	
+	this.mValueCache = this.mValueCache || {};
+	var cacheValue = this.mValueCache["dealId"];
+	if(cacheValue) return cacheValue;
+	
+	var value = this.mObj["dealId"];
+	
+	var objRet = ConvertUtils.jsonObjectToObject(value, Number, null, false);
+	
+	if(objRet) {
+		this.mValueCache["dealId"] = objRet;
+		return objRet;
+	}
+	
+	return 0;
+};
+
+rpc.BackendDealNotificationMessage.prototype.setDealId = function(value) {
+    this.checkAndCreate();
+	this.mValueCache = this.mValueCache || {};
+	this.mObj = this.mObj || {};
+	
+	var _value_value0 = (value);
+	if(!_value_value0) 
+		delete this.mObj["dealId"];
+	else
+		this.mObj["dealId"] = _value_value0;
+
+	if(value) {
+		this.mValueCache["dealId"] = value;
+	} else {
+		delete this.mValueCache["dealId"];
+	}
+	return this;
+};
+
+rpc.BackendDealNotificationMessage.prototype.getDealStatus = function() {
+	if(!this.mObj) {
+		return 0;
+	}
+	
+	this.mValueCache = this.mValueCache || {};
+	var cacheValue = this.mValueCache["dealStatus"];
+	if(cacheValue) return cacheValue;
+	
+	var value = this.mObj["dealStatus"];
+	
+	var objRet = ConvertUtils.jsonObjectToObject(value, Number, null, false);
+	
+	if(objRet) {
+		this.mValueCache["dealStatus"] = objRet;
+		return objRet;
+	}
+	
+	return 0;
+};
+
+rpc.BackendDealNotificationMessage.prototype.setDealStatus = function(value) {
+    this.checkAndCreate();
+	this.mValueCache = this.mValueCache || {};
+	this.mObj = this.mObj || {};
+	
+	var _value_value0 = (value);
+	if(!_value_value0) 
+		delete this.mObj["dealStatus"];
+	else
+		this.mObj["dealStatus"] = _value_value0;
+
+	if(value) {
+		this.mValueCache["dealStatus"] = value;
+	} else {
+		delete this.mValueCache["dealStatus"];
+	}
+	return this;
+};
+
+rpc.BackendDealNotificationMessage.prototype.getModuleId = function() {
+	if(!this.mObj) {
+		return null;
+	}
+	
+	this.mValueCache = this.mValueCache || {};
+	var cacheValue = this.mValueCache["moduleId"];
+	if(cacheValue) return cacheValue;
+	
+	var value = this.mObj["moduleId"];
+	
+	var objRet = ConvertUtils.jsonObjectToObject(value, String, null, false);
+	
+	if(objRet) {
+		this.mValueCache["moduleId"] = objRet;
+		return objRet;
+	}
+	
+	return null;
+};
+
+rpc.BackendDealNotificationMessage.prototype.setModuleId = function(value) {
+    this.checkAndCreate();
+	this.mValueCache = this.mValueCache || {};
+	this.mObj = this.mObj || {};
+	
+	var _value_value0 = value;
+	if(!_value_value0) 
+		delete this.mObj["moduleId"];
+	else
+		this.mObj["moduleId"] = _value_value0;
+
+	if(value) {
+		this.mValueCache["moduleId"] = value;
+	} else {
+		delete this.mValueCache["moduleId"];
+	}
+	return this;
+};
+
+rpc.BackendDealNotificationMessage.FIELD_CONTENT="content";
+rpc.BackendDealNotificationMessage.FIELD_CONTENT_CONFUSION="content";
+rpc.BackendDealNotificationMessage.FIELD_MODULEID="moduleId";
+rpc.BackendDealNotificationMessage.FIELD_MODULEID_CONFUSION="moduleId";
+rpc.BackendDealNotificationMessage.FIELD_DEALID="dealId";
+rpc.BackendDealNotificationMessage.FIELD_DEALID_CONFUSION="dealId";
+rpc.BackendDealNotificationMessage.FIELD_DEALSTATUS="dealStatus";
+rpc.BackendDealNotificationMessage.FIELD_DEALSTATUS_CONFUSION="dealStatus";
+
+rpc.BackendDealNotificationMessage.checkAndInitial = function() {
+    if(rpc.BackendDealNotificationMessage.mFieldToConfusionMap)
+        return;
+	
+	rpc.BackendDealNotificationMessage.mHasConfusionField = false;
+	rpc.BackendDealNotificationMessage.mFieldToConfusionMap = {
+		"content":"content", 
+		"moduleId":"moduleId", 
+		"dealId":"dealId", 
+		"dealStatus":"dealStatus"
+	};
+	rpc.BackendDealNotificationMessage.mConfusionToFieldMap = {
+		"content":"content", 
+		"moduleId":"moduleId", 
+		"dealId":"dealId", 
+		"dealStatus":"dealStatus"
+	};
+
+};
+
+rpc.BackendDealNotificationMessage.prototype.toString = function() {
+	if(this.mObj) {
+		return JSON.stringify(this.mObj);
+	}
+	return "{}";
+};
+
+rpc.BackendDealNotificationMessage.prototype.getRpcJSONObject  = function() {
+	return this.mObj;
+};
+
+rpc.BackendDealNotificationMessage.prototype.checkAndCreate = function() {
+    if (!this.mObj) {
+        this.mObj = {};
+        this.mObj[rpc.RpcMessageBase.FIELD_MSGTYPE] = 114;
+        this.mObj[rpc.RpcMessageBase.FIELD_FLAG] = 4;
+    }
+};
+
+rpc.BackendDealNotificationMessage.TYPE = 114;
+rpc.BackendDealNotificationMessage.prototype.getMsgType = function() {
+	return 114;
+};
+
+rpc.BackendDealNotificationMessage.prototype.getAsObject  = function(confusionMode, clone) {
+    if(this.mObj == null) {
+		this.checkAndCreate();
+        return clone ? objectClone(this.mObj) : this.mObj;
+    }
+    if(!confusionMode)
+        return clone ? objectClone(this.mObj) : this.mObj;
+    return rpc.BackendDealNotificationMessage.toConfusionObject(this.mObj, clone);
+};
+
+rpc.BackendDealNotificationMessage.getConfusionName = function(name) {
+    rpc.BackendDealNotificationMessage.checkAndInitial();
+    var value = rpc.BackendDealNotificationMessage.mFieldToConfusionMap[name];
+    if(value)
+        return value;
+    return rpc.RpcMessageBase.getConfusionName(name);
+};
+    
+rpc.BackendDealNotificationMessage.getRawName = function(confusionName) {
+    rpc.BackendDealNotificationMessage.checkAndInitial();
+    var value = rpc.BackendDealNotificationMessage.mConfusionToFieldMap[confusionName];
+    if(value)
+        return value;
+    return rpc.RpcMessageBase.getRawName(confusionName);
+};
+
+rpc.BackendDealNotificationMessage.toConfusionObject  = function(from, clone) {
+    if(!from)
+        return from;
+
+	rpc.BackendDealNotificationMessage.checkAndInitial();
+    if (!rpc.BackendDealNotificationMessage.mHasConfusionField) {
+        return rpc.RpcMessageBase.toConfusionObject(from);
+    }
+        
+    var ret = {};
+    for (var key in from) {
+        var rawKey = rpc.BackendDealNotificationMessage.getConfusionName(key);
+        if(!rawKey)
+            rawKey = key;
+        ret[rawKey] = from[key];
+    }
+      
+    return ret;
+};
+    
+rpc.BackendDealNotificationMessage.confusionToRawObject  = function(from, clone) {
+    if(!from)
+        return from;
+    
+    rpc.BackendDealNotificationMessage.checkAndInitial();
+    if (!rpc.BackendDealNotificationMessage.mHasConfusionField) {
+        return rpc.RpcMessageBase.confusionToRawObject(from);
+    }
+        
+    var ret = {};
+    for(var key in from) {
+        var rawKey = rpc.BackendDealNotificationMessage.getRawName(key);
+        if(!rawKey)
+            rawKey = key;
+        ret[rawKey] = from[key];
+    }
+    return ret;
+};
+
+rpc.BackendDealNotificationMessage.prototype.clearCache = function() {
+	if(this.mValueCache) {
+		this.mValueCache = {};
+	}
+};
+
+rpc.BackendDealNotificationMessage.prototype.convertFrom  = function(from, confusionMode, clone) {
+    if (!from)
+        return false;
+    
+    if (from.prototype && from.prototype.convertFrom) {
+        this.clearCache();
+        this.mObj = from.getAsObject(false, clone);
+        return true;
+    }
+    
+    if (from instanceof String && from[0] == '{') {
+        this.clearCache();
+        var jsonObj = JSON.parse(from);
+        if(confusionMode) {
+            this.mObj = rpc.BackendDealNotificationMessage.confusionToRawObject(jsonObj, clone);
+        } else {
+            this.mObj = clone ? objectClone(jsonObj) : jsonObj;
+        }
+        return true;
+    }
+    
+    this.clearCache();
+    if(confusionMode) {
+         this.mObj = rpc.BackendDealNotificationMessage.confusionToRawObject(from, clone);
+    } else {
+         this.mObj = clone ? objectClone(from) : from;
+    }
+    return true;
+};
+
 rpc.ChargeMessage = function() {this.checkAndCreate();};
 deepExtend(rpc.ChargeMessage.prototype, rpc.RpcMessageBase.prototype);
 rpc.ChargeMessage.prototype.getContent = function() {
@@ -5552,6 +5868,234 @@ rpc.DelivererPickupMessage.prototype.convertFrom  = function(from, confusionMode
     this.clearCache();
     if(confusionMode) {
          this.mObj = rpc.DelivererPickupMessage.confusionToRawObject(from, clone);
+    } else {
+         this.mObj = clone ? objectClone(from) : from;
+    }
+    return true;
+};
+
+rpc.NotificationMessgae = function() {this.checkAndCreate();};
+deepExtend(rpc.NotificationMessgae.prototype, rpc.RpcMessageBase.prototype);
+rpc.NotificationMessgae.prototype.getContent = function() {
+	if(!this.mObj) {
+		return null;
+	}
+	
+	this.mValueCache = this.mValueCache || {};
+	var cacheValue = this.mValueCache["content"];
+	if(cacheValue) return cacheValue;
+	
+	var value = this.mObj["content"];
+	
+	var objRet = ConvertUtils.jsonObjectToObject(value, String, null, false);
+	
+	if(objRet) {
+		this.mValueCache["content"] = objRet;
+		return objRet;
+	}
+	
+	return null;
+};
+
+rpc.NotificationMessgae.prototype.setContent = function(value) {
+    this.checkAndCreate();
+	this.mValueCache = this.mValueCache || {};
+	this.mObj = this.mObj || {};
+	
+	var _value_value0 = value;
+	if(!_value_value0) 
+		delete this.mObj["content"];
+	else
+		this.mObj["content"] = _value_value0;
+
+	if(value) {
+		this.mValueCache["content"] = value;
+	} else {
+		delete this.mValueCache["content"];
+	}
+	return this;
+};
+
+rpc.NotificationMessgae.prototype.getUrl = function() {
+	if(!this.mObj) {
+		return null;
+	}
+	
+	this.mValueCache = this.mValueCache || {};
+	var cacheValue = this.mValueCache["url"];
+	if(cacheValue) return cacheValue;
+	
+	var value = this.mObj["url"];
+	
+	var objRet = ConvertUtils.jsonObjectToObject(value, String, null, false);
+	
+	if(objRet) {
+		this.mValueCache["url"] = objRet;
+		return objRet;
+	}
+	
+	return null;
+};
+
+rpc.NotificationMessgae.prototype.setUrl = function(value) {
+    this.checkAndCreate();
+	this.mValueCache = this.mValueCache || {};
+	this.mObj = this.mObj || {};
+	
+	var _value_value0 = value;
+	if(!_value_value0) 
+		delete this.mObj["url"];
+	else
+		this.mObj["url"] = _value_value0;
+
+	if(value) {
+		this.mValueCache["url"] = value;
+	} else {
+		delete this.mValueCache["url"];
+	}
+	return this;
+};
+
+rpc.NotificationMessgae.FIELD_CONTENT="content";
+rpc.NotificationMessgae.FIELD_CONTENT_CONFUSION="content";
+rpc.NotificationMessgae.FIELD_URL="url";
+rpc.NotificationMessgae.FIELD_URL_CONFUSION="url";
+
+rpc.NotificationMessgae.checkAndInitial = function() {
+    if(rpc.NotificationMessgae.mFieldToConfusionMap)
+        return;
+	
+	rpc.NotificationMessgae.mHasConfusionField = false;
+	rpc.NotificationMessgae.mFieldToConfusionMap = {
+		"content":"content", 
+		"url":"url"
+	};
+	rpc.NotificationMessgae.mConfusionToFieldMap = {
+		"content":"content", 
+		"url":"url"
+	};
+
+};
+
+rpc.NotificationMessgae.prototype.toString = function() {
+	if(this.mObj) {
+		return JSON.stringify(this.mObj);
+	}
+	return "{}";
+};
+
+rpc.NotificationMessgae.prototype.getRpcJSONObject  = function() {
+	return this.mObj;
+};
+
+rpc.NotificationMessgae.prototype.checkAndCreate = function() {
+    if (!this.mObj) {
+        this.mObj = {};
+        this.mObj[rpc.RpcMessageBase.FIELD_MSGTYPE] = 113;
+        this.mObj[rpc.RpcMessageBase.FIELD_FLAG] = 4;
+    }
+};
+
+rpc.NotificationMessgae.TYPE = 113;
+rpc.NotificationMessgae.prototype.getMsgType = function() {
+	return 113;
+};
+
+rpc.NotificationMessgae.prototype.getAsObject  = function(confusionMode, clone) {
+    if(this.mObj == null) {
+		this.checkAndCreate();
+        return clone ? objectClone(this.mObj) : this.mObj;
+    }
+    if(!confusionMode)
+        return clone ? objectClone(this.mObj) : this.mObj;
+    return rpc.NotificationMessgae.toConfusionObject(this.mObj, clone);
+};
+
+rpc.NotificationMessgae.getConfusionName = function(name) {
+    rpc.NotificationMessgae.checkAndInitial();
+    var value = rpc.NotificationMessgae.mFieldToConfusionMap[name];
+    if(value)
+        return value;
+    return rpc.RpcMessageBase.getConfusionName(name);
+};
+    
+rpc.NotificationMessgae.getRawName = function(confusionName) {
+    rpc.NotificationMessgae.checkAndInitial();
+    var value = rpc.NotificationMessgae.mConfusionToFieldMap[confusionName];
+    if(value)
+        return value;
+    return rpc.RpcMessageBase.getRawName(confusionName);
+};
+
+rpc.NotificationMessgae.toConfusionObject  = function(from, clone) {
+    if(!from)
+        return from;
+
+	rpc.NotificationMessgae.checkAndInitial();
+    if (!rpc.NotificationMessgae.mHasConfusionField) {
+        return rpc.RpcMessageBase.toConfusionObject(from);
+    }
+        
+    var ret = {};
+    for (var key in from) {
+        var rawKey = rpc.NotificationMessgae.getConfusionName(key);
+        if(!rawKey)
+            rawKey = key;
+        ret[rawKey] = from[key];
+    }
+      
+    return ret;
+};
+    
+rpc.NotificationMessgae.confusionToRawObject  = function(from, clone) {
+    if(!from)
+        return from;
+    
+    rpc.NotificationMessgae.checkAndInitial();
+    if (!rpc.NotificationMessgae.mHasConfusionField) {
+        return rpc.RpcMessageBase.confusionToRawObject(from);
+    }
+        
+    var ret = {};
+    for(var key in from) {
+        var rawKey = rpc.NotificationMessgae.getRawName(key);
+        if(!rawKey)
+            rawKey = key;
+        ret[rawKey] = from[key];
+    }
+    return ret;
+};
+
+rpc.NotificationMessgae.prototype.clearCache = function() {
+	if(this.mValueCache) {
+		this.mValueCache = {};
+	}
+};
+
+rpc.NotificationMessgae.prototype.convertFrom  = function(from, confusionMode, clone) {
+    if (!from)
+        return false;
+    
+    if (from.prototype && from.prototype.convertFrom) {
+        this.clearCache();
+        this.mObj = from.getAsObject(false, clone);
+        return true;
+    }
+    
+    if (from instanceof String && from[0] == '{') {
+        this.clearCache();
+        var jsonObj = JSON.parse(from);
+        if(confusionMode) {
+            this.mObj = rpc.NotificationMessgae.confusionToRawObject(jsonObj, clone);
+        } else {
+            this.mObj = clone ? objectClone(jsonObj) : jsonObj;
+        }
+        return true;
+    }
+    
+    this.clearCache();
+    if(confusionMode) {
+         this.mObj = rpc.NotificationMessgae.confusionToRawObject(from, clone);
     } else {
          this.mObj = clone ? objectClone(from) : from;
     }
@@ -6804,7 +7348,7 @@ rpc.UserBlockNotification.prototype.checkAndCreate = function() {
     if (!this.mObj) {
         this.mObj = {};
         this.mObj[rpc.RpcMessageBase.FIELD_MSGTYPE] = 112;
-        this.mObj[rpc.RpcMessageBase.FIELD_FLAG] = 4;
+        this.mObj[rpc.RpcMessageBase.FIELD_FLAG] = 5;
     }
 };
 
@@ -22023,6 +22567,46 @@ rpc.ChargeCardBatch.prototype.setDesc = function(value) {
 	return this;
 };
 
+rpc.ChargeCardBatch.prototype.getEndTime = function() {
+	if(!this.mObj) {
+		return 0;
+	}
+	
+	this.mValueCache = this.mValueCache || {};
+	var cacheValue = this.mValueCache["endTime"];
+	if(cacheValue) return cacheValue;
+	
+	var value = this.mObj["endTime"];
+	
+	var objRet = ConvertUtils.jsonObjectToObject(value, Number, null, false);
+	
+	if(objRet) {
+		this.mValueCache["endTime"] = objRet;
+		return objRet;
+	}
+	
+	return 0;
+};
+
+rpc.ChargeCardBatch.prototype.setEndTime = function(value) {
+    this.checkAndCreate();
+	this.mValueCache = this.mValueCache || {};
+	this.mObj = this.mObj || {};
+	
+	var _value_value0 = (value);
+	if(!_value_value0) 
+		delete this.mObj["endTime"];
+	else
+		this.mObj["endTime"] = _value_value0;
+
+	if(value) {
+		this.mValueCache["endTime"] = value;
+	} else {
+		delete this.mValueCache["endTime"];
+	}
+	return this;
+};
+
 rpc.ChargeCardBatch.prototype.getSimpleDesc = function() {
 	if(!this.mObj) {
 		return null;
@@ -22103,6 +22687,88 @@ rpc.ChargeCardBatch.prototype.setSoldPrice = function(value) {
 	return this;
 };
 
+rpc.ChargeCardBatch.prototype.getStartTime = function() {
+	if(!this.mObj) {
+		return 0;
+	}
+	
+	this.mValueCache = this.mValueCache || {};
+	var cacheValue = this.mValueCache["startTime"];
+	if(cacheValue) return cacheValue;
+	
+	var value = this.mObj["startTime"];
+	
+	var objRet = ConvertUtils.jsonObjectToObject(value, Number, null, false);
+	
+	if(objRet) {
+		this.mValueCache["startTime"] = objRet;
+		return objRet;
+	}
+	
+	return 0;
+};
+
+rpc.ChargeCardBatch.prototype.setStartTime = function(value) {
+    this.checkAndCreate();
+	this.mValueCache = this.mValueCache || {};
+	this.mObj = this.mObj || {};
+	
+	var _value_value0 = (value);
+	if(!_value_value0) 
+		delete this.mObj["startTime"];
+	else
+		this.mObj["startTime"] = _value_value0;
+
+	if(value) {
+		this.mValueCache["startTime"] = value;
+	} else {
+		delete this.mValueCache["startTime"];
+	}
+	return this;
+};
+
+rpc.ChargeCardBatch.prototype.getStarted = function() {
+	if(!this.mObj) {
+		return 0;
+	}
+	
+	this.mValueCache = this.mValueCache || {};
+	var cacheValue = this.mValueCache["started"];
+	if(cacheValue) return cacheValue;
+	
+	var value = this.mObj["started"];
+	
+	var objRet = ConvertUtils.jsonObjectToObject(value, Number, null, false);
+	
+	if(objRet) {
+		this.mValueCache["started"] = objRet;
+		return objRet;
+	}
+	
+	return 0;
+};
+
+rpc.ChargeCardBatch.prototype.setStarted = function(value) {
+    this.checkAndCreate();
+	this.mValueCache = this.mValueCache || {};
+	this.mObj = this.mObj || {};
+	
+	var _value_value0 = (value);
+	if(!_value_value0) 
+		delete this.mObj["started"];
+	else
+		this.mObj["started"] = _value_value0;
+
+	if(value) {
+		this.mValueCache["started"] = value;
+	} else {
+		delete this.mValueCache["started"];
+	}
+	return this;
+};
+
+rpc.ChargeCardBatch.FIELD_STARTTIME="startTime";
+rpc.ChargeCardBatch.FIELD_STARTTIME_CONFUSION="startTime";
 rpc.ChargeCardBatch.FIELD_SIMPLEDESC="simpleDesc";
 rpc.ChargeCardBatch.FIELD_SIMPLEDESC_CONFUSION="simpleDesc";
 rpc.ChargeCardBatch.FIELD_DESC="desc";
@@ -22113,6 +22779,10 @@ rpc.ChargeCardBatch.FIELD_BATCHNAME="batchName";
 rpc.ChargeCardBatch.FIELD_BATCHNAME_CONFUSION="batchName";
 rpc.ChargeCardBatch.FIELD_BATCHID="batchId";
 rpc.ChargeCardBatch.FIELD_BATCHID_CONFUSION="batchId";
+rpc.ChargeCardBatch.FIELD_STARTED="started";
+rpc.ChargeCardBatch.FIELD_STARTED_CONFUSION="started";
+rpc.ChargeCardBatch.FIELD_ENDTIME="endTime";
+rpc.ChargeCardBatch.FIELD_ENDTIME_CONFUSION="endTime";
 rpc.ChargeCardBatch.FIELD_ACQUIREDPRICE="acquiredPrice";
 rpc.ChargeCardBatch.FIELD_ACQUIREDPRICE_CONFUSION="acquiredPrice";
 
@@ -22122,19 +22792,25 @@ rpc.ChargeCardBatch.checkAndInitial = function() {
 	
 	rpc.ChargeCardBatch.mHasConfusionField = false;
 	rpc.ChargeCardBatch.mFieldToConfusionMap = {
+		"startTime":"startTime", 
 		"simpleDesc":"simpleDesc", 
 		"desc":"desc", 
 		"soldPrice":"soldPrice", 
 		"batchName":"batchName", 
 		"batchId":"batchId", 
+		"started":"started", 
+		"endTime":"endTime", 
 		"acquiredPrice":"acquiredPrice"
 	};
 	rpc.ChargeCardBatch.mConfusionToFieldMap = {
+		"startTime":"startTime", 
 		"simpleDesc":"simpleDesc", 
 		"desc":"desc", 
 		"soldPrice":"soldPrice", 
 		"batchName":"batchName", 
 		"batchId":"batchId", 
+		"started":"started", 
+		"endTime":"endTime", 
 		"acquiredPrice":"acquiredPrice"
 	};
 
@@ -24982,6 +25658,46 @@ rpc.ProductCategory.prototype.setShopId = function(value) {
 	return this;
 };
 
+rpc.ProductCategory.prototype.getShowAll = function() {
+	if(!this.mObj) {
+		return 0;
+	}
+	
+	this.mValueCache = this.mValueCache || {};
+	var cacheValue = this.mValueCache["showAll"];
+	if(cacheValue) return cacheValue;
+	
+	var value = this.mObj["showAll"];
+	
+	var objRet = ConvertUtils.jsonObjectToObject(value, Number, null, false);
+	
+	if(objRet) {
+		this.mValueCache["showAll"] = objRet;
+		return objRet;
+	}
+	
+	return 0;
+};
+
+rpc.ProductCategory.prototype.setShowAll = function(value) {
+    this.checkAndCreate();
+	this.mValueCache = this.mValueCache || {};
+	this.mObj = this.mObj || {};
+	
+	var _value_value0 = (value);
+	if(!_value_value0) 
+		delete this.mObj["showAll"];
+	else
+		this.mObj["showAll"] = _value_value0;
+
+	if(value) {
+		this.mValueCache["showAll"] = value;
+	} else {
+		delete this.mValueCache["showAll"];
+	}
+	return this;
+};
+
 rpc.ProductCategory.prototype.getSubcategories = function() {
 	if(!this.mObj) {
 		return null;
@@ -25161,6 +25877,8 @@ rpc.ProductCategory.FIELD_SHOPID="shopId";
 rpc.ProductCategory.FIELD_SHOPID_CONFUSION="shopId";
 rpc.ProductCategory.FIELD_NAME="name";
 rpc.ProductCategory.FIELD_NAME_CONFUSION="name";
+rpc.ProductCategory.FIELD_SHOWALL="showAll";
+rpc.ProductCategory.FIELD_SHOWALL_CONFUSION="showAll";
 rpc.ProductCategory.FIELD_XIMAGE="xImage";
 rpc.ProductCategory.FIELD_XIMAGE_CONFUSION="xImage";
 rpc.ProductCategory.FIELD_SUBCATEGORIES="subcategories";
@@ -25185,6 +25903,7 @@ rpc.ProductCategory.checkAndInitial = function() {
 		"order":"order", 
 		"shopId":"shopId", 
 		"name":"name", 
+		"showAll":"showAll", 
 		"xImage":"xImage", 
 		"subcategories":"subcategories", 
 		"type":"type", 
@@ -25198,6 +25917,7 @@ rpc.ProductCategory.checkAndInitial = function() {
 		"order":"order", 
 		"shopId":"shopId", 
 		"name":"name", 
+		"showAll":"showAll", 
 		"xImage":"xImage", 
 		"subcategories":"subcategories", 
 		"type":"type", 
@@ -26304,6 +27024,46 @@ rpc.Shop.prototype.setStatus = function(value) {
 	return this;
 };
 
+rpc.Shop.prototype.getStoreLimitEnable = function() {
+	if(!this.mObj) {
+		return 0;
+	}
+	
+	this.mValueCache = this.mValueCache || {};
+	var cacheValue = this.mValueCache["storeLimitEnable"];
+	if(cacheValue) return cacheValue;
+	
+	var value = this.mObj["storeLimitEnable"];
+	
+	var objRet = ConvertUtils.jsonObjectToObject(value, Number, null, false);
+	
+	if(objRet) {
+		this.mValueCache["storeLimitEnable"] = objRet;
+		return objRet;
+	}
+	
+	return 0;
+};
+
+rpc.Shop.prototype.setStoreLimitEnable = function(value) {
+    this.checkAndCreate();
+	this.mValueCache = this.mValueCache || {};
+	this.mObj = this.mObj || {};
+	
+	var _value_value0 = (value);
+	if(!_value_value0) 
+		delete this.mObj["storeLimitEnable"];
+	else
+		this.mObj["storeLimitEnable"] = _value_value0;
+
+	if(value) {
+		this.mValueCache["storeLimitEnable"] = value;
+	} else {
+		delete this.mValueCache["storeLimitEnable"];
+	}
+	return this;
+};
+
 rpc.Shop.FIELD_ICON="icon";
 rpc.Shop.FIELD_ICON_CONFUSION="icon";
 rpc.Shop.FIELD_LOGO="logo";
@@ -26334,6 +27094,8 @@ rpc.Shop.FIELD_AREAIDS="areaIds";
 rpc.Shop.FIELD_AREAIDS_CONFUSION="areaIds";
 rpc.Shop.FIELD_LAT="lat";
 rpc.Shop.FIELD_LAT_CONFUSION="lat";
+rpc.Shop.FIELD_STORELIMITENABLE="storeLimitEnable";
+rpc.Shop.FIELD_STORELIMITENABLE_CONFUSION="storeLimitEnable";
 rpc.Shop.FIELD_BANNERS="banners";
 rpc.Shop.FIELD_BANNERS_CONFUSION="banners";
 
@@ -26358,6 +27120,7 @@ rpc.Shop.checkAndInitial = function() {
 		"showType":"showType", 
 		"areaIds":"areaIds", 
 		"lat":"lat", 
+		"storeLimitEnable":"storeLimitEnable", 
 		"banners":"banners"
 	};
 	rpc.Shop.mConfusionToFieldMap = {
@@ -26376,6 +27139,7 @@ rpc.Shop.checkAndInitial = function() {
 		"showType":"showType", 
 		"areaIds":"areaIds", 
 		"lat":"lat", 
+		"storeLimitEnable":"storeLimitEnable", 
 		"banners":"banners"
 	};
 
@@ -30802,6 +31566,19 @@ rpc.IChargeCardService.decharge = function(code, success, fail){
 	return RpcCall.doInvoke(_url, "decharge", _jsonDict, _uploadDict, successWrapper, fail);
 };
 
+rpc.IChargeCardService.getCanDisplayOnlineChargCardBatchs = function(success, fail){
+	if(arguments.length < 2) alert("com.paitao.xmlife.rpc.IChargeCardService.getCanDisplayOnlineChargCardBatchs param count dismatch");
+
+	var successWrapper = success ? function(returnCode, jsonObj) {
+		var obj = ConvertUtils.jsonObjectToObject(jsonObj, Array, [rpc.ChargeCardBatch], true);
+		success(returnCode, obj);
+	} : null;
+	var _jsonDict = {};
+	var _uploadDict = {};
+	var _url = rpc.ServerConfig.getUrlPrefix("Business") + "IChargeCardService/1/getCanDisplayOnlineChargCardBatchs";
+	return RpcCall.doInvoke(_url, "getCanDisplayOnlineChargCardBatchs", _jsonDict, _uploadDict, successWrapper, fail);
+};
+
 rpc.IChargeCardService.getOnlineChargCardBatchs = function(success, fail){
 	if(arguments.length < 2) alert("com.paitao.xmlife.rpc.IChargeCardService.getOnlineChargCardBatchs param count dismatch");
 
@@ -32852,6 +33629,7 @@ rpc.HttpRequestConstants.HEADER_CHECKSUM="RC";
 rpc.HttpRequestConstants.HEADER_ENCRYPT_KEY_EXPIRE="ke";
 rpc.HttpRequestConstants.HEADER_REQUEST_SEQ="sq";
 rpc.HttpRequestConstants.HEADER_CATEGORY="cg";
+rpc.HttpRequestConstants.HEADER_IP="ip";
 rpc.HttpRequestConstants.KEY_RESP="r";
 rpc.HttpRequestConstants.KEY_RETURN_CODE="c";
 rpc.HttpRequestConstants.KEY_ERROR="e";
@@ -32898,12 +33676,19 @@ rpc.CashFlowType.CHARGE="CHARGE";
 rpc.CashFlowType.CODE="COD";
 rpc.CashFlowType.BATCHBACK="BATCHBACK";
 rpc.CashFlowType.BATCHIMMEDIATELY="BATCHIMMEDIATELY";
+rpc.CashFlowType.ONLINE_CHARGE_BATCHBACK="ONLINE_CHARGE_BATCH_BACK";
 
 rpc.ChargeCardBatchConstant={};
 rpc.ChargeCardBatchConstant.STATUS_OPEN=1;
 rpc.ChargeCardBatchConstant.STATUS_CLOSED=0;
 rpc.ChargeCardBatchConstant.STATUS_EXPIRED=2;
 rpc.ChargeCardBatchConstant.STATUS_BUILDING=3;
+rpc.ChargeCardBatchConstant.STATUS_FORCE_CLOSED=4;
+rpc.ChargeCardBatchConstant.DISPLAY_FLAG_ON=1;
+rpc.ChargeCardBatchConstant.DISPLAY_FLAG_OFF=0;
+rpc.ChargeCardBatchConstant.STARTED_NOT_BEGIN=0;
+rpc.ChargeCardBatchConstant.STARTED_BEGIN=1;
+rpc.ChargeCardBatchConstant.STARTED_END=2;
 
 rpc.ChargeCardRecordConstant={};
 rpc.ChargeCardRecordConstant.TYPE_IMMEDIATELY=0;
@@ -32911,6 +33696,8 @@ rpc.ChargeCardRecordConstant.TYPE_BATCH_IMMEDIATELY=1;
 rpc.ChargeCardRecordConstant.TYPE_BATCH=2;
 rpc.ChargeCardRecordConstant.TYPE_BATCH_CHARGE_ALIPAY=3;
 rpc.ChargeCardRecordConstant.TYPE_BATCH_CHARGE_TENPAY=4;
+rpc.ChargeCardRecordConstant.TYPE_BATCH_ONLINE_IMMEDIATELY=5;
+rpc.ChargeCardRecordConstant.TYPE_BATCH_ONLINE_BACK=6;
 
 rpc.ChargeCardResultCode={};
 rpc.ChargeCardResultCode.SUCCCESS=1;
@@ -32928,6 +33715,8 @@ rpc.ChargeCardTemplateConstant.TYPE_ACTIVE=1;
 rpc.ChargeCardTemplateConstant.TYPE_BATCH=2;
 rpc.ChargeCardTemplateConstant.BIZ_TYPE_UNLINE=0;
 rpc.ChargeCardTemplateConstant.BIZ_TYPE_ONLINE=1;
+rpc.ChargeCardTemplateConstant.STATUS_NORMAL=1;
+rpc.ChargeCardTemplateConstant.STATUS_DELETED=2;
 
 rpc.CheckResultCodeConstant={};
 rpc.CheckResultCodeConstant.OK=1;
@@ -33015,6 +33804,9 @@ rpc.IReturnCodeChardCard.EXISTS_NEWS=205;
 rpc.IReturnCodeChardCard.EXISTS=206;
 rpc.IReturnCodeChardCard.CARD_IS_USED=207;
 rpc.IReturnCodeChardCard.CARD_IS_DISABLED=208;
+rpc.IReturnCodeChardCard.BATCH_OUT_OF_USEF_NUM=209;
+rpc.IReturnCodeChardCard.BATCH_NOT_BEGIN=210;
+rpc.IReturnCodeChardCard.BATCH_END=211;
 
 rpc.IReturnCodeProduct={};
 rpc.IReturnCodeProduct.PRODUCT_CATEGORY_IS_NOT_LEAF=170;
@@ -33027,6 +33819,9 @@ rpc.IReturnCodeProduct.FPRICE_LTOREQ_ZERO=176;
 rpc.IReturnCodeProduct.PPRICE_LTOREQ_ZERO=177;
 rpc.IReturnCodeProduct.DPRICE_LT_ZERO=178;
 rpc.IReturnCodeProduct.NOT_OPER_STATUS=179;
+rpc.IReturnCodeProduct.SHOP_NOT_SET_STORE_LIMIT=180;
+rpc.IReturnCodeProduct.PRODUCT_NOT_EXIST=181;
+rpc.IReturnCodeProduct.ILLEGAL_PRODUCT_STORE_VALUE=182;
 
 rpc.IReturnCodeProductCategory={};
 rpc.IReturnCodeProductCategory.DUPLICATE_NAME=181;
@@ -33081,6 +33876,8 @@ rpc.ProductConstant.SOURCE_PC="pc";
 rpc.ProductConstant.CATEGORY_CACHE_MAX_PRODUCT_COUNT=8;
 rpc.ProductConstant.LIMIT_TYPE_BY_DAY=1;
 rpc.ProductConstant.LIMIT_TYPE_BY_LIFE=2;
+rpc.ProductConstant.TYPE_PRODUCT_CHANGE_STORE=1;
+rpc.ProductConstant.TYPE_PRODUCT_SET_STORE=2;
 
 rpc.RefundResult={};
 rpc.RefundResult.SUCCESS=0;
@@ -33101,6 +33898,8 @@ rpc.ShopConstant.DEFAULT_EMPTY_SHOP_BANNER_1="53d07275036489844e6bc23262";
 rpc.ShopConstant.DEFAULT_EMPTY_SHOP_BANNER_2="53d072a0036489844e6bc233d6";
 rpc.ShopConstant.SHOW_TYPE_0=0;
 rpc.ShopConstant.SHOW_TYPE_1=1;
+rpc.ShopConstant.STATUS_CLOSE_STORE_LIMIT=0;
+rpc.ShopConstant.STATUS_OPEN_STROE_LIMIT=1;
 
 rpc.TaskProductStatusConstant={};
 rpc.TaskProductStatusConstant.OK=1;
@@ -33196,230 +33995,6 @@ rpc.ServerConfig.loadDefaultConfig = function() {
 }
 
 rpc.ServerConfig.loadDefaultConfig();
-
-
-// category: CDN
-// arg 1: hash
-
-rpc.ProductImageResource = {};
-
-rpc.ProductImageResource.hashToUrl = function(
-		hash 
-	) {
-	var _url = hash;
-	if(!_url || _url.length < 3)
-		return _url;
-	if(_url.indexOf("http:") == 0 ||
-		   _url.indexOf("https:") == 0 ||
-           _url.indexOf("file:") == 0 ||
-           _url.indexOf("res:") == 0 ||
-           _url.indexOf("/") == 0) {
-           return _url;
-	}
-	var _url1 = rpc.ServerConfig.getUrlPrefix("CDN");
-	if(!_url1 || _url1.length < 2)
-		return null;
-	var _sb =_url1;
-	var _c;
-	_c = _sb.charAt(_sb.length - 1);
-	if(_c != '/') {
-		_sb += "/";
-	}
-	//_sb += "id-";
-
-	_sb += hash;
-	
-	return _sb;
-};
-
-rpc.ProductImageResource.hashToSmallUrl = function(
-		hash 
-	) {
-	var _url = rpc.ProductImageResource.hashToUrl(
-		hash 
-	);
-	if(!_url || _url.length < 3 || _url.indexOf("http") < 0)
-		return _url;
-	
-	//if(_url.indexOf("w-202") > 1) {
-	//	return _url;
-	//}
-	
-	var _sb = _url;
-	var _c = _sb.charAt(_sb.length - 1);
-	if(_c != '@') {
-		_sb += "@";
-	}
-	
-	_sb += "w-202";
-	
-	
-	return _sb;
-};
-
-rpc.ProductImageResource.hashToMediumUrl = function(
-		hash 
-	) {
-	var _url = rpc.ProductImageResource.hashToUrl(
-		hash 
-	);
-	if(!_url || _url.length < 3 || _url.indexOf("http") < 0)
-		return _url;
-	
-	//if(_url.indexOf("w-372") > 1) {
-	//	return _url;
-	//}
-	
-	var _sb = _url;
-	var _c = _sb.charAt(_sb.length - 1);
-	if(_c != '@') {
-		_sb += "@";
-	}
-	
-	_sb += "w-372";
-	
-	
-	return _sb;
-};
-
-rpc.ProductImageResource.hashToFullUrl = function(
-		hash 
-	) {
-	var _url = rpc.ProductImageResource.hashToUrl(
-		hash 
-	);
-	if(!_url || _url.length < 3 || _url.indexOf("http") < 0)
-		return _url;
-	
-	//if(_url.indexOf("w-640/m-fw") > 1) {
-	//	return _url;
-	//}
-	
-	var _sb = _url;
-	var _c = _sb.charAt(_sb.length - 1);
-	if(_c != '@') {
-		_sb += "@";
-	}
-	
-	_sb += "w-640/m-fw";
-	
-	
-	return _sb;
-};
-
-
-// category: CDN
-// arg 1: hash
-
-rpc.AvatarImageResource = {};
-
-rpc.AvatarImageResource.hashToUrl = function(
-		hash 
-	) {
-	var _url = hash;
-	if(!_url || _url.length < 3)
-		return _url;
-	if(_url.indexOf("http:") == 0 ||
-		   _url.indexOf("https:") == 0 ||
-           _url.indexOf("file:") == 0 ||
-           _url.indexOf("res:") == 0 ||
-           _url.indexOf("/") == 0) {
-           return _url;
-	}
-	var _url1 = rpc.ServerConfig.getUrlPrefix("CDN");
-	if(!_url1 || _url1.length < 2)
-		return null;
-	var _sb =_url1;
-	var _c;
-	_c = _sb.charAt(_sb.length - 1);
-	if(_c != '/') {
-		_sb += "/";
-	}
-	//_sb += "id-";
-
-	_sb += hash;
-	
-	return _sb;
-};
-
-rpc.AvatarImageResource.hashToSmallUrl = function(
-		hash 
-	) {
-	var _url = rpc.AvatarImageResource.hashToUrl(
-		hash 
-	);
-	if(!_url || _url.length < 3 || _url.indexOf("http") < 0)
-		return _url;
-	
-	//if(_url.indexOf("w-72") > 1) {
-	//	return _url;
-	//}
-	
-	var _sb = _url;
-	var _c = _sb.charAt(_sb.length - 1);
-	if(_c != '@') {
-		_sb += "@";
-	}
-	
-	_sb += "w-72";
-	
-	
-	return _sb;
-};
-
-rpc.AvatarImageResource.hashToMediumUrl = function(
-		hash 
-	) {
-	var _url = rpc.AvatarImageResource.hashToUrl(
-		hash 
-	);
-	if(!_url || _url.length < 3 || _url.indexOf("http") < 0)
-		return _url;
-	
-	//if(_url.indexOf("w-92") > 1) {
-	//	return _url;
-	//}
-	
-	var _sb = _url;
-	var _c = _sb.charAt(_sb.length - 1);
-	if(_c != '@') {
-		_sb += "@";
-	}
-	
-	_sb += "w-92";
-	
-	
-	return _sb;
-};
-
-rpc.AvatarImageResource.hashToFullUrl = function(
-		hash 
-	) {
-	var _url = rpc.AvatarImageResource.hashToUrl(
-		hash 
-	);
-	if(!_url || _url.length < 3 || _url.indexOf("http") < 0)
-		return _url;
-	
-	//if(_url.indexOf("w-640/m-fw") > 1) {
-	//	return _url;
-	//}
-	
-	var _sb = _url;
-	var _c = _sb.charAt(_sb.length - 1);
-	if(_c != '@') {
-		_sb += "@";
-	}
-	
-	_sb += "w-640/m-fw";
-	
-	
-	return _sb;
-};
-
-
-
-rpc.RpcProxyStub = {};
 
 
 // category: CDN
@@ -33557,8 +34132,232 @@ rpc.HttpImageResource.hashToFullUrl = function(
 };
 
 
+// category: CDN
+// arg 1: hash
+
+rpc.AvatarImageResource = {};
+
+rpc.AvatarImageResource.hashToUrl = function(
+		hash 
+	) {
+	var _url = hash;
+	if(!_url || _url.length < 3)
+		return _url;
+	if(_url.indexOf("http:") == 0 ||
+		   _url.indexOf("https:") == 0 ||
+           _url.indexOf("file:") == 0 ||
+           _url.indexOf("res:") == 0 ||
+           _url.indexOf("/") == 0) {
+           return _url;
+	}
+	var _url1 = rpc.ServerConfig.getUrlPrefix("CDN");
+	if(!_url1 || _url1.length < 2)
+		return null;
+	var _sb =_url1;
+	var _c;
+	_c = _sb.charAt(_sb.length - 1);
+	if(_c != '/') {
+		_sb += "/";
+	}
+	//_sb += "id-";
+
+	_sb += hash;
+	
+	return _sb;
+};
+
+rpc.AvatarImageResource.hashToSmallUrl = function(
+		hash 
+	) {
+	var _url = rpc.AvatarImageResource.hashToUrl(
+		hash 
+	);
+	if(!_url || _url.length < 3 || _url.indexOf("http") < 0)
+		return _url;
+	
+	//if(_url.indexOf("w-72") > 1) {
+	//	return _url;
+	//}
+	
+	var _sb = _url;
+	var _c = _sb.charAt(_sb.length - 1);
+	if(_c != '@') {
+		_sb += "@";
+	}
+	
+	_sb += "w-72";
+	
+	
+	return _sb;
+};
+
+rpc.AvatarImageResource.hashToMediumUrl = function(
+		hash 
+	) {
+	var _url = rpc.AvatarImageResource.hashToUrl(
+		hash 
+	);
+	if(!_url || _url.length < 3 || _url.indexOf("http") < 0)
+		return _url;
+	
+	//if(_url.indexOf("w-92") > 1) {
+	//	return _url;
+	//}
+	
+	var _sb = _url;
+	var _c = _sb.charAt(_sb.length - 1);
+	if(_c != '@') {
+		_sb += "@";
+	}
+	
+	_sb += "w-92";
+	
+	
+	return _sb;
+};
+
+rpc.AvatarImageResource.hashToFullUrl = function(
+		hash 
+	) {
+	var _url = rpc.AvatarImageResource.hashToUrl(
+		hash 
+	);
+	if(!_url || _url.length < 3 || _url.indexOf("http") < 0)
+		return _url;
+	
+	//if(_url.indexOf("w-640/m-fw") > 1) {
+	//	return _url;
+	//}
+	
+	var _sb = _url;
+	var _c = _sb.charAt(_sb.length - 1);
+	if(_c != '@') {
+		_sb += "@";
+	}
+	
+	_sb += "w-640/m-fw";
+	
+	
+	return _sb;
+};
+
+
 
 rpc.LongPolling = {};
+
+
+
+rpc.RpcProxyStub = {};
+
+
+// category: CDN
+// arg 1: hash
+
+rpc.ProductImageResource = {};
+
+rpc.ProductImageResource.hashToUrl = function(
+		hash 
+	) {
+	var _url = hash;
+	if(!_url || _url.length < 3)
+		return _url;
+	if(_url.indexOf("http:") == 0 ||
+		   _url.indexOf("https:") == 0 ||
+           _url.indexOf("file:") == 0 ||
+           _url.indexOf("res:") == 0 ||
+           _url.indexOf("/") == 0) {
+           return _url;
+	}
+	var _url1 = rpc.ServerConfig.getUrlPrefix("CDN");
+	if(!_url1 || _url1.length < 2)
+		return null;
+	var _sb =_url1;
+	var _c;
+	_c = _sb.charAt(_sb.length - 1);
+	if(_c != '/') {
+		_sb += "/";
+	}
+	//_sb += "id-";
+
+	_sb += hash;
+	
+	return _sb;
+};
+
+rpc.ProductImageResource.hashToSmallUrl = function(
+		hash 
+	) {
+	var _url = rpc.ProductImageResource.hashToUrl(
+		hash 
+	);
+	if(!_url || _url.length < 3 || _url.indexOf("http") < 0)
+		return _url;
+	
+	//if(_url.indexOf("w-202") > 1) {
+	//	return _url;
+	//}
+	
+	var _sb = _url;
+	var _c = _sb.charAt(_sb.length - 1);
+	if(_c != '@') {
+		_sb += "@";
+	}
+	
+	_sb += "w-202";
+	
+	
+	return _sb;
+};
+
+rpc.ProductImageResource.hashToMediumUrl = function(
+		hash 
+	) {
+	var _url = rpc.ProductImageResource.hashToUrl(
+		hash 
+	);
+	if(!_url || _url.length < 3 || _url.indexOf("http") < 0)
+		return _url;
+	
+	//if(_url.indexOf("w-372") > 1) {
+	//	return _url;
+	//}
+	
+	var _sb = _url;
+	var _c = _sb.charAt(_sb.length - 1);
+	if(_c != '@') {
+		_sb += "@";
+	}
+	
+	_sb += "w-372";
+	
+	
+	return _sb;
+};
+
+rpc.ProductImageResource.hashToFullUrl = function(
+		hash 
+	) {
+	var _url = rpc.ProductImageResource.hashToUrl(
+		hash 
+	);
+	if(!_url || _url.length < 3 || _url.indexOf("http") < 0)
+		return _url;
+	
+	//if(_url.indexOf("w-640/m-fw") > 1) {
+	//	return _url;
+	//}
+	
+	var _sb = _url;
+	var _c = _sb.charAt(_sb.length - 1);
+	if(_c != '@') {
+		_sb += "@";
+	}
+	
+	_sb += "w-640/m-fw";
+	
+	
+	return _sb;
+};
 
 rpc.RpcClassMap = {};
 rpc.RpcClassMap.gMsgClassMap = {};
@@ -33587,11 +34386,13 @@ rpc.RpcClassMap.gMsgClassMap["7"] = rpc.PipeInitMessage;
 rpc.RpcClassMap.gMsgClassMap["5"] = rpc.PipeInitedMessage;
 rpc.RpcClassMap.gMsgClassMap["6"] = rpc.RecvConfirmMessage;
 rpc.RpcClassMap.gMsgClassMap["109"] = rpc.BackAmountMessage;
+rpc.RpcClassMap.gMsgClassMap["114"] = rpc.BackendDealNotificationMessage;
 rpc.RpcClassMap.gMsgClassMap["111"] = rpc.ChargeMessage;
 rpc.RpcClassMap.gMsgClassMap["107"] = rpc.DealNotificationMessage;
 rpc.RpcClassMap.gMsgClassMap["108"] = rpc.DeliverBeginMessage;
 rpc.RpcClassMap.gMsgClassMap["105"] = rpc.DelivererNewTaskMessage;
 rpc.RpcClassMap.gMsgClassMap["106"] = rpc.DelivererPickupMessage;
+rpc.RpcClassMap.gMsgClassMap["113"] = rpc.NotificationMessgae;
 rpc.RpcClassMap.gMsgClassMap["110"] = rpc.PaymentRefundNotificationMessgae;
 rpc.RpcClassMap.gMsgClassMap["100"] = rpc.PictureMessage;
 rpc.RpcClassMap.gMsgClassMap["104"] = rpc.ShopperBuyDoneMessage;
