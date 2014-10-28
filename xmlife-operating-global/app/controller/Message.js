@@ -140,7 +140,7 @@ Ext.define('XMLifeOperating.controller.Message', {
             var sessionId = localStorage.getItem('sessionId') || '';
 
             form.submit({
-                url: XMLifeOperating.generic.Global.URL.biz + postUrl +'/?sessionId='+ sessionId,
+                url: XMLifeOperating.generic.Global.URL.biz + postUrl +'?sessionId='+ sessionId,
                 params: {
                     type: msgType,
                     id: record.get('id'),
