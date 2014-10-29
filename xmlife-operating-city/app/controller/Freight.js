@@ -33,7 +33,16 @@ Ext.define('XMLifeOperating.controller.Freight', {
     var me = this;
     var customerDetail = view.getRecord(view.findTargetByEvent(e));
     var name = customerDetail.get('name');
-    var store = me.getSupportedcityGetByCodeStore();
+    var  amountCmp = me.getFreightSet().down('#amount');
+    
+    if(customerDetail.data.deductd>0){
+      
+    amountCmp.setValue(true);
+    
+
+      
+    }
+    
     var win = me.getFreightSet();
     win.down('form').loadRecord(customerDetail);
     win.show();
