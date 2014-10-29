@@ -34,13 +34,10 @@ Ext.define('XMLifeOperating.controller.Freight', {
     var customerDetail = view.getRecord(view.findTargetByEvent(e));
     var name = customerDetail.get('name');
     var  amountCmp = me.getFreightSet().down('#amount');
+    var deductdCmp = me.getFreightSet().down('#deductd');
     
-    if(customerDetail.data.deductd>0){
-      
+    if(customerDetail.data.deductd>0){     
     amountCmp.setValue(true);
-    
-
-      
     }
     
     var win = me.getFreightSet();

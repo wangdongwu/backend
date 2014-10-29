@@ -15,7 +15,12 @@ Ext.define('XMLifeOperating.view.freightManage.FreightList', {
     }, {
       header: '满免',
       width:100,
-      dataIndex: 'deductd'
+      dataIndex: 'deductd',
+      renderer:function(value){                          
+        if(value == 0){
+          return '';
+        }
+      }
     }, {
         text: '操作',
         width: 100,

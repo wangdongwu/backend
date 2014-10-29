@@ -65,7 +65,8 @@ Ext.define('XMLifeOperating.view.freightManage.FreightSet', {
                                         deduct.setDisabled(false);
                                     }else{
                                         var deduct = Ext.ComponentQuery.query('#deductd')[0];
-                                        deduct.setDisabled(true);  
+                                        deduct.setDisabled(true);
+
                                     }                                   
                                 }
                             }, {
@@ -78,7 +79,7 @@ Ext.define('XMLifeOperating.view.freightManage.FreightSet', {
                                 minWidth: 88,
                                 maxWidth: 88,
                                 disabled:true,
-                                allowBlank: true,
+                                allowBlank: true
                             }, {
                                 xtype: 'text',
                                 text: '免运费',
