@@ -7,7 +7,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopShelf', {
     features: [{
         id: 'summary',
         ftype: 'summary',
-        showSummaryRow: false
+        showSummaryRow: true
     }],
     columns: [{
         xtype: 'rownumberer',
@@ -85,7 +85,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopShelf', {
                 total = 0;
             for (; i < length; i++) {
                 record = records[i];
-                total += record.get('onlineProductsCount');
+                total += record.get('soldoutProductsCount');
             }
             return '合计' + total;
         },
@@ -102,7 +102,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopShelf', {
                 total = 0;
             for (; i < length; i++) {
                 record = records[i];
-                total += record.get('onlineProductsCount');
+                total += record.get('unlineProductsCount');
             }
             return '合计' + total;
         },
