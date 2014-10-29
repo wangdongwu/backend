@@ -24,6 +24,7 @@ Ext.define('XMLifeOperating.Application', {
     controllers: [
         'Navigation',
         'login',
+        'SDealList'
     ],
 
     stores: [

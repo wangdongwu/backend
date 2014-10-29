@@ -108,7 +108,7 @@ Ext.define('XMLifeOperating.controller.login', {
       /*      self.getNavigationStore().setRootNode({
         expanded: true
       });*/
-      self.detectAccount();
+      //self.detectAccount();
     };
 
   },
@@ -167,7 +167,7 @@ Ext.define('XMLifeOperating.controller.login', {
             /*            self.getNavigationStore().setRootNode({
               expanded: true
             });*/
-            self.detectAccount();
+            //self.detectAccount();
 
             view.hide();
           }
