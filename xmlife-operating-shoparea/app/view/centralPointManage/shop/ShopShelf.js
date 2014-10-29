@@ -53,7 +53,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopShelf', {
         renderer: function(value, metadata, model, rowIndex, colIndex, store) {
             return Ext.String.format('<img src="{0}{1}" height="100" />', XMLifeOperating.generic.Global.URL.res, value);
         }
-    }, /*{
+    }, {
         text: '在线商品数',
         dataIndex: 'onlineProductsCount',
         width: 100,
@@ -107,7 +107,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopShelf', {
             return '合计' + total;
         },
         tdCls: 'user-td'
-    },*/ {
+    }, {
         text: '编辑',
         xtype: 'actioncolumn',
         dataIndex: 'type',

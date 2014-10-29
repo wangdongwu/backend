@@ -88,14 +88,14 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopProductAdd', {
                     name: 'purchasePrice',
                     fieldLabel: '进价',
                     labelWidth: 90,
-                    step:0.1,
+                    step: 0.1,
                     allowBlank: false
                 }, {
                     xtype: 'numberfield',
                     name: 'facePrice',
                     fieldLabel: '原价',
                     labelWidth: 90,
-                    step:0.1,
+                    step: 0.1,
                     allowBlank: false
                 },
 
@@ -104,8 +104,17 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopProductAdd', {
                     name: 'discountPrice',
                     fieldLabel: '折扣价',
                     allowBlank: true,
-                    step:0.1,
+                    step: 0.1,
                     labelWidth: 90
+                }, {
+                    xtype: 'numberfield',
+                    name: 'stock',
+                    fieldLabel: '库存',
+                    allowBlank: true,
+                    step: 1,
+                    labelWidth: 90,
+                    itemId:'stock',
+                    disabled:true
                 }, {
                     xtype: 'fieldset',
                     border: false,

@@ -341,7 +341,6 @@ Ext.define('XMLifeOperating.controller.Shop', {
                     this.record.set('autoOnline', autoOnline);
                     this.record.set('showAllProducts', showAllProducts);
                     this.record.set('needAuditPrice', needAuditPrice);
-
                     form.loadRecord(this.record);
                     this.shopId = this.record.raw.id;
                     tab.show();
@@ -564,7 +563,6 @@ Ext.define('XMLifeOperating.controller.Shop', {
                     form.reset();
                     content.removeAll(false);
                     var tabShopStore = this.getShopList();
-                    /*var sstore = this.getShopStore();*/
                     me.showShopList();
                     content.add(tabShopStore);
                 }
@@ -724,7 +722,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
                     var tab = me.getShopList();
                     var shelfTab = me.getShopShelfTab()
                     var items = shelfTab.items.items;
-                    me.showShopList();
+                    /*        me.showShopList();*/
                     me.closeAllTabs()
                     /*                    for (var i = 0, len = items.length; i < len; i++) {
                         if (items[i].id.search('tab3') != -1) {
@@ -1371,6 +1369,12 @@ Ext.define('XMLifeOperating.controller.Shop', {
                         limitType = '',
                         limitCount = '';
                     form.reset();
+                    var stockEnable = this.getShopStore().getById(this.shopId).data.storeLimitEnable;
+                    if (stockEnable) {
+                        Ext.ComponentQuery.query('#stock')[0].setDisabled(false);
+                    } else {
+                        Ext.ComponentQuery.query('#stock')[0].setDisabled(true);
+                    }
                     model = this.getProductModel();
                     model = new model();
 
@@ -1401,7 +1405,6 @@ Ext.define('XMLifeOperating.controller.Shop', {
                     model.set('purchasePrice', (Math.abs(model.get('pprice') / 100)));
                     model.set('discountPrice', (Math.abs(model.get('dprice') / 100)));
                     model.set('name', name);
-
                     if (limitType == 1) {
                         model.set('dayLimitCount', limitCount);
                         model.set('dayTodayLimitCount', productLimitCount);
@@ -1413,6 +1416,17 @@ Ext.define('XMLifeOperating.controller.Shop', {
                         model.set('totalLimitCount', '');
                         model.set('dayTodayLimitCount', '');
                         model.set('totalTodayLimitCount', '');
+                    }
+
+                    //库存判断
+                    var stockEnable = this.getShopStore().getById(this.shopId).data.storeLimitEnable;
+                    if (stockEnable) {
+                        win.down('#stock').setDisabled(false);
+                    } else {
+                        win.down('#stock').setDisabled(true);
+                    }
+                    if (model.get('stock') == -1) {
+                        model.set('stock', '无限制');
                     }
                     categoryStore.load({
                         params: {
@@ -1444,10 +1458,12 @@ Ext.define('XMLifeOperating.controller.Shop', {
                         shelvesGoods = form.getRecord(),
                         me = this;
                     var tabIdstrArray = this.tabIdStr.split('_');
+
                     var categoryId = '',
                         limitType = 0,
                         limitCount = 0,
-                        productLimitCount = 0;
+                        productLimitCount = 0,
+                        stock = null;
 
                     if (tabIdstrArray[0] == 'tab4' && tabIdstrArray[1] != undefined) {
                         categoryId = tabIdstrArray[1];
@@ -1470,6 +1486,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
                         if (limitCount == 0 || limitCount == null || limitCount == '') {
                             limitType = 0;
                         }
+                        //价格判断
                         var facePrice = Math.abs(parseFloat(shelvesGoods.get('facePrice')) * 100).toFixed();
                         var discountPrice = shelvesGoods.get('discountPrice');
                         if (discountPrice != "") {
@@ -1479,6 +1496,25 @@ Ext.define('XMLifeOperating.controller.Shop', {
                                 return;
                             };
                         }
+                        //库存判断
+
+                        var stockEnable = me.getShopProductAdd().down('#stock');
+                        if (!stockEnable.isDisabled()) {
+                            stock = form.getValues()['stock'];
+                            if (stock == '') {
+                                stock = -1;
+                            } else if (stock == 0 || stock < -1) {
+                                Ext.MessageBox.show({
+                                    title: '提示',
+                                    msg: '库存输入错误！',
+                                    icon: Ext.Msg.ERROR,
+                                    buttons: Ext.Msg.OK
+                                });
+                                return
+                            }
+                            shelvesGoods.set('stock', stock);
+                        }
+
                         //添加参数
                         shelvesGoods.set('shopId', shopId);
                         shelvesGoods.set('categoryId', categoryId);
@@ -1572,20 +1608,38 @@ Ext.define('XMLifeOperating.controller.Shop', {
                             data.newCategory = form.getValues()['belngShelf'];
                         }
                         //价格限制参数
-                        var facePrice = Math.abs(parseFloat(shelvesGoods.get('facePrice'))* 100).toFixed();
+                        var facePrice = Math.abs(parseFloat(shelvesGoods.get('facePrice')) * 100).toFixed();
                         var discountPrice = shelvesGoods.get('discountPrice');
                         if (discountPrice != "") {
-                            data.discountPrice = Math.abs(parseFloat(shelvesGoods.get('discountPrice'))* 100).toFixed();
+                            data.discountPrice = Math.abs(parseFloat(shelvesGoods.get('discountPrice')) * 100).toFixed();
                             if (discountPrice >= facePrice) {
                                 Ext.Msg.alert('Invalid Data', '折扣价不能大于等于原价');
                                 return;
                             };
                         }
-                        //
+                        //库存判断
+                        var stockEnable = me.getShopProductEdit().down('#stock');
+                        if (!stockEnable.isDisabled()) {
+                            stock = form.getValues()['stock'];
+                            if (stock == '') {
+                                stock = -1;
+                            } else if (stock == 0 || stock < -1) {
+                                Ext.MessageBox.show({
+                                    title: '提示',
+                                    msg: '库存输入错误！',
+                                    icon: Ext.Msg.ERROR,
+                                    buttons: Ext.Msg.OK
+                                });
+                                return
+                            }
+                            shelvesGoods.set('stock', stock);
+                            data.stock = shelvesGoods.get('stock');
+                        }
+
                         shelvesGoods.set('shopId', shopId);
                         shelvesGoods.set('categoryId', categoryId);
-                        shelvesGoods.set('facePrice', Math.abs(parseFloat(shelvesGoods.get('facePrice'))* 100).toFixed());
-                        shelvesGoods.set('purchasePrice', Math.abs(parseFloat(shelvesGoods.get('purchasePrice')* 100)).toFixed());
+                        shelvesGoods.set('facePrice', Math.abs(parseFloat(shelvesGoods.get('facePrice')) * 100).toFixed());
+                        shelvesGoods.set('purchasePrice', Math.abs(parseFloat(shelvesGoods.get('purchasePrice') * 100)).toFixed());
                         shelvesGoods.set('discountPrice', discountPrice);
                         shelvesGoods.set('limitType', limitType);
                         shelvesGoods.set('limitCount', limitCount);

@@ -48,14 +48,14 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopProductEdit', {
                     name: 'purchasePrice',
                     fieldLabel: '进价',
                     labelWidth: 90,
-                    step:0.1,
+                    step: 0.1,
                     allowBlank: false,
                 }, {
                     xtype: 'numberfield',
                     name: 'facePrice',
                     fieldLabel: '原价',
                     labelWidth: 90,
-                    step:0.1,
+                    step: 0.1,
                     allowBlank: false
                 },
 
@@ -64,8 +64,17 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopProductEdit', {
                     name: 'discountPrice',
                     fieldLabel: '折扣价',
                     allowBlank: true,
-                    step:0.1,
+                    step: 0.1,
                     labelWidth: 90
+                }, {
+                    xtype: 'numberfield',
+                    name: 'stock',
+                    fieldLabel: '库存',
+                    allowBlank: true,
+                    step: 1,
+                    labelWidth: 90,
+                    itemId: 'stock',
+                    disabled: true
                 }, {
                     xtype: 'fieldset',
                     border: false,
@@ -172,14 +181,14 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopProductEdit', {
                     }, {
                         xtype: 'combo',
                         name: 'belngShelf',
-                        itemId:'belngShelf',
+                        itemId: 'belngShelf',
                         fieldLabel: '移动货架',
                         blankText: '请选择货架',
                         labelWidth: 80,
                         editable: false,
                         width: 360,
                         store: 'CategoryLeafCategorys',
-                        queryMode:'local',
+                        queryMode: 'local',
                         displayField: 'name',
                         valueField: 'id',
                         emptyText: "请选择货架"

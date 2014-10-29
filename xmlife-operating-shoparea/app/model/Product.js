@@ -27,7 +27,8 @@ Ext.define('XMLifeOperating.model.Product', {
 		'rank',
 		'rank2',
 		'dayTodayLimitCount',
-		'totalTodayLimitCount'
+		'totalTodayLimitCount',
+		'stock'
 	],
 	proxy: dataProxy,
 });
