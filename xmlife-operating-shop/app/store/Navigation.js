@@ -14,6 +14,10 @@ Ext.define('XMLifeOperating.store.Navigation', {
         text: 'Root',
         expanded: true,
         children: [{
+            id:'sShopShelfTab',
+            text:'商品管理',
+            leaf:true
+        },{
             id: 'sDealList',
             text: '订单管理',
             leaf: true

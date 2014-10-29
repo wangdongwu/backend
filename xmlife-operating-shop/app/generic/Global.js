@@ -3,6 +3,7 @@ Ext.define("XMLifeOperating.generic.Global",{
         URL: window.URLMap,
         SERVICECENEERID:2,
         currentCity: 330100,
+        currentShop:'54131c6d0364b0ed8f1ffd91',
         VALIDATION_CONSTANTS: {
             PHONE: /^(86){0,1}(13[0-9]|15[012356789]|18[0-9]|14[57])[0-9]{8}$/,
             ID_NO: /^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])(\d{3})(\d|X)$/,
