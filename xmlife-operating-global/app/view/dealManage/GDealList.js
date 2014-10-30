@@ -20,7 +20,55 @@ Ext.define('XMLifeOperating.view.dealManage.GDealList', {
     }
     ],
     tbar: [
-        {
+        
+        '查询范围', {
+            xtype: 'datefield',
+            name: 'beginTime',
+            emptyText: '开始时间',
+            minValue: (function() {
+                var date = new Date();
+                date.setMonth(date.getMonth() - 3);
+                date.setDate(1);
+                return date;
+            })(),
+            maxValue: (function() {
+                var date = new Date();
+                date.setDate(date.getDate());
+                return date;
+            })(),
+            value: (function() {
+                var date = new Date();
+                date.setMonth(date.getMonth() - 3);
+                return date;
+            })(),
+            format: 'Y-m-d'
+        },
+        '到', {
+            xtype: 'datefield',
+            name: 'endTime',
+            emptyText: '结束时间',
+            minValue: (function() {
+                var date = new Date();
+                date.setMonth(date.getMonth() - 3);
+                date.setDate(1);
+                return date;
+            })(),
+            maxValue: (function() {
+                var date = new Date();
+                date.setDate(date.getDate());
+                return date;
+            })(),
+            value: (function() {
+                var date = new Date();
+                date.setDate(date.getDate());
+                return date;
+            })(),
+            format: 'Y-m-d'
+        },{
+            xtype: 'button',
+            itemId: 'getDealListByDate',
+            text: '查询',
+        },{
             xtype:'combobox',
             name:'shopAread',
             itemId:'shopAread',
@@ -31,8 +79,7 @@ Ext.define('XMLifeOperating.view.dealManage.GDealList', {
             displayField:'name',
             valueField:'id',
             hidden:(XMLifeOperating.generic.Global.operating_type == 'center')
-        },
-        {
+        },{
             xtype:'combobox',
             name:'status',
             itemId:'statusSearch',
@@ -291,7 +338,7 @@ Ext.define('XMLifeOperating.view.dealManage.GDealList', {
         }
     },
     listeners: {
-        onShowView: function(view, viewName) {           
+        onShowView: function(view, viewName) {       
             if(XMLifeOperating.generic.Global.operating_type != 'center') {
                 return;
             }
@@ -302,7 +349,8 @@ Ext.define('XMLifeOperating.view.dealManage.GDealList', {
             var combo = view.down('#shopAread');
             combo.setValue(XMLifeOperating.generic.Global.current_operating);
             combo.fireEvent('select', combo);
-        }
+        },
+
     },
 
 });

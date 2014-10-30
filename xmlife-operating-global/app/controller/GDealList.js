@@ -36,32 +36,34 @@ Ext.define('XMLifeOperating.controller.GDealList', {
 
         var me = this;
         this.control({
+            'gDealList':{
+                added:me.rendenGDealList
+            },
+            'gDealList #getDealListByDate': {
+                click: function() {
+                    var dealList = me.getGDealList();
+                    me.rendenGDealList(dealList,'all');
+                    dealList.down('#shopAread').setValue('');
+                    dealList.down('#statusSearch').setValue('');
+                }
 
+            },   
             'gDealList #shopAread': {
                 select: function(combo) {
-                    var sstore = this.getDealStore();
-                    sstore.getProxy().extraParams = {
-                        shopArea: combo.getValue(),
-                        assignShopper: true
-                    };
-                    sstore.loadPage(1);
+                    var dealList = me.getGDealList();
+                    me.rendenGDealList(dealList,'center');
                     this.areaId = combo.getValue();
                 }
 
             },
 
-            '#dealSearch': {
+            'gDealList #dealSearch': {
                 click: me.dealSearch
             },
             '#statusSearch': {
                 select: function(combo) {
-                    var sstore = this.getDealStore();
-                    sstore.getProxy().extraParams = {
-                        shopArea: Ext.getCmp('gDealList').down('#shopAread').getValue(),
-                        status: combo.getValue(),
-                        assignShopper: true
-                    };
-                    sstore.loadPage(1);
+                    var dealList = me.getGDealList();
+                    me.rendenGDealList(dealList,'center');
                 },
             },
 
@@ -78,14 +80,50 @@ Ext.define('XMLifeOperating.controller.GDealList', {
             },
         });
     },
+    rendenGDealList:function(grid,type){
+        var beginTime = grid.down('[name=beginTime]').rawValue;
+        var endTime = grid.down('[name=endTime]').rawValue;
+        var sstore = this.getDealStore();
+        var shopArea='';
+        var status='';
+        switch(type){
+            case 'all':
+                shopArea='';
+                break;
+            case 'center':
+                shopArea=grid.down('#shopAread').getValue();
+                status = grid.down('#statusSearch').getValue();
+                break;
+            default:
+                shopArea = '';
+                break;
+        }
+        sstore.getProxy().extraParams = {
+            status:status,
+            shopArea: shopArea,
+            beginTime: beginTime,
+            endTime: endTime
+        }
+        sstore.loadPage(1, {
+            params: {
+                start: 0,
+                limit: 25,
+                page: 1
+            }
+        });
+    },
     dealSearch: function() {
         var me = this,
             keyWords = me.getGDealList().down('#keyword').getValue(),
             store = this.getDealStore(),
             view = this.getGDealList();
-        var shopAreaId = Ext.getCmp('gDealList').down('#shopAread').getValue();
-
-        if (shopAreaId) {
+            view.grid.down('#shopAread').setValue('');
+            view.down('#statusSearch').setValue('')
+        store.getProxy().extraParams = {
+            phoneOrDealId: keyWords,
+        };
+        store.loadPage(1);
+        /*if (shopAreaId) {
             if (keyWords == '') {
                 store.getProxy().extraParams = {
                     shopArea: shopAreaId
@@ -106,23 +144,6 @@ Ext.define('XMLifeOperating.controller.GDealList', {
                 buttons: Ext.Msg.OK
             });
             return;
-        }
-
-        /*        if (keyWords == '') {
-            if (shopAreaId) {
-                store.getProxy().extraParams = {
-                    shopArea: shopAreaId
-                };
-                store.loadPage(1);
-            } else {
-                return;
-            }
-        } else {
-            store.getProxy().extraParams = {
-                phoneOrDealId: keyWords，
-                shopArea: shopAreaId
-            };
-            store.loadPage(1);
         }*/
     },
 
