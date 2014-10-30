@@ -41,9 +41,6 @@ Ext.define('XMLifeOperating.view.freightManage.FreightSet', {
                             maxWidth: 138,
                             labelWidth: 100,
                             disabled:false,
-                            renderer:function(value){
-                                alert(11);
-                            }
 
                         }, {
                             xtype: 'label',
