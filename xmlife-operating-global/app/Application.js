@@ -13,6 +13,7 @@ Ext.define('XMLifeOperating.Application', {
         'Ext.form.RadioGroup',
         'Ext.data.*',
         'Ext.util.*',
+        'Ext.menu.*',
         'Ext.layout.container.Card'
     ],
 
@@ -53,7 +54,7 @@ Ext.define('XMLifeOperating.Application', {
         'CardBatch',
         'CardTemplate',
         'Deliverer',
-        'ProductTemplate',
+        'ProductTemplatePageSearch',
         'ShopBannerTemplate',
         'Deal',
         'ShopArea',

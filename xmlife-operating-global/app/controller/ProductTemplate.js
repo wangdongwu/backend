@@ -2,79 +2,71 @@ Ext.define('XMLifeOperating.controller.ProductTemplate', {
     extend: 'Ext.app.Controller',
 
     views: ['templateManage.productTemplate.ProductTemplateList',
-            'templateManage.productTemplate.ProductTemplateEdit',
-            'templateManage.productTemplate.batchModifiWindow',
-            'templateManage.productTemplate.batchAddWindow'
-            ],
+        'templateManage.productTemplate.ProductTemplateEdit',
+        'templateManage.productTemplate.batchModifiWindow',
+        'templateManage.productTemplate.batchAddWindow'
+    ],
 
-    stores: ['ProductTemplate', 'ProductUnit'],
+    stores: ['ProductTemplatePageSearch',
+        'ProductUnit',
+        'ProductTemplateRoots',
+        'ProductTemplateGetByCategoryId'
+    ],
 
-    models: ['ProductTemplate', 'ProductUnit'],
+    models: ['ProductTemplatePageSearch',
+        'ProductUnit',
+        'ProductTemplateRoots',
+        'ProductTemplateGetByCategoryId'
+    ],
 
-    refs: [
-        {
-          ref: 'productTemplateList',
-          selector: 'productTemplateList',
-          xtype: 'productTemplateList',
-          autoCreate: true
-        },
-        {
-             ref: 'editWindow',
-             selector: 'productTemplateEdit',
-             xtype: 'productTemplateEdit',
-             autoCreate: true
-        },
-        {
-          ref: 'batchModifiWindow',
-          selector: 'batchModifiWindow',
-          xtype: 'batchModifiWindow',
-          autoCreate: true
-        },
-        {
-          ref: 'batchAddWindow',
-          selector: 'batchAddWindow',
-          xtype: 'batchAddWindow',
-          autoCreate: true
-        },
-        {
+    refs: [{
+            ref: 'productTemplateList',
+            selector: 'productTemplateList',
+            xtype: 'productTemplateList',
+            autoCreate: true
+        }, {
+            ref: 'editWindow',
+            selector: 'productTemplateEdit',
+            xtype: 'productTemplateEdit',
+            autoCreate: true
+        }, {
+            ref: 'batchModifiWindow',
+            selector: 'batchModifiWindow',
+            xtype: 'batchModifiWindow',
+            autoCreate: true
+        }, {
+            ref: 'batchAddWindow',
+            selector: 'batchAddWindow',
+            xtype: 'batchAddWindow',
+            autoCreate: true
+        }, {
             ref: 'keyword',
-            selector: '#keyword'
-        },
-        {
-            ref: 'dataview',
-            selector: '#dataview'
+            selector: '#keyword',
         }
-        /*{
-             ref: 'txtAvatar',
-             selector: 'editProductTemplate textfield[name=name]',
-             autoCreate: true
-        }*/
     ],
 
     init: function() {
-        var me = this;
 
+        var me = this;
         this.control({
-            'productTemplateList' : {
-              added: function(){
-                var store = this.getProductTemplateStore();
-                store.loadPage(1);
-              }
+            'productTemplateList': {
+                added: function() {
+
+                }
             },
             'productTemplateList #batchModifi': {
-              click : function(){
-                this.getBatchModifiWindow().show();
-              }
+                click: function() {
+                    this.getBatchModifiWindow().show();
+                }
             },
             'productTemplateList #batchAdd': {
-              click : function(){
-                this.getBatchAddWindow().show();
-              }
-            }
-            ,
+                click: function() {
+                    this.getBatchAddWindow().show();
+                }
+            },
             'productTemplateList #add': {
                 click: function() {
-                    var cClass = this.getProductTemplateModel();
+                    var cClass = this.getProductTemplatePageSearchModel();
                     var productTemplate = new cClass();
                     var win = this.getEditWindow();
                     win.down('#barCodeId').setDisabled(false);
@@ -83,134 +75,153 @@ Ext.define('XMLifeOperating.controller.ProductTemplate', {
                     win.show();
                 }
             },
+            'productTemplateList #productTemplateTree': {
+                beforeitemexpand: function(node, opts) {
+                    var store = node.store;
+                    var id = node.data.id
+                    if (node.data.leaf == false) { //非子节点
+                        var proxy = node.store.getProxy();
+                        if (proxy.proxyConfig != 'producttemplate/subs') {
+                            proxy.proxyConfig = 'producttemplate/subs';
+                            store.setProxy({
+                                type: 'ajax',
+                                url: XMLifeOperating.generic.Global.URL.biz + 'producttemplate/subs',
+                                extraParams: {
+                                    parentId: id
+                                }
+                            });
+                        };
+                    } else { //子节点
+                        return false
+                    }
+                },
+                //view tree视图，record 节点数据， item节点dom ，index 节点顺序 ，e 事件响应， opts view事件
+                itemclick: function(view, record, item, index, e, opts) {
+                    var me = this;
+                    var leaf = record.get('leaf');
+                    var grid = me.getProductTemplateList().down('#productTemplateGrid');
+                    var pageTool = me.getProductTemplateList().down('#pagetoll');
+                    if (leaf) {
+                        //叶子
+                        var store = me.getProductTemplateGetByCategoryIdStore();
+                        var categoryId = record.get('id');
+                        if (grid.getStore().storeId != store.storeId) {
+                            grid.bindStore(store);
+                            pageTool.bindStore(store);
+
+                        }
+                        store.getProxy().extraParams = {
+                            categoryId: categoryId
+                        }
+                        store.loadPage(1, {
+                            page: 1,
+                            limit: 25,
+                            start: 0
+                        })
+                    } else {
+                        return false
+                    }
+                }
+
+            },
             '#productSearch': {
                 click: function() {
-                    var store = me.getProductTemplateStore();
+                    var me = this;
+                    var store = me.getProductTemplatePageSearchStore();
+                    var grid = me.getProductTemplateList().down('#productTemplateGrid');
+                    var pageTool = me.getProductTemplateList().down('#pagetoll');
+                    if (grid.getStore().storeId != store.storeId) {
+                        grid.bindStore(store);
+                        pageTool.bindStore(store);
+                    }
                     store.getProxy().extraParams = {
                         keyword: me.getKeyword().getValue()
                     }
-                    store.loadPage(1);
+                    store.loadPage(1, {
+                        page: 1,
+                        limit: 25,
+                        start: 0
+                    });
+
                 }
             },
             'productTemplateList #editProductTemplate': {
                 click: me.onEdit
             },
-            'productTemplateList #detailViewBtn': {
-                click: function() {
-                    me.switchView(0);
-                }
-            },
-            'productTemplateList #picViewBtn': {
-                click: function() {
-                    me.switchView(1);
-                }
-            },
-            // dataView内事件
-            'productTemplateList #dataview': {
-                viewready: function(view) {
-                    //快速编辑rank
-                    var rankValue = '';
-                    view.mon(view.getEl(), { delegate: 'input', mouseover: function(e, t) {
-                            var elem = Ext.fly(e.target);
-                            rankValue = elem.getValue();
-                            elem.setStyle('border','1px solid #eee');
-                        }
-                    });
-                    view.mon(view.getEl(), { delegate: 'input', mouseout: function(e, t) {
-                            var elem = Ext.fly(e.target),
-                                newRankValue = elem.getValue();
-                            elem.setStyle('border','1px solid #fff');
-
-                            if(newRankValue != rankValue){
-                                me.saveRank(view, e, newRankValue);
-                            }
-                        }
-                    });
-                    //修改
-                    view.mon(view.getEl(), { delegate: 'img.x-action-col-icon', click: function(e, t) {
-                            me.onEdit(view, undefined, undefined, undefined, e);
-                        }
-                    });
-                }
-            },
             'productTemplateEdit #btnSave': {
                 click: me.saveEditWindow
             },
-           'productTemplateEdit filefield[name="productTemplateUploadfile"]': {
-                change:function(uploadfile){
-                    var form = uploadfile.ownerCt,
-                        hash = uploadfile.previousNode().previousNode();
+            'productTemplateEdit filefield[name="productTemplateUploadfile"]': {
+                change: function(uploadfile) {
+                    var form = uploadfile.ownerCt;
+
+                    var hash = uploadfile.previousNode().previousNode();
+
                     uploadImage(form, hash);
                 }
             },
+            'productTemplateEdit #menuitem': {
+                click: function() {
+                    console.log(123)
+                }
+
+            },
             'batchAddWindow #addProduct': {
-              click : function(gird){
-                me.subForm(gird);
-              }
+                click: function(gird) {
+                    me.subForm(gird);
+                }
             },
             'batchModifiWindow button': {
-              click : function(gird){
-                me.subForm(gird);
-              }
+                click: function(gird) {
+                    me.subForm(gird);
+                }
             }
         });
 
     },
-    switchView: function(nth){
-        Ext.getCmp('productTemplateList').getLayout().setActiveItem(nth);
-    },
-    subForm: function(gird){
-      var form = gird.up('form').getForm();
-      var sessionId = localStorage.getItem('sessionId') || '';
-      if(form.isValid()){
-        if(form.url.indexOf('sessionId') < 0){
-          form.url = form.url+'?sessionId='+sessionId;
+    subForm: function(gird) {
+        var form = gird.up('form').getForm();
+        var sessionId = localStorage.getItem('sessionId') || '';
+        if (form.isValid()) {
+            if (form.url.indexOf('sessionId') < 0) {
+                form.url = form.url + '?sessionId=' + sessionId;
+            }
+            form.submit({
+                params: {
+                    'sessionId': sessionId
+                },
+                waitMsg: '正在上传您的文件......',
+                success: function(form, action) {
+                    var data = action.response.responseText;
+                    this.form.getFields().items[0].fileInputEl.set({
+                        multiple: 'multiple'
+                    });
+
+                },
+                failure: function(form, action) {
+                    var data = action.response.responseText;
+                    this.form.getFields().items[0].fileInputEl.set({
+                        multiple: 'multiple'
+                    });
+                }
+            });
         }
-        form.submit({
-          params: {'sessionId':sessionId},
-          waitMsg : '正在上传您的文件......',
-          success : function(form, action){
-            var data = action.response.responseText;
-            this.form.getFields().items[0].fileInputEl.set({multiple:'multiple'});
-            
-          },
-          failure : function(form, action){
-            var data = action.response.responseText;
-            this.form.getFields().items[0].fileInputEl.set({multiple:'multiple'});
-          }
-        });
-      }
     },
     onEdit: function(view, rowIndex, colIndex, column, e) {
+
         var productTemplate = view.getRecord(view.findTargetByEvent(e));
         var win = this.getEditWindow();
-        var names=[];
-        if(productTemplate.get('name').indexOf('\n')){
+        var names = [];
+        if (productTemplate.get('name').indexOf('\n')) {
             names = productTemplate.get('name').split('\n');
         }
-        productTemplate.set('name1',names[0]);
-        productTemplate.set('name2',names[1]);
-        productTemplate.set('name3',names[2]);
+        productTemplate.set('name1', names[0]);
+        productTemplate.set('name2', names[1]);
+        productTemplate.set('name3', names[2]);
         /*win.down('#barCodeId').setDisabled(true);*/
         win.down('#skuIdId').setDisabled(true);
         win.down('form').loadRecord(productTemplate);
         win.show();
-    },
-    saveRank: function(view, e, rank){
-        var record = view.getRecord(view.findTargetByEvent(e));
-        record.set('rank',rank);
-
-        sendPutRequest('producttemplate/update', {
-            id: record.get('id'),
-            names: record.get('names'),
-            desc: record.get('desc'),
-            picture: record.get('picture'),
-            unit: 1,
-            tag: record.get('tag'),
-            barCode: record.get('barcode'),
-            rank: rank,
-            rank2: record.get('rank2')
-        }, '编辑商品', '成功编辑商品', '编辑商品失败', function() {});
     },
     saveEditWindow: function() {
 
@@ -237,7 +248,7 @@ Ext.define('XMLifeOperating.controller.ProductTemplate', {
 
 
             if (productTemplate.get('id') != '' && productTemplate.get('id') != null) {
-  
+
                 var id = productTemplate.get('id');
                 //var name=productTemplate.get('name');
                 var desc = productTemplate.get('desc');
@@ -255,15 +266,15 @@ Ext.define('XMLifeOperating.controller.ProductTemplate', {
                     picture: picture,
                     unit: 1,
                     tag: tag,
-                    barCode:barcode,
-                    rank:rank,
-                    rank2:rank2,
+                    barCode: barcode,
+                    rank: rank,
+                    rank2: rank2,
                 }, '编辑商品', '成功编辑商品', '编辑商品失败', function() {
                     windowEl.unmask();
                     editWindow.close();
                     // me.fireEvent('refreshView');
                     var keyword = productTemplate.get('name1');
-                    var store = me.getProductTemplateStore();
+                    var store = me.getProductTemplatePageSearchStore();
                     store.getProxy().extraParams = {
                         keyword: keyword
                     }
@@ -287,7 +298,7 @@ Ext.define('XMLifeOperating.controller.ProductTemplate', {
                     windowEl.unmask();
                     editWindow.close();
                     var keyword = productTemplate.get('name1');
-                    var store = me.getProductTemplateStore();
+                    var store = me.getProductTemplatePageSearchStore();
                     store.getProxy().extraParams = {
                         keyword: keyword
                     }
@@ -311,10 +322,10 @@ Ext.define('XMLifeOperating.controller.ProductTemplate', {
                     picture: picture,
                     unit: 1,
                     tag: tag,
-                    skuId:skuId,
-                    barCode:barCode,
-                    rank:rank,
-                    rank2:rank2,
+                    skuId: skuId,
+                    barCode: barCode,
+                    rank: rank,
+                    rank2: rank2,
                 }, '添加商品', '成功添加商品', '添加商品失败', success, failure);
             }
 
