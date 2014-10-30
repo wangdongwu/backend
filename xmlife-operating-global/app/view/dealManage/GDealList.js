@@ -95,7 +95,6 @@ Ext.define('XMLifeOperating.view.dealManage.GDealList', {
             queryMode:'local',
             displayField:'name',
             valueField:'value',
-            width:100
         },
         '->',
         {
