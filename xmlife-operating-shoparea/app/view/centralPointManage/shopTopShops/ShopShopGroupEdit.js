@@ -1,7 +1,3 @@
-/**
- * @class SimpleTasks.view.tasks.EditWindow
- * @extends Ext.window.Window
- */
 Ext.define('XMLifeOperating.view.centralPointManage.shopTopShops.ShopShopGroupEdit', {
     extend: 'Ext.window.Window',
     xtype: 'shopShopGroupEdit',

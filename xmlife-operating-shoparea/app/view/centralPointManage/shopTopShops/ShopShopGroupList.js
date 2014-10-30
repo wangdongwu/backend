@@ -1,8 +1,3 @@
-/**
- * @class SimpleTasks.view.lists.Tree
- * @extends Ext.tree.Panel
- * The task list view.  A tree that displays all of the task lists.
- */
 Ext.define('XMLifeOperating.view.centralPointManage.shopTopShops.ShopShopGroupList', {
     extend: 'Ext.grid.Panel',
     closable: true,

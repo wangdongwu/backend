@@ -129,18 +129,16 @@ Ext.define('XMLifeOperating.controller.ShopTopShops', {
                             shopId:shopId
                         }
                         sendRequest('shop/topshops/store',params, '编辑店铺', '成功编辑店铺', '编辑店铺失败', function() {
-                                            windowEl.unmask();
-                                            editWindow.close();
-                                            var lstore = me.getShopTopShopsStore();
-                                            lstore.load({
-                                                params: {
-                                                    areaId: areaId
-                                                }
-                                            });
-                                        });
+                            windowEl.unmask();
+                            editWindow.close();
+                            var lstore = me.getShopTopShopsStore();
+                            lstore.load({
+                                params: {
+                                    areaId: areaId
+                                }
+                            });
+                        });
                     }
-                    
-
                 }
             },
             'shopTopShopsList #deleteShopTopShopsId': {
@@ -174,7 +172,7 @@ Ext.define('XMLifeOperating.controller.ShopTopShops', {
                     });
                     var content = this.getContentPanel();
                     content.removeAll(false);
-                    content. add(tab);
+                    content.add(tab);
                 }
             },
             'shopTopShopsList #seeShopShopGroupBtn':{
@@ -269,10 +267,6 @@ Ext.define('XMLifeOperating.controller.ShopTopShops', {
             'shopShopGroupList #saveOrder':{
                 click:me.saveShopGroupOrder
             },
-            
-
-
-
             'centralpointconfigurebannerlist #add': {
                 click: function() {
 

@@ -1,8 +1,8 @@
 Ext.define('XMLifeOperating.view.centralPointManage.shopTopShops.ShopTopShopsList', {
     extend: 'Ext.grid.Panel',
-    closable : true,
-    id: 'shopTopShopsList',
     xtype: 'shopTopShopsList',
+    closable: false,
+    id: 'shopTopShopsList',
     title: '首页配置',
     store: 'ShopTopShops',
     

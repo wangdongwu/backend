@@ -1,7 +1,3 @@
-/**
- * @class SimpleTasks.view.tasks.EditWindow
- * @extends Ext.window.Window
- */
 Ext.define('XMLifeOperating.view.centralPointManage.shopTopShops.CentralPointConfigureBannerEdit', {
     extend: 'Ext.window.Window',
     xtype: 'centralpointconfigurebanneredit',
