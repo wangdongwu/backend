@@ -27,18 +27,13 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopProductOffLine', {
         dataIndex: 'categories',
         align: 'center',
         renderer: function(value, e) {
-            var categories = e.record.get('categories');
-            var str = '';
+            var categories = e.record.get('categoryNames');
+            var str =[];
+
             for (var i = 0, len = categories.length; i < len; i++) {
-                if (i != len - 1) {
-                    str += categories[len - i - 1].name + '-';
-
-                } else {
-                    str += categories[len - i - 1].name;
-                }
-
+                str.push(categories[i]);
             }
-            return str;
+            return str.join('<br/>');
         }
     }, {
         text: '操作',

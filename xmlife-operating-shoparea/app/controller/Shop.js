@@ -333,7 +333,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
                     var rightCloseTime = this.record.get('closeTime') % 60 < 10 ? '0' + this.record.get('closeTime') % 60 : this.record.get('closeTime') % 60;
                     var openTime = leftOpenTime + ':' + rightOpenTime;
                     var closeTime = leftCloseTime + ':' + rightCloseTime;
-                    var autoOnline = (this.record.get('autoOnline') == true || this.record.get('needAuditPrice') == 'true') ? 'true' : 'false';
+                    var autoOnline = (this.record.get('autoOnline') == true || this.record.get('autoOnline') == 'true') ? 'true' : 'false';
                     var showAllProducts = (this.record.get('showAllProducts') == true || this.record.get('showAllProducts') == 'true') ? 'true' : 'false';
                     var needAuditPrice = (this.record.get('needAuditPrice') == true || this.record.get('needAuditPrice') == 'true') ? 'true' : 'false';
                     this.record.set('openTimeText', openTime);
@@ -341,7 +341,6 @@ Ext.define('XMLifeOperating.controller.Shop', {
                     this.record.set('autoOnline', autoOnline);
                     this.record.set('showAllProducts', showAllProducts);
                     this.record.set('needAuditPrice', needAuditPrice);
-
 
                     form.loadRecord(this.record);
                     this.shopId = this.record.raw.id;
@@ -1460,7 +1459,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
                         shelvesGoods = form.getRecord(),
                         me = this;
                     var tabIdstrArray = this.tabIdStr.split('_');
-
+                    var proCategoryId = null;
                     var categoryId = '',
                         limitType = 0,
                         limitCount = 0,
@@ -1499,7 +1498,6 @@ Ext.define('XMLifeOperating.controller.Shop', {
                             };
                         }
                         //库存判断
-
                         var stockEnable = me.getShopProductAdd().down('#stock');
                         if (!stockEnable.isDisabled()) {
                             stock = form.getValues()['stock'];
@@ -1540,9 +1538,19 @@ Ext.define('XMLifeOperating.controller.Shop', {
                         shelvesGoods.set('productTemplateId', selectRecords[0].raw.id);
                         shelvesGoods.save({
                             success: function(task, operation) {
+                                var responseText = operation.response.responseText;
+                                if (responseText == '-100') {
+                                    Ext.MessageBox.show({
+                                        title: '提示',
+                                        msg: '添加错误：-100，请联系开发人员！',
+                                        icon: Ext.Msg.ERROR,
+                                        buttons: Ext.Msg.OK
+                                    });
+                                }
                                 windowEl.unmask();
                                 editWindow.close();
                                 me.showProductList(categoryId);
+
                             },
                             failure: function(task, operation) {
                                 var error = operation.getError(),
@@ -1605,9 +1613,11 @@ Ext.define('XMLifeOperating.controller.Shop', {
                         if (limitCount == 0 || limitCount == null || limitCount == '') {
                             data.limitType = 0;
                         }
+
                         //移动货架参数
                         if (form.getValues()['changeBelongShelf'] && form.getValues()['changeBelongShelf'] == 'on') {
                             data.newCategory = form.getValues()['belngShelf'];
+                            data.proCategoryId = shelvesGoods.data.categoryId;
                         }
                         //价格限制参数
                         var facePrice = Math.abs(parseFloat(shelvesGoods.get('facePrice')) * 100).toFixed();
@@ -1637,7 +1647,6 @@ Ext.define('XMLifeOperating.controller.Shop', {
                             shelvesGoods.set('stock', stock);
                             data.stock = shelvesGoods.get('stock');
                         }
-
                         shelvesGoods.set('shopId', shopId);
                         shelvesGoods.set('categoryId', categoryId);
                         shelvesGoods.set('facePrice', Math.abs(parseFloat(shelvesGoods.get('facePrice')) * 100).toFixed());
@@ -1664,7 +1673,6 @@ Ext.define('XMLifeOperating.controller.Shop', {
                                     message.close();
                                 }, 1000);
                             }
-
                             editWindow.close();
                             me.showProductList(categoryId);
                         });
