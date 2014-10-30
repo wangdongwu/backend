@@ -24,10 +24,33 @@ Ext.define('XMLifeOperating.controller.Freight', {
       '#setFreight': {
         click: me.showSetFreight
       },
+       'freightSet #shipfee':{
+        keyup:me.shipfeeKeyUp
+
+       },
       'freightSet #submitId' : {
          click: me.submitData        
       },
     });
+  },
+  shipfeeKeyUp:function(view,e,opts){
+    var me = this;
+    var win = me.getFreightSet();
+    var  amountCmp = win.down('#amount');
+    var deductdCmp = win.down('#deductd'); 
+    var shipfeeDeductd = win.down('#shipfeeDeductd');
+    var shipfee = win.down('#shipfee').getValue();
+     if(shipfee > 0){
+      amountCmp.setDisabled(false);
+      amountCmp.setVisible(true);
+      deductdCmp.setVisible(true);
+      shipfeeDeductd.setVisible(true);
+     }else{
+      amountCmp.setDisabled(true);
+      amountCmp.setVisible(false);
+      deductdCmp.setVisible(false);
+      shipfeeDeductd.setVisible(false); 
+     }
   },
   showSetFreight: function(view, rowIndex, colIndex, column, e) {
     var me = this;
@@ -36,12 +59,20 @@ Ext.define('XMLifeOperating.controller.Freight', {
     var name = customerDetail.get('name');
     var  amountCmp = win.down('#amount');
     var deductdCmp = win.down('#deductd'); 
-    //运费为0时，不能选中
+    var shipfeeDeductd = win.down('#shipfeeDeductd');
+    //运费为0时，隐藏
     if(customerDetail.data.shipfee == 0){
       amountCmp.setDisabled(true);
+      amountCmp.setVisible(false);
+      deductdCmp.setVisible(false);
+      shipfeeDeductd.setVisible(false);    
       
     }else{
       amountCmp.setDisabled(false);
+      amountCmp.setVisible(true);
+      deductdCmp.setVisible(true);
+      shipfeeDeductd.setVisible(true);
+      
       
     }
     //满免大于0，自动选中

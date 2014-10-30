@@ -41,7 +41,7 @@ Ext.define('XMLifeOperating.view.freightManage.FreightSet', {
                             maxWidth: 138,
                             labelWidth: 100,
                             disabled:false,
-
+                            enableKeyEvents:true
                         }, {
                             xtype: 'label',
                             text: '元',
@@ -74,15 +74,18 @@ Ext.define('XMLifeOperating.view.freightManage.FreightSet', {
                                 name: 'deductd',
                                 fieldLabel: '满',
                                 labelSeparator: '',
+                                style:'margin-left:7px',
                                 labelWidth: 40,
-                                minWidth: 88,
-                                maxWidth: 88,
+                                minWidth: 78,
+                                maxWidth: 78,
                                 disabled:true,
                                 allowBlank: true
                             }, {
                                 xtype: 'text',
+                                itemId:'shipfeeDeductd',
                                 text: '免运费',
                                 textAlign: 'left',
+                                style:'margin-left:8px'
                             }]
                         }
                 ],
