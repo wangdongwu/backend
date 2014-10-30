@@ -1,19 +1,20 @@
 Ext.define('XMLifeOperating.view.templateManage.productTemplate.batchModifiWindow', {
     extend: 'Ext.window.Window',
     xtype: 'batchModifiWindow',
+    title : '批量修改商品',
     closeAction: 'hide',
     modal: true,
     resizable :false,
     items:[{
       xtype : 'panel',
-
       defaults : {
-        margin : '8 5'
+        margin : 15
       },
       items : [
       {
               xtype : 'form',
               layout : 'column',
+              bodyStyle: 'border:0;',
               defaults : {
                 margin : '0 5',
                 labelWidth : 120
@@ -35,6 +36,7 @@ Ext.define('XMLifeOperating.view.templateManage.productTemplate.batchModifiWindo
             },{
               xtype : 'form',
               layout : 'column',
+              bodyStyle: 'border:0;',
               defaults : {
                 margin : '0 5',
                 labelWidth : 120
@@ -56,6 +58,7 @@ Ext.define('XMLifeOperating.view.templateManage.productTemplate.batchModifiWindo
             },{
               xtype : 'form',
               layout : 'column',
+              bodyStyle: 'border:0;',
               defaults : {
                 margin : '0 5',
                 labelWidth : 120
@@ -68,7 +71,6 @@ Ext.define('XMLifeOperating.view.templateManage.productTemplate.batchModifiWindo
                 fieldLabel : '批量修改商品图片',
                 allowBlank: false,
                 buttonText : '选择商品图片文件',
-                width: 469,
                 listeners : {
                   afterrender : function(gird){
                     gird.fileInputEl.set({multiple:'multiple'});
@@ -100,6 +102,7 @@ Ext.define('XMLifeOperating.view.templateManage.productTemplate.batchModifiWindo
             {
               xtype : 'form',
               layout : 'column',
+              bodyStyle: 'border:0;',
               defaults : {
                 margin : '0 5',
                 labelWidth : 120
@@ -122,6 +125,7 @@ Ext.define('XMLifeOperating.view.templateManage.productTemplate.batchModifiWindo
             {
               xtype : 'form',
               layout : 'column',
+              bodyStyle: 'border:0;',
               defaults : {
                 margin : '0 5',
                 labelWidth : 120

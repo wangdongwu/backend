@@ -11,11 +11,11 @@ Ext.define('XMLifeOperating.view.templateManage.productTemplate.ProductTemplateE
 
     buttons: [
         {
-            text: 'Save',
+            text: '保存',
             itemId: 'btnSave'
         },
         {
-            text: 'Cancel',
+            text: '取消',
             itemId: 'btnCancel',
             handler:function(){
                 this.up('productTemplateEdit').close();
@@ -212,7 +212,8 @@ Ext.define('XMLifeOperating.view.templateManage.productTemplate.ProductTemplateE
                                 xtype: 'filefield',
                                 name: 'productTemplateUploadfile',
                                 buttonOnly: true,
-                                hideLabel: true,
+                                buttonText: '选择文件',
+                                hideLabel: true
                             }
                         ]
                     }

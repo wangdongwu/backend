@@ -20,7 +20,7 @@ Ext.define('XMLifeOperating.view.templateManage.productTemplate.batchAddWindow',
           xtype : 'filefield',
           name : 'file',
           allowBlank: false,
-          buttonText : '商品xcel文件'
+          buttonText : '商品Excel文件'
       },
       {
         xtype : 'filefield',
