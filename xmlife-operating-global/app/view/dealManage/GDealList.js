@@ -41,7 +41,9 @@ Ext.define('XMLifeOperating.view.dealManage.GDealList', {
                 date.setMonth(date.getMonth() - 3);
                 return date;
             })(),
-            format: 'Y-m-d'
+            format: 'Y-m-d',
+            width:100
+
         },
         '到', {
             xtype: 'datefield',
@@ -63,7 +65,8 @@ Ext.define('XMLifeOperating.view.dealManage.GDealList', {
                 date.setDate(date.getDate());
                 return date;
             })(),
-            format: 'Y-m-d'
+            format: 'Y-m-d',
+            width:100
         },{
             xtype: 'button',
             itemId: 'getDealListByDate',
@@ -92,6 +95,7 @@ Ext.define('XMLifeOperating.view.dealManage.GDealList', {
             queryMode:'local',
             displayField:'name',
             valueField:'value',
+            width:100
         },
         '->',
         {
@@ -100,7 +104,8 @@ Ext.define('XMLifeOperating.view.dealManage.GDealList', {
             name:'keyword',
             itemId: 'keyword',
             fieldLabel: '手机/订单号码',
-            labelAlign : 'right'
+            labelAlign : 'right',
+            width:100
            /* regex: XMLifeOperating.generic.Global.VALIDATION_CONSTANTS.PHONE,
             regexText: '请输入正确的手机号'*/
         },
