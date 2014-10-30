@@ -334,13 +334,15 @@ Ext.define('XMLifeOperating.controller.Shop', {
                     var openTime = leftOpenTime + ':' + rightOpenTime;
                     var closeTime = leftCloseTime + ':' + rightCloseTime;
                     var autoOnline = (this.record.get('autoOnline') == true || this.record.get('needAuditPrice') == 'true') ? 'true' : 'false';
-                    var showAllProducts = (this.record.get('showAllProducts') == true || this.record.get('needAuditPrice') == 'true') ? 'true' : 'false';
+                    var showAllProducts = (this.record.get('showAllProducts') == true || this.record.get('showAllProducts') == 'true') ? 'true' : 'false';
                     var needAuditPrice = (this.record.get('needAuditPrice') == true || this.record.get('needAuditPrice') == 'true') ? 'true' : 'false';
                     this.record.set('openTimeText', openTime);
                     this.record.set('closeTimeText', closeTime);
                     this.record.set('autoOnline', autoOnline);
                     this.record.set('showAllProducts', showAllProducts);
                     this.record.set('needAuditPrice', needAuditPrice);
+
+
                     form.loadRecord(this.record);
                     this.shopId = this.record.raw.id;
                     tab.show();

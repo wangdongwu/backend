@@ -136,7 +136,6 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopList', {
             sortable: true,
             align: 'center',
             renderer: function(value) {
-
             return (value == true || value == 'true') ? '是' : '否'
             }
         }, {
