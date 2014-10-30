@@ -103,8 +103,8 @@ Ext.define('XMLifeOperating.view.dealManage.GDealDetail', {
                             text:'单价',
                             width: 50,
                             dataIndex:'price',
-                            renderer : function(){
-                                return price / 100;
+                            renderer : function(value){
+                                return value / 100;
                             }
                         },
                         {

@@ -153,13 +153,13 @@ Ext.define('XMLifeOperating.controller.GDealList', {
         win.down('form').loadRecord(gDealDetail);
         win.show();
         var store = this.getDealItemsStore();
+
         store.load({
             params: {
                 deal: gDealDetail.get('dealBackendId') || gDealDetail.get('dealId'),
             },
 
             callback: function(records) {
-
                 var model = Ext.ComponentQuery.query('#gDealDetails')[0].getSelectionModel();
                 model.deselectAll();
                 for (var i = 0; i < records.length; i++) {
