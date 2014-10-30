@@ -4990,6 +4990,278 @@ rpc.BackendDealNotificationMessage.prototype.convertFrom  = function(from, confu
     return true;
 };
 
+rpc.ChangePriceNotificationMessage = function() {this.checkAndCreate();};
+deepExtend(rpc.ChangePriceNotificationMessage.prototype, rpc.RpcMessageBase.prototype);
+rpc.ChangePriceNotificationMessage.prototype.getContent = function() {
+	if(!this.mObj) {
+		return null;
+	}
+	
+	this.mValueCache = this.mValueCache || {};
+	var cacheValue = this.mValueCache["content"];
+	if(cacheValue) return cacheValue;
+	
+	var value = this.mObj["content"];
+	
+	var objRet = ConvertUtils.jsonObjectToObject(value, String, null, false);
+	
+	if(objRet) {
+		this.mValueCache["content"] = objRet;
+		return objRet;
+	}
+	
+	return null;
+};
+
+rpc.ChangePriceNotificationMessage.prototype.setContent = function(value) {
+    this.checkAndCreate();
+	this.mValueCache = this.mValueCache || {};
+	this.mObj = this.mObj || {};
+	
+	var _value_value0 = value;
+	if(!_value_value0) 
+		delete this.mObj["content"];
+	else
+		this.mObj["content"] = _value_value0;
+
+	if(value) {
+		this.mValueCache["content"] = value;
+	} else {
+		delete this.mValueCache["content"];
+	}
+	return this;
+};
+
+rpc.ChangePriceNotificationMessage.prototype.getProductName = function() {
+	if(!this.mObj) {
+		return null;
+	}
+	
+	this.mValueCache = this.mValueCache || {};
+	var cacheValue = this.mValueCache["productName"];
+	if(cacheValue) return cacheValue;
+	
+	var value = this.mObj["productName"];
+	
+	var objRet = ConvertUtils.jsonObjectToObject(value, String, null, false);
+	
+	if(objRet) {
+		this.mValueCache["productName"] = objRet;
+		return objRet;
+	}
+	
+	return null;
+};
+
+rpc.ChangePriceNotificationMessage.prototype.setProductName = function(value) {
+    this.checkAndCreate();
+	this.mValueCache = this.mValueCache || {};
+	this.mObj = this.mObj || {};
+	
+	var _value_value0 = value;
+	if(!_value_value0) 
+		delete this.mObj["productName"];
+	else
+		this.mObj["productName"] = _value_value0;
+
+	if(value) {
+		this.mValueCache["productName"] = value;
+	} else {
+		delete this.mValueCache["productName"];
+	}
+	return this;
+};
+
+rpc.ChangePriceNotificationMessage.prototype.getSkuId = function() {
+	if(!this.mObj) {
+		return null;
+	}
+	
+	this.mValueCache = this.mValueCache || {};
+	var cacheValue = this.mValueCache["skuId"];
+	if(cacheValue) return cacheValue;
+	
+	var value = this.mObj["skuId"];
+	
+	var objRet = ConvertUtils.jsonObjectToObject(value, String, null, false);
+	
+	if(objRet) {
+		this.mValueCache["skuId"] = objRet;
+		return objRet;
+	}
+	
+	return null;
+};
+
+rpc.ChangePriceNotificationMessage.prototype.setSkuId = function(value) {
+    this.checkAndCreate();
+	this.mValueCache = this.mValueCache || {};
+	this.mObj = this.mObj || {};
+	
+	var _value_value0 = value;
+	if(!_value_value0) 
+		delete this.mObj["skuId"];
+	else
+		this.mObj["skuId"] = _value_value0;
+
+	if(value) {
+		this.mValueCache["skuId"] = value;
+	} else {
+		delete this.mValueCache["skuId"];
+	}
+	return this;
+};
+
+rpc.ChangePriceNotificationMessage.FIELD_CONTENT="content";
+rpc.ChangePriceNotificationMessage.FIELD_CONTENT_CONFUSION="content";
+rpc.ChangePriceNotificationMessage.FIELD_SKUID="skuId";
+rpc.ChangePriceNotificationMessage.FIELD_SKUID_CONFUSION="skuId";
+rpc.ChangePriceNotificationMessage.FIELD_PRODUCTNAME="productName";
+rpc.ChangePriceNotificationMessage.FIELD_PRODUCTNAME_CONFUSION="productName";
+
+rpc.ChangePriceNotificationMessage.checkAndInitial = function() {
+    if(rpc.ChangePriceNotificationMessage.mFieldToConfusionMap)
+        return;
+	
+	rpc.ChangePriceNotificationMessage.mHasConfusionField = false;
+	rpc.ChangePriceNotificationMessage.mFieldToConfusionMap = {
+		"content":"content", 
+		"skuId":"skuId", 
+		"productName":"productName"
+	};
+	rpc.ChangePriceNotificationMessage.mConfusionToFieldMap = {
+		"content":"content", 
+		"skuId":"skuId", 
+		"productName":"productName"
+	};
+
+};
+
+rpc.ChangePriceNotificationMessage.prototype.toString = function() {
+	if(this.mObj) {
+		return JSON.stringify(this.mObj);
+	}
+	return "{}";
+};
+
+rpc.ChangePriceNotificationMessage.prototype.getRpcJSONObject  = function() {
+	return this.mObj;
+};
+
+rpc.ChangePriceNotificationMessage.prototype.checkAndCreate = function() {
+    if (!this.mObj) {
+        this.mObj = {};
+        this.mObj[rpc.RpcMessageBase.FIELD_MSGTYPE] = 115;
+        this.mObj[rpc.RpcMessageBase.FIELD_FLAG] = 4;
+    }
+};
+
+rpc.ChangePriceNotificationMessage.TYPE = 115;
+rpc.ChangePriceNotificationMessage.prototype.getMsgType = function() {
+	return 115;
+};
+
+rpc.ChangePriceNotificationMessage.prototype.getAsObject  = function(confusionMode, clone) {
+    if(this.mObj == null) {
+		this.checkAndCreate();
+        return clone ? objectClone(this.mObj) : this.mObj;
+    }
+    if(!confusionMode)
+        return clone ? objectClone(this.mObj) : this.mObj;
+    return rpc.ChangePriceNotificationMessage.toConfusionObject(this.mObj, clone);
+};
+
+rpc.ChangePriceNotificationMessage.getConfusionName = function(name) {
+    rpc.ChangePriceNotificationMessage.checkAndInitial();
+    var value = rpc.ChangePriceNotificationMessage.mFieldToConfusionMap[name];
+    if(value)
+        return value;
+    return rpc.RpcMessageBase.getConfusionName(name);
+};
+    
+rpc.ChangePriceNotificationMessage.getRawName = function(confusionName) {
+    rpc.ChangePriceNotificationMessage.checkAndInitial();
+    var value = rpc.ChangePriceNotificationMessage.mConfusionToFieldMap[confusionName];
+    if(value)
+        return value;
+    return rpc.RpcMessageBase.getRawName(confusionName);
+};
+
+rpc.ChangePriceNotificationMessage.toConfusionObject  = function(from, clone) {
+    if(!from)
+        return from;
+
+	rpc.ChangePriceNotificationMessage.checkAndInitial();
+    if (!rpc.ChangePriceNotificationMessage.mHasConfusionField) {
+        return rpc.RpcMessageBase.toConfusionObject(from);
+    }
+        
+    var ret = {};
+    for (var key in from) {
+        var rawKey = rpc.ChangePriceNotificationMessage.getConfusionName(key);
+        if(!rawKey)
+            rawKey = key;
+        ret[rawKey] = from[key];
+    }
+      
+    return ret;
+};
+    
+rpc.ChangePriceNotificationMessage.confusionToRawObject  = function(from, clone) {
+    if(!from)
+        return from;
+    
+    rpc.ChangePriceNotificationMessage.checkAndInitial();
+    if (!rpc.ChangePriceNotificationMessage.mHasConfusionField) {
+        return rpc.RpcMessageBase.confusionToRawObject(from);
+    }
+        
+    var ret = {};
+    for(var key in from) {
+        var rawKey = rpc.ChangePriceNotificationMessage.getRawName(key);
+        if(!rawKey)
+            rawKey = key;
+        ret[rawKey] = from[key];
+    }
+    return ret;
+};
+
+rpc.ChangePriceNotificationMessage.prototype.clearCache = function() {
+	if(this.mValueCache) {
+		this.mValueCache = {};
+	}
+};
+
+rpc.ChangePriceNotificationMessage.prototype.convertFrom  = function(from, confusionMode, clone) {
+    if (!from)
+        return false;
+    
+    if (from.prototype && from.prototype.convertFrom) {
+        this.clearCache();
+        this.mObj = from.getAsObject(false, clone);
+        return true;
+    }
+    
+    if (from instanceof String && from[0] == '{') {
+        this.clearCache();
+        var jsonObj = JSON.parse(from);
+        if(confusionMode) {
+            this.mObj = rpc.ChangePriceNotificationMessage.confusionToRawObject(jsonObj, clone);
+        } else {
+            this.mObj = clone ? objectClone(jsonObj) : jsonObj;
+        }
+        return true;
+    }
+    
+    this.clearCache();
+    if(confusionMode) {
+         this.mObj = rpc.ChangePriceNotificationMessage.confusionToRawObject(from, clone);
+    } else {
+         this.mObj = clone ? objectClone(from) : from;
+    }
+    return true;
+};
+
 rpc.ChargeMessage = function() {this.checkAndCreate();};
 deepExtend(rpc.ChargeMessage.prototype, rpc.RpcMessageBase.prototype);
 rpc.ChargeMessage.prototype.getContent = function() {
@@ -8857,6 +9129,46 @@ rpc.ResidentalDistrict.prototype.setName = function(value) {
 	return this;
 };
 
+rpc.ResidentalDistrict.prototype.getType = function() {
+	if(!this.mObj) {
+		return null;
+	}
+	
+	this.mValueCache = this.mValueCache || {};
+	var cacheValue = this.mValueCache["type"];
+	if(cacheValue) return cacheValue;
+	
+	var value = this.mObj["type"];
+	
+	var objRet = ConvertUtils.jsonObjectToObject(value, String, null, false);
+	
+	if(objRet) {
+		this.mValueCache["type"] = objRet;
+		return objRet;
+	}
+	
+	return null;
+};
+
+rpc.ResidentalDistrict.prototype.setType = function(value) {
+    this.checkAndCreate();
+	this.mValueCache = this.mValueCache || {};
+	this.mObj = this.mObj || {};
+	
+	var _value_value0 = value;
+	if(!_value_value0) 
+		delete this.mObj["type"];
+	else
+		this.mObj["type"] = _value_value0;
+
+	if(value) {
+		this.mValueCache["type"] = value;
+	} else {
+		delete this.mValueCache["type"];
+	}
+	return this;
+};
+
 rpc.ResidentalDistrict.prototype.getZoneId = function() {
 	if(!this.mObj) {
 		return 0;
@@ -8951,6 +9263,8 @@ rpc.ResidentalDistrict.FIELD_NAME="name";
 rpc.ResidentalDistrict.FIELD_NAME_CONFUSION="name";
 rpc.ResidentalDistrict.FIELD_LNG="lng";
 rpc.ResidentalDistrict.FIELD_LNG_CONFUSION="lng";
+rpc.ResidentalDistrict.FIELD_TYPE="type";
+rpc.ResidentalDistrict.FIELD_TYPE_CONFUSION="type";
 rpc.ResidentalDistrict.FIELD_ZONENAME="zoneName";
 rpc.ResidentalDistrict.FIELD_ZONENAME_CONFUSION="zoneName";
 rpc.ResidentalDistrict.FIELD_LAT="lat";
@@ -8973,6 +9287,7 @@ rpc.ResidentalDistrict.checkAndInitial = function() {
 		"address":"address", 
 		"name":"name", 
 		"lng":"lng", 
+		"type":"type", 
 		"zoneName":"zoneName", 
 		"lat":"lat", 
 		"areaId":"areaId", 
@@ -8986,6 +9301,7 @@ rpc.ResidentalDistrict.checkAndInitial = function() {
 		"address":"address", 
 		"name":"name", 
 		"lng":"lng", 
+		"type":"type", 
 		"zoneName":"zoneName", 
 		"lat":"lat", 
 		"areaId":"areaId", 
@@ -10409,6 +10725,46 @@ rpc.CheckResult.prototype.setShipfee = function(value) {
 	return this;
 };
 
+rpc.CheckResult.prototype.getStockNote = function() {
+	if(!this.mObj) {
+		return null;
+	}
+	
+	this.mValueCache = this.mValueCache || {};
+	var cacheValue = this.mValueCache["stockNote"];
+	if(cacheValue) return cacheValue;
+	
+	var value = this.mObj["stockNote"];
+	
+	var objRet = ConvertUtils.jsonObjectToObject(value, String, null, false);
+	
+	if(objRet) {
+		this.mValueCache["stockNote"] = objRet;
+		return objRet;
+	}
+	
+	return null;
+};
+
+rpc.CheckResult.prototype.setStockNote = function(value) {
+    this.checkAndCreate();
+	this.mValueCache = this.mValueCache || {};
+	this.mObj = this.mObj || {};
+	
+	var _value_value0 = value;
+	if(!_value_value0) 
+		delete this.mObj["stockNote"];
+	else
+		this.mObj["stockNote"] = _value_value0;
+
+	if(value) {
+		this.mValueCache["stockNote"] = value;
+	} else {
+		delete this.mValueCache["stockNote"];
+	}
+	return this;
+};
+
 rpc.CheckResult.FIELD_FREESHIPFEE="freeShipfee";
 rpc.CheckResult.FIELD_FREESHIPFEE_CONFUSION="freeShipfee";
 rpc.CheckResult.FIELD_ISDEALPAID="isDealPaid";
@@ -10425,6 +10781,8 @@ rpc.CheckResult.FIELD_CHECKCODE="checkCode";
 rpc.CheckResult.FIELD_CHECKCODE_CONFUSION="checkCode";
 rpc.CheckResult.FIELD_ADDRESS="address";
 rpc.CheckResult.FIELD_ADDRESS_CONFUSION="address";
+rpc.CheckResult.FIELD_STOCKNOTE="stockNote";
+rpc.CheckResult.FIELD_STOCKNOTE_CONFUSION="stockNote";
 rpc.CheckResult.FIELD_PRODUCTLIMITNOTE="productLimitNote";
 rpc.CheckResult.FIELD_PRODUCTLIMITNOTE_CONFUSION="productLimitNote";
 
@@ -10442,6 +10800,7 @@ rpc.CheckResult.checkAndInitial = function() {
 		"shipfee":"shipfee", 
 		"checkCode":"checkCode", 
 		"address":"address", 
+		"stockNote":"stockNote", 
 		"productLimitNote":"productLimitNote"
 	};
 	rpc.CheckResult.mConfusionToFieldMap = {
@@ -10453,6 +10812,7 @@ rpc.CheckResult.checkAndInitial = function() {
 		"shipfee":"shipfee", 
 		"checkCode":"checkCode", 
 		"address":"address", 
+		"stockNote":"stockNote", 
 		"productLimitNote":"productLimitNote"
 	};
 
@@ -24335,6 +24695,55 @@ rpc.Product.prototype.setCategoryId = function(value) {
 	return this;
 };
 
+rpc.Product.prototype.getCategoryIds = function() {
+	if(!this.mObj) {
+		return null;
+	}
+	
+	this.mValueCache = this.mValueCache || {};
+	var cacheValue = this.mValueCache["categoryIds"];
+	if(cacheValue) return cacheValue;
+	
+	var value = this.mObj["categoryIds"];
+	
+	var objRet = ConvertUtils.jsonObjectToObject(value, Array, [String], false);
+	
+	if(objRet) {
+		this.mValueCache["categoryIds"] = objRet;
+		return objRet;
+	}
+	
+	return null;
+};
+
+rpc.Product.prototype.setCategoryIds = function(value) {
+    this.checkAndCreate();
+	this.mValueCache = this.mValueCache || {};
+	this.mObj = this.mObj || {};
+	
+	var _arr_0 = (!value) ? null : [];
+	if(value) {
+		var _len_0 = value.length;
+		for(var _i_0 = 0; _i_0 < _len_0; _i_0++) {
+			var _l_0 = value[_i_0];
+			var _value__l_02 = _l_0;
+			_arr_0.push(_value__l_02);
+		}
+	}
+	var _value_value0 = _arr_0;
+	if(!_value_value0) 
+		delete this.mObj["categoryIds"];
+	else
+		this.mObj["categoryIds"] = _value_value0;
+
+	if(value) {
+		this.mValueCache["categoryIds"] = value;
+	} else {
+		delete this.mValueCache["categoryIds"];
+	}
+	return this;
+};
+
 rpc.Product.prototype.getCreated = function() {
 	if(!this.mObj) {
 		return 0;
@@ -25024,6 +25433,46 @@ rpc.Product.prototype.setStatus = function(value) {
 	return this;
 };
 
+rpc.Product.prototype.getStock = function() {
+	if(!this.mObj) {
+		return 0;
+	}
+	
+	this.mValueCache = this.mValueCache || {};
+	var cacheValue = this.mValueCache["stock"];
+	if(cacheValue) return cacheValue;
+	
+	var value = this.mObj["stock"];
+	
+	var objRet = ConvertUtils.jsonObjectToObject(value, Number, null, false);
+	
+	if(objRet) {
+		this.mValueCache["stock"] = objRet;
+		return objRet;
+	}
+	
+	return 0;
+};
+
+rpc.Product.prototype.setStock = function(value) {
+    this.checkAndCreate();
+	this.mValueCache = this.mValueCache || {};
+	this.mObj = this.mObj || {};
+	
+	var _value_value0 = (value);
+	if(!_value_value0) 
+		delete this.mObj["stock"];
+	else
+		this.mObj["stock"] = _value_value0;
+
+	if(value) {
+		this.mValueCache["stock"] = value;
+	} else {
+		delete this.mValueCache["stock"];
+	}
+	return this;
+};
+
 rpc.Product.prototype.getTopTime = function() {
 	if(!this.mObj) {
 		return 0;
@@ -25144,52 +25593,56 @@ rpc.Product.prototype.setUpdated = function(value) {
 	return this;
 };
 
+rpc.Product.FIELD_RANK="rank";
+rpc.Product.FIELD_RANK_CONFUSION="rank";
+rpc.Product.FIELD_STOCK="stock";
+rpc.Product.FIELD_STOCK_CONFUSION="stock";
+rpc.Product.FIELD_CATEGORYIDS="categoryIds";
+rpc.Product.FIELD_CATEGORYIDS_CONFUSION="categoryIds";
+rpc.Product.FIELD_UPDATED="updated";
+rpc.Product.FIELD_UPDATED_CONFUSION="updated";
+rpc.Product.FIELD_CREATED="created";
+rpc.Product.FIELD_CREATED_CONFUSION="created";
+rpc.Product.FIELD_DESCRIPTION="description";
+rpc.Product.FIELD_DESCRIPTION_CONFUSION="description";
+rpc.Product.FIELD_SHOPID="shopId";
+rpc.Product.FIELD_SHOPID_CONFUSION="shopId";
+rpc.Product.FIELD_SKUID="skuId";
+rpc.Product.FIELD_SKUID_CONFUSION="skuId";
+rpc.Product.FIELD_CANPARTIALRETURN="canPartialReturn";
+rpc.Product.FIELD_CANPARTIALRETURN_CONFUSION="canPartialReturn";
+rpc.Product.FIELD_BARCODE="barCode";
+rpc.Product.FIELD_BARCODE_CONFUSION="barCode";
+rpc.Product.FIELD_DPRICE="dprice";
+rpc.Product.FIELD_DPRICE_CONFUSION="dprice";
+rpc.Product.FIELD_ISTOP="isTop";
+rpc.Product.FIELD_ISTOP_CONFUSION="isTop";
+rpc.Product.FIELD_SOLDCOUNT="soldCount";
+rpc.Product.FIELD_SOLDCOUNT_CONFUSION="soldCount";
 rpc.Product.FIELD_LIMITTYPE="limitType";
 rpc.Product.FIELD_LIMITTYPE_CONFUSION="limitType";
-rpc.Product.FIELD_STATUS="status";
-rpc.Product.FIELD_STATUS_CONFUSION="status";
 rpc.Product.FIELD_PPRICE="pprice";
 rpc.Product.FIELD_PPRICE_CONFUSION="pprice";
+rpc.Product.FIELD_STATUS="status";
+rpc.Product.FIELD_STATUS_CONFUSION="status";
 rpc.Product.FIELD_CATEGORYID="categoryId";
 rpc.Product.FIELD_CATEGORYID_CONFUSION="categoryId";
 rpc.Product.FIELD_PID="pid";
 rpc.Product.FIELD_PID_CONFUSION="pid";
 rpc.Product.FIELD_PRODUCTLIMITCOUNT="productLimitcount";
 rpc.Product.FIELD_PRODUCTLIMITCOUNT_CONFUSION="productLimitcount";
-rpc.Product.FIELD_LIMITCOUNT="limitcount";
-rpc.Product.FIELD_LIMITCOUNT_CONFUSION="limitcount";
 rpc.Product.FIELD_PICTURE="picture";
 rpc.Product.FIELD_PICTURE_CONFUSION="picture";
+rpc.Product.FIELD_LIMITCOUNT="limitcount";
+rpc.Product.FIELD_LIMITCOUNT_CONFUSION="limitcount";
 rpc.Product.FIELD_UNIT="unit";
 rpc.Product.FIELD_UNIT_CONFUSION="unit";
-rpc.Product.FIELD_RANK="rank";
-rpc.Product.FIELD_RANK_CONFUSION="rank";
 rpc.Product.FIELD_PRICE="price";
 rpc.Product.FIELD_PRICE_CONFUSION="price";
-rpc.Product.FIELD_UPDATED="updated";
-rpc.Product.FIELD_UPDATED_CONFUSION="updated";
-rpc.Product.FIELD_CREATED="created";
-rpc.Product.FIELD_CREATED_CONFUSION="created";
-rpc.Product.FIELD_SHOPID="shopId";
-rpc.Product.FIELD_SHOPID_CONFUSION="shopId";
-rpc.Product.FIELD_DESCRIPTION="description";
-rpc.Product.FIELD_DESCRIPTION_CONFUSION="description";
 rpc.Product.FIELD_NAMES="names";
 rpc.Product.FIELD_NAMES_CONFUSION="names";
-rpc.Product.FIELD_SKUID="skuId";
-rpc.Product.FIELD_SKUID_CONFUSION="skuId";
-rpc.Product.FIELD_BARCODE="barCode";
-rpc.Product.FIELD_BARCODE_CONFUSION="barCode";
-rpc.Product.FIELD_CANPARTIALRETURN="canPartialReturn";
-rpc.Product.FIELD_CANPARTIALRETURN_CONFUSION="canPartialReturn";
-rpc.Product.FIELD_DPRICE="dprice";
-rpc.Product.FIELD_DPRICE_CONFUSION="dprice";
-rpc.Product.FIELD_ISTOP="isTop";
-rpc.Product.FIELD_ISTOP_CONFUSION="isTop";
 rpc.Product.FIELD_TOPTIME="topTime";
 rpc.Product.FIELD_TOPTIME_CONFUSION="topTime";
-rpc.Product.FIELD_SOLDCOUNT="soldCount";
-rpc.Product.FIELD_SOLDCOUNT_CONFUSION="soldCount";
 
 rpc.Product.checkAndInitial = function() {
     if(rpc.Product.mFieldToConfusionMap)
@@ -25197,54 +25650,58 @@ rpc.Product.checkAndInitial = function() {
 	
 	rpc.Product.mHasConfusionField = false;
 	rpc.Product.mFieldToConfusionMap = {
+		"rank":"rank", 
+		"stock":"stock", 
+		"categoryIds":"categoryIds", 
+		"updated":"updated", 
+		"created":"created", 
+		"description":"description", 
+		"shopId":"shopId", 
+		"skuId":"skuId", 
+		"canPartialReturn":"canPartialReturn", 
+		"barCode":"barCode", 
+		"dprice":"dprice", 
+		"isTop":"isTop", 
+		"soldCount":"soldCount", 
 		"limitType":"limitType", 
-		"status":"status", 
 		"pprice":"pprice", 
+		"status":"status", 
 		"categoryId":"categoryId", 
 		"pid":"pid", 
 		"productLimitcount":"productLimitcount", 
-		"limitcount":"limitcount", 
 		"picture":"picture", 
+		"limitcount":"limitcount", 
 		"unit":"unit", 
-		"rank":"rank", 
 		"price":"price", 
-		"updated":"updated", 
-		"created":"created", 
-		"shopId":"shopId", 
-		"description":"description", 
 		"names":"names", 
-		"skuId":"skuId", 
-		"barCode":"barCode", 
-		"canPartialReturn":"canPartialReturn", 
-		"dprice":"dprice", 
-		"isTop":"isTop", 
-		"topTime":"topTime", 
-		"soldCount":"soldCount"
+		"topTime":"topTime"
 	};
 	rpc.Product.mConfusionToFieldMap = {
+		"rank":"rank", 
+		"stock":"stock", 
+		"categoryIds":"categoryIds", 
+		"updated":"updated", 
+		"created":"created", 
+		"description":"description", 
+		"shopId":"shopId", 
+		"skuId":"skuId", 
+		"canPartialReturn":"canPartialReturn", 
+		"barCode":"barCode", 
+		"dprice":"dprice", 
+		"isTop":"isTop", 
+		"soldCount":"soldCount", 
 		"limitType":"limitType", 
-		"status":"status", 
 		"pprice":"pprice", 
+		"status":"status", 
 		"categoryId":"categoryId", 
 		"pid":"pid", 
 		"productLimitcount":"productLimitcount", 
-		"limitcount":"limitcount", 
 		"picture":"picture", 
+		"limitcount":"limitcount", 
 		"unit":"unit", 
-		"rank":"rank", 
 		"price":"price", 
-		"updated":"updated", 
-		"created":"created", 
-		"shopId":"shopId", 
-		"description":"description", 
 		"names":"names", 
-		"skuId":"skuId", 
-		"barCode":"barCode", 
-		"canPartialReturn":"canPartialReturn", 
-		"dprice":"dprice", 
-		"isTop":"isTop", 
-		"topTime":"topTime", 
-		"soldCount":"soldCount"
+		"topTime":"topTime"
 	};
 
 };
@@ -30421,6 +30878,51 @@ rpc.IAuthAction.modifyAccname = function(accname, success, fail){
 	return RpcCall.doInvoke(_url, "modifyAccname", _jsonDict, _uploadDict, successWrapper, fail);
 };
 
+rpc.IAuthAction.oauth = function(phone, authcode, deviceType, deviceID, success, fail){
+	if(arguments.length < 6) alert("com.paitao.generic.rpc.protocol.IAuthAction.oauth param count dismatch");
+
+	var successWrapper = success ? function(returnCode, jsonObj) {
+		var obj = ConvertUtils.jsonObjectToObject(jsonObj, rpc.UserAuthInfo, null, true);
+		success(returnCode, obj);
+	} : null;
+	var _jsonDict = {};
+	var _uploadDict = {};
+	{
+		var _value_phone1 = phone;
+		if(!_value_phone1) 
+			delete _jsonDict["phone"];
+		else
+			_jsonDict["phone"] = _value_phone1;
+	}
+
+	{
+		var _value_authcode1 = authcode;
+		if(!_value_authcode1) 
+			delete _jsonDict["authcode"];
+		else
+			_jsonDict["authcode"] = _value_authcode1;
+	}
+
+	{
+		var _value_deviceType1 = (deviceType);
+		if(!_value_deviceType1) 
+			delete _jsonDict["deviceType"];
+		else
+			_jsonDict["deviceType"] = _value_deviceType1;
+	}
+
+	{
+		var _value_deviceID1 = deviceID;
+		if(!_value_deviceID1) 
+			delete _jsonDict["deviceID"];
+		else
+			_jsonDict["deviceID"] = _value_deviceID1;
+	}
+
+	var _url = rpc.ServerConfig.getUrlPrefix("Auth") + "IAuthAction/1/oauth";
+	return RpcCall.doInvoke(_url, "oauth", _jsonDict, _uploadDict, successWrapper, fail);
+};
+
 rpc.IAuthAction.sendAuthCode = function(phone, verifyType, deviceID, success, fail){
 	if(arguments.length < 5) alert("com.paitao.generic.rpc.protocol.IAuthAction.sendAuthCode param count dismatch");
 
@@ -33727,6 +34229,7 @@ rpc.CheckResultCodeConstant.PRODUCT_PRICE_ILLEGAL=16;
 rpc.CheckResultCodeConstant.DELIVER_TIME_ILLEGAL=32;
 rpc.CheckResultCodeConstant.PRODUCT_LIMIT=64;
 rpc.CheckResultCodeConstant.DEAL_PRICE_ILLEGAL=128;
+rpc.CheckResultCodeConstant.PRODUCT_STOCK_NOT_ENOUGH=256;
 
 rpc.ClientTypeConstant={};
 rpc.ClientTypeConstant.ANDROID_C="android/c";
@@ -33887,6 +34390,12 @@ rpc.RefundResult.NO_CASHFLOW_EXSITS=3;
 rpc.RefundResult.ACCOUNT_NOT_EXSITS=4;
 rpc.RefundResult.DEAL_NOT_EXSITS=5;
 
+rpc.ResidentalDistrictTypeConstant={};
+rpc.ResidentalDistrictTypeConstant.COMMUNITY=0;
+rpc.ResidentalDistrictTypeConstant.OFFICE=1;
+rpc.ResidentalDistrictTypeConstant.HOTEL=2;
+rpc.ResidentalDistrictTypeConstant.HOSPITAL=3;
+
 rpc.SetProductNumTypeConstant={};
 rpc.SetProductNumTypeConstant.PRODUCT_BAD=1;
 rpc.SetProductNumTypeConstant.OTHER=2;
@@ -33997,6 +34506,124 @@ rpc.ServerConfig.loadDefaultConfig = function() {
 rpc.ServerConfig.loadDefaultConfig();
 
 
+
+rpc.RpcProxyStub = {};
+
+
+// category: CDN
+// arg 1: hash
+
+rpc.ProductImageResource = {};
+
+rpc.ProductImageResource.hashToUrl = function(
+		hash 
+	) {
+	var _url = hash;
+	if(!_url || _url.length < 3)
+		return _url;
+	if(_url.indexOf("http:") == 0 ||
+		   _url.indexOf("https:") == 0 ||
+           _url.indexOf("file:") == 0 ||
+           _url.indexOf("res:") == 0 ||
+           _url.indexOf("/") == 0) {
+           return _url;
+	}
+	var _url1 = rpc.ServerConfig.getUrlPrefix("CDN");
+	if(!_url1 || _url1.length < 2)
+		return null;
+	var _sb =_url1;
+	var _c;
+	_c = _sb.charAt(_sb.length - 1);
+	if(_c != '/') {
+		_sb += "/";
+	}
+	//_sb += "id-";
+
+	_sb += hash;
+	
+	return _sb;
+};
+
+rpc.ProductImageResource.hashToSmallUrl = function(
+		hash 
+	) {
+	var _url = rpc.ProductImageResource.hashToUrl(
+		hash 
+	);
+	if(!_url || _url.length < 3 || _url.indexOf("http") < 0)
+		return _url;
+	
+	//if(_url.indexOf("w-202") > 1) {
+	//	return _url;
+	//}
+	
+	var _sb = _url;
+	var _c = _sb.charAt(_sb.length - 1);
+	if(_c != '@') {
+		_sb += "@";
+	}
+	
+	_sb += "w-202";
+	
+	
+	return _sb;
+};
+
+rpc.ProductImageResource.hashToMediumUrl = function(
+		hash 
+	) {
+	var _url = rpc.ProductImageResource.hashToUrl(
+		hash 
+	);
+	if(!_url || _url.length < 3 || _url.indexOf("http") < 0)
+		return _url;
+	
+	//if(_url.indexOf("w-372") > 1) {
+	//	return _url;
+	//}
+	
+	var _sb = _url;
+	var _c = _sb.charAt(_sb.length - 1);
+	if(_c != '@') {
+		_sb += "@";
+	}
+	
+	_sb += "w-372";
+	
+	
+	return _sb;
+};
+
+rpc.ProductImageResource.hashToFullUrl = function(
+		hash 
+	) {
+	var _url = rpc.ProductImageResource.hashToUrl(
+		hash 
+	);
+	if(!_url || _url.length < 3 || _url.indexOf("http") < 0)
+		return _url;
+	
+	//if(_url.indexOf("w-640/m-fw") > 1) {
+	//	return _url;
+	//}
+	
+	var _sb = _url;
+	var _c = _sb.charAt(_sb.length - 1);
+	if(_c != '@') {
+		_sb += "@";
+	}
+	
+	_sb += "w-640/m-fw";
+	
+	
+	return _sb;
+};
+
+
+
+rpc.LongPolling = {};
+
+
 // category: CDN
 // arg 1: hash
 
@@ -34105,10 +34732,6 @@ rpc.AvatarImageResource.hashToFullUrl = function(
 	
 	return _sb;
 };
-
-
-
-rpc.RpcProxyStub = {};
 
 
 // category: CDN
@@ -34245,120 +34868,6 @@ rpc.HttpImageResource.hashToFullUrl = function(
 	return _sb;
 };
 
-
-
-rpc.LongPolling = {};
-
-
-// category: CDN
-// arg 1: hash
-
-rpc.ProductImageResource = {};
-
-rpc.ProductImageResource.hashToUrl = function(
-		hash 
-	) {
-	var _url = hash;
-	if(!_url || _url.length < 3)
-		return _url;
-	if(_url.indexOf("http:") == 0 ||
-		   _url.indexOf("https:") == 0 ||
-           _url.indexOf("file:") == 0 ||
-           _url.indexOf("res:") == 0 ||
-           _url.indexOf("/") == 0) {
-           return _url;
-	}
-	var _url1 = rpc.ServerConfig.getUrlPrefix("CDN");
-	if(!_url1 || _url1.length < 2)
-		return null;
-	var _sb =_url1;
-	var _c;
-	_c = _sb.charAt(_sb.length - 1);
-	if(_c != '/') {
-		_sb += "/";
-	}
-	//_sb += "id-";
-
-	_sb += hash;
-	
-	return _sb;
-};
-
-rpc.ProductImageResource.hashToSmallUrl = function(
-		hash 
-	) {
-	var _url = rpc.ProductImageResource.hashToUrl(
-		hash 
-	);
-	if(!_url || _url.length < 3 || _url.indexOf("http") < 0)
-		return _url;
-	
-	//if(_url.indexOf("w-202") > 1) {
-	//	return _url;
-	//}
-	
-	var _sb = _url;
-	var _c = _sb.charAt(_sb.length - 1);
-	if(_c != '@') {
-		_sb += "@";
-	}
-	
-	_sb += "w-202";
-	
-	
-	return _sb;
-};
-
-rpc.ProductImageResource.hashToMediumUrl = function(
-		hash 
-	) {
-	var _url = rpc.ProductImageResource.hashToUrl(
-		hash 
-	);
-	if(!_url || _url.length < 3 || _url.indexOf("http") < 0)
-		return _url;
-	
-	//if(_url.indexOf("w-372") > 1) {
-	//	return _url;
-	//}
-	
-	var _sb = _url;
-	var _c = _sb.charAt(_sb.length - 1);
-	if(_c != '@') {
-		_sb += "@";
-	}
-	
-	_sb += "w-372";
-	
-	
-	return _sb;
-};
-
-rpc.ProductImageResource.hashToFullUrl = function(
-		hash 
-	) {
-	var _url = rpc.ProductImageResource.hashToUrl(
-		hash 
-	);
-	if(!_url || _url.length < 3 || _url.indexOf("http") < 0)
-		return _url;
-	
-	//if(_url.indexOf("w-640/m-fw") > 1) {
-	//	return _url;
-	//}
-	
-	var _sb = _url;
-	var _c = _sb.charAt(_sb.length - 1);
-	if(_c != '@') {
-		_sb += "@";
-	}
-	
-	_sb += "w-640/m-fw";
-	
-	
-	return _sb;
-};
-
 rpc.RpcClassMap = {};
 rpc.RpcClassMap.gMsgClassMap = {};
 rpc.RpcClassMap.getMsgClass = function(type) {
@@ -34387,6 +34896,7 @@ rpc.RpcClassMap.gMsgClassMap["5"] = rpc.PipeInitedMessage;
 rpc.RpcClassMap.gMsgClassMap["6"] = rpc.RecvConfirmMessage;
 rpc.RpcClassMap.gMsgClassMap["109"] = rpc.BackAmountMessage;
 rpc.RpcClassMap.gMsgClassMap["114"] = rpc.BackendDealNotificationMessage;
+rpc.RpcClassMap.gMsgClassMap["115"] = rpc.ChangePriceNotificationMessage;
 rpc.RpcClassMap.gMsgClassMap["111"] = rpc.ChargeMessage;
 rpc.RpcClassMap.gMsgClassMap["107"] = rpc.DealNotificationMessage;
 rpc.RpcClassMap.gMsgClassMap["108"] = rpc.DeliverBeginMessage;
