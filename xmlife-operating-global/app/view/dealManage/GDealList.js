@@ -105,7 +105,6 @@ Ext.define('XMLifeOperating.view.dealManage.GDealList', {
             itemId: 'keyword',
             fieldLabel: '手机/订单号码',
             labelAlign : 'right',
-            width:100
            /* regex: XMLifeOperating.generic.Global.VALIDATION_CONSTANTS.PHONE,
             regexText: '请输入正确的手机号'*/
         },
