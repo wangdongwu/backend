@@ -40,6 +40,10 @@ Ext.define('XMLifeOperating.view.freightManage.FreightSet', {
                             minWidth: 138,
                             maxWidth: 138,
                             labelWidth: 100,
+                            disabled:false,
+                            renderer:function(value){
+                                alert(11);
+                            }
 
                         }, {
                             xtype: 'label',
@@ -56,17 +60,15 @@ Ext.define('XMLifeOperating.view.freightManage.FreightSet', {
                                 itemId:'amount',
                                 name: 'amount',
                                 allowBlank: false,
-                                
+                                disabled:false,
                                 style:'margin-left:40px',
-                                handler:function(value){
-                                                                   
+                                handler:function(value,record){                                                                  
                                    if(value.getValue()){
                                         var deduct = Ext.ComponentQuery.query('#deductd')[0];
                                         deduct.setDisabled(false);
                                     }else{
                                         var deduct = Ext.ComponentQuery.query('#deductd')[0];
                                         deduct.setDisabled(true);
-
                                     }                                   
                                 }
                             }, {

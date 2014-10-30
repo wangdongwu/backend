@@ -9,16 +9,18 @@ Ext.define('XMLifeOperating.view.freightManage.FreightList', {
   closable: true,
   columns: [{
       width: 60,
-      header: '运费',
-      
-      dataIndex: 'shipfee'
+      header: '运费',     
+      dataIndex: 'shipfee',
     }, {
       header: '满免',
       width:100,
       dataIndex: 'deductd',
+      
       renderer:function(value){                          
-        if(value == 0){
+        if(value == 0 || value < 0){          
           return '';
+        }else{
+          return value;
         }
       }
     }, {
