@@ -31,15 +31,36 @@ Ext.define('XMLifeOperating.generic.BaseProxy', {
     listeners: { 
         exception: function(proxy, response, options) {
             var title = response.statusText,
+                responseText = response.responseText,
                 msg;
             try {
-                var error = (response.responseText && response.responseText.length > 1) ? Ext.decode(response.responseText) : null;
+                var error = (responseText && responseText.length > 1) ? Ext.decode(responseText) : null;
 
                 if (error) {
                     msg = Ext.String.format('Error Code: {0}<br />Message: {1}', error.code, error.message);
                 } else {
-                    title = '请重新登录';
-                    msg = '您还没有登录或已登录过期请重新登录';
+                    if(response.status == 0){
+                      Ext.Msg.alert('提示', '数据接口有问题....请找服务器端确认');
+                      return false;
+                    }
+                    switch (responseText) {
+                        case '-2':
+                             title = '提示';
+                             msg = '参数出错';
+                          break;
+                        case '-3':
+                          title = '请重新登录';
+                          msg = '您还没有登录或已登录过期请重新登录';
+                          break;
+                        case '-4':
+                            title = '提示';
+                            msg = '数据库端出错';
+                          break;
+                        case '-6':
+                            title = '提示';
+                            msg = '你没有权限做当前操作，请去申请相应的权限';
+                          break;
+                      }
 
                 }
             } catch(err) {
@@ -53,11 +74,15 @@ Ext.define('XMLifeOperating.generic.BaseProxy', {
                 icon: Ext.Msg.ERROR,
                 buttons: Ext.Msg.OK
             }).toBack();
-            ErrorMessage.on('hide',function(){
+            if(responseText == '-3'){
+              ErrorMessage.on('hide',function(){
               localStorage.removeItem('sessionId');
               localStorage.removeItem('username');
               window.location.reload();
-            })
+            });  
+            }
+            
+
         }
     }
 });
