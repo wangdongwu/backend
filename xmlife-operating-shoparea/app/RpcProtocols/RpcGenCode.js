@@ -21547,6 +21547,853 @@ rpc.BannerItem.prototype.convertFrom  = function(from, confusionMode, clone) {
     return true;
 };
 
+rpc.HomePageModule = function() {};
+rpc.HomePageModule.prototype.getAreaId = function() {
+	if(!this.mObj) {
+		return 0;
+	}
+	
+	this.mValueCache = this.mValueCache || {};
+	var cacheValue = this.mValueCache["areaId"];
+	if(cacheValue) return cacheValue;
+	
+	var value = this.mObj["areaId"];
+	
+	var objRet = ConvertUtils.jsonObjectToObject(value, Number, null, false);
+	
+	if(objRet) {
+		this.mValueCache["areaId"] = objRet;
+		return objRet;
+	}
+	
+	return 0;
+};
+
+rpc.HomePageModule.prototype.setAreaId = function(value) {
+    this.checkAndCreate();
+	this.mValueCache = this.mValueCache || {};
+	this.mObj = this.mObj || {};
+	
+	var _value_value0 = (value);
+	if(!_value_value0) 
+		delete this.mObj["areaId"];
+	else
+		this.mObj["areaId"] = _value_value0;
+
+	if(value) {
+		this.mValueCache["areaId"] = value;
+	} else {
+		delete this.mValueCache["areaId"];
+	}
+	return this;
+};
+
+rpc.HomePageModule.prototype.getHeight = function() {
+	if(!this.mObj) {
+		return 0;
+	}
+	
+	this.mValueCache = this.mValueCache || {};
+	var cacheValue = this.mValueCache["height"];
+	if(cacheValue) return cacheValue;
+	
+	var value = this.mObj["height"];
+	
+	var objRet = ConvertUtils.jsonObjectToObject(value, Number, null, false);
+	
+	if(objRet) {
+		this.mValueCache["height"] = objRet;
+		return objRet;
+	}
+	
+	return 0;
+};
+
+rpc.HomePageModule.prototype.setHeight = function(value) {
+    this.checkAndCreate();
+	this.mValueCache = this.mValueCache || {};
+	this.mObj = this.mObj || {};
+	
+	var _value_value0 = (value);
+	if(!_value_value0) 
+		delete this.mObj["height"];
+	else
+		this.mObj["height"] = _value_value0;
+
+	if(value) {
+		this.mValueCache["height"] = value;
+	} else {
+		delete this.mValueCache["height"];
+	}
+	return this;
+};
+
+rpc.HomePageModule.prototype.getId = function() {
+	if(!this.mObj) {
+		return null;
+	}
+	
+	this.mValueCache = this.mValueCache || {};
+	var cacheValue = this.mValueCache["id"];
+	if(cacheValue) return cacheValue;
+	
+	var value = this.mObj["id"];
+	
+	var objRet = ConvertUtils.jsonObjectToObject(value, String, null, false);
+	
+	if(objRet) {
+		this.mValueCache["id"] = objRet;
+		return objRet;
+	}
+	
+	return null;
+};
+
+rpc.HomePageModule.prototype.setId = function(value) {
+    this.checkAndCreate();
+	this.mValueCache = this.mValueCache || {};
+	this.mObj = this.mObj || {};
+	
+	var _value_value0 = value;
+	if(!_value_value0) 
+		delete this.mObj["id"];
+	else
+		this.mObj["id"] = _value_value0;
+
+	if(value) {
+		this.mValueCache["id"] = value;
+	} else {
+		delete this.mValueCache["id"];
+	}
+	return this;
+};
+
+rpc.HomePageModule.prototype.getItems = function() {
+	if(!this.mObj) {
+		return null;
+	}
+	
+	this.mValueCache = this.mValueCache || {};
+	var cacheValue = this.mValueCache["items"];
+	if(cacheValue) return cacheValue;
+	
+	var value = this.mObj["items"];
+	
+	var objRet = ConvertUtils.jsonObjectToObject(value, Array, [rpc.HomePageModuleItem], false);
+	
+	if(objRet) {
+		this.mValueCache["items"] = objRet;
+		return objRet;
+	}
+	
+	return null;
+};
+
+rpc.HomePageModule.prototype.setItems = function(value) {
+    this.checkAndCreate();
+	this.mValueCache = this.mValueCache || {};
+	this.mObj = this.mObj || {};
+	
+	var _arr_0 = (!value) ? null : [];
+	if(value) {
+		var _len_0 = value.length;
+		for(var _i_0 = 0; _i_0 < _len_0; _i_0++) {
+			var _l_0 = value[_i_0];
+			var _value__l_02 = _l_0.getAsObject(false);
+			_arr_0.push(_value__l_02);
+		}
+	}
+	var _value_value0 = _arr_0;
+	if(!_value_value0) 
+		delete this.mObj["items"];
+	else
+		this.mObj["items"] = _value_value0;
+
+	if(value) {
+		this.mValueCache["items"] = value;
+	} else {
+		delete this.mValueCache["items"];
+	}
+	return this;
+};
+
+rpc.HomePageModule.prototype.getOrder = function() {
+	if(!this.mObj) {
+		return 0;
+	}
+	
+	this.mValueCache = this.mValueCache || {};
+	var cacheValue = this.mValueCache["order"];
+	if(cacheValue) return cacheValue;
+	
+	var value = this.mObj["order"];
+	
+	var objRet = ConvertUtils.jsonObjectToObject(value, Number, null, false);
+	
+	if(objRet) {
+		this.mValueCache["order"] = objRet;
+		return objRet;
+	}
+	
+	return 0;
+};
+
+rpc.HomePageModule.prototype.setOrder = function(value) {
+    this.checkAndCreate();
+	this.mValueCache = this.mValueCache || {};
+	this.mObj = this.mObj || {};
+	
+	var _value_value0 = (value);
+	if(!_value_value0) 
+		delete this.mObj["order"];
+	else
+		this.mObj["order"] = _value_value0;
+
+	if(value) {
+		this.mValueCache["order"] = value;
+	} else {
+		delete this.mValueCache["order"];
+	}
+	return this;
+};
+
+rpc.HomePageModule.prototype.getType = function() {
+	if(!this.mObj) {
+		return 0;
+	}
+	
+	this.mValueCache = this.mValueCache || {};
+	var cacheValue = this.mValueCache["type"];
+	if(cacheValue) return cacheValue;
+	
+	var value = this.mObj["type"];
+	
+	var objRet = ConvertUtils.jsonObjectToObject(value, Number, null, false);
+	
+	if(objRet) {
+		this.mValueCache["type"] = objRet;
+		return objRet;
+	}
+	
+	return 0;
+};
+
+rpc.HomePageModule.prototype.setType = function(value) {
+    this.checkAndCreate();
+	this.mValueCache = this.mValueCache || {};
+	this.mObj = this.mObj || {};
+	
+	var _value_value0 = (value);
+	if(!_value_value0) 
+		delete this.mObj["type"];
+	else
+		this.mObj["type"] = _value_value0;
+
+	if(value) {
+		this.mValueCache["type"] = value;
+	} else {
+		delete this.mValueCache["type"];
+	}
+	return this;
+};
+
+rpc.HomePageModule.prototype.getVersion = function() {
+	if(!this.mObj) {
+		return null;
+	}
+	
+	this.mValueCache = this.mValueCache || {};
+	var cacheValue = this.mValueCache["version"];
+	if(cacheValue) return cacheValue;
+	
+	var value = this.mObj["version"];
+	
+	var objRet = ConvertUtils.jsonObjectToObject(value, String, null, false);
+	
+	if(objRet) {
+		this.mValueCache["version"] = objRet;
+		return objRet;
+	}
+	
+	return null;
+};
+
+rpc.HomePageModule.prototype.setVersion = function(value) {
+    this.checkAndCreate();
+	this.mValueCache = this.mValueCache || {};
+	this.mObj = this.mObj || {};
+	
+	var _value_value0 = value;
+	if(!_value_value0) 
+		delete this.mObj["version"];
+	else
+		this.mObj["version"] = _value_value0;
+
+	if(value) {
+		this.mValueCache["version"] = value;
+	} else {
+		delete this.mValueCache["version"];
+	}
+	return this;
+};
+
+rpc.HomePageModule.FIELD_ID="id";
+rpc.HomePageModule.FIELD_ID_CONFUSION="id";
+rpc.HomePageModule.FIELD_HEIGHT="height";
+rpc.HomePageModule.FIELD_HEIGHT_CONFUSION="height";
+rpc.HomePageModule.FIELD_ORDER="order";
+rpc.HomePageModule.FIELD_ORDER_CONFUSION="order";
+rpc.HomePageModule.FIELD_ITEMS="items";
+rpc.HomePageModule.FIELD_ITEMS_CONFUSION="items";
+rpc.HomePageModule.FIELD_TYPE="type";
+rpc.HomePageModule.FIELD_TYPE_CONFUSION="type";
+rpc.HomePageModule.FIELD_AREAID="areaId";
+rpc.HomePageModule.FIELD_AREAID_CONFUSION="areaId";
+rpc.HomePageModule.FIELD_VERSION="version";
+rpc.HomePageModule.FIELD_VERSION_CONFUSION="version";
+
+rpc.HomePageModule.checkAndInitial = function() {
+    if(rpc.HomePageModule.mFieldToConfusionMap)
+        return;
+	
+	rpc.HomePageModule.mHasConfusionField = false;
+	rpc.HomePageModule.mFieldToConfusionMap = {
+		"id":"id", 
+		"height":"height", 
+		"order":"order", 
+		"items":"items", 
+		"type":"type", 
+		"areaId":"areaId", 
+		"version":"version"
+	};
+	rpc.HomePageModule.mConfusionToFieldMap = {
+		"id":"id", 
+		"height":"height", 
+		"order":"order", 
+		"items":"items", 
+		"type":"type", 
+		"areaId":"areaId", 
+		"version":"version"
+	};
+
+};
+
+rpc.HomePageModule.prototype.toString = function() {
+	if(this.mObj) {
+		return JSON.stringify(this.mObj);
+	}
+	return "{}";
+};
+
+rpc.HomePageModule.prototype.getRpcJSONObject  = function() {
+	return this.mObj;
+};
+
+rpc.HomePageModule.prototype.checkAndCreate = function() {
+    if (!this.mObj) {
+        this.mObj = {};
+    }
+};
+
+
+rpc.HomePageModule.prototype.getAsObject  = function(confusionMode, clone) {
+    if(this.mObj == null) {
+		this.checkAndCreate();
+        return clone ? objectClone(this.mObj) : this.mObj;
+    }
+    if(!confusionMode)
+        return clone ? objectClone(this.mObj) : this.mObj;
+    return rpc.HomePageModule.toConfusionObject(this.mObj, clone);
+};
+
+rpc.HomePageModule.getConfusionName = function(name) {
+    rpc.HomePageModule.checkAndInitial();
+    var value = rpc.HomePageModule.mFieldToConfusionMap[name];
+    if(value)
+        return value;
+    return null;
+};
+    
+rpc.HomePageModule.getRawName = function(confusionName) {
+    rpc.HomePageModule.checkAndInitial();
+    var value = rpc.HomePageModule.mConfusionToFieldMap[confusionName];
+    if(value)
+        return value;
+    return null;
+};
+
+rpc.HomePageModule.toConfusionObject  = function(from, clone) {
+    if(!from)
+        return from;
+
+	rpc.HomePageModule.checkAndInitial();
+    if (!rpc.HomePageModule.mHasConfusionField) {
+        return clone ? objectClone(from) : from;
+    }
+        
+    var ret = {};
+    for (var key in from) {
+        var rawKey = rpc.HomePageModule.getConfusionName(key);
+        if(!rawKey)
+            rawKey = key;
+        ret[rawKey] = from[key];
+    }
+      
+    return ret;
+};
+    
+rpc.HomePageModule.confusionToRawObject  = function(from, clone) {
+    if(!from)
+        return from;
+    
+    rpc.HomePageModule.checkAndInitial();
+    if (!rpc.HomePageModule.mHasConfusionField) {
+        return clone ? objectClone(from) : from;
+    }
+        
+    var ret = {};
+    for(var key in from) {
+        var rawKey = rpc.HomePageModule.getRawName(key);
+        if(!rawKey)
+            rawKey = key;
+        ret[rawKey] = from[key];
+    }
+    return ret;
+};
+
+rpc.HomePageModule.prototype.clearCache = function() {
+	if(this.mValueCache) {
+		this.mValueCache = {};
+	}
+};
+
+rpc.HomePageModule.prototype.convertFrom  = function(from, confusionMode, clone) {
+    if (!from)
+        return false;
+    
+    if (from.prototype && from.prototype.convertFrom) {
+        this.clearCache();
+        this.mObj = from.getAsObject(false, clone);
+        return true;
+    }
+    
+    if (from instanceof String && from[0] == '{') {
+        this.clearCache();
+        var jsonObj = JSON.parse(from);
+        if(confusionMode) {
+            this.mObj = rpc.HomePageModule.confusionToRawObject(jsonObj, clone);
+        } else {
+            this.mObj = clone ? objectClone(jsonObj) : jsonObj;
+        }
+        return true;
+    }
+    
+    this.clearCache();
+    if(confusionMode) {
+         this.mObj = rpc.HomePageModule.confusionToRawObject(from, clone);
+    } else {
+         this.mObj = clone ? objectClone(from) : from;
+    }
+    return true;
+};
+
+rpc.HomePageModuleItem = function() {};
+rpc.HomePageModuleItem.prototype.getId = function() {
+	if(!this.mObj) {
+		return null;
+	}
+	
+	this.mValueCache = this.mValueCache || {};
+	var cacheValue = this.mValueCache["id"];
+	if(cacheValue) return cacheValue;
+	
+	var value = this.mObj["id"];
+	
+	var objRet = ConvertUtils.jsonObjectToObject(value, String, null, false);
+	
+	if(objRet) {
+		this.mValueCache["id"] = objRet;
+		return objRet;
+	}
+	
+	return null;
+};
+
+rpc.HomePageModuleItem.prototype.setId = function(value) {
+    this.checkAndCreate();
+	this.mValueCache = this.mValueCache || {};
+	this.mObj = this.mObj || {};
+	
+	var _value_value0 = value;
+	if(!_value_value0) 
+		delete this.mObj["id"];
+	else
+		this.mObj["id"] = _value_value0;
+
+	if(value) {
+		this.mValueCache["id"] = value;
+	} else {
+		delete this.mValueCache["id"];
+	}
+	return this;
+};
+
+rpc.HomePageModuleItem.prototype.getImage = function() {
+	if(!this.mObj) {
+		return null;
+	}
+	
+	this.mValueCache = this.mValueCache || {};
+	var cacheValue = this.mValueCache["image"];
+	if(cacheValue) return cacheValue;
+	
+	var value = this.mObj["image"];
+	
+	var objRet = ConvertUtils.jsonObjectToObject(value, String, null, false);
+	
+	if(objRet) {
+		this.mValueCache["image"] = objRet;
+		return objRet;
+	}
+	
+	return null;
+};
+
+rpc.HomePageModuleItem.prototype.setImage = function(value) {
+    this.checkAndCreate();
+	this.mValueCache = this.mValueCache || {};
+	this.mObj = this.mObj || {};
+	
+	var _value_value0 = value;
+	if(!_value_value0) 
+		delete this.mObj["image"];
+	else
+		this.mObj["image"] = _value_value0;
+
+	if(value) {
+		this.mValueCache["image"] = value;
+	} else {
+		delete this.mValueCache["image"];
+	}
+	return this;
+};
+
+rpc.HomePageModuleItem.prototype.getModuleId = function() {
+	if(!this.mObj) {
+		return null;
+	}
+	
+	this.mValueCache = this.mValueCache || {};
+	var cacheValue = this.mValueCache["moduleId"];
+	if(cacheValue) return cacheValue;
+	
+	var value = this.mObj["moduleId"];
+	
+	var objRet = ConvertUtils.jsonObjectToObject(value, String, null, false);
+	
+	if(objRet) {
+		this.mValueCache["moduleId"] = objRet;
+		return objRet;
+	}
+	
+	return null;
+};
+
+rpc.HomePageModuleItem.prototype.setModuleId = function(value) {
+    this.checkAndCreate();
+	this.mValueCache = this.mValueCache || {};
+	this.mObj = this.mObj || {};
+	
+	var _value_value0 = value;
+	if(!_value_value0) 
+		delete this.mObj["moduleId"];
+	else
+		this.mObj["moduleId"] = _value_value0;
+
+	if(value) {
+		this.mValueCache["moduleId"] = value;
+	} else {
+		delete this.mValueCache["moduleId"];
+	}
+	return this;
+};
+
+rpc.HomePageModuleItem.prototype.getTitle = function() {
+	if(!this.mObj) {
+		return null;
+	}
+	
+	this.mValueCache = this.mValueCache || {};
+	var cacheValue = this.mValueCache["title"];
+	if(cacheValue) return cacheValue;
+	
+	var value = this.mObj["title"];
+	
+	var objRet = ConvertUtils.jsonObjectToObject(value, String, null, false);
+	
+	if(objRet) {
+		this.mValueCache["title"] = objRet;
+		return objRet;
+	}
+	
+	return null;
+};
+
+rpc.HomePageModuleItem.prototype.setTitle = function(value) {
+    this.checkAndCreate();
+	this.mValueCache = this.mValueCache || {};
+	this.mObj = this.mObj || {};
+	
+	var _value_value0 = value;
+	if(!_value_value0) 
+		delete this.mObj["title"];
+	else
+		this.mObj["title"] = _value_value0;
+
+	if(value) {
+		this.mValueCache["title"] = value;
+	} else {
+		delete this.mValueCache["title"];
+	}
+	return this;
+};
+
+rpc.HomePageModuleItem.prototype.getUrl = function() {
+	if(!this.mObj) {
+		return null;
+	}
+	
+	this.mValueCache = this.mValueCache || {};
+	var cacheValue = this.mValueCache["url"];
+	if(cacheValue) return cacheValue;
+	
+	var value = this.mObj["url"];
+	
+	var objRet = ConvertUtils.jsonObjectToObject(value, String, null, false);
+	
+	if(objRet) {
+		this.mValueCache["url"] = objRet;
+		return objRet;
+	}
+	
+	return null;
+};
+
+rpc.HomePageModuleItem.prototype.setUrl = function(value) {
+    this.checkAndCreate();
+	this.mValueCache = this.mValueCache || {};
+	this.mObj = this.mObj || {};
+	
+	var _value_value0 = value;
+	if(!_value_value0) 
+		delete this.mObj["url"];
+	else
+		this.mObj["url"] = _value_value0;
+
+	if(value) {
+		this.mValueCache["url"] = value;
+	} else {
+		delete this.mValueCache["url"];
+	}
+	return this;
+};
+
+rpc.HomePageModuleItem.prototype.getUrlType = function() {
+	if(!this.mObj) {
+		return null;
+	}
+	
+	this.mValueCache = this.mValueCache || {};
+	var cacheValue = this.mValueCache["urlType"];
+	if(cacheValue) return cacheValue;
+	
+	var value = this.mObj["urlType"];
+	
+	var objRet = ConvertUtils.jsonObjectToObject(value, String, null, false);
+	
+	if(objRet) {
+		this.mValueCache["urlType"] = objRet;
+		return objRet;
+	}
+	
+	return null;
+};
+
+rpc.HomePageModuleItem.prototype.setUrlType = function(value) {
+    this.checkAndCreate();
+	this.mValueCache = this.mValueCache || {};
+	this.mObj = this.mObj || {};
+	
+	var _value_value0 = value;
+	if(!_value_value0) 
+		delete this.mObj["urlType"];
+	else
+		this.mObj["urlType"] = _value_value0;
+
+	if(value) {
+		this.mValueCache["urlType"] = value;
+	} else {
+		delete this.mValueCache["urlType"];
+	}
+	return this;
+};
+
+rpc.HomePageModuleItem.FIELD_ID="id";
+rpc.HomePageModuleItem.FIELD_ID_CONFUSION="id";
+rpc.HomePageModuleItem.FIELD_TITLE="title";
+rpc.HomePageModuleItem.FIELD_TITLE_CONFUSION="title";
+rpc.HomePageModuleItem.FIELD_MODULEID="moduleId";
+rpc.HomePageModuleItem.FIELD_MODULEID_CONFUSION="moduleId";
+rpc.HomePageModuleItem.FIELD_IMAGE="image";
+rpc.HomePageModuleItem.FIELD_IMAGE_CONFUSION="image";
+rpc.HomePageModuleItem.FIELD_URLTYPE="urlType";
+rpc.HomePageModuleItem.FIELD_URLTYPE_CONFUSION="urlType";
+rpc.HomePageModuleItem.FIELD_URL="url";
+rpc.HomePageModuleItem.FIELD_URL_CONFUSION="url";
+
+rpc.HomePageModuleItem.checkAndInitial = function() {
+    if(rpc.HomePageModuleItem.mFieldToConfusionMap)
+        return;
+	
+	rpc.HomePageModuleItem.mHasConfusionField = false;
+	rpc.HomePageModuleItem.mFieldToConfusionMap = {
+		"id":"id", 
+		"title":"title", 
+		"moduleId":"moduleId", 
+		"image":"image", 
+		"urlType":"urlType", 
+		"url":"url"
+	};
+	rpc.HomePageModuleItem.mConfusionToFieldMap = {
+		"id":"id", 
+		"title":"title", 
+		"moduleId":"moduleId", 
+		"image":"image", 
+		"urlType":"urlType", 
+		"url":"url"
+	};
+
+};
+
+rpc.HomePageModuleItem.prototype.toString = function() {
+	if(this.mObj) {
+		return JSON.stringify(this.mObj);
+	}
+	return "{}";
+};
+
+rpc.HomePageModuleItem.prototype.getRpcJSONObject  = function() {
+	return this.mObj;
+};
+
+rpc.HomePageModuleItem.prototype.checkAndCreate = function() {
+    if (!this.mObj) {
+        this.mObj = {};
+    }
+};
+
+
+rpc.HomePageModuleItem.prototype.getAsObject  = function(confusionMode, clone) {
+    if(this.mObj == null) {
+		this.checkAndCreate();
+        return clone ? objectClone(this.mObj) : this.mObj;
+    }
+    if(!confusionMode)
+        return clone ? objectClone(this.mObj) : this.mObj;
+    return rpc.HomePageModuleItem.toConfusionObject(this.mObj, clone);
+};
+
+rpc.HomePageModuleItem.getConfusionName = function(name) {
+    rpc.HomePageModuleItem.checkAndInitial();
+    var value = rpc.HomePageModuleItem.mFieldToConfusionMap[name];
+    if(value)
+        return value;
+    return null;
+};
+    
+rpc.HomePageModuleItem.getRawName = function(confusionName) {
+    rpc.HomePageModuleItem.checkAndInitial();
+    var value = rpc.HomePageModuleItem.mConfusionToFieldMap[confusionName];
+    if(value)
+        return value;
+    return null;
+};
+
+rpc.HomePageModuleItem.toConfusionObject  = function(from, clone) {
+    if(!from)
+        return from;
+
+	rpc.HomePageModuleItem.checkAndInitial();
+    if (!rpc.HomePageModuleItem.mHasConfusionField) {
+        return clone ? objectClone(from) : from;
+    }
+        
+    var ret = {};
+    for (var key in from) {
+        var rawKey = rpc.HomePageModuleItem.getConfusionName(key);
+        if(!rawKey)
+            rawKey = key;
+        ret[rawKey] = from[key];
+    }
+      
+    return ret;
+};
+    
+rpc.HomePageModuleItem.confusionToRawObject  = function(from, clone) {
+    if(!from)
+        return from;
+    
+    rpc.HomePageModuleItem.checkAndInitial();
+    if (!rpc.HomePageModuleItem.mHasConfusionField) {
+        return clone ? objectClone(from) : from;
+    }
+        
+    var ret = {};
+    for(var key in from) {
+        var rawKey = rpc.HomePageModuleItem.getRawName(key);
+        if(!rawKey)
+            rawKey = key;
+        ret[rawKey] = from[key];
+    }
+    return ret;
+};
+
+rpc.HomePageModuleItem.prototype.clearCache = function() {
+	if(this.mValueCache) {
+		this.mValueCache = {};
+	}
+};
+
+rpc.HomePageModuleItem.prototype.convertFrom  = function(from, confusionMode, clone) {
+    if (!from)
+        return false;
+    
+    if (from.prototype && from.prototype.convertFrom) {
+        this.clearCache();
+        this.mObj = from.getAsObject(false, clone);
+        return true;
+    }
+    
+    if (from instanceof String && from[0] == '{') {
+        this.clearCache();
+        var jsonObj = JSON.parse(from);
+        if(confusionMode) {
+            this.mObj = rpc.HomePageModuleItem.confusionToRawObject(jsonObj, clone);
+        } else {
+            this.mObj = clone ? objectClone(jsonObj) : jsonObj;
+        }
+        return true;
+    }
+    
+    this.clearCache();
+    if(confusionMode) {
+         this.mObj = rpc.HomePageModuleItem.confusionToRawObject(from, clone);
+    } else {
+         this.mObj = clone ? objectClone(from) : from;
+    }
+    return true;
+};
+
 rpc.Homepage = function() {};
 rpc.Homepage.prototype.getItems = function() {
 	if(!this.mObj) {
@@ -34290,6 +35137,21 @@ rpc.GetVoiceConstants={};
 rpc.GetVoiceConstants.KEY_ID="id";
 rpc.GetVoiceConstants.KEY_EQUIP="equip";
 
+rpc.HomePageModuleConstant={};
+rpc.HomePageModuleConstant.BANNER="BANNER";
+rpc.HomePageModuleConstant.SUPERMARKET="SUPERMARKET";
+rpc.HomePageModuleConstant.SHOP="SHOP";
+rpc.HomePageModuleConstant.ABORT="ABORT";
+rpc.HomePageModuleConstant.SMALL_SPACE="SMALL_SPACE";
+rpc.HomePageModuleConstant.BIG_SPACE="BIG_SPACE";
+
+rpc.HomePageUrlConstant={};
+rpc.HomePageUrlConstant.SHOP="SHOP";
+rpc.HomePageUrlConstant.CATEGORY="CATEGORY";
+rpc.HomePageUrlConstant.SKU="SKU";
+rpc.HomePageUrlConstant.HTML="HTML";
+rpc.HomePageUrlConstant.FUNCTION="FUNCTION";
+
 rpc.IReturnCodeAddress={};
 rpc.IReturnCodeAddress.INVALID_PHONE=181;
 rpc.IReturnCodeAddress.INVALID_DESC=182;
@@ -34505,10 +35367,6 @@ rpc.ServerConfig.loadDefaultConfig = function() {
 }
 
 rpc.ServerConfig.loadDefaultConfig();
-
-
-
-rpc.LongPolling = {};
 
 
 // category: CDN
@@ -34756,6 +35614,14 @@ rpc.HttpImageResource.hashToFullUrl = function(
 };
 
 
+
+rpc.RpcProxyStub = {};
+
+
+
+rpc.LongPolling = {};
+
+
 // category: CDN
 // arg 1: hash
 
@@ -34864,10 +35730,6 @@ rpc.AvatarImageResource.hashToFullUrl = function(
 	
 	return _sb;
 };
-
-
-
-rpc.RpcProxyStub = {};
 
 rpc.RpcClassMap = {};
 rpc.RpcClassMap.gMsgClassMap = {};
