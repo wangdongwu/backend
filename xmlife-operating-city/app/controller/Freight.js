@@ -1,13 +1,17 @@
 Ext.define('XMLifeOperating.controller.Freight', {
   extend: 'Ext.app.Controller',
-  views: ['freightManage.FreightList', 'freightManage.FreightSet'],
-  stores: ['SupportedcityGetByCode'],
-  models: ['SupportedcityGetByCode'],
+  views: ['freightManage.FreightList', 'freightManage.FreightSet','Toolbar'],
+  stores: ['SupportedcityGetByCode','SupportedCity'],
+  models: ['SupportedcityGetByCode','SupportedCity'],
   refs: [{
       ref: 'freightList',
       selector: 'freightList',
       xtype: 'freight',
       autoCreate: true
+    },{
+      ref:'Toolbar',
+      selector:'Toolbar',
+      xtype:'headerToolbar'
     }, {
       ref: 'freightSet',
       selector: 'freightSet',
@@ -24,9 +28,8 @@ Ext.define('XMLifeOperating.controller.Freight', {
       '#setFreight': {
         click: me.showSetFreight
       },
-       'freightSet #shipfee':{
+      'freightSet #shipfee':{
         keyup:me.shipfeeKeyUp
-
        },
       'freightSet #submitId' : {
          click: me.submitData        
@@ -36,7 +39,7 @@ Ext.define('XMLifeOperating.controller.Freight', {
   shipfeeKeyUp:function(view,e,opts){
     var me = this;
     var win = me.getFreightSet();
-    var  amountCmp = win.down('#amount');
+    var amountCmp = win.down('#amount');
     var deductdCmp = win.down('#deductd'); 
     var shipfeeDeductd = win.down('#shipfeeDeductd');
     var shipfee = win.down('#shipfee').getValue();
@@ -57,7 +60,7 @@ Ext.define('XMLifeOperating.controller.Freight', {
     var win = me.getFreightSet();
     var customerDetail = view.getRecord(view.findTargetByEvent(e));
     var name = customerDetail.get('name');
-    var  amountCmp = win.down('#amount');
+    var amountCmp = win.down('#amount');
     var deductdCmp = win.down('#deductd'); 
     var shipfeeDeductd = win.down('#shipfeeDeductd');
     //运费为0时，隐藏
@@ -65,15 +68,12 @@ Ext.define('XMLifeOperating.controller.Freight', {
       amountCmp.setDisabled(true);
       amountCmp.setVisible(false);
       deductdCmp.setVisible(false);
-      shipfeeDeductd.setVisible(false);    
-      
+      shipfeeDeductd.setVisible(false);        
     }else{
       amountCmp.setDisabled(false);
       amountCmp.setVisible(true);
       deductdCmp.setVisible(true);
-      shipfeeDeductd.setVisible(true);
-      
-      
+      shipfeeDeductd.setVisible(true);   
     }
     //满免大于0，自动选中
     if(customerDetail.data.deductd>0){     

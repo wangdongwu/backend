@@ -32,5 +32,6 @@ Ext.define('XMLifeOperating.view.freightManage.FreightList', {
             return '<a class="showAddressDetail">编辑</a>';
         }
     },
+
   ]
 });
