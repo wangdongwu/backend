@@ -12,9 +12,12 @@ Ext.define('XMLifeOperating.view.templateManage.productTemplate.ProductTemplateL
         xtype: 'treepanel',
         region: 'west',
         store: 'ProductTemplateRoots',
+        title: '分类',
+        titleAlign: 'center',
         width: 200,
         frame: true,
         rootVisible: false,
+        collapsible: true,
         border: false,
         style: 'border:none',
         displayField: 'name',
@@ -26,7 +29,10 @@ Ext.define('XMLifeOperating.view.templateManage.productTemplate.ProductTemplateL
         itemId: 'productTemplateGrid',
         autoScroll: true,
         border: false,
-        style: 'border:none',
+        title: '商品模板',
+        titleAlign: 'center',
+        /* style: 'border:none',*/
+        hearPosition: 'center',
         layout: 'fit',
         dockedItems: [{
             xtype: 'pagingtoolbar',
@@ -34,6 +40,34 @@ Ext.define('XMLifeOperating.view.templateManage.productTemplate.ProductTemplateL
             store: 'ProductTemplateGetByCategoryId',
             dock: 'bottom',
             displayInfo: true
+        }, {
+            xtype: 'toolbar',
+            itemId: 'topbar',
+            dock: 'top',
+            items: [{
+                    xtype: 'button',
+                    text: '添加商品模板',
+                    itemId: 'add'
+                }, '-', {
+                    xtype: 'textfield',
+                    emptyText: '商品名称',
+                    name: 'keyword',
+                    itemId: 'keyword',
+                }, {
+                    xtype: 'button',
+                    itemId: 'productSearch',
+                    text: '搜索'
+                },
+                '->', {
+                    xtype: 'button',
+                    text: '批量修改商品',
+                    itemId: 'batchModifi'
+                }, {
+                    xtype: 'button',
+                    text: '添加商品属性',
+                    itemId: 'batchAdd'
+                }
+            ]
         }],
         columns: [{
             text: 'ID',
@@ -81,44 +115,6 @@ Ext.define('XMLifeOperating.view.templateManage.productTemplate.ProductTemplateL
                 dragText: 'Drag and drop to reorder'
             }
         }
-    }, {
-        xtype: 'panel',
-        frame: true,
-        region: 'north',
-        border: false,
-        style: 'border:none',
-        dockedItems: [{
-            xtype: 'toolbar',
-            itemId: 'topbar',
-            dock: 'top',
-            border: false,
-            style: 'border:none;',
-            items: [{
-                    xtype: 'button',
-                    text: '添加商品模板',
-                    itemId: 'add'
-                }, '-', {
-                    xtype: 'textfield',
-                    emptyText: '商品名称',
-                    name: 'keyword',
-                    itemId: 'keyword',
-                }, {
-                    xtype: 'button',
-                    itemId: 'productSearch',
-                    text: '搜索'
-                },
-                '->', {
-                    xtype: 'button',
-                    text: '批量修改商品',
-                    itemId: 'batchModifi'
-                }, {
-                    xtype: 'button',
-                    text: '添加商品属性',
-                    itemId: 'batchAdd'
-                }
-            ]
-        }]
-
-    }],
+    }]
 
 });
