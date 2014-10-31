@@ -34111,6 +34111,7 @@ rpc.VerifyCodeType.SIGN_UP=2;
 rpc.VerifyCodeType.RESET_PASS=3;
 rpc.VerifyCodeType.FIND_PASS=4;
 rpc.VerifyCodeType.VALIDATE_PHONE=5;
+rpc.VerifyCodeType.OAUTH_LOGIN=6;
 
 rpc.HttpRequestConstants={};
 rpc.HttpRequestConstants.KEY_DATA="d";
@@ -34506,6 +34507,10 @@ rpc.ServerConfig.loadDefaultConfig = function() {
 rpc.ServerConfig.loadDefaultConfig();
 
 
+
+rpc.LongPolling = {};
+
+
 // category: CDN
 // arg 1: hash
 
@@ -34751,14 +34756,6 @@ rpc.HttpImageResource.hashToFullUrl = function(
 };
 
 
-
-rpc.RpcProxyStub = {};
-
-
-
-rpc.LongPolling = {};
-
-
 // category: CDN
 // arg 1: hash
 
@@ -34867,6 +34864,10 @@ rpc.AvatarImageResource.hashToFullUrl = function(
 	
 	return _sb;
 };
+
+
+
+rpc.RpcProxyStub = {};
 
 rpc.RpcClassMap = {};
 rpc.RpcClassMap.gMsgClassMap = {};
