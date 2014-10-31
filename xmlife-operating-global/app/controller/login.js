@@ -167,7 +167,7 @@ Ext.define('XMLifeOperating.controller.login', {
               }
             },
             failure : function(response){
-              if(response.status==401){
+              if(response.status==401 || response.status==0){
                 var data = {
                   'Unauthorized' : '对不起，你登录失败了，请重新登录'
                 };
