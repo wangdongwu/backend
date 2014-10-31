@@ -89,7 +89,7 @@ Ext.define('XMLifeOperating.controller.Shopper', {
                             page: 1
                         }
                     });
-
+                    this.areaId=combo.getValue();
                 },
             },
             //查看中心下暂停或接单买手
@@ -469,10 +469,12 @@ Ext.define('XMLifeOperating.controller.Shopper', {
         });
     },
     searchShopper: function() {
+        alert(111);
         var me = this,
             keyWords = me.getShopperList().down('#searchBuyerKeyWords').getValue(),
             store = this.getShopperStore(),
             view = this.getShopperList();
+        var area = this.areaId;
         var activeBindText = Ext.getCmp('shopperList').down('#activeBind').getText();
         var isUnbind = null;
         //view.down('#shopArea').setValue('');
@@ -507,7 +509,8 @@ Ext.define('XMLifeOperating.controller.Shopper', {
             //     }
             // });
             store.getProxy().extraParams = {
-                nameOrPhone: keyWords
+                nameOrPhone: keyWords,
+                area:area
             };
             store.on('load', function() {
                 Ext.getCmp('shopperList').down('#activeBind').setText('查看未绑定的买手');
