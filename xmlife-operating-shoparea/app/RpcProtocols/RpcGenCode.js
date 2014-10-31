@@ -34506,10 +34506,6 @@ rpc.ServerConfig.loadDefaultConfig = function() {
 rpc.ServerConfig.loadDefaultConfig();
 
 
-
-rpc.LongPolling = {};
-
-
 // category: CDN
 // arg 1: hash
 
@@ -34755,6 +34751,14 @@ rpc.HttpImageResource.hashToFullUrl = function(
 };
 
 
+
+rpc.RpcProxyStub = {};
+
+
+
+rpc.LongPolling = {};
+
+
 // category: CDN
 // arg 1: hash
 
@@ -34863,10 +34867,6 @@ rpc.AvatarImageResource.hashToFullUrl = function(
 	
 	return _sb;
 };
-
-
-
-rpc.RpcProxyStub = {};
 
 rpc.RpcClassMap = {};
 rpc.RpcClassMap.gMsgClassMap = {};
