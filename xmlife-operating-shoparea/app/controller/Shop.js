@@ -121,6 +121,11 @@ Ext.define('XMLifeOperating.controller.Shop', {
         xtype: 'shopsecondshelfadd',
         autoCreate: true
     }, {
+        ref: 'shopProductList',
+        selector: '#ShelvesGoodsList',
+        xtype: 'shopproduct',
+        autoCreate: true
+    }, {
         ref: 'shopProductAdd',
         selector: 'shopproductadd',
         xtype: 'shopproductadd',
@@ -320,7 +325,6 @@ Ext.define('XMLifeOperating.controller.Shop', {
             },
             'shoplist #modifyShopList': {
                 click: function(view, column, rowIndex, colIndex, e) {
-
                     var tab = this.getShopEdit();
                     var record = view.getRecord(view.findTargetByEvent(e));
                     this.record = record;
@@ -622,12 +626,10 @@ Ext.define('XMLifeOperating.controller.Shop', {
                         case 'tab1': //form
                             break;
                         case 'tab2': //collection一级货架
-
                             me.showCategoryRootsList(this.shopId);
                             break;
                         case 'tab3': //次级货架
                             me.showCategorySubsList(this.shopId, tabIdArray[1]);
-
                             break;
                         case 'tab4':
                             //商品
@@ -672,6 +674,14 @@ Ext.define('XMLifeOperating.controller.Shop', {
                                 },
                                 closable: true
                             });
+                            //回收站限制
+                            var flag = false;
+                            if (me.getCategoryRootsStore().getById(record.get('id')).get('type') == 0) {
+                                flag = true;
+                            } else {
+                                flag = false
+                            }
+                            me.getShopProductList().down('#openCreateShelvesGoodsWin').setDisabled(flag);
                             tab.setActiveTab('tab4_' + record.get('id'));
                         });
                         return;
@@ -1296,6 +1306,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
             /*
              * product事件
              */
+            '#ShelvesGoodsList #putawayOrOut': {},
             '#ShelvesGoodsList #putawayOrOut, #ShelvesGoodsList #frozen': {
                 click: function(component, column, rowIndex, colIndex, e) {
 
@@ -1383,7 +1394,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
                 }
             },
             '#ShelvesGoodsList #openModifyShelvesGoodsWin': {
-                click: function(component, rowIndex, colIndex) {
+                click: function(component, dom, rowIndex, colIndex, e, store) {
                     var me = this;
                     var itemId = component.getItemId();
                     var win = this.getShopProductEdit();
@@ -1393,11 +1404,12 @@ Ext.define('XMLifeOperating.controller.Shop', {
                         limitType = '',
                         limitCount = '',
                         productLimitCount = '';
-                    var categoryStore = me.getShopProductEdit().down('#belngShelf').getStore();
-
-
+                    var categorySelectionStore = me.getShopProductEdit().down('#belngShelf').getStore();
+                    var categoryId = component.getRecord(component.findTargetByEvent(e)).get('categoryId');
+                    var categoryStore = me.getCategoryRootsStore().getById(categoryId);
+                    var categoryType = categoryStore ? categoryStore.get('type') : 1;
                     form.reset();
-                    model = component.getStore().getAt(colIndex);
+                    model = component.getStore().getAt(rowIndex);
                     limitType = model.get('limitType');
                     limitCount = model.get('limitCount');
                     productLimitCount = model.get('productLimitCount');
@@ -1429,7 +1441,22 @@ Ext.define('XMLifeOperating.controller.Shop', {
                     if (model.get('stock') == -1) {
                         model.set('stock', '无限制');
                     }
-                    categoryStore.load({
+                    //回收站修改限制
+                    if (type == 0) {
+                        win.down('[name="name"]').setDisabled(true);
+                        win.down('[name="purchasePrice"]').setDisabled(true);
+                        win.down('[name="facePrice"]').setDisabled(true);
+                        win.down('[name="discountPrice"]').setDisabled(true);
+                        win.down('[name="stock"]').setDisabled(true);
+                        win.down('#limitTypeFieldset').setDisabled(true);
+                    } else {
+                        win.down('[name="name"]').setDisabled(false);
+                        win.down('[name="purchasePrice"]').setDisabled(false);
+                        win.down('[name="facePrice"]').setDisabled(false);
+                        win.down('[name="discountPrice"]').setDisabled(false);
+                        win.down('#limitTypeFieldset').setDisabled(false);
+                    }
+                    categorySelectionStore.load({
                         params: {
                             shopId: me.shopId
                         },

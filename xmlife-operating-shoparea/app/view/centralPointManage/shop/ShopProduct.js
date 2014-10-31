@@ -110,7 +110,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopProduct', {
         width: 60,
         sortable: true,
         align: 'center',
-         renderer: function(value) {
+        renderer: function(value) {
             if (value == -1) {
                 value = '无限制';
             }
@@ -124,18 +124,38 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopProduct', {
         menuDisabled: true,
         sortable: true,
         align: 'center',
-        renderer: function(value) {
+        renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
+            var me = this;
+            if (!me.CategoryRootsStore) {
+                me.CategoryRootsStore = Ext.StoreMgr.lookup('CategoryRoots');
+            }
+            var category = me.CategoryRootsStore.getById(record.get('categoryId'));
+            type = category ? category.get('type') : 1;
             var str = '';
-            switch (value) {
-                case 3: //售罄，显示上架按钮
-                    str += '<input type="button" value="上架" statusValue="online" class="putaway" /><br/>';
-                    break;
-                case 1:
-                    str += '--';
-                    break;
-                case 0: //在上架中，显示下架按钮
-                    str += '<input type="button" value="下架" statusValue="soldout"  class="putaway" /><br/>';
-                    break;
+            if (type == 0) {
+                switch (value) {
+                    case 3: //售罄，显示上架按钮
+                        str += '<input type="button" disabled="true" value="上架" statusValue="online" class="putaway" /><br/>';
+                        break;
+                    case 1:
+                        str += '--';
+                        break;
+                    case 0: //在上架中，显示下架按钮
+                        str += '<input type="button"  value="下架" statusValue="soldout"  class="putaway" /><br/>';
+                        break;
+                }
+            } else {
+                switch (value) {
+                    case 3: //售罄，显示上架按钮
+                        str += '<input type="button" value="上架" statusValue="online" class="putaway" /><br/>';
+                        break;
+                    case 1:
+                        str += '--';
+                        break;
+                    case 0: //在上架中，显示下架按钮
+                        str += '<input type="button" value="下架" statusValue="soldout"  class="putaway" /><br/>';
+                        break;
+                }
             }
             return str;
         }
@@ -147,21 +167,38 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopProduct', {
         menuDisabled: true,
         sortable: true,
         align: 'center',
-        renderer: function(value) {
-
+        renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
+            var me = this;
+            if (!me.CategoryRootsStore) {
+                me.CategoryRootsStore = Ext.StoreMgr.lookup('CategoryRoots');
+            }
+            var category = me.CategoryRootsStore.getById(record.get('categoryId'));
+            type = category ? category.get('type') : 1;
             var str = '';
-            switch (value) {
-                case 0:
-                    str += '<input type="button" value="雪藏" statusValue="offline" class="frozen" />';
-                    break;
-                case 1:
-                    str += '<input type="button" value="取消雪藏" statusValue="soldout" class="frozen" />';
-                    break;
-                case 3:
-                    str += '<input type="button" value="雪藏" statusValue="offline"  class="frozen" />';
+            if (type == 0) {
+                switch (value) {
+                    case 0:
+                        str += '<input type="button" disabled="true" value="雪藏" statusValue="offline" class="frozen" />';
+                        break;
+                    case 1:
+                        str += '<input type="button" disabled="true" value="取消雪藏" statusValue="soldout" class="frozen" />';
+                        break;
+                    case 3:
+                        str += '<input type="button" disabled="true" value="雪藏" statusValue="offline"  class="frozen" />';
+                }
+            } else {
+                switch (value) {
+                    case 0:
+                        str += '<input type="button"  value="雪藏" statusValue="offline" class="frozen" />';
+                        break;
+                    case 1:
+                        str += '<input type="button"  value="取消雪藏" statusValue="soldout" class="frozen" />';
+                        break;
+                    case 3:
+                        str += '<input type="button"  value="雪藏" statusValue="offline"  class="frozen" />';
+                }
             }
             return str;
-
         }
     }, {
         text: '编辑',
@@ -189,18 +226,34 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopProduct', {
         itemId: 'setProductTop',
         sortable: true,
         align: 'center',
-        renderer: function(value) {
-            if (value) {
-                return '<input type="button"  value="取消置顶"/>'
+        renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
+            var me = this;
+            if (!me.CategoryRootsStore) {
+                me.CategoryRootsStore = Ext.StoreMgr.lookup('CategoryRoots');
+            }
+            var category = me.CategoryRootsStore.getById(record.get('categoryId'));
+            type = category ? category.get('type') : 1;
+            if (type == 0) {
+                if (value) {
+                    return '<input type="button" disabled="true"  value="取消置顶"/>'
+
+                } else {
+                    return '<input type="button" disabled="true"  value="置顶"/>'
+                }
 
             } else {
-                return '<input type="button"  value="置顶"/>'
-            }
+                if (value) {
+                    return '<input type="button" value="取消置顶"/>'
 
+                } else {
+                    return '<input type="button"  value="置顶"/>'
+                }
+            }
         }
     }],
     tbar: [{
         text: '添加商品',
+        xtype: 'button',
         itemId: 'openCreateShelvesGoodsWin'
     }]
 
