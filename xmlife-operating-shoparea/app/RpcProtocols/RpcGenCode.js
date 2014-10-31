@@ -8415,6 +8415,227 @@ rpc.City.prototype.convertFrom  = function(from, confusionMode, clone) {
     return true;
 };
 
+rpc.CityAndDistrict = function() {};
+rpc.CityAndDistrict.prototype.getCity = function() {
+	if(!this.mObj) {
+		return null;
+	}
+	
+	this.mValueCache = this.mValueCache || {};
+	var cacheValue = this.mValueCache["city"];
+	if(cacheValue) return cacheValue;
+	
+	var value = this.mObj["city"];
+	
+	var objRet = ConvertUtils.jsonObjectToObject(value, rpc.City, null, false);
+	
+	if(objRet) {
+		this.mValueCache["city"] = objRet;
+		return objRet;
+	}
+	
+	return null;
+};
+
+rpc.CityAndDistrict.prototype.setCity = function(value) {
+    this.checkAndCreate();
+	this.mValueCache = this.mValueCache || {};
+	this.mObj = this.mObj || {};
+	
+	var _value_value0 = value.getAsObject(false);
+	if(!_value_value0) 
+		delete this.mObj["city"];
+	else
+		this.mObj["city"] = _value_value0;
+
+	if(value) {
+		this.mValueCache["city"] = value;
+	} else {
+		delete this.mValueCache["city"];
+	}
+	return this;
+};
+
+rpc.CityAndDistrict.prototype.getDistrict = function() {
+	if(!this.mObj) {
+		return null;
+	}
+	
+	this.mValueCache = this.mValueCache || {};
+	var cacheValue = this.mValueCache["district"];
+	if(cacheValue) return cacheValue;
+	
+	var value = this.mObj["district"];
+	
+	var objRet = ConvertUtils.jsonObjectToObject(value, rpc.ResidentalDistrict, null, false);
+	
+	if(objRet) {
+		this.mValueCache["district"] = objRet;
+		return objRet;
+	}
+	
+	return null;
+};
+
+rpc.CityAndDistrict.prototype.setDistrict = function(value) {
+    this.checkAndCreate();
+	this.mValueCache = this.mValueCache || {};
+	this.mObj = this.mObj || {};
+	
+	var _value_value0 = value.getAsObject(false);
+	if(!_value_value0) 
+		delete this.mObj["district"];
+	else
+		this.mObj["district"] = _value_value0;
+
+	if(value) {
+		this.mValueCache["district"] = value;
+	} else {
+		delete this.mValueCache["district"];
+	}
+	return this;
+};
+
+rpc.CityAndDistrict.FIELD_DISTRICT="district";
+rpc.CityAndDistrict.FIELD_DISTRICT_CONFUSION="district";
+rpc.CityAndDistrict.FIELD_CITY="city";
+rpc.CityAndDistrict.FIELD_CITY_CONFUSION="city";
+
+rpc.CityAndDistrict.checkAndInitial = function() {
+    if(rpc.CityAndDistrict.mFieldToConfusionMap)
+        return;
+	
+	rpc.CityAndDistrict.mHasConfusionField = false;
+	rpc.CityAndDistrict.mFieldToConfusionMap = {
+		"district":"district", 
+		"city":"city"
+	};
+	rpc.CityAndDistrict.mConfusionToFieldMap = {
+		"district":"district", 
+		"city":"city"
+	};
+
+};
+
+rpc.CityAndDistrict.prototype.toString = function() {
+	if(this.mObj) {
+		return JSON.stringify(this.mObj);
+	}
+	return "{}";
+};
+
+rpc.CityAndDistrict.prototype.getRpcJSONObject  = function() {
+	return this.mObj;
+};
+
+rpc.CityAndDistrict.prototype.checkAndCreate = function() {
+    if (!this.mObj) {
+        this.mObj = {};
+    }
+};
+
+
+rpc.CityAndDistrict.prototype.getAsObject  = function(confusionMode, clone) {
+    if(this.mObj == null) {
+		this.checkAndCreate();
+        return clone ? objectClone(this.mObj) : this.mObj;
+    }
+    if(!confusionMode)
+        return clone ? objectClone(this.mObj) : this.mObj;
+    return rpc.CityAndDistrict.toConfusionObject(this.mObj, clone);
+};
+
+rpc.CityAndDistrict.getConfusionName = function(name) {
+    rpc.CityAndDistrict.checkAndInitial();
+    var value = rpc.CityAndDistrict.mFieldToConfusionMap[name];
+    if(value)
+        return value;
+    return null;
+};
+    
+rpc.CityAndDistrict.getRawName = function(confusionName) {
+    rpc.CityAndDistrict.checkAndInitial();
+    var value = rpc.CityAndDistrict.mConfusionToFieldMap[confusionName];
+    if(value)
+        return value;
+    return null;
+};
+
+rpc.CityAndDistrict.toConfusionObject  = function(from, clone) {
+    if(!from)
+        return from;
+
+	rpc.CityAndDistrict.checkAndInitial();
+    if (!rpc.CityAndDistrict.mHasConfusionField) {
+        return clone ? objectClone(from) : from;
+    }
+        
+    var ret = {};
+    for (var key in from) {
+        var rawKey = rpc.CityAndDistrict.getConfusionName(key);
+        if(!rawKey)
+            rawKey = key;
+        ret[rawKey] = from[key];
+    }
+      
+    return ret;
+};
+    
+rpc.CityAndDistrict.confusionToRawObject  = function(from, clone) {
+    if(!from)
+        return from;
+    
+    rpc.CityAndDistrict.checkAndInitial();
+    if (!rpc.CityAndDistrict.mHasConfusionField) {
+        return clone ? objectClone(from) : from;
+    }
+        
+    var ret = {};
+    for(var key in from) {
+        var rawKey = rpc.CityAndDistrict.getRawName(key);
+        if(!rawKey)
+            rawKey = key;
+        ret[rawKey] = from[key];
+    }
+    return ret;
+};
+
+rpc.CityAndDistrict.prototype.clearCache = function() {
+	if(this.mValueCache) {
+		this.mValueCache = {};
+	}
+};
+
+rpc.CityAndDistrict.prototype.convertFrom  = function(from, confusionMode, clone) {
+    if (!from)
+        return false;
+    
+    if (from.prototype && from.prototype.convertFrom) {
+        this.clearCache();
+        this.mObj = from.getAsObject(false, clone);
+        return true;
+    }
+    
+    if (from instanceof String && from[0] == '{') {
+        this.clearCache();
+        var jsonObj = JSON.parse(from);
+        if(confusionMode) {
+            this.mObj = rpc.CityAndDistrict.confusionToRawObject(jsonObj, clone);
+        } else {
+            this.mObj = clone ? objectClone(jsonObj) : jsonObj;
+        }
+        return true;
+    }
+    
+    this.clearCache();
+    if(confusionMode) {
+         this.mObj = rpc.CityAndDistrict.confusionToRawObject(from, clone);
+    } else {
+         this.mObj = clone ? objectClone(from) : from;
+    }
+    return true;
+};
+
 rpc.DeliveryZone = function() {};
 rpc.DeliveryZone.prototype.getAreaId = function() {
 	if(!this.mObj) {
@@ -21547,6 +21768,192 @@ rpc.BannerItem.prototype.convertFrom  = function(from, confusionMode, clone) {
     return true;
 };
 
+rpc.DynamicHomepage = function() {};
+rpc.DynamicHomepage.prototype.getModules = function() {
+	if(!this.mObj) {
+		return null;
+	}
+	
+	this.mValueCache = this.mValueCache || {};
+	var cacheValue = this.mValueCache["modules"];
+	if(cacheValue) return cacheValue;
+	
+	var value = this.mObj["modules"];
+	
+	var objRet = ConvertUtils.jsonObjectToObject(value, Array, [rpc.HomePageModule], false);
+	
+	if(objRet) {
+		this.mValueCache["modules"] = objRet;
+		return objRet;
+	}
+	
+	return null;
+};
+
+rpc.DynamicHomepage.prototype.setModules = function(value) {
+    this.checkAndCreate();
+	this.mValueCache = this.mValueCache || {};
+	this.mObj = this.mObj || {};
+	
+	var _arr_0 = (!value) ? null : [];
+	if(value) {
+		var _len_0 = value.length;
+		for(var _i_0 = 0; _i_0 < _len_0; _i_0++) {
+			var _l_0 = value[_i_0];
+			var _value__l_02 = _l_0.getAsObject(false);
+			_arr_0.push(_value__l_02);
+		}
+	}
+	var _value_value0 = _arr_0;
+	if(!_value_value0) 
+		delete this.mObj["modules"];
+	else
+		this.mObj["modules"] = _value_value0;
+
+	if(value) {
+		this.mValueCache["modules"] = value;
+	} else {
+		delete this.mValueCache["modules"];
+	}
+	return this;
+};
+
+rpc.DynamicHomepage.FIELD_MODULES="modules";
+rpc.DynamicHomepage.FIELD_MODULES_CONFUSION="modules";
+
+rpc.DynamicHomepage.checkAndInitial = function() {
+    if(rpc.DynamicHomepage.mFieldToConfusionMap)
+        return;
+	
+	rpc.DynamicHomepage.mHasConfusionField = false;
+	rpc.DynamicHomepage.mFieldToConfusionMap = {
+		"modules":"modules"
+	};
+	rpc.DynamicHomepage.mConfusionToFieldMap = {
+		"modules":"modules"
+	};
+
+};
+
+rpc.DynamicHomepage.prototype.toString = function() {
+	if(this.mObj) {
+		return JSON.stringify(this.mObj);
+	}
+	return "{}";
+};
+
+rpc.DynamicHomepage.prototype.getRpcJSONObject  = function() {
+	return this.mObj;
+};
+
+rpc.DynamicHomepage.prototype.checkAndCreate = function() {
+    if (!this.mObj) {
+        this.mObj = {};
+    }
+};
+
+
+rpc.DynamicHomepage.prototype.getAsObject  = function(confusionMode, clone) {
+    if(this.mObj == null) {
+		this.checkAndCreate();
+        return clone ? objectClone(this.mObj) : this.mObj;
+    }
+    if(!confusionMode)
+        return clone ? objectClone(this.mObj) : this.mObj;
+    return rpc.DynamicHomepage.toConfusionObject(this.mObj, clone);
+};
+
+rpc.DynamicHomepage.getConfusionName = function(name) {
+    rpc.DynamicHomepage.checkAndInitial();
+    var value = rpc.DynamicHomepage.mFieldToConfusionMap[name];
+    if(value)
+        return value;
+    return null;
+};
+    
+rpc.DynamicHomepage.getRawName = function(confusionName) {
+    rpc.DynamicHomepage.checkAndInitial();
+    var value = rpc.DynamicHomepage.mConfusionToFieldMap[confusionName];
+    if(value)
+        return value;
+    return null;
+};
+
+rpc.DynamicHomepage.toConfusionObject  = function(from, clone) {
+    if(!from)
+        return from;
+
+	rpc.DynamicHomepage.checkAndInitial();
+    if (!rpc.DynamicHomepage.mHasConfusionField) {
+        return clone ? objectClone(from) : from;
+    }
+        
+    var ret = {};
+    for (var key in from) {
+        var rawKey = rpc.DynamicHomepage.getConfusionName(key);
+        if(!rawKey)
+            rawKey = key;
+        ret[rawKey] = from[key];
+    }
+      
+    return ret;
+};
+    
+rpc.DynamicHomepage.confusionToRawObject  = function(from, clone) {
+    if(!from)
+        return from;
+    
+    rpc.DynamicHomepage.checkAndInitial();
+    if (!rpc.DynamicHomepage.mHasConfusionField) {
+        return clone ? objectClone(from) : from;
+    }
+        
+    var ret = {};
+    for(var key in from) {
+        var rawKey = rpc.DynamicHomepage.getRawName(key);
+        if(!rawKey)
+            rawKey = key;
+        ret[rawKey] = from[key];
+    }
+    return ret;
+};
+
+rpc.DynamicHomepage.prototype.clearCache = function() {
+	if(this.mValueCache) {
+		this.mValueCache = {};
+	}
+};
+
+rpc.DynamicHomepage.prototype.convertFrom  = function(from, confusionMode, clone) {
+    if (!from)
+        return false;
+    
+    if (from.prototype && from.prototype.convertFrom) {
+        this.clearCache();
+        this.mObj = from.getAsObject(false, clone);
+        return true;
+    }
+    
+    if (from instanceof String && from[0] == '{') {
+        this.clearCache();
+        var jsonObj = JSON.parse(from);
+        if(confusionMode) {
+            this.mObj = rpc.DynamicHomepage.confusionToRawObject(jsonObj, clone);
+        } else {
+            this.mObj = clone ? objectClone(jsonObj) : jsonObj;
+        }
+        return true;
+    }
+    
+    this.clearCache();
+    if(confusionMode) {
+         this.mObj = rpc.DynamicHomepage.confusionToRawObject(from, clone);
+    } else {
+         this.mObj = clone ? objectClone(from) : from;
+    }
+    return true;
+};
+
 rpc.HomePageModule = function() {};
 rpc.HomePageModule.prototype.getAreaId = function() {
 	if(!this.mObj) {
@@ -21717,6 +22124,46 @@ rpc.HomePageModule.prototype.setItems = function(value) {
 	return this;
 };
 
+rpc.HomePageModule.prototype.getName = function() {
+	if(!this.mObj) {
+		return null;
+	}
+	
+	this.mValueCache = this.mValueCache || {};
+	var cacheValue = this.mValueCache["name"];
+	if(cacheValue) return cacheValue;
+	
+	var value = this.mObj["name"];
+	
+	var objRet = ConvertUtils.jsonObjectToObject(value, String, null, false);
+	
+	if(objRet) {
+		this.mValueCache["name"] = objRet;
+		return objRet;
+	}
+	
+	return null;
+};
+
+rpc.HomePageModule.prototype.setName = function(value) {
+    this.checkAndCreate();
+	this.mValueCache = this.mValueCache || {};
+	this.mObj = this.mObj || {};
+	
+	var _value_value0 = value;
+	if(!_value_value0) 
+		delete this.mObj["name"];
+	else
+		this.mObj["name"] = _value_value0;
+
+	if(value) {
+		this.mValueCache["name"] = value;
+	} else {
+		delete this.mValueCache["name"];
+	}
+	return this;
+};
+
 rpc.HomePageModule.prototype.getOrder = function() {
 	if(!this.mObj) {
 		return 0;
@@ -21845,6 +22292,8 @@ rpc.HomePageModule.FIELD_ORDER="order";
 rpc.HomePageModule.FIELD_ORDER_CONFUSION="order";
 rpc.HomePageModule.FIELD_ITEMS="items";
 rpc.HomePageModule.FIELD_ITEMS_CONFUSION="items";
+rpc.HomePageModule.FIELD_NAME="name";
+rpc.HomePageModule.FIELD_NAME_CONFUSION="name";
 rpc.HomePageModule.FIELD_TYPE="type";
 rpc.HomePageModule.FIELD_TYPE_CONFUSION="type";
 rpc.HomePageModule.FIELD_AREAID="areaId";
@@ -21862,6 +22311,7 @@ rpc.HomePageModule.checkAndInitial = function() {
 		"height":"height", 
 		"order":"order", 
 		"items":"items", 
+		"name":"name", 
 		"type":"type", 
 		"areaId":"areaId", 
 		"version":"version"
@@ -21871,6 +22321,7 @@ rpc.HomePageModule.checkAndInitial = function() {
 		"height":"height", 
 		"order":"order", 
 		"items":"items", 
+		"name":"name", 
 		"type":"type", 
 		"areaId":"areaId", 
 		"version":"version"
@@ -22118,42 +22569,51 @@ rpc.HomePageModuleItem.prototype.setModuleId = function(value) {
 	return this;
 };
 
-rpc.HomePageModuleItem.prototype.getTitle = function() {
+rpc.HomePageModuleItem.prototype.getTitles = function() {
 	if(!this.mObj) {
 		return null;
 	}
 	
 	this.mValueCache = this.mValueCache || {};
-	var cacheValue = this.mValueCache["title"];
+	var cacheValue = this.mValueCache["titles"];
 	if(cacheValue) return cacheValue;
 	
-	var value = this.mObj["title"];
+	var value = this.mObj["titles"];
 	
-	var objRet = ConvertUtils.jsonObjectToObject(value, String, null, false);
+	var objRet = ConvertUtils.jsonObjectToObject(value, Array, [String], false);
 	
 	if(objRet) {
-		this.mValueCache["title"] = objRet;
+		this.mValueCache["titles"] = objRet;
 		return objRet;
 	}
 	
 	return null;
 };
 
-rpc.HomePageModuleItem.prototype.setTitle = function(value) {
+rpc.HomePageModuleItem.prototype.setTitles = function(value) {
     this.checkAndCreate();
 	this.mValueCache = this.mValueCache || {};
 	this.mObj = this.mObj || {};
 	
-	var _value_value0 = value;
+	var _arr_0 = (!value) ? null : [];
+	if(value) {
+		var _len_0 = value.length;
+		for(var _i_0 = 0; _i_0 < _len_0; _i_0++) {
+			var _l_0 = value[_i_0];
+			var _value__l_02 = _l_0;
+			_arr_0.push(_value__l_02);
+		}
+	}
+	var _value_value0 = _arr_0;
 	if(!_value_value0) 
-		delete this.mObj["title"];
+		delete this.mObj["titles"];
 	else
-		this.mObj["title"] = _value_value0;
+		this.mObj["titles"] = _value_value0;
 
 	if(value) {
-		this.mValueCache["title"] = value;
+		this.mValueCache["titles"] = value;
 	} else {
-		delete this.mValueCache["title"];
+		delete this.mValueCache["titles"];
 	}
 	return this;
 };
@@ -22240,10 +22700,10 @@ rpc.HomePageModuleItem.prototype.setUrlType = function(value) {
 
 rpc.HomePageModuleItem.FIELD_ID="id";
 rpc.HomePageModuleItem.FIELD_ID_CONFUSION="id";
-rpc.HomePageModuleItem.FIELD_TITLE="title";
-rpc.HomePageModuleItem.FIELD_TITLE_CONFUSION="title";
 rpc.HomePageModuleItem.FIELD_MODULEID="moduleId";
 rpc.HomePageModuleItem.FIELD_MODULEID_CONFUSION="moduleId";
+rpc.HomePageModuleItem.FIELD_TITLES="titles";
+rpc.HomePageModuleItem.FIELD_TITLES_CONFUSION="titles";
 rpc.HomePageModuleItem.FIELD_IMAGE="image";
 rpc.HomePageModuleItem.FIELD_IMAGE_CONFUSION="image";
 rpc.HomePageModuleItem.FIELD_URLTYPE="urlType";
@@ -22258,16 +22718,16 @@ rpc.HomePageModuleItem.checkAndInitial = function() {
 	rpc.HomePageModuleItem.mHasConfusionField = false;
 	rpc.HomePageModuleItem.mFieldToConfusionMap = {
 		"id":"id", 
-		"title":"title", 
 		"moduleId":"moduleId", 
+		"titles":"titles", 
 		"image":"image", 
 		"urlType":"urlType", 
 		"url":"url"
 	};
 	rpc.HomePageModuleItem.mConfusionToFieldMap = {
 		"id":"id", 
-		"title":"title", 
 		"moduleId":"moduleId", 
+		"titles":"titles", 
 		"image":"image", 
 		"urlType":"urlType", 
 		"url":"url"
@@ -34021,6 +34481,27 @@ rpc.IHomepageService.getBannersByArea = function(areaId, success, fail){
 	return RpcCall.doInvoke(_url, "getBannersByArea", _jsonDict, _uploadDict, successWrapper, fail);
 };
 
+rpc.IHomepageService.getDynamicHomepageByArea = function(areaId, success, fail){
+	if(arguments.length < 3) alert("com.paitao.xmlife.rpc.IHomepageService.getDynamicHomepageByArea param count dismatch");
+
+	var successWrapper = success ? function(returnCode, jsonObj) {
+		var obj = ConvertUtils.jsonObjectToObject(jsonObj, rpc.DynamicHomepage, null, true);
+		success(returnCode, obj);
+	} : null;
+	var _jsonDict = {};
+	var _uploadDict = {};
+	{
+		var _value_areaId1 = (areaId);
+		if(!_value_areaId1) 
+			delete _jsonDict["areaId"];
+		else
+			_jsonDict["areaId"] = _value_areaId1;
+	}
+
+	var _url = rpc.ServerConfig.getUrlPrefix("Business") + "IHomepageService/1/getDynamicHomepageByArea";
+	return RpcCall.doInvoke(_url, "getDynamicHomepageByArea", _jsonDict, _uploadDict, successWrapper, fail);
+};
+
 rpc.IHomepageService.getHomepageByArea = function(areaId, success, fail){
 	if(arguments.length < 3) alert("com.paitao.xmlife.rpc.IHomepageService.getHomepageByArea param count dismatch");
 
@@ -34063,6 +34544,36 @@ rpc.IResidentalDistrictService.get = function(rid, success, fail){
 
 	var _url = rpc.ServerConfig.getUrlPrefix("Business") + "IResidentalDistrictService/1/get";
 	return RpcCall.doInvoke(_url, "get", _jsonDict, _uploadDict, successWrapper, fail);
+};
+
+rpc.IResidentalDistrictService.getCityAndDistrictNearby = function(loc, success, fail){
+	if(arguments.length < 3) alert("com.paitao.xmlife.rpc.IResidentalDistrictService.getCityAndDistrictNearby param count dismatch");
+
+	var successWrapper = success ? function(returnCode, jsonObj) {
+		var obj = ConvertUtils.jsonObjectToObject(jsonObj, rpc.CityAndDistrict, null, true);
+		success(returnCode, obj);
+	} : null;
+	var _jsonDict = {};
+	var _uploadDict = {};
+	{
+		var _arr_1 = (!loc) ? null : [];
+		if(loc) {
+			var _len_1 = loc.length;
+			for(var _i_1 = 0; _i_1 < _len_1; _i_1++) {
+				var _l_1 = loc[_i_1];
+				var _value__l_13 = _l_1;
+				_arr_1.push(_value__l_13);
+			}
+		}
+		var _value_loc1 = _arr_1;
+		if(!_value_loc1) 
+			delete _jsonDict["loc"];
+		else
+			_jsonDict["loc"] = _value_loc1;
+	}
+
+	var _url = rpc.ServerConfig.getUrlPrefix("Business") + "IResidentalDistrictService/1/getCityAndDistrictNearby";
+	return RpcCall.doInvoke(_url, "getCityAndDistrictNearby", _jsonDict, _uploadDict, successWrapper, fail);
 };
 
 rpc.IResidentalDistrictService.getDistrictsNearby = function(loc, success, fail){
@@ -35369,114 +35880,12 @@ rpc.ServerConfig.loadDefaultConfig = function() {
 rpc.ServerConfig.loadDefaultConfig();
 
 
-// category: CDN
-// arg 1: hash
 
-rpc.ProductImageResource = {};
+rpc.RpcProxyStub = {};
 
-rpc.ProductImageResource.hashToUrl = function(
-		hash 
-	) {
-	var _url = hash;
-	if(!_url || _url.length < 3)
-		return _url;
-	if(_url.indexOf("http:") == 0 ||
-		   _url.indexOf("https:") == 0 ||
-           _url.indexOf("file:") == 0 ||
-           _url.indexOf("res:") == 0 ||
-           _url.indexOf("/") == 0) {
-           return _url;
-	}
-	var _url1 = rpc.ServerConfig.getUrlPrefix("CDN");
-	if(!_url1 || _url1.length < 2)
-		return null;
-	var _sb =_url1;
-	var _c;
-	_c = _sb.charAt(_sb.length - 1);
-	if(_c != '/') {
-		_sb += "/";
-	}
-	//_sb += "id-";
 
-	_sb += hash;
-	
-	return _sb;
-};
 
-rpc.ProductImageResource.hashToSmallUrl = function(
-		hash 
-	) {
-	var _url = rpc.ProductImageResource.hashToUrl(
-		hash 
-	);
-	if(!_url || _url.length < 3 || _url.indexOf("http") < 0)
-		return _url;
-	
-	//if(_url.indexOf("w-202") > 1) {
-	//	return _url;
-	//}
-	
-	var _sb = _url;
-	var _c = _sb.charAt(_sb.length - 1);
-	if(_c != '@') {
-		_sb += "@";
-	}
-	
-	_sb += "w-202";
-	
-	
-	return _sb;
-};
-
-rpc.ProductImageResource.hashToMediumUrl = function(
-		hash 
-	) {
-	var _url = rpc.ProductImageResource.hashToUrl(
-		hash 
-	);
-	if(!_url || _url.length < 3 || _url.indexOf("http") < 0)
-		return _url;
-	
-	//if(_url.indexOf("w-372") > 1) {
-	//	return _url;
-	//}
-	
-	var _sb = _url;
-	var _c = _sb.charAt(_sb.length - 1);
-	if(_c != '@') {
-		_sb += "@";
-	}
-	
-	_sb += "w-372";
-	
-	
-	return _sb;
-};
-
-rpc.ProductImageResource.hashToFullUrl = function(
-		hash 
-	) {
-	var _url = rpc.ProductImageResource.hashToUrl(
-		hash 
-	);
-	if(!_url || _url.length < 3 || _url.indexOf("http") < 0)
-		return _url;
-	
-	//if(_url.indexOf("w-640/m-fw") > 1) {
-	//	return _url;
-	//}
-	
-	var _sb = _url;
-	var _c = _sb.charAt(_sb.length - 1);
-	if(_c != '@') {
-		_sb += "@";
-	}
-	
-	_sb += "w-640/m-fw";
-	
-	
-	return _sb;
-};
+rpc.LongPolling = {};
 
 
 // category: CDN
@@ -35614,14 +36023,6 @@ rpc.HttpImageResource.hashToFullUrl = function(
 };
 
 
-
-rpc.RpcProxyStub = {};
-
-
-
-rpc.LongPolling = {};
-
-
 // category: CDN
 // arg 1: hash
 
@@ -35710,6 +36111,116 @@ rpc.AvatarImageResource.hashToFullUrl = function(
 		hash 
 	) {
 	var _url = rpc.AvatarImageResource.hashToUrl(
+		hash 
+	);
+	if(!_url || _url.length < 3 || _url.indexOf("http") < 0)
+		return _url;
+	
+	//if(_url.indexOf("w-640/m-fw") > 1) {
+	//	return _url;
+	//}
+	
+	var _sb = _url;
+	var _c = _sb.charAt(_sb.length - 1);
+	if(_c != '@') {
+		_sb += "@";
+	}
+	
+	_sb += "w-640/m-fw";
+	
+	
+	return _sb;
+};
+
+
+// category: CDN
+// arg 1: hash
+
+rpc.ProductImageResource = {};
+
+rpc.ProductImageResource.hashToUrl = function(
+		hash 
+	) {
+	var _url = hash;
+	if(!_url || _url.length < 3)
+		return _url;
+	if(_url.indexOf("http:") == 0 ||
+		   _url.indexOf("https:") == 0 ||
+           _url.indexOf("file:") == 0 ||
+           _url.indexOf("res:") == 0 ||
+           _url.indexOf("/") == 0) {
+           return _url;
+	}
+	var _url1 = rpc.ServerConfig.getUrlPrefix("CDN");
+	if(!_url1 || _url1.length < 2)
+		return null;
+	var _sb =_url1;
+	var _c;
+	_c = _sb.charAt(_sb.length - 1);
+	if(_c != '/') {
+		_sb += "/";
+	}
+	//_sb += "id-";
+
+	_sb += hash;
+	
+	return _sb;
+};
+
+rpc.ProductImageResource.hashToSmallUrl = function(
+		hash 
+	) {
+	var _url = rpc.ProductImageResource.hashToUrl(
+		hash 
+	);
+	if(!_url || _url.length < 3 || _url.indexOf("http") < 0)
+		return _url;
+	
+	//if(_url.indexOf("w-202") > 1) {
+	//	return _url;
+	//}
+	
+	var _sb = _url;
+	var _c = _sb.charAt(_sb.length - 1);
+	if(_c != '@') {
+		_sb += "@";
+	}
+	
+	_sb += "w-202";
+	
+	
+	return _sb;
+};
+
+rpc.ProductImageResource.hashToMediumUrl = function(
+		hash 
+	) {
+	var _url = rpc.ProductImageResource.hashToUrl(
+		hash 
+	);
+	if(!_url || _url.length < 3 || _url.indexOf("http") < 0)
+		return _url;
+	
+	//if(_url.indexOf("w-372") > 1) {
+	//	return _url;
+	//}
+	
+	var _sb = _url;
+	var _c = _sb.charAt(_sb.length - 1);
+	if(_c != '@') {
+		_sb += "@";
+	}
+	
+	_sb += "w-372";
+	
+	
+	return _sb;
+};
+
+rpc.ProductImageResource.hashToFullUrl = function(
+		hash 
+	) {
+	var _url = rpc.ProductImageResource.hashToUrl(
 		hash 
 	);
 	if(!_url || _url.length < 3 || _url.indexOf("http") < 0)
