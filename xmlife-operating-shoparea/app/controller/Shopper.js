@@ -469,7 +469,6 @@ Ext.define('XMLifeOperating.controller.Shopper', {
         });
     },
     searchShopper: function() {
-        alert(111);
         var me = this,
             keyWords = me.getShopperList().down('#searchBuyerKeyWords').getValue(),
             store = this.getShopperStore(),
