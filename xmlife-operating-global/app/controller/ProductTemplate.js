@@ -42,12 +42,15 @@ Ext.define('XMLifeOperating.controller.ProductTemplate', {
         }, {
             ref: 'keyword',
             selector: '#keyword',
+        }, {
+            ref: 'dataview',
+            selector: '#dataview'
         }
     ],
 
     init: function() {
-
         var me = this;
+
         this.control({
             'productTemplateList': {
                 added: function() {
@@ -98,17 +101,19 @@ Ext.define('XMLifeOperating.controller.ProductTemplate', {
                 //view tree视图，record 节点数据， item节点dom ，index 节点顺序 ，e 事件响应， opts view事件
                 itemclick: function(view, record, item, index, e, opts) {
                     var me = this;
-                    var leaf = record.get('leaf');
-                    var grid = me.getProductTemplateList().down('#productTemplateGrid');
-                    var pageTool = me.getProductTemplateList().down('#pagetoll');
+                    var leaf = record.get('leaf'),
+                        grid = me.getProductTemplateList().down('#productTemplateGrid'),
+                        picView = me.getProductTemplateList().down('#productTemplatePicView'),
+                        pageTool = me.getProductTemplateList().down('#pagetoll');
                     if (leaf) {
                         //叶子
                         var store = me.getProductTemplateGetByCategoryIdStore();
                         var categoryId = record.get('id');
+
                         if (grid.getStore().storeId != store.storeId) {
                             grid.bindStore(store);
+                            picView.bindStore(store);
                             pageTool.bindStore(store);
-
                         }
                         store.getProxy().extraParams = {
                             categoryId: categoryId
@@ -127,13 +132,17 @@ Ext.define('XMLifeOperating.controller.ProductTemplate', {
             '#productSearch': {
                 click: function() {
                     var me = this;
-                    var store = me.getProductTemplatePageSearchStore();
-                    var grid = me.getProductTemplateList().down('#productTemplateGrid');
-                    var pageTool = me.getProductTemplateList().down('#pagetoll');
+                    var store = me.getProductTemplatePageSearchStore(),
+                        grid = me.getProductTemplateList().down('#productTemplateGrid'),
+                        picView = me.getProductTemplateList().down('#productTemplatePicView'),
+                        pageTool = me.getProductTemplateList().down('#pagetoll');
+
                     if (grid.getStore().storeId != store.storeId) {
                         grid.bindStore(store);
+                        picView.bindStore(store);
                         pageTool.bindStore(store);
                     }
+
                     store.getProxy().extraParams = {
                         keyword: me.getKeyword().getValue()
                     }
@@ -147,6 +156,39 @@ Ext.define('XMLifeOperating.controller.ProductTemplate', {
             },
             'productTemplateList #editProductTemplate': {
                 click: me.onEdit
+            },
+            'productTemplateList #detailViewBtn': {
+                click: function() {
+                    me.switchView(0);
+                }
+            },
+            'productTemplateList #picViewBtn': {
+                click: function() {
+                    me.switchView(1);
+                }
+            },
+            // dataView内事件
+            'productTemplateList #productTemplatePicView': {
+                viewready: function(view) {
+                    //快速编辑rank
+                    view.mon(view.getEl(), { delegate: 'input', mouseover: function(e, t) {
+                            Ext.fly(e.target).setStyle('border','1px solid #eee');
+                        }
+                    });
+                    view.mon(view.getEl(), { delegate: 'input', mouseout: function(e, t) {
+                            Ext.fly(e.target).setStyle('border','1px solid #fff');
+                        }
+                    });
+                    view.mon(view.getEl(), { delegate: 'input', change: function(e, t) {
+                            me.saveRank(view, e, Ext.fly(e.target).getValue());
+                        }
+                    });
+                    //修改
+                    view.mon(view.getEl(), { delegate: 'img.x-action-col-icon', click: function(e, t) {
+                            me.onEdit(view, undefined, undefined, undefined, e);
+                        }
+                    });
+                }
             },
             'productTemplateEdit #btnSave': {
                 click: me.saveEditWindow
@@ -162,9 +204,8 @@ Ext.define('XMLifeOperating.controller.ProductTemplate', {
             },
             'productTemplateEdit #menuitem': {
                 click: function() {
-                    console.log(123)
+                
                 }
-
             },
             'batchAddWindow #addProduct': {
                 click: function(gird) {
@@ -178,6 +219,9 @@ Ext.define('XMLifeOperating.controller.ProductTemplate', {
             }
         });
 
+    },
+    switchView: function(nth){
+        Ext.getCmp('productTemplateContent').getLayout().setActiveItem(nth);
     },
     subForm: function(gird) {
         var form = gird.up('form').getForm();
@@ -208,7 +252,6 @@ Ext.define('XMLifeOperating.controller.ProductTemplate', {
         }
     },
     onEdit: function(view, rowIndex, colIndex, column, e) {
-
         var productTemplate = view.getRecord(view.findTargetByEvent(e));
         var win = this.getEditWindow();
         var names = [];
@@ -223,8 +266,28 @@ Ext.define('XMLifeOperating.controller.ProductTemplate', {
         win.down('form').loadRecord(productTemplate);
         win.show();
     },
-    saveEditWindow: function() {
+    saveRank: function(view, e, rank){
+        var record = view.getRecord(view.findTargetByEvent(e));
+        record.set('rank',rank);
+        //弹窗编辑过会保存names记录
+        var names = record.get('names') || [];
+        if(!names.length){
+            names.push(record.get('name'));
+        }
 
+        sendPutRequest('producttemplate/update', {
+            id: record.get('id'),
+            names: names,
+            desc: record.get('desc'),
+            picture: record.get('picture'),
+            unit: record.get('unit') || 1,
+            tag: record.get('tag'),
+            barCode: record.get('barCode'),
+            rank: record.get('rank'),
+            rank2: record.get('rank2')
+        }, '编辑商品', '成功编辑商品', '编辑商品失败', function() {});
+    },
+    saveEditWindow: function() {
         var editWindow = this.getEditWindow(),
             windowEl = editWindow.getEl(),
             form = editWindow.down('form').getForm(),
@@ -232,25 +295,23 @@ Ext.define('XMLifeOperating.controller.ProductTemplate', {
             me = this;
 
         if (form.isValid()) {
-
             windowEl.mask('saving');
             form.updateRecord(productTemplate);
 
+            //获取当前视图store（存在多个切换）
+            var store = me.getProductTemplateList().down('#productTemplateGrid').getStore(),
+                storeId = store.storeId;
 
-            productTemplate.get('name1');
-            productTemplate.get('name2');
-            productTemplate.get('name3');
             var names = [];
             names.push(productTemplate.get('name1'));
             names.push(productTemplate.get('name2'));
             names.push(productTemplate.get('name3'));
             productTemplate.set('names', names);
 
-
             if (productTemplate.get('id') != '' && productTemplate.get('id') != null) {
 
                 var id = productTemplate.get('id');
-                //var name=productTemplate.get('name');
+                //var name = productTemplate.get('name');
                 var desc = productTemplate.get('desc');
                 var picture = productTemplate.get('picture');
                 var unit = productTemplate.get('unit');
@@ -264,7 +325,7 @@ Ext.define('XMLifeOperating.controller.ProductTemplate', {
                     names: names,
                     desc: desc,
                     picture: picture,
-                    unit: 1,
+                    unit: unit || 1,
                     tag: tag,
                     barCode: barcode,
                     rank: rank,
@@ -272,20 +333,17 @@ Ext.define('XMLifeOperating.controller.ProductTemplate', {
                 }, '编辑商品', '成功编辑商品', '编辑商品失败', function() {
                     windowEl.unmask();
                     editWindow.close();
-                    // me.fireEvent('refreshView');
-                    var keyword = productTemplate.get('name1');
-                    var store = me.getProductTemplatePageSearchStore();
-                    store.getProxy().extraParams = {
-                        keyword: keyword
+                    //根据store来源，加载相应的store刷新列表
+                    if(storeId == 'ProductTemplatePageSearch'){
+                        var keyword = Ext.getCmp('productTemplateList').down('#keyword').getValue();
+                        store.getProxy().extraParams = { keyword: keyword };
                     }
                     store.loadPage(1);
-                    /*Ext.getCmp('productTemplateList').down('#keyword').setValue(keyword);*/
-
                 });
-                return;
+
             } else {
                 var id = productTemplate.get('id');
-                //var name=productTemplate.get('name');
+                //var name = productTemplate.get('name');
                 var desc = productTemplate.get('desc');
                 var picture = productTemplate.get('picture');
                 var unit = productTemplate.get('unit');
@@ -294,16 +352,16 @@ Ext.define('XMLifeOperating.controller.ProductTemplate', {
                 var skuId = productTemplate.get('skuId');
                 var rank = productTemplate.get('rank');
                 var rank2 = productTemplate.get('rank2');
+
                 var success = function(task, operation) {
                     windowEl.unmask();
                     editWindow.close();
-                    var keyword = productTemplate.get('name1');
-                    var store = me.getProductTemplatePageSearchStore();
-                    store.getProxy().extraParams = {
-                        keyword: keyword
+                    //根据store来源，加载相应的store刷新列表
+                    if(storeId == 'ProductTemplatePageSearch'){
+                        var keyword = Ext.getCmp('productTemplateList').down('#keyword').getValue();
+                        store.getProxy().extraParams = { keyword: keyword };
                     }
                     store.loadPage(1);
-                    Ext.getCmp('productTemplateList').down('#keyword').setValue(keyword);
                 }
                 var failure = function(task, operation) {
                     var error = operation.getError(),
@@ -320,7 +378,7 @@ Ext.define('XMLifeOperating.controller.ProductTemplate', {
                     names: names,
                     desc: desc,
                     picture: picture,
-                    unit: 1,
+                    unit: unit || 1,
                     tag: tag,
                     skuId: skuId,
                     barCode: barCode,
