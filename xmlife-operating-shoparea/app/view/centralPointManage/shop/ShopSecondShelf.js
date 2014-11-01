@@ -29,6 +29,18 @@
 
          }
      }, {
+         text: '状态',
+         dataIndex: 'status',
+         itemId: 'showOrHide',
+         renderer: function(value) {
+             if (value == 0) { //隐藏
+                 return '<button>显示</button>';
+             } else if (value == 1) { //显示
+                 return '<button>隐藏</button>';
+             }
+         },
+         tdCls: 'user-td'
+     }, {
          text: '编辑',
          xtype: 'actioncolumn',
          width: 50,

@@ -108,6 +108,18 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopShelf', {
         },
         tdCls: 'user-td'
     }, {
+        text: '状态',
+        dataIndex: 'status',
+        itemId: 'showOrHide',
+        renderer: function(value) {
+            if (value == 0) { //隐藏
+                return '<button>显示</button>';
+            } else if (value == 1) { //显示
+                return '<button>隐藏</button>';
+            }
+        },
+        tdCls: 'user-td'
+    }, {
         text: '编辑',
         xtype: 'actioncolumn',
         dataIndex: 'type',
@@ -119,14 +131,14 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopShelf', {
         tdCls: 'user-td',
         align: 'center',
         items: [{
-          icon: 'resources/images/edit.png',
-          getClass: function(value, metaData, record){
-            if(value === 0) {
-                metaData.css = 'x-hide-display';
-            } else {
-                metaData.css = 'x-grid-icon';
+            icon: 'resources/images/edit.png',
+            getClass: function(value, metaData, record) {
+                if (value === 0) {
+                    metaData.css = 'x-hide-display';
+                } else {
+                    metaData.css = 'x-grid-icon';
+                }
             }
-          }
         }]
     }],
     dockedItems: [{
