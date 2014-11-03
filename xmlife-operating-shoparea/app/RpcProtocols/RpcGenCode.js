@@ -10248,6 +10248,46 @@ rpc.Customer.prototype.setEnable = function(value) {
 	return this;
 };
 
+rpc.Customer.prototype.getGender = function() {
+	if(!this.mObj) {
+		return 0;
+	}
+	
+	this.mValueCache = this.mValueCache || {};
+	var cacheValue = this.mValueCache["gender"];
+	if(cacheValue) return cacheValue;
+	
+	var value = this.mObj["gender"];
+	
+	var objRet = ConvertUtils.jsonObjectToObject(value, Number, null, false);
+	
+	if(objRet) {
+		this.mValueCache["gender"] = objRet;
+		return objRet;
+	}
+	
+	return 0;
+};
+
+rpc.Customer.prototype.setGender = function(value) {
+    this.checkAndCreate();
+	this.mValueCache = this.mValueCache || {};
+	this.mObj = this.mObj || {};
+	
+	var _value_value0 = (value);
+	if(!_value_value0) 
+		delete this.mObj["gender"];
+	else
+		this.mObj["gender"] = _value_value0;
+
+	if(value) {
+		this.mValueCache["gender"] = value;
+	} else {
+		delete this.mValueCache["gender"];
+	}
+	return this;
+};
+
 rpc.Customer.prototype.getId = function() {
 	if(!this.mObj) {
 		return null;
@@ -10422,6 +10462,8 @@ rpc.Customer.FIELD_NAME="name";
 rpc.Customer.FIELD_NAME_CONFUSION="name";
 rpc.Customer.FIELD_ENABLE="enable";
 rpc.Customer.FIELD_ENABLE_CONFUSION="enable";
+rpc.Customer.FIELD_GENDER="gender";
+rpc.Customer.FIELD_GENDER_CONFUSION="gender";
 rpc.Customer.FIELD_AVATAR="avatar";
 rpc.Customer.FIELD_AVATAR_CONFUSION="avatar";
 rpc.Customer.FIELD_DEALS="deals";
@@ -10440,6 +10482,7 @@ rpc.Customer.checkAndInitial = function() {
 		"created":"created", 
 		"name":"name", 
 		"enable":"enable", 
+		"gender":"gender", 
 		"avatar":"avatar", 
 		"deals":"deals"
 	};
@@ -10451,6 +10494,7 @@ rpc.Customer.checkAndInitial = function() {
 		"created":"created", 
 		"name":"name", 
 		"enable":"enable", 
+		"gender":"gender", 
 		"avatar":"avatar", 
 		"deals":"deals"
 	};
@@ -35913,6 +35957,124 @@ rpc.ServerConfig.loadDefaultConfig = function() {
 rpc.ServerConfig.loadDefaultConfig();
 
 
+
+rpc.RpcProxyStub = {};
+
+
+// category: CDN
+// arg 1: hash
+
+rpc.AvatarImageResource = {};
+
+rpc.AvatarImageResource.hashToUrl = function(
+		hash 
+	) {
+	var _url = hash;
+	if(!_url || _url.length < 3)
+		return _url;
+	if(_url.indexOf("http:") == 0 ||
+		   _url.indexOf("https:") == 0 ||
+           _url.indexOf("file:") == 0 ||
+           _url.indexOf("res:") == 0 ||
+           _url.indexOf("/") == 0) {
+           return _url;
+	}
+	var _url1 = rpc.ServerConfig.getUrlPrefix("CDN");
+	if(!_url1 || _url1.length < 2)
+		return null;
+	var _sb =_url1;
+	var _c;
+	_c = _sb.charAt(_sb.length - 1);
+	if(_c != '/') {
+		_sb += "/";
+	}
+	//_sb += "id-";
+
+	_sb += hash;
+	
+	return _sb;
+};
+
+rpc.AvatarImageResource.hashToSmallUrl = function(
+		hash 
+	) {
+	var _url = rpc.AvatarImageResource.hashToUrl(
+		hash 
+	);
+	if(!_url || _url.length < 3 || _url.indexOf("http") < 0)
+		return _url;
+	
+	//if(_url.indexOf("w-72") > 1) {
+	//	return _url;
+	//}
+	
+	var _sb = _url;
+	var _c = _sb.charAt(_sb.length - 1);
+	if(_c != '@') {
+		_sb += "@";
+	}
+	
+	_sb += "w-72";
+	
+	
+	return _sb;
+};
+
+rpc.AvatarImageResource.hashToMediumUrl = function(
+		hash 
+	) {
+	var _url = rpc.AvatarImageResource.hashToUrl(
+		hash 
+	);
+	if(!_url || _url.length < 3 || _url.indexOf("http") < 0)
+		return _url;
+	
+	//if(_url.indexOf("w-92") > 1) {
+	//	return _url;
+	//}
+	
+	var _sb = _url;
+	var _c = _sb.charAt(_sb.length - 1);
+	if(_c != '@') {
+		_sb += "@";
+	}
+	
+	_sb += "w-92";
+	
+	
+	return _sb;
+};
+
+rpc.AvatarImageResource.hashToFullUrl = function(
+		hash 
+	) {
+	var _url = rpc.AvatarImageResource.hashToUrl(
+		hash 
+	);
+	if(!_url || _url.length < 3 || _url.indexOf("http") < 0)
+		return _url;
+	
+	//if(_url.indexOf("w-640/m-fw") > 1) {
+	//	return _url;
+	//}
+	
+	var _sb = _url;
+	var _c = _sb.charAt(_sb.length - 1);
+	if(_c != '@') {
+		_sb += "@";
+	}
+	
+	_sb += "w-640/m-fw";
+	
+	
+	return _sb;
+};
+
+
+
+rpc.LongPolling = {};
+
+
 // category: CDN
 // arg 1: hash
 
@@ -36156,124 +36318,6 @@ rpc.HttpImageResource.hashToFullUrl = function(
 	
 	return _sb;
 };
-
-
-// category: CDN
-// arg 1: hash
-
-rpc.AvatarImageResource = {};
-
-rpc.AvatarImageResource.hashToUrl = function(
-		hash 
-	) {
-	var _url = hash;
-	if(!_url || _url.length < 3)
-		return _url;
-	if(_url.indexOf("http:") == 0 ||
-		   _url.indexOf("https:") == 0 ||
-           _url.indexOf("file:") == 0 ||
-           _url.indexOf("res:") == 0 ||
-           _url.indexOf("/") == 0) {
-           return _url;
-	}
-	var _url1 = rpc.ServerConfig.getUrlPrefix("CDN");
-	if(!_url1 || _url1.length < 2)
-		return null;
-	var _sb =_url1;
-	var _c;
-	_c = _sb.charAt(_sb.length - 1);
-	if(_c != '/') {
-		_sb += "/";
-	}
-	//_sb += "id-";
-
-	_sb += hash;
-	
-	return _sb;
-};
-
-rpc.AvatarImageResource.hashToSmallUrl = function(
-		hash 
-	) {
-	var _url = rpc.AvatarImageResource.hashToUrl(
-		hash 
-	);
-	if(!_url || _url.length < 3 || _url.indexOf("http") < 0)
-		return _url;
-	
-	//if(_url.indexOf("w-72") > 1) {
-	//	return _url;
-	//}
-	
-	var _sb = _url;
-	var _c = _sb.charAt(_sb.length - 1);
-	if(_c != '@') {
-		_sb += "@";
-	}
-	
-	_sb += "w-72";
-	
-	
-	return _sb;
-};
-
-rpc.AvatarImageResource.hashToMediumUrl = function(
-		hash 
-	) {
-	var _url = rpc.AvatarImageResource.hashToUrl(
-		hash 
-	);
-	if(!_url || _url.length < 3 || _url.indexOf("http") < 0)
-		return _url;
-	
-	//if(_url.indexOf("w-92") > 1) {
-	//	return _url;
-	//}
-	
-	var _sb = _url;
-	var _c = _sb.charAt(_sb.length - 1);
-	if(_c != '@') {
-		_sb += "@";
-	}
-	
-	_sb += "w-92";
-	
-	
-	return _sb;
-};
-
-rpc.AvatarImageResource.hashToFullUrl = function(
-		hash 
-	) {
-	var _url = rpc.AvatarImageResource.hashToUrl(
-		hash 
-	);
-	if(!_url || _url.length < 3 || _url.indexOf("http") < 0)
-		return _url;
-	
-	//if(_url.indexOf("w-640/m-fw") > 1) {
-	//	return _url;
-	//}
-	
-	var _sb = _url;
-	var _c = _sb.charAt(_sb.length - 1);
-	if(_c != '@') {
-		_sb += "@";
-	}
-	
-	_sb += "w-640/m-fw";
-	
-	
-	return _sb;
-};
-
-
-
-rpc.RpcProxyStub = {};
-
-
-
-rpc.LongPolling = {};
 
 rpc.RpcClassMap = {};
 rpc.RpcClassMap.gMsgClassMap = {};
