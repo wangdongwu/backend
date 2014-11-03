@@ -21,7 +21,6 @@ Ext.define('XMLifeOperating.controller.Navigation', {
             'moduleNavigation': {
                 selectionchange: me.enterModule,
                 messagePushResponse: me.messagePushResponse
-
             },
             '#cmbGlobalCity': {
                 select: me.changeCurrentCity

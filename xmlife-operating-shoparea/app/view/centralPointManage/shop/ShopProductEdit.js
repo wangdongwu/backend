@@ -176,8 +176,16 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopProductEdit', {
                     items: [{
                         xtype: 'checkbox',
                         itemId: 'changeBelongShelf',
-                        name: 'changeBelongShelf'
+                        name: 'changeBelongShelf',
+                        handler: function(view, isChecked) {
+                            var target = view.nextSibling();
+                            if (isChecked == true) {
+                                target.setDisabled(false)
 
+                            } else {
+                                target.setDisabled(true)
+                            }
+                        }
                     }, {
                         xtype: 'combo',
                         name: 'belngShelf',
@@ -187,6 +195,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopProductEdit', {
                         labelWidth: 80,
                         editable: false,
                         width: 360,
+                        disabled: true,
                         store: 'CategoryLeafCategorys',
                         queryMode: 'local',
                         displayField: 'name',
