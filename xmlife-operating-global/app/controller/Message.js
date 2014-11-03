@@ -80,7 +80,7 @@ Ext.define('XMLifeOperating.controller.Message', {
                     me.onEdit({view:view, e:e}, 'getSmsAdd');
                 }
             },
-            '#startTime': {
+            'notifyAdd #startTime': {
                 select: me.onDateSelect
             },
             'notifyAdd #saveBtn': {
@@ -92,6 +92,9 @@ Ext.define('XMLifeOperating.controller.Message', {
                 click: function() {
                     me.onSave('getSmsAdd');
                 }
+            },
+            'smsAdd #startTime': {
+                select: me.onDateSelect
             }
         });
     },
