@@ -29,7 +29,7 @@ Ext.define('XMLifeOperating.view.Viewport', {
             {
                 closable : false,
                 title : '欢迎使用',
-                html : '<br/><br/><br/><br/><h1>欢迎使用小美后台管理系统!! <br/><br/>⊙o⊙</h1>'
+                html : '<br/><br/><br/><br/><h1 style="text-align:center">欢迎使用小美后台管理系统!! <br/><br/>⊙o⊙</h1>'
             }
             ],
             layout: 'fit',
