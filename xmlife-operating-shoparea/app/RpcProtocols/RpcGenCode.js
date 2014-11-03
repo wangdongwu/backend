@@ -9851,6 +9851,46 @@ rpc.ShopArea.prototype.setIsActive = function(value) {
 	return this;
 };
 
+rpc.ShopArea.prototype.getLayoutId = function() {
+	if(!this.mObj) {
+		return null;
+	}
+	
+	this.mValueCache = this.mValueCache || {};
+	var cacheValue = this.mValueCache["layoutId"];
+	if(cacheValue) return cacheValue;
+	
+	var value = this.mObj["layoutId"];
+	
+	var objRet = ConvertUtils.jsonObjectToObject(value, String, null, false);
+	
+	if(objRet) {
+		this.mValueCache["layoutId"] = objRet;
+		return objRet;
+	}
+	
+	return null;
+};
+
+rpc.ShopArea.prototype.setLayoutId = function(value) {
+    this.checkAndCreate();
+	this.mValueCache = this.mValueCache || {};
+	this.mObj = this.mObj || {};
+	
+	var _value_value0 = value;
+	if(!_value_value0) 
+		delete this.mObj["layoutId"];
+	else
+		this.mObj["layoutId"] = _value_value0;
+
+	if(value) {
+		this.mValueCache["layoutId"] = value;
+	} else {
+		delete this.mValueCache["layoutId"];
+	}
+	return this;
+};
+
 rpc.ShopArea.prototype.getName = function() {
 	if(!this.mObj) {
 		return null;
@@ -9901,6 +9941,8 @@ rpc.ShopArea.FIELD_ADDRESS="address";
 rpc.ShopArea.FIELD_ADDRESS_CONFUSION="address";
 rpc.ShopArea.FIELD_NAME="name";
 rpc.ShopArea.FIELD_NAME_CONFUSION="name";
+rpc.ShopArea.FIELD_LAYOUTID="layoutId";
+rpc.ShopArea.FIELD_LAYOUTID_CONFUSION="layoutId";
 rpc.ShopArea.FIELD_CITY="city";
 rpc.ShopArea.FIELD_CITY_CONFUSION="city";
 
@@ -9915,6 +9957,7 @@ rpc.ShopArea.checkAndInitial = function() {
 		"created":"created", 
 		"address":"address", 
 		"name":"name", 
+		"layoutId":"layoutId", 
 		"city":"city"
 	};
 	rpc.ShopArea.mConfusionToFieldMap = {
@@ -9923,6 +9966,7 @@ rpc.ShopArea.checkAndInitial = function() {
 		"created":"created", 
 		"address":"address", 
 		"name":"name", 
+		"layoutId":"layoutId", 
 		"city":"city"
 	};
 
@@ -21273,6 +21317,368 @@ rpc.DelivererWorkTime.prototype.convertFrom  = function(from, confusionMode, clo
     return true;
 };
 
+rpc.AreaHomePageLayout = function() {};
+rpc.AreaHomePageLayout.prototype.getAreaId = function() {
+	if(!this.mObj) {
+		return 0;
+	}
+	
+	this.mValueCache = this.mValueCache || {};
+	var cacheValue = this.mValueCache["areaId"];
+	if(cacheValue) return cacheValue;
+	
+	var value = this.mObj["areaId"];
+	
+	var objRet = ConvertUtils.jsonObjectToObject(value, Number, null, false);
+	
+	if(objRet) {
+		this.mValueCache["areaId"] = objRet;
+		return objRet;
+	}
+	
+	return 0;
+};
+
+rpc.AreaHomePageLayout.prototype.setAreaId = function(value) {
+    this.checkAndCreate();
+	this.mValueCache = this.mValueCache || {};
+	this.mObj = this.mObj || {};
+	
+	var _value_value0 = (value);
+	if(!_value_value0) 
+		delete this.mObj["areaId"];
+	else
+		this.mObj["areaId"] = _value_value0;
+
+	if(value) {
+		this.mValueCache["areaId"] = value;
+	} else {
+		delete this.mValueCache["areaId"];
+	}
+	return this;
+};
+
+rpc.AreaHomePageLayout.prototype.getEnable = function() {
+	if(!this.mObj) {
+		return 0;
+	}
+	
+	this.mValueCache = this.mValueCache || {};
+	var cacheValue = this.mValueCache["enable"];
+	if(cacheValue) return cacheValue;
+	
+	var value = this.mObj["enable"];
+	
+	var objRet = ConvertUtils.jsonObjectToObject(value, Number, null, false);
+	
+	if(objRet) {
+		this.mValueCache["enable"] = objRet;
+		return objRet;
+	}
+	
+	return 0;
+};
+
+rpc.AreaHomePageLayout.prototype.setEnable = function(value) {
+    this.checkAndCreate();
+	this.mValueCache = this.mValueCache || {};
+	this.mObj = this.mObj || {};
+	
+	var _value_value0 = (value);
+	if(!_value_value0) 
+		delete this.mObj["enable"];
+	else
+		this.mObj["enable"] = _value_value0;
+
+	if(value) {
+		this.mValueCache["enable"] = value;
+	} else {
+		delete this.mValueCache["enable"];
+	}
+	return this;
+};
+
+rpc.AreaHomePageLayout.prototype.getId = function() {
+	if(!this.mObj) {
+		return null;
+	}
+	
+	this.mValueCache = this.mValueCache || {};
+	var cacheValue = this.mValueCache["id"];
+	if(cacheValue) return cacheValue;
+	
+	var value = this.mObj["id"];
+	
+	var objRet = ConvertUtils.jsonObjectToObject(value, String, null, false);
+	
+	if(objRet) {
+		this.mValueCache["id"] = objRet;
+		return objRet;
+	}
+	
+	return null;
+};
+
+rpc.AreaHomePageLayout.prototype.setId = function(value) {
+    this.checkAndCreate();
+	this.mValueCache = this.mValueCache || {};
+	this.mObj = this.mObj || {};
+	
+	var _value_value0 = value;
+	if(!_value_value0) 
+		delete this.mObj["id"];
+	else
+		this.mObj["id"] = _value_value0;
+
+	if(value) {
+		this.mValueCache["id"] = value;
+	} else {
+		delete this.mValueCache["id"];
+	}
+	return this;
+};
+
+rpc.AreaHomePageLayout.prototype.getModules = function() {
+	if(!this.mObj) {
+		return null;
+	}
+	
+	this.mValueCache = this.mValueCache || {};
+	var cacheValue = this.mValueCache["modules"];
+	if(cacheValue) return cacheValue;
+	
+	var value = this.mObj["modules"];
+	
+	var objRet = ConvertUtils.jsonObjectToObject(value, Array, [rpc.HomePageModule], false);
+	
+	if(objRet) {
+		this.mValueCache["modules"] = objRet;
+		return objRet;
+	}
+	
+	return null;
+};
+
+rpc.AreaHomePageLayout.prototype.setModules = function(value) {
+    this.checkAndCreate();
+	this.mValueCache = this.mValueCache || {};
+	this.mObj = this.mObj || {};
+	
+	var _arr_0 = (!value) ? null : [];
+	if(value) {
+		var _len_0 = value.length;
+		for(var _i_0 = 0; _i_0 < _len_0; _i_0++) {
+			var _l_0 = value[_i_0];
+			var _value__l_02 = _l_0.getAsObject(false);
+			_arr_0.push(_value__l_02);
+		}
+	}
+	var _value_value0 = _arr_0;
+	if(!_value_value0) 
+		delete this.mObj["modules"];
+	else
+		this.mObj["modules"] = _value_value0;
+
+	if(value) {
+		this.mValueCache["modules"] = value;
+	} else {
+		delete this.mValueCache["modules"];
+	}
+	return this;
+};
+
+rpc.AreaHomePageLayout.prototype.getVersion = function() {
+	if(!this.mObj) {
+		return null;
+	}
+	
+	this.mValueCache = this.mValueCache || {};
+	var cacheValue = this.mValueCache["version"];
+	if(cacheValue) return cacheValue;
+	
+	var value = this.mObj["version"];
+	
+	var objRet = ConvertUtils.jsonObjectToObject(value, String, null, false);
+	
+	if(objRet) {
+		this.mValueCache["version"] = objRet;
+		return objRet;
+	}
+	
+	return null;
+};
+
+rpc.AreaHomePageLayout.prototype.setVersion = function(value) {
+    this.checkAndCreate();
+	this.mValueCache = this.mValueCache || {};
+	this.mObj = this.mObj || {};
+	
+	var _value_value0 = value;
+	if(!_value_value0) 
+		delete this.mObj["version"];
+	else
+		this.mObj["version"] = _value_value0;
+
+	if(value) {
+		this.mValueCache["version"] = value;
+	} else {
+		delete this.mValueCache["version"];
+	}
+	return this;
+};
+
+rpc.AreaHomePageLayout.FIELD_ID="id";
+rpc.AreaHomePageLayout.FIELD_ID_CONFUSION="id";
+rpc.AreaHomePageLayout.FIELD_ENABLE="enable";
+rpc.AreaHomePageLayout.FIELD_ENABLE_CONFUSION="enable";
+rpc.AreaHomePageLayout.FIELD_MODULES="modules";
+rpc.AreaHomePageLayout.FIELD_MODULES_CONFUSION="modules";
+rpc.AreaHomePageLayout.FIELD_AREAID="areaId";
+rpc.AreaHomePageLayout.FIELD_AREAID_CONFUSION="areaId";
+rpc.AreaHomePageLayout.FIELD_VERSION="version";
+rpc.AreaHomePageLayout.FIELD_VERSION_CONFUSION="version";
+
+rpc.AreaHomePageLayout.checkAndInitial = function() {
+    if(rpc.AreaHomePageLayout.mFieldToConfusionMap)
+        return;
+	
+	rpc.AreaHomePageLayout.mHasConfusionField = false;
+	rpc.AreaHomePageLayout.mFieldToConfusionMap = {
+		"id":"id", 
+		"enable":"enable", 
+		"modules":"modules", 
+		"areaId":"areaId", 
+		"version":"version"
+	};
+	rpc.AreaHomePageLayout.mConfusionToFieldMap = {
+		"id":"id", 
+		"enable":"enable", 
+		"modules":"modules", 
+		"areaId":"areaId", 
+		"version":"version"
+	};
+
+};
+
+rpc.AreaHomePageLayout.prototype.toString = function() {
+	if(this.mObj) {
+		return JSON.stringify(this.mObj);
+	}
+	return "{}";
+};
+
+rpc.AreaHomePageLayout.prototype.getRpcJSONObject  = function() {
+	return this.mObj;
+};
+
+rpc.AreaHomePageLayout.prototype.checkAndCreate = function() {
+    if (!this.mObj) {
+        this.mObj = {};
+    }
+};
+
+
+rpc.AreaHomePageLayout.prototype.getAsObject  = function(confusionMode, clone) {
+    if(this.mObj == null) {
+		this.checkAndCreate();
+        return clone ? objectClone(this.mObj) : this.mObj;
+    }
+    if(!confusionMode)
+        return clone ? objectClone(this.mObj) : this.mObj;
+    return rpc.AreaHomePageLayout.toConfusionObject(this.mObj, clone);
+};
+
+rpc.AreaHomePageLayout.getConfusionName = function(name) {
+    rpc.AreaHomePageLayout.checkAndInitial();
+    var value = rpc.AreaHomePageLayout.mFieldToConfusionMap[name];
+    if(value)
+        return value;
+    return null;
+};
+    
+rpc.AreaHomePageLayout.getRawName = function(confusionName) {
+    rpc.AreaHomePageLayout.checkAndInitial();
+    var value = rpc.AreaHomePageLayout.mConfusionToFieldMap[confusionName];
+    if(value)
+        return value;
+    return null;
+};
+
+rpc.AreaHomePageLayout.toConfusionObject  = function(from, clone) {
+    if(!from)
+        return from;
+
+	rpc.AreaHomePageLayout.checkAndInitial();
+    if (!rpc.AreaHomePageLayout.mHasConfusionField) {
+        return clone ? objectClone(from) : from;
+    }
+        
+    var ret = {};
+    for (var key in from) {
+        var rawKey = rpc.AreaHomePageLayout.getConfusionName(key);
+        if(!rawKey)
+            rawKey = key;
+        ret[rawKey] = from[key];
+    }
+      
+    return ret;
+};
+    
+rpc.AreaHomePageLayout.confusionToRawObject  = function(from, clone) {
+    if(!from)
+        return from;
+    
+    rpc.AreaHomePageLayout.checkAndInitial();
+    if (!rpc.AreaHomePageLayout.mHasConfusionField) {
+        return clone ? objectClone(from) : from;
+    }
+        
+    var ret = {};
+    for(var key in from) {
+        var rawKey = rpc.AreaHomePageLayout.getRawName(key);
+        if(!rawKey)
+            rawKey = key;
+        ret[rawKey] = from[key];
+    }
+    return ret;
+};
+
+rpc.AreaHomePageLayout.prototype.clearCache = function() {
+	if(this.mValueCache) {
+		this.mValueCache = {};
+	}
+};
+
+rpc.AreaHomePageLayout.prototype.convertFrom  = function(from, confusionMode, clone) {
+    if (!from)
+        return false;
+    
+    if (from.prototype && from.prototype.convertFrom) {
+        this.clearCache();
+        this.mObj = from.getAsObject(false, clone);
+        return true;
+    }
+    
+    if (from instanceof String && from[0] == '{') {
+        this.clearCache();
+        var jsonObj = JSON.parse(from);
+        if(confusionMode) {
+            this.mObj = rpc.AreaHomePageLayout.confusionToRawObject(jsonObj, clone);
+        } else {
+            this.mObj = clone ? objectClone(jsonObj) : jsonObj;
+        }
+        return true;
+    }
+    
+    this.clearCache();
+    if(confusionMode) {
+         this.mObj = rpc.AreaHomePageLayout.confusionToRawObject(from, clone);
+    } else {
+         this.mObj = clone ? objectClone(from) : from;
+    }
+    return true;
+};
+
 rpc.Banner = function() {};
 rpc.Banner.prototype.getAreaId = function() {
 	if(!this.mObj) {
@@ -21812,273 +22218,7 @@ rpc.BannerItem.prototype.convertFrom  = function(from, confusionMode, clone) {
     return true;
 };
 
-rpc.DynamicHomePage = function() {};
-rpc.DynamicHomePage.prototype.getModules = function() {
-	if(!this.mObj) {
-		return null;
-	}
-	
-	this.mValueCache = this.mValueCache || {};
-	var cacheValue = this.mValueCache["modules"];
-	if(cacheValue) return cacheValue;
-	
-	var value = this.mObj["modules"];
-	
-	var objRet = ConvertUtils.jsonObjectToObject(value, Array, [rpc.HomePageModule], false);
-	
-	if(objRet) {
-		this.mValueCache["modules"] = objRet;
-		return objRet;
-	}
-	
-	return null;
-};
-
-rpc.DynamicHomePage.prototype.setModules = function(value) {
-    this.checkAndCreate();
-	this.mValueCache = this.mValueCache || {};
-	this.mObj = this.mObj || {};
-	
-	var _arr_0 = (!value) ? null : [];
-	if(value) {
-		var _len_0 = value.length;
-		for(var _i_0 = 0; _i_0 < _len_0; _i_0++) {
-			var _l_0 = value[_i_0];
-			var _value__l_02 = _l_0.getAsObject(false);
-			_arr_0.push(_value__l_02);
-		}
-	}
-	var _value_value0 = _arr_0;
-	if(!_value_value0) 
-		delete this.mObj["modules"];
-	else
-		this.mObj["modules"] = _value_value0;
-
-	if(value) {
-		this.mValueCache["modules"] = value;
-	} else {
-		delete this.mValueCache["modules"];
-	}
-	return this;
-};
-
-rpc.DynamicHomePage.FIELD_MODULES="modules";
-rpc.DynamicHomePage.FIELD_MODULES_CONFUSION="modules";
-
-rpc.DynamicHomePage.checkAndInitial = function() {
-    if(rpc.DynamicHomePage.mFieldToConfusionMap)
-        return;
-	
-	rpc.DynamicHomePage.mHasConfusionField = false;
-	rpc.DynamicHomePage.mFieldToConfusionMap = {
-		"modules":"modules"
-	};
-	rpc.DynamicHomePage.mConfusionToFieldMap = {
-		"modules":"modules"
-	};
-
-};
-
-rpc.DynamicHomePage.prototype.toString = function() {
-	if(this.mObj) {
-		return JSON.stringify(this.mObj);
-	}
-	return "{}";
-};
-
-rpc.DynamicHomePage.prototype.getRpcJSONObject  = function() {
-	return this.mObj;
-};
-
-rpc.DynamicHomePage.prototype.checkAndCreate = function() {
-    if (!this.mObj) {
-        this.mObj = {};
-    }
-};
-
-
-rpc.DynamicHomePage.prototype.getAsObject  = function(confusionMode, clone) {
-    if(this.mObj == null) {
-		this.checkAndCreate();
-        return clone ? objectClone(this.mObj) : this.mObj;
-    }
-    if(!confusionMode)
-        return clone ? objectClone(this.mObj) : this.mObj;
-    return rpc.DynamicHomePage.toConfusionObject(this.mObj, clone);
-};
-
-rpc.DynamicHomePage.getConfusionName = function(name) {
-    rpc.DynamicHomePage.checkAndInitial();
-    var value = rpc.DynamicHomePage.mFieldToConfusionMap[name];
-    if(value)
-        return value;
-    return null;
-};
-    
-rpc.DynamicHomePage.getRawName = function(confusionName) {
-    rpc.DynamicHomePage.checkAndInitial();
-    var value = rpc.DynamicHomePage.mConfusionToFieldMap[confusionName];
-    if(value)
-        return value;
-    return null;
-};
-
-rpc.DynamicHomePage.toConfusionObject  = function(from, clone) {
-    if(!from)
-        return from;
-
-	rpc.DynamicHomePage.checkAndInitial();
-    if (!rpc.DynamicHomePage.mHasConfusionField) {
-        return clone ? objectClone(from) : from;
-    }
-        
-    var ret = {};
-    for (var key in from) {
-        var rawKey = rpc.DynamicHomePage.getConfusionName(key);
-        if(!rawKey)
-            rawKey = key;
-        ret[rawKey] = from[key];
-    }
-      
-    return ret;
-};
-    
-rpc.DynamicHomePage.confusionToRawObject  = function(from, clone) {
-    if(!from)
-        return from;
-    
-    rpc.DynamicHomePage.checkAndInitial();
-    if (!rpc.DynamicHomePage.mHasConfusionField) {
-        return clone ? objectClone(from) : from;
-    }
-        
-    var ret = {};
-    for(var key in from) {
-        var rawKey = rpc.DynamicHomePage.getRawName(key);
-        if(!rawKey)
-            rawKey = key;
-        ret[rawKey] = from[key];
-    }
-    return ret;
-};
-
-rpc.DynamicHomePage.prototype.clearCache = function() {
-	if(this.mValueCache) {
-		this.mValueCache = {};
-	}
-};
-
-rpc.DynamicHomePage.prototype.convertFrom  = function(from, confusionMode, clone) {
-    if (!from)
-        return false;
-    
-    if (from.prototype && from.prototype.convertFrom) {
-        this.clearCache();
-        this.mObj = from.getAsObject(false, clone);
-        return true;
-    }
-    
-    if (from instanceof String && from[0] == '{') {
-        this.clearCache();
-        var jsonObj = JSON.parse(from);
-        if(confusionMode) {
-            this.mObj = rpc.DynamicHomePage.confusionToRawObject(jsonObj, clone);
-        } else {
-            this.mObj = clone ? objectClone(jsonObj) : jsonObj;
-        }
-        return true;
-    }
-    
-    this.clearCache();
-    if(confusionMode) {
-         this.mObj = rpc.DynamicHomePage.confusionToRawObject(from, clone);
-    } else {
-         this.mObj = clone ? objectClone(from) : from;
-    }
-    return true;
-};
-
 rpc.HomePageModule = function() {};
-rpc.HomePageModule.prototype.getAreaId = function() {
-	if(!this.mObj) {
-		return 0;
-	}
-	
-	this.mValueCache = this.mValueCache || {};
-	var cacheValue = this.mValueCache["areaId"];
-	if(cacheValue) return cacheValue;
-	
-	var value = this.mObj["areaId"];
-	
-	var objRet = ConvertUtils.jsonObjectToObject(value, Number, null, false);
-	
-	if(objRet) {
-		this.mValueCache["areaId"] = objRet;
-		return objRet;
-	}
-	
-	return 0;
-};
-
-rpc.HomePageModule.prototype.setAreaId = function(value) {
-    this.checkAndCreate();
-	this.mValueCache = this.mValueCache || {};
-	this.mObj = this.mObj || {};
-	
-	var _value_value0 = (value);
-	if(!_value_value0) 
-		delete this.mObj["areaId"];
-	else
-		this.mObj["areaId"] = _value_value0;
-
-	if(value) {
-		this.mValueCache["areaId"] = value;
-	} else {
-		delete this.mValueCache["areaId"];
-	}
-	return this;
-};
-
-rpc.HomePageModule.prototype.getEnable = function() {
-	if(!this.mObj) {
-		return 0;
-	}
-	
-	this.mValueCache = this.mValueCache || {};
-	var cacheValue = this.mValueCache["enable"];
-	if(cacheValue) return cacheValue;
-	
-	var value = this.mObj["enable"];
-	
-	var objRet = ConvertUtils.jsonObjectToObject(value, Number, null, false);
-	
-	if(objRet) {
-		this.mValueCache["enable"] = objRet;
-		return objRet;
-	}
-	
-	return 0;
-};
-
-rpc.HomePageModule.prototype.setEnable = function(value) {
-    this.checkAndCreate();
-	this.mValueCache = this.mValueCache || {};
-	this.mObj = this.mObj || {};
-	
-	var _value_value0 = (value);
-	if(!_value_value0) 
-		delete this.mObj["enable"];
-	else
-		this.mObj["enable"] = _value_value0;
-
-	if(value) {
-		this.mValueCache["enable"] = value;
-	} else {
-		delete this.mValueCache["enable"];
-	}
-	return this;
-};
-
 rpc.HomePageModule.prototype.getId = function() {
 	if(!this.mObj) {
 		return null;
@@ -22115,6 +22255,46 @@ rpc.HomePageModule.prototype.setId = function(value) {
 		this.mValueCache["id"] = value;
 	} else {
 		delete this.mValueCache["id"];
+	}
+	return this;
+};
+
+rpc.HomePageModule.prototype.getIsAdvert = function() {
+	if(!this.mObj) {
+		return 0;
+	}
+	
+	this.mValueCache = this.mValueCache || {};
+	var cacheValue = this.mValueCache["isAdvert"];
+	if(cacheValue) return cacheValue;
+	
+	var value = this.mObj["isAdvert"];
+	
+	var objRet = ConvertUtils.jsonObjectToObject(value, Number, null, false);
+	
+	if(objRet) {
+		this.mValueCache["isAdvert"] = objRet;
+		return objRet;
+	}
+	
+	return 0;
+};
+
+rpc.HomePageModule.prototype.setIsAdvert = function(value) {
+    this.checkAndCreate();
+	this.mValueCache = this.mValueCache || {};
+	this.mObj = this.mObj || {};
+	
+	var _value_value0 = (value);
+	if(!_value_value0) 
+		delete this.mObj["isAdvert"];
+	else
+		this.mObj["isAdvert"] = _value_value0;
+
+	if(value) {
+		this.mValueCache["isAdvert"] = value;
+	} else {
+		delete this.mValueCache["isAdvert"];
 	}
 	return this;
 };
@@ -22164,6 +22344,46 @@ rpc.HomePageModule.prototype.setItems = function(value) {
 		this.mValueCache["items"] = value;
 	} else {
 		delete this.mValueCache["items"];
+	}
+	return this;
+};
+
+rpc.HomePageModule.prototype.getLayoutId = function() {
+	if(!this.mObj) {
+		return null;
+	}
+	
+	this.mValueCache = this.mValueCache || {};
+	var cacheValue = this.mValueCache["layoutId"];
+	if(cacheValue) return cacheValue;
+	
+	var value = this.mObj["layoutId"];
+	
+	var objRet = ConvertUtils.jsonObjectToObject(value, String, null, false);
+	
+	if(objRet) {
+		this.mValueCache["layoutId"] = objRet;
+		return objRet;
+	}
+	
+	return null;
+};
+
+rpc.HomePageModule.prototype.setLayoutId = function(value) {
+    this.checkAndCreate();
+	this.mValueCache = this.mValueCache || {};
+	this.mObj = this.mObj || {};
+	
+	var _value_value0 = value;
+	if(!_value_value0) 
+		delete this.mObj["layoutId"];
+	else
+		this.mObj["layoutId"] = _value_value0;
+
+	if(value) {
+		this.mValueCache["layoutId"] = value;
+	} else {
+		delete this.mValueCache["layoutId"];
 	}
 	return this;
 };
@@ -22288,46 +22508,6 @@ rpc.HomePageModule.prototype.setType = function(value) {
 	return this;
 };
 
-rpc.HomePageModule.prototype.getVersion = function() {
-	if(!this.mObj) {
-		return null;
-	}
-	
-	this.mValueCache = this.mValueCache || {};
-	var cacheValue = this.mValueCache["version"];
-	if(cacheValue) return cacheValue;
-	
-	var value = this.mObj["version"];
-	
-	var objRet = ConvertUtils.jsonObjectToObject(value, String, null, false);
-	
-	if(objRet) {
-		this.mValueCache["version"] = objRet;
-		return objRet;
-	}
-	
-	return null;
-};
-
-rpc.HomePageModule.prototype.setVersion = function(value) {
-    this.checkAndCreate();
-	this.mValueCache = this.mValueCache || {};
-	this.mObj = this.mObj || {};
-	
-	var _value_value0 = value;
-	if(!_value_value0) 
-		delete this.mObj["version"];
-	else
-		this.mObj["version"] = _value_value0;
-
-	if(value) {
-		this.mValueCache["version"] = value;
-	} else {
-		delete this.mValueCache["version"];
-	}
-	return this;
-};
-
 rpc.HomePageModule.FIELD_ID="id";
 rpc.HomePageModule.FIELD_ID_CONFUSION="id";
 rpc.HomePageModule.FIELD_ORDER="order";
@@ -22336,14 +22516,12 @@ rpc.HomePageModule.FIELD_ITEMS="items";
 rpc.HomePageModule.FIELD_ITEMS_CONFUSION="items";
 rpc.HomePageModule.FIELD_NAME="name";
 rpc.HomePageModule.FIELD_NAME_CONFUSION="name";
-rpc.HomePageModule.FIELD_ENABLE="enable";
-rpc.HomePageModule.FIELD_ENABLE_CONFUSION="enable";
+rpc.HomePageModule.FIELD_LAYOUTID="layoutId";
+rpc.HomePageModule.FIELD_LAYOUTID_CONFUSION="layoutId";
+rpc.HomePageModule.FIELD_ISADVERT="isAdvert";
+rpc.HomePageModule.FIELD_ISADVERT_CONFUSION="isAdvert";
 rpc.HomePageModule.FIELD_TYPE="type";
 rpc.HomePageModule.FIELD_TYPE_CONFUSION="type";
-rpc.HomePageModule.FIELD_AREAID="areaId";
-rpc.HomePageModule.FIELD_AREAID_CONFUSION="areaId";
-rpc.HomePageModule.FIELD_VERSION="version";
-rpc.HomePageModule.FIELD_VERSION_CONFUSION="version";
 
 rpc.HomePageModule.checkAndInitial = function() {
     if(rpc.HomePageModule.mFieldToConfusionMap)
@@ -22355,20 +22533,18 @@ rpc.HomePageModule.checkAndInitial = function() {
 		"order":"order", 
 		"items":"items", 
 		"name":"name", 
-		"enable":"enable", 
-		"type":"type", 
-		"areaId":"areaId", 
-		"version":"version"
+		"layoutId":"layoutId", 
+		"isAdvert":"isAdvert", 
+		"type":"type"
 	};
 	rpc.HomePageModule.mConfusionToFieldMap = {
 		"id":"id", 
 		"order":"order", 
 		"items":"items", 
 		"name":"name", 
-		"enable":"enable", 
-		"type":"type", 
-		"areaId":"areaId", 
-		"version":"version"
+		"layoutId":"layoutId", 
+		"isAdvert":"isAdvert", 
+		"type":"type"
 	};
 
 };
@@ -22493,46 +22669,6 @@ rpc.HomePageModule.prototype.convertFrom  = function(from, confusionMode, clone)
 };
 
 rpc.HomePageModuleItem = function() {};
-rpc.HomePageModuleItem.prototype.getId = function() {
-	if(!this.mObj) {
-		return null;
-	}
-	
-	this.mValueCache = this.mValueCache || {};
-	var cacheValue = this.mValueCache["id"];
-	if(cacheValue) return cacheValue;
-	
-	var value = this.mObj["id"];
-	
-	var objRet = ConvertUtils.jsonObjectToObject(value, String, null, false);
-	
-	if(objRet) {
-		this.mValueCache["id"] = objRet;
-		return objRet;
-	}
-	
-	return null;
-};
-
-rpc.HomePageModuleItem.prototype.setId = function(value) {
-    this.checkAndCreate();
-	this.mValueCache = this.mValueCache || {};
-	this.mObj = this.mObj || {};
-	
-	var _value_value0 = value;
-	if(!_value_value0) 
-		delete this.mObj["id"];
-	else
-		this.mObj["id"] = _value_value0;
-
-	if(value) {
-		this.mValueCache["id"] = value;
-	} else {
-		delete this.mValueCache["id"];
-	}
-	return this;
-};
-
 rpc.HomePageModuleItem.prototype.getImage = function() {
 	if(!this.mObj) {
 		return null;
@@ -22569,46 +22705,6 @@ rpc.HomePageModuleItem.prototype.setImage = function(value) {
 		this.mValueCache["image"] = value;
 	} else {
 		delete this.mValueCache["image"];
-	}
-	return this;
-};
-
-rpc.HomePageModuleItem.prototype.getModuleId = function() {
-	if(!this.mObj) {
-		return null;
-	}
-	
-	this.mValueCache = this.mValueCache || {};
-	var cacheValue = this.mValueCache["moduleId"];
-	if(cacheValue) return cacheValue;
-	
-	var value = this.mObj["moduleId"];
-	
-	var objRet = ConvertUtils.jsonObjectToObject(value, String, null, false);
-	
-	if(objRet) {
-		this.mValueCache["moduleId"] = objRet;
-		return objRet;
-	}
-	
-	return null;
-};
-
-rpc.HomePageModuleItem.prototype.setModuleId = function(value) {
-    this.checkAndCreate();
-	this.mValueCache = this.mValueCache || {};
-	this.mObj = this.mObj || {};
-	
-	var _value_value0 = value;
-	if(!_value_value0) 
-		delete this.mObj["moduleId"];
-	else
-		this.mObj["moduleId"] = _value_value0;
-
-	if(value) {
-		this.mValueCache["moduleId"] = value;
-	} else {
-		delete this.mValueCache["moduleId"];
 	}
 	return this;
 };
@@ -22742,10 +22838,6 @@ rpc.HomePageModuleItem.prototype.setUrlType = function(value) {
 	return this;
 };
 
-rpc.HomePageModuleItem.FIELD_ID="id";
-rpc.HomePageModuleItem.FIELD_ID_CONFUSION="id";
-rpc.HomePageModuleItem.FIELD_MODULEID="moduleId";
-rpc.HomePageModuleItem.FIELD_MODULEID_CONFUSION="moduleId";
 rpc.HomePageModuleItem.FIELD_TITLES="titles";
 rpc.HomePageModuleItem.FIELD_TITLES_CONFUSION="titles";
 rpc.HomePageModuleItem.FIELD_IMAGE="image";
@@ -22761,16 +22853,12 @@ rpc.HomePageModuleItem.checkAndInitial = function() {
 	
 	rpc.HomePageModuleItem.mHasConfusionField = false;
 	rpc.HomePageModuleItem.mFieldToConfusionMap = {
-		"id":"id", 
-		"moduleId":"moduleId", 
 		"titles":"titles", 
 		"image":"image", 
 		"urlType":"urlType", 
 		"url":"url"
 	};
 	rpc.HomePageModuleItem.mConfusionToFieldMap = {
-		"id":"id", 
-		"moduleId":"moduleId", 
 		"titles":"titles", 
 		"image":"image", 
 		"urlType":"urlType", 
@@ -32179,6 +32267,280 @@ rpc.Address.prototype.convertFrom  = function(from, confusionMode, clone) {
     return true;
 };
 
+rpc.UserCollect = function() {};
+rpc.UserCollect.prototype.getProducts = function() {
+	if(!this.mObj) {
+		return null;
+	}
+	
+	this.mValueCache = this.mValueCache || {};
+	var cacheValue = this.mValueCache["products"];
+	if(cacheValue) return cacheValue;
+	
+	var value = this.mObj["products"];
+	
+	var objRet = ConvertUtils.jsonObjectToObject(value, Array, [String], false);
+	
+	if(objRet) {
+		this.mValueCache["products"] = objRet;
+		return objRet;
+	}
+	
+	return null;
+};
+
+rpc.UserCollect.prototype.setProducts = function(value) {
+    this.checkAndCreate();
+	this.mValueCache = this.mValueCache || {};
+	this.mObj = this.mObj || {};
+	
+	var _arr_0 = (!value) ? null : [];
+	if(value) {
+		var _len_0 = value.length;
+		for(var _i_0 = 0; _i_0 < _len_0; _i_0++) {
+			var _l_0 = value[_i_0];
+			var _value__l_02 = _l_0;
+			_arr_0.push(_value__l_02);
+		}
+	}
+	var _value_value0 = _arr_0;
+	if(!_value_value0) 
+		delete this.mObj["products"];
+	else
+		this.mObj["products"] = _value_value0;
+
+	if(value) {
+		this.mValueCache["products"] = value;
+	} else {
+		delete this.mValueCache["products"];
+	}
+	return this;
+};
+
+rpc.UserCollect.prototype.getShopId = function() {
+	if(!this.mObj) {
+		return null;
+	}
+	
+	this.mValueCache = this.mValueCache || {};
+	var cacheValue = this.mValueCache["shopId"];
+	if(cacheValue) return cacheValue;
+	
+	var value = this.mObj["shopId"];
+	
+	var objRet = ConvertUtils.jsonObjectToObject(value, String, null, false);
+	
+	if(objRet) {
+		this.mValueCache["shopId"] = objRet;
+		return objRet;
+	}
+	
+	return null;
+};
+
+rpc.UserCollect.prototype.setShopId = function(value) {
+    this.checkAndCreate();
+	this.mValueCache = this.mValueCache || {};
+	this.mObj = this.mObj || {};
+	
+	var _value_value0 = value;
+	if(!_value_value0) 
+		delete this.mObj["shopId"];
+	else
+		this.mObj["shopId"] = _value_value0;
+
+	if(value) {
+		this.mValueCache["shopId"] = value;
+	} else {
+		delete this.mValueCache["shopId"];
+	}
+	return this;
+};
+
+rpc.UserCollect.prototype.getUserId = function() {
+	if(!this.mObj) {
+		return 0;
+	}
+	
+	this.mValueCache = this.mValueCache || {};
+	var cacheValue = this.mValueCache["userId"];
+	if(cacheValue) return cacheValue;
+	
+	var value = this.mObj["userId"];
+	
+	var objRet = ConvertUtils.jsonObjectToObject(value, Number, null, false);
+	
+	if(objRet) {
+		this.mValueCache["userId"] = objRet;
+		return objRet;
+	}
+	
+	return 0;
+};
+
+rpc.UserCollect.prototype.setUserId = function(value) {
+    this.checkAndCreate();
+	this.mValueCache = this.mValueCache || {};
+	this.mObj = this.mObj || {};
+	
+	var _value_value0 = (value);
+	if(!_value_value0) 
+		delete this.mObj["userId"];
+	else
+		this.mObj["userId"] = _value_value0;
+
+	if(value) {
+		this.mValueCache["userId"] = value;
+	} else {
+		delete this.mValueCache["userId"];
+	}
+	return this;
+};
+
+rpc.UserCollect.FIELD_SHOPID="shopId";
+rpc.UserCollect.FIELD_SHOPID_CONFUSION="shopId";
+rpc.UserCollect.FIELD_USERID="userId";
+rpc.UserCollect.FIELD_USERID_CONFUSION="userId";
+rpc.UserCollect.FIELD_PRODUCTS="products";
+rpc.UserCollect.FIELD_PRODUCTS_CONFUSION="products";
+
+rpc.UserCollect.checkAndInitial = function() {
+    if(rpc.UserCollect.mFieldToConfusionMap)
+        return;
+	
+	rpc.UserCollect.mHasConfusionField = false;
+	rpc.UserCollect.mFieldToConfusionMap = {
+		"shopId":"shopId", 
+		"userId":"userId", 
+		"products":"products"
+	};
+	rpc.UserCollect.mConfusionToFieldMap = {
+		"shopId":"shopId", 
+		"userId":"userId", 
+		"products":"products"
+	};
+
+};
+
+rpc.UserCollect.prototype.toString = function() {
+	if(this.mObj) {
+		return JSON.stringify(this.mObj);
+	}
+	return "{}";
+};
+
+rpc.UserCollect.prototype.getRpcJSONObject  = function() {
+	return this.mObj;
+};
+
+rpc.UserCollect.prototype.checkAndCreate = function() {
+    if (!this.mObj) {
+        this.mObj = {};
+    }
+};
+
+
+rpc.UserCollect.prototype.getAsObject  = function(confusionMode, clone) {
+    if(this.mObj == null) {
+		this.checkAndCreate();
+        return clone ? objectClone(this.mObj) : this.mObj;
+    }
+    if(!confusionMode)
+        return clone ? objectClone(this.mObj) : this.mObj;
+    return rpc.UserCollect.toConfusionObject(this.mObj, clone);
+};
+
+rpc.UserCollect.getConfusionName = function(name) {
+    rpc.UserCollect.checkAndInitial();
+    var value = rpc.UserCollect.mFieldToConfusionMap[name];
+    if(value)
+        return value;
+    return null;
+};
+    
+rpc.UserCollect.getRawName = function(confusionName) {
+    rpc.UserCollect.checkAndInitial();
+    var value = rpc.UserCollect.mConfusionToFieldMap[confusionName];
+    if(value)
+        return value;
+    return null;
+};
+
+rpc.UserCollect.toConfusionObject  = function(from, clone) {
+    if(!from)
+        return from;
+
+	rpc.UserCollect.checkAndInitial();
+    if (!rpc.UserCollect.mHasConfusionField) {
+        return clone ? objectClone(from) : from;
+    }
+        
+    var ret = {};
+    for (var key in from) {
+        var rawKey = rpc.UserCollect.getConfusionName(key);
+        if(!rawKey)
+            rawKey = key;
+        ret[rawKey] = from[key];
+    }
+      
+    return ret;
+};
+    
+rpc.UserCollect.confusionToRawObject  = function(from, clone) {
+    if(!from)
+        return from;
+    
+    rpc.UserCollect.checkAndInitial();
+    if (!rpc.UserCollect.mHasConfusionField) {
+        return clone ? objectClone(from) : from;
+    }
+        
+    var ret = {};
+    for(var key in from) {
+        var rawKey = rpc.UserCollect.getRawName(key);
+        if(!rawKey)
+            rawKey = key;
+        ret[rawKey] = from[key];
+    }
+    return ret;
+};
+
+rpc.UserCollect.prototype.clearCache = function() {
+	if(this.mValueCache) {
+		this.mValueCache = {};
+	}
+};
+
+rpc.UserCollect.prototype.convertFrom  = function(from, confusionMode, clone) {
+    if (!from)
+        return false;
+    
+    if (from.prototype && from.prototype.convertFrom) {
+        this.clearCache();
+        this.mObj = from.getAsObject(false, clone);
+        return true;
+    }
+    
+    if (from instanceof String && from[0] == '{') {
+        this.clearCache();
+        var jsonObj = JSON.parse(from);
+        if(confusionMode) {
+            this.mObj = rpc.UserCollect.confusionToRawObject(jsonObj, clone);
+        } else {
+            this.mObj = clone ? objectClone(jsonObj) : jsonObj;
+        }
+        return true;
+    }
+    
+    this.clearCache();
+    if(confusionMode) {
+         this.mObj = rpc.UserCollect.confusionToRawObject(from, clone);
+    } else {
+         this.mObj = clone ? objectClone(from) : from;
+    }
+    return true;
+};
+
 rpc.IAuthAction = {};
 
 rpc.IAuthAction.changePassword = function(oldPassword, newPassword, success, fail){
@@ -34532,6 +34894,27 @@ rpc.IFeedbackService.sendFeedBack = function(feedback, type, success, fail){
 
 rpc.IHomepageService = {};
 
+rpc.IHomepageService.getAreaHomePageLayout = function(areaId, success, fail){
+	if(arguments.length < 3) alert("com.paitao.xmlife.rpc.IHomepageService.getAreaHomePageLayout param count dismatch");
+
+	var successWrapper = success ? function(returnCode, jsonObj) {
+		var obj = ConvertUtils.jsonObjectToObject(jsonObj, rpc.AreaHomePageLayout, null, true);
+		success(returnCode, obj);
+	} : null;
+	var _jsonDict = {};
+	var _uploadDict = {};
+	{
+		var _value_areaId1 = (areaId);
+		if(!_value_areaId1) 
+			delete _jsonDict["areaId"];
+		else
+			_jsonDict["areaId"] = _value_areaId1;
+	}
+
+	var _url = rpc.ServerConfig.getUrlPrefix("Business") + "IHomepageService/1/getAreaHomePageLayout";
+	return RpcCall.doInvoke(_url, "getAreaHomePageLayout", _jsonDict, _uploadDict, successWrapper, fail);
+};
+
 rpc.IHomepageService.getBannersByArea = function(areaId, success, fail){
 	if(arguments.length < 3) alert("com.paitao.xmlife.rpc.IHomepageService.getBannersByArea param count dismatch");
 
@@ -34551,27 +34934,6 @@ rpc.IHomepageService.getBannersByArea = function(areaId, success, fail){
 
 	var _url = rpc.ServerConfig.getUrlPrefix("Business") + "IHomepageService/1/getBannersByArea";
 	return RpcCall.doInvoke(_url, "getBannersByArea", _jsonDict, _uploadDict, successWrapper, fail);
-};
-
-rpc.IHomepageService.getDynamicHomepageByArea = function(areaId, success, fail){
-	if(arguments.length < 3) alert("com.paitao.xmlife.rpc.IHomepageService.getDynamicHomepageByArea param count dismatch");
-
-	var successWrapper = success ? function(returnCode, jsonObj) {
-		var obj = ConvertUtils.jsonObjectToObject(jsonObj, rpc.DynamicHomePage, null, true);
-		success(returnCode, obj);
-	} : null;
-	var _jsonDict = {};
-	var _uploadDict = {};
-	{
-		var _value_areaId1 = (areaId);
-		if(!_value_areaId1) 
-			delete _jsonDict["areaId"];
-		else
-			_jsonDict["areaId"] = _value_areaId1;
-	}
-
-	var _url = rpc.ServerConfig.getUrlPrefix("Business") + "IHomepageService/1/getDynamicHomepageByArea";
-	return RpcCall.doInvoke(_url, "getDynamicHomepageByArea", _jsonDict, _uploadDict, successWrapper, fail);
 };
 
 rpc.IHomepageService.getHomepageByArea = function(areaId, success, fail){
@@ -35957,124 +36319,6 @@ rpc.ServerConfig.loadDefaultConfig = function() {
 rpc.ServerConfig.loadDefaultConfig();
 
 
-
-rpc.RpcProxyStub = {};
-
-
-// category: CDN
-// arg 1: hash
-
-rpc.AvatarImageResource = {};
-
-rpc.AvatarImageResource.hashToUrl = function(
-		hash 
-	) {
-	var _url = hash;
-	if(!_url || _url.length < 3)
-		return _url;
-	if(_url.indexOf("http:") == 0 ||
-		   _url.indexOf("https:") == 0 ||
-           _url.indexOf("file:") == 0 ||
-           _url.indexOf("res:") == 0 ||
-           _url.indexOf("/") == 0) {
-           return _url;
-	}
-	var _url1 = rpc.ServerConfig.getUrlPrefix("CDN");
-	if(!_url1 || _url1.length < 2)
-		return null;
-	var _sb =_url1;
-	var _c;
-	_c = _sb.charAt(_sb.length - 1);
-	if(_c != '/') {
-		_sb += "/";
-	}
-	//_sb += "id-";
-
-	_sb += hash;
-	
-	return _sb;
-};
-
-rpc.AvatarImageResource.hashToSmallUrl = function(
-		hash 
-	) {
-	var _url = rpc.AvatarImageResource.hashToUrl(
-		hash 
-	);
-	if(!_url || _url.length < 3 || _url.indexOf("http") < 0)
-		return _url;
-	
-	//if(_url.indexOf("w-72") > 1) {
-	//	return _url;
-	//}
-	
-	var _sb = _url;
-	var _c = _sb.charAt(_sb.length - 1);
-	if(_c != '@') {
-		_sb += "@";
-	}
-	
-	_sb += "w-72";
-	
-	
-	return _sb;
-};
-
-rpc.AvatarImageResource.hashToMediumUrl = function(
-		hash 
-	) {
-	var _url = rpc.AvatarImageResource.hashToUrl(
-		hash 
-	);
-	if(!_url || _url.length < 3 || _url.indexOf("http") < 0)
-		return _url;
-	
-	//if(_url.indexOf("w-92") > 1) {
-	//	return _url;
-	//}
-	
-	var _sb = _url;
-	var _c = _sb.charAt(_sb.length - 1);
-	if(_c != '@') {
-		_sb += "@";
-	}
-	
-	_sb += "w-92";
-	
-	
-	return _sb;
-};
-
-rpc.AvatarImageResource.hashToFullUrl = function(
-		hash 
-	) {
-	var _url = rpc.AvatarImageResource.hashToUrl(
-		hash 
-	);
-	if(!_url || _url.length < 3 || _url.indexOf("http") < 0)
-		return _url;
-	
-	//if(_url.indexOf("w-640/m-fw") > 1) {
-	//	return _url;
-	//}
-	
-	var _sb = _url;
-	var _c = _sb.charAt(_sb.length - 1);
-	if(_c != '@') {
-		_sb += "@";
-	}
-	
-	_sb += "w-640/m-fw";
-	
-	
-	return _sb;
-};
-
-
-
-rpc.LongPolling = {};
-
-
 // category: CDN
 // arg 1: hash
 
@@ -36298,6 +36542,124 @@ rpc.HttpImageResource.hashToFullUrl = function(
 		hash 
 	) {
 	var _url = rpc.HttpImageResource.hashToUrl(
+		hash 
+	);
+	if(!_url || _url.length < 3 || _url.indexOf("http") < 0)
+		return _url;
+	
+	//if(_url.indexOf("w-640/m-fw") > 1) {
+	//	return _url;
+	//}
+	
+	var _sb = _url;
+	var _c = _sb.charAt(_sb.length - 1);
+	if(_c != '@') {
+		_sb += "@";
+	}
+	
+	_sb += "w-640/m-fw";
+	
+	
+	return _sb;
+};
+
+
+
+rpc.LongPolling = {};
+
+
+
+rpc.RpcProxyStub = {};
+
+
+// category: CDN
+// arg 1: hash
+
+rpc.AvatarImageResource = {};
+
+rpc.AvatarImageResource.hashToUrl = function(
+		hash 
+	) {
+	var _url = hash;
+	if(!_url || _url.length < 3)
+		return _url;
+	if(_url.indexOf("http:") == 0 ||
+		   _url.indexOf("https:") == 0 ||
+           _url.indexOf("file:") == 0 ||
+           _url.indexOf("res:") == 0 ||
+           _url.indexOf("/") == 0) {
+           return _url;
+	}
+	var _url1 = rpc.ServerConfig.getUrlPrefix("CDN");
+	if(!_url1 || _url1.length < 2)
+		return null;
+	var _sb =_url1;
+	var _c;
+	_c = _sb.charAt(_sb.length - 1);
+	if(_c != '/') {
+		_sb += "/";
+	}
+	//_sb += "id-";
+
+	_sb += hash;
+	
+	return _sb;
+};
+
+rpc.AvatarImageResource.hashToSmallUrl = function(
+		hash 
+	) {
+	var _url = rpc.AvatarImageResource.hashToUrl(
+		hash 
+	);
+	if(!_url || _url.length < 3 || _url.indexOf("http") < 0)
+		return _url;
+	
+	//if(_url.indexOf("w-72") > 1) {
+	//	return _url;
+	//}
+	
+	var _sb = _url;
+	var _c = _sb.charAt(_sb.length - 1);
+	if(_c != '@') {
+		_sb += "@";
+	}
+	
+	_sb += "w-72";
+	
+	
+	return _sb;
+};
+
+rpc.AvatarImageResource.hashToMediumUrl = function(
+		hash 
+	) {
+	var _url = rpc.AvatarImageResource.hashToUrl(
+		hash 
+	);
+	if(!_url || _url.length < 3 || _url.indexOf("http") < 0)
+		return _url;
+	
+	//if(_url.indexOf("w-92") > 1) {
+	//	return _url;
+	//}
+	
+	var _sb = _url;
+	var _c = _sb.charAt(_sb.length - 1);
+	if(_c != '@') {
+		_sb += "@";
+	}
+	
+	_sb += "w-92";
+	
+	
+	return _sb;
+};
+
+rpc.AvatarImageResource.hashToFullUrl = function(
+		hash 
+	) {
+	var _url = rpc.AvatarImageResource.hashToUrl(
 		hash 
 	);
 	if(!_url || _url.length < 3 || _url.indexOf("http") < 0)
