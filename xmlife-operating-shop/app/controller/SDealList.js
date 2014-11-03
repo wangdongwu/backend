@@ -1,55 +1,48 @@
 Ext.define('XMLifeOperating.controller.SDealList', {
     extend: 'Ext.app.Controller',
 
-    views: ['sDealManage.SDealList'],
+    views: ['sDealManage.SDealList',
+            'sDealManage.SDealDetail'],
 
-    stores: ['Deal'],
+    stores: ['Deal','DealItems'],
 
-    models: ['Deal'],
+    models: ['Deal','DealItems'],
 
-    /*refs: [{
+    refs: [{
         ref: 'sDealList',
         selector: 'sDealList',
         xtype: 'sDealList'
-    }],*/
-    /*init: function() {
-        var me = this;
-        this.control({
-            'sDealList #shopArea': {
-                select: function(combo) {
-                    var sstore = this.getDealStore();
-                    me.dateReset();
-                    sstore.getProxy().url = XMLifeOperating.generic.Global.URL.biz + 'deal';
-                    sstore.getProxy().extraParams = {
-                        shopArea: combo.getValue(),
-                        beginTime:me.beginTime,
-                        endTime:me.endTime
-                    }
-                    sstore.loadPage(1, {
-                        params: {
-                            start: 0,
-                            limit: 25,
-                            page: 1
-                        }
-                    });
-                    this.areaId = combo.getValue();
+    }, {
+        ref: 'sDealDetail',
+        selector: 'sDealDetail',
+        xtype: 'sDealDetail',
+        autoCreate: true
+    }],
+    init:function(){
+        var self = this;
+        self.control({
+            'sDealList' : {
+                added : self.rendenSDealList
+            },
+            'sDealList #getDealListByDate': {
+                click: function() {
+                    self.rendenSDealList(self.getSDealList());
                 }
             },
-            'sDealList':{
-
+            'sDealList #dealDetail': {
+                click: self.onDealDetail
             },
             'sDealList #productInvoice': {
                 click: function() {
-                    var me = this;
-                    var dealList = me.getDealList();
-                    var beginTime = dealList.down('[name=beginTime]').rawValue;
-                    var endTime = dealList.down('[name=endTime]').rawValue;
+                    var sDealList = self.getSDealList();
+                    var beginTime = sDealList.down('[name=beginTime]').rawValue;
+                    var endTime = sDealList.down('[name=endTime]').rawValue;
 
                     Ext.MessageBox.confirm('提示', '确认导出商品对货单？', function(btn) {
                         if (btn == 'yes') {
                             var sessionId = localStorage.getItem('sessionId');
                             var username = localStorage.getItem('username');
-                            var url = XMLifeOperating.generic.Global.URL.biz + 'deal/exportProductStatistic?' + 'shopArea=' + me.areaId + '&dayType=1' + '&sessionId=' + sessionId + '&username=' + username + '&beginTime=' + beginTime + '&endTime=' + endTime;
+                            var url = XMLifeOperating.generic.Global.URL.biz + 'deal/exportProductStatistic?' + 'shopId=' + self.shopId + '&dayType=1' + '&sessionId=' + sessionId + '&username=' + username + '&beginTime=' + beginTime + '&endTime=' + endTime;
                             window.open(url, '商品对货单', '', '_blank');
                         } else {
                             return;
@@ -57,106 +50,51 @@ Ext.define('XMLifeOperating.controller.SDealList', {
                     });
                 }
             },
-            'sDealList #paymentInvoice': {
-                click: function() {
-                    var me = this;
-                    var dealList = me.getDealList();
-                    var beginTime = dealList.down('[name=beginTime]').rawValue;
-                    var endTime = dealList.down('[name=endTime]').rawValue;
-                    Ext.MessageBox.confirm('提示', '确认导出支付对账单？', function(btn) {
-                        if (btn == 'yes') {
-                            var sessionId = localStorage.getItem('sessionId');
-                            var username = localStorage.getItem('username');
-                            var url = XMLifeOperating.generic.Global.URL.biz + 'deal/exportDealCashflow?' + 'shopArea=' + me.areaId + '&dayType=1' + '&sessionId=' + sessionId + '&username=' + username + '&beginTime=' + beginTime + '&endTime=' + endTime;
-                            window.open(url, '支付对账单', '', '_blank');
-                        } else {
-                            return;
-                        }
-                    });
-                }
-            },
-            'sDealList #deallistInvoice': {
-                click: function() {
-                    var me = this;
-                    var dealList = me.getDealList();
-                    var beginTime = dealList.down('[name=beginTime]').rawValue;
-                    var endTime = dealList.down('[name=endTime]').rawValue;
-                    Ext.MessageBox.confirm('提示', '确认导出订单？', function(btn) {
-                        if (btn == 'yes') {
-                            var sessionId = localStorage.getItem('sessionId');
-                            var username = localStorage.getItem('username');
-                            var url = XMLifeOperating.generic.Global.URL.biz + 'deal/exportDeal?' + 'shopArea=' + me.areaId + '&dayType=1' + '&sessionId=' + sessionId + '&username=' + username + '&beginTime=' + beginTime + '&endTime=' + endTime;
-                            window.open(url, '订单', '', '_blank');
-                        } else {
-                            return;
-                        }
-                    });
-                }
-            },
-            'sDealList #getDealListByDate': {
-                click: function() {
-                    var me = this;
-                    var dealList = me.getDealList();
-                    var beginTime = dealList.down('[name=beginTime]').rawValue;
-                    var endTime = dealList.down('[name=endTime]').rawValue;
-                    var sstore = this.getDealStore();
-                    sstore.getProxy().extraParams = {
-                        shopArea: this.areaId,
-                        beginTime: beginTime,
-                        endTime: endTime
-                    }
-                    sstore.loadPage(1, {
-                        params: {
-                            start: 0,
-                            limit: 25,
-                            page: 1
-                        }
-                    });
-                }
+        });
 
-            },
-            'sDealList #dealSearch': {
-                click: me.dealSearch
-            },
-            'sDealList #statusSearch': {
-                select: function(combo) {
-                    var sstore = this.getDealStore();
-                    var dealList = me.getDealList();
-                    var beginTime = dealList.down('[name=beginTime]').rawValue;
-                    var endTime = dealList.down('[name=endTime]').rawValue;
-                    sstore.getProxy().extraParams = {
-                        shopArea: Ext.getCmp('dealList').down('#shopArea').getValue(),
-                        status: combo.getValue(),
-                        beginTime:beginTime,
-                        endTime:endTime
-                    }
-                    sstore.loadPage(1, {
-                        params: {
-                            start: 0,
-                            limit: 25,
-                            page: 1
-                        }
-                    });
+    },
+    
+    rendenSDealList : function(grid){
 
-                },
-            },
-            'sDealList #dealDetail': {
-                click: me.onDealDetail
-            },
-            'sDealList #customerDetail': {
-                click: me.onCustomerDetail
-            },
-            'sDealList #toproblemdeal': {
-                click: me.onToProblemDeal
-            },
-            'sDealList #refresh': {
-                click: me.onRefresh
-
-            },
-            'sDealList #cancalDealId': {
-                click: me.onCancalDeal
+        var beginTime = grid.down('[name=beginTime]').rawValue;
+        var endTime = grid.down('[name=endTime]').rawValue;
+        this.shopId = '54131c6d0364b0ed8f1ffd91';
+        var store = grid.store;
+        var shopId = this.shopId;
+        store.getProxy().extraParams={
+             shopId: shopId || '',
+             beginTime:beginTime,
+             endTime:endTime
+        };
+        store.loadPage(1, {
+            params: {
+                start: 0,
+                limit: 25,
+                page: 1
             }
         });
-},*/
+    },
+    onDealDetail: function(view, rowIndex, colIndex, column, e) {
+        var dealDetail = view.getRecord(view.findTargetByEvent(e));
+        var win = this.getSDealDetail();
+        win.down('form').loadRecord(dealDetail);
+        win.show();
+        var store = this.getDealItemsStore();
+        store.load({
+            params: {
+                deal: dealDetail.get('dealBackendId'),
+                task: dealDetail.get('taskId')
+            },
 
+            callback: function(records) {
+            
+                var model = Ext.ComponentQuery.query('#dealDetails')[0].getSelectionModel();
+                model.deselectAll();
+                for (var i = 0; i < records.length; i++) {
+                    var index = store.indexOfId(records[i].get('id'));
+                    model.select(index, true);
+                }
+            }
+        });
+    },
 });
