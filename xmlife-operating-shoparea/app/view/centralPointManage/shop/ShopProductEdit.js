@@ -202,7 +202,6 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopProductEdit', {
                         valueField: 'id',
                         emptyText: "请选择货架"
                     }]
-
                 }
             ],
             buttons: [{

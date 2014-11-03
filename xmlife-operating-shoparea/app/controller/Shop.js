@@ -666,7 +666,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
                             });
                             //回收站限制
                             var flag = false;
-                            if (me.getCategoryRootsStore().getById(record.get('id')).get('type') == 0) {
+                            if (me.getCategoryRootsStore().getById(record.get('id')) && (me.getCategoryRootsStore().getById(record.get('id')).get('type') == 0)) {
                                 flag = true;
                             } else {
                                 flag = false
@@ -1235,30 +1235,26 @@ Ext.define('XMLifeOperating.controller.Shop', {
                         if (limitCount == 0 || limitCount == null || limitCount == '') {
                             limitType = 0;
                         }
-                        var facePrice = Math.abs(parseFloat(shelvesGoods.get('facePrice')) * 100).toFixed();
-                        var discountPrice = shelvesGoods.get('discountPrice');
+                        var facePrice = me.priceTransform(shelvesGoods.get('facePrice'));
+                        var discountPrice = me.priceTransform(shelvesGoods.get('discountPrice'));
+                        var purchasePrice = me.priceTransform(shelvesGoods.get('purchasePrice'))
                         if (discountPrice != "") {
-                            discountPrice = Math.abs(parseFloat(shelvesGoods.get('discountPrice')) * 100).toFixed();
                             if (discountPrice >= facePrice) {
                                 Ext.Msg.alert('Invalid Data', '折扣价不能大于等于原价');
                                 return;
                             };
                         }
+
                         shelvesGoods.set('shopId', shopId);
                         shelvesGoods.set('categoryId', categoryId);
-                        shelvesGoods.set('facePrice', Math.abs(parseFloat(shelvesGoods.get('facePrice')) * 100).toFixed());
-                        shelvesGoods.set('purchasePrice', Math.abs(parseFloat(shelvesGoods.get('purchasePrice')) * 100).toFixed());
+                        shelvesGoods.set('facePrice', facePricefacePrice);
+                        shelvesGoods.set('purchasePrice', me.priceTransform(shelvesGoods.get('purchasePrice')));
                         shelvesGoods.set('discountPrice', discountPrice);
                         shelvesGoods.set('limitType', limitType);
                         shelvesGoods.set('limitCount', limitCount);
                         shelvesGoods.set('productLimitCount', productLimitCount);
-
-                        windowEl.mask('saving');
-
                         var id = shelvesGoods.get('id');
-                        var facePrice = Math.abs(parseFloat(shelvesGoods.get('facePrice')));
-                        var purchasePrice = Math.abs(parseFloat(shelvesGoods.get('purchasePrice')));
-                        // var discountPrice = Math.abs(parseInt(shelvesGoods.get('discountPrice')));
+                        windowEl.mask('saving');
                         sendPutRequest('product/update', {
                             id: id,
                             facePrice: facePrice,
@@ -1550,19 +1546,22 @@ Ext.define('XMLifeOperating.controller.Shop', {
                         shelvesGoods = form.getRecord(),
                         me = this;
                     var tabIdstrArray = this.tabIdStr.split('_');
-                    var proCategoryId = null;
-                    var categoryId = '',
+                    var shopId = null,
+                        proCategoryId = null,
+                        categoryId = '',
                         limitType = 0,
                         limitCount = 0,
                         productLimitCount = 0,
                         stock = null;
-
+                    //获取商品类目id
                     if (tabIdstrArray[0] == 'tab4' && tabIdstrArray[1] != undefined) {
                         categoryId = tabIdstrArray[1];
                     }
                     if (form.isValid()) {
                         form.updateRecord(shelvesGoods);
+                        //店铺id赋值
                         shopId = this.shopId;
+                        //限购类型赋值
                         limitType = form.getValues()['limitType'];
                         if (limitType == 1) {
                             limitCount = form.getValues()['dayLimitCount'];
@@ -1579,10 +1578,11 @@ Ext.define('XMLifeOperating.controller.Shop', {
                             limitType = 0;
                         }
                         //价格判断
-                        var facePrice = Math.abs(parseFloat(shelvesGoods.get('facePrice')) * 100).toFixed();
-                        var discountPrice = shelvesGoods.get('discountPrice');
+
+                        var facePrice = me.priceTransform(shelvesGoods.get('facePrice'));
+                        var discountPrice = me.priceTransform(shelvesGoods.get('discountPrice'));
+                        var purchasePrice = me.priceTransform(shelvesGoods.get('purchasePrice'));
                         if (discountPrice != "") {
-                            discountPrice = Math.abs(parseFloat(shelvesGoods.get('discountPrice')) * 100).toFixed();
                             if (discountPrice >= facePrice) {
                                 Ext.Msg.alert('Invalid Data', '折扣价不能大于等于原价');
                                 return;
@@ -1605,20 +1605,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
                             }
                             shelvesGoods.set('stock', stock);
                         }
-
-                        //添加参数
-                        shelvesGoods.set('shopId', shopId);
-                        shelvesGoods.set('categoryId', categoryId);
-                        shelvesGoods.set('facePrice', Math.abs(parseFloat(shelvesGoods.get('facePrice')) * 100).toFixed());
-                        shelvesGoods.set('purchasePrice', Math.abs(parseFloat(shelvesGoods.get('purchasePrice')) * 100).toFixed());
-                        shelvesGoods.set('discountPrice', discountPrice);
-                        shelvesGoods.set('limitType', limitType);
-                        shelvesGoods.set('limitCount', limitCount);
-                        shelvesGoods.set('productLimitCount', productLimitCount);
-
-                        //保存
-
-                        windowEl.mask('saving');
+                        //模板赋值
                         var selectModel = Ext.ComponentQuery.query('#productTemplateId')[0].getSelectionModel();
                         var selectRecords = selectModel.getSelection();
                         if (selectRecords[0] == null) {
@@ -1626,7 +1613,105 @@ Ext.define('XMLifeOperating.controller.Shop', {
                             windowEl.unmask();
                             return;
                         }
+
+                        //添加参数
+                        shelvesGoods.set('shopId', shopId);
+                        shelvesGoods.set('categoryId', categoryId);
+                        shelvesGoods.set('facePrice', facePrice);
+                        shelvesGoods.set('purchasePrice', purchasePrice);
+                        shelvesGoods.set('discountPrice', discountPrice);
+                        shelvesGoods.set('limitType', limitType);
+                        shelvesGoods.set('limitCount', limitCount);
+                        shelvesGoods.set('productLimitCount', productLimitCount);
                         shelvesGoods.set('productTemplateId', selectRecords[0].raw.id);
+                        //开始保存
+                        windowEl.mask('saving');
+                        //商品模板检测
+                        /*                        var success = function(response) {
+                            var json = eval('(' + response.responseText + ')'),
+                                exist = json.exist,
+                                cateNames = json.cateNames;
+                            if (exist) {
+                                Ext.MessageBox.confirm('提示',
+                                    '该商品在货架：' + cateNames.join('|') + '已存在，保存将会覆盖原有商品价格，是否继续？',
+                                    function(opt) {
+                                        if (opt == 'yes') {
+                                            shelvesGoods.save({
+                                                success: function(task, operation) {
+                                                    var responseText = operation.response.responseText;
+                                                    if (responseText == '-100') {
+                                                        Ext.MessageBox.show({
+                                                            title: '提示',
+                                                            msg: '添加错误：-100，请联系开发人员！',
+                                                            icon: Ext.Msg.ERROR,
+                                                            buttons: Ext.Msg.OK
+                                                        });
+                                                    }
+                                                    windowEl.unmask();
+                                                    editWindow.close();
+                                                    me.showProductList(categoryId);
+
+                                                },
+                                                failure: function(task, operation) {
+                                                    var error = operation.getError(),
+                                                        msg = Ext.isObject(error) ? error.status + ' ' + error.statusText : error;
+                                                    Ext.MessageBox.show({
+                                                        title: 'Edit Task Failed',
+                                                        msg: msg,
+                                                        icon: Ext.Msg.ERROR,
+                                                        buttons: Ext.Msg.OK
+                                                    });
+                                                    windowEl.unmask();
+                                                }
+                                            });
+                                        } else {
+
+                                            return
+                                        }
+                                    });
+                            } else {
+                                shelvesGoods.save({
+                                    success: function(task, operation) {
+                                        var responseText = operation.response.responseText;
+                                        if (responseText == '-100') {
+                                            Ext.MessageBox.show({
+                                                title: '提示',
+                                                msg: '添加错误：-100，请联系开发人员！',
+                                                icon: Ext.Msg.ERROR,
+                                                buttons: Ext.Msg.OK
+                                            });
+                                        }
+                                        windowEl.unmask();
+                                        editWindow.close();
+                                        me.showProductList(categoryId);
+
+                                    },
+                                    failure: function(task, operation) {
+                                        var error = operation.getError(),
+                                            msg = Ext.isObject(error) ? error.status + ' ' + error.statusText : error;
+                                        Ext.MessageBox.show({
+                                            title: 'Edit Task Failed',
+                                            msg: msg,
+                                            icon: Ext.Msg.ERROR,
+                                            buttons: Ext.Msg.OK
+                                        });
+                                        windowEl.unmask();
+                                    }
+                                });
+                            }
+                        };
+                        var failure = function(response) {
+                            Ext.MessageBox.show({
+                                title: '提示',
+                                msg: '保存失败',
+                                icon: Ext.Msg.ERROR,
+                                buttons: Ext.Msg.OK
+                            });
+                        }
+                        sendGetRequest('product/getSameTemplateProductPrice', {
+                            shopId: this.shopId,
+                            templateId: selectRecords[0].raw.id
+                        }, '检测商品', '检测成功', '检测失败', success, failure);*/
                         shelvesGoods.save({
                             success: function(task, operation) {
                                 var responseText = operation.response.responseText;
@@ -1711,10 +1796,11 @@ Ext.define('XMLifeOperating.controller.Shop', {
                             data.proCategoryId = shelvesGoods.data.categoryId;
                         }
                         //价格限制参数
-                        var facePrice = Math.abs(parseFloat(shelvesGoods.get('facePrice')) * 100).toFixed();
-                        var discountPrice = shelvesGoods.get('discountPrice');
+                        var facePrice = me.priceTransform(shelvesGoods.get('facePrice'));
+                        var discountPrice = me.priceTransform(shelvesGoods.get('discountPrice'));
+                        var purchasePrice = me.priceTransform(shelvesGoods.get('purchasePrice'));
                         if (discountPrice != "") {
-                            data.discountPrice = Math.abs(parseFloat(shelvesGoods.get('discountPrice')) * 100).toFixed();
+                            data.discountPrice = discountPrice;
                             if (discountPrice >= facePrice) {
                                 Ext.Msg.alert('Invalid Data', '折扣价不能大于等于原价');
                                 return;
@@ -1740,8 +1826,8 @@ Ext.define('XMLifeOperating.controller.Shop', {
                         }
                         shelvesGoods.set('shopId', shopId);
                         shelvesGoods.set('categoryId', categoryId);
-                        shelvesGoods.set('facePrice', Math.abs(parseFloat(shelvesGoods.get('facePrice')) * 100).toFixed());
-                        shelvesGoods.set('purchasePrice', Math.abs(parseFloat(shelvesGoods.get('purchasePrice') * 100)).toFixed());
+                        shelvesGoods.set('facePrice', facePrice);
+                        shelvesGoods.set('purchasePrice', purchasePrice);
                         shelvesGoods.set('discountPrice', discountPrice);
                         shelvesGoods.set('limitType', limitType);
                         shelvesGoods.set('limitCount', limitCount);
@@ -1749,8 +1835,8 @@ Ext.define('XMLifeOperating.controller.Shop', {
                         windowEl.mask('saving');
 
                         data.id = shelvesGoods.get('id');
-                        data.facePrice = Math.abs(parseFloat(shelvesGoods.get('facePrice')));
-                        data.purchasePrice = Math.abs(parseFloat(shelvesGoods.get('purchasePrice')));
+                        data.facePrice = facePrice;
+                        data.purchasePrice = purchasePrice;
 
                         sendPutRequest('product/update', data, '编辑商品', '成功编辑商品', '编辑商品失败', function(response) {
                             windowEl.unmask();
@@ -2103,6 +2189,9 @@ Ext.define('XMLifeOperating.controller.Shop', {
                 page: 1
             }
         });
+    },
+    priceTransform: function(value) {
+        return parseInt((value * 100).toFixed());
     }
 
 });

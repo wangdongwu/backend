@@ -238,10 +238,10 @@ Ext.define('XMLifeOperating.controller.login', {
         shopAreaStore.load();
       }
      
-      saveUidAndSession(account+"@a",  localStorage.getItem("sessionId"));
+/*      saveUidAndSession(account+"@a",  localStorage.getItem("sessionId"));
       rpc.ServerConfig.setUrls("IM", [XMLifeOperating.generic.Global.URL.IM]);
       rpc.ServerConfig.setUrls("Long", [XMLifeOperating.generic.Global.URL.ws]);
-      rpc.IMClientManager.createClient(getCurrentUid(), new rpc.XMLifeIMClient());
+      rpc.IMClientManager.createClient(getCurrentUid(), new rpc.XMLifeIMClient());*/
 
       var NotificationCls = window.Notification || window.webkitNotification || window.mozNotification || window.msNotification;
       if (!window.cordova && NotificationCls) {
