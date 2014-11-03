@@ -114,9 +114,9 @@ Ext.define('XMLifeOperating.controller.Message', {
             now = new Date(),
             curDate = Ext.Date.format(now,'Y-m-d');
 
-        //如果是当天，比当前时间+5分钟
+        //如果是当天，比当前时间+10分钟
         if(selDate == curDate){
-            selValue = Ext.Date.add(now, Ext.Date.MINUTE, 5);
+            selValue = Ext.Date.add(now, Ext.Date.MINUTE, 10);
         }
         elem.setValue(selValue);
     },
