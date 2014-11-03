@@ -1144,10 +1144,18 @@ Ext.define('XMLifeOperating.controller.Shop', {
             'shopproductsearch #putawayOrOut, shopproductsearch #frozen': {
                 click: function(component, column, rowIndex, colIndex, e) {
                     var model = component.getStore().getAt(rowIndex);
-                    var className = e.target.className;
-                    var statusValue = Ext.query("." + className)[rowIndex].getAttribute("statusValue");
-                    var url = 'product/' + statusValue;
+                    var node = e.target;
+                    var className = null
+                    var statusValue = null
+                    var url = ['product/'];
                     var status;
+                    if (node.type == 'button') {
+                        statusValue = node.getAttribute('statusvalue');
+
+                    } else {
+                        statusValue = node.childNodes[0].getAttribute("statusValue");
+                    }
+                    url.push(statusValue)
 
                     //statusValue为点击事件后商品的状态
                     switch (statusValue) {
@@ -1366,16 +1374,22 @@ Ext.define('XMLifeOperating.controller.Shop', {
             /*
              * product事件
              */
-            '#ShelvesGoodsList #putawayOrOut': {},
             '#ShelvesGoodsList #putawayOrOut, #ShelvesGoodsList #frozen': {
                 click: function(component, column, rowIndex, colIndex, e) {
 
                     var model = component.getStore().getAt(rowIndex);
-                    var className = e.target.className;
-                    var statusValue = Ext.query("." + className)[rowIndex].getAttribute("statusValue");
-                    var url = 'product/' + statusValue;
+                    var node = e.target;
+                    var className = null
+                    var statusValue = null
+                    var url = ['product/'];
                     var status;
+                    if (node.type == 'button') {
+                        statusValue = node.getAttribute('statusvalue');
 
+                    } else {
+                        statusValue = node.childNodes[0].getAttribute("statusValue");
+                    }
+                    url.push(statusValue)
                     //statusValue为点击事件后商品的状态
                     switch (statusValue) {
                         case 'soldout': //让商品下架（目前处于上架状态）
@@ -1388,7 +1402,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
                             status = 0;
                             break;
                     }
-                    sendPutRequest(url, {
+                    sendPutRequest(url.join(''), {
                         productId: model.get('id')
                     }, '', '成功创建分类', '创建分类失败', function() {
                         //me.fireEvent('refreshView');
