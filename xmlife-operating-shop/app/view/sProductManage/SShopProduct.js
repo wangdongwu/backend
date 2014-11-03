@@ -18,10 +18,7 @@ Ext.define('XMLifeOperating.view.sProductManage.SShopProduct', {
             text: '编码',
             dataIndex: 'skuId',
             sortable: true,
-        },/* {
-            text: 'id',
-            dataIndex: 'id'
-        },*/
+        },
         {
             text: '商品名称',
             dataIndex: 'name',
@@ -106,7 +103,7 @@ Ext.define('XMLifeOperating.view.sProductManage.SShopProduct', {
                 }
                 return value;
             }
-        },*/ /*{
+        },*/ {
             header: "",
             width: 90,
             dataIndex: 'status',
@@ -129,7 +126,7 @@ Ext.define('XMLifeOperating.view.sProductManage.SShopProduct', {
                 }
                 return str;
             }
-        }, {
+        }, /*{
             header: "",
             width: 90,
             dataIndex: 'status',
@@ -151,9 +148,8 @@ Ext.define('XMLifeOperating.view.sProductManage.SShopProduct', {
                         str += '<input type="button" value="雪藏" statusValue="offline"  class="frozen" />';
                 }
                 return str;
-
             }
-        },*/ {
+        }, */{
             text: '编辑',
             xtype: 'actioncolumn',
             width: 50,

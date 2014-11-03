@@ -5,7 +5,6 @@ Ext.define('XMLifeOperating.view.Viewport', {
     ],
 
     layout: 'border',
-
     items: [
         {
             xtype: 'headerToolbar',

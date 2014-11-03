@@ -4,7 +4,8 @@ Ext.define('XMLifeOperating.controller.SProductList', {
         'sProductManage.SShopShelfTab',
         'sProductManage.SShopShelf',
         'sProductManage.SShopSecondShelf',
-        'sProductManage.SShopProduct'
+        'sProductManage.SShopProduct',
+        'sProductManage.SShopProductEdit'
     ],
     stores: ['CategoryRoots', 'CategorySubs', 'Product'],
     models: ['CategoryRoots', 'CategorySubs', 'Product'],
@@ -24,10 +25,14 @@ Ext.define('XMLifeOperating.controller.SProductList', {
         xtype: 'sShopShelfTab',
         autoCreate: true
     }, {
-
         ref: 'sShopProduct',
         selector: 'sShopProduct',
         xtype: 'sShopProduct',
+        autoCreate: true
+    }, {
+        ref: 'sShopProductEdit',
+        selector: 'sShopProductEdit',
+        xtype: 'sShopProductEdit',
         autoCreate: true
     }],
     init: function() {
@@ -44,7 +49,14 @@ Ext.define('XMLifeOperating.controller.SProductList', {
             },
             'sShopShelfTab': {
                 tabchange: me.tabChange
+            },
+            'sShopProduct #openModifyShelvesGoodsWin': {
+                click: me.openProductEditWindow
+            },
+            'sShopProductEdit #saveEditBtn': {
+                click: me.saveProductEdit
             }
+
         });
     },
     tabChange: function(tabPanel, newCard, oldCard, eOpts) {
@@ -156,5 +168,87 @@ Ext.define('XMLifeOperating.controller.SProductList', {
             });
             tab.setActiveTab('tab3_' + record.get('id'));
         }
+    },
+    openProductEditWindow: function(view, target, rowInde, colIndex, e, record, rowNode, opts) {
+        var me = this;
+        var win = me.getSShopProductEdit(),
+            form = win.down('form'),
+            record = record;
+        record.set('discountPrice', record.get('dprice') / 100);
+        record.set('facePrice', record.get('fprice') / 100);
+        record.set('purchasePrice', record.get('pprice') / 100);
+        form.getForm().loadRecord(record);
+        win.show();
+    },
+    saveProductEdit: function(view, e) {
+
+        var me = this;
+        var win = me.getSShopProductEdit(),
+            winEL = win.getEl(),
+            form = win.down('form'),
+            record = form.getForm().getRecord(),
+            categoryId = null,
+            data = {
+                id: null,
+                facePrice: null,
+                purchasePrice: null,
+                discountPrice: null,
+            };
+        var tabIdstrArray = this.tabIdStr.split('_');
+        if (tabIdstrArray[0] == 'tab4' && tabIdstrArray[1] != undefined) {
+            categoryId = tabIdstrArray[1];
+        }
+        if (form.isValid()) {
+            //价格限制
+            var facePrice = me.priceTransform(record.get('facePrice'));
+            var discountPrice = me.priceTransform(record.get('discountPrice'));
+            var purchasePrice = me.priceTransform(record.get('purchasePrice'));
+            if (discountPrice != "") {
+                data.discountPrice = discountPrice;
+                if (discountPrice >= facePrice) {
+                    Ext.Msg.alert('Invalid Data', '折扣价不能大于等于原价');
+                    return;
+                };
+            }
+
+            data.id = record.get('id');
+            data.facePrice = facePrice;
+            data.discountPrice = discountPrice;
+            data.purchasePrice = purchasePrice;
+
+            var success = function(response) {
+                winEL.unmask();
+                if (response.responseText == '2') {
+                    var message = Ext.MessageBox.show({
+                        title: '提示',
+                        msg: '价格修改成功，等待审核…',
+                        buttons: Ext.Msg.OK
+                    });
+                    setTimeout(function() {
+                        message.close();
+                    }, 1000);
+                }
+                me.showProductList(categoryId);
+                win.close();
+
+            };
+            var failure = function(response) {
+                Ext.MessageBox.show({
+                    title: '提示',
+                    msg: '修改失败:' + response.responseText,
+                    icon: Ext.Msg.ERROR,
+                    buttons: Ext.Msg.OK
+                });
+                winEL.unmask();
+            };
+            winEL.mask();
+            sendPutRequest('product/update', data, '编辑商品', '成功编辑商品', '编辑商品失败', success, failure);
+        } else {
+            Ext.Msg.alert('Invalid Data', 'Please correct form errors');
+        }
+
+    },
+    priceTransform: function(value) {
+        return parseInt((value * 100).toFixed());
     }
 });

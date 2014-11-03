@@ -10,10 +10,7 @@
      }, {
          text: 'id',
          dataIndex: 'id'
-     }, /*{
-         text: 'shopId',
-         dataIndex: 'shopId'
-     }, */{
+     }, {
          text: '货架名称',
          dataIndex: 'name'
      }, {

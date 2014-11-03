@@ -6,10 +6,9 @@ Ext.define('XMLifeOperating.view.sProductManage.SShopShelfTab', {
     plain: false,
     id: 'sShopShelfTab',
     layout: 'fit',
-    style:'border:none',
     enableTabScroll: true,
-    bodyStyle:{
-        border:'none'
+    bodyStyle: {
+        border: 'none'
     },
     items: [{
         title: '一级货架',

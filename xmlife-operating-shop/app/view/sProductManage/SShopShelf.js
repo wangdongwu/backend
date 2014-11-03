@@ -4,6 +4,7 @@ Ext.define('XMLifeOperating.view.sProductManage.SShopShelf', {
     xtype: 'sShopShelf',
     id: 'sShopShelf',
     store: 'CategoryRoots',
+    
     columns: [{
         xtype: 'rownumberer',
         align: 'center',
