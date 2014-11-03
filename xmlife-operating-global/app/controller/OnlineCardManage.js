@@ -102,11 +102,13 @@ Ext.define('XMLifeOperating.controller.OnlineCardManage', {
                     tstore = self.getCardTemplateStore(),
                     model = tstore.getById(newValue),
                     data = model.getData();
-                    batchName.setValue(model.get('name'));
                     self.formatData(data);
+                if(!addOnlineCard.isEdit){
+                    batchName.setValue(model.get('name'));
                     form.loadRecord(model)
-                    templeteWorp.show();
-                    templeteCon.update(data);
+                }
+                templeteWorp.show();
+                templeteCon.update(data);
               }
             },
             'addOnlineCard #submit' : {
@@ -165,14 +167,14 @@ Ext.define('XMLifeOperating.controller.OnlineCardManage', {
                     store = self.getOnlineCardStore(),
                     model = store.getById(id);
 
+                    addOnlineCard.isEdit = true;
+
                     CardDetail.hide();
                     templeteCombo.setDisabled(true);
                     soldPrice.setDisabled(true);
 
-
                     form.loadRecord(model);
                     addOnlineCard.setTitle('修改充值卡');
-                    addOnlineCard.isEdit = true;
                     addOnlineCard.show();
 
 

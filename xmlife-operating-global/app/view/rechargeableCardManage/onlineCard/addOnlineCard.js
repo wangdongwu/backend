@@ -130,7 +130,7 @@ Ext.define('XMLifeOperating.view.rechargeableCardManage.onlineCard.addOnlineCard
                   var form = this.up('form'),
                       startTime = new Date(form.down('#startTime').getValue());
                       if(v>startTime){
-                        Ext.Msg.confirm('请注意', '该卡的开始展示时间，晚于有效日期的起始事前，确定这样吗?',function(isYes){
+                        Ext.Msg.confirm('请注意', '该卡的开始展示时间，晚于有效日期的起始时间，确定这样吗?',function(isYes){
                           if(isYes == 'yes'){
                             return false;
                           }else{
