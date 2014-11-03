@@ -54,21 +54,17 @@ rpc.XMLifeIMClient.prototype.dealWithMessage = function(msgArr) {
 		msgIdArr.push(msgId);
 	}
 	this.sendReceived(msgIdArr);
-     //消息提示框
+     //消息提示
 	for (var i = 0; i < len; i++) {
 		var msg = msgArr[i];
 		this.showNotification(msg);
 	}
-	//处理
-	var obj = eval('('+msg+')');
-	var msgType = msg.getMsgType();
-
+	//消息操作
+    var msgType = msg.getMsgType();
 	switch(msgType){
 		case rpc.BackendDealNotificationMessage.TYPE:
 		Ext.getCmp('moduleNavigation').fireEvent('messagePushResponse','dealList');
 	}
-
-
 };
 
 rpc.XMLifeIMClient.prototype.sendReceived = function(msgIdArr) {

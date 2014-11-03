@@ -15,19 +15,12 @@ Ext.define('XMLifeOperating.controller.Navigation', {
     requires: [
         'Ext.grid.column.Action'
     ],
-    refs:[{
-        ref:'moduleNavigation',
-        selector:'moduleNavigation',
-        xtype:'moduleNavigation'
-    }],
-
-
     init: function() {
         var me = this;
         me.control({
             'moduleNavigation': {
                 selectionchange: me.enterModule,
-                messagePushResponse:me.messagePushResponse
+                messagePushResponse: me.messagePushResponse
 
             },
             '#cmbGlobalCity': {
@@ -62,8 +55,12 @@ Ext.define('XMLifeOperating.controller.Navigation', {
     }, {
         ref: 'cmbGlobalCenter',
         selector: '#cmbGlobalCenter'
+    }, {
+        ref: 'moduleNavigation',
+        selector: 'moduleNavigation',
+        xtype: 'moduleNavigation'
     }],
-    
+
     enterModule: function(selected, eOpts) {
         if (eOpts.length == 0) {
             return;
@@ -152,14 +149,18 @@ Ext.define('XMLifeOperating.controller.Navigation', {
         this.viewStack.pop();
         this.switchToView(previousViewXType);
     },
-    messagePushResponse:function(nodeId,type){
+    messagePushResponse: function(nodeId, type) {
         var me = this;
         var treeStore = me.getNavigationStore();
         var treePanel = me.getModuleNavigation();
-        var selectedNode = treePanel.getSelectionModel().getSelcetion();
-        //debugger
+        var selectedNodes = treePanel.getSelectionModel().getSelection();
+        var selectedNode = selectedNodes[0]; //树形结构单选
 
-
+        if (selectedNode.get(['id']) == nodeId) { //刷新
+            me.switchToView(nodeId)
+        } else {
+            return
+        }
 
 
     }
