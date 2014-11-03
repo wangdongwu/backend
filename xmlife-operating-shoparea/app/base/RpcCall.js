@@ -8,7 +8,7 @@ function RpcNamespace(namespaceString) {
 	}
 
 	return parent;
-}
+} 
 
 function deepExtend(destination, source) {
 	for (var property in source) {
