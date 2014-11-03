@@ -15,13 +15,19 @@ Ext.define('XMLifeOperating.controller.Navigation', {
     requires: [
         'Ext.grid.column.Action'
     ],
+    refs:[{
+        ref:'moduleNavigation',
+        selector:'moduleNavigation',
+        xtype:'moduleNavigation'
+    }],
 
 
     init: function() {
         var me = this;
         me.control({
             'moduleNavigation': {
-                selectionchange: me.enterModule
+                selectionchange: me.enterModule,
+                messagePushResponse:me.messagePushResponse
 
             },
             '#cmbGlobalCity': {
@@ -57,7 +63,7 @@ Ext.define('XMLifeOperating.controller.Navigation', {
         ref: 'cmbGlobalCenter',
         selector: '#cmbGlobalCenter'
     }],
-
+    
     enterModule: function(selected, eOpts) {
         if (eOpts.length == 0) {
             return;
@@ -84,7 +90,6 @@ Ext.define('XMLifeOperating.controller.Navigation', {
 
     changeCurrentCity: function(combo, records, eOpts) {
         if (records.length == 0) {
-
             return;
         }
         XMLifeOperating.generic.Global.currentCity = records[0].data.code;
@@ -97,15 +102,9 @@ Ext.define('XMLifeOperating.controller.Navigation', {
 
     changeCurrentCenter: function(combo, records, eOpts) {
         if (records.length == 0) {
-
             return;
         }
-
         XMLifeOperating.generic.Global.current_operating = combo.getValue();
-        //alert(XMLifeOperating.generic.Global.current_operating);
-        //combo.setValue(records[0].data.code);
-        //combo.reset();
-        //combo.isExpanded = false;
         if (this.currentXType && this.loadedClasses[this.currentXType]) {
             var cmp = this.loadedClasses[this.currentXType];
             cmp.fireEvent('onShowView', cmp, this.currentXType);
@@ -145,7 +144,6 @@ Ext.define('XMLifeOperating.controller.Navigation', {
 
         this.switchToView(xtype);
     },
-
     popView: function() {
         if (this.viewStack.length < 2) {
             return;
@@ -153,5 +151,16 @@ Ext.define('XMLifeOperating.controller.Navigation', {
         var previousViewXType = this.viewStack[this.viewStack.lenth - 2];
         this.viewStack.pop();
         this.switchToView(previousViewXType);
+    },
+    messagePushResponse:function(nodeId,type){
+        var me = this;
+        var treeStore = me.getNavigationStore();
+        var treePanel = me.getModuleNavigation();
+        var selectedNode = treePanel.getSelectionModel().getSelcetion();
+      /*  debugger*/
+
+
+
+
     }
 });

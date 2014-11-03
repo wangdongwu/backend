@@ -6,6 +6,7 @@
 Ext.define('XMLifeOperating.view.Navigation', {
     extend: 'Ext.tree.Panel',
     xtype: 'moduleNavigation',
+    id:'moduleNavigation',
     hideHeaders: true,
     rootVisible: false,
     frame: true,

@@ -111,12 +111,19 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopShelf', {
         text: '状态',
         dataIndex: 'status',
         itemId: 'showOrHide',
-        renderer: function(value) {
-            if (value == 0) { //隐藏
-                return '<button>显示</button>';
-            } else if (value == 1) { //显示
-                return '<button>隐藏</button>';
+        renderer: function(value, metaData, record) {
+            var type = record.get('type');
+            if (type == 0) { //回收站分类
+                metaData.css = 'x-hide-display';
+            } else{
+                metaData.css = 'x-grid-icon';
+                if (value == 0) { //隐藏
+                    return '<button>显示</button>';
+                } else if (value == 1) { //显示
+                    return '<button>隐藏</button>';
+                }
             }
+
         },
         tdCls: 'user-td'
     }, {

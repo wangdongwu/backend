@@ -203,10 +203,12 @@ body.dragging{background-color:#888fa3;}
 	vertical-align: middle;
 }
 
-
-
 .x-btn-toolbar {
   border: 1px solid #999999;
   border-top-color: #a6a6a6;
   color: black;
+}
+.ux-notification-window .x-window-body {
+	text-align: center;
+	padding: 15px 5px 15px 5px;
 }

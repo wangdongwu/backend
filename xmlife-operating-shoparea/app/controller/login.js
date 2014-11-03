@@ -120,11 +120,6 @@ Ext.define('XMLifeOperating.controller.login', {
         'auth-token': sessionId
       };
       self.detectAccount();
-   /*   this.getShopAreaStore().load();*/
-      //Ext.getCmp('cmbGlobalCenter').setValue(areaId);
-      /*      self.getNavigationStore().setRootNode({
-        expanded: true
-      });*/
     }
   },
   login: function() {
@@ -224,6 +219,7 @@ Ext.define('XMLifeOperating.controller.login', {
     var success = function(response) {
       var obj = eval('(' + response.responseText + ')');
       var type = obj.adminType;
+      var account = obj.account;
       if (type == 'Area') { //中心长账号登陆
         store.setProxy(new XMLifeOperating.generic.BaseProxy('module/getUserModulesTree'));
         XMLifeOperating.generic.Global.current_operating = obj.areaId;
@@ -241,11 +237,10 @@ Ext.define('XMLifeOperating.controller.login', {
         });
         shopAreaStore.load();
       }
-
-/*      saveUidAndSession("1055871@c", "-251f06f9f0da84f8cb1203593f4f9078");
-      rpc.ServerConfig.setUrls("IM", ["http://dev.xiaomei.com/biz/"]);
-      rpc.ServerConfig.setUrls("Long", [XMLifeOperating.generic.Global.URL.ws]);*/
-
+     
+      saveUidAndSession(account+"@a",  localStorage.getItem("sessionId"));
+      rpc.ServerConfig.setUrls("IM", [XMLifeOperating.generic.Global.URL.IM]);
+      rpc.ServerConfig.setUrls("Long", [XMLifeOperating.generic.Global.URL.ws]);
       rpc.IMClientManager.createClient(getCurrentUid(), new rpc.XMLifeIMClient());
 
       var NotificationCls = window.Notification || window.webkitNotification || window.mozNotification || window.msNotification;
