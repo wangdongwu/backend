@@ -32306,6 +32306,34 @@ rpc.IAuthAction.setName = function(name, success, fail){
 	return RpcCall.doInvoke(_url, "setName", _jsonDict, _uploadDict, successWrapper, fail);
 };
 
+rpc.IAuthAction.setNameAndGender = function(name, gender, success, fail){
+	if(arguments.length < 4) alert("com.paitao.generic.rpc.protocol.IAuthAction.setNameAndGender param count dismatch");
+
+	var successWrapper = success ? function(returnCode, jsonObj) {
+		success(returnCode, null);
+	} : null;
+	var _jsonDict = {};
+	var _uploadDict = {};
+	{
+		var _value_name1 = name;
+		if(!_value_name1) 
+			delete _jsonDict["name"];
+		else
+			_jsonDict["name"] = _value_name1;
+	}
+
+	{
+		var _value_gender1 = (gender);
+		if(!_value_gender1) 
+			delete _jsonDict["gender"];
+		else
+			_jsonDict["gender"] = _value_gender1;
+	}
+
+	var _url = rpc.ServerConfig.getUrlPrefix("Auth") + "IAuthAction/1/setNameAndGender";
+	return RpcCall.doInvoke(_url, "setNameAndGender", _jsonDict, _uploadDict, successWrapper, fail);
+};
+
 rpc.IAuthAction.setNameAndPassword = function(name, password, success, fail){
 	if(arguments.length < 4) alert("com.paitao.generic.rpc.protocol.IAuthAction.setNameAndPassword param count dismatch");
 
@@ -35491,6 +35519,7 @@ rpc.HttpRequestConstants.HEADER_ENCRYPT_KEY_EXPIRE="ke";
 rpc.HttpRequestConstants.HEADER_REQUEST_SEQ="sq";
 rpc.HttpRequestConstants.HEADER_CATEGORY="cg";
 rpc.HttpRequestConstants.HEADER_IP="ip";
+rpc.HttpRequestConstants.HEADER_MIME="mm";
 rpc.HttpRequestConstants.KEY_RESP="r";
 rpc.HttpRequestConstants.KEY_RETURN_CODE="c";
 rpc.HttpRequestConstants.KEY_ERROR="e";
@@ -35649,6 +35678,7 @@ rpc.GetVoiceConstants.KEY_ID="id";
 rpc.GetVoiceConstants.KEY_EQUIP="equip";
 
 rpc.HomePageModuleConstant={};
+rpc.HomePageModuleConstant.TYPE0="TYPE0";
 rpc.HomePageModuleConstant.TYPE1="TYPE1";
 rpc.HomePageModuleConstant.TYPE2="TYPE2";
 rpc.HomePageModuleConstant.TYPE3="TYPE3";
@@ -35886,6 +35916,116 @@ rpc.ServerConfig.loadDefaultConfig();
 // category: CDN
 // arg 1: hash
 
+rpc.ProductImageResource = {};
+
+rpc.ProductImageResource.hashToUrl = function(
+		hash 
+	) {
+	var _url = hash;
+	if(!_url || _url.length < 3)
+		return _url;
+	if(_url.indexOf("http:") == 0 ||
+		   _url.indexOf("https:") == 0 ||
+           _url.indexOf("file:") == 0 ||
+           _url.indexOf("res:") == 0 ||
+           _url.indexOf("/") == 0) {
+           return _url;
+	}
+	var _url1 = rpc.ServerConfig.getUrlPrefix("CDN");
+	if(!_url1 || _url1.length < 2)
+		return null;
+	var _sb =_url1;
+	var _c;
+	_c = _sb.charAt(_sb.length - 1);
+	if(_c != '/') {
+		_sb += "/";
+	}
+	//_sb += "id-";
+
+	_sb += hash;
+	
+	return _sb;
+};
+
+rpc.ProductImageResource.hashToSmallUrl = function(
+		hash 
+	) {
+	var _url = rpc.ProductImageResource.hashToUrl(
+		hash 
+	);
+	if(!_url || _url.length < 3 || _url.indexOf("http") < 0)
+		return _url;
+	
+	//if(_url.indexOf("w-202") > 1) {
+	//	return _url;
+	//}
+	
+	var _sb = _url;
+	var _c = _sb.charAt(_sb.length - 1);
+	if(_c != '@') {
+		_sb += "@";
+	}
+	
+	_sb += "w-202";
+	
+	
+	return _sb;
+};
+
+rpc.ProductImageResource.hashToMediumUrl = function(
+		hash 
+	) {
+	var _url = rpc.ProductImageResource.hashToUrl(
+		hash 
+	);
+	if(!_url || _url.length < 3 || _url.indexOf("http") < 0)
+		return _url;
+	
+	//if(_url.indexOf("w-372") > 1) {
+	//	return _url;
+	//}
+	
+	var _sb = _url;
+	var _c = _sb.charAt(_sb.length - 1);
+	if(_c != '@') {
+		_sb += "@";
+	}
+	
+	_sb += "w-372";
+	
+	
+	return _sb;
+};
+
+rpc.ProductImageResource.hashToFullUrl = function(
+		hash 
+	) {
+	var _url = rpc.ProductImageResource.hashToUrl(
+		hash 
+	);
+	if(!_url || _url.length < 3 || _url.indexOf("http") < 0)
+		return _url;
+	
+	//if(_url.indexOf("w-640/m-fw") > 1) {
+	//	return _url;
+	//}
+	
+	var _sb = _url;
+	var _c = _sb.charAt(_sb.length - 1);
+	if(_c != '@') {
+		_sb += "@";
+	}
+	
+	_sb += "w-640/m-fw";
+	
+	
+	return _sb;
+};
+
+
+// category: CDN
+// arg 1: hash
+
 rpc.HttpImageResource = {};
 
 rpc.HttpImageResource.hashToUrl = function(
@@ -36018,10 +36158,6 @@ rpc.HttpImageResource.hashToFullUrl = function(
 };
 
 
-
-rpc.RpcProxyStub = {};
-
-
 // category: CDN
 // arg 1: hash
 
@@ -36132,114 +36268,8 @@ rpc.AvatarImageResource.hashToFullUrl = function(
 };
 
 
-// category: CDN
-// arg 1: hash
 
-rpc.ProductImageResource = {};
-
-rpc.ProductImageResource.hashToUrl = function(
-		hash 
-	) {
-	var _url = hash;
-	if(!_url || _url.length < 3)
-		return _url;
-	if(_url.indexOf("http:") == 0 ||
-		   _url.indexOf("https:") == 0 ||
-           _url.indexOf("file:") == 0 ||
-           _url.indexOf("res:") == 0 ||
-           _url.indexOf("/") == 0) {
-           return _url;
-	}
-	var _url1 = rpc.ServerConfig.getUrlPrefix("CDN");
-	if(!_url1 || _url1.length < 2)
-		return null;
-	var _sb =_url1;
-	var _c;
-	_c = _sb.charAt(_sb.length - 1);
-	if(_c != '/') {
-		_sb += "/";
-	}
-	//_sb += "id-";
-
-	_sb += hash;
-	
-	return _sb;
-};
-
-rpc.ProductImageResource.hashToSmallUrl = function(
-		hash 
-	) {
-	var _url = rpc.ProductImageResource.hashToUrl(
-		hash 
-	);
-	if(!_url || _url.length < 3 || _url.indexOf("http") < 0)
-		return _url;
-	
-	//if(_url.indexOf("w-202") > 1) {
-	//	return _url;
-	//}
-	
-	var _sb = _url;
-	var _c = _sb.charAt(_sb.length - 1);
-	if(_c != '@') {
-		_sb += "@";
-	}
-	
-	_sb += "w-202";
-	
-	
-	return _sb;
-};
-
-rpc.ProductImageResource.hashToMediumUrl = function(
-		hash 
-	) {
-	var _url = rpc.ProductImageResource.hashToUrl(
-		hash 
-	);
-	if(!_url || _url.length < 3 || _url.indexOf("http") < 0)
-		return _url;
-	
-	//if(_url.indexOf("w-372") > 1) {
-	//	return _url;
-	//}
-	
-	var _sb = _url;
-	var _c = _sb.charAt(_sb.length - 1);
-	if(_c != '@') {
-		_sb += "@";
-	}
-	
-	_sb += "w-372";
-	
-	
-	return _sb;
-};
-
-rpc.ProductImageResource.hashToFullUrl = function(
-		hash 
-	) {
-	var _url = rpc.ProductImageResource.hashToUrl(
-		hash 
-	);
-	if(!_url || _url.length < 3 || _url.indexOf("http") < 0)
-		return _url;
-	
-	//if(_url.indexOf("w-640/m-fw") > 1) {
-	//	return _url;
-	//}
-	
-	var _sb = _url;
-	var _c = _sb.charAt(_sb.length - 1);
-	if(_c != '@') {
-		_sb += "@";
-	}
-	
-	_sb += "w-640/m-fw";
-	
-	
-	return _sb;
-};
+rpc.RpcProxyStub = {};
 
 
 
