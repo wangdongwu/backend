@@ -141,7 +141,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopProduct', {
                         str += '--';
                         break;
                     case 0: //在上架中，显示下架按钮
-                        str += '<input type="button"  value="下架" statusValue="soldout"  class="putaway" /><br/>';
+                        str += '<input type="button"   disabled="true"  value="下架" statusValue="soldout"  class="putaway" /><br/>';
                         break;
                 }
             } else {

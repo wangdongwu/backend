@@ -157,7 +157,7 @@ Ext.define('XMLifeOperating.controller.Navigation', {
         var treeStore = me.getNavigationStore();
         var treePanel = me.getModuleNavigation();
         var selectedNode = treePanel.getSelectionModel().getSelcetion();
-      /*  debugger*/
+        //debugger
 
 
 
