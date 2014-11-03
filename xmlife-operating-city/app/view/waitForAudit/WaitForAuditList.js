@@ -5,12 +5,11 @@ Ext.define('XMLifeOperating.view.waitForAudit.WaitForAuditList', {
     autoScroll: true,
     store: 'WaitForAudit',
     title: '改价审核',
-   // titleAlign : 'left',
-    closable : false,
+    closable: true,
     forceFit: true,
     selModel: Ext.create('Ext.selection.CheckboxModel'),
     requires:[
-            'Ext.panel.Panel',
+        'Ext.panel.Panel',
         'Ext.grid.*',
         'Ext.data.*',
         'Ext.ux.RowExpander',
@@ -77,8 +76,7 @@ Ext.define('XMLifeOperating.view.waitForAudit.WaitForAuditList', {
           style : {
             border:'1px solid #99bce8'
           },
-          text : '搜索' 
-
+          text : '搜索'
         },
         {
             xtype : 'button',
@@ -163,12 +161,10 @@ Ext.define('XMLifeOperating.view.waitForAudit.WaitForAuditList', {
         },
         { header: '',dataIndex:'status',itemId:'operateAudit',
             renderer : function(v){
-              
               return '<input type="button" value="操作"/>';
             }
-        },
+        }
     ],
     columnLines: true,
-    
     
 });

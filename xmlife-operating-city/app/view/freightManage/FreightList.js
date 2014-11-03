@@ -1,8 +1,8 @@
 Ext.define('XMLifeOperating.view.freightManage.FreightList', {
   extend: 'Ext.grid.Panel',
-  id: 'freightList',
-  xtype: 'freight',
-  alias: 'widget.freightList',
+  id: 'freight',
+  xtype: 'freightList',
+  alias: 'widget.freight',
   store: 'SupportedcityGetByCode',
   title: '运费管理',
   titleAlign: 'left',
@@ -31,7 +31,6 @@ Ext.define('XMLifeOperating.view.freightManage.FreightList', {
         renderer: function(value, metadata, model, rowIndex, colIndex, store) {
             return '<a class="showAddressDetail">编辑</a>';
         }
-    },
-
+    }
   ]
 });

@@ -6,7 +6,7 @@ Ext.define('XMLifeOperating.controller.Freight', {
   refs: [{
       ref: 'freightList',
       selector: 'freightList',
-      xtype: 'freight',
+      xtype: 'freightList',
       autoCreate: true
     },{
       ref:'Toolbar',
@@ -14,7 +14,7 @@ Ext.define('XMLifeOperating.controller.Freight', {
       xtype:'headerToolbar'
     }, {
       ref: 'freightSet',
-      selector: 'freightSet',
+      selector : 'freightSet',
       xtype: 'freightSet',
       autoCreate: true
     },
@@ -23,7 +23,8 @@ Ext.define('XMLifeOperating.controller.Freight', {
     var me = this;
     me.control({
       'freightList': {
-        added: me.renderFreightList
+        show: me.renderFreightList,
+        onShowView: me.renderFreightList
       },
       '#setFreight': {
         click: me.showSetFreight

@@ -1,22 +1,35 @@
 Ext.define('XMLifeOperating.controller.Navigation', {
   extend: 'Ext.app.Controller',
-  views: [
-    'Navigation',
-    'Toolbar',
-  ],
-  stores: [
-    'Navigation',
-  ],
+  requires: ['Ext.grid.column.Action'],
+
+  views: ['Navigation', 'Toolbar'],
+
+  stores: ['Navigation'],
+
   models:['Navigation'],
-  requires: [
-    'Ext.grid.column.Action'
+  
+  refs: [
+    {
+      ref: 'contentPanel',
+      selector: '#contentPanel',
+      xtype: 'panel'
+    }, {
+      ref: 'moduleTitle',
+      selector: '#txtModuleTitle'
+    }, {
+      ref: 'cmbGlobalCenter',
+      selector: '#cmbGlobalCenter'
+    }
   ],
+
   init: function() {
     var me = this;
-    me.control({
+
+    this.currentModule = null;
+
+    this.control({
       'moduleNavigation': {
         selectionchange: me.switchToView
-
       },
       '#cmbGlobalCity': {
         select: me.changeCurrentCity
@@ -26,86 +39,42 @@ Ext.define('XMLifeOperating.controller.Navigation', {
       }
     });
 
-    me.loadedClasses = {};
-    me.viewStack = [];
-    me.currentXType = '';
   },
-
-  refs: [{
-    ref: 'contentPanel',
-    selector: '#contentPanel',
-    xtype: 'panel'
-  }, {
-    ref: 'moduleTitle',
-    selector: '#txtModuleTitle'
-  }, {
-    ref: 'cmbGlobalCenter',
-    selector: '#cmbGlobalCenter'
-  }],
   changeCurrentCity: function(combo, records, eOpts) {
-    if (records.length === 0) {
+    if (records.length === 0) return;
 
-      return;
-    }
-    XMLifeOperating.generic.Global.currentCity = records[0].data.code;
-    this.switchToView(this.currentXType);
-/*
-    var defaultHeaders = Ext.Ajax.defaultHeaders || {};
-    defaultHeaders["City"] = XMLifeOperating.generic.Global.currentCity;
-    Ext.Ajax.defaultHeaders = defaultHeaders;*/
+    XMLifeOperating.generic.Global.currentCity = combo.getValue();
+    // 如果当前有模块，向模块发送自定义事件
+    this.currentModule && this.currentModule.fireEvent('onShowView', this.currentModule, this.currentXType);
+  
   },
-
   changeCurrentCenter: function(combo, records, eOpts) {
-    if (records.length === 0) {
+    if (records.length === 0) return;
 
-      return;
-    }
-
-    XMLifeOperating.generic.Global.current_operating = combo.getValue();
-
-    if (this.currentXType && this.loadedClasses[this.currentXType]) {
-      var cmp = this.loadedClasses[this.currentXType];
-      cmp.fireEvent('onShowView', cmp, this.currentXType);
-    }
+    XMLifeOperating.generic.Global.current_operating = combo.getValue(); 
+    // 如果当前有模块，向模块发送自定义事件
+    this.currentModule && this.currentModule.fireEvent('onShowView', this.currentModule, this.currentXType);
+  
   },
+  switchToView: function(model, selectArr) {
+    var selected = selectArr[0],
+        contentPanel = this.getContentPanel(),
+        contentItems = contentPanel.items.items,
+        id = selected.raw.id,
+        isNew = true;
 
-
-  /**
-   * [switchToView 根据treepanel 叶子节点的选择显示相应的面板]
-   * 参数具体 参照 EXT API treepanel Event selectionchange
-   * @param  {[type]} model     [当前选择模型]
-   * @param  {[type]} Selectarr [当前选择项的list]
-   * @return {[type]} Ext.Component [当前处于激活状态的panel]
-   */
-  switchToView: function(model, Selectarr) {
-    var selected = Selectarr[0],
-      contentPanel = this.getContentPanel(),
-      contentItems = contentPanel.items.items,
-      id = selected.raw.id
-    isNew = true;
-    var toolbar = Ext.getCmp('toolbar');
-    if (!selected.raw.leaf) {
-      return false
-    }
-
-    this.getModuleTitle().setText(selected.raw.text);
+    if (!selected.raw.leaf) return;
 
     Ext.Array.each(contentItems, function(item) {
-      if (item.id === id) {
-        contentPanel.setActiveTab(item.show());
-        isNew = false;
-      }
+      if (item.id === id) isNew = false;
     });
-
-    if (isNew && Ext.ClassManager.getByAlias('widget.' + id)) {
-      contentPanel.add({
-        id: id,
-        layout: 'fit',
-        xtype: id,
-        closable: true
-      })
-      contentPanel.setActiveTab(id);
+    if (isNew) {
+      contentPanel.add({xtype: id});
     }
-    return contentPanel.getActiveTab();
+    
+    contentPanel.setActiveTab(id);
+
+    // 保存当前模块，为切换中心/城市时fireEvent所用
+    this.currentModule = contentPanel.getActiveTab();
   }
 });
