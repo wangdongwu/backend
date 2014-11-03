@@ -169,7 +169,7 @@ Ext.define('XMLifeOperating.controller.login', {
             localStorage.setItem("sessionId", data.sessionId);
             localStorage.setItem("username", username);
             //saveUidAndSession(username + "@c", data.sessionId);
-            
+
 
             /*更改页头*/
             Ext.Ajax.defaultHeaders = {
@@ -237,22 +237,21 @@ Ext.define('XMLifeOperating.controller.login', {
         });
         shopAreaStore.load();
       }
-     
-      saveUidAndSession(account+"@a",  localStorage.getItem("sessionId"));
+      saveUidAndSession(account + "@a", localStorage.getItem("sessionId"));
       rpc.ServerConfig.setUrls("IM", [XMLifeOperating.generic.Global.URL.IM]);
       rpc.ServerConfig.setUrls("Long", [XMLifeOperating.generic.Global.URL.ws]);
       rpc.IMClientManager.createClient(getCurrentUid(), new rpc.XMLifeIMClient());
 
       var NotificationCls = window.Notification || window.webkitNotification || window.mozNotification || window.msNotification;
       if (!window.cordova && NotificationCls) {
-                if (NotificationCls.permission !== 'denied') {
-                    NotificationCls.requestPermission(function (permission) {
-                        if (!('permission' in NotificationCls)) {
-                            NotificationCls.permission = permission;
-                        }
-                    });
-                }
+        if (NotificationCls.permission !== 'denied') {
+          NotificationCls.requestPermission(function(permission) {
+            if (!('permission' in NotificationCls)) {
+              NotificationCls.permission = permission;
             }
+          });
+        }
+      }
     }
     var failure = function(response) {
       Ext.MessageBox.show({
