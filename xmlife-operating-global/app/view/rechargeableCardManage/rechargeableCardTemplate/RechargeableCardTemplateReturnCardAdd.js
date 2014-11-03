@@ -13,7 +13,7 @@ Ext.define('XMLifeOperating.view.rechargeableCardManage.rechargeableCardTemplate
     closeAction: 'hide',
     modal: true,
     width: 350,
-    height: 420,
+    height: 520,
     resizable: false,
     layout: 'fit',
     initComponent: function() {
@@ -114,7 +114,7 @@ Ext.define('XMLifeOperating.view.rechargeableCardManage.rechargeableCardTemplate
                 name: 'newAccount',
                 fieldLabel: '是否新手卡',
                 //labelWidth: 90,
-                allowBlank: false,
+                allowBlank: false
             }],
             buttons: [{
                 text: 'Save',
