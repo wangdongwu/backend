@@ -19,5 +19,10 @@ Ext.define('XMLifeOperating.model.Account', {
       'authority',
       'level',
       'creater',
+      'phoneNum',
+      'areaId',
+      'shopAreaName',
+      'shopId',
+      'shopName'
     ]
 });

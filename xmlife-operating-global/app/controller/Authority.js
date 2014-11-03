@@ -6,13 +6,16 @@
 Ext.define('XMLifeOperating.controller.Authority', {
     extend: 'Ext.app.Controller',
     views : [
-    'authorityManage.AuthorityTabPanel',
-    'authorityManage.CityAccountManage',
-    'authorityManage.GlobalAccountManage',
-    'authorityManage.addGlobalAccount',
-    'authorityManage.addCityManagerAccount'],
+      'authorityManage.AuthorityTabPanel',
+      'authorityManage.CityAccountManage',
+      'authorityManage.GlobalAccountManage',
+      'authorityManage.addGlobalAccount',
+      'authorityManage.addCityManagerAccount',
+      'authorityManage.MerchantAccountManagement',
+      'authorityManage.AddMerchantAccount'
+    ],
     models : ['Account'],
-    stores : ['Account','Authority','Province','AllCities'],
+    stores : ['Account','Authority','Province','AllCities', 'SupportedCity', 'ShopArea', 'Shop'],
     refs: [{
       ref: 'AuthorityTabPanel',
       selector: 'AuthorityTabPanel',
@@ -29,6 +32,11 @@ Ext.define('XMLifeOperating.controller.Authority', {
       xtype: 'GlobalAccountManage',
       autoCreate: true
     },{
+      ref: 'MerchantAccountManagement',
+      selector: 'MerchantAccountManagement',
+      xtype: 'MerchantAccountManagement',
+      autoCreate: true
+    },{
       ref: 'addGlobalAccount',
       selector: 'addGlobalAccount',
       xtype: 'addGlobalAccount',
@@ -38,25 +46,38 @@ Ext.define('XMLifeOperating.controller.Authority', {
       selector: 'addCityManagerAccount',
       xtype: 'addCityManagerAccount',
       autoCreate: true
-    },{
-        ref: 'cmbCity',
-        selector: '#cmbCity',
-        xtype: 'combobox'
-        }
-        ],
+    }, {
+      ref: 'AddMerchantAccount',
+      selector: 'AddMerchantAccount',
+      xtype: 'AddMerchantAccount',
+      autoCreate: true
+    }, {
+      ref: 'cmbCity',
+      selector: '#cmbCity',
+      xtype: 'combobox'
+    }, {
+      ref: 'shopArea',
+      selector: '#shopArea',
+      xtype: 'combobox'
+    }, {
+      ref: 'shop',
+      selector: '#shop',
+      xtype: 'combobox'
+    }
+    ],
     init : function(){
       var self = this;
       self.control({
         'GlobalAccountManage' : {
           activate : function(){
-            self.loadData('GlobalAccountManage');
+            self.loadData('Global');
             self.initGlobalAuthority();
           }
         },
         'GlobalAccountManage #addGlobalAccount' : {
           click : function(){
             //创建全局账号
-            
+
             var addGlobalAccount = self.getAddGlobalAccount(),
                 form = addGlobalAccount.down('form'),
                 formEl = form.getForm(),
@@ -65,7 +86,7 @@ Ext.define('XMLifeOperating.controller.Authority', {
                 formEl.reset();
                 form.edit = false;
                 addGlobalAccount.show();
-                
+
           }
         },
         'GlobalAccountManage #seachAccount' : {
@@ -90,7 +111,7 @@ Ext.define('XMLifeOperating.controller.Authority', {
                 isHaveCities = form.down('#isHaveCities'),
                 model = arguments[5],
                 cityIds = model.get('cityIds'),
-                moduleIds = model.get('moduleIds'); 
+                moduleIds = model.get('moduleIds');
                 form.loadRecord(model);
                 accountField.setDisabled(true);
                 Ext.each(modulesCheckbox, function(checkbox) {
@@ -120,7 +141,7 @@ Ext.define('XMLifeOperating.controller.Authority', {
         },
         'CityAccountManage' : {
           activate : function(){
-            self.loadData('CityAccountManage');
+            self.loadData('City');
           }
         },
         'CityAccountManage #edit' : {
@@ -149,6 +170,63 @@ Ext.define('XMLifeOperating.controller.Authority', {
 
             }
         },
+        'MerchantAccountManagement': {
+          activate: function () {
+//            var store = this.getAccountStore();
+//            var data = Ext.create('XMLifeOperating.model.Account', {
+//              'id': 1,
+//              'name': 'zhou',
+//              'account': 'zhen',
+//              'enable': true,
+//              'pwd': '231331',
+//              'cities': [],
+//              'cityIds': [],
+//              'modules': [],
+//              'moduleIds': [],
+//              'area': '',
+//              'authority': '',
+//              'level': 1,
+//              'creater': 'test',
+//              'phoneNum': '12313131',
+//              'cityId': 330100,
+//              'cityName': 'city',
+//              'areaId': 2,
+//              'areaName': 'area',
+//              'shopId': '54131c6d0364b0ed8f1ffd92',
+//              'shopName': 'shop'
+//            });
+//            store.loadRecords([data]);
+            self.loadData('Shop');
+          }
+        },
+        'MerchantAccountManagement #edit': {
+          click: function () {
+            var addMerchantAccount = self.getAddMerchantAccount(),
+                form               = addMerchantAccount.down('form'),
+                accountField       = form.down('#accountField'),
+                city               = form.down('#city'),
+                shoparea           = form.down('#shopArea'),
+                shop               = form.down('#shop'),
+
+                model = arguments[5];
+
+            city.setValue(model.get('cityIds')[0]);
+            shoparea.setValue(model.get('areaId'));
+            shop.setValue(model.get('shopId'));
+
+            city.getStore().load();
+            shoparea.getStore().load();
+            shop.getStore().load({
+              params: {'areaId': model.get('areaId')}
+            });
+
+            console.log(model);
+            form.loadRecord(model);
+            form.edit = true;
+            accountField.setDisabled(true);
+            addMerchantAccount.show();
+          }
+        },
         '#handel' : {
           click : function(){
             var model = arguments[5],
@@ -157,7 +235,7 @@ Ext.define('XMLifeOperating.controller.Authority', {
                 url = '',
                 str = '';
                 if(enable){
-                  url = XMLifeOperating.generic.Global.URL.biz+'admin/disable/'+account 
+                  url = XMLifeOperating.generic.Global.URL.biz+'admin/disable/'+account
                   str = '关闭';
                 }else{
                   url = XMLifeOperating.generic.Global.URL.biz+'admin/enable/'+account;
@@ -188,6 +266,11 @@ Ext.define('XMLifeOperating.controller.Authority', {
             self.submitData(button);
           }
         },
+        'AddMerchantAccount #submit': {
+          click: function (button) {
+            self.addOrUpdateShopAdmin(button);
+          }
+        },
         'CityAccountManage #addCityAccount' : {
           click : function(){
             //创建城市经理
@@ -200,8 +283,33 @@ Ext.define('XMLifeOperating.controller.Authority', {
                 formEl.reset();
                 form.edit =false;
                 addCityManagerAccount.show();
-               
-            
+
+
+          }
+        },
+        'MerchantAccountManagement #addMerchantAccount': {
+          click: function () {
+            // 创建商户
+            var addMerchantAccount = self.getAddMerchantAccount(),
+                form               = addMerchantAccount.down('form'),
+                formEl             = form.getForm(),
+                accountField       = form.down('#accountField');
+
+            accountField.setDisabled(false);
+            formEl.reset();
+            form.edit = false;
+            addMerchantAccount.show();
+          }
+        },
+        'MerchantAccountManagement #seachAccount' : {
+          click : function(){
+            var store = self.getAccountStore();
+            seachKeyword = self.getMerchantAccountManagement().down('#seachKeyword').getValue();
+            store.getProxy().extraParams = {
+              keyword : seachKeyword,
+              type : 'Shop'
+            };
+            store.loadPage(1);
           }
         },
         '#lookActiveAccount' : {
@@ -230,15 +338,13 @@ Ext.define('XMLifeOperating.controller.Authority', {
                    type : 'City'
                     };
                 store.loadPage(1);
-          
+
           }
         },
         'addCityManagerAccount combobox[name=cpro]' : {
             select: function(combo, records, eOpts) {
-                if (records.length == 0) {
-                    
-                    return;
-                }
+                if (records.length == 0) return;
+
                 var store = this.getAllCitiesStore();
                 var cmbCity = this.getCmbCity();
 
@@ -248,24 +354,48 @@ Ext.define('XMLifeOperating.controller.Authority', {
                 store.clearFilter();
                 store.filter('parent', records[0].data.code);
             }
+        },
+        'AddMerchantAccount combobox[name=city]': {
+          select: function(combo, records, options) {
+            if (records.length == 0) return;
+
+            var shopAreaStore     = this.getShopAreaStore(),
+                shopArea          = this.getShopArea(),
+                shop              = this.getShop();
+
+            shopArea.clearValue();
+            shop.clearValue();
+
+            shopAreaStore.clearFilter();
+            shopAreaStore.filter('city', records[0].data.code);
+          }
+        },
+        'AddMerchantAccount combobox[name=areaId]': {
+          select: function(combo, records, options) {
+            if (records.length == 0) return;
+
+            var shopStore = this.getShopStore();
+                shop      = this.getShop();
+
+            shop.clearValue();
+            shopStore.load({
+              params: {areaId: records[0].data.id}
+            });
+          }
         }
       })
     },
-    loadData : function(type){
-      var type = type || 'GlobalAccountManage';
-      var data = {
-        'GlobalAccountManage' : 'Global',
-        'CityAccountManage' : 'City'
-      }
-      
-      this.activeType = data[type];
+    loadData : function (type) {
+      this.activeType = type || 'Global';
 
       var store = this.getAccountStore(),
           proxy = store.getProxy();
-          proxy.extraParams = { type : this.activeType};
-          store.clearFilter(true);
-          store.load();
-      
+
+      proxy.extraParams = { type : this.activeType};
+
+      store.clearFilter(true);
+      store.load();
+
     },
     initGlobalAuthority : function(){
             var authorityStore = this.getAuthorityStore(),
@@ -284,7 +414,7 @@ Ext.define('XMLifeOperating.controller.Authority', {
                         boxLabel  : model.get('text'),
                         name      : 'modules',
                         inputValue: model.get('uid')
-                      }) 
+                      })
                     });
                   }
                 });
@@ -295,39 +425,53 @@ Ext.define('XMLifeOperating.controller.Authority', {
                 cityStore.load({
                   callback : function(stores){
                     Ext.each(stores, function(model) {
-                      radiogroup.add({ 
-                        boxLabel: model.get('name'), 
-                        name: 'city', 
+                      radiogroup.add({
+                        boxLabel: model.get('name'),
+                        name: 'city',
                         inputValue: model.get('name') })
                     });
                   }
                 });*/
 
     },
-    submitData : function(button){
-            var windowEl = button.up('window'),
-                form = button.up('window').down('form'),
-                account = form.down('#accountField') && form.down('#accountField').getValue(),
-                isHaveCities = form.down('#isHaveCities') && form.down('#isHaveCities').getValue(),
-                citiesCheckboxs = form.down('#citiesCheckbox') && form.down('#citiesCheckbox').query('checkboxfield'),
-                subData = form.getValues(),
-                editUrl = form.editUrl
-                cityNum = 0;
-                 if(account){
-                  subData['account'] = account
-                 }
+    addOrUpdateShopAdmin: function (button) {
+      var windowEl        = button.up('window'),
+          form            = button.up('window').down('form'),
+          account         = form.down('#accountField') && form.down('#accountField').getValue(),
+          subData         = form.getValues();
 
-             if(isHaveCities){
+      if (account) {
+        subData['account'] = account
+      }
+      console.log(subData);
+      this.submitAjaxData(form, subData, windowEl, account);
+    },
+    // TODO (zhouzhen) refactor to splitting logic of adding global account and adding city account
+    submitData : function(button){
+            var windowEl        = button.up('window'),
+                form            = button.up('window').down('form'),
+                account         = form.down('#accountField') && form.down('#accountField').getValue(),
+                isHaveCities    = form.down('#isHaveCities') && form.down('#isHaveCities').getValue(),
+                citiesCheckboxs = form.down('#citiesCheckbox') && form.down('#citiesCheckbox').query('checkboxfield'),
+                subData         = form.getValues(),
+                editUrl         = form.editUrl,
+                cityNum         = 0;
+
+            if (account) {
+              subData['account'] = account
+            }
+
+            if(isHaveCities){
               Ext.each(citiesCheckboxs, function(checkbox) {
-                if(checkbox.getValue()){
-                  cityNum++;
-                }
-              });
-              if(cityNum <= 0){
-                Ext.Msg.alert('失败', '请至少选择一个城市');
-                return false;
+              if(checkbox.getValue()){
+                cityNum++;
               }
-             }
+            });
+            if(cityNum <= 0){
+              Ext.Msg.alert('失败', '请至少选择一个城市');
+              return false;
+            }
+           }
             if (form.edit) {
               Ext.Ajax.request({
                   method : "PUT",
@@ -358,9 +502,62 @@ Ext.define('XMLifeOperating.controller.Authority', {
                     Ext.Msg.alert('失败', '失败');
                   }
                 }
-              });  
+              });
             };
-            
-          
+    },
+    submitAjaxData: function (form, subData, windowEl, account) {
+      var self = this;
+      if (form.edit) {
+        var url = form.editUrl;
+
+        Ext.Ajax.request({
+          method: 'PUT',
+          url: url,
+          params: subData,
+          success: function (data) {
+            if (data.responseText == '1') {
+              Ext.Msg.alert('成功', '成功更新账户' + account);
+              var store = self.getAccountStore();
+              store.clearFilter(true);
+              windowEl.close();
+              store.load()
+            }else{
+              Ext.Msg.alert('失败', '更新账户' + account + '失败');
+            }
+          }
+        });
+      } else {
+        form.submit({
+          method: 'POST',
+          failure: function (form, action) {
+            if (action.response.responseText == '1') {
+              Ext.Msg.alert('添加成功', '成功添加');
+              var store = self.getAccountStore();
+              store.clearFilter(true);
+              windowEl.close();
+              store.load();
+            } else {
+              Ext.Msg.alert('失败', '失败');
+            }
+          }
+        });
+//        Ext.Ajax.request({
+//          method: 'POST',
+//          url: form.url,
+//          params: subData,
+//          success: function (data) {
+//            if (data.responseText == '1') {
+//              Ext.Msg.alert('添加成功', '成功添加');
+//              var store = self.getAccountStore();
+//              store.clearFilter(true);
+//              windowEl.close();
+//              store.load();
+//            } else {
+//              Ext.Msg.alert('失败', '失败');
+//            }
+//          }
+//        });
+      };
     }
+
 });
