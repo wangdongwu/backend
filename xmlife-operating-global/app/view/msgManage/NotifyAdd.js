@@ -10,7 +10,7 @@ Ext.define('XMLifeOperating.view.msgManage.NotifyAdd', {
     closeAction: 'hide',
     modal: false,
     width: 450,
-    height: 400,
+    height: 450,
     resizable: false,
     layout: 'fit',
 
@@ -23,65 +23,91 @@ Ext.define('XMLifeOperating.view.msgManage.NotifyAdd', {
                 anchor: '98%',
                 margin: '10 0'
             },
-            items: [
-                {
-                    xtype: 'label',
-                    text: '请输入消息内容（最多256个字）：'
-                },
-                {
-                    xtype: 'textarea',
-                    name: 'content',
-                    maxLength: 25,
-                    emptyText: '消息内容...',
-                    allowBlank : false,
-                    blankText: '内容不能为空',
-                    margin: '10 0 15 0'
-                },
-                {
-                    xtype: 'label',
-                    text: '请输入消息发送时间：'
-                },
-                {
-                    xtype: 'datefield',
-                    itemId: 'startTime',
-                    name: 'startTime',
-                    format: 'Y-m-d H:i:s',
-                    editable: true, 
-                    minValue : new Date(),
-                    allowBlank: false,
-                    margin: '10 0 10 0'
-                },
-                {
-                    xtype: 'label',
-                    text: '请输入消息URL：'
-                },
-                {
-                    xtype: 'textfield',
-                    name: 'url',
-                    emptyText: 'http://',
-                    regex: XMLifeOperating.generic.Global.VALIDATION_CONSTANTS.URL,
-                    regexText: '请输入正确的URL',
-                    allowBlank: false,
-                    margin: '10 0 20 0'
-                },
-                {
-                    xtype: 'label',
-                    text: '请上传消息发送uid：'
-                },
-                {
-                    xtype: 'filefield',
-                    name: 'file',
-                    emptyText: '请选择文件...',
-                    buttonText: '上传/修改',
-                    //allowBlank: false
-                }
-            ],
+            items: [{
+                xtype: 'label',
+                text: '请输入消息内容（最多256个字）：'
+            }, {
+                xtype: 'textarea',
+                name: 'content',
+                maxLength: 25,
+                emptyText: '消息内容...',
+                allowBlank: false,
+                blankText: '内容不能为空',
+                margin: '10 0 15 0'
+            }, {
+                xtype: 'label',
+                text: '请输入消息发送时间：'
+            }, {
+                xtype: 'datefield',
+                itemId: 'startTime',
+                name: 'startTime',
+                format: 'Y-m-d H:i:s',
+                editable: true,
+                minValue: new Date(),
+                allowBlank: false,
+                margin: '10 0 10 0'
+            }, {
+                xtype: 'combo',
+                fieldLabel: '消息链接至',
+                itemId: 'linkType',
+                displayField: 'type',
+                valueField: 'value',
+                triggerAction: 'all',
+                store: Ext.create('Ext.data.Store', {
+                    fields: ['value', 'type'],
+                    data: [{
+                        'value': 2,
+                        'type': 'H5页面'
+                    }, {
+                        'value': 3,
+                        'type': '内部功能'
+                    }]
+                })
+            }, {
+                xtype: 'combo',
+                fieldLabel: '请选择功能页',
+                itemId: 'internalType',
+                hidden: true,
+                triggerAction: 'all',
+                displayField: 'type',
+                valueField: 'value',
+                store: Ext.create('Ext.data.Store', {
+                    fields: ['value', 'type'],
+                    data: [{
+                        'value': 4,
+                        'type': '我的优惠券'
+                    }, {
+                        'value': 5,
+                        'type': '我的钱包'
+                    }]
+                })
+            }, {
+                xtype: 'textfield',
+                fieldLabel:'请输入消息URL',
+                name: 'url',
+                itemId:'linkUrl',
+                hidden:true,
+                emptyText: 'http://',
+                regex: XMLifeOperating.generic.Global.VALIDATION_CONSTANTS.URL,
+                regexText: '请输入正确的URL',
+                allowBlank: true,
+                margin: '10 0 20 0'
+            }, {
+                xtype: 'label',
+                text: '请上传消息发送uid：'
+            }, {
+                xtype: 'filefield',
+                name: 'file',
+                emptyText: '请选择文件...',
+                buttonText: '上传/修改',
+                //allowBlank: false
+            }],
             buttons: [{
                 text: '确定',
                 itemId: 'saveBtn'
             }, {
                 text: '取消',
-                handler:function(){
+                handler: function() {
                     this.up('window').close();
                 }
             }]
@@ -89,5 +115,5 @@ Ext.define('XMLifeOperating.view.msgManage.NotifyAdd', {
 
         this.callParent(arguments);
     }
-    
+
 });
