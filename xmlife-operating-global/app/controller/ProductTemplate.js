@@ -236,6 +236,7 @@ Ext.define('XMLifeOperating.controller.ProductTemplate', {
                 waitMsg: '正在上传您的文件......',
                 success: function(form, action) {
                     var data = action.response.responseText;
+                    console.log(data);
                     this.form.getFields().items[0].fileInputEl.set({
                         multiple: 'multiple'
                     });
@@ -243,6 +244,7 @@ Ext.define('XMLifeOperating.controller.ProductTemplate', {
                 },
                 failure: function(form, action) {
                     var data = action.response.responseText;
+                    console.log(data);
                     this.form.getFields().items[0].fileInputEl.set({
                         multiple: 'multiple'
                     });
