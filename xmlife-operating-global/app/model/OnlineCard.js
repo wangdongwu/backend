@@ -78,7 +78,7 @@ Ext.define('XMLifeOperating.model.OnlineCard', {
       {
         name:'status',
         convert : function(v){
-          var str;
+/*          var str;
           if(v == 0){
             str = '已下架'
           }
@@ -88,7 +88,8 @@ Ext.define('XMLifeOperating.model.OnlineCard', {
           if(v == 4){
             str = '已强制下架'
           }
-          return str;
+          return str;*/
+          return v
         }
       },
       {

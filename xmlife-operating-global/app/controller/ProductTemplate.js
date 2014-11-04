@@ -196,7 +196,6 @@ Ext.define('XMLifeOperating.controller.ProductTemplate', {
             'productTemplateEdit filefield[name="productTemplateUploadfile"]': {
                 change: function(uploadfile) {
                     var form = uploadfile.ownerCt;
-
                     var hash = uploadfile.previousNode().previousNode();
 
                     uploadImage(form, hash);

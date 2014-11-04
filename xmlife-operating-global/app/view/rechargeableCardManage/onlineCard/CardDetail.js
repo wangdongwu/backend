@@ -45,10 +45,7 @@ Ext.define('XMLifeOperating.view.rechargeableCardManage.onlineCard.CardDetail', 
     buttons : [{
       text : '编辑',
       itemId : 'edit'
-    }/*,{
-      itemId : 'delet',
-      text : '删除'
-    }*/,{
+    },{
       itemId : 'hander'
     }]
 });

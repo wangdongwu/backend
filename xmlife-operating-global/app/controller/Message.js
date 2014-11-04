@@ -129,7 +129,7 @@ Ext.define('XMLifeOperating.controller.Message', {
             form = win.down('form').getForm(),
             record = form.getRecord();
             
-        var msgType = method == 'getNotifyAdd' ? 0 : 1, //根据方法名判断消息类型
+        var msgType = method == 'getNotifyAdd' ? 1 : 2, //根据方法名判断消息类型
             isAdd = record.get('id') ? false : true,
             isUpload = win.down('filefield').getValue() ? true : false,
             postUrl = isAdd ? 'notify/add' : 'notify/update';
