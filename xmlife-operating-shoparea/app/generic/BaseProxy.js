@@ -99,7 +99,7 @@ Ext.define('XMLifeOperating.generic.BaseProxy', {
 
 //Ext.Ajax.cors = true;
 
-var sendRequest = function(url, params, title, successMsg, errorMsg, success, failure) {
+window.sendRequest = function(url, params, title, successMsg, errorMsg, success, failure) {
     if(!url || url.length < 1) {
         alert("bad url");
     }
@@ -140,50 +140,22 @@ var sendRequest = function(url, params, title, successMsg, errorMsg, success, fa
     });    
 }
 
-var sendGetRequest = function(url, params, title, successMsg, errorMsg, success, failure) {
-    if(!url || url.length < 1) {
-        alert("bad url");
-    }
-    var newUrl;
-    if(url == 'auth'){
-        newUrl = "http://192.168.5.190:9999/rest/auth";
-    }else{
-        newUrl = XMLifeOperating.generic.Global.URL.biz + url;
-    }
-    Ext.Ajax.request({
-        url: newUrl,
-        params: params,
-        method: 'GET',
-        success: function(response){
-            /*Ext.MessageBox.show({
-                title: title,
-                msg: successMsg,
-                icon: Ext.Msg.INFO,
-                buttons: Ext.Msg.OK
-            });*/
-
-            if (success) {
-                success(response);
-            }
-        },
-        failure: function(response,opts) {   
-            var error = Ext.decode(response.responseText);
-            var msg = Ext.String.format('{0}<br />Error Code: {1}<br />Message: {2}', errorMsg, error.code, error.message)
-            /*Ext.MessageBox.show({
-                title: title,
-                msg: msg,
-                icon: Ext.Msg.ERROR,
-                buttons: Ext.Msg.OK
-            });*/
-
-            if (failure) {
-                failure(response);
-            }
-        }              
-    });    
+window.sendGetRequest = function(url, params, title, successMsg, errorMsg, success, failure) {
+    var method = 'GET';
+    requestAction(url, params, method, title, successMsg, errorMsg, success, failure);
 }
 
-var sendPutRequest = function(url, params, title, successMsg, errorMsg, success, failure) {
+window.sendPutRequest = function(url, params, title, successMsg, errorMsg, success, failure) {
+    var method = 'PUT';
+    requestAction(url, params, method, title, successMsg, errorMsg, success, failure);
+}
+
+window.sendDeleteRequest = function(url, params, title, successMsg, errorMsg, success, failure) {
+    var method = 'DELETE';
+    requestAction(url, params, method, title, successMsg, errorMsg, success, failure);
+}
+
+var requestAction = function(url, params, method, title, successMsg, errorMsg, success, failure) {
     if(!url || url.length < 1) {
         alert("bad url");
     }
@@ -196,7 +168,7 @@ var sendPutRequest = function(url, params, title, successMsg, errorMsg, success,
     Ext.Ajax.request({
         url: newUrl,
         params: params,
-        method: 'PUT',
+        method: method,
         success: function(response){
             /*Ext.MessageBox.show({
                 title: title,
@@ -209,7 +181,7 @@ var sendPutRequest = function(url, params, title, successMsg, errorMsg, success,
                 success(response);
             }
         },
-        failure: function(response,opts) {   
+        failure: function(response,opts) {
             var error = Ext.decode(response.responseText);
             var msg = Ext.String.format('{0}<br />Error Code: {1}<br />Message: {2}', errorMsg, error.code, error.message)
             /*Ext.MessageBox.show({
