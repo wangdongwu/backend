@@ -42,7 +42,8 @@ Ext.define('XMLifeOperating.Application', {
         'BalanceRefund',
         'AlipayRefund',
         'OnlineCardManage',
-        'Message'
+        'Message',
+        'BatchOperation'
         ],
 
     stores: [
