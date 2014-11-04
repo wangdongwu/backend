@@ -113,6 +113,8 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ChangePriceRecordList',
                return value;
             }
         },
+        { header: '审核人',dataIndex:'auditer',
+        },
         { header: '修改时间',dataIndex:'updated',
             renderer:function(value){
                var newTime = new Date(value);
