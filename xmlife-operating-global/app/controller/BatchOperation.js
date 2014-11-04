@@ -34,37 +34,41 @@ Ext.define('XMLifeOperating.controller.BatchOperation', {
       'ProductNameUpdateBatch #submit': {
         click: function (button) {
           var form = button.up('form').getForm(),
+              path = button.up("fieldcontainer").down("filefield").getValue(),
               logArea = button.up('form').down('#resultLog');
 
           form.url = XMLifeOperating.generic.Global.URL.biz + 'backdoor/update/product/name';
-          self.submitForm(form, logArea);
+          self.submitForm(form, logArea, path);
         }
       },
       'ProductDescriptionUpdateBatch #submit': {
         click: function (button) {
           var form = button.up('form').getForm(),
+              path = button.up("fieldcontainer").down("filefield").getValue(),
               logArea = button.up('form').down('#resultLog');
 
           form.url = XMLifeOperating.generic.Global.URL.biz + 'backdoor/update/product/desc';
-          self.submitForm(form, logArea);
+          self.submitForm(form, logArea, path);
         }
       },
       'ProductRankUpdateBatch #submit': {
         click: function (button) {
           var form = button.up('form').getForm(),
-            logArea = button.up('form').down('#resultLog');
+              path = button.up("fieldcontainer").down("filefield").getValue(),
+              logArea = button.up('form').down('#resultLog');
 
           form.url = XMLifeOperating.generic.Global.URL.biz + 'backdoor/update/product/rank';
-          self.submitForm(form, logArea);
+          self.submitForm(form, logArea, path);
         }
       },
       'ProductTagUpdateBatch #submit': {
         click: function (button) {
           var form = button.up('form').getForm(),
+            path = button.up("fieldcontainer").down("filefield").getValue(),
             logArea = button.up('form').down('#resultLog');
 
           form.url = XMLifeOperating.generic.Global.URL.biz + 'backdoor/update/product/tag';
-          self.submitForm(form, logArea);
+          self.submitForm(form, logArea, path);
         }
       },
       'ProductPriceUpdateBatch #areaId': {
@@ -80,10 +84,11 @@ Ext.define('XMLifeOperating.controller.BatchOperation', {
       'ProductPriceUpdateBatch #submit': {
         click: function (button) {
           var form = button.up('form').getForm(),
+            path = button.up("fieldcontainer").down("filefield").getValue(),
               logArea = button.up('form').down('#resultLog');
 
           form.url = XMLifeOperating.generic.Global.URL.biz + 'backdoor/update/product/price';
-          self.submitForm(form, logArea);
+          self.submitForm(form, logArea, path);
         }
       },
       'ProductStatusUpdateBatch #areaId': {
@@ -99,10 +104,11 @@ Ext.define('XMLifeOperating.controller.BatchOperation', {
       'ProductStatusUpdateBatch #submit': {
         click: function (button) {
           var form = button.up('form').getForm(),
+            path = button.up("fieldcontainer").down("filefield").getValue(),
               logArea = button.up('form').down('#resultLog');
 
           form.url = XMLifeOperating.generic.Global.URL.biz + 'backdoor/update/product/status';
-          self.submitForm(form, logArea);
+          self.submitForm(form, logArea, path);
         }
       },
       'ProductStockUpdateBatch #areaId': {
@@ -118,10 +124,11 @@ Ext.define('XMLifeOperating.controller.BatchOperation', {
       'ProductStockUpdateBatch #submit': {
         click: function (button) {
           var form = button.up('form').getForm(),
+            path = button.up("fieldcontainer").down("filefield").getValue(),
             logArea = button.up('form').down('#resultLog');
 
           form.url = XMLifeOperating.generic.Global.URL.biz + 'backdoor/update/product/stock';
-          self.submitForm(form, logArea);
+          self.submitForm(form, logArea, path);
         }
       },
       'ProductCategoryUpdateBatch #areaId': {
@@ -137,10 +144,11 @@ Ext.define('XMLifeOperating.controller.BatchOperation', {
       'ProductCategoryUpdateBatch #submit': {
         click: function (button) {
           var form = button.up('form').getForm(),
+            path = button.up("fieldcontainer").down("filefield").getValue(),
               logArea = button.up('form').down('#resultLog');
 
           form.url = XMLifeOperating.generic.Global.URL.biz + 'product/resetCategory';
-          self.submitForm(form, logArea);
+          self.submitForm(form, logArea, path);
         }
       },
       'ProductPictureUpdateBatch #areaId': {
@@ -156,28 +164,31 @@ Ext.define('XMLifeOperating.controller.BatchOperation', {
       'ProductPictureUpdateBatch #submit': {
         click: function (button) {
           var form = button.up('form').getForm(),
+            path = button.up("fieldcontainer").down("filefield").getValue(),
             logArea = button.up('form').down('#resultLog');
 
           form.url = XMLifeOperating.generic.Global.URL.biz + 'backdoor/update/product/img2';
-          self.submitForm(form, logArea);
+          self.submitForm(form, logArea, path);
         }
       },
       'ProductTemplateAddBatch #submit': {
         click: function (button) {
           var form = button.up('form').getForm(),
+            path = button.up("fieldcontainer").down("filefield").getValue(),
             logArea = button.up('form').down('#resultLog');
 
           form.url = XMLifeOperating.generic.Global.URL.biz + 'backdoor/update/product/addtemplates';
-          self.submitForm(form, logArea);
+          self.submitForm(form, logArea, path);
         }
       },
       'DistributionLocationAddBatch #submit': {
         click: function (button) {
           var form = button.up('form').getForm(),
+            path = button.up("fieldcontainer").down("filefield").getValue(),
             logArea = button.up('form').down('#resultLog');
 
           form.url = XMLifeOperating.generic.Global.URL.biz + 'residentalDistrict/genDistrict';
-          self.submitForm(form, logArea);
+          self.submitForm(form, logArea, path);
         }
       },
       'ProductInstanceAddBatch #areaId': {
@@ -193,16 +204,17 @@ Ext.define('XMLifeOperating.controller.BatchOperation', {
       'ProductInstanceAddBatch #submit': {
         click: function (button) {
           var form = button.up('form').getForm(),
+            path = button.up("fieldcontainer").down("filefield").getValue(),
               logArea = button.up('form').down('#resultLog');
 
           form.url = XMLifeOperating.generic.Global.URL.biz + 'product/appendProducts';
-          self.submitForm(form, logArea);
+          self.submitForm(form, logArea, path);
         }
       }
     });
 
   },
-  submitForm: function (form, logArea) {
+  submitForm: function (form, logArea, path) {
     var sessionId = localStorage.getItem('sessionId') || '';
     if (form.isValid()) {
       if (form.url.indexOf('sessionId') < 0) {
@@ -211,10 +223,25 @@ Ext.define('XMLifeOperating.controller.BatchOperation', {
       form.submit({
         waitMsg: '正在上传您的文件......',
         success: function(form, action) {
-          logArea.setValue(action.response.responseText);
+          var data = action.response.responseText;
+          var date = new Date(data.logTime);
+          var dataStr = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + " " + date.getHours() + ":" + date.getMinutes();
+          msg = "<p><span style='color: blue;'>日志信息: " + dataStr + "</span><br>";
+          msg += "----------------------------------------<br><br>";
+          msg += '[Msg] 导入开始…… <br>';
+          msg += "[Msg] 导入类型：Excel文件[2007或以上版本]<br>";
+          msg += "[Msg] 导入路径: " + path + "<br>";
+          msg += "[Msg]执行统计：" + data.runMsg[0] + "<br>";
+          if (data.runResult[0] === 1) {
+            msg += "[Msg]执行结果：<span style='color: blue;'>成功</span></p>"
+          } else {
+            msg += "[Msg]错误信息：" + data.errorMsg + "<br>";
+            msg += "[Msg]执行结果：<span style='color: red;'>失败</span></p>";
+          }
+          logArea.update(msg);
         },
         failure: function(form, action) {
-          logArea.setValue(action.response.responseText);
+          return;
         }
       });
     }

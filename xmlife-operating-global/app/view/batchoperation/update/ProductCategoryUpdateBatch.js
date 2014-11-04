@@ -61,7 +61,8 @@ Ext.define('XMLifeOperating.view.batchoperation.update.ProductCategoryUpdateBatc
               editable : false,
               triggerAction : 'all',
               displayField: 'name',
-              valueField: 'id'
+              valueField: 'id',
+              queryMode: 'local'
             },
             {
               xtype: 'radiogroup',
