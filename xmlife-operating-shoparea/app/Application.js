@@ -45,6 +45,7 @@ Ext.define('XMLifeOperating.Application', {
         'Deliverer',
         'RefundList',
         'ShopTopShops',
+        'HomePage',
         'BatchUpdatePrice',
         'DealWaitAssignDelivererList',
         'DealWaitAssignShopperList'
@@ -73,6 +74,9 @@ Ext.define('XMLifeOperating.Application', {
         'FeedbackStatus',
         'Refund',
         'ShopTopShops',
+        'HomePage',
+        'HomePageModuleList',
+        'HomePageModuleDetail',
         'DealWaitAssignDeliverer'
     ],
 
