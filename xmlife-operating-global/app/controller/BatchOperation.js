@@ -224,6 +224,7 @@ Ext.define('XMLifeOperating.controller.BatchOperation', {
         waitMsg: '正在上传您的文件......',
         success: function(form, action) {
           var data = JSON.parse(action.response.responseText);
+          console.log(data);
           var date = new Date(data.logTime);
           var dataStr = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + " " + date.getHours() + ":" + date.getMinutes();
           msg = "<p><span style='color: blue;'>日志信息: " + dataStr + "</span><br>";
@@ -238,6 +239,7 @@ Ext.define('XMLifeOperating.controller.BatchOperation', {
             msg += "[Msg]错误信息：" + data.errorMsg + "<br>";
             msg += "[Msg]执行结果：<span style='color: red;'>失败</span></p>";
           }
+          console.log(msg)
           logArea.update(msg);
         },
         failure: function(form, action) {
