@@ -231,7 +231,7 @@ Ext.define('XMLifeOperating.controller.BatchOperation', {
           msg += '[Msg] 导入开始…… <br>';
           msg += "[Msg] 导入类型：Excel文件[2007或以上版本]<br>";
           msg += "[Msg] 导入路径: " + path + "<br>";
-          msg += "[Msg]执行统计：" + data.run[0] + "<br>";
+          msg += "[Msg]执行统计：" + data.runMsg[0] + "<br>";
           if (data.runResult[0] === 1) {
             msg += "[Msg]执行结果：<span style='color: blue;'>成功</span></p>"
           } else {
