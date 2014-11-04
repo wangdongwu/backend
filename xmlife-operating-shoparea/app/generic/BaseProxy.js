@@ -28,7 +28,7 @@ Ext.define('XMLifeOperating.generic.BaseProxy', {
         this.callParent(arguments);
     },
 
-    listeners: { 
+    listeners: {
         exception: function(proxy, response, options) {
             var title = response.statusText,
                 responseText = response.responseText,
@@ -39,6 +39,15 @@ Ext.define('XMLifeOperating.generic.BaseProxy', {
                 if (error) {
                     msg = Ext.String.format('Error Code: {0}<br />Message: {1}', error.code, error.message);
                 } else {
+                    
+                    if(response.status == 401){
+                      Ext.Msg.alert('提示', 'session失效或者没有登录');
+                      return false;
+                    }
+                    if(response.status == 405){
+                      Ext.Msg.alert('提示', '访问了一个不应该被访问的路径');
+                      return false;
+                    }
                     if(response.status == 0){
                       Ext.Msg.alert('提示', '数据接口有问题....请找服务器端确认');
                       return false;
@@ -74,13 +83,14 @@ Ext.define('XMLifeOperating.generic.BaseProxy', {
                 icon: Ext.Msg.ERROR,
                 buttons: Ext.Msg.OK
             }).toBack();
-            if(responseText == '-3'){
+
+            //if(responseText == '-3'){
               ErrorMessage.on('hide',function(){
               localStorage.removeItem('sessionId');
               localStorage.removeItem('username');
               window.location.reload();
             });  
-            }
+            //}
             
 
         }
