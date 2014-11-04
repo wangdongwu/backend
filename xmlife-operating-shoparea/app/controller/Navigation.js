@@ -155,7 +155,7 @@ Ext.define('XMLifeOperating.controller.Navigation', {
         var selectedNodes = treePanel.getSelectionModel().getSelection();
         var selectedNode = selectedNodes[0]; //树形结构单选
 
-        if (selectedNode.get(['id']) == nodeId) { //刷新
+        if (selectedNode && selectedNode.get('id') == nodeId) { //刷新
             me.switchToView(nodeId)
         } else {
             return
