@@ -140,6 +140,7 @@ Ext.define('XMLifeOperating.view.waitForAudit.WaitForAuditList', {
                return value;
             }
         },
+        { header: '修改人',dataIndex:'updater'},
         { header: '修改时间',dataIndex:'updated',
             renderer:function(value){
                var newTime = new Date(value);
