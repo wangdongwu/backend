@@ -203,15 +203,20 @@ Ext.define('XMLifeOperating.controller.BatchOperation', {
 
   },
   submitForm: function (form, logArea) {
-    form.url = form.url;
-    form.submit({
-      waitMsg: '正在上传您的文件......',
-      success: function(form, action) {
-        logArea.setValue(action.response.responseText);
-      },
-      failure: function(form, action) {
-        logArea.setValue(action.response.responseText);
+    var sessionId = localStorage.getItem('sessionId') || '';
+    if (form.isValid()) {
+      if (form.url.indexOf('sessionId') < 0) {
+        form.url = form.url + '?sessionId=' + sessionId;
       }
-    });
+      form.submit({
+        waitMsg: '正在上传您的文件......',
+        success: function(form, action) {
+          logArea.setValue(action.response.responseText);
+        },
+        failure: function(form, action) {
+          logArea.setValue(action.response.responseText);
+        }
+      });
+    }
   }
 });
