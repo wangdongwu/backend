@@ -1,7 +1,22 @@
 Ext.define('XMLifeOperating.controller.BatchOperation', {
   extend: 'Ext.app.Controller',
   views: [
-    'batchoperation.update.ProductNameUpdateBatch'
+    'batchoperation.BatchAddPanel',
+    'batchoperation.BatchUpdatePanel',
+    'batchoperation.BatchUploadSimple',
+    'batchoperation.BatchUploadWithLocation',
+    'batchoperation.update.ProductCategoryUpdateBatch',
+    'batchoperation.update.ProductDescriptionUpdateBatch',
+    'batchoperation.update.ProductNameUpdateBatch',
+    'batchoperation.update.ProductPictureUpdateBatch',
+    'batchoperation.update.ProductPriceUpdateBatch',
+    'batchoperation.update.ProductRankUpdateBatch',
+    'batchoperation.update.ProductStatusUpdateBatch',
+    'batchoperation.update.ProductStockUpdateBatch',
+    'batchoperation.update.ProductTagUpdateBatch',
+    'batchoperation.add.DistributionLocationAddBatch',
+    'batchoperation.add.ProductInstanceAddBatch',
+    'batchoperation.add.ProductTemplateAddBatch'
   ],
   models : [],
   stores : ['ShopArea', 'Shop'],
