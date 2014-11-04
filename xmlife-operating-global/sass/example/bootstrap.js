@@ -7,26 +7,32 @@
 Ext.Loader.addClassPathMappings({
   "Ext": "../../ext/src",
   "Ext.Msg": "../../ext/src/window/MessageBox.js",
-  "Ext.locale.zh_CN.Component": "../../ext/packages/ext-locale/overrides/zh_CN/ext-locale-zh_CN.js",
-  "Ext.locale.zh_CN.form.field.Base": "../../ext/packages/ext-locale/overrides/zh_CN/ext-locale-zh_CN.js",
-  "Ext.locale.zh_CN.form.field.ComboBox": "../../ext/packages/ext-locale/overrides/zh_CN/ext-locale-zh_CN.js",
-  "Ext.locale.zh_CN.form.field.Date": "../../ext/packages/ext-locale/overrides/zh_CN/ext-locale-zh_CN.js",
-  "Ext.locale.zh_CN.form.field.HtmlEditor": "../../ext/packages/ext-locale/overrides/zh_CN/ext-locale-zh_CN.js",
-  "Ext.locale.zh_CN.form.field.Number": "../../ext/packages/ext-locale/overrides/zh_CN/ext-locale-zh_CN.js",
-  "Ext.locale.zh_CN.form.field.Text": "../../ext/packages/ext-locale/overrides/zh_CN/ext-locale-zh_CN.js",
-  "Ext.locale.zh_CN.form.field.VTypes": "../../ext/packages/ext-locale/overrides/zh_CN/ext-locale-zh_CN.js",
-  "Ext.locale.zh_CN.grid.PropertyColumnModel": "../../ext/packages/ext-locale/overrides/zh_CN/ext-locale-zh_CN.js",
-  "Ext.locale.zh_CN.grid.header.Container": "../../ext/packages/ext-locale/overrides/zh_CN/ext-locale-zh_CN.js",
-  "Ext.locale.zh_CN.grid.plugin.DragDrop": "../../ext/packages/ext-locale/overrides/zh_CN/ext-locale-zh_CN.js",
-  "Ext.locale.zh_CN.picker.Date": "../../ext/packages/ext-locale/overrides/zh_CN/ext-locale-zh_CN.js",
-  "Ext.locale.zh_CN.picker.Month": "../../ext/packages/ext-locale/overrides/zh_CN/ext-locale-zh_CN.js",
-  "Ext.locale.zh_CN.tab.Tab": "../../ext/packages/ext-locale/overrides/zh_CN/ext-locale-zh_CN.js",
-  "Ext.locale.zh_CN.toolbar.Paging": "../../ext/packages/ext-locale/overrides/zh_CN/ext-locale-zh_CN.js",
-  "Ext.locale.zh_CN.view.AbstractView": "../../ext/packages/ext-locale/overrides/zh_CN/ext-locale-zh_CN.js",
-  "Ext.locale.zh_CN.view.View": "../../ext/packages/ext-locale/overrides/zh_CN/ext-locale-zh_CN.js",
-  "Ext.locale.zh_CN.window.MessageBox": "../../ext/packages/ext-locale/overrides/zh_CN/ext-locale-zh_CN.js",
+  "Ext.locale.en.Component": "../../ext/packages/ext-locale/overrides/en/ext-locale-en.js",
+  "Ext.locale.en.form.Basic": "../../ext/packages/ext-locale/overrides/en/ext-locale-en.js",
+  "Ext.locale.en.form.CheckboxGroup": "../../ext/packages/ext-locale/overrides/en/ext-locale-en.js",
+  "Ext.locale.en.form.RadioGroup": "../../ext/packages/ext-locale/overrides/en/ext-locale-en.js",
+  "Ext.locale.en.form.field.Base": "../../ext/packages/ext-locale/overrides/en/ext-locale-en.js",
+  "Ext.locale.en.form.field.ComboBox": "../../ext/packages/ext-locale/overrides/en/ext-locale-en.js",
+  "Ext.locale.en.form.field.Date": "../../ext/packages/ext-locale/overrides/en/ext-locale-en.js",
+  "Ext.locale.en.form.field.HtmlEditor": "../../ext/packages/ext-locale/overrides/en/ext-locale-en.js",
+  "Ext.locale.en.form.field.Number": "../../ext/packages/ext-locale/overrides/en/ext-locale-en.js",
+  "Ext.locale.en.form.field.Text": "../../ext/packages/ext-locale/overrides/en/ext-locale-en.js",
+  "Ext.locale.en.form.field.Time": "../../ext/packages/ext-locale/overrides/en/ext-locale-en.js",
+  "Ext.locale.en.form.field.VTypes": "../../ext/packages/ext-locale/overrides/en/ext-locale-en.js",
+  "Ext.locale.en.grid.BooleanColumn": "../../ext/packages/ext-locale/overrides/en/ext-locale-en.js",
+  "Ext.locale.en.grid.DateColumn": "../../ext/packages/ext-locale/overrides/en/ext-locale-en.js",
+  "Ext.locale.en.grid.GroupingFeature": "../../ext/packages/ext-locale/overrides/en/ext-locale-en.js",
+  "Ext.locale.en.grid.NumberColumn": "../../ext/packages/ext-locale/overrides/en/ext-locale-en.js",
+  "Ext.locale.en.grid.PropertyColumnModel": "../../ext/packages/ext-locale/overrides/en/ext-locale-en.js",
+  "Ext.locale.en.grid.header.Container": "../../ext/packages/ext-locale/overrides/en/ext-locale-en.js",
+  "Ext.locale.en.grid.plugin.DragDrop": "../../ext/packages/ext-locale/overrides/en/ext-locale-en.js",
+  "Ext.locale.en.picker.Date": "../../ext/packages/ext-locale/overrides/en/ext-locale-en.js",
+  "Ext.locale.en.picker.Month": "../../ext/packages/ext-locale/overrides/en/ext-locale-en.js",
+  "Ext.locale.en.toolbar.Paging": "../../ext/packages/ext-locale/overrides/en/ext-locale-en.js",
+  "Ext.locale.en.view.AbstractView": "../../ext/packages/ext-locale/overrides/en/ext-locale-en.js",
+  "Ext.locale.en.view.View": "../../ext/packages/ext-locale/overrides/en/ext-locale-en.js",
+  "Ext.locale.en.window.MessageBox": "../../ext/packages/ext-locale/overrides/en/ext-locale-en.js",
   "Ext.rtl.EventObjectImpl": "../../ext/src/rtl/EventObject.js",
-  "ExtThemeNeptune": "../../ext/packages/ext-theme-neptune/overrides",
   "XMLifeOperating": "../../app"
 });
 Ext.ClassManager.addNameAlternateMappings({
@@ -574,24 +580,31 @@ Ext.ClassManager.addNameAlternateMappings({
   "Ext.layout.container.boxOverflow.Scroller": [
     "Ext.layout.boxOverflow.Scroller"
   ],
-  "Ext.locale.zh_CN.Component": [],
-  "Ext.locale.zh_CN.form.field.Base": [],
-  "Ext.locale.zh_CN.form.field.ComboBox": [],
-  "Ext.locale.zh_CN.form.field.Date": [],
-  "Ext.locale.zh_CN.form.field.HtmlEditor": [],
-  "Ext.locale.zh_CN.form.field.Number": [],
-  "Ext.locale.zh_CN.form.field.Text": [],
-  "Ext.locale.zh_CN.form.field.VTypes": [],
-  "Ext.locale.zh_CN.grid.PropertyColumnModel": [],
-  "Ext.locale.zh_CN.grid.header.Container": [],
-  "Ext.locale.zh_CN.grid.plugin.DragDrop": [],
-  "Ext.locale.zh_CN.picker.Date": [],
-  "Ext.locale.zh_CN.picker.Month": [],
-  "Ext.locale.zh_CN.tab.Tab": [],
-  "Ext.locale.zh_CN.toolbar.Paging": [],
-  "Ext.locale.zh_CN.view.AbstractView": [],
-  "Ext.locale.zh_CN.view.View": [],
-  "Ext.locale.zh_CN.window.MessageBox": [],
+  "Ext.locale.en.Component": [],
+  "Ext.locale.en.form.Basic": [],
+  "Ext.locale.en.form.CheckboxGroup": [],
+  "Ext.locale.en.form.RadioGroup": [],
+  "Ext.locale.en.form.field.Base": [],
+  "Ext.locale.en.form.field.ComboBox": [],
+  "Ext.locale.en.form.field.Date": [],
+  "Ext.locale.en.form.field.HtmlEditor": [],
+  "Ext.locale.en.form.field.Number": [],
+  "Ext.locale.en.form.field.Text": [],
+  "Ext.locale.en.form.field.Time": [],
+  "Ext.locale.en.form.field.VTypes": [],
+  "Ext.locale.en.grid.BooleanColumn": [],
+  "Ext.locale.en.grid.DateColumn": [],
+  "Ext.locale.en.grid.GroupingFeature": [],
+  "Ext.locale.en.grid.NumberColumn": [],
+  "Ext.locale.en.grid.PropertyColumnModel": [],
+  "Ext.locale.en.grid.header.Container": [],
+  "Ext.locale.en.grid.plugin.DragDrop": [],
+  "Ext.locale.en.picker.Date": [],
+  "Ext.locale.en.picker.Month": [],
+  "Ext.locale.en.toolbar.Paging": [],
+  "Ext.locale.en.view.AbstractView": [],
+  "Ext.locale.en.view.View": [],
+  "Ext.locale.en.window.MessageBox": [],
   "Ext.menu.CheckItem": [],
   "Ext.menu.ColorPicker": [],
   "Ext.menu.DatePicker": [],
@@ -864,23 +877,11 @@ Ext.ClassManager.addNameAlternateMappings({
   "Ext.window.Window": [
     "Ext.Window"
   ],
-  "ExtThemeNeptune.Component": [],
-  "ExtThemeNeptune.container.ButtonGroup": [],
-  "ExtThemeNeptune.form.field.HtmlEditor": [],
-  "ExtThemeNeptune.grid.RowEditor": [],
-  "ExtThemeNeptune.grid.column.RowNumberer": [],
-  "ExtThemeNeptune.layout.component.Dock": [],
-  "ExtThemeNeptune.menu.Menu": [],
-  "ExtThemeNeptune.menu.Separator": [],
-  "ExtThemeNeptune.panel.Panel": [],
-  "ExtThemeNeptune.panel.Table": [],
-  "ExtThemeNeptune.panel.Tool": [],
-  "ExtThemeNeptune.picker.Month": [],
-  "ExtThemeNeptune.resizer.Splitter": [],
-  "ExtThemeNeptune.tab.Tab": [],
-  "ExtThemeNeptune.toolbar.Paging": [],
-  "ExtThemeNeptune.toolbar.Toolbar": [],
   "XMLifeOperating.Application": [],
+  "XMLifeOperating.controller.AlipayRefund": [],
+  "XMLifeOperating.controller.Authority": [],
+  "XMLifeOperating.controller.BalanceRefund": [],
+  "XMLifeOperating.controller.BatchAddEstate": [],
   "XMLifeOperating.controller.CustomerList": [],
   "XMLifeOperating.controller.GDealList": [],
   "XMLifeOperating.controller.GDeliverer": [],
@@ -895,8 +896,11 @@ Ext.ClassManager.addNameAlternateMappings({
   "XMLifeOperating.controller.ShopBannerTemplate": [],
   "XMLifeOperating.controller.Shoparea": [],
   "XMLifeOperating.controller.SupportedCityList": [],
+  "XMLifeOperating.controller.WechatRefund": [],
+  "XMLifeOperating.controller.login": [],
   "XMLifeOperating.generic.BaseProxy": [],
   "XMLifeOperating.generic.Global": [],
+  "XMLifeOperating.model.Account": [],
   "XMLifeOperating.model.Address": [],
   "XMLifeOperating.model.CardBatch": [],
   "XMLifeOperating.model.CardTemplate": [],
@@ -908,8 +912,10 @@ Ext.ClassManager.addNameAlternateMappings({
   "XMLifeOperating.model.Deliverer": [],
   "XMLifeOperating.model.DelivererWorkTime": [],
   "XMLifeOperating.model.Feedback": [],
+  "XMLifeOperating.model.Navigation": [],
   "XMLifeOperating.model.ProductTemplate": [],
   "XMLifeOperating.model.ProductUnit": [],
+  "XMLifeOperating.model.Refund": [],
   "XMLifeOperating.model.Shop": [],
   "XMLifeOperating.model.ShopArea": [],
   "XMLifeOperating.model.ShopBannerTemplate": [],
@@ -918,9 +924,13 @@ Ext.ClassManager.addNameAlternateMappings({
   "XMLifeOperating.model.SupportedCity": [],
   "XMLifeOperating.model.Template": [],
   "XMLifeOperating.model.refundModel": [],
+  "XMLifeOperating.store.Account": [],
   "XMLifeOperating.store.Address": [],
+  "XMLifeOperating.store.AlipayRefund": [],
   "XMLifeOperating.store.AllCities": [],
   "XMLifeOperating.store.AssignedCity": [],
+  "XMLifeOperating.store.Authority": [],
+  "XMLifeOperating.store.BalanceRefund": [],
   "XMLifeOperating.store.CardBatch": [],
   "XMLifeOperating.store.CardTemplate": [],
   "XMLifeOperating.store.Customer": [],
@@ -943,11 +953,19 @@ Ext.ClassManager.addNameAlternateMappings({
   "XMLifeOperating.store.Shopper": [],
   "XMLifeOperating.store.ShopperWorkTime": [],
   "XMLifeOperating.store.SupportedCity": [],
+  "XMLifeOperating.store.WechatRefund": [],
   "XMLifeOperating.store.refundStore": [],
+  "XMLifeOperating.view.BatchAddEstate": [],
   "XMLifeOperating.view.Main": [],
   "XMLifeOperating.view.Navigation": [],
   "XMLifeOperating.view.Toolbar": [],
   "XMLifeOperating.view.Viewport": [],
+  "XMLifeOperating.view.admin.login": [],
+  "XMLifeOperating.view.authorityManage.AuthorityTabPanel": [],
+  "XMLifeOperating.view.authorityManage.CityAccountManage": [],
+  "XMLifeOperating.view.authorityManage.GlobalAccountManage": [],
+  "XMLifeOperating.view.authorityManage.addCityManagerAccount": [],
+  "XMLifeOperating.view.authorityManage.addGlobalAccount": [],
   "XMLifeOperating.view.cityManage.SupportedCityAdd": [],
   "XMLifeOperating.view.cityManage.SupportedCityEdit": [],
   "XMLifeOperating.view.cityManage.SupportedCityList": [],
@@ -962,6 +980,11 @@ Ext.ClassManager.addNameAlternateMappings({
   "XMLifeOperating.view.rechargeableCardManage.rechargeableCardTemplate.RechargeableCardTemplateAdd": [],
   "XMLifeOperating.view.rechargeableCardManage.rechargeableCardTemplate.RechargeableCardTemplateList": [],
   "XMLifeOperating.view.rechargeableCardManage.rechargeableCardTemplate.RechargeableCardTemplateReturnCardAdd": [],
+  "XMLifeOperating.view.refundManage.DealDetailRefund": [],
+  "XMLifeOperating.view.refundManage.alipayRefund.AlipayRefundList": [],
+  "XMLifeOperating.view.refundManage.balanceRefund.BalanceRefundList": [],
+  "XMLifeOperating.view.refundManage.wechatRefund.TenpayLogin": [],
+  "XMLifeOperating.view.refundManage.wechatRefund.WechatRefundList": [],
   "XMLifeOperating.view.shopareaManage.addShopArea": [],
   "XMLifeOperating.view.shopareaManage.shopareaList": [],
   "XMLifeOperating.view.staffManage.deliverer.GDealDelivererHistoryList": [],
@@ -976,6 +999,8 @@ Ext.ClassManager.addNameAlternateMappings({
   "XMLifeOperating.view.staffManage.shopper.GShopperWorkTimeList": [],
   "XMLifeOperating.view.templateManage.productTemplate.ProductTemplateEdit": [],
   "XMLifeOperating.view.templateManage.productTemplate.ProductTemplateList": [],
+  "XMLifeOperating.view.templateManage.productTemplate.batchAddWindow": [],
+  "XMLifeOperating.view.templateManage.productTemplate.batchModifiWindow": [],
   "XMLifeOperating.view.templateManage.shopBannerTemplate.ShopBannerTemplateEdit": [],
   "XMLifeOperating.view.templateManage.shopBannerTemplate.ShopBannerTemplateList": [],
   "XMLifeOperating.view.userManage.customer.CustomerAddress": [],
@@ -1619,24 +1644,31 @@ Ext.ClassManager.addNameAliasMappings({
   "Ext.layout.container.boxOverflow.Menu": [],
   "Ext.layout.container.boxOverflow.None": [],
   "Ext.layout.container.boxOverflow.Scroller": [],
-  "Ext.locale.zh_CN.Component": [],
-  "Ext.locale.zh_CN.form.field.Base": [],
-  "Ext.locale.zh_CN.form.field.ComboBox": [],
-  "Ext.locale.zh_CN.form.field.Date": [],
-  "Ext.locale.zh_CN.form.field.HtmlEditor": [],
-  "Ext.locale.zh_CN.form.field.Number": [],
-  "Ext.locale.zh_CN.form.field.Text": [],
-  "Ext.locale.zh_CN.form.field.VTypes": [],
-  "Ext.locale.zh_CN.grid.PropertyColumnModel": [],
-  "Ext.locale.zh_CN.grid.header.Container": [],
-  "Ext.locale.zh_CN.grid.plugin.DragDrop": [],
-  "Ext.locale.zh_CN.picker.Date": [],
-  "Ext.locale.zh_CN.picker.Month": [],
-  "Ext.locale.zh_CN.tab.Tab": [],
-  "Ext.locale.zh_CN.toolbar.Paging": [],
-  "Ext.locale.zh_CN.view.AbstractView": [],
-  "Ext.locale.zh_CN.view.View": [],
-  "Ext.locale.zh_CN.window.MessageBox": [],
+  "Ext.locale.en.Component": [],
+  "Ext.locale.en.form.Basic": [],
+  "Ext.locale.en.form.CheckboxGroup": [],
+  "Ext.locale.en.form.RadioGroup": [],
+  "Ext.locale.en.form.field.Base": [],
+  "Ext.locale.en.form.field.ComboBox": [],
+  "Ext.locale.en.form.field.Date": [],
+  "Ext.locale.en.form.field.HtmlEditor": [],
+  "Ext.locale.en.form.field.Number": [],
+  "Ext.locale.en.form.field.Text": [],
+  "Ext.locale.en.form.field.Time": [],
+  "Ext.locale.en.form.field.VTypes": [],
+  "Ext.locale.en.grid.BooleanColumn": [],
+  "Ext.locale.en.grid.DateColumn": [],
+  "Ext.locale.en.grid.GroupingFeature": [],
+  "Ext.locale.en.grid.NumberColumn": [],
+  "Ext.locale.en.grid.PropertyColumnModel": [],
+  "Ext.locale.en.grid.header.Container": [],
+  "Ext.locale.en.grid.plugin.DragDrop": [],
+  "Ext.locale.en.picker.Date": [],
+  "Ext.locale.en.picker.Month": [],
+  "Ext.locale.en.toolbar.Paging": [],
+  "Ext.locale.en.view.AbstractView": [],
+  "Ext.locale.en.view.View": [],
+  "Ext.locale.en.window.MessageBox": [],
   "Ext.menu.CheckItem": [
     "widget.menucheckitem"
   ],
@@ -1986,23 +2018,11 @@ Ext.ClassManager.addNameAliasMappings({
   "Ext.window.Window": [
     "widget.window"
   ],
-  "ExtThemeNeptune.Component": [],
-  "ExtThemeNeptune.container.ButtonGroup": [],
-  "ExtThemeNeptune.form.field.HtmlEditor": [],
-  "ExtThemeNeptune.grid.RowEditor": [],
-  "ExtThemeNeptune.grid.column.RowNumberer": [],
-  "ExtThemeNeptune.layout.component.Dock": [],
-  "ExtThemeNeptune.menu.Menu": [],
-  "ExtThemeNeptune.menu.Separator": [],
-  "ExtThemeNeptune.panel.Panel": [],
-  "ExtThemeNeptune.panel.Table": [],
-  "ExtThemeNeptune.panel.Tool": [],
-  "ExtThemeNeptune.picker.Month": [],
-  "ExtThemeNeptune.resizer.Splitter": [],
-  "ExtThemeNeptune.tab.Tab": [],
-  "ExtThemeNeptune.toolbar.Paging": [],
-  "ExtThemeNeptune.toolbar.Toolbar": [],
   "XMLifeOperating.Application": [],
+  "XMLifeOperating.controller.AlipayRefund": [],
+  "XMLifeOperating.controller.Authority": [],
+  "XMLifeOperating.controller.BalanceRefund": [],
+  "XMLifeOperating.controller.BatchAddEstate": [],
   "XMLifeOperating.controller.CustomerList": [],
   "XMLifeOperating.controller.GDealList": [],
   "XMLifeOperating.controller.GDeliverer": [],
@@ -2017,8 +2037,11 @@ Ext.ClassManager.addNameAliasMappings({
   "XMLifeOperating.controller.ShopBannerTemplate": [],
   "XMLifeOperating.controller.Shoparea": [],
   "XMLifeOperating.controller.SupportedCityList": [],
+  "XMLifeOperating.controller.WechatRefund": [],
+  "XMLifeOperating.controller.login": [],
   "XMLifeOperating.generic.BaseProxy": [],
   "XMLifeOperating.generic.Global": [],
+  "XMLifeOperating.model.Account": [],
   "XMLifeOperating.model.Address": [],
   "XMLifeOperating.model.CardBatch": [],
   "XMLifeOperating.model.CardTemplate": [],
@@ -2030,8 +2053,10 @@ Ext.ClassManager.addNameAliasMappings({
   "XMLifeOperating.model.Deliverer": [],
   "XMLifeOperating.model.DelivererWorkTime": [],
   "XMLifeOperating.model.Feedback": [],
+  "XMLifeOperating.model.Navigation": [],
   "XMLifeOperating.model.ProductTemplate": [],
   "XMLifeOperating.model.ProductUnit": [],
+  "XMLifeOperating.model.Refund": [],
   "XMLifeOperating.model.Shop": [],
   "XMLifeOperating.model.ShopArea": [],
   "XMLifeOperating.model.ShopBannerTemplate": [],
@@ -2040,9 +2065,13 @@ Ext.ClassManager.addNameAliasMappings({
   "XMLifeOperating.model.SupportedCity": [],
   "XMLifeOperating.model.Template": [],
   "XMLifeOperating.model.refundModel": [],
+  "XMLifeOperating.store.Account": [],
   "XMLifeOperating.store.Address": [],
+  "XMLifeOperating.store.AlipayRefund": [],
   "XMLifeOperating.store.AllCities": [],
   "XMLifeOperating.store.AssignedCity": [],
+  "XMLifeOperating.store.Authority": [],
+  "XMLifeOperating.store.BalanceRefund": [],
   "XMLifeOperating.store.CardBatch": [],
   "XMLifeOperating.store.CardTemplate": [],
   "XMLifeOperating.store.Customer": [],
@@ -2065,7 +2094,11 @@ Ext.ClassManager.addNameAliasMappings({
   "XMLifeOperating.store.Shopper": [],
   "XMLifeOperating.store.ShopperWorkTime": [],
   "XMLifeOperating.store.SupportedCity": [],
+  "XMLifeOperating.store.WechatRefund": [],
   "XMLifeOperating.store.refundStore": [],
+  "XMLifeOperating.view.BatchAddEstate": [
+    "widget.BatchAddEstate"
+  ],
   "XMLifeOperating.view.Main": [
     "widget.app-main"
   ],
@@ -2076,6 +2109,24 @@ Ext.ClassManager.addNameAliasMappings({
     "widget.headerToolbar"
   ],
   "XMLifeOperating.view.Viewport": [],
+  "XMLifeOperating.view.admin.login": [
+    "widget.login"
+  ],
+  "XMLifeOperating.view.authorityManage.AuthorityTabPanel": [
+    "widget.AuthorityTabPanel"
+  ],
+  "XMLifeOperating.view.authorityManage.CityAccountManage": [
+    "widget.CityAccountManage"
+  ],
+  "XMLifeOperating.view.authorityManage.GlobalAccountManage": [
+    "widget.GlobalAccountManage"
+  ],
+  "XMLifeOperating.view.authorityManage.addCityManagerAccount": [
+    "widget.addCityManagerAccount"
+  ],
+  "XMLifeOperating.view.authorityManage.addGlobalAccount": [
+    "widget.addGlobalAccount"
+  ],
   "XMLifeOperating.view.cityManage.SupportedCityAdd": [
     "widget.supportedCityAdd"
   ],
@@ -2117,6 +2168,21 @@ Ext.ClassManager.addNameAliasMappings({
   ],
   "XMLifeOperating.view.rechargeableCardManage.rechargeableCardTemplate.RechargeableCardTemplateReturnCardAdd": [
     "widget.rechargeablecardtemplatereturncardadd"
+  ],
+  "XMLifeOperating.view.refundManage.DealDetailRefund": [
+    "widget.dealDetailRefund"
+  ],
+  "XMLifeOperating.view.refundManage.alipayRefund.AlipayRefundList": [
+    "widget.alipayRefundList"
+  ],
+  "XMLifeOperating.view.refundManage.balanceRefund.BalanceRefundList": [
+    "widget.balanceRefundList"
+  ],
+  "XMLifeOperating.view.refundManage.wechatRefund.TenpayLogin": [
+    "widget.tenpayLogin"
+  ],
+  "XMLifeOperating.view.refundManage.wechatRefund.WechatRefundList": [
+    "widget.wechatRefundList"
   ],
   "XMLifeOperating.view.shopareaManage.addShopArea": [
     "widget.addShopArea"
@@ -2160,6 +2226,12 @@ Ext.ClassManager.addNameAliasMappings({
   "XMLifeOperating.view.templateManage.productTemplate.ProductTemplateList": [
     "widget.productTemplateList"
   ],
+  "XMLifeOperating.view.templateManage.productTemplate.batchAddWindow": [
+    "widget.batchAddWindow"
+  ],
+  "XMLifeOperating.view.templateManage.productTemplate.batchModifiWindow": [
+    "widget.batchModifiWindow"
+  ],
   "XMLifeOperating.view.templateManage.shopBannerTemplate.ShopBannerTemplateEdit": [
     "widget.shopBannerTemplateEdit"
   ],
@@ -2181,22 +2253,6 @@ Ext.ClassManager.addNameAliasMappings({
 });
 Ext.setVersion("ext-locale", "1.0.0");
 Ext.setVersion("ext-theme-base", "4.2.1");
-Ext.setVersion("ext-theme-neptune", "4.2.1");
+Ext.setVersion("ext-theme-classic", "4.2.1");
 Ext.setVersion("ext-theme-neutral", "4.2.1");
-Ext.Loader.loadScript("../../ext/packages/ext-theme-neptune/overrides/Component.js");;
-Ext.Loader.loadScript("../../ext/packages/ext-locale/overrides/zh_CN/ext-locale-zh_CN.js");;
-Ext.Loader.loadScript("../../ext/packages/ext-theme-neptune/overrides/panel/Panel.js");;
-Ext.Loader.loadScript("../../ext/packages/ext-theme-neptune/overrides/toolbar/Toolbar.js");;
-Ext.Loader.loadScript("../../ext/packages/ext-theme-neptune/overrides/layout/component/Dock.js");;
-Ext.Loader.loadScript("../../ext/packages/ext-theme-neptune/overrides/container/ButtonGroup.js");;
-Ext.Loader.loadScript("../../ext/packages/ext-theme-neptune/overrides/toolbar/Paging.js");;
-Ext.Loader.loadScript("../../ext/packages/ext-theme-neptune/overrides/picker/Month.js");;
-Ext.Loader.loadScript("../../ext/packages/ext-theme-neptune/overrides/form/field/HtmlEditor.js");;
-Ext.Loader.loadScript("../../ext/packages/ext-theme-neptune/overrides/panel/Table.js");;
-Ext.Loader.loadScript("../../ext/packages/ext-theme-neptune/overrides/grid/RowEditor.js");;
-Ext.Loader.loadScript("../../ext/packages/ext-theme-neptune/overrides/grid/column/RowNumberer.js");;
-Ext.Loader.loadScript("../../ext/packages/ext-theme-neptune/overrides/resizer/Splitter.js");;
-Ext.Loader.loadScript("../../ext/packages/ext-theme-neptune/overrides/menu/Menu.js");;
-Ext.Loader.loadScript("../../ext/packages/ext-theme-neptune/overrides/menu/Separator.js");;
-Ext.Loader.loadScript("../../ext/packages/ext-theme-neptune/overrides/panel/Tool.js");;
-Ext.Loader.loadScript("../../ext/packages/ext-theme-neptune/overrides/tab/Tab.js");;
+Ext.Loader.loadScript("../../ext/packages/ext-locale/overrides/en/ext-locale-en.js");;

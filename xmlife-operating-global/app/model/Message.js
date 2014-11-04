@@ -6,6 +6,6 @@ Ext.define('XMLifeOperating.model.Message', {
     			return Ext.Date.format(new Date(v),'Y-m-d H:i:s');
     		}
     	},
-    	'adminName', 'url', 'file', 'status'
+    	'adminName', 'url', 'file', 'status','linkType','internalType'
     ]
 });

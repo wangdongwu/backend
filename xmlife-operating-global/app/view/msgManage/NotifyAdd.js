@@ -49,6 +49,7 @@ Ext.define('XMLifeOperating.view.msgManage.NotifyAdd', {
             }, {
                 xtype: 'combo',
                 fieldLabel: '消息链接至',
+                name:'linkType',
                 itemId: 'linkType',
                 displayField: 'type',
                 valueField: 'value',
@@ -66,6 +67,7 @@ Ext.define('XMLifeOperating.view.msgManage.NotifyAdd', {
             }, {
                 xtype: 'combo',
                 fieldLabel: '请选择功能页',
+                name:'internalType',
                 itemId: 'internalType',
                 hidden: true,
                 triggerAction: 'all',

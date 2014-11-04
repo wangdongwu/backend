@@ -6,11 +6,11 @@ Ext.define('XMLifeOperating.view.msgManage.NotifyList', {
     title: '系统消息',
     closable: true,
     store: 'Message',
-
+    queryMode:'local',
     tbar: [{
             xtype: 'textfield',
             itemId: 'msgType',
-            value: 0,
+            value: 1,
             hidden: true
         }, {
             xtype: 'button',

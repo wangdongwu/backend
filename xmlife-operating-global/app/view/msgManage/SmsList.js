@@ -10,7 +10,7 @@ Ext.define('XMLifeOperating.view.msgManage.SmsList', {
     tbar: [{
             xtype: 'textfield',
             itemId: 'msgType',
-            value: 1,
+            value: 2,
             hidden: true
         }, {
             xtype: 'button',

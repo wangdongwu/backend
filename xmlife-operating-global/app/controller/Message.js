@@ -1,7 +1,12 @@
 Ext.define('XMLifeOperating.controller.Message', {
     extend: 'Ext.app.Controller',
 
-    views: ['msgManage.NotifyList', 'msgManage.NotifyAdd', 'msgManage.SmsList', 'msgManage.SmsAdd'],
+    views: [
+        'msgManage.NotifyList',
+        'msgManage.NotifyAdd',
+        'msgManage.SmsList',
+        'msgManage.SmsAdd'
+    ],
 
     stores: ['Message', 'MessageStatus'],
 
@@ -48,13 +53,12 @@ Ext.define('XMLifeOperating.controller.Message', {
             '#statusCombo': {
                 select: function(combo) {
                     var msgType = combo.previousSibling('#msgType').getValue();
-
                     var store = this.getMessageStore();
-                    store.getProxy().extraParams = {
+                    /*                    store.getProxy().extraParams = {
                         type: msgType,
                         status: combo.getValue()
                     };
-                    store.loadPage(1);
+                    store.loadPage(1);*/
                 }
             },
             'notifyList #addBtn': {
@@ -90,7 +94,7 @@ Ext.define('XMLifeOperating.controller.Message', {
                 select: me.onDateSelect
             },
             'notifyAdd #linkType': {
-                select: me.onLinkTypeSelect
+                change: me.onLinkTypeSelect
 
             },
             'notifyAdd #saveBtn': {
@@ -111,19 +115,18 @@ Ext.define('XMLifeOperating.controller.Message', {
     onLinkTypeSelect: function(component, record) {
 
         var me = this;
-        var linkType = record[0].get('value');
+        var linkType = record；
         var nextCmp = component.nextSibling();
         var urlCmp = me.getNotifyAdd().down('#linkUrl');
 
         if (linkType == 2) { //h5页面
             nextCmp.isVisible() ? nextCmp.setVisible(false) : null;
-            urlCmp.isVisible()?null:urlCmp.setVisible(true);
+            urlCmp.isVisible() ? null : urlCmp.setVisible(true);
         } else if (linkType == 3) { //内部功能
             nextCmp.isVisible() ? null : nextCmp.setVisible(true);
-            urlCmp.isVisible()?urlCmp.setVisible(false):null;
+            urlCmp.isVisible() ? urlCmp.setVisible(false) : null;
         }
     },
-
     onAdd: function(method) {
         var record = new(this.getMessageModel());
         var win = this[method]();
@@ -131,9 +134,10 @@ Ext.define('XMLifeOperating.controller.Message', {
         win.show();
     },
     onEdit: function(args, method) {
+        var me = this;
         var win = this[method]();
         var record = args.view.getRecord(args.view.findTargetByEvent(args.e));
-        win.down('form').loadRecord(record);
+        win.down('form').loadRecord(record)
         win.show();
     },
     onDateSelect: function(elem) {
@@ -183,7 +187,7 @@ Ext.define('XMLifeOperating.controller.Message', {
 
             if (linkType == 2) { //h5
                 data.linkType = 2;
-                data.url =url; 
+                data.url = url;
             } else if (linkType == 3) { //内部类型
                 data.linkType = 3;
                 var internalType = win.down('#internalType').getValue();
@@ -202,7 +206,7 @@ Ext.define('XMLifeOperating.controller.Message', {
             } else {
                 data.linkType = 0;
             }
-          console.log(data)
+
             form.submit({
                 url: XMLifeOperating.generic.Global.URL.biz + postUrl + '?sessionId=' + sessionId,
                 params: data,
