@@ -23,7 +23,8 @@ Ext.define('XMLifeOperating.view.templateManage.shopBannerTemplate.ShopBannerTem
             data : [
                 {"value": 1, "type": '农贸市场'},
                 {"value": 2, "type": '生活超市'},
-                {"value": 3, "type": '优质店铺'}
+                {"value": 3, "type": '买手型优选店铺'},
+                {"value": 4, "type": '库存型优选店铺'}
             ],
         });
         this.items = [{
