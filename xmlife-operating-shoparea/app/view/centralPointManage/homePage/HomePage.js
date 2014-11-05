@@ -80,11 +80,14 @@ Ext.define('XMLifeOperating.view.centralPointManage.homePage.HomePage', {
         ],
         columns: [
           {
-              xtype: 'rownumberer'
+              text: '序号',
+              dataIndex: 'order',
+              width: 40,
+              align: 'center'
           }, {
               text: '列表',
               dataIndex: 'name',
-              width: 240,
+              width: 225,
               align: 'left'
           }, {
               xtype: 'actioncolumn',
@@ -100,6 +103,14 @@ Ext.define('XMLifeOperating.view.centralPointManage.homePage.HomePage', {
           plugins: {
             ptype: 'gridviewdragdrop',
             dragText: '拖拽可排序'
+          },
+          listeners: {
+            beforedrop: function(node, data, dropRec, dropPosition) {
+              if(dropRec.index == 0) return false;
+            },
+            drop: function(node, data, dropRec, dropPosition) {
+              this.up('grid').fireEvent('drop', node, data, dropRec, dropPosition);
+            }
           }
         }
 
