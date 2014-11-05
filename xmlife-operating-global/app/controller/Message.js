@@ -115,7 +115,7 @@ Ext.define('XMLifeOperating.controller.Message', {
     onLinkTypeSelect: function(component, record) {
 
         var me = this;
-        var linkType = record；
+        var linkType = record;
         var nextCmp = component.nextSibling();
         var urlCmp = me.getNotifyAdd().down('#linkUrl');
 
