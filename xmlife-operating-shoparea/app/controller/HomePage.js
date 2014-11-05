@@ -4,7 +4,8 @@ Ext.define('XMLifeOperating.controller.HomePage', {
 	views: [
         'centralPointManage.homePage.HomePage',
         'centralPointManage.homePage.HomePageAdd',
-        'centralPointManage.homePage.ModuleAdd'
+        'centralPointManage.homePage.ModuleAdd',
+        'centralPointManage.homePage.ModuleCopy'
     ],
 
     stores: ['HomePage', 'HomePageModuleList', 'HomePageModuleDetail'],
@@ -23,6 +24,10 @@ Ext.define('XMLifeOperating.controller.HomePage', {
         ref: 'moduleAdd',
         xtype: 'moduleAdd',
         autoCreate: true
+    },{
+        ref: 'moduleCopy',
+        xtype: 'moduleCopy',
+        autoCreate: true
     }],
 
 	init: function(){
@@ -40,6 +45,7 @@ Ext.define('XMLifeOperating.controller.HomePage', {
                     };
                     store.load({
                         callback: function(records) {
+                            if(!records || records.length == 0) return;
                             //初始化选择启用项
                             var model = Ext.ComponentQuery.query('#versionList')[0].getSelectionModel();
                             model.deselectAll();
@@ -130,9 +136,10 @@ Ext.define('XMLifeOperating.controller.HomePage', {
                 }
 
             },
-            // 选择大积木，展示详情
+            // 大积木事件
             'homePage #moduleList': {
-                 selectionchange: function(model, selected) {
+                // 选择, 展示详情
+                selectionchange: function(model, selected) {
                     if(selected.length == 0) return;
                     var record = selected[0].data;
                     //保存当前积木id
@@ -143,6 +150,22 @@ Ext.define('XMLifeOperating.controller.HomePage', {
                         moduleId: this.moduleId
                     }
                     store.load();
+                },
+                // 拖放, 排序
+                drop: function(node, data, dropRec, dropPosition) {
+                    var store = this.getHomePageModuleListStore();
+                    var moduleIds = [];
+                    for(var i=0, n=store.totalCount; i<n; i++){
+                        var record = store.getAt(i);
+                        record.set('order',i+1)
+                        moduleIds.push(record.get('id'));
+                    }
+                    sendPutRequest('homepage/setOrder',{
+                        layoutId: this.layoutId,
+                        moduleIds: moduleIds
+                    }, '设置启用', '启用成功', '启用失败', function() {
+                        store.load();
+                    });
                 }
             },
             'homePage #addModule': {
@@ -168,6 +191,12 @@ Ext.define('XMLifeOperating.controller.HomePage', {
                     }
                 }
             },
+            'homePage #copyModule': {
+                click: function() {
+                    var win = this.getModuleCopy();
+                    win.show();
+                }
+            },
             'homePage #delModule': {
                 click: function(view, rowIndex, colIndex, column, e) {
                     var record = view.getRecord(view.findTargetByEvent(e)),
@@ -188,7 +217,7 @@ Ext.define('XMLifeOperating.controller.HomePage', {
                         }
                     );
                 }
-            },
+            }
 
 		});
 
