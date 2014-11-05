@@ -9440,7 +9440,7 @@ rpc.ResidentalDistrict.prototype.setName = function(value) {
 
 rpc.ResidentalDistrict.prototype.getType = function() {
 	if(!this.mObj) {
-		return null;
+		return 0;
 	}
 	
 	this.mValueCache = this.mValueCache || {};
@@ -9449,14 +9449,14 @@ rpc.ResidentalDistrict.prototype.getType = function() {
 	
 	var value = this.mObj["type"];
 	
-	var objRet = ConvertUtils.jsonObjectToObject(value, String, null, false);
+	var objRet = ConvertUtils.jsonObjectToObject(value, Number, null, false);
 	
 	if(objRet) {
 		this.mValueCache["type"] = objRet;
 		return objRet;
 	}
 	
-	return null;
+	return 0;
 };
 
 rpc.ResidentalDistrict.prototype.setType = function(value) {
@@ -9464,7 +9464,7 @@ rpc.ResidentalDistrict.prototype.setType = function(value) {
 	this.mValueCache = this.mValueCache || {};
 	this.mObj = this.mObj || {};
 	
-	var _value_value0 = value;
+	var _value_value0 = (value);
 	if(!_value_value0) 
 		delete this.mObj["type"];
 	else
@@ -22797,6 +22797,57 @@ rpc.HomePageModuleItem.prototype.setImage = function(value) {
 	return this;
 };
 
+rpc.HomePageModuleItem.prototype.getParams = function() {
+	if(!this.mObj) {
+		return null;
+	}
+	
+	this.mValueCache = this.mValueCache || {};
+	var cacheValue = this.mValueCache["params"];
+	if(cacheValue) return cacheValue;
+	
+	var value = this.mObj["params"];
+	
+	var objRet = ConvertUtils.jsonObjectToObject(value, Object, [String, Object], false);
+	
+	if(objRet) {
+		this.mValueCache["params"] = objRet;
+		return objRet;
+	}
+	
+	return null;
+};
+
+rpc.HomePageModuleItem.prototype.setParams = function(value) {
+    this.checkAndCreate();
+	this.mValueCache = this.mValueCache || {};
+	this.mObj = this.mObj || {};
+	
+	var _obj_0 = (!value) ? null : {};
+	if(value) {
+		for(var _k0 in value) {
+			var _v_0 = value[_k0];
+			var _value__v_02 = _v_0;
+			if(!_value__v_02) 
+				delete _obj_0[_k0];
+			else
+				_obj_0[_k0] = _value__v_02;
+		}
+	}
+	var _value_value0 = _obj_0;
+	if(!_value_value0) 
+		delete this.mObj["params"];
+	else
+		this.mObj["params"] = _value_value0;
+
+	if(value) {
+		this.mValueCache["params"] = value;
+	} else {
+		delete this.mValueCache["params"];
+	}
+	return this;
+};
+
 rpc.HomePageModuleItem.prototype.getTitles = function() {
 	if(!this.mObj) {
 		return null;
@@ -22930,6 +22981,8 @@ rpc.HomePageModuleItem.FIELD_TITLES="titles";
 rpc.HomePageModuleItem.FIELD_TITLES_CONFUSION="titles";
 rpc.HomePageModuleItem.FIELD_IMAGE="image";
 rpc.HomePageModuleItem.FIELD_IMAGE_CONFUSION="image";
+rpc.HomePageModuleItem.FIELD_PARAMS="params";
+rpc.HomePageModuleItem.FIELD_PARAMS_CONFUSION="params";
 rpc.HomePageModuleItem.FIELD_URLTYPE="urlType";
 rpc.HomePageModuleItem.FIELD_URLTYPE_CONFUSION="urlType";
 rpc.HomePageModuleItem.FIELD_URL="url";
@@ -22943,12 +22996,14 @@ rpc.HomePageModuleItem.checkAndInitial = function() {
 	rpc.HomePageModuleItem.mFieldToConfusionMap = {
 		"titles":"titles", 
 		"image":"image", 
+		"params":"params", 
 		"urlType":"urlType", 
 		"url":"url"
 	};
 	rpc.HomePageModuleItem.mConfusionToFieldMap = {
 		"titles":"titles", 
 		"image":"image", 
+		"params":"params", 
 		"urlType":"urlType", 
 		"url":"url"
 	};
@@ -32365,6 +32420,46 @@ rpc.Address.prototype.convertFrom  = function(from, confusionMode, clone) {
 };
 
 rpc.UserCollect = function() {};
+rpc.UserCollect.prototype.getHasMore = function() {
+	if(!this.mObj) {
+		return 0;
+	}
+	
+	this.mValueCache = this.mValueCache || {};
+	var cacheValue = this.mValueCache["hasMore"];
+	if(cacheValue) return cacheValue;
+	
+	var value = this.mObj["hasMore"];
+	
+	var objRet = ConvertUtils.jsonObjectToObject(value, Number, null, false);
+	
+	if(objRet) {
+		this.mValueCache["hasMore"] = objRet;
+		return objRet;
+	}
+	
+	return 0;
+};
+
+rpc.UserCollect.prototype.setHasMore = function(value) {
+    this.checkAndCreate();
+	this.mValueCache = this.mValueCache || {};
+	this.mObj = this.mObj || {};
+	
+	var _value_value0 = (value);
+	if(!_value_value0) 
+		delete this.mObj["hasMore"];
+	else
+		this.mObj["hasMore"] = _value_value0;
+
+	if(value) {
+		this.mValueCache["hasMore"] = value;
+	} else {
+		delete this.mValueCache["hasMore"];
+	}
+	return this;
+};
+
 rpc.UserCollect.prototype.getProducts = function() {
 	if(!this.mObj) {
 		return null;
@@ -32454,6 +32549,8 @@ rpc.UserCollect.prototype.setShopId = function(value) {
 	return this;
 };
 
+rpc.UserCollect.FIELD_HASMORE="hasMore";
+rpc.UserCollect.FIELD_HASMORE_CONFUSION="hasMore";
 rpc.UserCollect.FIELD_SHOPID="shopId";
 rpc.UserCollect.FIELD_SHOPID_CONFUSION="shopId";
 rpc.UserCollect.FIELD_PRODUCTS="products";
@@ -32465,10 +32562,12 @@ rpc.UserCollect.checkAndInitial = function() {
 	
 	rpc.UserCollect.mHasConfusionField = false;
 	rpc.UserCollect.mFieldToConfusionMap = {
+		"hasMore":"hasMore", 
 		"shopId":"shopId", 
 		"products":"products"
 	};
 	rpc.UserCollect.mConfusionToFieldMap = {
+		"hasMore":"hasMore", 
 		"shopId":"shopId", 
 		"products":"products"
 	};
@@ -35124,6 +35223,64 @@ rpc.IResidentalDistrictService.searchByName = function(cityCode, name, success, 
 
 rpc.IShopService = {};
 
+rpc.IShopService.addUserCollect = function(shopId, productId, success, fail){
+	if(arguments.length < 4) alert("com.paitao.xmlife.rpc.IShopService.addUserCollect param count dismatch");
+
+	var successWrapper = success ? function(returnCode, jsonObj) {
+		var obj = ConvertUtils.jsonObjectToObject(jsonObj, Number, null, true);
+		success(returnCode, obj);
+	} : null;
+	var _jsonDict = {};
+	var _uploadDict = {};
+	{
+		var _value_shopId1 = shopId;
+		if(!_value_shopId1) 
+			delete _jsonDict["shopId"];
+		else
+			_jsonDict["shopId"] = _value_shopId1;
+	}
+
+	{
+		var _value_productId1 = productId;
+		if(!_value_productId1) 
+			delete _jsonDict["productId"];
+		else
+			_jsonDict["productId"] = _value_productId1;
+	}
+
+	var _url = rpc.ServerConfig.getUrlPrefix("Business") + "IShopService/1/addUserCollect";
+	return RpcCall.doInvoke(_url, "addUserCollect", _jsonDict, _uploadDict, successWrapper, fail);
+};
+
+rpc.IShopService.delUserCollect = function(shopId, productId, success, fail){
+	if(arguments.length < 4) alert("com.paitao.xmlife.rpc.IShopService.delUserCollect param count dismatch");
+
+	var successWrapper = success ? function(returnCode, jsonObj) {
+		var obj = ConvertUtils.jsonObjectToObject(jsonObj, Number, null, true);
+		success(returnCode, obj);
+	} : null;
+	var _jsonDict = {};
+	var _uploadDict = {};
+	{
+		var _value_shopId1 = shopId;
+		if(!_value_shopId1) 
+			delete _jsonDict["shopId"];
+		else
+			_jsonDict["shopId"] = _value_shopId1;
+	}
+
+	{
+		var _value_productId1 = productId;
+		if(!_value_productId1) 
+			delete _jsonDict["productId"];
+		else
+			_jsonDict["productId"] = _value_productId1;
+	}
+
+	var _url = rpc.ServerConfig.getUrlPrefix("Business") + "IShopService/1/delUserCollect";
+	return RpcCall.doInvoke(_url, "delUserCollect", _jsonDict, _uploadDict, successWrapper, fail);
+};
+
 rpc.IShopService.getCategoryContent = function(shopId, categoryId, success, fail){
 	if(arguments.length < 4) alert("com.paitao.xmlife.rpc.IShopService.getCategoryContent param count dismatch");
 
@@ -35285,6 +35442,27 @@ rpc.IShopService.getShopsByAreaId = function(areaId, success, fail){
 
 	var _url = rpc.ServerConfig.getUrlPrefix("Business") + "IShopService/1/getShopsByAreaId";
 	return RpcCall.doInvoke(_url, "getShopsByAreaId", _jsonDict, _uploadDict, successWrapper, fail);
+};
+
+rpc.IShopService.getUserCollectContent = function(shopId, success, fail){
+	if(arguments.length < 3) alert("com.paitao.xmlife.rpc.IShopService.getUserCollectContent param count dismatch");
+
+	var successWrapper = success ? function(returnCode, jsonObj) {
+		var obj = ConvertUtils.jsonObjectToObject(jsonObj, rpc.UserCollect, null, true);
+		success(returnCode, obj);
+	} : null;
+	var _jsonDict = {};
+	var _uploadDict = {};
+	{
+		var _value_shopId1 = shopId;
+		if(!_value_shopId1) 
+			delete _jsonDict["shopId"];
+		else
+			_jsonDict["shopId"] = _value_shopId1;
+	}
+
+	var _url = rpc.ServerConfig.getUrlPrefix("Business") + "IShopService/1/getUserCollectContent";
+	return RpcCall.doInvoke(_url, "getUserCollectContent", _jsonDict, _uploadDict, successWrapper, fail);
 };
 
 rpc.IShopService.markOnline = function(productId, success, fail){
@@ -36379,8 +36557,232 @@ rpc.ServerConfig.loadDefaultConfig = function() {
 rpc.ServerConfig.loadDefaultConfig();
 
 
+// category: CDN
+// arg 1: hash
+
+rpc.AvatarImageResource = {};
+
+rpc.AvatarImageResource.hashToUrl = function(
+		hash 
+	) {
+	var _url = hash;
+	if(!_url || _url.length < 3)
+		return _url;
+	if(_url.indexOf("http:") == 0 ||
+		   _url.indexOf("https:") == 0 ||
+           _url.indexOf("file:") == 0 ||
+           _url.indexOf("res:") == 0 ||
+           _url.indexOf("/") == 0) {
+           return _url;
+	}
+	var _url1 = rpc.ServerConfig.getUrlPrefix("CDN");
+	if(!_url1 || _url1.length < 2)
+		return null;
+	var _sb =_url1;
+	var _c;
+	_c = _sb.charAt(_sb.length - 1);
+	if(_c != '/') {
+		_sb += "/";
+	}
+	//_sb += "id-";
+
+	_sb += hash;
+	
+	return _sb;
+};
+
+rpc.AvatarImageResource.hashToSmallUrl = function(
+		hash 
+	) {
+	var _url = rpc.AvatarImageResource.hashToUrl(
+		hash 
+	);
+	if(!_url || _url.length < 3 || _url.indexOf("http") < 0)
+		return _url;
+	
+	//if(_url.indexOf("w-72") > 1) {
+	//	return _url;
+	//}
+	
+	var _sb = _url;
+	var _c = _sb.charAt(_sb.length - 1);
+	if(_c != '@') {
+		_sb += "@";
+	}
+	
+	_sb += "w-72";
+	
+	
+	return _sb;
+};
+
+rpc.AvatarImageResource.hashToMediumUrl = function(
+		hash 
+	) {
+	var _url = rpc.AvatarImageResource.hashToUrl(
+		hash 
+	);
+	if(!_url || _url.length < 3 || _url.indexOf("http") < 0)
+		return _url;
+	
+	//if(_url.indexOf("w-92") > 1) {
+	//	return _url;
+	//}
+	
+	var _sb = _url;
+	var _c = _sb.charAt(_sb.length - 1);
+	if(_c != '@') {
+		_sb += "@";
+	}
+	
+	_sb += "w-92";
+	
+	
+	return _sb;
+};
+
+rpc.AvatarImageResource.hashToFullUrl = function(
+		hash 
+	) {
+	var _url = rpc.AvatarImageResource.hashToUrl(
+		hash 
+	);
+	if(!_url || _url.length < 3 || _url.indexOf("http") < 0)
+		return _url;
+	
+	//if(_url.indexOf("w-640/m-fw") > 1) {
+	//	return _url;
+	//}
+	
+	var _sb = _url;
+	var _c = _sb.charAt(_sb.length - 1);
+	if(_c != '@') {
+		_sb += "@";
+	}
+	
+	_sb += "w-640/m-fw";
+	
+	
+	return _sb;
+};
+
+
+// category: CDN
+// arg 1: hash
+
+rpc.ProductImageResource = {};
+
+rpc.ProductImageResource.hashToUrl = function(
+		hash 
+	) {
+	var _url = hash;
+	if(!_url || _url.length < 3)
+		return _url;
+	if(_url.indexOf("http:") == 0 ||
+		   _url.indexOf("https:") == 0 ||
+           _url.indexOf("file:") == 0 ||
+           _url.indexOf("res:") == 0 ||
+           _url.indexOf("/") == 0) {
+           return _url;
+	}
+	var _url1 = rpc.ServerConfig.getUrlPrefix("CDN");
+	if(!_url1 || _url1.length < 2)
+		return null;
+	var _sb =_url1;
+	var _c;
+	_c = _sb.charAt(_sb.length - 1);
+	if(_c != '/') {
+		_sb += "/";
+	}
+	//_sb += "id-";
+
+	_sb += hash;
+	
+	return _sb;
+};
+
+rpc.ProductImageResource.hashToSmallUrl = function(
+		hash 
+	) {
+	var _url = rpc.ProductImageResource.hashToUrl(
+		hash 
+	);
+	if(!_url || _url.length < 3 || _url.indexOf("http") < 0)
+		return _url;
+	
+	//if(_url.indexOf("w-202") > 1) {
+	//	return _url;
+	//}
+	
+	var _sb = _url;
+	var _c = _sb.charAt(_sb.length - 1);
+	if(_c != '@') {
+		_sb += "@";
+	}
+	
+	_sb += "w-202";
+	
+	
+	return _sb;
+};
+
+rpc.ProductImageResource.hashToMediumUrl = function(
+		hash 
+	) {
+	var _url = rpc.ProductImageResource.hashToUrl(
+		hash 
+	);
+	if(!_url || _url.length < 3 || _url.indexOf("http") < 0)
+		return _url;
+	
+	//if(_url.indexOf("w-372") > 1) {
+	//	return _url;
+	//}
+	
+	var _sb = _url;
+	var _c = _sb.charAt(_sb.length - 1);
+	if(_c != '@') {
+		_sb += "@";
+	}
+	
+	_sb += "w-372";
+	
+	
+	return _sb;
+};
+
+rpc.ProductImageResource.hashToFullUrl = function(
+		hash 
+	) {
+	var _url = rpc.ProductImageResource.hashToUrl(
+		hash 
+	);
+	if(!_url || _url.length < 3 || _url.indexOf("http") < 0)
+		return _url;
+	
+	//if(_url.indexOf("w-640/m-fw") > 1) {
+	//	return _url;
+	//}
+	
+	var _sb = _url;
+	var _c = _sb.charAt(_sb.length - 1);
+	if(_c != '@') {
+		_sb += "@";
+	}
+	
+	_sb += "w-640/m-fw";
+	
+	
+	return _sb;
+};
+
+
 
 rpc.LongPolling = {};
+
+
+
+rpc.RpcProxyStub = {};
 
 
 // category: CDN
@@ -36496,230 +36898,6 @@ rpc.HttpImageResource.hashToFullUrl = function(
 		hash 
 	) {
 	var _url = rpc.HttpImageResource.hashToUrl(
-		hash 
-	);
-	if(!_url || _url.length < 3 || _url.indexOf("http") < 0)
-		return _url;
-	
-	//if(_url.indexOf("w-640/m-fw") > 1) {
-	//	return _url;
-	//}
-	
-	var _sb = _url;
-	var _c = _sb.charAt(_sb.length - 1);
-	if(_c != '@') {
-		_sb += "@";
-	}
-	
-	_sb += "w-640/m-fw";
-	
-	
-	return _sb;
-};
-
-
-
-rpc.RpcProxyStub = {};
-
-
-// category: CDN
-// arg 1: hash
-
-rpc.ProductImageResource = {};
-
-rpc.ProductImageResource.hashToUrl = function(
-		hash 
-	) {
-	var _url = hash;
-	if(!_url || _url.length < 3)
-		return _url;
-	if(_url.indexOf("http:") == 0 ||
-		   _url.indexOf("https:") == 0 ||
-           _url.indexOf("file:") == 0 ||
-           _url.indexOf("res:") == 0 ||
-           _url.indexOf("/") == 0) {
-           return _url;
-	}
-	var _url1 = rpc.ServerConfig.getUrlPrefix("CDN");
-	if(!_url1 || _url1.length < 2)
-		return null;
-	var _sb =_url1;
-	var _c;
-	_c = _sb.charAt(_sb.length - 1);
-	if(_c != '/') {
-		_sb += "/";
-	}
-	//_sb += "id-";
-
-	_sb += hash;
-	
-	return _sb;
-};
-
-rpc.ProductImageResource.hashToSmallUrl = function(
-		hash 
-	) {
-	var _url = rpc.ProductImageResource.hashToUrl(
-		hash 
-	);
-	if(!_url || _url.length < 3 || _url.indexOf("http") < 0)
-		return _url;
-	
-	//if(_url.indexOf("w-202") > 1) {
-	//	return _url;
-	//}
-	
-	var _sb = _url;
-	var _c = _sb.charAt(_sb.length - 1);
-	if(_c != '@') {
-		_sb += "@";
-	}
-	
-	_sb += "w-202";
-	
-	
-	return _sb;
-};
-
-rpc.ProductImageResource.hashToMediumUrl = function(
-		hash 
-	) {
-	var _url = rpc.ProductImageResource.hashToUrl(
-		hash 
-	);
-	if(!_url || _url.length < 3 || _url.indexOf("http") < 0)
-		return _url;
-	
-	//if(_url.indexOf("w-372") > 1) {
-	//	return _url;
-	//}
-	
-	var _sb = _url;
-	var _c = _sb.charAt(_sb.length - 1);
-	if(_c != '@') {
-		_sb += "@";
-	}
-	
-	_sb += "w-372";
-	
-	
-	return _sb;
-};
-
-rpc.ProductImageResource.hashToFullUrl = function(
-		hash 
-	) {
-	var _url = rpc.ProductImageResource.hashToUrl(
-		hash 
-	);
-	if(!_url || _url.length < 3 || _url.indexOf("http") < 0)
-		return _url;
-	
-	//if(_url.indexOf("w-640/m-fw") > 1) {
-	//	return _url;
-	//}
-	
-	var _sb = _url;
-	var _c = _sb.charAt(_sb.length - 1);
-	if(_c != '@') {
-		_sb += "@";
-	}
-	
-	_sb += "w-640/m-fw";
-	
-	
-	return _sb;
-};
-
-
-// category: CDN
-// arg 1: hash
-
-rpc.AvatarImageResource = {};
-
-rpc.AvatarImageResource.hashToUrl = function(
-		hash 
-	) {
-	var _url = hash;
-	if(!_url || _url.length < 3)
-		return _url;
-	if(_url.indexOf("http:") == 0 ||
-		   _url.indexOf("https:") == 0 ||
-           _url.indexOf("file:") == 0 ||
-           _url.indexOf("res:") == 0 ||
-           _url.indexOf("/") == 0) {
-           return _url;
-	}
-	var _url1 = rpc.ServerConfig.getUrlPrefix("CDN");
-	if(!_url1 || _url1.length < 2)
-		return null;
-	var _sb =_url1;
-	var _c;
-	_c = _sb.charAt(_sb.length - 1);
-	if(_c != '/') {
-		_sb += "/";
-	}
-	//_sb += "id-";
-
-	_sb += hash;
-	
-	return _sb;
-};
-
-rpc.AvatarImageResource.hashToSmallUrl = function(
-		hash 
-	) {
-	var _url = rpc.AvatarImageResource.hashToUrl(
-		hash 
-	);
-	if(!_url || _url.length < 3 || _url.indexOf("http") < 0)
-		return _url;
-	
-	//if(_url.indexOf("w-72") > 1) {
-	//	return _url;
-	//}
-	
-	var _sb = _url;
-	var _c = _sb.charAt(_sb.length - 1);
-	if(_c != '@') {
-		_sb += "@";
-	}
-	
-	_sb += "w-72";
-	
-	
-	return _sb;
-};
-
-rpc.AvatarImageResource.hashToMediumUrl = function(
-		hash 
-	) {
-	var _url = rpc.AvatarImageResource.hashToUrl(
-		hash 
-	);
-	if(!_url || _url.length < 3 || _url.indexOf("http") < 0)
-		return _url;
-	
-	//if(_url.indexOf("w-92") > 1) {
-	//	return _url;
-	//}
-	
-	var _sb = _url;
-	var _c = _sb.charAt(_sb.length - 1);
-	if(_c != '@') {
-		_sb += "@";
-	}
-	
-	_sb += "w-92";
-	
-	
-	return _sb;
-};
-
-rpc.AvatarImageResource.hashToFullUrl = function(
-		hash 
-	) {
-	var _url = rpc.AvatarImageResource.hashToUrl(
 		hash 
 	);
 	if(!_url || _url.length < 3 || _url.indexOf("http") < 0)
