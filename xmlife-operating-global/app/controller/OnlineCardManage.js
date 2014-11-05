@@ -116,15 +116,18 @@ Ext.define('XMLifeOperating.controller.OnlineCardManage', {
             soldPrice = form.down('#soldPrice'),
             price = form.down('#soldPrice').getValue();
           soldPrice.setValue(price * 100);
+
+
           if (addOnlineCard.isEdit) {
             /*修改*/
             form.submit({
               url: form.editUrl,
               method: 'put',
               success: function(response) {
-
+                soldPrice.setValue(price);
               },
               failure: function(form, result) {
+                soldPrice.setValue(price);
                 if (result.response.responseText == 1) {
                   self.loadCartData(function(cartStore) {
                     var cardDetail = self.getCardDetail(),
@@ -133,14 +136,17 @@ Ext.define('XMLifeOperating.controller.OnlineCardManage', {
                   });
                 };
               }
-            })
+            });
+
           } else {
             /*添加*/
-
             form.submit({
               method: 'put',
-              success: function(response) {},
+              success: function(response) {
+                soldPrice.setValue(price);
+              },
               failure: function(form, result) {
+                soldPrice.setValue(price);
                 if (result.response.responseText == 1) {
                   Ext.Msg.alert('成功', '添加成功');
                   self.loadCartData();
@@ -148,8 +154,6 @@ Ext.define('XMLifeOperating.controller.OnlineCardManage', {
               }
             })
           }
-
-
         }
       },
       'CardDetail #edit': {
