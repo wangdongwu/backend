@@ -50,6 +50,9 @@ Ext.define('XMLifeOperating.controller.SProductList', {
             'sShopShelfTab': {
                 tabchange: me.tabChange
             },
+            'sShopProduct #putawayOrOut':{
+                click:me.putawayOrOut
+            },
             'sShopProduct #openModifyShelvesGoodsWin': {
                 click: me.openProductEditWindow
             },
@@ -186,7 +189,8 @@ Ext.define('XMLifeOperating.controller.SProductList', {
         var win = me.getSShopProductEdit(),
             winEL = win.getEl(),
             form = win.down('form'),
-            record = form.getForm().getRecord(),
+            record = form.getForm().getRecord(),//原始数据
+            values = form.getForm().getValues(),//表单数据
             categoryId = null,
             data = {
                 id: null,
@@ -198,11 +202,12 @@ Ext.define('XMLifeOperating.controller.SProductList', {
         if (tabIdstrArray[0] == 'tab4' && tabIdstrArray[1] != undefined) {
             categoryId = tabIdstrArray[1];
         }
+
         if (form.isValid()) {
             //价格限制
-            var facePrice = me.priceTransform(record.get('facePrice'));
-            var discountPrice = me.priceTransform(record.get('discountPrice'));
-            var purchasePrice = me.priceTransform(record.get('purchasePrice'));
+            var facePrice = me.priceTransform(values.facePrice);
+            var discountPrice = me.priceTransform(values.discountPrice);
+            var purchasePrice = me.priceTransform(values.purchasePrice);
             if (discountPrice != "") {
                 data.discountPrice = discountPrice;
                 if (discountPrice >= facePrice) {
@@ -250,5 +255,39 @@ Ext.define('XMLifeOperating.controller.SProductList', {
     },
     priceTransform: function(value) {
         return parseInt((value * 100).toFixed());
+    },
+    putawayOrOut: function(component, column, rowIndex, colIndex, e) {
+        var model = component.getStore().getAt(rowIndex);
+        var node = e.target;
+        var className = null
+        var statusValue = null
+        var url = ['product/'];
+        var status;
+        if (node.type == 'button') {
+            statusValue = node.getAttribute('statusvalue');
+
+        } else {
+            statusValue = node.childNodes[0].getAttribute("statusValue");
+        }
+        url.push(statusValue)
+
+        //statusValue为点击事件后商品的状态
+        switch (statusValue) {
+            case 'soldout': //让商品下架（目前处于上架状态）
+                status = 3;
+                break;
+            case 'offline': //让商品雪藏（目前处于未雪藏）
+                status = 1;
+                break;
+            case 'online': //让商品上架（目前处于售罄状态）
+                status = 0;
+                break;
+        }
+        sendPutRequest(url.join(''), {
+            productId: model.get('id')
+        }, '操作', '上下架成功', '上下架失败', function() {
+            //me.fireEvent('refreshView');
+            model.set('status', status);
+        });
     }
 });
