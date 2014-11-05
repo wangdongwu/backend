@@ -112,17 +112,17 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopShelf', {
         dataIndex: 'status',
         itemId: 'showOrHide',
         renderer: function(value, metaData, record) {
-            var type = record.get('type');
+/*            var type = record.get('type');
             if (type == 0) { //回收站分类
                 metaData.css = 'x-hide-display';
             } else{
-                metaData.css = 'x-grid-icon';
+                metaData.css = 'x-grid-icon';*/
                 if (value == 0) { //隐藏
                     return '<button>显示</button>';
                 } else if (value == 1) { //显示
                     return '<button>隐藏</button>';
                 }
-            }
+           /* }*/
 
         },
         tdCls: 'user-td'
@@ -139,13 +139,13 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopShelf', {
         align: 'center',
         items: [{
             icon: 'resources/images/edit.png',
-            getClass: function(value, metaData, record) {
+/*            getClass: function(value, metaData, record) {
                 if (value === 0) {
                     metaData.css = 'x-hide-display';
                 } else {
                     metaData.css = 'x-grid-icon';
                 }
-            }
+            }*/
         }]
     }],
     dockedItems: [{

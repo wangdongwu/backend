@@ -126,13 +126,13 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopProduct', {
         align: 'center',
         renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
             var me = this;
-            if (!me.CategoryRootsStore) {
+/*            if (!me.CategoryRootsStore) {
                 me.CategoryRootsStore = Ext.StoreMgr.lookup('CategoryRoots');
             }
             var category = me.CategoryRootsStore.getById(record.get('categoryId'));
-            type = category ? category.get('type') : 1;
+            type = category ? category.get('type') : 1;*/
             var str = '';
-            if (type == 0) {
+/*            if (type == 0) {
                 switch (value) {
                     case 3: //售罄，显示上架按钮
                         str += '<input type="button" disabled="true" value="上架" statusValue="online" class="putaway" /><br/>';
@@ -144,7 +144,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopProduct', {
                         str += '<input type="button"   disabled="true"  value="下架" statusValue="soldout"  class="putaway" /><br/>';
                         break;
                 }
-            } else {
+            } else {*/
                 switch (value) {
                     case 3: //售罄，显示上架按钮
                         str += '<input type="button" value="上架" statusValue="online" class="putaway" /><br/>';
@@ -156,7 +156,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopProduct', {
                         str += '<input type="button" value="下架" statusValue="soldout"  class="putaway" /><br/>';
                         break;
                 }
-            }
+           /* }*/
             return str;
         }
     }, {
@@ -169,13 +169,13 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopProduct', {
         align: 'center',
         renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
             var me = this;
-            if (!me.CategoryRootsStore) {
+/*            if (!me.CategoryRootsStore) {
                 me.CategoryRootsStore = Ext.StoreMgr.lookup('CategoryRoots');
             }
             var category = me.CategoryRootsStore.getById(record.get('categoryId'));
-            type = category ? category.get('type') : 1;
+            type = category ? category.get('type') : 1;*/
             var str = '';
-            if (type == 0) {
+/*            if (type == 0) {
                 switch (value) {
                     case 0:
                         str += '<input type="button" disabled="true" value="雪藏" statusValue="offline" class="frozen" />';
@@ -186,7 +186,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopProduct', {
                     case 3:
                         str += '<input type="button" disabled="true" value="雪藏" statusValue="offline"  class="frozen" />';
                 }
-            } else {
+            } else {*/
                 switch (value) {
                     case 0:
                         str += '<input type="button"  value="雪藏" statusValue="offline" class="frozen" />';
@@ -197,7 +197,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopProduct', {
                     case 3:
                         str += '<input type="button"  value="雪藏" statusValue="offline"  class="frozen" />';
                 }
-            }
+          /*  }*/
             return str;
         }
     }, {
@@ -228,12 +228,12 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopProduct', {
         align: 'center',
         renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
             var me = this;
-            if (!me.CategoryRootsStore) {
+/*            if (!me.CategoryRootsStore) {
                 me.CategoryRootsStore = Ext.StoreMgr.lookup('CategoryRoots');
             }
             var category = me.CategoryRootsStore.getById(record.get('categoryId'));
-            type = category ? category.get('type') : 1;
-            if (type == 0) {
+            type = category ? category.get('type') : 1;*/
+/*            if (type == 0) {
                 if (value) {
                     return '<input type="button" disabled="true"  value="取消置顶"/>'
 
@@ -241,14 +241,14 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopProduct', {
                     return '<input type="button" disabled="true"  value="置顶"/>'
                 }
 
-            } else {
+            } else {*/
                 if (value) {
                     return '<input type="button" value="取消置顶"/>'
 
                 } else {
                     return '<input type="button"  value="置顶"/>'
                 }
-            }
+           /* }*/
         }
     }],
     tbar: [{

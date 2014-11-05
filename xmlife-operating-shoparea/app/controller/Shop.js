@@ -665,13 +665,13 @@ Ext.define('XMLifeOperating.controller.Shop', {
                                 closable: true
                             });
                             //回收站限制
-                            var flag = false;
+                          /*  var flag = false;
                             if (me.getCategoryRootsStore().getById(record.get('id')) && (me.getCategoryRootsStore().getById(record.get('id')).get('type') == 0)) {
                                 flag = true;
                             } else {
                                 flag = false
                             }
-                            me.getShopProductList().down('#openCreateShelvesGoodsWin').setDisabled(flag);
+                            me.getShopProductList().down('#openCreateShelvesGoodsWin').setDisabled(flag);*/
                             tab.setActiveTab('tab4_' + record.get('id'));
                         });
                         return;
@@ -1516,7 +1516,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
                         model.set('stock', '无限制');
                     }
                     //回收站修改限制
-                    if (type == 0) {
+/*                    if (type == 0) {
                         win.down('[name="name"]').setDisabled(true);
                         win.down('[name="purchasePrice"]').setDisabled(true);
                         win.down('[name="facePrice"]').setDisabled(true);
@@ -1529,7 +1529,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
                         win.down('[name="facePrice"]').setDisabled(false);
                         win.down('[name="discountPrice"]').setDisabled(false);
                         win.down('#limitTypeFieldset').setDisabled(false);
-                    }
+                    }*/
                     categorySelectionStore.load({
                         params: {
                             shopId: me.shopId

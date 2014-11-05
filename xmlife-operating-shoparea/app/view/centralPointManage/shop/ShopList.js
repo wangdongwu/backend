@@ -191,7 +191,6 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopList', {
         }
     ],
     viewConfig: {
-
         enableTextSelection: true
     },
     listeners: {
