@@ -4674,6 +4674,594 @@ rpc.BackAmountMessage.prototype.convertFrom  = function(from, confusionMode, clo
     return true;
 };
 
+rpc.BackendDealNotificationMessage = function() {this.checkAndCreate();};
+deepExtend(rpc.BackendDealNotificationMessage.prototype, rpc.RpcMessageBase.prototype);
+rpc.BackendDealNotificationMessage.prototype.getContent = function() {
+	if(!this.mObj) {
+		return null;
+	}
+	
+	this.mValueCache = this.mValueCache || {};
+	var cacheValue = this.mValueCache["content"];
+	if(cacheValue) return cacheValue;
+	
+	var value = this.mObj["content"];
+	
+	var objRet = ConvertUtils.jsonObjectToObject(value, String, null, false);
+	
+	if(objRet) {
+		this.mValueCache["content"] = objRet;
+		return objRet;
+	}
+	
+	return null;
+};
+
+rpc.BackendDealNotificationMessage.prototype.setContent = function(value) {
+    this.checkAndCreate();
+	this.mValueCache = this.mValueCache || {};
+	this.mObj = this.mObj || {};
+	
+	var _value_value0 = value;
+	if(!_value_value0) 
+		delete this.mObj["content"];
+	else
+		this.mObj["content"] = _value_value0;
+
+	if(value) {
+		this.mValueCache["content"] = value;
+	} else {
+		delete this.mValueCache["content"];
+	}
+	return this;
+};
+
+rpc.BackendDealNotificationMessage.prototype.getDealId = function() {
+	if(!this.mObj) {
+		return 0;
+	}
+	
+	this.mValueCache = this.mValueCache || {};
+	var cacheValue = this.mValueCache["dealId"];
+	if(cacheValue) return cacheValue;
+	
+	var value = this.mObj["dealId"];
+	
+	var objRet = ConvertUtils.jsonObjectToObject(value, Number, null, false);
+	
+	if(objRet) {
+		this.mValueCache["dealId"] = objRet;
+		return objRet;
+	}
+	
+	return 0;
+};
+
+rpc.BackendDealNotificationMessage.prototype.setDealId = function(value) {
+    this.checkAndCreate();
+	this.mValueCache = this.mValueCache || {};
+	this.mObj = this.mObj || {};
+	
+	var _value_value0 = (value);
+	if(!_value_value0) 
+		delete this.mObj["dealId"];
+	else
+		this.mObj["dealId"] = _value_value0;
+
+	if(value) {
+		this.mValueCache["dealId"] = value;
+	} else {
+		delete this.mValueCache["dealId"];
+	}
+	return this;
+};
+
+rpc.BackendDealNotificationMessage.prototype.getDealStatus = function() {
+	if(!this.mObj) {
+		return 0;
+	}
+	
+	this.mValueCache = this.mValueCache || {};
+	var cacheValue = this.mValueCache["dealStatus"];
+	if(cacheValue) return cacheValue;
+	
+	var value = this.mObj["dealStatus"];
+	
+	var objRet = ConvertUtils.jsonObjectToObject(value, Number, null, false);
+	
+	if(objRet) {
+		this.mValueCache["dealStatus"] = objRet;
+		return objRet;
+	}
+	
+	return 0;
+};
+
+rpc.BackendDealNotificationMessage.prototype.setDealStatus = function(value) {
+    this.checkAndCreate();
+	this.mValueCache = this.mValueCache || {};
+	this.mObj = this.mObj || {};
+	
+	var _value_value0 = (value);
+	if(!_value_value0) 
+		delete this.mObj["dealStatus"];
+	else
+		this.mObj["dealStatus"] = _value_value0;
+
+	if(value) {
+		this.mValueCache["dealStatus"] = value;
+	} else {
+		delete this.mValueCache["dealStatus"];
+	}
+	return this;
+};
+
+rpc.BackendDealNotificationMessage.prototype.getModuleId = function() {
+	if(!this.mObj) {
+		return null;
+	}
+	
+	this.mValueCache = this.mValueCache || {};
+	var cacheValue = this.mValueCache["moduleId"];
+	if(cacheValue) return cacheValue;
+	
+	var value = this.mObj["moduleId"];
+	
+	var objRet = ConvertUtils.jsonObjectToObject(value, String, null, false);
+	
+	if(objRet) {
+		this.mValueCache["moduleId"] = objRet;
+		return objRet;
+	}
+	
+	return null;
+};
+
+rpc.BackendDealNotificationMessage.prototype.setModuleId = function(value) {
+    this.checkAndCreate();
+	this.mValueCache = this.mValueCache || {};
+	this.mObj = this.mObj || {};
+	
+	var _value_value0 = value;
+	if(!_value_value0) 
+		delete this.mObj["moduleId"];
+	else
+		this.mObj["moduleId"] = _value_value0;
+
+	if(value) {
+		this.mValueCache["moduleId"] = value;
+	} else {
+		delete this.mValueCache["moduleId"];
+	}
+	return this;
+};
+
+rpc.BackendDealNotificationMessage.FIELD_CONTENT="content";
+rpc.BackendDealNotificationMessage.FIELD_CONTENT_CONFUSION="content";
+rpc.BackendDealNotificationMessage.FIELD_MODULEID="moduleId";
+rpc.BackendDealNotificationMessage.FIELD_MODULEID_CONFUSION="moduleId";
+rpc.BackendDealNotificationMessage.FIELD_DEALID="dealId";
+rpc.BackendDealNotificationMessage.FIELD_DEALID_CONFUSION="dealId";
+rpc.BackendDealNotificationMessage.FIELD_DEALSTATUS="dealStatus";
+rpc.BackendDealNotificationMessage.FIELD_DEALSTATUS_CONFUSION="dealStatus";
+
+rpc.BackendDealNotificationMessage.checkAndInitial = function() {
+    if(rpc.BackendDealNotificationMessage.mFieldToConfusionMap)
+        return;
+	
+	rpc.BackendDealNotificationMessage.mHasConfusionField = false;
+	rpc.BackendDealNotificationMessage.mFieldToConfusionMap = {
+		"content":"content", 
+		"moduleId":"moduleId", 
+		"dealId":"dealId", 
+		"dealStatus":"dealStatus"
+	};
+	rpc.BackendDealNotificationMessage.mConfusionToFieldMap = {
+		"content":"content", 
+		"moduleId":"moduleId", 
+		"dealId":"dealId", 
+		"dealStatus":"dealStatus"
+	};
+
+};
+
+rpc.BackendDealNotificationMessage.prototype.toString = function() {
+	if(this.mObj) {
+		return JSON.stringify(this.mObj);
+	}
+	return "{}";
+};
+
+rpc.BackendDealNotificationMessage.prototype.getRpcJSONObject  = function() {
+	return this.mObj;
+};
+
+rpc.BackendDealNotificationMessage.prototype.checkAndCreate = function() {
+    if (!this.mObj) {
+        this.mObj = {};
+        this.mObj[rpc.RpcMessageBase.FIELD_MSGTYPE] = 113;
+        this.mObj[rpc.RpcMessageBase.FIELD_FLAG] = 4;
+    }
+};
+
+rpc.BackendDealNotificationMessage.TYPE = 113;
+rpc.BackendDealNotificationMessage.prototype.getMsgType = function() {
+	return 113;
+};
+
+rpc.BackendDealNotificationMessage.prototype.getAsObject  = function(confusionMode, clone) {
+    if(this.mObj == null) {
+		this.checkAndCreate();
+        return clone ? objectClone(this.mObj) : this.mObj;
+    }
+    if(!confusionMode)
+        return clone ? objectClone(this.mObj) : this.mObj;
+    return rpc.BackendDealNotificationMessage.toConfusionObject(this.mObj, clone);
+};
+
+rpc.BackendDealNotificationMessage.getConfusionName = function(name) {
+    rpc.BackendDealNotificationMessage.checkAndInitial();
+    var value = rpc.BackendDealNotificationMessage.mFieldToConfusionMap[name];
+    if(value)
+        return value;
+    return rpc.RpcMessageBase.getConfusionName(name);
+};
+    
+rpc.BackendDealNotificationMessage.getRawName = function(confusionName) {
+    rpc.BackendDealNotificationMessage.checkAndInitial();
+    var value = rpc.BackendDealNotificationMessage.mConfusionToFieldMap[confusionName];
+    if(value)
+        return value;
+    return rpc.RpcMessageBase.getRawName(confusionName);
+};
+
+rpc.BackendDealNotificationMessage.toConfusionObject  = function(from, clone) {
+    if(!from)
+        return from;
+
+	rpc.BackendDealNotificationMessage.checkAndInitial();
+    if (!rpc.BackendDealNotificationMessage.mHasConfusionField) {
+        return rpc.RpcMessageBase.toConfusionObject(from);
+    }
+        
+    var ret = {};
+    for (var key in from) {
+        var rawKey = rpc.BackendDealNotificationMessage.getConfusionName(key);
+        if(!rawKey)
+            rawKey = key;
+        ret[rawKey] = from[key];
+    }
+      
+    return ret;
+};
+    
+rpc.BackendDealNotificationMessage.confusionToRawObject  = function(from, clone) {
+    if(!from)
+        return from;
+    
+    rpc.BackendDealNotificationMessage.checkAndInitial();
+    if (!rpc.BackendDealNotificationMessage.mHasConfusionField) {
+        return rpc.RpcMessageBase.confusionToRawObject(from);
+    }
+        
+    var ret = {};
+    for(var key in from) {
+        var rawKey = rpc.BackendDealNotificationMessage.getRawName(key);
+        if(!rawKey)
+            rawKey = key;
+        ret[rawKey] = from[key];
+    }
+    return ret;
+};
+
+rpc.BackendDealNotificationMessage.prototype.clearCache = function() {
+	if(this.mValueCache) {
+		this.mValueCache = {};
+	}
+};
+
+rpc.BackendDealNotificationMessage.prototype.convertFrom  = function(from, confusionMode, clone) {
+    if (!from)
+        return false;
+    
+    if (from.prototype && from.prototype.convertFrom) {
+        this.clearCache();
+        this.mObj = from.getAsObject(false, clone);
+        return true;
+    }
+    
+    if (from instanceof String && from[0] == '{') {
+        this.clearCache();
+        var jsonObj = JSON.parse(from);
+        if(confusionMode) {
+            this.mObj = rpc.BackendDealNotificationMessage.confusionToRawObject(jsonObj, clone);
+        } else {
+            this.mObj = clone ? objectClone(jsonObj) : jsonObj;
+        }
+        return true;
+    }
+    
+    this.clearCache();
+    if(confusionMode) {
+         this.mObj = rpc.BackendDealNotificationMessage.confusionToRawObject(from, clone);
+    } else {
+         this.mObj = clone ? objectClone(from) : from;
+    }
+    return true;
+};
+
+rpc.ChangePriceNotificationMessage = function() {this.checkAndCreate();};
+deepExtend(rpc.ChangePriceNotificationMessage.prototype, rpc.RpcMessageBase.prototype);
+rpc.ChangePriceNotificationMessage.prototype.getContent = function() {
+	if(!this.mObj) {
+		return null;
+	}
+	
+	this.mValueCache = this.mValueCache || {};
+	var cacheValue = this.mValueCache["content"];
+	if(cacheValue) return cacheValue;
+	
+	var value = this.mObj["content"];
+	
+	var objRet = ConvertUtils.jsonObjectToObject(value, String, null, false);
+	
+	if(objRet) {
+		this.mValueCache["content"] = objRet;
+		return objRet;
+	}
+	
+	return null;
+};
+
+rpc.ChangePriceNotificationMessage.prototype.setContent = function(value) {
+    this.checkAndCreate();
+	this.mValueCache = this.mValueCache || {};
+	this.mObj = this.mObj || {};
+	
+	var _value_value0 = value;
+	if(!_value_value0) 
+		delete this.mObj["content"];
+	else
+		this.mObj["content"] = _value_value0;
+
+	if(value) {
+		this.mValueCache["content"] = value;
+	} else {
+		delete this.mValueCache["content"];
+	}
+	return this;
+};
+
+rpc.ChangePriceNotificationMessage.prototype.getProductName = function() {
+	if(!this.mObj) {
+		return null;
+	}
+	
+	this.mValueCache = this.mValueCache || {};
+	var cacheValue = this.mValueCache["productName"];
+	if(cacheValue) return cacheValue;
+	
+	var value = this.mObj["productName"];
+	
+	var objRet = ConvertUtils.jsonObjectToObject(value, String, null, false);
+	
+	if(objRet) {
+		this.mValueCache["productName"] = objRet;
+		return objRet;
+	}
+	
+	return null;
+};
+
+rpc.ChangePriceNotificationMessage.prototype.setProductName = function(value) {
+    this.checkAndCreate();
+	this.mValueCache = this.mValueCache || {};
+	this.mObj = this.mObj || {};
+	
+	var _value_value0 = value;
+	if(!_value_value0) 
+		delete this.mObj["productName"];
+	else
+		this.mObj["productName"] = _value_value0;
+
+	if(value) {
+		this.mValueCache["productName"] = value;
+	} else {
+		delete this.mValueCache["productName"];
+	}
+	return this;
+};
+
+rpc.ChangePriceNotificationMessage.prototype.getSkuId = function() {
+	if(!this.mObj) {
+		return null;
+	}
+	
+	this.mValueCache = this.mValueCache || {};
+	var cacheValue = this.mValueCache["skuId"];
+	if(cacheValue) return cacheValue;
+	
+	var value = this.mObj["skuId"];
+	
+	var objRet = ConvertUtils.jsonObjectToObject(value, String, null, false);
+	
+	if(objRet) {
+		this.mValueCache["skuId"] = objRet;
+		return objRet;
+	}
+	
+	return null;
+};
+
+rpc.ChangePriceNotificationMessage.prototype.setSkuId = function(value) {
+    this.checkAndCreate();
+	this.mValueCache = this.mValueCache || {};
+	this.mObj = this.mObj || {};
+	
+	var _value_value0 = value;
+	if(!_value_value0) 
+		delete this.mObj["skuId"];
+	else
+		this.mObj["skuId"] = _value_value0;
+
+	if(value) {
+		this.mValueCache["skuId"] = value;
+	} else {
+		delete this.mValueCache["skuId"];
+	}
+	return this;
+};
+
+rpc.ChangePriceNotificationMessage.FIELD_CONTENT="content";
+rpc.ChangePriceNotificationMessage.FIELD_CONTENT_CONFUSION="content";
+rpc.ChangePriceNotificationMessage.FIELD_SKUID="skuId";
+rpc.ChangePriceNotificationMessage.FIELD_SKUID_CONFUSION="skuId";
+rpc.ChangePriceNotificationMessage.FIELD_PRODUCTNAME="productName";
+rpc.ChangePriceNotificationMessage.FIELD_PRODUCTNAME_CONFUSION="productName";
+
+rpc.ChangePriceNotificationMessage.checkAndInitial = function() {
+    if(rpc.ChangePriceNotificationMessage.mFieldToConfusionMap)
+        return;
+	
+	rpc.ChangePriceNotificationMessage.mHasConfusionField = false;
+	rpc.ChangePriceNotificationMessage.mFieldToConfusionMap = {
+		"content":"content", 
+		"skuId":"skuId", 
+		"productName":"productName"
+	};
+	rpc.ChangePriceNotificationMessage.mConfusionToFieldMap = {
+		"content":"content", 
+		"skuId":"skuId", 
+		"productName":"productName"
+	};
+
+};
+
+rpc.ChangePriceNotificationMessage.prototype.toString = function() {
+	if(this.mObj) {
+		return JSON.stringify(this.mObj);
+	}
+	return "{}";
+};
+
+rpc.ChangePriceNotificationMessage.prototype.getRpcJSONObject  = function() {
+	return this.mObj;
+};
+
+rpc.ChangePriceNotificationMessage.prototype.checkAndCreate = function() {
+    if (!this.mObj) {
+        this.mObj = {};
+        this.mObj[rpc.RpcMessageBase.FIELD_MSGTYPE] = 114;
+        this.mObj[rpc.RpcMessageBase.FIELD_FLAG] = 4;
+    }
+};
+
+rpc.ChangePriceNotificationMessage.TYPE = 114;
+rpc.ChangePriceNotificationMessage.prototype.getMsgType = function() {
+	return 114;
+};
+
+rpc.ChangePriceNotificationMessage.prototype.getAsObject  = function(confusionMode, clone) {
+    if(this.mObj == null) {
+		this.checkAndCreate();
+        return clone ? objectClone(this.mObj) : this.mObj;
+    }
+    if(!confusionMode)
+        return clone ? objectClone(this.mObj) : this.mObj;
+    return rpc.ChangePriceNotificationMessage.toConfusionObject(this.mObj, clone);
+};
+
+rpc.ChangePriceNotificationMessage.getConfusionName = function(name) {
+    rpc.ChangePriceNotificationMessage.checkAndInitial();
+    var value = rpc.ChangePriceNotificationMessage.mFieldToConfusionMap[name];
+    if(value)
+        return value;
+    return rpc.RpcMessageBase.getConfusionName(name);
+};
+    
+rpc.ChangePriceNotificationMessage.getRawName = function(confusionName) {
+    rpc.ChangePriceNotificationMessage.checkAndInitial();
+    var value = rpc.ChangePriceNotificationMessage.mConfusionToFieldMap[confusionName];
+    if(value)
+        return value;
+    return rpc.RpcMessageBase.getRawName(confusionName);
+};
+
+rpc.ChangePriceNotificationMessage.toConfusionObject  = function(from, clone) {
+    if(!from)
+        return from;
+
+	rpc.ChangePriceNotificationMessage.checkAndInitial();
+    if (!rpc.ChangePriceNotificationMessage.mHasConfusionField) {
+        return rpc.RpcMessageBase.toConfusionObject(from);
+    }
+        
+    var ret = {};
+    for (var key in from) {
+        var rawKey = rpc.ChangePriceNotificationMessage.getConfusionName(key);
+        if(!rawKey)
+            rawKey = key;
+        ret[rawKey] = from[key];
+    }
+      
+    return ret;
+};
+    
+rpc.ChangePriceNotificationMessage.confusionToRawObject  = function(from, clone) {
+    if(!from)
+        return from;
+    
+    rpc.ChangePriceNotificationMessage.checkAndInitial();
+    if (!rpc.ChangePriceNotificationMessage.mHasConfusionField) {
+        return rpc.RpcMessageBase.confusionToRawObject(from);
+    }
+        
+    var ret = {};
+    for(var key in from) {
+        var rawKey = rpc.ChangePriceNotificationMessage.getRawName(key);
+        if(!rawKey)
+            rawKey = key;
+        ret[rawKey] = from[key];
+    }
+    return ret;
+};
+
+rpc.ChangePriceNotificationMessage.prototype.clearCache = function() {
+	if(this.mValueCache) {
+		this.mValueCache = {};
+	}
+};
+
+rpc.ChangePriceNotificationMessage.prototype.convertFrom  = function(from, confusionMode, clone) {
+    if (!from)
+        return false;
+    
+    if (from.prototype && from.prototype.convertFrom) {
+        this.clearCache();
+        this.mObj = from.getAsObject(false, clone);
+        return true;
+    }
+    
+    if (from instanceof String && from[0] == '{') {
+        this.clearCache();
+        var jsonObj = JSON.parse(from);
+        if(confusionMode) {
+            this.mObj = rpc.ChangePriceNotificationMessage.confusionToRawObject(jsonObj, clone);
+        } else {
+            this.mObj = clone ? objectClone(jsonObj) : jsonObj;
+        }
+        return true;
+    }
+    
+    this.clearCache();
+    if(confusionMode) {
+         this.mObj = rpc.ChangePriceNotificationMessage.confusionToRawObject(from, clone);
+    } else {
+         this.mObj = clone ? objectClone(from) : from;
+    }
+    return true;
+};
+
 rpc.ChargeMessage = function() {this.checkAndCreate();};
 deepExtend(rpc.ChargeMessage.prototype, rpc.RpcMessageBase.prototype);
 rpc.ChargeMessage.prototype.getContent = function() {
@@ -5552,6 +6140,322 @@ rpc.DelivererPickupMessage.prototype.convertFrom  = function(from, confusionMode
     this.clearCache();
     if(confusionMode) {
          this.mObj = rpc.DelivererPickupMessage.confusionToRawObject(from, clone);
+    } else {
+         this.mObj = clone ? objectClone(from) : from;
+    }
+    return true;
+};
+
+rpc.NotificationMessage = function() {this.checkAndCreate();};
+deepExtend(rpc.NotificationMessage.prototype, rpc.RpcMessageBase.prototype);
+rpc.NotificationMessage.prototype.getContent = function() {
+	if(!this.mObj) {
+		return null;
+	}
+	
+	this.mValueCache = this.mValueCache || {};
+	var cacheValue = this.mValueCache["content"];
+	if(cacheValue) return cacheValue;
+	
+	var value = this.mObj["content"];
+	
+	var objRet = ConvertUtils.jsonObjectToObject(value, String, null, false);
+	
+	if(objRet) {
+		this.mValueCache["content"] = objRet;
+		return objRet;
+	}
+	
+	return null;
+};
+
+rpc.NotificationMessage.prototype.setContent = function(value) {
+    this.checkAndCreate();
+	this.mValueCache = this.mValueCache || {};
+	this.mObj = this.mObj || {};
+	
+	var _value_value0 = value;
+	if(!_value_value0) 
+		delete this.mObj["content"];
+	else
+		this.mObj["content"] = _value_value0;
+
+	if(value) {
+		this.mValueCache["content"] = value;
+	} else {
+		delete this.mValueCache["content"];
+	}
+	return this;
+};
+
+rpc.NotificationMessage.prototype.getInternalType = function() {
+	if(!this.mObj) {
+		return 0;
+	}
+	
+	this.mValueCache = this.mValueCache || {};
+	var cacheValue = this.mValueCache["internalType"];
+	if(cacheValue) return cacheValue;
+	
+	var value = this.mObj["internalType"];
+	
+	var objRet = ConvertUtils.jsonObjectToObject(value, Number, null, false);
+	
+	if(objRet) {
+		this.mValueCache["internalType"] = objRet;
+		return objRet;
+	}
+	
+	return 0;
+};
+
+rpc.NotificationMessage.prototype.setInternalType = function(value) {
+    this.checkAndCreate();
+	this.mValueCache = this.mValueCache || {};
+	this.mObj = this.mObj || {};
+	
+	var _value_value0 = (value);
+	if(!_value_value0) 
+		delete this.mObj["internalType"];
+	else
+		this.mObj["internalType"] = _value_value0;
+
+	if(value) {
+		this.mValueCache["internalType"] = value;
+	} else {
+		delete this.mValueCache["internalType"];
+	}
+	return this;
+};
+
+rpc.NotificationMessage.prototype.getLinkType = function() {
+	if(!this.mObj) {
+		return 0;
+	}
+	
+	this.mValueCache = this.mValueCache || {};
+	var cacheValue = this.mValueCache["linkType"];
+	if(cacheValue) return cacheValue;
+	
+	var value = this.mObj["linkType"];
+	
+	var objRet = ConvertUtils.jsonObjectToObject(value, Number, null, false);
+	
+	if(objRet) {
+		this.mValueCache["linkType"] = objRet;
+		return objRet;
+	}
+	
+	return 0;
+};
+
+rpc.NotificationMessage.prototype.setLinkType = function(value) {
+    this.checkAndCreate();
+	this.mValueCache = this.mValueCache || {};
+	this.mObj = this.mObj || {};
+	
+	var _value_value0 = (value);
+	if(!_value_value0) 
+		delete this.mObj["linkType"];
+	else
+		this.mObj["linkType"] = _value_value0;
+
+	if(value) {
+		this.mValueCache["linkType"] = value;
+	} else {
+		delete this.mValueCache["linkType"];
+	}
+	return this;
+};
+
+rpc.NotificationMessage.prototype.getUrl = function() {
+	if(!this.mObj) {
+		return null;
+	}
+	
+	this.mValueCache = this.mValueCache || {};
+	var cacheValue = this.mValueCache["url"];
+	if(cacheValue) return cacheValue;
+	
+	var value = this.mObj["url"];
+	
+	var objRet = ConvertUtils.jsonObjectToObject(value, String, null, false);
+	
+	if(objRet) {
+		this.mValueCache["url"] = objRet;
+		return objRet;
+	}
+	
+	return null;
+};
+
+rpc.NotificationMessage.prototype.setUrl = function(value) {
+    this.checkAndCreate();
+	this.mValueCache = this.mValueCache || {};
+	this.mObj = this.mObj || {};
+	
+	var _value_value0 = value;
+	if(!_value_value0) 
+		delete this.mObj["url"];
+	else
+		this.mObj["url"] = _value_value0;
+
+	if(value) {
+		this.mValueCache["url"] = value;
+	} else {
+		delete this.mValueCache["url"];
+	}
+	return this;
+};
+
+rpc.NotificationMessage.FIELD_CONTENT="content";
+rpc.NotificationMessage.FIELD_CONTENT_CONFUSION="content";
+rpc.NotificationMessage.FIELD_INTERNALTYPE="internalType";
+rpc.NotificationMessage.FIELD_INTERNALTYPE_CONFUSION="internalType";
+rpc.NotificationMessage.FIELD_LINKTYPE="linkType";
+rpc.NotificationMessage.FIELD_LINKTYPE_CONFUSION="linkType";
+rpc.NotificationMessage.FIELD_URL="url";
+rpc.NotificationMessage.FIELD_URL_CONFUSION="url";
+
+rpc.NotificationMessage.checkAndInitial = function() {
+    if(rpc.NotificationMessage.mFieldToConfusionMap)
+        return;
+	
+	rpc.NotificationMessage.mHasConfusionField = false;
+	rpc.NotificationMessage.mFieldToConfusionMap = {
+		"content":"content", 
+		"internalType":"internalType", 
+		"linkType":"linkType", 
+		"url":"url"
+	};
+	rpc.NotificationMessage.mConfusionToFieldMap = {
+		"content":"content", 
+		"internalType":"internalType", 
+		"linkType":"linkType", 
+		"url":"url"
+	};
+
+};
+
+rpc.NotificationMessage.prototype.toString = function() {
+	if(this.mObj) {
+		return JSON.stringify(this.mObj);
+	}
+	return "{}";
+};
+
+rpc.NotificationMessage.prototype.getRpcJSONObject  = function() {
+	return this.mObj;
+};
+
+rpc.NotificationMessage.prototype.checkAndCreate = function() {
+    if (!this.mObj) {
+        this.mObj = {};
+        this.mObj[rpc.RpcMessageBase.FIELD_MSGTYPE] = 115;
+        this.mObj[rpc.RpcMessageBase.FIELD_FLAG] = 4;
+    }
+};
+
+rpc.NotificationMessage.TYPE = 115;
+rpc.NotificationMessage.prototype.getMsgType = function() {
+	return 115;
+};
+
+rpc.NotificationMessage.prototype.getAsObject  = function(confusionMode, clone) {
+    if(this.mObj == null) {
+		this.checkAndCreate();
+        return clone ? objectClone(this.mObj) : this.mObj;
+    }
+    if(!confusionMode)
+        return clone ? objectClone(this.mObj) : this.mObj;
+    return rpc.NotificationMessage.toConfusionObject(this.mObj, clone);
+};
+
+rpc.NotificationMessage.getConfusionName = function(name) {
+    rpc.NotificationMessage.checkAndInitial();
+    var value = rpc.NotificationMessage.mFieldToConfusionMap[name];
+    if(value)
+        return value;
+    return rpc.RpcMessageBase.getConfusionName(name);
+};
+    
+rpc.NotificationMessage.getRawName = function(confusionName) {
+    rpc.NotificationMessage.checkAndInitial();
+    var value = rpc.NotificationMessage.mConfusionToFieldMap[confusionName];
+    if(value)
+        return value;
+    return rpc.RpcMessageBase.getRawName(confusionName);
+};
+
+rpc.NotificationMessage.toConfusionObject  = function(from, clone) {
+    if(!from)
+        return from;
+
+	rpc.NotificationMessage.checkAndInitial();
+    if (!rpc.NotificationMessage.mHasConfusionField) {
+        return rpc.RpcMessageBase.toConfusionObject(from);
+    }
+        
+    var ret = {};
+    for (var key in from) {
+        var rawKey = rpc.NotificationMessage.getConfusionName(key);
+        if(!rawKey)
+            rawKey = key;
+        ret[rawKey] = from[key];
+    }
+      
+    return ret;
+};
+    
+rpc.NotificationMessage.confusionToRawObject  = function(from, clone) {
+    if(!from)
+        return from;
+    
+    rpc.NotificationMessage.checkAndInitial();
+    if (!rpc.NotificationMessage.mHasConfusionField) {
+        return rpc.RpcMessageBase.confusionToRawObject(from);
+    }
+        
+    var ret = {};
+    for(var key in from) {
+        var rawKey = rpc.NotificationMessage.getRawName(key);
+        if(!rawKey)
+            rawKey = key;
+        ret[rawKey] = from[key];
+    }
+    return ret;
+};
+
+rpc.NotificationMessage.prototype.clearCache = function() {
+	if(this.mValueCache) {
+		this.mValueCache = {};
+	}
+};
+
+rpc.NotificationMessage.prototype.convertFrom  = function(from, confusionMode, clone) {
+    if (!from)
+        return false;
+    
+    if (from.prototype && from.prototype.convertFrom) {
+        this.clearCache();
+        this.mObj = from.getAsObject(false, clone);
+        return true;
+    }
+    
+    if (from instanceof String && from[0] == '{') {
+        this.clearCache();
+        var jsonObj = JSON.parse(from);
+        if(confusionMode) {
+            this.mObj = rpc.NotificationMessage.confusionToRawObject(jsonObj, clone);
+        } else {
+            this.mObj = clone ? objectClone(jsonObj) : jsonObj;
+        }
+        return true;
+    }
+    
+    this.clearCache();
+    if(confusionMode) {
+         this.mObj = rpc.NotificationMessage.confusionToRawObject(from, clone);
     } else {
          this.mObj = clone ? objectClone(from) : from;
     }
@@ -7599,6 +8503,227 @@ rpc.City.prototype.convertFrom  = function(from, confusionMode, clone) {
     return true;
 };
 
+rpc.CityAndDistrict = function() {};
+rpc.CityAndDistrict.prototype.getCity = function() {
+	if(!this.mObj) {
+		return null;
+	}
+	
+	this.mValueCache = this.mValueCache || {};
+	var cacheValue = this.mValueCache["city"];
+	if(cacheValue) return cacheValue;
+	
+	var value = this.mObj["city"];
+	
+	var objRet = ConvertUtils.jsonObjectToObject(value, rpc.City, null, false);
+	
+	if(objRet) {
+		this.mValueCache["city"] = objRet;
+		return objRet;
+	}
+	
+	return null;
+};
+
+rpc.CityAndDistrict.prototype.setCity = function(value) {
+    this.checkAndCreate();
+	this.mValueCache = this.mValueCache || {};
+	this.mObj = this.mObj || {};
+	
+	var _value_value0 = value.getAsObject(false);
+	if(!_value_value0) 
+		delete this.mObj["city"];
+	else
+		this.mObj["city"] = _value_value0;
+
+	if(value) {
+		this.mValueCache["city"] = value;
+	} else {
+		delete this.mValueCache["city"];
+	}
+	return this;
+};
+
+rpc.CityAndDistrict.prototype.getDistrict = function() {
+	if(!this.mObj) {
+		return null;
+	}
+	
+	this.mValueCache = this.mValueCache || {};
+	var cacheValue = this.mValueCache["district"];
+	if(cacheValue) return cacheValue;
+	
+	var value = this.mObj["district"];
+	
+	var objRet = ConvertUtils.jsonObjectToObject(value, rpc.ResidentalDistrict, null, false);
+	
+	if(objRet) {
+		this.mValueCache["district"] = objRet;
+		return objRet;
+	}
+	
+	return null;
+};
+
+rpc.CityAndDistrict.prototype.setDistrict = function(value) {
+    this.checkAndCreate();
+	this.mValueCache = this.mValueCache || {};
+	this.mObj = this.mObj || {};
+	
+	var _value_value0 = value.getAsObject(false);
+	if(!_value_value0) 
+		delete this.mObj["district"];
+	else
+		this.mObj["district"] = _value_value0;
+
+	if(value) {
+		this.mValueCache["district"] = value;
+	} else {
+		delete this.mValueCache["district"];
+	}
+	return this;
+};
+
+rpc.CityAndDistrict.FIELD_DISTRICT="district";
+rpc.CityAndDistrict.FIELD_DISTRICT_CONFUSION="district";
+rpc.CityAndDistrict.FIELD_CITY="city";
+rpc.CityAndDistrict.FIELD_CITY_CONFUSION="city";
+
+rpc.CityAndDistrict.checkAndInitial = function() {
+    if(rpc.CityAndDistrict.mFieldToConfusionMap)
+        return;
+	
+	rpc.CityAndDistrict.mHasConfusionField = false;
+	rpc.CityAndDistrict.mFieldToConfusionMap = {
+		"district":"district", 
+		"city":"city"
+	};
+	rpc.CityAndDistrict.mConfusionToFieldMap = {
+		"district":"district", 
+		"city":"city"
+	};
+
+};
+
+rpc.CityAndDistrict.prototype.toString = function() {
+	if(this.mObj) {
+		return JSON.stringify(this.mObj);
+	}
+	return "{}";
+};
+
+rpc.CityAndDistrict.prototype.getRpcJSONObject  = function() {
+	return this.mObj;
+};
+
+rpc.CityAndDistrict.prototype.checkAndCreate = function() {
+    if (!this.mObj) {
+        this.mObj = {};
+    }
+};
+
+
+rpc.CityAndDistrict.prototype.getAsObject  = function(confusionMode, clone) {
+    if(this.mObj == null) {
+		this.checkAndCreate();
+        return clone ? objectClone(this.mObj) : this.mObj;
+    }
+    if(!confusionMode)
+        return clone ? objectClone(this.mObj) : this.mObj;
+    return rpc.CityAndDistrict.toConfusionObject(this.mObj, clone);
+};
+
+rpc.CityAndDistrict.getConfusionName = function(name) {
+    rpc.CityAndDistrict.checkAndInitial();
+    var value = rpc.CityAndDistrict.mFieldToConfusionMap[name];
+    if(value)
+        return value;
+    return null;
+};
+    
+rpc.CityAndDistrict.getRawName = function(confusionName) {
+    rpc.CityAndDistrict.checkAndInitial();
+    var value = rpc.CityAndDistrict.mConfusionToFieldMap[confusionName];
+    if(value)
+        return value;
+    return null;
+};
+
+rpc.CityAndDistrict.toConfusionObject  = function(from, clone) {
+    if(!from)
+        return from;
+
+	rpc.CityAndDistrict.checkAndInitial();
+    if (!rpc.CityAndDistrict.mHasConfusionField) {
+        return clone ? objectClone(from) : from;
+    }
+        
+    var ret = {};
+    for (var key in from) {
+        var rawKey = rpc.CityAndDistrict.getConfusionName(key);
+        if(!rawKey)
+            rawKey = key;
+        ret[rawKey] = from[key];
+    }
+      
+    return ret;
+};
+    
+rpc.CityAndDistrict.confusionToRawObject  = function(from, clone) {
+    if(!from)
+        return from;
+    
+    rpc.CityAndDistrict.checkAndInitial();
+    if (!rpc.CityAndDistrict.mHasConfusionField) {
+        return clone ? objectClone(from) : from;
+    }
+        
+    var ret = {};
+    for(var key in from) {
+        var rawKey = rpc.CityAndDistrict.getRawName(key);
+        if(!rawKey)
+            rawKey = key;
+        ret[rawKey] = from[key];
+    }
+    return ret;
+};
+
+rpc.CityAndDistrict.prototype.clearCache = function() {
+	if(this.mValueCache) {
+		this.mValueCache = {};
+	}
+};
+
+rpc.CityAndDistrict.prototype.convertFrom  = function(from, confusionMode, clone) {
+    if (!from)
+        return false;
+    
+    if (from.prototype && from.prototype.convertFrom) {
+        this.clearCache();
+        this.mObj = from.getAsObject(false, clone);
+        return true;
+    }
+    
+    if (from instanceof String && from[0] == '{') {
+        this.clearCache();
+        var jsonObj = JSON.parse(from);
+        if(confusionMode) {
+            this.mObj = rpc.CityAndDistrict.confusionToRawObject(jsonObj, clone);
+        } else {
+            this.mObj = clone ? objectClone(jsonObj) : jsonObj;
+        }
+        return true;
+    }
+    
+    this.clearCache();
+    if(confusionMode) {
+         this.mObj = rpc.CityAndDistrict.confusionToRawObject(from, clone);
+    } else {
+         this.mObj = clone ? objectClone(from) : from;
+    }
+    return true;
+};
+
 rpc.DeliveryZone = function() {};
 rpc.DeliveryZone.prototype.getAreaId = function() {
 	if(!this.mObj) {
@@ -8313,6 +9438,46 @@ rpc.ResidentalDistrict.prototype.setName = function(value) {
 	return this;
 };
 
+rpc.ResidentalDistrict.prototype.getType = function() {
+	if(!this.mObj) {
+		return 0;
+	}
+	
+	this.mValueCache = this.mValueCache || {};
+	var cacheValue = this.mValueCache["type"];
+	if(cacheValue) return cacheValue;
+	
+	var value = this.mObj["type"];
+	
+	var objRet = ConvertUtils.jsonObjectToObject(value, Number, null, false);
+	
+	if(objRet) {
+		this.mValueCache["type"] = objRet;
+		return objRet;
+	}
+	
+	return 0;
+};
+
+rpc.ResidentalDistrict.prototype.setType = function(value) {
+    this.checkAndCreate();
+	this.mValueCache = this.mValueCache || {};
+	this.mObj = this.mObj || {};
+	
+	var _value_value0 = (value);
+	if(!_value_value0) 
+		delete this.mObj["type"];
+	else
+		this.mObj["type"] = _value_value0;
+
+	if(value) {
+		this.mValueCache["type"] = value;
+	} else {
+		delete this.mValueCache["type"];
+	}
+	return this;
+};
+
 rpc.ResidentalDistrict.prototype.getZoneId = function() {
 	if(!this.mObj) {
 		return 0;
@@ -8407,6 +9572,8 @@ rpc.ResidentalDistrict.FIELD_NAME="name";
 rpc.ResidentalDistrict.FIELD_NAME_CONFUSION="name";
 rpc.ResidentalDistrict.FIELD_LNG="lng";
 rpc.ResidentalDistrict.FIELD_LNG_CONFUSION="lng";
+rpc.ResidentalDistrict.FIELD_TYPE="type";
+rpc.ResidentalDistrict.FIELD_TYPE_CONFUSION="type";
 rpc.ResidentalDistrict.FIELD_ZONENAME="zoneName";
 rpc.ResidentalDistrict.FIELD_ZONENAME_CONFUSION="zoneName";
 rpc.ResidentalDistrict.FIELD_LAT="lat";
@@ -8429,6 +9596,7 @@ rpc.ResidentalDistrict.checkAndInitial = function() {
 		"address":"address", 
 		"name":"name", 
 		"lng":"lng", 
+		"type":"type", 
 		"zoneName":"zoneName", 
 		"lat":"lat", 
 		"areaId":"areaId", 
@@ -8442,6 +9610,7 @@ rpc.ResidentalDistrict.checkAndInitial = function() {
 		"address":"address", 
 		"name":"name", 
 		"lng":"lng", 
+		"type":"type", 
 		"zoneName":"zoneName", 
 		"lat":"lat", 
 		"areaId":"areaId", 
@@ -8770,6 +9939,46 @@ rpc.ShopArea.prototype.setIsActive = function(value) {
 	return this;
 };
 
+rpc.ShopArea.prototype.getLayoutId = function() {
+	if(!this.mObj) {
+		return null;
+	}
+	
+	this.mValueCache = this.mValueCache || {};
+	var cacheValue = this.mValueCache["layoutId"];
+	if(cacheValue) return cacheValue;
+	
+	var value = this.mObj["layoutId"];
+	
+	var objRet = ConvertUtils.jsonObjectToObject(value, String, null, false);
+	
+	if(objRet) {
+		this.mValueCache["layoutId"] = objRet;
+		return objRet;
+	}
+	
+	return null;
+};
+
+rpc.ShopArea.prototype.setLayoutId = function(value) {
+    this.checkAndCreate();
+	this.mValueCache = this.mValueCache || {};
+	this.mObj = this.mObj || {};
+	
+	var _value_value0 = value;
+	if(!_value_value0) 
+		delete this.mObj["layoutId"];
+	else
+		this.mObj["layoutId"] = _value_value0;
+
+	if(value) {
+		this.mValueCache["layoutId"] = value;
+	} else {
+		delete this.mValueCache["layoutId"];
+	}
+	return this;
+};
+
 rpc.ShopArea.prototype.getName = function() {
 	if(!this.mObj) {
 		return null;
@@ -8820,6 +10029,8 @@ rpc.ShopArea.FIELD_ADDRESS="address";
 rpc.ShopArea.FIELD_ADDRESS_CONFUSION="address";
 rpc.ShopArea.FIELD_NAME="name";
 rpc.ShopArea.FIELD_NAME_CONFUSION="name";
+rpc.ShopArea.FIELD_LAYOUTID="layoutId";
+rpc.ShopArea.FIELD_LAYOUTID_CONFUSION="layoutId";
 rpc.ShopArea.FIELD_CITY="city";
 rpc.ShopArea.FIELD_CITY_CONFUSION="city";
 
@@ -8834,6 +10045,7 @@ rpc.ShopArea.checkAndInitial = function() {
 		"created":"created", 
 		"address":"address", 
 		"name":"name", 
+		"layoutId":"layoutId", 
 		"city":"city"
 	};
 	rpc.ShopArea.mConfusionToFieldMap = {
@@ -8842,6 +10054,7 @@ rpc.ShopArea.checkAndInitial = function() {
 		"created":"created", 
 		"address":"address", 
 		"name":"name", 
+		"layoutId":"layoutId", 
 		"city":"city"
 	};
 
@@ -8960,920 +10173,6 @@ rpc.ShopArea.prototype.convertFrom  = function(from, confusionMode, clone) {
     this.clearCache();
     if(confusionMode) {
          this.mObj = rpc.ShopArea.confusionToRawObject(from, clone);
-    } else {
-         this.mObj = clone ? objectClone(from) : from;
-    }
-    return true;
-};
-
-rpc.CouponProductComposition = function() {};
-rpc.CouponProductComposition.prototype.getCouponId2ExclusiveCouponIdList = function() {
-	if(!this.mObj) {
-		return null;
-	}
-	
-	this.mValueCache = this.mValueCache || {};
-	var cacheValue = this.mValueCache["couponId2ExclusiveCouponIdList"];
-	if(cacheValue) return cacheValue;
-	
-	var value = this.mObj["couponId2ExclusiveCouponIdList"];
-	
-	var objRet = ConvertUtils.jsonObjectToObject(value, Object, [String, Object], false);
-	
-	if(objRet) {
-		this.mValueCache["couponId2ExclusiveCouponIdList"] = objRet;
-		return objRet;
-	}
-	
-	return null;
-};
-
-rpc.CouponProductComposition.prototype.setCouponId2ExclusiveCouponIdList = function(value) {
-    this.checkAndCreate();
-	this.mValueCache = this.mValueCache || {};
-	this.mObj = this.mObj || {};
-	
-	var _obj_0 = (!value) ? null : {};
-	if(value) {
-		for(var _k0 in value) {
-			var _v_0 = value[_k0];
-			var _value__v_02 = _v_0;
-			if(!_value__v_02) 
-				delete _obj_0[_k0];
-			else
-				_obj_0[_k0] = _value__v_02;
-		}
-	}
-	var _value_value0 = _obj_0;
-	if(!_value_value0) 
-		delete this.mObj["couponId2ExclusiveCouponIdList"];
-	else
-		this.mObj["couponId2ExclusiveCouponIdList"] = _value_value0;
-
-	if(value) {
-		this.mValueCache["couponId2ExclusiveCouponIdList"] = value;
-	} else {
-		delete this.mValueCache["couponId2ExclusiveCouponIdList"];
-	}
-	return this;
-};
-
-rpc.CouponProductComposition.prototype.getCouponId2ProductIdList = function() {
-	if(!this.mObj) {
-		return null;
-	}
-	
-	this.mValueCache = this.mValueCache || {};
-	var cacheValue = this.mValueCache["couponId2ProductIdList"];
-	if(cacheValue) return cacheValue;
-	
-	var value = this.mObj["couponId2ProductIdList"];
-	
-	var objRet = ConvertUtils.jsonObjectToObject(value, Object, [String, rpc.ProductIdListAndReduceCash], false);
-	
-	if(objRet) {
-		this.mValueCache["couponId2ProductIdList"] = objRet;
-		return objRet;
-	}
-	
-	return null;
-};
-
-rpc.CouponProductComposition.prototype.setCouponId2ProductIdList = function(value) {
-    this.checkAndCreate();
-	this.mValueCache = this.mValueCache || {};
-	this.mObj = this.mObj || {};
-	
-	var _obj_0 = (!value) ? null : {};
-	if(value) {
-		for(var _k0 in value) {
-			var _v_0 = value[_k0];
-			var _value__v_02 = _v_0.getAsObject(false);
-			if(!_value__v_02) 
-				delete _obj_0[_k0];
-			else
-				_obj_0[_k0] = _value__v_02;
-		}
-	}
-	var _value_value0 = _obj_0;
-	if(!_value_value0) 
-		delete this.mObj["couponId2ProductIdList"];
-	else
-		this.mObj["couponId2ProductIdList"] = _value_value0;
-
-	if(value) {
-		this.mValueCache["couponId2ProductIdList"] = value;
-	} else {
-		delete this.mValueCache["couponId2ProductIdList"];
-	}
-	return this;
-};
-
-rpc.CouponProductComposition.FIELD_COUPONID2EXCLUSIVECOUPONIDLIST="couponId2ExclusiveCouponIdList";
-rpc.CouponProductComposition.FIELD_COUPONID2EXCLUSIVECOUPONIDLIST_CONFUSION="couponId2ExclusiveCouponIdList";
-rpc.CouponProductComposition.FIELD_COUPONID2PRODUCTIDLIST="couponId2ProductIdList";
-rpc.CouponProductComposition.FIELD_COUPONID2PRODUCTIDLIST_CONFUSION="couponId2ProductIdList";
-
-rpc.CouponProductComposition.checkAndInitial = function() {
-    if(rpc.CouponProductComposition.mFieldToConfusionMap)
-        return;
-	
-	rpc.CouponProductComposition.mHasConfusionField = false;
-	rpc.CouponProductComposition.mFieldToConfusionMap = {
-		"couponId2ExclusiveCouponIdList":"couponId2ExclusiveCouponIdList", 
-		"couponId2ProductIdList":"couponId2ProductIdList"
-	};
-	rpc.CouponProductComposition.mConfusionToFieldMap = {
-		"couponId2ExclusiveCouponIdList":"couponId2ExclusiveCouponIdList", 
-		"couponId2ProductIdList":"couponId2ProductIdList"
-	};
-
-};
-
-rpc.CouponProductComposition.prototype.toString = function() {
-	if(this.mObj) {
-		return JSON.stringify(this.mObj);
-	}
-	return "{}";
-};
-
-rpc.CouponProductComposition.prototype.getRpcJSONObject  = function() {
-	return this.mObj;
-};
-
-rpc.CouponProductComposition.prototype.checkAndCreate = function() {
-    if (!this.mObj) {
-        this.mObj = {};
-    }
-};
-
-
-rpc.CouponProductComposition.prototype.getAsObject  = function(confusionMode, clone) {
-    if(this.mObj == null) {
-		this.checkAndCreate();
-        return clone ? objectClone(this.mObj) : this.mObj;
-    }
-    if(!confusionMode)
-        return clone ? objectClone(this.mObj) : this.mObj;
-    return rpc.CouponProductComposition.toConfusionObject(this.mObj, clone);
-};
-
-rpc.CouponProductComposition.getConfusionName = function(name) {
-    rpc.CouponProductComposition.checkAndInitial();
-    var value = rpc.CouponProductComposition.mFieldToConfusionMap[name];
-    if(value)
-        return value;
-    return null;
-};
-    
-rpc.CouponProductComposition.getRawName = function(confusionName) {
-    rpc.CouponProductComposition.checkAndInitial();
-    var value = rpc.CouponProductComposition.mConfusionToFieldMap[confusionName];
-    if(value)
-        return value;
-    return null;
-};
-
-rpc.CouponProductComposition.toConfusionObject  = function(from, clone) {
-    if(!from)
-        return from;
-
-	rpc.CouponProductComposition.checkAndInitial();
-    if (!rpc.CouponProductComposition.mHasConfusionField) {
-        return clone ? objectClone(from) : from;
-    }
-        
-    var ret = {};
-    for (var key in from) {
-        var rawKey = rpc.CouponProductComposition.getConfusionName(key);
-        if(!rawKey)
-            rawKey = key;
-        ret[rawKey] = from[key];
-    }
-      
-    return ret;
-};
-    
-rpc.CouponProductComposition.confusionToRawObject  = function(from, clone) {
-    if(!from)
-        return from;
-    
-    rpc.CouponProductComposition.checkAndInitial();
-    if (!rpc.CouponProductComposition.mHasConfusionField) {
-        return clone ? objectClone(from) : from;
-    }
-        
-    var ret = {};
-    for(var key in from) {
-        var rawKey = rpc.CouponProductComposition.getRawName(key);
-        if(!rawKey)
-            rawKey = key;
-        ret[rawKey] = from[key];
-    }
-    return ret;
-};
-
-rpc.CouponProductComposition.prototype.clearCache = function() {
-	if(this.mValueCache) {
-		this.mValueCache = {};
-	}
-};
-
-rpc.CouponProductComposition.prototype.convertFrom  = function(from, confusionMode, clone) {
-    if (!from)
-        return false;
-    
-    if (from.prototype && from.prototype.convertFrom) {
-        this.clearCache();
-        this.mObj = from.getAsObject(false, clone);
-        return true;
-    }
-    
-    if (from instanceof String && from[0] == '{') {
-        this.clearCache();
-        var jsonObj = JSON.parse(from);
-        if(confusionMode) {
-            this.mObj = rpc.CouponProductComposition.confusionToRawObject(jsonObj, clone);
-        } else {
-            this.mObj = clone ? objectClone(jsonObj) : jsonObj;
-        }
-        return true;
-    }
-    
-    this.clearCache();
-    if(confusionMode) {
-         this.mObj = rpc.CouponProductComposition.confusionToRawObject(from, clone);
-    } else {
-         this.mObj = clone ? objectClone(from) : from;
-    }
-    return true;
-};
-
-rpc.ProductIdListAndReduceCash = function() {};
-rpc.ProductIdListAndReduceCash.prototype.getProductIdList = function() {
-	if(!this.mObj) {
-		return null;
-	}
-	
-	this.mValueCache = this.mValueCache || {};
-	var cacheValue = this.mValueCache["productIdList"];
-	if(cacheValue) return cacheValue;
-	
-	var value = this.mObj["productIdList"];
-	
-	var objRet = ConvertUtils.jsonObjectToObject(value, Array, [String], false);
-	
-	if(objRet) {
-		this.mValueCache["productIdList"] = objRet;
-		return objRet;
-	}
-	
-	return null;
-};
-
-rpc.ProductIdListAndReduceCash.prototype.setProductIdList = function(value) {
-    this.checkAndCreate();
-	this.mValueCache = this.mValueCache || {};
-	this.mObj = this.mObj || {};
-	
-	var _arr_0 = (!value) ? null : [];
-	if(value) {
-		var _len_0 = value.length;
-		for(var _i_0 = 0; _i_0 < _len_0; _i_0++) {
-			var _l_0 = value[_i_0];
-			var _value__l_02 = _l_0;
-			_arr_0.push(_value__l_02);
-		}
-	}
-	var _value_value0 = _arr_0;
-	if(!_value_value0) 
-		delete this.mObj["productIdList"];
-	else
-		this.mObj["productIdList"] = _value_value0;
-
-	if(value) {
-		this.mValueCache["productIdList"] = value;
-	} else {
-		delete this.mValueCache["productIdList"];
-	}
-	return this;
-};
-
-rpc.ProductIdListAndReduceCash.prototype.getReduceCash = function() {
-	if(!this.mObj) {
-		return null;
-	}
-	
-	this.mValueCache = this.mValueCache || {};
-	var cacheValue = this.mValueCache["reduceCash"];
-	if(cacheValue) return cacheValue;
-	
-	var value = this.mObj["reduceCash"];
-	
-	var objRet = ConvertUtils.jsonObjectToObject(value, Number, null, false);
-	
-	if(objRet) {
-		this.mValueCache["reduceCash"] = objRet;
-		return objRet;
-	}
-	
-	return null;
-};
-
-rpc.ProductIdListAndReduceCash.prototype.setReduceCash = function(value) {
-    this.checkAndCreate();
-	this.mValueCache = this.mValueCache || {};
-	this.mObj = this.mObj || {};
-	
-	var _value_value0 = (value);
-	if(!_value_value0) 
-		delete this.mObj["reduceCash"];
-	else
-		this.mObj["reduceCash"] = _value_value0;
-
-	if(value) {
-		this.mValueCache["reduceCash"] = value;
-	} else {
-		delete this.mValueCache["reduceCash"];
-	}
-	return this;
-};
-
-rpc.ProductIdListAndReduceCash.FIELD_REDUCECASH="reduceCash";
-rpc.ProductIdListAndReduceCash.FIELD_REDUCECASH_CONFUSION="reduceCash";
-rpc.ProductIdListAndReduceCash.FIELD_PRODUCTIDLIST="productIdList";
-rpc.ProductIdListAndReduceCash.FIELD_PRODUCTIDLIST_CONFUSION="productIdList";
-
-rpc.ProductIdListAndReduceCash.checkAndInitial = function() {
-    if(rpc.ProductIdListAndReduceCash.mFieldToConfusionMap)
-        return;
-	
-	rpc.ProductIdListAndReduceCash.mHasConfusionField = false;
-	rpc.ProductIdListAndReduceCash.mFieldToConfusionMap = {
-		"reduceCash":"reduceCash", 
-		"productIdList":"productIdList"
-	};
-	rpc.ProductIdListAndReduceCash.mConfusionToFieldMap = {
-		"reduceCash":"reduceCash", 
-		"productIdList":"productIdList"
-	};
-
-};
-
-rpc.ProductIdListAndReduceCash.prototype.toString = function() {
-	if(this.mObj) {
-		return JSON.stringify(this.mObj);
-	}
-	return "{}";
-};
-
-rpc.ProductIdListAndReduceCash.prototype.getRpcJSONObject  = function() {
-	return this.mObj;
-};
-
-rpc.ProductIdListAndReduceCash.prototype.checkAndCreate = function() {
-    if (!this.mObj) {
-        this.mObj = {};
-    }
-};
-
-
-rpc.ProductIdListAndReduceCash.prototype.getAsObject  = function(confusionMode, clone) {
-    if(this.mObj == null) {
-		this.checkAndCreate();
-        return clone ? objectClone(this.mObj) : this.mObj;
-    }
-    if(!confusionMode)
-        return clone ? objectClone(this.mObj) : this.mObj;
-    return rpc.ProductIdListAndReduceCash.toConfusionObject(this.mObj, clone);
-};
-
-rpc.ProductIdListAndReduceCash.getConfusionName = function(name) {
-    rpc.ProductIdListAndReduceCash.checkAndInitial();
-    var value = rpc.ProductIdListAndReduceCash.mFieldToConfusionMap[name];
-    if(value)
-        return value;
-    return null;
-};
-    
-rpc.ProductIdListAndReduceCash.getRawName = function(confusionName) {
-    rpc.ProductIdListAndReduceCash.checkAndInitial();
-    var value = rpc.ProductIdListAndReduceCash.mConfusionToFieldMap[confusionName];
-    if(value)
-        return value;
-    return null;
-};
-
-rpc.ProductIdListAndReduceCash.toConfusionObject  = function(from, clone) {
-    if(!from)
-        return from;
-
-	rpc.ProductIdListAndReduceCash.checkAndInitial();
-    if (!rpc.ProductIdListAndReduceCash.mHasConfusionField) {
-        return clone ? objectClone(from) : from;
-    }
-        
-    var ret = {};
-    for (var key in from) {
-        var rawKey = rpc.ProductIdListAndReduceCash.getConfusionName(key);
-        if(!rawKey)
-            rawKey = key;
-        ret[rawKey] = from[key];
-    }
-      
-    return ret;
-};
-    
-rpc.ProductIdListAndReduceCash.confusionToRawObject  = function(from, clone) {
-    if(!from)
-        return from;
-    
-    rpc.ProductIdListAndReduceCash.checkAndInitial();
-    if (!rpc.ProductIdListAndReduceCash.mHasConfusionField) {
-        return clone ? objectClone(from) : from;
-    }
-        
-    var ret = {};
-    for(var key in from) {
-        var rawKey = rpc.ProductIdListAndReduceCash.getRawName(key);
-        if(!rawKey)
-            rawKey = key;
-        ret[rawKey] = from[key];
-    }
-    return ret;
-};
-
-rpc.ProductIdListAndReduceCash.prototype.clearCache = function() {
-	if(this.mValueCache) {
-		this.mValueCache = {};
-	}
-};
-
-rpc.ProductIdListAndReduceCash.prototype.convertFrom  = function(from, confusionMode, clone) {
-    if (!from)
-        return false;
-    
-    if (from.prototype && from.prototype.convertFrom) {
-        this.clearCache();
-        this.mObj = from.getAsObject(false, clone);
-        return true;
-    }
-    
-    if (from instanceof String && from[0] == '{') {
-        this.clearCache();
-        var jsonObj = JSON.parse(from);
-        if(confusionMode) {
-            this.mObj = rpc.ProductIdListAndReduceCash.confusionToRawObject(jsonObj, clone);
-        } else {
-            this.mObj = clone ? objectClone(jsonObj) : jsonObj;
-        }
-        return true;
-    }
-    
-    this.clearCache();
-    if(confusionMode) {
-         this.mObj = rpc.ProductIdListAndReduceCash.confusionToRawObject(from, clone);
-    } else {
-         this.mObj = clone ? objectClone(from) : from;
-    }
-    return true;
-};
-
-rpc.UserCouponVO = function() {};
-rpc.UserCouponVO.prototype.getDesc = function() {
-	if(!this.mObj) {
-		return null;
-	}
-	
-	this.mValueCache = this.mValueCache || {};
-	var cacheValue = this.mValueCache["desc"];
-	if(cacheValue) return cacheValue;
-	
-	var value = this.mObj["desc"];
-	
-	var objRet = ConvertUtils.jsonObjectToObject(value, String, null, false);
-	
-	if(objRet) {
-		this.mValueCache["desc"] = objRet;
-		return objRet;
-	}
-	
-	return null;
-};
-
-rpc.UserCouponVO.prototype.setDesc = function(value) {
-    this.checkAndCreate();
-	this.mValueCache = this.mValueCache || {};
-	this.mObj = this.mObj || {};
-	
-	var _value_value0 = value;
-	if(!_value_value0) 
-		delete this.mObj["desc"];
-	else
-		this.mObj["desc"] = _value_value0;
-
-	if(value) {
-		this.mValueCache["desc"] = value;
-	} else {
-		delete this.mValueCache["desc"];
-	}
-	return this;
-};
-
-rpc.UserCouponVO.prototype.getEndTime = function() {
-	if(!this.mObj) {
-		return 0;
-	}
-	
-	this.mValueCache = this.mValueCache || {};
-	var cacheValue = this.mValueCache["endTime"];
-	if(cacheValue) return cacheValue;
-	
-	var value = this.mObj["endTime"];
-	
-	var objRet = ConvertUtils.jsonObjectToObject(value, Number, null, false);
-	
-	if(objRet) {
-		this.mValueCache["endTime"] = objRet;
-		return objRet;
-	}
-	
-	return 0;
-};
-
-rpc.UserCouponVO.prototype.setEndTime = function(value) {
-    this.checkAndCreate();
-	this.mValueCache = this.mValueCache || {};
-	this.mObj = this.mObj || {};
-	
-	var _value_value0 = (value);
-	if(!_value_value0) 
-		delete this.mObj["endTime"];
-	else
-		this.mObj["endTime"] = _value_value0;
-
-	if(value) {
-		this.mValueCache["endTime"] = value;
-	} else {
-		delete this.mValueCache["endTime"];
-	}
-	return this;
-};
-
-rpc.UserCouponVO.prototype.getExpiredSoonTag = function() {
-	if(!this.mObj) {
-		return 0;
-	}
-	
-	this.mValueCache = this.mValueCache || {};
-	var cacheValue = this.mValueCache["expiredSoonTag"];
-	if(cacheValue) return cacheValue;
-	
-	var value = this.mObj["expiredSoonTag"];
-	
-	var objRet = ConvertUtils.jsonObjectToObject(value, Number, null, false);
-	
-	if(objRet) {
-		this.mValueCache["expiredSoonTag"] = objRet;
-		return objRet;
-	}
-	
-	return 0;
-};
-
-rpc.UserCouponVO.prototype.setExpiredSoonTag = function(value) {
-    this.checkAndCreate();
-	this.mValueCache = this.mValueCache || {};
-	this.mObj = this.mObj || {};
-	
-	var _value_value0 = (value);
-	if(!_value_value0) 
-		delete this.mObj["expiredSoonTag"];
-	else
-		this.mObj["expiredSoonTag"] = _value_value0;
-
-	if(value) {
-		this.mValueCache["expiredSoonTag"] = value;
-	} else {
-		delete this.mValueCache["expiredSoonTag"];
-	}
-	return this;
-};
-
-rpc.UserCouponVO.prototype.getId = function() {
-	if(!this.mObj) {
-		return null;
-	}
-	
-	this.mValueCache = this.mValueCache || {};
-	var cacheValue = this.mValueCache["id"];
-	if(cacheValue) return cacheValue;
-	
-	var value = this.mObj["id"];
-	
-	var objRet = ConvertUtils.jsonObjectToObject(value, String, null, false);
-	
-	if(objRet) {
-		this.mValueCache["id"] = objRet;
-		return objRet;
-	}
-	
-	return null;
-};
-
-rpc.UserCouponVO.prototype.setId = function(value) {
-    this.checkAndCreate();
-	this.mValueCache = this.mValueCache || {};
-	this.mObj = this.mObj || {};
-	
-	var _value_value0 = value;
-	if(!_value_value0) 
-		delete this.mObj["id"];
-	else
-		this.mObj["id"] = _value_value0;
-
-	if(value) {
-		this.mValueCache["id"] = value;
-	} else {
-		delete this.mValueCache["id"];
-	}
-	return this;
-};
-
-rpc.UserCouponVO.prototype.getName = function() {
-	if(!this.mObj) {
-		return null;
-	}
-	
-	this.mValueCache = this.mValueCache || {};
-	var cacheValue = this.mValueCache["name"];
-	if(cacheValue) return cacheValue;
-	
-	var value = this.mObj["name"];
-	
-	var objRet = ConvertUtils.jsonObjectToObject(value, String, null, false);
-	
-	if(objRet) {
-		this.mValueCache["name"] = objRet;
-		return objRet;
-	}
-	
-	return null;
-};
-
-rpc.UserCouponVO.prototype.setName = function(value) {
-    this.checkAndCreate();
-	this.mValueCache = this.mValueCache || {};
-	this.mObj = this.mObj || {};
-	
-	var _value_value0 = value;
-	if(!_value_value0) 
-		delete this.mObj["name"];
-	else
-		this.mObj["name"] = _value_value0;
-
-	if(value) {
-		this.mValueCache["name"] = value;
-	} else {
-		delete this.mValueCache["name"];
-	}
-	return this;
-};
-
-rpc.UserCouponVO.prototype.getStartTime = function() {
-	if(!this.mObj) {
-		return 0;
-	}
-	
-	this.mValueCache = this.mValueCache || {};
-	var cacheValue = this.mValueCache["startTime"];
-	if(cacheValue) return cacheValue;
-	
-	var value = this.mObj["startTime"];
-	
-	var objRet = ConvertUtils.jsonObjectToObject(value, Number, null, false);
-	
-	if(objRet) {
-		this.mValueCache["startTime"] = objRet;
-		return objRet;
-	}
-	
-	return 0;
-};
-
-rpc.UserCouponVO.prototype.setStartTime = function(value) {
-    this.checkAndCreate();
-	this.mValueCache = this.mValueCache || {};
-	this.mObj = this.mObj || {};
-	
-	var _value_value0 = (value);
-	if(!_value_value0) 
-		delete this.mObj["startTime"];
-	else
-		this.mObj["startTime"] = _value_value0;
-
-	if(value) {
-		this.mValueCache["startTime"] = value;
-	} else {
-		delete this.mValueCache["startTime"];
-	}
-	return this;
-};
-
-rpc.UserCouponVO.prototype.getStatus = function() {
-	if(!this.mObj) {
-		return 0;
-	}
-	
-	this.mValueCache = this.mValueCache || {};
-	var cacheValue = this.mValueCache["status"];
-	if(cacheValue) return cacheValue;
-	
-	var value = this.mObj["status"];
-	
-	var objRet = ConvertUtils.jsonObjectToObject(value, Number, null, false);
-	
-	if(objRet) {
-		this.mValueCache["status"] = objRet;
-		return objRet;
-	}
-	
-	return 0;
-};
-
-rpc.UserCouponVO.prototype.setStatus = function(value) {
-    this.checkAndCreate();
-	this.mValueCache = this.mValueCache || {};
-	this.mObj = this.mObj || {};
-	
-	var _value_value0 = (value);
-	if(!_value_value0) 
-		delete this.mObj["status"];
-	else
-		this.mObj["status"] = _value_value0;
-
-	if(value) {
-		this.mValueCache["status"] = value;
-	} else {
-		delete this.mValueCache["status"];
-	}
-	return this;
-};
-
-rpc.UserCouponVO.FIELD_STARTTIME="startTime";
-rpc.UserCouponVO.FIELD_STARTTIME_CONFUSION="startTime";
-rpc.UserCouponVO.FIELD_ID="id";
-rpc.UserCouponVO.FIELD_ID_CONFUSION="id";
-rpc.UserCouponVO.FIELD_DESC="desc";
-rpc.UserCouponVO.FIELD_DESC_CONFUSION="desc";
-rpc.UserCouponVO.FIELD_STATUS="status";
-rpc.UserCouponVO.FIELD_STATUS_CONFUSION="status";
-rpc.UserCouponVO.FIELD_NAME="name";
-rpc.UserCouponVO.FIELD_NAME_CONFUSION="name";
-rpc.UserCouponVO.FIELD_EXPIREDSOONTAG="expiredSoonTag";
-rpc.UserCouponVO.FIELD_EXPIREDSOONTAG_CONFUSION="expiredSoonTag";
-rpc.UserCouponVO.FIELD_ENDTIME="endTime";
-rpc.UserCouponVO.FIELD_ENDTIME_CONFUSION="endTime";
-
-rpc.UserCouponVO.checkAndInitial = function() {
-    if(rpc.UserCouponVO.mFieldToConfusionMap)
-        return;
-	
-	rpc.UserCouponVO.mHasConfusionField = false;
-	rpc.UserCouponVO.mFieldToConfusionMap = {
-		"startTime":"startTime", 
-		"id":"id", 
-		"desc":"desc", 
-		"status":"status", 
-		"name":"name", 
-		"expiredSoonTag":"expiredSoonTag", 
-		"endTime":"endTime"
-	};
-	rpc.UserCouponVO.mConfusionToFieldMap = {
-		"startTime":"startTime", 
-		"id":"id", 
-		"desc":"desc", 
-		"status":"status", 
-		"name":"name", 
-		"expiredSoonTag":"expiredSoonTag", 
-		"endTime":"endTime"
-	};
-
-};
-
-rpc.UserCouponVO.prototype.toString = function() {
-	if(this.mObj) {
-		return JSON.stringify(this.mObj);
-	}
-	return "{}";
-};
-
-rpc.UserCouponVO.prototype.getRpcJSONObject  = function() {
-	return this.mObj;
-};
-
-rpc.UserCouponVO.prototype.checkAndCreate = function() {
-    if (!this.mObj) {
-        this.mObj = {};
-    }
-};
-
-
-rpc.UserCouponVO.prototype.getAsObject  = function(confusionMode, clone) {
-    if(this.mObj == null) {
-		this.checkAndCreate();
-        return clone ? objectClone(this.mObj) : this.mObj;
-    }
-    if(!confusionMode)
-        return clone ? objectClone(this.mObj) : this.mObj;
-    return rpc.UserCouponVO.toConfusionObject(this.mObj, clone);
-};
-
-rpc.UserCouponVO.getConfusionName = function(name) {
-    rpc.UserCouponVO.checkAndInitial();
-    var value = rpc.UserCouponVO.mFieldToConfusionMap[name];
-    if(value)
-        return value;
-    return null;
-};
-    
-rpc.UserCouponVO.getRawName = function(confusionName) {
-    rpc.UserCouponVO.checkAndInitial();
-    var value = rpc.UserCouponVO.mConfusionToFieldMap[confusionName];
-    if(value)
-        return value;
-    return null;
-};
-
-rpc.UserCouponVO.toConfusionObject  = function(from, clone) {
-    if(!from)
-        return from;
-
-	rpc.UserCouponVO.checkAndInitial();
-    if (!rpc.UserCouponVO.mHasConfusionField) {
-        return clone ? objectClone(from) : from;
-    }
-        
-    var ret = {};
-    for (var key in from) {
-        var rawKey = rpc.UserCouponVO.getConfusionName(key);
-        if(!rawKey)
-            rawKey = key;
-        ret[rawKey] = from[key];
-    }
-      
-    return ret;
-};
-    
-rpc.UserCouponVO.confusionToRawObject  = function(from, clone) {
-    if(!from)
-        return from;
-    
-    rpc.UserCouponVO.checkAndInitial();
-    if (!rpc.UserCouponVO.mHasConfusionField) {
-        return clone ? objectClone(from) : from;
-    }
-        
-    var ret = {};
-    for(var key in from) {
-        var rawKey = rpc.UserCouponVO.getRawName(key);
-        if(!rawKey)
-            rawKey = key;
-        ret[rawKey] = from[key];
-    }
-    return ret;
-};
-
-rpc.UserCouponVO.prototype.clearCache = function() {
-	if(this.mValueCache) {
-		this.mValueCache = {};
-	}
-};
-
-rpc.UserCouponVO.prototype.convertFrom  = function(from, confusionMode, clone) {
-    if (!from)
-        return false;
-    
-    if (from.prototype && from.prototype.convertFrom) {
-        this.clearCache();
-        this.mObj = from.getAsObject(false, clone);
-        return true;
-    }
-    
-    if (from instanceof String && from[0] == '{') {
-        this.clearCache();
-        var jsonObj = JSON.parse(from);
-        if(confusionMode) {
-            this.mObj = rpc.UserCouponVO.confusionToRawObject(jsonObj, clone);
-        } else {
-            this.mObj = clone ? objectClone(jsonObj) : jsonObj;
-        }
-        return true;
-    }
-    
-    this.clearCache();
-    if(confusionMode) {
-         this.mObj = rpc.UserCouponVO.confusionToRawObject(from, clone);
     } else {
          this.mObj = clone ? objectClone(from) : from;
     }
@@ -10823,6 +11122,46 @@ rpc.CheckResult.prototype.setShipfee = function(value) {
 	return this;
 };
 
+rpc.CheckResult.prototype.getStockNote = function() {
+	if(!this.mObj) {
+		return null;
+	}
+	
+	this.mValueCache = this.mValueCache || {};
+	var cacheValue = this.mValueCache["stockNote"];
+	if(cacheValue) return cacheValue;
+	
+	var value = this.mObj["stockNote"];
+	
+	var objRet = ConvertUtils.jsonObjectToObject(value, String, null, false);
+	
+	if(objRet) {
+		this.mValueCache["stockNote"] = objRet;
+		return objRet;
+	}
+	
+	return null;
+};
+
+rpc.CheckResult.prototype.setStockNote = function(value) {
+    this.checkAndCreate();
+	this.mValueCache = this.mValueCache || {};
+	this.mObj = this.mObj || {};
+	
+	var _value_value0 = value;
+	if(!_value_value0) 
+		delete this.mObj["stockNote"];
+	else
+		this.mObj["stockNote"] = _value_value0;
+
+	if(value) {
+		this.mValueCache["stockNote"] = value;
+	} else {
+		delete this.mValueCache["stockNote"];
+	}
+	return this;
+};
+
 rpc.CheckResult.FIELD_FREESHIPFEE="freeShipfee";
 rpc.CheckResult.FIELD_FREESHIPFEE_CONFUSION="freeShipfee";
 rpc.CheckResult.FIELD_ISDEALPAID="isDealPaid";
@@ -10839,6 +11178,8 @@ rpc.CheckResult.FIELD_CHECKCODE="checkCode";
 rpc.CheckResult.FIELD_CHECKCODE_CONFUSION="checkCode";
 rpc.CheckResult.FIELD_ADDRESS="address";
 rpc.CheckResult.FIELD_ADDRESS_CONFUSION="address";
+rpc.CheckResult.FIELD_STOCKNOTE="stockNote";
+rpc.CheckResult.FIELD_STOCKNOTE_CONFUSION="stockNote";
 rpc.CheckResult.FIELD_PRODUCTLIMITNOTE="productLimitNote";
 rpc.CheckResult.FIELD_PRODUCTLIMITNOTE_CONFUSION="productLimitNote";
 
@@ -10856,6 +11197,7 @@ rpc.CheckResult.checkAndInitial = function() {
 		"shipfee":"shipfee", 
 		"checkCode":"checkCode", 
 		"address":"address", 
+		"stockNote":"stockNote", 
 		"productLimitNote":"productLimitNote"
 	};
 	rpc.CheckResult.mConfusionToFieldMap = {
@@ -10867,6 +11209,7 @@ rpc.CheckResult.checkAndInitial = function() {
 		"shipfee":"shipfee", 
 		"checkCode":"checkCode", 
 		"address":"address", 
+		"stockNote":"stockNote", 
 		"productLimitNote":"productLimitNote"
 	};
 
@@ -21062,6 +21405,368 @@ rpc.DelivererWorkTime.prototype.convertFrom  = function(from, confusionMode, clo
     return true;
 };
 
+rpc.AreaHomePageLayout = function() {};
+rpc.AreaHomePageLayout.prototype.getAreaId = function() {
+	if(!this.mObj) {
+		return 0;
+	}
+	
+	this.mValueCache = this.mValueCache || {};
+	var cacheValue = this.mValueCache["areaId"];
+	if(cacheValue) return cacheValue;
+	
+	var value = this.mObj["areaId"];
+	
+	var objRet = ConvertUtils.jsonObjectToObject(value, Number, null, false);
+	
+	if(objRet) {
+		this.mValueCache["areaId"] = objRet;
+		return objRet;
+	}
+	
+	return 0;
+};
+
+rpc.AreaHomePageLayout.prototype.setAreaId = function(value) {
+    this.checkAndCreate();
+	this.mValueCache = this.mValueCache || {};
+	this.mObj = this.mObj || {};
+	
+	var _value_value0 = (value);
+	if(!_value_value0) 
+		delete this.mObj["areaId"];
+	else
+		this.mObj["areaId"] = _value_value0;
+
+	if(value) {
+		this.mValueCache["areaId"] = value;
+	} else {
+		delete this.mValueCache["areaId"];
+	}
+	return this;
+};
+
+rpc.AreaHomePageLayout.prototype.getEnable = function() {
+	if(!this.mObj) {
+		return 0;
+	}
+	
+	this.mValueCache = this.mValueCache || {};
+	var cacheValue = this.mValueCache["enable"];
+	if(cacheValue) return cacheValue;
+	
+	var value = this.mObj["enable"];
+	
+	var objRet = ConvertUtils.jsonObjectToObject(value, Number, null, false);
+	
+	if(objRet) {
+		this.mValueCache["enable"] = objRet;
+		return objRet;
+	}
+	
+	return 0;
+};
+
+rpc.AreaHomePageLayout.prototype.setEnable = function(value) {
+    this.checkAndCreate();
+	this.mValueCache = this.mValueCache || {};
+	this.mObj = this.mObj || {};
+	
+	var _value_value0 = (value);
+	if(!_value_value0) 
+		delete this.mObj["enable"];
+	else
+		this.mObj["enable"] = _value_value0;
+
+	if(value) {
+		this.mValueCache["enable"] = value;
+	} else {
+		delete this.mValueCache["enable"];
+	}
+	return this;
+};
+
+rpc.AreaHomePageLayout.prototype.getId = function() {
+	if(!this.mObj) {
+		return null;
+	}
+	
+	this.mValueCache = this.mValueCache || {};
+	var cacheValue = this.mValueCache["id"];
+	if(cacheValue) return cacheValue;
+	
+	var value = this.mObj["id"];
+	
+	var objRet = ConvertUtils.jsonObjectToObject(value, String, null, false);
+	
+	if(objRet) {
+		this.mValueCache["id"] = objRet;
+		return objRet;
+	}
+	
+	return null;
+};
+
+rpc.AreaHomePageLayout.prototype.setId = function(value) {
+    this.checkAndCreate();
+	this.mValueCache = this.mValueCache || {};
+	this.mObj = this.mObj || {};
+	
+	var _value_value0 = value;
+	if(!_value_value0) 
+		delete this.mObj["id"];
+	else
+		this.mObj["id"] = _value_value0;
+
+	if(value) {
+		this.mValueCache["id"] = value;
+	} else {
+		delete this.mValueCache["id"];
+	}
+	return this;
+};
+
+rpc.AreaHomePageLayout.prototype.getModules = function() {
+	if(!this.mObj) {
+		return null;
+	}
+	
+	this.mValueCache = this.mValueCache || {};
+	var cacheValue = this.mValueCache["modules"];
+	if(cacheValue) return cacheValue;
+	
+	var value = this.mObj["modules"];
+	
+	var objRet = ConvertUtils.jsonObjectToObject(value, Array, [rpc.HomePageModule], false);
+	
+	if(objRet) {
+		this.mValueCache["modules"] = objRet;
+		return objRet;
+	}
+	
+	return null;
+};
+
+rpc.AreaHomePageLayout.prototype.setModules = function(value) {
+    this.checkAndCreate();
+	this.mValueCache = this.mValueCache || {};
+	this.mObj = this.mObj || {};
+	
+	var _arr_0 = (!value) ? null : [];
+	if(value) {
+		var _len_0 = value.length;
+		for(var _i_0 = 0; _i_0 < _len_0; _i_0++) {
+			var _l_0 = value[_i_0];
+			var _value__l_02 = _l_0.getAsObject(false);
+			_arr_0.push(_value__l_02);
+		}
+	}
+	var _value_value0 = _arr_0;
+	if(!_value_value0) 
+		delete this.mObj["modules"];
+	else
+		this.mObj["modules"] = _value_value0;
+
+	if(value) {
+		this.mValueCache["modules"] = value;
+	} else {
+		delete this.mValueCache["modules"];
+	}
+	return this;
+};
+
+rpc.AreaHomePageLayout.prototype.getVersion = function() {
+	if(!this.mObj) {
+		return null;
+	}
+	
+	this.mValueCache = this.mValueCache || {};
+	var cacheValue = this.mValueCache["version"];
+	if(cacheValue) return cacheValue;
+	
+	var value = this.mObj["version"];
+	
+	var objRet = ConvertUtils.jsonObjectToObject(value, String, null, false);
+	
+	if(objRet) {
+		this.mValueCache["version"] = objRet;
+		return objRet;
+	}
+	
+	return null;
+};
+
+rpc.AreaHomePageLayout.prototype.setVersion = function(value) {
+    this.checkAndCreate();
+	this.mValueCache = this.mValueCache || {};
+	this.mObj = this.mObj || {};
+	
+	var _value_value0 = value;
+	if(!_value_value0) 
+		delete this.mObj["version"];
+	else
+		this.mObj["version"] = _value_value0;
+
+	if(value) {
+		this.mValueCache["version"] = value;
+	} else {
+		delete this.mValueCache["version"];
+	}
+	return this;
+};
+
+rpc.AreaHomePageLayout.FIELD_ID="id";
+rpc.AreaHomePageLayout.FIELD_ID_CONFUSION="id";
+rpc.AreaHomePageLayout.FIELD_ENABLE="enable";
+rpc.AreaHomePageLayout.FIELD_ENABLE_CONFUSION="enable";
+rpc.AreaHomePageLayout.FIELD_MODULES="modules";
+rpc.AreaHomePageLayout.FIELD_MODULES_CONFUSION="modules";
+rpc.AreaHomePageLayout.FIELD_AREAID="areaId";
+rpc.AreaHomePageLayout.FIELD_AREAID_CONFUSION="areaId";
+rpc.AreaHomePageLayout.FIELD_VERSION="version";
+rpc.AreaHomePageLayout.FIELD_VERSION_CONFUSION="version";
+
+rpc.AreaHomePageLayout.checkAndInitial = function() {
+    if(rpc.AreaHomePageLayout.mFieldToConfusionMap)
+        return;
+	
+	rpc.AreaHomePageLayout.mHasConfusionField = false;
+	rpc.AreaHomePageLayout.mFieldToConfusionMap = {
+		"id":"id", 
+		"enable":"enable", 
+		"modules":"modules", 
+		"areaId":"areaId", 
+		"version":"version"
+	};
+	rpc.AreaHomePageLayout.mConfusionToFieldMap = {
+		"id":"id", 
+		"enable":"enable", 
+		"modules":"modules", 
+		"areaId":"areaId", 
+		"version":"version"
+	};
+
+};
+
+rpc.AreaHomePageLayout.prototype.toString = function() {
+	if(this.mObj) {
+		return JSON.stringify(this.mObj);
+	}
+	return "{}";
+};
+
+rpc.AreaHomePageLayout.prototype.getRpcJSONObject  = function() {
+	return this.mObj;
+};
+
+rpc.AreaHomePageLayout.prototype.checkAndCreate = function() {
+    if (!this.mObj) {
+        this.mObj = {};
+    }
+};
+
+
+rpc.AreaHomePageLayout.prototype.getAsObject  = function(confusionMode, clone) {
+    if(this.mObj == null) {
+		this.checkAndCreate();
+        return clone ? objectClone(this.mObj) : this.mObj;
+    }
+    if(!confusionMode)
+        return clone ? objectClone(this.mObj) : this.mObj;
+    return rpc.AreaHomePageLayout.toConfusionObject(this.mObj, clone);
+};
+
+rpc.AreaHomePageLayout.getConfusionName = function(name) {
+    rpc.AreaHomePageLayout.checkAndInitial();
+    var value = rpc.AreaHomePageLayout.mFieldToConfusionMap[name];
+    if(value)
+        return value;
+    return null;
+};
+    
+rpc.AreaHomePageLayout.getRawName = function(confusionName) {
+    rpc.AreaHomePageLayout.checkAndInitial();
+    var value = rpc.AreaHomePageLayout.mConfusionToFieldMap[confusionName];
+    if(value)
+        return value;
+    return null;
+};
+
+rpc.AreaHomePageLayout.toConfusionObject  = function(from, clone) {
+    if(!from)
+        return from;
+
+	rpc.AreaHomePageLayout.checkAndInitial();
+    if (!rpc.AreaHomePageLayout.mHasConfusionField) {
+        return clone ? objectClone(from) : from;
+    }
+        
+    var ret = {};
+    for (var key in from) {
+        var rawKey = rpc.AreaHomePageLayout.getConfusionName(key);
+        if(!rawKey)
+            rawKey = key;
+        ret[rawKey] = from[key];
+    }
+      
+    return ret;
+};
+    
+rpc.AreaHomePageLayout.confusionToRawObject  = function(from, clone) {
+    if(!from)
+        return from;
+    
+    rpc.AreaHomePageLayout.checkAndInitial();
+    if (!rpc.AreaHomePageLayout.mHasConfusionField) {
+        return clone ? objectClone(from) : from;
+    }
+        
+    var ret = {};
+    for(var key in from) {
+        var rawKey = rpc.AreaHomePageLayout.getRawName(key);
+        if(!rawKey)
+            rawKey = key;
+        ret[rawKey] = from[key];
+    }
+    return ret;
+};
+
+rpc.AreaHomePageLayout.prototype.clearCache = function() {
+	if(this.mValueCache) {
+		this.mValueCache = {};
+	}
+};
+
+rpc.AreaHomePageLayout.prototype.convertFrom  = function(from, confusionMode, clone) {
+    if (!from)
+        return false;
+    
+    if (from.prototype && from.prototype.convertFrom) {
+        this.clearCache();
+        this.mObj = from.getAsObject(false, clone);
+        return true;
+    }
+    
+    if (from instanceof String && from[0] == '{') {
+        this.clearCache();
+        var jsonObj = JSON.parse(from);
+        if(confusionMode) {
+            this.mObj = rpc.AreaHomePageLayout.confusionToRawObject(jsonObj, clone);
+        } else {
+            this.mObj = clone ? objectClone(jsonObj) : jsonObj;
+        }
+        return true;
+    }
+    
+    this.clearCache();
+    if(confusionMode) {
+         this.mObj = rpc.AreaHomePageLayout.confusionToRawObject(from, clone);
+    } else {
+         this.mObj = clone ? objectClone(from) : from;
+    }
+    return true;
+};
+
 rpc.Banner = function() {};
 rpc.Banner.prototype.getAreaId = function() {
 	if(!this.mObj) {
@@ -21595,6 +22300,829 @@ rpc.BannerItem.prototype.convertFrom  = function(from, confusionMode, clone) {
     this.clearCache();
     if(confusionMode) {
          this.mObj = rpc.BannerItem.confusionToRawObject(from, clone);
+    } else {
+         this.mObj = clone ? objectClone(from) : from;
+    }
+    return true;
+};
+
+rpc.HomePageModule = function() {};
+rpc.HomePageModule.prototype.getId = function() {
+	if(!this.mObj) {
+		return null;
+	}
+	
+	this.mValueCache = this.mValueCache || {};
+	var cacheValue = this.mValueCache["id"];
+	if(cacheValue) return cacheValue;
+	
+	var value = this.mObj["id"];
+	
+	var objRet = ConvertUtils.jsonObjectToObject(value, String, null, false);
+	
+	if(objRet) {
+		this.mValueCache["id"] = objRet;
+		return objRet;
+	}
+	
+	return null;
+};
+
+rpc.HomePageModule.prototype.setId = function(value) {
+    this.checkAndCreate();
+	this.mValueCache = this.mValueCache || {};
+	this.mObj = this.mObj || {};
+	
+	var _value_value0 = value;
+	if(!_value_value0) 
+		delete this.mObj["id"];
+	else
+		this.mObj["id"] = _value_value0;
+
+	if(value) {
+		this.mValueCache["id"] = value;
+	} else {
+		delete this.mValueCache["id"];
+	}
+	return this;
+};
+
+rpc.HomePageModule.prototype.getIsAdvert = function() {
+	if(!this.mObj) {
+		return 0;
+	}
+	
+	this.mValueCache = this.mValueCache || {};
+	var cacheValue = this.mValueCache["isAdvert"];
+	if(cacheValue) return cacheValue;
+	
+	var value = this.mObj["isAdvert"];
+	
+	var objRet = ConvertUtils.jsonObjectToObject(value, Number, null, false);
+	
+	if(objRet) {
+		this.mValueCache["isAdvert"] = objRet;
+		return objRet;
+	}
+	
+	return 0;
+};
+
+rpc.HomePageModule.prototype.setIsAdvert = function(value) {
+    this.checkAndCreate();
+	this.mValueCache = this.mValueCache || {};
+	this.mObj = this.mObj || {};
+	
+	var _value_value0 = (value);
+	if(!_value_value0) 
+		delete this.mObj["isAdvert"];
+	else
+		this.mObj["isAdvert"] = _value_value0;
+
+	if(value) {
+		this.mValueCache["isAdvert"] = value;
+	} else {
+		delete this.mValueCache["isAdvert"];
+	}
+	return this;
+};
+
+rpc.HomePageModule.prototype.getItems = function() {
+	if(!this.mObj) {
+		return null;
+	}
+	
+	this.mValueCache = this.mValueCache || {};
+	var cacheValue = this.mValueCache["items"];
+	if(cacheValue) return cacheValue;
+	
+	var value = this.mObj["items"];
+	
+	var objRet = ConvertUtils.jsonObjectToObject(value, Array, [rpc.HomePageModuleItem], false);
+	
+	if(objRet) {
+		this.mValueCache["items"] = objRet;
+		return objRet;
+	}
+	
+	return null;
+};
+
+rpc.HomePageModule.prototype.setItems = function(value) {
+    this.checkAndCreate();
+	this.mValueCache = this.mValueCache || {};
+	this.mObj = this.mObj || {};
+	
+	var _arr_0 = (!value) ? null : [];
+	if(value) {
+		var _len_0 = value.length;
+		for(var _i_0 = 0; _i_0 < _len_0; _i_0++) {
+			var _l_0 = value[_i_0];
+			var _value__l_02 = _l_0.getAsObject(false);
+			_arr_0.push(_value__l_02);
+		}
+	}
+	var _value_value0 = _arr_0;
+	if(!_value_value0) 
+		delete this.mObj["items"];
+	else
+		this.mObj["items"] = _value_value0;
+
+	if(value) {
+		this.mValueCache["items"] = value;
+	} else {
+		delete this.mValueCache["items"];
+	}
+	return this;
+};
+
+rpc.HomePageModule.prototype.getLayoutId = function() {
+	if(!this.mObj) {
+		return null;
+	}
+	
+	this.mValueCache = this.mValueCache || {};
+	var cacheValue = this.mValueCache["layoutId"];
+	if(cacheValue) return cacheValue;
+	
+	var value = this.mObj["layoutId"];
+	
+	var objRet = ConvertUtils.jsonObjectToObject(value, String, null, false);
+	
+	if(objRet) {
+		this.mValueCache["layoutId"] = objRet;
+		return objRet;
+	}
+	
+	return null;
+};
+
+rpc.HomePageModule.prototype.setLayoutId = function(value) {
+    this.checkAndCreate();
+	this.mValueCache = this.mValueCache || {};
+	this.mObj = this.mObj || {};
+	
+	var _value_value0 = value;
+	if(!_value_value0) 
+		delete this.mObj["layoutId"];
+	else
+		this.mObj["layoutId"] = _value_value0;
+
+	if(value) {
+		this.mValueCache["layoutId"] = value;
+	} else {
+		delete this.mValueCache["layoutId"];
+	}
+	return this;
+};
+
+rpc.HomePageModule.prototype.getName = function() {
+	if(!this.mObj) {
+		return null;
+	}
+	
+	this.mValueCache = this.mValueCache || {};
+	var cacheValue = this.mValueCache["name"];
+	if(cacheValue) return cacheValue;
+	
+	var value = this.mObj["name"];
+	
+	var objRet = ConvertUtils.jsonObjectToObject(value, String, null, false);
+	
+	if(objRet) {
+		this.mValueCache["name"] = objRet;
+		return objRet;
+	}
+	
+	return null;
+};
+
+rpc.HomePageModule.prototype.setName = function(value) {
+    this.checkAndCreate();
+	this.mValueCache = this.mValueCache || {};
+	this.mObj = this.mObj || {};
+	
+	var _value_value0 = value;
+	if(!_value_value0) 
+		delete this.mObj["name"];
+	else
+		this.mObj["name"] = _value_value0;
+
+	if(value) {
+		this.mValueCache["name"] = value;
+	} else {
+		delete this.mValueCache["name"];
+	}
+	return this;
+};
+
+rpc.HomePageModule.prototype.getOrder = function() {
+	if(!this.mObj) {
+		return 0;
+	}
+	
+	this.mValueCache = this.mValueCache || {};
+	var cacheValue = this.mValueCache["order"];
+	if(cacheValue) return cacheValue;
+	
+	var value = this.mObj["order"];
+	
+	var objRet = ConvertUtils.jsonObjectToObject(value, Number, null, false);
+	
+	if(objRet) {
+		this.mValueCache["order"] = objRet;
+		return objRet;
+	}
+	
+	return 0;
+};
+
+rpc.HomePageModule.prototype.setOrder = function(value) {
+    this.checkAndCreate();
+	this.mValueCache = this.mValueCache || {};
+	this.mObj = this.mObj || {};
+	
+	var _value_value0 = (value);
+	if(!_value_value0) 
+		delete this.mObj["order"];
+	else
+		this.mObj["order"] = _value_value0;
+
+	if(value) {
+		this.mValueCache["order"] = value;
+	} else {
+		delete this.mValueCache["order"];
+	}
+	return this;
+};
+
+rpc.HomePageModule.prototype.getType = function() {
+	if(!this.mObj) {
+		return null;
+	}
+	
+	this.mValueCache = this.mValueCache || {};
+	var cacheValue = this.mValueCache["type"];
+	if(cacheValue) return cacheValue;
+	
+	var value = this.mObj["type"];
+	
+	var objRet = ConvertUtils.jsonObjectToObject(value, String, null, false);
+	
+	if(objRet) {
+		this.mValueCache["type"] = objRet;
+		return objRet;
+	}
+	
+	return null;
+};
+
+rpc.HomePageModule.prototype.setType = function(value) {
+    this.checkAndCreate();
+	this.mValueCache = this.mValueCache || {};
+	this.mObj = this.mObj || {};
+	
+	var _value_value0 = value;
+	if(!_value_value0) 
+		delete this.mObj["type"];
+	else
+		this.mObj["type"] = _value_value0;
+
+	if(value) {
+		this.mValueCache["type"] = value;
+	} else {
+		delete this.mValueCache["type"];
+	}
+	return this;
+};
+
+rpc.HomePageModule.FIELD_ID="id";
+rpc.HomePageModule.FIELD_ID_CONFUSION="id";
+rpc.HomePageModule.FIELD_ORDER="order";
+rpc.HomePageModule.FIELD_ORDER_CONFUSION="order";
+rpc.HomePageModule.FIELD_ITEMS="items";
+rpc.HomePageModule.FIELD_ITEMS_CONFUSION="items";
+rpc.HomePageModule.FIELD_NAME="name";
+rpc.HomePageModule.FIELD_NAME_CONFUSION="name";
+rpc.HomePageModule.FIELD_LAYOUTID="layoutId";
+rpc.HomePageModule.FIELD_LAYOUTID_CONFUSION="layoutId";
+rpc.HomePageModule.FIELD_ISADVERT="isAdvert";
+rpc.HomePageModule.FIELD_ISADVERT_CONFUSION="isAdvert";
+rpc.HomePageModule.FIELD_TYPE="type";
+rpc.HomePageModule.FIELD_TYPE_CONFUSION="type";
+
+rpc.HomePageModule.checkAndInitial = function() {
+    if(rpc.HomePageModule.mFieldToConfusionMap)
+        return;
+	
+	rpc.HomePageModule.mHasConfusionField = false;
+	rpc.HomePageModule.mFieldToConfusionMap = {
+		"id":"id", 
+		"order":"order", 
+		"items":"items", 
+		"name":"name", 
+		"layoutId":"layoutId", 
+		"isAdvert":"isAdvert", 
+		"type":"type"
+	};
+	rpc.HomePageModule.mConfusionToFieldMap = {
+		"id":"id", 
+		"order":"order", 
+		"items":"items", 
+		"name":"name", 
+		"layoutId":"layoutId", 
+		"isAdvert":"isAdvert", 
+		"type":"type"
+	};
+
+};
+
+rpc.HomePageModule.prototype.toString = function() {
+	if(this.mObj) {
+		return JSON.stringify(this.mObj);
+	}
+	return "{}";
+};
+
+rpc.HomePageModule.prototype.getRpcJSONObject  = function() {
+	return this.mObj;
+};
+
+rpc.HomePageModule.prototype.checkAndCreate = function() {
+    if (!this.mObj) {
+        this.mObj = {};
+    }
+};
+
+
+rpc.HomePageModule.prototype.getAsObject  = function(confusionMode, clone) {
+    if(this.mObj == null) {
+		this.checkAndCreate();
+        return clone ? objectClone(this.mObj) : this.mObj;
+    }
+    if(!confusionMode)
+        return clone ? objectClone(this.mObj) : this.mObj;
+    return rpc.HomePageModule.toConfusionObject(this.mObj, clone);
+};
+
+rpc.HomePageModule.getConfusionName = function(name) {
+    rpc.HomePageModule.checkAndInitial();
+    var value = rpc.HomePageModule.mFieldToConfusionMap[name];
+    if(value)
+        return value;
+    return null;
+};
+    
+rpc.HomePageModule.getRawName = function(confusionName) {
+    rpc.HomePageModule.checkAndInitial();
+    var value = rpc.HomePageModule.mConfusionToFieldMap[confusionName];
+    if(value)
+        return value;
+    return null;
+};
+
+rpc.HomePageModule.toConfusionObject  = function(from, clone) {
+    if(!from)
+        return from;
+
+	rpc.HomePageModule.checkAndInitial();
+    if (!rpc.HomePageModule.mHasConfusionField) {
+        return clone ? objectClone(from) : from;
+    }
+        
+    var ret = {};
+    for (var key in from) {
+        var rawKey = rpc.HomePageModule.getConfusionName(key);
+        if(!rawKey)
+            rawKey = key;
+        ret[rawKey] = from[key];
+    }
+      
+    return ret;
+};
+    
+rpc.HomePageModule.confusionToRawObject  = function(from, clone) {
+    if(!from)
+        return from;
+    
+    rpc.HomePageModule.checkAndInitial();
+    if (!rpc.HomePageModule.mHasConfusionField) {
+        return clone ? objectClone(from) : from;
+    }
+        
+    var ret = {};
+    for(var key in from) {
+        var rawKey = rpc.HomePageModule.getRawName(key);
+        if(!rawKey)
+            rawKey = key;
+        ret[rawKey] = from[key];
+    }
+    return ret;
+};
+
+rpc.HomePageModule.prototype.clearCache = function() {
+	if(this.mValueCache) {
+		this.mValueCache = {};
+	}
+};
+
+rpc.HomePageModule.prototype.convertFrom  = function(from, confusionMode, clone) {
+    if (!from)
+        return false;
+    
+    if (from.prototype && from.prototype.convertFrom) {
+        this.clearCache();
+        this.mObj = from.getAsObject(false, clone);
+        return true;
+    }
+    
+    if (from instanceof String && from[0] == '{') {
+        this.clearCache();
+        var jsonObj = JSON.parse(from);
+        if(confusionMode) {
+            this.mObj = rpc.HomePageModule.confusionToRawObject(jsonObj, clone);
+        } else {
+            this.mObj = clone ? objectClone(jsonObj) : jsonObj;
+        }
+        return true;
+    }
+    
+    this.clearCache();
+    if(confusionMode) {
+         this.mObj = rpc.HomePageModule.confusionToRawObject(from, clone);
+    } else {
+         this.mObj = clone ? objectClone(from) : from;
+    }
+    return true;
+};
+
+rpc.HomePageModuleItem = function() {};
+rpc.HomePageModuleItem.prototype.getImage = function() {
+	if(!this.mObj) {
+		return null;
+	}
+	
+	this.mValueCache = this.mValueCache || {};
+	var cacheValue = this.mValueCache["image"];
+	if(cacheValue) return cacheValue;
+	
+	var value = this.mObj["image"];
+	
+	var objRet = ConvertUtils.jsonObjectToObject(value, String, null, false);
+	
+	if(objRet) {
+		this.mValueCache["image"] = objRet;
+		return objRet;
+	}
+	
+	return null;
+};
+
+rpc.HomePageModuleItem.prototype.setImage = function(value) {
+    this.checkAndCreate();
+	this.mValueCache = this.mValueCache || {};
+	this.mObj = this.mObj || {};
+	
+	var _value_value0 = value;
+	if(!_value_value0) 
+		delete this.mObj["image"];
+	else
+		this.mObj["image"] = _value_value0;
+
+	if(value) {
+		this.mValueCache["image"] = value;
+	} else {
+		delete this.mValueCache["image"];
+	}
+	return this;
+};
+
+rpc.HomePageModuleItem.prototype.getParams = function() {
+	if(!this.mObj) {
+		return null;
+	}
+	
+	this.mValueCache = this.mValueCache || {};
+	var cacheValue = this.mValueCache["params"];
+	if(cacheValue) return cacheValue;
+	
+	var value = this.mObj["params"];
+	
+	var objRet = ConvertUtils.jsonObjectToObject(value, Object, [String, Object], false);
+	
+	if(objRet) {
+		this.mValueCache["params"] = objRet;
+		return objRet;
+	}
+	
+	return null;
+};
+
+rpc.HomePageModuleItem.prototype.setParams = function(value) {
+    this.checkAndCreate();
+	this.mValueCache = this.mValueCache || {};
+	this.mObj = this.mObj || {};
+	
+	var _obj_0 = (!value) ? null : {};
+	if(value) {
+		for(var _k0 in value) {
+			var _v_0 = value[_k0];
+			var _value__v_02 = _v_0;
+			if(!_value__v_02) 
+				delete _obj_0[_k0];
+			else
+				_obj_0[_k0] = _value__v_02;
+		}
+	}
+	var _value_value0 = _obj_0;
+	if(!_value_value0) 
+		delete this.mObj["params"];
+	else
+		this.mObj["params"] = _value_value0;
+
+	if(value) {
+		this.mValueCache["params"] = value;
+	} else {
+		delete this.mValueCache["params"];
+	}
+	return this;
+};
+
+rpc.HomePageModuleItem.prototype.getTitles = function() {
+	if(!this.mObj) {
+		return null;
+	}
+	
+	this.mValueCache = this.mValueCache || {};
+	var cacheValue = this.mValueCache["titles"];
+	if(cacheValue) return cacheValue;
+	
+	var value = this.mObj["titles"];
+	
+	var objRet = ConvertUtils.jsonObjectToObject(value, Array, [String], false);
+	
+	if(objRet) {
+		this.mValueCache["titles"] = objRet;
+		return objRet;
+	}
+	
+	return null;
+};
+
+rpc.HomePageModuleItem.prototype.setTitles = function(value) {
+    this.checkAndCreate();
+	this.mValueCache = this.mValueCache || {};
+	this.mObj = this.mObj || {};
+	
+	var _arr_0 = (!value) ? null : [];
+	if(value) {
+		var _len_0 = value.length;
+		for(var _i_0 = 0; _i_0 < _len_0; _i_0++) {
+			var _l_0 = value[_i_0];
+			var _value__l_02 = _l_0;
+			_arr_0.push(_value__l_02);
+		}
+	}
+	var _value_value0 = _arr_0;
+	if(!_value_value0) 
+		delete this.mObj["titles"];
+	else
+		this.mObj["titles"] = _value_value0;
+
+	if(value) {
+		this.mValueCache["titles"] = value;
+	} else {
+		delete this.mValueCache["titles"];
+	}
+	return this;
+};
+
+rpc.HomePageModuleItem.prototype.getUrl = function() {
+	if(!this.mObj) {
+		return null;
+	}
+	
+	this.mValueCache = this.mValueCache || {};
+	var cacheValue = this.mValueCache["url"];
+	if(cacheValue) return cacheValue;
+	
+	var value = this.mObj["url"];
+	
+	var objRet = ConvertUtils.jsonObjectToObject(value, String, null, false);
+	
+	if(objRet) {
+		this.mValueCache["url"] = objRet;
+		return objRet;
+	}
+	
+	return null;
+};
+
+rpc.HomePageModuleItem.prototype.setUrl = function(value) {
+    this.checkAndCreate();
+	this.mValueCache = this.mValueCache || {};
+	this.mObj = this.mObj || {};
+	
+	var _value_value0 = value;
+	if(!_value_value0) 
+		delete this.mObj["url"];
+	else
+		this.mObj["url"] = _value_value0;
+
+	if(value) {
+		this.mValueCache["url"] = value;
+	} else {
+		delete this.mValueCache["url"];
+	}
+	return this;
+};
+
+rpc.HomePageModuleItem.prototype.getUrlType = function() {
+	if(!this.mObj) {
+		return null;
+	}
+	
+	this.mValueCache = this.mValueCache || {};
+	var cacheValue = this.mValueCache["urlType"];
+	if(cacheValue) return cacheValue;
+	
+	var value = this.mObj["urlType"];
+	
+	var objRet = ConvertUtils.jsonObjectToObject(value, String, null, false);
+	
+	if(objRet) {
+		this.mValueCache["urlType"] = objRet;
+		return objRet;
+	}
+	
+	return null;
+};
+
+rpc.HomePageModuleItem.prototype.setUrlType = function(value) {
+    this.checkAndCreate();
+	this.mValueCache = this.mValueCache || {};
+	this.mObj = this.mObj || {};
+	
+	var _value_value0 = value;
+	if(!_value_value0) 
+		delete this.mObj["urlType"];
+	else
+		this.mObj["urlType"] = _value_value0;
+
+	if(value) {
+		this.mValueCache["urlType"] = value;
+	} else {
+		delete this.mValueCache["urlType"];
+	}
+	return this;
+};
+
+rpc.HomePageModuleItem.FIELD_TITLES="titles";
+rpc.HomePageModuleItem.FIELD_TITLES_CONFUSION="titles";
+rpc.HomePageModuleItem.FIELD_IMAGE="image";
+rpc.HomePageModuleItem.FIELD_IMAGE_CONFUSION="image";
+rpc.HomePageModuleItem.FIELD_PARAMS="params";
+rpc.HomePageModuleItem.FIELD_PARAMS_CONFUSION="params";
+rpc.HomePageModuleItem.FIELD_URLTYPE="urlType";
+rpc.HomePageModuleItem.FIELD_URLTYPE_CONFUSION="urlType";
+rpc.HomePageModuleItem.FIELD_URL="url";
+rpc.HomePageModuleItem.FIELD_URL_CONFUSION="url";
+
+rpc.HomePageModuleItem.checkAndInitial = function() {
+    if(rpc.HomePageModuleItem.mFieldToConfusionMap)
+        return;
+	
+	rpc.HomePageModuleItem.mHasConfusionField = false;
+	rpc.HomePageModuleItem.mFieldToConfusionMap = {
+		"titles":"titles", 
+		"image":"image", 
+		"params":"params", 
+		"urlType":"urlType", 
+		"url":"url"
+	};
+	rpc.HomePageModuleItem.mConfusionToFieldMap = {
+		"titles":"titles", 
+		"image":"image", 
+		"params":"params", 
+		"urlType":"urlType", 
+		"url":"url"
+	};
+
+};
+
+rpc.HomePageModuleItem.prototype.toString = function() {
+	if(this.mObj) {
+		return JSON.stringify(this.mObj);
+	}
+	return "{}";
+};
+
+rpc.HomePageModuleItem.prototype.getRpcJSONObject  = function() {
+	return this.mObj;
+};
+
+rpc.HomePageModuleItem.prototype.checkAndCreate = function() {
+    if (!this.mObj) {
+        this.mObj = {};
+    }
+};
+
+
+rpc.HomePageModuleItem.prototype.getAsObject  = function(confusionMode, clone) {
+    if(this.mObj == null) {
+		this.checkAndCreate();
+        return clone ? objectClone(this.mObj) : this.mObj;
+    }
+    if(!confusionMode)
+        return clone ? objectClone(this.mObj) : this.mObj;
+    return rpc.HomePageModuleItem.toConfusionObject(this.mObj, clone);
+};
+
+rpc.HomePageModuleItem.getConfusionName = function(name) {
+    rpc.HomePageModuleItem.checkAndInitial();
+    var value = rpc.HomePageModuleItem.mFieldToConfusionMap[name];
+    if(value)
+        return value;
+    return null;
+};
+    
+rpc.HomePageModuleItem.getRawName = function(confusionName) {
+    rpc.HomePageModuleItem.checkAndInitial();
+    var value = rpc.HomePageModuleItem.mConfusionToFieldMap[confusionName];
+    if(value)
+        return value;
+    return null;
+};
+
+rpc.HomePageModuleItem.toConfusionObject  = function(from, clone) {
+    if(!from)
+        return from;
+
+	rpc.HomePageModuleItem.checkAndInitial();
+    if (!rpc.HomePageModuleItem.mHasConfusionField) {
+        return clone ? objectClone(from) : from;
+    }
+        
+    var ret = {};
+    for (var key in from) {
+        var rawKey = rpc.HomePageModuleItem.getConfusionName(key);
+        if(!rawKey)
+            rawKey = key;
+        ret[rawKey] = from[key];
+    }
+      
+    return ret;
+};
+    
+rpc.HomePageModuleItem.confusionToRawObject  = function(from, clone) {
+    if(!from)
+        return from;
+    
+    rpc.HomePageModuleItem.checkAndInitial();
+    if (!rpc.HomePageModuleItem.mHasConfusionField) {
+        return clone ? objectClone(from) : from;
+    }
+        
+    var ret = {};
+    for(var key in from) {
+        var rawKey = rpc.HomePageModuleItem.getRawName(key);
+        if(!rawKey)
+            rawKey = key;
+        ret[rawKey] = from[key];
+    }
+    return ret;
+};
+
+rpc.HomePageModuleItem.prototype.clearCache = function() {
+	if(this.mValueCache) {
+		this.mValueCache = {};
+	}
+};
+
+rpc.HomePageModuleItem.prototype.convertFrom  = function(from, confusionMode, clone) {
+    if (!from)
+        return false;
+    
+    if (from.prototype && from.prototype.convertFrom) {
+        this.clearCache();
+        this.mObj = from.getAsObject(false, clone);
+        return true;
+    }
+    
+    if (from instanceof String && from[0] == '{') {
+        this.clearCache();
+        var jsonObj = JSON.parse(from);
+        if(confusionMode) {
+            this.mObj = rpc.HomePageModuleItem.confusionToRawObject(jsonObj, clone);
+        } else {
+            this.mObj = clone ? objectClone(jsonObj) : jsonObj;
+        }
+        return true;
+    }
+    
+    this.clearCache();
+    if(confusionMode) {
+         this.mObj = rpc.HomePageModuleItem.confusionToRawObject(from, clone);
     } else {
          this.mObj = clone ? objectClone(from) : from;
     }
@@ -24720,7 +26248,7 @@ rpc.Product.prototype.getCategoryId = function() {
 	
 	var value = this.mObj["categoryId"];
 	
-	var objRet = ConvertUtils.jsonObjectToObject(value, String, null, false);
+	var objRet = ConvertUtils.jsonObjectToObject(value, Array, [String], false);
 	
 	if(objRet) {
 		this.mValueCache["categoryId"] = objRet;
@@ -24735,7 +26263,16 @@ rpc.Product.prototype.setCategoryId = function(value) {
 	this.mValueCache = this.mValueCache || {};
 	this.mObj = this.mObj || {};
 	
-	var _value_value0 = value;
+	var _arr_0 = (!value) ? null : [];
+	if(value) {
+		var _len_0 = value.length;
+		for(var _i_0 = 0; _i_0 < _len_0; _i_0++) {
+			var _l_0 = value[_i_0];
+			var _value__l_02 = _l_0;
+			_arr_0.push(_value__l_02);
+		}
+	}
+	var _value_value0 = _arr_0;
 	if(!_value_value0) 
 		delete this.mObj["categoryId"];
 	else
@@ -24745,6 +26282,55 @@ rpc.Product.prototype.setCategoryId = function(value) {
 		this.mValueCache["categoryId"] = value;
 	} else {
 		delete this.mValueCache["categoryId"];
+	}
+	return this;
+};
+
+rpc.Product.prototype.getCategoryIds = function() {
+	if(!this.mObj) {
+		return null;
+	}
+	
+	this.mValueCache = this.mValueCache || {};
+	var cacheValue = this.mValueCache["categoryIds"];
+	if(cacheValue) return cacheValue;
+	
+	var value = this.mObj["categoryIds"];
+	
+	var objRet = ConvertUtils.jsonObjectToObject(value, Array, [String], false);
+	
+	if(objRet) {
+		this.mValueCache["categoryIds"] = objRet;
+		return objRet;
+	}
+	
+	return null;
+};
+
+rpc.Product.prototype.setCategoryIds = function(value) {
+    this.checkAndCreate();
+	this.mValueCache = this.mValueCache || {};
+	this.mObj = this.mObj || {};
+	
+	var _arr_0 = (!value) ? null : [];
+	if(value) {
+		var _len_0 = value.length;
+		for(var _i_0 = 0; _i_0 < _len_0; _i_0++) {
+			var _l_0 = value[_i_0];
+			var _value__l_02 = _l_0;
+			_arr_0.push(_value__l_02);
+		}
+	}
+	var _value_value0 = _arr_0;
+	if(!_value_value0) 
+		delete this.mObj["categoryIds"];
+	else
+		this.mObj["categoryIds"] = _value_value0;
+
+	if(value) {
+		this.mValueCache["categoryIds"] = value;
+	} else {
+		delete this.mValueCache["categoryIds"];
 	}
 	return this;
 };
@@ -25438,6 +27024,46 @@ rpc.Product.prototype.setStatus = function(value) {
 	return this;
 };
 
+rpc.Product.prototype.getStock = function() {
+	if(!this.mObj) {
+		return 0;
+	}
+	
+	this.mValueCache = this.mValueCache || {};
+	var cacheValue = this.mValueCache["stock"];
+	if(cacheValue) return cacheValue;
+	
+	var value = this.mObj["stock"];
+	
+	var objRet = ConvertUtils.jsonObjectToObject(value, Number, null, false);
+	
+	if(objRet) {
+		this.mValueCache["stock"] = objRet;
+		return objRet;
+	}
+	
+	return 0;
+};
+
+rpc.Product.prototype.setStock = function(value) {
+    this.checkAndCreate();
+	this.mValueCache = this.mValueCache || {};
+	this.mObj = this.mObj || {};
+	
+	var _value_value0 = (value);
+	if(!_value_value0) 
+		delete this.mObj["stock"];
+	else
+		this.mObj["stock"] = _value_value0;
+
+	if(value) {
+		this.mValueCache["stock"] = value;
+	} else {
+		delete this.mValueCache["stock"];
+	}
+	return this;
+};
+
 rpc.Product.prototype.getTopTime = function() {
 	if(!this.mObj) {
 		return 0;
@@ -25558,52 +27184,56 @@ rpc.Product.prototype.setUpdated = function(value) {
 	return this;
 };
 
+rpc.Product.FIELD_RANK="rank";
+rpc.Product.FIELD_RANK_CONFUSION="rank";
+rpc.Product.FIELD_STOCK="stock";
+rpc.Product.FIELD_STOCK_CONFUSION="stock";
+rpc.Product.FIELD_CATEGORYIDS="categoryIds";
+rpc.Product.FIELD_CATEGORYIDS_CONFUSION="categoryIds";
+rpc.Product.FIELD_UPDATED="updated";
+rpc.Product.FIELD_UPDATED_CONFUSION="updated";
+rpc.Product.FIELD_CREATED="created";
+rpc.Product.FIELD_CREATED_CONFUSION="created";
+rpc.Product.FIELD_DESCRIPTION="description";
+rpc.Product.FIELD_DESCRIPTION_CONFUSION="description";
+rpc.Product.FIELD_SHOPID="shopId";
+rpc.Product.FIELD_SHOPID_CONFUSION="shopId";
+rpc.Product.FIELD_SKUID="skuId";
+rpc.Product.FIELD_SKUID_CONFUSION="skuId";
+rpc.Product.FIELD_CANPARTIALRETURN="canPartialReturn";
+rpc.Product.FIELD_CANPARTIALRETURN_CONFUSION="canPartialReturn";
+rpc.Product.FIELD_BARCODE="barCode";
+rpc.Product.FIELD_BARCODE_CONFUSION="barCode";
+rpc.Product.FIELD_DPRICE="dprice";
+rpc.Product.FIELD_DPRICE_CONFUSION="dprice";
+rpc.Product.FIELD_ISTOP="isTop";
+rpc.Product.FIELD_ISTOP_CONFUSION="isTop";
+rpc.Product.FIELD_SOLDCOUNT="soldCount";
+rpc.Product.FIELD_SOLDCOUNT_CONFUSION="soldCount";
 rpc.Product.FIELD_LIMITTYPE="limitType";
 rpc.Product.FIELD_LIMITTYPE_CONFUSION="limitType";
-rpc.Product.FIELD_STATUS="status";
-rpc.Product.FIELD_STATUS_CONFUSION="status";
 rpc.Product.FIELD_PPRICE="pprice";
 rpc.Product.FIELD_PPRICE_CONFUSION="pprice";
+rpc.Product.FIELD_STATUS="status";
+rpc.Product.FIELD_STATUS_CONFUSION="status";
 rpc.Product.FIELD_CATEGORYID="categoryId";
 rpc.Product.FIELD_CATEGORYID_CONFUSION="categoryId";
 rpc.Product.FIELD_PID="pid";
 rpc.Product.FIELD_PID_CONFUSION="pid";
 rpc.Product.FIELD_PRODUCTLIMITCOUNT="productLimitcount";
 rpc.Product.FIELD_PRODUCTLIMITCOUNT_CONFUSION="productLimitcount";
-rpc.Product.FIELD_LIMITCOUNT="limitcount";
-rpc.Product.FIELD_LIMITCOUNT_CONFUSION="limitcount";
 rpc.Product.FIELD_PICTURE="picture";
 rpc.Product.FIELD_PICTURE_CONFUSION="picture";
+rpc.Product.FIELD_LIMITCOUNT="limitcount";
+rpc.Product.FIELD_LIMITCOUNT_CONFUSION="limitcount";
 rpc.Product.FIELD_UNIT="unit";
 rpc.Product.FIELD_UNIT_CONFUSION="unit";
-rpc.Product.FIELD_RANK="rank";
-rpc.Product.FIELD_RANK_CONFUSION="rank";
 rpc.Product.FIELD_PRICE="price";
 rpc.Product.FIELD_PRICE_CONFUSION="price";
-rpc.Product.FIELD_UPDATED="updated";
-rpc.Product.FIELD_UPDATED_CONFUSION="updated";
-rpc.Product.FIELD_CREATED="created";
-rpc.Product.FIELD_CREATED_CONFUSION="created";
-rpc.Product.FIELD_SHOPID="shopId";
-rpc.Product.FIELD_SHOPID_CONFUSION="shopId";
-rpc.Product.FIELD_DESCRIPTION="description";
-rpc.Product.FIELD_DESCRIPTION_CONFUSION="description";
 rpc.Product.FIELD_NAMES="names";
 rpc.Product.FIELD_NAMES_CONFUSION="names";
-rpc.Product.FIELD_SKUID="skuId";
-rpc.Product.FIELD_SKUID_CONFUSION="skuId";
-rpc.Product.FIELD_BARCODE="barCode";
-rpc.Product.FIELD_BARCODE_CONFUSION="barCode";
-rpc.Product.FIELD_CANPARTIALRETURN="canPartialReturn";
-rpc.Product.FIELD_CANPARTIALRETURN_CONFUSION="canPartialReturn";
-rpc.Product.FIELD_DPRICE="dprice";
-rpc.Product.FIELD_DPRICE_CONFUSION="dprice";
-rpc.Product.FIELD_ISTOP="isTop";
-rpc.Product.FIELD_ISTOP_CONFUSION="isTop";
 rpc.Product.FIELD_TOPTIME="topTime";
 rpc.Product.FIELD_TOPTIME_CONFUSION="topTime";
-rpc.Product.FIELD_SOLDCOUNT="soldCount";
-rpc.Product.FIELD_SOLDCOUNT_CONFUSION="soldCount";
 
 rpc.Product.checkAndInitial = function() {
     if(rpc.Product.mFieldToConfusionMap)
@@ -25611,54 +27241,58 @@ rpc.Product.checkAndInitial = function() {
 	
 	rpc.Product.mHasConfusionField = false;
 	rpc.Product.mFieldToConfusionMap = {
+		"rank":"rank", 
+		"stock":"stock", 
+		"categoryIds":"categoryIds", 
+		"updated":"updated", 
+		"created":"created", 
+		"description":"description", 
+		"shopId":"shopId", 
+		"skuId":"skuId", 
+		"canPartialReturn":"canPartialReturn", 
+		"barCode":"barCode", 
+		"dprice":"dprice", 
+		"isTop":"isTop", 
+		"soldCount":"soldCount", 
 		"limitType":"limitType", 
-		"status":"status", 
 		"pprice":"pprice", 
+		"status":"status", 
 		"categoryId":"categoryId", 
 		"pid":"pid", 
 		"productLimitcount":"productLimitcount", 
-		"limitcount":"limitcount", 
 		"picture":"picture", 
+		"limitcount":"limitcount", 
 		"unit":"unit", 
-		"rank":"rank", 
 		"price":"price", 
-		"updated":"updated", 
-		"created":"created", 
-		"shopId":"shopId", 
-		"description":"description", 
 		"names":"names", 
-		"skuId":"skuId", 
-		"barCode":"barCode", 
-		"canPartialReturn":"canPartialReturn", 
-		"dprice":"dprice", 
-		"isTop":"isTop", 
-		"topTime":"topTime", 
-		"soldCount":"soldCount"
+		"topTime":"topTime"
 	};
 	rpc.Product.mConfusionToFieldMap = {
+		"rank":"rank", 
+		"stock":"stock", 
+		"categoryIds":"categoryIds", 
+		"updated":"updated", 
+		"created":"created", 
+		"description":"description", 
+		"shopId":"shopId", 
+		"skuId":"skuId", 
+		"canPartialReturn":"canPartialReturn", 
+		"barCode":"barCode", 
+		"dprice":"dprice", 
+		"isTop":"isTop", 
+		"soldCount":"soldCount", 
 		"limitType":"limitType", 
-		"status":"status", 
 		"pprice":"pprice", 
+		"status":"status", 
 		"categoryId":"categoryId", 
 		"pid":"pid", 
 		"productLimitcount":"productLimitcount", 
-		"limitcount":"limitcount", 
 		"picture":"picture", 
+		"limitcount":"limitcount", 
 		"unit":"unit", 
-		"rank":"rank", 
 		"price":"price", 
-		"updated":"updated", 
-		"created":"created", 
-		"shopId":"shopId", 
-		"description":"description", 
 		"names":"names", 
-		"skuId":"skuId", 
-		"barCode":"barCode", 
-		"canPartialReturn":"canPartialReturn", 
-		"dprice":"dprice", 
-		"isTop":"isTop", 
-		"topTime":"topTime", 
-		"soldCount":"soldCount"
+		"topTime":"topTime"
 	};
 
 };
@@ -27438,6 +29072,46 @@ rpc.Shop.prototype.setStatus = function(value) {
 	return this;
 };
 
+rpc.Shop.prototype.getStoreLimitEnable = function() {
+	if(!this.mObj) {
+		return 0;
+	}
+	
+	this.mValueCache = this.mValueCache || {};
+	var cacheValue = this.mValueCache["storeLimitEnable"];
+	if(cacheValue) return cacheValue;
+	
+	var value = this.mObj["storeLimitEnable"];
+	
+	var objRet = ConvertUtils.jsonObjectToObject(value, Number, null, false);
+	
+	if(objRet) {
+		this.mValueCache["storeLimitEnable"] = objRet;
+		return objRet;
+	}
+	
+	return 0;
+};
+
+rpc.Shop.prototype.setStoreLimitEnable = function(value) {
+    this.checkAndCreate();
+	this.mValueCache = this.mValueCache || {};
+	this.mObj = this.mObj || {};
+	
+	var _value_value0 = (value);
+	if(!_value_value0) 
+		delete this.mObj["storeLimitEnable"];
+	else
+		this.mObj["storeLimitEnable"] = _value_value0;
+
+	if(value) {
+		this.mValueCache["storeLimitEnable"] = value;
+	} else {
+		delete this.mValueCache["storeLimitEnable"];
+	}
+	return this;
+};
+
 rpc.Shop.FIELD_ICON="icon";
 rpc.Shop.FIELD_ICON_CONFUSION="icon";
 rpc.Shop.FIELD_LOGO="logo";
@@ -27468,6 +29142,8 @@ rpc.Shop.FIELD_AREAIDS="areaIds";
 rpc.Shop.FIELD_AREAIDS_CONFUSION="areaIds";
 rpc.Shop.FIELD_LAT="lat";
 rpc.Shop.FIELD_LAT_CONFUSION="lat";
+rpc.Shop.FIELD_STORELIMITENABLE="storeLimitEnable";
+rpc.Shop.FIELD_STORELIMITENABLE_CONFUSION="storeLimitEnable";
 rpc.Shop.FIELD_BANNERS="banners";
 rpc.Shop.FIELD_BANNERS_CONFUSION="banners";
 
@@ -27492,6 +29168,7 @@ rpc.Shop.checkAndInitial = function() {
 		"showType":"showType", 
 		"areaIds":"areaIds", 
 		"lat":"lat", 
+		"storeLimitEnable":"storeLimitEnable", 
 		"banners":"banners"
 	};
 	rpc.Shop.mConfusionToFieldMap = {
@@ -27510,6 +29187,7 @@ rpc.Shop.checkAndInitial = function() {
 		"showType":"showType", 
 		"areaIds":"areaIds", 
 		"lat":"lat", 
+		"storeLimitEnable":"storeLimitEnable", 
 		"banners":"banners"
 	};
 
@@ -32080,37 +33758,6 @@ rpc.ICityService.getSupportedCities = function(success, fail){
 	return RpcCall.doInvoke(_url, "getSupportedCities", _jsonDict, _uploadDict, successWrapper, fail);
 };
 
-rpc.ICouponService = {};
-
-rpc.ICouponService.loadUserCoupon = function(offset, count, success, fail){
-	if(arguments.length < 4) alert("com.paitao.xmlife.rpc.ICouponService.loadUserCoupon param count dismatch");
-
-	var successWrapper = success ? function(returnCode, jsonObj) {
-		var obj = ConvertUtils.jsonObjectToObject(jsonObj, Array, [rpc.UserCouponVO], true);
-		success(returnCode, obj);
-	} : null;
-	var _jsonDict = {};
-	var _uploadDict = {};
-	{
-		var _value_offset1 = (offset);
-		if(!_value_offset1) 
-			delete _jsonDict["offset"];
-		else
-			_jsonDict["offset"] = _value_offset1;
-	}
-
-	{
-		var _value_count1 = (count);
-		if(!_value_count1) 
-			delete _jsonDict["count"];
-		else
-			_jsonDict["count"] = _value_count1;
-	}
-
-	var _url = rpc.ServerConfig.getUrlPrefix("Business") + "ICouponService/1/loadUserCoupon";
-	return RpcCall.doInvoke(_url, "loadUserCoupon", _jsonDict, _uploadDict, successWrapper, fail);
-};
-
 rpc.ICustomerService = {};
 
 rpc.ICustomerService.getCustomerAccountInfo = function(success, fail){
@@ -33125,6 +34772,27 @@ rpc.IFeedbackService.sendFeedBack = function(feedback, type, success, fail){
 
 rpc.IHomepageService = {};
 
+rpc.IHomepageService.getAreaHomePageLayout = function(areaId, success, fail){
+	if(arguments.length < 3) alert("com.paitao.xmlife.rpc.IHomepageService.getAreaHomePageLayout param count dismatch");
+
+	var successWrapper = success ? function(returnCode, jsonObj) {
+		var obj = ConvertUtils.jsonObjectToObject(jsonObj, rpc.AreaHomePageLayout, null, true);
+		success(returnCode, obj);
+	} : null;
+	var _jsonDict = {};
+	var _uploadDict = {};
+	{
+		var _value_areaId1 = (areaId);
+		if(!_value_areaId1) 
+			delete _jsonDict["areaId"];
+		else
+			_jsonDict["areaId"] = _value_areaId1;
+	}
+
+	var _url = rpc.ServerConfig.getUrlPrefix("Business") + "IHomepageService/1/getAreaHomePageLayout";
+	return RpcCall.doInvoke(_url, "getAreaHomePageLayout", _jsonDict, _uploadDict, successWrapper, fail);
+};
+
 rpc.IHomepageService.getBannersByArea = function(areaId, success, fail){
 	if(arguments.length < 3) alert("com.paitao.xmlife.rpc.IHomepageService.getBannersByArea param count dismatch");
 
@@ -33190,6 +34858,36 @@ rpc.IResidentalDistrictService.get = function(rid, success, fail){
 	return RpcCall.doInvoke(_url, "get", _jsonDict, _uploadDict, successWrapper, fail);
 };
 
+rpc.IResidentalDistrictService.getCityAndDistrictNearby = function(loc, success, fail){
+	if(arguments.length < 3) alert("com.paitao.xmlife.rpc.IResidentalDistrictService.getCityAndDistrictNearby param count dismatch");
+
+	var successWrapper = success ? function(returnCode, jsonObj) {
+		var obj = ConvertUtils.jsonObjectToObject(jsonObj, rpc.CityAndDistrict, null, true);
+		success(returnCode, obj);
+	} : null;
+	var _jsonDict = {};
+	var _uploadDict = {};
+	{
+		var _arr_1 = (!loc) ? null : [];
+		if(loc) {
+			var _len_1 = loc.length;
+			for(var _i_1 = 0; _i_1 < _len_1; _i_1++) {
+				var _l_1 = loc[_i_1];
+				var _value__l_13 = _l_1;
+				_arr_1.push(_value__l_13);
+			}
+		}
+		var _value_loc1 = _arr_1;
+		if(!_value_loc1) 
+			delete _jsonDict["loc"];
+		else
+			_jsonDict["loc"] = _value_loc1;
+	}
+
+	var _url = rpc.ServerConfig.getUrlPrefix("Business") + "IResidentalDistrictService/1/getCityAndDistrictNearby";
+	return RpcCall.doInvoke(_url, "getCityAndDistrictNearby", _jsonDict, _uploadDict, successWrapper, fail);
+};
+
 rpc.IResidentalDistrictService.getDistrictsNearby = function(loc, success, fail){
 	if(arguments.length < 3) alert("com.paitao.xmlife.rpc.IResidentalDistrictService.getDistrictsNearby param count dismatch");
 
@@ -33250,6 +34948,64 @@ rpc.IResidentalDistrictService.searchByName = function(cityCode, name, success, 
 };
 
 rpc.IShopService = {};
+
+rpc.IShopService.addUserCollect = function(shopId, productId, success, fail){
+	if(arguments.length < 4) alert("com.paitao.xmlife.rpc.IShopService.addUserCollect param count dismatch");
+
+	var successWrapper = success ? function(returnCode, jsonObj) {
+		var obj = ConvertUtils.jsonObjectToObject(jsonObj, Number, null, true);
+		success(returnCode, obj);
+	} : null;
+	var _jsonDict = {};
+	var _uploadDict = {};
+	{
+		var _value_shopId1 = shopId;
+		if(!_value_shopId1) 
+			delete _jsonDict["shopId"];
+		else
+			_jsonDict["shopId"] = _value_shopId1;
+	}
+
+	{
+		var _value_productId1 = productId;
+		if(!_value_productId1) 
+			delete _jsonDict["productId"];
+		else
+			_jsonDict["productId"] = _value_productId1;
+	}
+
+	var _url = rpc.ServerConfig.getUrlPrefix("Business") + "IShopService/1/addUserCollect";
+	return RpcCall.doInvoke(_url, "addUserCollect", _jsonDict, _uploadDict, successWrapper, fail);
+};
+
+rpc.IShopService.delUserCollect = function(shopId, productId, success, fail){
+	if(arguments.length < 4) alert("com.paitao.xmlife.rpc.IShopService.delUserCollect param count dismatch");
+
+	var successWrapper = success ? function(returnCode, jsonObj) {
+		var obj = ConvertUtils.jsonObjectToObject(jsonObj, Number, null, true);
+		success(returnCode, obj);
+	} : null;
+	var _jsonDict = {};
+	var _uploadDict = {};
+	{
+		var _value_shopId1 = shopId;
+		if(!_value_shopId1) 
+			delete _jsonDict["shopId"];
+		else
+			_jsonDict["shopId"] = _value_shopId1;
+	}
+
+	{
+		var _value_productId1 = productId;
+		if(!_value_productId1) 
+			delete _jsonDict["productId"];
+		else
+			_jsonDict["productId"] = _value_productId1;
+	}
+
+	var _url = rpc.ServerConfig.getUrlPrefix("Business") + "IShopService/1/delUserCollect";
+	return RpcCall.doInvoke(_url, "delUserCollect", _jsonDict, _uploadDict, successWrapper, fail);
+};
 
 rpc.IShopService.getCategoryContent = function(shopId, categoryId, success, fail){
 	if(arguments.length < 4) alert("com.paitao.xmlife.rpc.IShopService.getCategoryContent param count dismatch");
@@ -33412,6 +35168,27 @@ rpc.IShopService.getShopsByAreaId = function(areaId, success, fail){
 
 	var _url = rpc.ServerConfig.getUrlPrefix("Business") + "IShopService/1/getShopsByAreaId";
 	return RpcCall.doInvoke(_url, "getShopsByAreaId", _jsonDict, _uploadDict, successWrapper, fail);
+};
+
+rpc.IShopService.getUserCollectContent = function(shopId, success, fail){
+	if(arguments.length < 3) alert("com.paitao.xmlife.rpc.IShopService.getUserCollectContent param count dismatch");
+
+	var successWrapper = success ? function(returnCode, jsonObj) {
+		var obj = ConvertUtils.jsonObjectToObject(jsonObj, rpc.ProductCategory, null, true);
+		success(returnCode, obj);
+	} : null;
+	var _jsonDict = {};
+	var _uploadDict = {};
+	{
+		var _value_shopId1 = shopId;
+		if(!_value_shopId1) 
+			delete _jsonDict["shopId"];
+		else
+			_jsonDict["shopId"] = _value_shopId1;
+	}
+
+	var _url = rpc.ServerConfig.getUrlPrefix("Business") + "IShopService/1/getUserCollectContent";
+	return RpcCall.doInvoke(_url, "getUserCollectContent", _jsonDict, _uploadDict, successWrapper, fail);
 };
 
 rpc.IShopService.markOnline = function(productId, success, fail){
@@ -34203,6 +35980,7 @@ rpc.CheckResultCodeConstant.PRODUCT_PRICE_ILLEGAL=16;
 rpc.CheckResultCodeConstant.DELIVER_TIME_ILLEGAL=32;
 rpc.CheckResultCodeConstant.PRODUCT_LIMIT=64;
 rpc.CheckResultCodeConstant.DEAL_PRICE_ILLEGAL=128;
+rpc.CheckResultCodeConstant.PRODUCT_STOCK_NOT_ENOUGH=256;
 
 rpc.ClientTypeConstant={};
 rpc.ClientTypeConstant.ANDROID_C="android/c";
@@ -34262,6 +36040,30 @@ rpc.GetVoiceConstants={};
 rpc.GetVoiceConstants.KEY_ID="id";
 rpc.GetVoiceConstants.KEY_EQUIP="equip";
 
+rpc.HomePageModuleConstant={};
+rpc.HomePageModuleConstant.TYPE0="TYPE0";
+rpc.HomePageModuleConstant.TYPE1="TYPE1";
+rpc.HomePageModuleConstant.TYPE2="TYPE2";
+rpc.HomePageModuleConstant.TYPE3="TYPE3";
+rpc.HomePageModuleConstant.TYPE4="TYPE4";
+rpc.HomePageModuleConstant.TYPE5="TYPE5";
+rpc.HomePageModuleConstant.TYPE6="TYPE6";
+rpc.HomePageModuleConstant.TYPE7="TYPE7";
+rpc.HomePageModuleConstant.TYPE8="TYPE8";
+rpc.HomePageModuleConstant.TYPE9="TYPE9";
+
+rpc.HomePageParamConstant={};
+rpc.HomePageParamConstant.SHOP="SHOP";
+rpc.HomePageParamConstant.PRODUCTCATEGORY="PRODUCTCATEGORY";
+rpc.HomePageParamConstant.PRODUCT="PRODUCT";
+
+rpc.HomePageUrlConstant={};
+rpc.HomePageUrlConstant.SHOP="SHOP";
+rpc.HomePageUrlConstant.CATEGORY="CATEGORY";
+rpc.HomePageUrlConstant.SKU="SKU";
+rpc.HomePageUrlConstant.HTML="HTML";
+rpc.HomePageUrlConstant.FUNCTION="FUNCTION";
+
 rpc.IReturnCodeAddress={};
 rpc.IReturnCodeAddress.INVALID_PHONE=181;
 rpc.IReturnCodeAddress.INVALID_DESC=182;
@@ -34297,6 +36099,7 @@ rpc.IReturnCodeProduct.DPRICE_LT_ZERO=178;
 rpc.IReturnCodeProduct.NOT_OPER_STATUS=179;
 rpc.IReturnCodeProduct.SHOP_NOT_SET_STORE_LIMIT=180;
 rpc.IReturnCodeProduct.PRODUCT_NOT_EXIST=181;
+rpc.IReturnCodeProduct.ILLEGAL_PRODUCT_STORE_VALUE=182;
 
 rpc.IReturnCodeProductCategory={};
 rpc.IReturnCodeProductCategory.DUPLICATE_NAME=181;
@@ -34304,6 +36107,13 @@ rpc.IReturnCodeProductCategory.NAME_TOO_LONG=182;
 
 rpc.IReturnCodeShop={};
 rpc.IReturnCodeShop.NAME_TOO_LONG=191;
+
+rpc.NotificationLinkType={};
+rpc.NotificationLinkType.NO_TYPE=1;
+rpc.NotificationLinkType.H5_TYPE=2;
+rpc.NotificationLinkType.INTERNAL_TYPE=3;
+rpc.NotificationLinkType.INTERNAL_COUPON=4;
+rpc.NotificationLinkType.INTERNAL_WALLET=5;
 
 rpc.OnlineChargeInfoNotifyClientConstant={};
 rpc.OnlineChargeInfoNotifyClientConstant.SUCCESS=1;
@@ -34351,6 +36161,8 @@ rpc.ProductConstant.SOURCE_PC="pc";
 rpc.ProductConstant.CATEGORY_CACHE_MAX_PRODUCT_COUNT=8;
 rpc.ProductConstant.LIMIT_TYPE_BY_DAY=1;
 rpc.ProductConstant.LIMIT_TYPE_BY_LIFE=2;
+rpc.ProductConstant.TYPE_PRODUCT_CHANGE_STORE=1;
+rpc.ProductConstant.TYPE_PRODUCT_SET_STORE=2;
 
 rpc.RefundResult={};
 rpc.RefundResult.SUCCESS=0;
@@ -34359,6 +36171,12 @@ rpc.RefundResult.REFUND_AMOUNT_ILLEAGE=2;
 rpc.RefundResult.NO_CASHFLOW_EXSITS=3;
 rpc.RefundResult.ACCOUNT_NOT_EXSITS=4;
 rpc.RefundResult.DEAL_NOT_EXSITS=5;
+
+rpc.ResidentalDistrictTypeConstant={};
+rpc.ResidentalDistrictTypeConstant.COMMUNITY=0;
+rpc.ResidentalDistrictTypeConstant.OFFICE=1;
+rpc.ResidentalDistrictTypeConstant.HOTEL=2;
+rpc.ResidentalDistrictTypeConstant.HOSPITAL=3;
 
 rpc.SetProductNumTypeConstant={};
 rpc.SetProductNumTypeConstant.PRODUCT_BAD=1;
@@ -34389,11 +36207,6 @@ rpc.TaskStatusConstant.DELIVER_BEGIN=3;
 rpc.TaskStatusConstant.DELIVER_DONE=4;
 rpc.TaskStatusConstant.RETURNED=6;
 rpc.TaskStatusConstant.CANCELED=7;
-
-rpc.UserCouponStatus={};
-rpc.UserCouponStatus.NORMAL=1;
-rpc.UserCouponStatus.USED=2;
-rpc.UserCouponStatus.EXPIRED=3;
 
 rpc.WebSiteUrlPathContant={};
 rpc.WebSiteUrlPathContant.RESET_PASSWORD="pass_reset.html";
@@ -34476,11 +36289,121 @@ rpc.ServerConfig.loadDefaultConfig();
 
 
 
-rpc.RpcProxyStub = {};
-
-
-
 rpc.LongPolling = {};
+
+
+// category: CDN
+// arg 1: hash
+
+rpc.AvatarImageResource = {};
+
+rpc.AvatarImageResource.hashToUrl = function(
+		hash 
+	) {
+	var _url = hash;
+	if(!_url || _url.length < 3)
+		return _url;
+	if(_url.indexOf("http:") == 0 ||
+		   _url.indexOf("https:") == 0 ||
+           _url.indexOf("file:") == 0 ||
+           _url.indexOf("res:") == 0 ||
+           _url.indexOf("/") == 0) {
+           return _url;
+	}
+	var _url1 = rpc.ServerConfig.getUrlPrefix("CDN");
+	if(!_url1 || _url1.length < 2)
+		return null;
+	var _sb =_url1;
+	var _c;
+	_c = _sb.charAt(_sb.length - 1);
+	if(_c != '/') {
+		_sb += "/";
+	}
+	//_sb += "id-";
+
+	_sb += hash;
+	
+	return _sb;
+};
+
+rpc.AvatarImageResource.hashToSmallUrl = function(
+		hash 
+	) {
+	var _url = rpc.AvatarImageResource.hashToUrl(
+		hash 
+	);
+	if(!_url || _url.length < 3 || _url.indexOf("http") < 0)
+		return _url;
+	
+	//if(_url.indexOf("w-72") > 1) {
+	//	return _url;
+	//}
+	
+	var _sb = _url;
+	var _c = _sb.charAt(_sb.length - 1);
+	if(_c != '@') {
+		_sb += "@";
+	}
+	
+	_sb += "w-72";
+	
+	
+	return _sb;
+};
+
+rpc.AvatarImageResource.hashToMediumUrl = function(
+		hash 
+	) {
+	var _url = rpc.AvatarImageResource.hashToUrl(
+		hash 
+	);
+	if(!_url || _url.length < 3 || _url.indexOf("http") < 0)
+		return _url;
+	
+	//if(_url.indexOf("w-92") > 1) {
+	//	return _url;
+	//}
+	
+	var _sb = _url;
+	var _c = _sb.charAt(_sb.length - 1);
+	if(_c != '@') {
+		_sb += "@";
+	}
+	
+	_sb += "w-92";
+	
+	
+	return _sb;
+};
+
+rpc.AvatarImageResource.hashToFullUrl = function(
+		hash 
+	) {
+	var _url = rpc.AvatarImageResource.hashToUrl(
+		hash 
+	);
+	if(!_url || _url.length < 3 || _url.indexOf("http") < 0)
+		return _url;
+	
+	//if(_url.indexOf("w-640/m-fw") > 1) {
+	//	return _url;
+	//}
+	
+	var _sb = _url;
+	var _c = _sb.charAt(_sb.length - 1);
+	if(_c != '@') {
+		_sb += "@";
+	}
+	
+	_sb += "w-640/m-fw";
+	
+	
+	return _sb;
+};
+
+
+
+rpc.RpcProxyStub = {};
 
 
 // category: CDN
@@ -34596,116 +36519,6 @@ rpc.HttpImageResource.hashToFullUrl = function(
 		hash 
 	) {
 	var _url = rpc.HttpImageResource.hashToUrl(
-		hash 
-	);
-	if(!_url || _url.length < 3 || _url.indexOf("http") < 0)
-		return _url;
-	
-	//if(_url.indexOf("w-640/m-fw") > 1) {
-	//	return _url;
-	//}
-	
-	var _sb = _url;
-	var _c = _sb.charAt(_sb.length - 1);
-	if(_c != '@') {
-		_sb += "@";
-	}
-	
-	_sb += "w-640/m-fw";
-	
-	
-	return _sb;
-};
-
-
-// category: CDN
-// arg 1: hash
-
-rpc.AvatarImageResource = {};
-
-rpc.AvatarImageResource.hashToUrl = function(
-		hash 
-	) {
-	var _url = hash;
-	if(!_url || _url.length < 3)
-		return _url;
-	if(_url.indexOf("http:") == 0 ||
-		   _url.indexOf("https:") == 0 ||
-           _url.indexOf("file:") == 0 ||
-           _url.indexOf("res:") == 0 ||
-           _url.indexOf("/") == 0) {
-           return _url;
-	}
-	var _url1 = rpc.ServerConfig.getUrlPrefix("CDN");
-	if(!_url1 || _url1.length < 2)
-		return null;
-	var _sb =_url1;
-	var _c;
-	_c = _sb.charAt(_sb.length - 1);
-	if(_c != '/') {
-		_sb += "/";
-	}
-	//_sb += "id-";
-
-	_sb += hash;
-	
-	return _sb;
-};
-
-rpc.AvatarImageResource.hashToSmallUrl = function(
-		hash 
-	) {
-	var _url = rpc.AvatarImageResource.hashToUrl(
-		hash 
-	);
-	if(!_url || _url.length < 3 || _url.indexOf("http") < 0)
-		return _url;
-	
-	//if(_url.indexOf("w-72") > 1) {
-	//	return _url;
-	//}
-	
-	var _sb = _url;
-	var _c = _sb.charAt(_sb.length - 1);
-	if(_c != '@') {
-		_sb += "@";
-	}
-	
-	_sb += "w-72";
-	
-	
-	return _sb;
-};
-
-rpc.AvatarImageResource.hashToMediumUrl = function(
-		hash 
-	) {
-	var _url = rpc.AvatarImageResource.hashToUrl(
-		hash 
-	);
-	if(!_url || _url.length < 3 || _url.indexOf("http") < 0)
-		return _url;
-	
-	//if(_url.indexOf("w-92") > 1) {
-	//	return _url;
-	//}
-	
-	var _sb = _url;
-	var _c = _sb.charAt(_sb.length - 1);
-	if(_c != '@') {
-		_sb += "@";
-	}
-	
-	_sb += "w-92";
-	
-	
-	return _sb;
-};
-
-rpc.AvatarImageResource.hashToFullUrl = function(
-		hash 
-	) {
-	var _url = rpc.AvatarImageResource.hashToUrl(
 		hash 
 	);
 	if(!_url || _url.length < 3 || _url.indexOf("http") < 0)
@@ -34864,11 +36677,14 @@ rpc.RpcClassMap.gMsgClassMap["7"] = rpc.PipeInitMessage;
 rpc.RpcClassMap.gMsgClassMap["5"] = rpc.PipeInitedMessage;
 rpc.RpcClassMap.gMsgClassMap["6"] = rpc.RecvConfirmMessage;
 rpc.RpcClassMap.gMsgClassMap["109"] = rpc.BackAmountMessage;
+rpc.RpcClassMap.gMsgClassMap["113"] = rpc.BackendDealNotificationMessage;
+rpc.RpcClassMap.gMsgClassMap["114"] = rpc.ChangePriceNotificationMessage;
 rpc.RpcClassMap.gMsgClassMap["111"] = rpc.ChargeMessage;
 rpc.RpcClassMap.gMsgClassMap["107"] = rpc.DealNotificationMessage;
 rpc.RpcClassMap.gMsgClassMap["108"] = rpc.DeliverBeginMessage;
 rpc.RpcClassMap.gMsgClassMap["105"] = rpc.DelivererNewTaskMessage;
 rpc.RpcClassMap.gMsgClassMap["106"] = rpc.DelivererPickupMessage;
+rpc.RpcClassMap.gMsgClassMap["115"] = rpc.NotificationMessage;
 rpc.RpcClassMap.gMsgClassMap["110"] = rpc.PaymentRefundNotificationMessgae;
 rpc.RpcClassMap.gMsgClassMap["100"] = rpc.PictureMessage;
 rpc.RpcClassMap.gMsgClassMap["104"] = rpc.ShopperBuyDoneMessage;
