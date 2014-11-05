@@ -14,7 +14,7 @@ Ext.define('XMLifeOperating.view.authorityManage.addGlobalAccount', {
     xtype : 'addGlobalAccount',
     alias : 'widget.addGlobalAccount',
     title : '创建管理员账号',
-    width : 350,
+    width : 440,
     closeAction: 'hide',
     modal: true,
     layout : 'fit',
@@ -33,7 +33,7 @@ Ext.define('XMLifeOperating.view.authorityManage.addGlobalAccount', {
       defaultType : 'textfield',
       defaults : {
         labelWidth : 50,
-        width : 280
+        width : 380
       },
       items : [
         {
@@ -48,10 +48,10 @@ Ext.define('XMLifeOperating.view.authorityManage.addGlobalAccount', {
         {
           fieldLabel : '密码',
           inputType: 'password',
-          minLength : 6,
+          minLength : 8,
           maxLength : 26,
           maxLengthText : '最多可输入26个字符',
-          minLengthText : '最少输入6个字符',
+          minLengthText : '最少输入8个字符',
           validator : function(str){  
             var resArr = [/[a-z]/,/[A-Z]/,/[0-9]/,/[@#$%]/],
                 num = 0;
@@ -71,15 +71,31 @@ Ext.define('XMLifeOperating.view.authorityManage.addGlobalAccount', {
       ]
     },
     {
-      xtype : 'checkboxgroup',
-      fieldLabel : '权限管理(可多选:)',
-      defaultType: 'checkboxfield',
+      xtype : 'tabpanel',
+      plain: true,
+      bodyPadding : '5px 0',
       itemId : 'modulesCheckbox',
-      width : 300,
-      labelWidth : 60,
-      columns: 2,
-      vertical: true,
-      items : []
+      defaults :{
+        height : 200,
+        autoScroll: true
+      }, 
+      items : [
+      
+        {
+          title : '全局权限',
+          xtype :'AuthoritySelect',
+          itemId : 'globalSelect'
+        },
+        {
+          title : '城市权限',
+          xtype :'AuthoritySelect',
+          itemId : 'citySelect'
+        },{
+          title : '中心权限',
+          xtype :'AuthoritySelect',
+          itemId : 'shopareaSelect'
+        }
+      ]
     },
     {
       xtype : 'checkbox',
@@ -119,14 +135,7 @@ Ext.define('XMLifeOperating.view.authorityManage.addGlobalAccount', {
         name      : 'cities',
         inputValue: '330100'
       }]
-      },
-    {
-      xtype : 'radiogroup',
-      width : 300,
-      columns: 4,
-      vertical: true,
-      items : []
-    }
+      }
     ]
     }],
     buttons : [{

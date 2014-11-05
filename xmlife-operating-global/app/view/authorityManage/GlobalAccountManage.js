@@ -38,7 +38,6 @@ Ext.define('XMLifeOperating.view.authorityManage.GlobalAccountManage', {
     {
       xtype : 'textfield',
       itemId : 'seachKeyword'
-
     },
     {
       xtype : 'button',
@@ -61,7 +60,7 @@ Ext.define('XMLifeOperating.view.authorityManage.GlobalAccountManage', {
           renderer : function(v){
             return v.join('</br>');
           }
-        },
+        },/*
         {
           text : '权限',
           dataIndex : 'modules',
@@ -72,7 +71,7 @@ Ext.define('XMLifeOperating.view.authorityManage.GlobalAccountManage', {
         {
           text : '等级',
           dataIndex : 'level'
-        },
+        },*/
         {
           text : '创建者',
           dataIndex : 'creater'

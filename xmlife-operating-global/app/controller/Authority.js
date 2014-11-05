@@ -12,7 +12,8 @@ Ext.define('XMLifeOperating.controller.Authority', {
       'authorityManage.addGlobalAccount',
       'authorityManage.addCityManagerAccount',
       'authorityManage.MerchantAccountManagement',
-      'authorityManage.AddMerchantAccount'
+      'authorityManage.AddMerchantAccount',
+      'authorityManage.AuthoritySelect'
     ],
     models : ['Account'],
     stores : ['Account','Authority','Province','AllCities', 'SupportedCity', 'ShopArea', 'Shop'],
@@ -85,6 +86,7 @@ Ext.define('XMLifeOperating.controller.Authority', {
                 accountField.setDisabled(false);
                 formEl.reset();
                 form.edit = false;
+                self.resetSelect();
                 addGlobalAccount.show();
 
           }
@@ -106,21 +108,15 @@ Ext.define('XMLifeOperating.controller.Authority', {
             var addGlobalAccount = self.getAddGlobalAccount(),
                 form = addGlobalAccount.down('form'),
                 accountField = form.down('#accountField'),
-                modulesCheckbox = form.down('#modulesCheckbox').query('checkboxfield'),
                 citiesCheckbox = form.down('#citiesCheckbox').query('checkboxfield'),
                 isHaveCities = form.down('#isHaveCities'),
                 model = arguments[5],
                 cityIds = model.get('cityIds'),
+                modules = model.get('modules'); 
                 moduleIds = model.get('moduleIds');
                 form.loadRecord(model);
                 accountField.setDisabled(true);
-                Ext.each(modulesCheckbox, function(checkbox) {
-                   for(var i = 0 , l = moduleIds.length; i < l ; i++){
-                    if(checkbox.inputValue == moduleIds[i]){
-                      checkbox.setValue(true);
-                    }
-                   }
-                });
+                self.initSelectData(form,modules);
 
                 if(cityIds.length>0){
                   isHaveCities.setValue(true);
@@ -398,14 +394,54 @@ Ext.define('XMLifeOperating.controller.Authority', {
 
     },
     initGlobalAuthority : function(){
-            var authorityStore = this.getAuthorityStore(),
+      /**
+       * 初始化 权限配置面板
+       * @type {[type]}
+       */
+            var self = this,
+                authorityStore = self.getAuthorityStore();
                 cityStore = this.getAllCitiesStore(),
                 addGlobalAccount = this.getAddGlobalAccount(),
+                globalSelect = addGlobalAccount.down('#globalSelect'),
+                citySelect = addGlobalAccount.down('#citySelect'),
+                shopareaSelect = addGlobalAccount.down('#shopareaSelect'),
+                url = XMLifeOperating.generic.Global.URL.biz+'module/getNewAdminModules';
+                authorityStore.load();
+                authorityStore.on('load',function(store,nodes){
+                    var global = {expanded:true,children:[]},
+                        city = {expanded:true,children:[]},
+                        shoparea = {expanded:true,children:[]};
+                        nodes.cascadeBy(function(node){
+                          if(node.isLeaf()){
+                            node.set('checked',false);
+                            node.set('id','');
+                            node.set('name',node.get('uniqueName'));
+                          };
+                        });
+                    Ext.each(nodes.childNodes, function(node) {
+                      //var subData = self.formatData(node);
+                        if(node.get('platFormName')== 'Global'){
+                          global.children.push(node);
+                        }
+                        if(node.get('platFormName')== 'City'){
+                           city.children.push(node);
+                        }
+                        if(node.get('platFormName')== 'Area'){
+                          shoparea.children.push(node);
+                        }
+                    }, this);
+                    //debugger;
+                    //globalSelect.reconfigure(global);
+                    globalSelect.setRootNode(global);
+                    citySelect.setRootNode(city);
+                    shopareaSelect.setRootNode(shoparea);
+                });
+
                 modulesCheckbox = addGlobalAccount.down('#modulesCheckbox'),
                 radiogroup = addGlobalAccount.down('radiogroup');
                 isHaveCities = addGlobalAccount.down('#isHaveCities');
 
-                authorityStore.load({
+                /*authorityStore.load({
                   callback : function(stores){
                     modulesCheckbox.removeAll();
                     Ext.each(stores, function(model) {
@@ -417,7 +453,7 @@ Ext.define('XMLifeOperating.controller.Authority', {
                       })
                     });
                   }
-                });
+                });*/
                 /**
                  * 选择城市
                  */
@@ -434,6 +470,42 @@ Ext.define('XMLifeOperating.controller.Authority', {
                 });*/
 
     },
+    /**
+     * 格式化从服务端取回来的数据
+     * 1.根绝auth值添加checked
+     * 2.删除没用的id
+     * @param  {[type]} data [description]
+     * @return {[type]}      [description]
+     */
+    formatData : function(data){
+      var formatCheck = function checkData(data){
+        if(Ext.isObject(data)){
+          if(data.auth){
+            //delete data.children;
+            delete data.id;
+            data.checked = false;
+            data.name = data.uniqueName;
+          }else{
+            checkData(data.children);
+          }
+        }
+        if(Ext.isArray(data)){
+          Ext.each(data, function(dataItem) {
+            if(dataItem.auth){
+            //delete dataItem.children;
+            delete dataItem.id;
+            dataItem.checked = false;
+            dataItem.name = dataItem.uniqueName;
+          }else{
+            checkData(dataItem.children);
+          }   
+          }, this);
+        }
+          
+      }
+      formatCheck(data);
+      return data;
+    },
     addOrUpdateShopAdmin: function (button) {
       var windowEl        = button.up('window'),
           form            = button.up('window').down('form'),
@@ -448,7 +520,8 @@ Ext.define('XMLifeOperating.controller.Authority', {
     },
     // TODO (zhouzhen) refactor to splitting logic of adding global account and adding city account
     submitData : function(button){
-            var windowEl        = button.up('window'),
+            var self            = this,
+                windowEl        = button.up('window'),
                 form            = button.up('window').down('form'),
                 account         = form.down('#accountField') && form.down('#accountField').getValue(),
                 isHaveCities    = form.down('#isHaveCities') && form.down('#isHaveCities').getValue(),
@@ -456,6 +529,8 @@ Ext.define('XMLifeOperating.controller.Authority', {
                 subData         = form.getValues(),
                 editUrl         = form.editUrl,
                 cityNum         = 0;
+            var selectData = self.getSelectData(form);
+
 
             if (account) {
               subData['account'] = account
@@ -473,6 +548,7 @@ Ext.define('XMLifeOperating.controller.Authority', {
             }
            }
             if (form.edit) {
+              subData = Ext.merge(subData,selectData);
               Ext.Ajax.request({
                   method : "PUT",
                   url: editUrl,
@@ -483,14 +559,17 @@ Ext.define('XMLifeOperating.controller.Authority', {
                         var store = self.getAccountStore();
                         store.clearFilter(true);
                         windowEl.close();
-                        store.load()
+                        store.load();
                       }else{
                         Ext.Msg.alert('失败', '更新账户'+account+'失败');
                       }
+                      self.resetSelect();
                   }
               });
             }else{
+              
               form.submit({
+                params : selectData,
                 failure : function(form, action) {
                   if(action.response.responseText == '1'){
                     Ext.Msg.alert('添加成功', '成功添加');
@@ -498,6 +577,7 @@ Ext.define('XMLifeOperating.controller.Authority', {
                     store.clearFilter(true);
                     windowEl.close();
                     store.load();
+                    self.resetSelect();
                   }else{
                     Ext.Msg.alert('失败', '失败');
                   }
@@ -558,6 +638,60 @@ Ext.define('XMLifeOperating.controller.Authority', {
 //          }
 //        });
       };
+    },
+    resetSelect : function(){
+      var form = this.getAddGlobalAccount().down('form'),
+          treePanelList = form.query('treepanel'),
+          nodes;
+      Ext.each(treePanelList, function(treepanel) {
+        nodes = treepanel.getRootNode();
+            nodes.cascadeBy(function(node){
+              if(node.get('checked')){
+                node.set('checked',false);
+              }
+              
+              if(!node.isRoot() && !node.isLeaf()){
+                node.setCollapsed(true);
+              }
+            });
+            
+      }, this);
     }
-
+    ,
+    initSelectData : function(form,modules){
+      var treePanelList = form.query('treepanel'),
+          checkList,
+          nodes;
+          var expandParentNodes = function expandParent(node){
+               var parentNode = node.parentNode;
+               if(node.getDepth() !=1 && parentNode){
+                  node.parentNode.expand(true);
+                  expandParent(parentNode);
+              }
+           }
+          Ext.each(treePanelList, function(treepanel) {
+            nodes = treepanel.getRootNode();
+            nodes.cascadeBy(function(node){
+              Ext.each(modules, function(module) {
+               if(node.get('uniqueName') == module){
+                  node.set('checked',true);
+                  expandParentNodes(node);
+               }
+                
+              }, this);
+            })
+          }, this);
+    },
+    getSelectData : function(form){
+      var treePanelList = form.query('treepanel'),
+          checkList,
+          data = {modules : []};
+          Ext.each(treePanelList, function(treepanel) {
+            checkList = treepanel.getChecked();
+            Ext.each(checkList, function(check) {
+              data.modules.push(check.get('uniqueName'));
+            }, this);
+          }, this);
+          return data;
+    }
 });
