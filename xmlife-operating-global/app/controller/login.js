@@ -114,10 +114,6 @@ Ext.define('XMLifeOperating.controller.login', {
           //self.getCurrentUsername().setText(username);
           Ext.Ajax.defaultHeaders = {'auth-token' : sessionId};
           self.getNavigationStore().setRootNode({expanded:true});
-          self.getNavigationStore().getRootNode().appendChild([
-            {"uid": 400, "id": "BatchUpdatePanel", "text": "批量修改", "platForName": "Global", "children": [],  "leaf": true},
-            {"uid": 401, "id": "BatchAddPanel", "text": "批量添加", "platForName": "Global", "children": [],  "leaf": true}
-          ]);
       };
       
     },
