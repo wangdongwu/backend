@@ -54,11 +54,11 @@ Ext.define('XMLifeOperating.controller.Message', {
                 select: function(combo) {
                     var msgType = combo.previousSibling('#msgType').getValue();
                     var store = this.getMessageStore();
-                    /*                    store.getProxy().extraParams = {
+                    store.getProxy().extraParams = {
                         type: msgType,
                         status: combo.getValue()
                     };
-                    store.loadPage(1);*/
+                    store.loadPage(1);
                 }
             },
             'notifyList #addBtn': {
