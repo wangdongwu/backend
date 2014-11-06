@@ -7,7 +7,7 @@ Ext.define('XMLifeOperating.view.batchoperation.BatchAddPanel',{
   id : 'BatchAddPanel',
   autoScroll: true,
   title : '批量添加',
-  tabPosition: 'left',
+  tabPosition: 'top',
   initComponent : function(){
     this.items = [
       {
