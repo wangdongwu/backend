@@ -28,6 +28,8 @@ Ext.define('XMLifeOperating.view.batchoperation.BatchUpdatePanel',{
         xtype : 'ProductTagUpdateBatch'
       },{
         xtype : 'ProductPictureUpdateBatch'
+      },{
+        xtype : 'DistributionTypeUpdateBatch'
       }
     ];
     this.callParent(arguments);

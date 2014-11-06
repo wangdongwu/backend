@@ -68,8 +68,8 @@ Ext.define('XMLifeOperating.view.batchoperation.update.ProductCategoryUpdateBatc
               xtype: 'radiogroup',
               fieldLabel: '文件类型',
               items: [
-                {boxLabel: 'Excel文件[2007或以上版本]', name: 'workbookType', inputValue: 'XSSF', checked: true},
-                {boxLabel: 'Excel文件', name: 'workbookType', inputValue: 'HSSF'}
+                {boxLabel: '<span>Excel文件[2007或以上版本](*.<span style="color:red;">xlsx</span>)</span>', name: 'workbookType', inputValue: 'XSSF', checked: true},
+                {boxLabel: '<span>Excel文件(*.<span style="color:red;">xls</span>)</span>', name: 'workbookType', inputValue: 'HSSF'}
               ]
             },
             {
@@ -81,8 +81,8 @@ Ext.define('XMLifeOperating.view.batchoperation.update.ProductCategoryUpdateBatc
               xtype: 'radiogroup',
               fieldLabel: '一级分类图文关联',
               items: [
-                {boxLabel: 'Excel文件[2007或以上版本]', name: 'workbookType2', inputValue: 'XSSF', checked: true},
-                {boxLabel: 'Excel文件', name: 'workbookType2', inputValue: 'HSSF'}
+                {boxLabel: '<span>Excel文件[2007或以上版本](*.<span style="color:red;">xlsx</span>)</span>', name: 'workbookType2', inputValue: 'XSSF', checked: true},
+                {boxLabel: '<span>Excel文件(*.<span style="color:red;">xls</span>)</span>', name: 'workbookType2', inputValue: 'HSSF'}
               ]
             },
             {

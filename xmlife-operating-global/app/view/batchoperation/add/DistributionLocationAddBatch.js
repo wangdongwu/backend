@@ -41,8 +41,8 @@ Ext.define('XMLifeOperating.view.batchoperation.add.DistributionLocationAddBatch
               xtype: 'radiogroup',
               fieldLabel: '文件类型',
               items: [
-                {boxLabel: 'Excel文件[2007或以上版本]', name: 'filetype', inputValue: '1', checked: true},
-                {boxLabel: 'Excel文件', name: 'filetype', inputValue: '2'}
+                {boxLabel: '<span>Excel文件[2007或以上版本](*.<span style="color:red;">xlsx</span>)</span>', name: 'filetype', inputValue: '1', checked: true},
+                {boxLabel: '<span>Excel文件(*.<span style="color:red;">xls</span>)</span>', name: 'filetype', inputValue: '2'}
               ]
             },
             {

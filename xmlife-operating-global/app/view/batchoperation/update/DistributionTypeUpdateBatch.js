@@ -1,26 +1,42 @@
-Ext.define('XMLifeOperating.view.batchoperation.update.ProductPictureUpdateBatch', {
+Ext.define('XMLifeOperating.view.batchoperation.update.DistributionTypeUpdateBatch', {
   extend: 'Ext.panel.Panel',
-  id : 'ProductPictureUpdateBatch',
-  xtype : 'ProductPictureUpdateBatch',
-  alias : 'widget.ProductPictureUpdateBatch',
-  title : '商品图片',
+  id : 'DistributionTypeUpdateBatch',
+  xtype : 'DistributionTypeUpdateBatch',
+  alias : 'widget.DistributionTypeUpdateBatch',
+  title : '配送地址类型',
   closeAction: 'hide',
   resizable: false,
   forceFit: true,
-  items : [
+  items: [
     {
-      xtype : 'form',
+      xtype: 'form',
+      edit: false,
       border: 0,
-      edit : false,
-      items : [
+      defaults: {
+        bodyPadding : 5
+      },
+      items: [
         {
-          xtype: 'fieldcontainer',
-          defaultType: 'textfield',
-          defaults: {
-            labelWidth: 80,
-            width: 500
+          xtype : 'fieldcontainer',
+          defaultType : 'textfield',
+          defaults : {
+            labelWidth : 80,
+            width :500
           },
-          items: [
+          items : [
+            {
+              xtype : 'combo',
+              fieldLabel : '城市选择',
+              store : 'SupportedCity',
+              name : 'cityCode',
+              itemId: 'city',
+              allowBlank : false,
+              blankText: '请选择城市',
+              editable : false,
+              triggerAction : 'all',
+              displayField: 'name',
+              valueField: 'code'
+            },
             {
               xtype: 'radiogroup',
               fieldLabel: '文件类型',
@@ -32,14 +48,7 @@ Ext.define('XMLifeOperating.view.batchoperation.update.ProductPictureUpdateBatch
             {
               xtype: 'filefield',
               fieldLabel: '文件路径',
-              name: 'file',
-              listeners:{
-                afterrender:function(cmp){
-                  cmp.fileInputEl.set({
-                    multiple:'multiple'
-                  });
-                }
-              }
+              name: 'file'
             },
             {
               xtype: 'textareafield',
@@ -59,12 +68,10 @@ Ext.define('XMLifeOperating.view.batchoperation.update.ProductPictureUpdateBatch
               style: 'margin-left: 85px; margin-top: 30px;',
               edit: false,
               grow: true,
-              blankText: '执行结果',
               itemId: 'resultLog',
               width: 415,
               cols: 40
             }
-
           ]
         }
       ]
