@@ -3,12 +3,13 @@ Ext.define('XMLifeOperating.controller.HomePage', {
 
 	views: [
         'centralPointManage.homePage.HomePage',
-        'centralPointManage.homePage.HomePageAdd',
+        'centralPointManage.homePage.VersionAdd',
         'centralPointManage.homePage.ModuleAdd',
-        'centralPointManage.homePage.ModuleCopy'
+        'centralPointManage.homePage.ModuleCopy',
+        'centralPointManage.homePage.ModuleDetailEdit'
     ],
 
-    stores: ['HomePage', 'HomePageModuleList', 'HomePageModuleDetail'],
+    stores: ['HomePage', 'HomePageModuleList', 'HomePageModuleDetail', 'HomePageUrlType', 'HomePagePreview'],
 
 	models: ['HomePage'],
 
@@ -17,8 +18,8 @@ Ext.define('XMLifeOperating.controller.HomePage', {
         selector: 'homePage',
         autoCreate: true
     },{
-        ref: 'homePageAdd',
-        xtype: 'homePageAdd',
+        ref: 'versionAdd',
+        xtype: 'versionAdd',
         autoCreate: true
     },{
         ref: 'moduleAdd',
@@ -28,14 +29,20 @@ Ext.define('XMLifeOperating.controller.HomePage', {
         ref: 'moduleCopy',
         xtype: 'moduleCopy',
         autoCreate: true
+    },{
+        ref: 'moduleDetailEdit',
+        xtype: 'moduleDetailEdit',
+        autoCreate: true
     }],
 
 	init: function(){
         var me = this;
         this.layoutId = '';
         this.moduleId = '';
+        this.isBanner = false;
 
 		this.control({
+            // 加载版本列表，并自动选择
 			'homePage': {
                 onShowView: function() {
                     this.areaId = XMLifeOperating.generic.Global.current_operating;
@@ -61,14 +68,14 @@ Ext.define('XMLifeOperating.controller.HomePage', {
             // 添加版本
             'homePage #addVersion': {
                 click: function() {
-                    var win = this.getHomePageAdd();
+                    var win = this.getVersionAdd();
                     win.show();
                 }
             },
             // 添加版本保存
-            'homePageAdd #save': {
+            'versionAdd #save': {
                 click: function() {
-                    var win = this.getHomePageAdd(),
+                    var win = this.getVersionAdd(),
                         form = win.down('form').getForm();
                         version = win.down('#version').getValue();
 
@@ -107,6 +114,7 @@ Ext.define('XMLifeOperating.controller.HomePage', {
                     );
                 }
             },
+            // 启用版本
             'homePage #setEnable': {
                 click: function(view, rowIndex, colIndex, column, e) {
                     var record = view.getRecord(view.findTargetByEvent(e));
@@ -136,28 +144,35 @@ Ext.define('XMLifeOperating.controller.HomePage', {
                 }
 
             },
-            // 大积木事件
+            // 大积木选择, 展示详情
             'homePage #moduleList': {
-                // 选择, 展示详情
                 selectionchange: function(model, selected) {
                     if(selected.length == 0) return;
                     var record = selected[0].data;
                     //保存当前积木id
                     this.moduleId = record.id;
+                    this.isBanner = record.order == 0 ? true : false;
+                    //只当banner才需要新建
+                    this.getHomePage().down('#addModuleItem').setDisabled(!this.isBanner);
 
                     var store = this.getHomePageModuleDetailStore();
                     store.getProxy().extraParams = {
                         moduleId: this.moduleId
                     }
                     store.load();
+                }
+            },
+            // 大积木排序
+            'homePage #moduleList dataview': {
+                beforedrop: function(node, data, dropRec, dropPosition) {
+                  if(dropRec.index == 0 || data.records[0].index == 0) return false;
                 },
-                // 拖放, 排序
                 drop: function(node, data, dropRec, dropPosition) {
                     var store = this.getHomePageModuleListStore();
                     var moduleIds = [];
                     for(var i=0, n=store.totalCount; i<n; i++){
                         var record = store.getAt(i);
-                        record.set('order',i+1)
+                        record.set('order',i)
                         moduleIds.push(record.get('id'));
                     }
                     sendPutRequest('homepage/setOrder',{
@@ -168,6 +183,7 @@ Ext.define('XMLifeOperating.controller.HomePage', {
                     });
                 }
             },
+            // 添加大积木
             'homePage #addModule': {
                 click: function() {
                     var win = this.getModuleAdd();
@@ -191,12 +207,14 @@ Ext.define('XMLifeOperating.controller.HomePage', {
                     }
                 }
             },
+            // copy大积木
             'homePage #copyModule': {
                 click: function() {
                     var win = this.getModuleCopy();
                     win.show();
                 }
             },
+            // 删除大积木
             'homePage #delModule': {
                 click: function(view, rowIndex, colIndex, column, e) {
                     var record = view.getRecord(view.findTargetByEvent(e)),
@@ -217,8 +235,71 @@ Ext.define('XMLifeOperating.controller.HomePage', {
                         }
                     );
                 }
-            }
+            },
+            // 新建小积木（banner）
+            'homePage #addModuleItem': {
+                click: function() {
+                    var win =  this.getModuleDetailEdit();
+                    win.show();
 
+                    var store = getHomePageModuleDetailStore();
+                    if(store.length >= 5) {
+                        this.setDisabled(true);
+                    }
+                }
+            },
+            // 编辑小积木
+            'homePage #editModuleItem': {
+                click: function(view, rowIndex, colIndex, column, e) {
+                    var win =  this.getModuleDetailEdit(),
+                        form = win.down('form').getForm(),
+                        record = view.getRecord(view.findTargetByEvent(e));
+
+                    form.loadRecord(record);
+                    win.show();
+                }
+            },
+            // 上传图片
+            'moduleDetailEdit filefield[name="moduleUploadfile"]': {
+                change: function(uploadfile) {
+                    var form = uploadfile.ownerCt,
+                        textfield = uploadfile.previousNode().previousNode();
+
+                    uploadImage(form, textfield);
+                }
+            },
+            // 保存编辑小积木
+            'moduleDetailEdit #save': {
+                click: function() {
+                    var win =  this.getModuleDetailEdit(),
+                        form =  win.down('form').getForm();
+
+                    if (form.isValid()) {
+                        var values = form.getValues(),
+                            record = form.getRecord();
+                        //新建时无index
+                        if(record) {
+                            values.index = record.index;
+                        }
+                        values.moduleId = this.moduleId;
+
+                        sendPutRequest('homepage/updateModuleItem', values, '属性编辑', '属性编辑成功', '属性编辑失败', function() {
+                            me.getHomePageModuleDetailStore().load();
+                            win.close();
+                        });
+                    }
+                }
+            },
+            // 预览首页
+            'homePage #previewPage': {
+                click: function() {
+                    alert(0)
+                    var store = this.getHomePagePreviewStore();
+                    store.getProxy().extraParams = {layoutId: this.layoutId};
+                    store.load();
+                }
+
+            }
 		});
 
 	}
