@@ -127,6 +127,7 @@ Ext.define('XMLifeOperating.controller.OnlineCardManage', {
                 soldPrice.setValue(price);
               },
               failure: function(form, result) {
+
                 soldPrice.setValue(price);
                 if (result.response.responseText == 1) {
                   self.loadCartData(function(cartStore) {
@@ -146,10 +147,13 @@ Ext.define('XMLifeOperating.controller.OnlineCardManage', {
                 soldPrice.setValue(price);
               },
               failure: function(form, result) {
+
                 soldPrice.setValue(price);
                 if (result.response.responseText == 1) {
-                  Ext.Msg.alert('成功', '添加成功');
+                  Ext.Msg.alert('失败', '添加成功');
                   self.loadCartData();
+                } else {
+                  Ext.Msg.alert('提示', result.response.responseText);
                 }
               }
             })
@@ -192,16 +196,17 @@ Ext.define('XMLifeOperating.controller.OnlineCardManage', {
             },
             success: function(response) {
               if (response.responseText == 1) {
-                if (cardDetail.status) {
+                if (cardDetail.status == 1) {
                   Ext.Msg.alert('成功', '下架成功');
                 } else {
                   Ext.Msg.alert('成功', '上架成功');
                 }
-                self.getOnlineCardStore().load({
+                /*                self.getOnlineCardStore().load({
                   params: {
                     status: 1
                   }
-                });
+                });*/
+                self.getOnlineCardManage().down('#status').select('1');
                 self.getCardDetail().destroy();
               }
             },
