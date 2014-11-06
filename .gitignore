@@ -1,0 +1,21 @@
+# general
+*~
+*.log
+tmp
+dump
+.DS_Store
+.svn/
+.sencha/
+.idea/
+.project
+
+# xiaomei config
+.xm_config
+
+# extjs
+bootstrap.js
+bootstrap.css
+bootstrap.json
+ext/
+sass/
+build/
