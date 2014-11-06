@@ -14,6 +14,7 @@ Ext.define('XMLifeOperating.controller.BatchOperation', {
     'batchoperation.update.ProductStatusUpdateBatch',
     'batchoperation.update.ProductStockUpdateBatch',
     'batchoperation.update.ProductTagUpdateBatch',
+    'batchoperation.update.DistributionTypeUpdateBatch',
     'batchoperation.add.DistributionLocationAddBatch',
     'batchoperation.add.ProductInstanceAddBatch',
     'batchoperation.add.ProductTemplateAddBatch'
@@ -168,6 +169,16 @@ Ext.define('XMLifeOperating.controller.BatchOperation', {
             logArea = button.up('form').down('#resultLog');
 
           form.url = XMLifeOperating.generic.Global.URL.biz + 'backdoor/update/product/img2';
+          self.submitForm(form, logArea, path);
+        }
+      },
+      'DistributionTypeUpdateBatch #submit': {
+        click: function (button) {
+          var form = button.up('form').getForm(),
+            path = button.up("fieldcontainer").down("filefield").getValue(),
+            logArea = button.up('form').down('#resultLog');
+
+          form.url = XMLifeOperating.generic.Global.URL.biz + 'residentalDistrict/update/district/type';
           self.submitForm(form, logArea, path);
         }
       },
