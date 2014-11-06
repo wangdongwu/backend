@@ -2,7 +2,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopList', {
     extend: 'Ext.grid.Panel',
     closable: false,
     xtype: 'shoplist',
-    title: '店铺管理',
+    title: '店铺管理11',
     store: 'Shop',
     itemId: 'shoplist',
 /*    iconCls: 'icon-grid',*/
