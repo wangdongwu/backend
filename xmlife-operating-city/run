@@ -1,0 +1,113 @@
+#!/usr/bin/env python
+# coding=utf8
+
+__author__ = 'Zhou Zhen'
+__version__ = '0.0.1'
+__email__ = 'monkey.d.pandora@gmail.com'
+
+import sys
+import os, os.path
+import shutil
+import uuid
+import argparse
+import ConfigParser
+import time
+
+APP_NAME = 'XMLifeOperating'
+
+XM_CONFIG_FILES = ['.xm_config', '~/.xm_config']
+
+AUTO_GENERATED_FILES = ['app.js', 'app.json', 'index.html']
+
+EXTJS_SDK = '/Users/apple/paitao/supports/ext-4.2.1.883/'
+
+class Colors:
+    RED_UNDERLINE='\033[4;31m'
+    RESET = '\033[0m'
+
+def get_extjs_sdk_path():
+    sdk = None
+    for config_file in XM_CONFIG_FILES:
+        config_file = os.path.expanduser(config_file)
+        if not os.path.isfile(config_file):
+            continue
+        cf = ConfigParser.ConfigParser()
+        cf.read(config_file)
+        sdk = cf.get('extjs', 'sdk')
+        if sdk and os.path.isdir(sdk):
+            return sdk
+    sdk = os.environ.get('EXTJS_SDK_PATH')
+    if sdk and os.path.isdir(sdk):
+        return sdk
+    if EXTJS_SDK and os.path.isdir(EXTJS_SDK):
+        return EXTJS_SDK
+    raise Exception('Cannot find ExtJS')
+
+def backup_file(filename):
+    new_filename = filename + str(uuid.uuid1())
+    shutil.move(filename, new_filename)
+    return new_filename
+
+def backup_auto_generates_files():
+    backup_filenames = []
+    for auto_generated_file in AUTO_GENERATED_FILES:
+        backup_filenames.append(backup_file(auto_generated_file))
+    return backup_filenames
+
+def recover_auto_generated_files(backup_filenames):
+    assert len(backup_filenames) == len(AUTO_GENERATED_FILES), "fatal error, missing auto generated files"
+    for i, auto_generated_file in enumerate(AUTO_GENERATED_FILES):
+        shutil.move(backup_filenames[i], auto_generated_file)
+
+def paitao_compile():
+    cmd = 'sencha -sdk %s generate app %s ./' % (get_extjs_sdk_path(), APP_NAME)
+    os.system(cmd)
+
+def paitao_build():
+    cmd = 'sencha app build'
+    os.system(cmd)
+
+def paitao_run(port):
+    url = 'http://localhost:%s/?disableCacheBuster' % (port,)
+    print 'build success, open ' + Colors.RED_UNDERLINE + url + Colors.RESET + ' to continue...\n'
+
+    start_cmd = "sencha web -port %s start" % (port,)
+    os.system(start_cmd)
+
+def compile(code_dir, port):
+    os.chdir(code_dir)
+    try:
+        backup_filenames = backup_auto_generates_files()
+        paitao_compile()
+    finally:
+        recover_auto_generated_files(backup_filenames)
+
+def start(code_dir, port):
+    os.chdir(code_dir)
+
+    paitao_build()
+    paitao_run(port)
+
+def init(code_dir, port):
+    compile(code_dir, port)
+    start(code_dir, port)
+
+def restart(code_dir, port):
+    os.chdir(code_dir)
+    paitao_run(port)
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser()
+    parser.add_argument('cmd', help='command to run ( compile, init, start, restart )', default='restart')
+    parser.add_argument('--base', help='code base directory', default=os.path.dirname(__file__))
+    parser.add_argument('-p', '--port', help='port to run server', type=int, default=8888)
+    args = parser.parse_args()
+
+    if args.cmd == 'start':
+        start(args.base, args.port)
+    elif args.cmd == 'compile':
+        compile(args.base, args.port)
+    elif args.cmd == 'init':
+        init(args.base, args.port)
+    else:
+        restart(args.base, args.port)
