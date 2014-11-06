@@ -216,6 +216,10 @@ Ext.define('XMLifeOperating.controller.login', {
     var me = this;
     var store = me.getNavigationStore();
     var shopAreaStore = me.getShopAreaStore();
+    store.on('load',function(navigationStore){
+      var node = navigationStore.getRootNode();
+      node.insertChild(1,{id:'ShopConfigManage',text:'店铺配置',leaf:true});
+    });
     var success = function(response) {
       var obj = eval('(' + response.responseText + ')');
       var type = obj.adminType;

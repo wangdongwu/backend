@@ -50,7 +50,8 @@ Ext.define('XMLifeOperating.Application', {
         'HomePage',
         'BatchUpdatePrice',
         'DealWaitAssignDelivererList',
-        'DealWaitAssignShopperList'
+        'DealWaitAssignShopperList',
+        'shopConfig'
     ],
 
     stores: [

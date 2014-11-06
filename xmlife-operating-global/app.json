@@ -1,9 +1,8 @@
 {
-  "name": "XMLifeOperating",
+    "name": "XMLifeOperating",
 
-  "requires": [
-  "ext-locale"
-  ],
+    "requires": [
+    ],
 
-  "id": "458ef11b-73c6-48f0-8a59-22a29a14fffb"
+    "id": "ecea5f3f-250b-425b-81e2-8383931a822f"
 }

@@ -85,11 +85,13 @@ Ext.define('XMLifeOperating.generic.BaseProxy', {
             }).toBack();
 
             //if(responseText == '-3'){
-              ErrorMessage.on('hide',function(){
+
+              /*ErrorMessage.on('hide',function(){
               localStorage.removeItem('sessionId');
               localStorage.removeItem('username');
               window.location.reload();
-            });  
+            });*/  
+
             //}
             
 
