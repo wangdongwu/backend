@@ -195,18 +195,20 @@ Ext.define('XMLifeOperating.controller.OnlineCardManage', {
               id: cardDetail.currentId
             },
             success: function(response) {
+              var status = null;
               if (response.responseText == 1) {
                 if (cardDetail.status == 1) {
                   Ext.Msg.alert('成功', '下架成功');
+                  status = 1
                 } else {
                   Ext.Msg.alert('成功', '上架成功');
+                  status = 0;
                 }
-                /*                self.getOnlineCardStore().load({
+                self.getOnlineCardStore().load({
                   params: {
-                    status: 1
+                    status: status
                   }
-                });*/
-                self.getOnlineCardManage().down('#status').select('1');
+                });
                 self.getCardDetail().destroy();
               }
             },
