@@ -21,7 +21,7 @@ Ext.define('XMLifeOperating.view.batchoperation.BatchUploadSimple', {
           defaultType: 'textfield',
           defaults: {
             labelWidth: 80,
-            width: 500
+            width: 600
           },
           items: [
             {
@@ -57,7 +57,7 @@ Ext.define('XMLifeOperating.view.batchoperation.BatchUploadSimple', {
               grow: true,
               blankText: '执行结果',
               itemId: 'resultLog',
-              width: 415,
+              width: 515,
               cols: 40
             }
 

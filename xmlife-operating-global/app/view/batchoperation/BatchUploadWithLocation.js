@@ -29,7 +29,7 @@ Ext.define('XMLifeOperating.view.batchoperation.BatchUploadWithLocation', {
             border: 0,
             defaults : {
               labelWidth : 80,
-              width :500
+              width :600
             },
             items : [
               {
@@ -86,7 +86,6 @@ Ext.define('XMLifeOperating.view.batchoperation.BatchUploadWithLocation', {
               {
                 xtype: 'radiogroup',
                 fieldLabel: '文件类型',
-                width: 500,
                 items: [
                   {boxLabel: '<span>Excel文件[2007或以上版本](*.<span style="color:red;">xlsx</span>)</span>', name: 'filetype', inputValue: '1', checked: true},
                   {boxLabel: '<span>Excel文件(*.<span style="color:red;">xls</span>)</span>', name: 'filetype', inputValue: '2'}
@@ -105,7 +104,7 @@ Ext.define('XMLifeOperating.view.batchoperation.BatchUploadWithLocation', {
                 edit: false,
                 grow: true,
                 itemId: 'resultLog',
-                width: 415,
+                width: 515,
                 cols: 40
               }
             ]
