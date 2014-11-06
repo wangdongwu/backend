@@ -6,7 +6,7 @@ Ext.define('XMLifeOperating.view.authorityManage.MerchantAccountManagement', {
   xtype: 'MerchantAccountManagement',
   alias : 'widget.MerchantAccountManagement',
   id : 'MerchantAccountManagement',
-  title : '商户账号管理',
+  title : '商户账号管理 for tutorial',
   store : 'Account',
   forceFit: true,
   closable : true,
