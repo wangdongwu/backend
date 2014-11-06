@@ -15,6 +15,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopAdd', {
     layout: 'fit',
     bodyStyle: 'text-align:center;border-style: none;',
     initComponent: function() {
+        var required = '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>';
         this.items = [{
             xtype: 'form',
             layout: 'anchor',
@@ -28,8 +29,10 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopAdd', {
             items: [{
                 xtype: 'textfield',
                 name: 'name',
+                afterLabelTextTpl: required,
                 fieldLabel: '店铺主名称',
                 labelWidth: 90,
+                labelAlign: 'right',
                 allowBlank: false,
                 validator: function(value) {
                     var value = value;
@@ -53,8 +56,10 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopAdd', {
                 name: 'shopBannerTemplateId',
                 fieldLabel: '模板',
                 allowBlank: false,
+                afterLabelTextTpl: required,
                 blankText: '请选择模板',
                 labelWidth: 90,
+                labelAlign: 'right',
                 editable: false,
                 mode: 'local',
                 store: 'ShopBannerTemplate',
@@ -66,7 +71,9 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopAdd', {
                 name: 'address',
                 fieldLabel: '地址',
                 labelWidth: 90,
+                labelAlign: 'right',
                 allowBlank: false,
+                afterLabelTextTpl: required
 
             }, {
                 xtype: 'textfield',
@@ -74,12 +81,16 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopAdd', {
                 fieldLabel: '经度',
                 labelWidth: 90,
                 allowBlank: false,
+                labelAlign: 'right',
+                afterLabelTextTpl: required
             }, {
                 xtype: 'textfield',
                 name: 'lat',
                 fieldLabel: '纬度',
                 labelWidth: 90,
-                allowBlank: false
+                allowBlank: false,
+                labelAlign: 'right',
+                afterLabelTextTpl: required
             }, {
                 xtype: 'timefield',
                 name: 'openTime',
@@ -87,6 +98,8 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopAdd', {
                 labelWidth: 90,
                 format: 'H:i',
                 allowBlank: false,
+                labelAlign: 'right',
+                afterLabelTextTpl: required
             }, {
                 xtype: 'timefield',
                 name: 'closeTime',
@@ -94,10 +107,14 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopAdd', {
                 labelWidth: 90,
                 format: 'H:i',
                 allowBlank: false,
+                labelAlign: 'right',
+                afterLabelTextTpl: required
             }, {
                 xtype: 'radiogroup',
                 fieldLabel: '商品是否每日自动上架',
-                labelWidth: 140,
+                labelWidth: 160,
+                labelAlign: 'right',
+                afterLabelTextTpl: required,
                 defaults: {
                     flex: 1
                 },
@@ -115,7 +132,8 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopAdd', {
             }, {
                 xtype: 'radiogroup',
                 fieldLabel: '是否在首页展示所有商品',
-                labelWidth: 140,
+                labelWidth: 160,
+                labelAlign: 'right',
                 defaults: {
                     flex: 1
                 },
@@ -129,15 +147,16 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopAdd', {
                     name: 'showAllProducts',
                     inputValue: 'false',
                     checked: true
-                }]
+                }],
+                afterLabelTextTpl: required
             }, {
                 xtype: 'radiogroup',
                 fieldLabel: '改价是否审核',
-                labelWidth: 140,
+                labelWidth: 160,
+                labelAlign: 'right',
                 defaults: {
                     flex: 1
                 },
-                allowBlank: false,
                 layout: 'hbox',
                 items: [{
                     boxLabel: '是',
@@ -148,7 +167,9 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopAdd', {
                     boxLabel: '否',
                     name: 'needAuditPrice',
                     inputValue: 'false'
-                }]
+                }],
+                allowBlank: false,
+                afterLabelTextTpl: required
             }, {
                 xtype: 'fieldset',
                 layout: 'column',
@@ -157,12 +178,20 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopAdd', {
                 items: [{
                     xtype: 'checkbox',
                     itemId: 'copyShopCheckbox',
-                    name: 'copyShopCheckbox'
+                    name: 'copyShopCheckbox',
+                    handler:function(cmp,value){
+                        if(value){
+                            cmp.nextSibling().setDisabled(false);
+                        }else{
+                             cmp.nextSibling().setDisabled(true);
+                        }
+                    }
                 }, {
                     xtype: 'textfield',
                     name: 'copyShop',
                     fieldLabel: '复制店铺',
                     labelWidth: 90,
+                    disabled:true,
                     /*                        editable: false,*/
                     width: 390,
                     /*                        displayField: 'name',

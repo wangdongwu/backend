@@ -5,6 +5,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopList', {
     title: '店铺管理',
     store: 'Shop',
     itemId: 'shoplist',
+/*    iconCls: 'icon-grid',*/
     bbar: [{
         xtype: 'pagingtoolbar',
         itemId: 'pagetool',
@@ -15,6 +16,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopList', {
     tbar: [{
             xtype: 'button',
             text: '添加店铺',
+/*            iconCls: 'icon-add',*/
             itemId: 'add'
         }, {
             xtype: 'combobox',
@@ -159,7 +161,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopList', {
 
             }
         }, {
-            header: "",
+            header: '店铺操作',
             width: 90,
             dataIndex: 'status',
             itemId: 'closeOrOpenShopStore',

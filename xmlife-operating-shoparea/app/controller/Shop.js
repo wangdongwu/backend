@@ -39,7 +39,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
     ],
 
     models: [
-        'Shop',
+        'Shop', 
         'Shopper',
         'ShopBannerTemplate',
         'ShopCategories',
@@ -422,7 +422,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
                         var needAuditPrice = form.getValues()['needAuditPrice'];
                         shopStore.set('needAuditPrice', needAuditPrice);
                         //复制店铺
-                        if (form.getValues()['copyShopCheckbox'] && form.getValues()['copyShopCheckbox'] == 'on') {
+                        if (form.getValues()['copyShopCheckbox'] && form.getValues()['copyShopCheckbox'] == 'on' && form.getValues()['copyShop'] !='') {
                             shopStore.set('beCopyedShopId', form.getValues()['copyShop']);
                         }
                         windowEl.mask('saving');
