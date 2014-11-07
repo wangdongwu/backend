@@ -94,7 +94,7 @@ Ext.define('XMLifeOperating.controller.Authority', {
         'GlobalAccountManage #seachAccount' : {
           click : function(){
             //搜索全局账号
-            var store = self.getAccountStore();
+            var store = self.getAccountStore(),
                 seachKeyword = self.getGlobalAccountManage().down('#seachKeyword').getValue();
                 store.getProxy().extraParams = {
                    keyword : seachKeyword,
@@ -168,30 +168,6 @@ Ext.define('XMLifeOperating.controller.Authority', {
         },
         'MerchantAccountManagement': {
           activate: function () {
-//            var store = this.getAccountStore();
-//            var data = Ext.create('XMLifeOperating.model.Account', {
-//              'id': 1,
-//              'name': 'zhou',
-//              'account': 'zhen',
-//              'enable': true,
-//              'pwd': '231331',
-//              'cities': [],
-//              'cityIds': [],
-//              'modules': [],
-//              'moduleIds': [],
-//              'area': '',
-//              'authority': '',
-//              'level': 1,
-//              'creater': 'test',
-//              'phoneNum': '12313131',
-//              'cityId': 330100,
-//              'cityName': 'city',
-//              'areaId': 2,
-//              'areaName': 'area',
-//              'shopId': '54131c6d0364b0ed8f1ffd92',
-//              'shopName': 'shop'
-//            });
-//            store.loadRecords([data]);
             self.loadData('Shop');
           }
         },
@@ -299,7 +275,7 @@ Ext.define('XMLifeOperating.controller.Authority', {
         },
         'MerchantAccountManagement #seachAccount' : {
           click : function(){
-            var store = self.getAccountStore();
+            var store = self.getAccountStore(),
             seachKeyword = self.getMerchantAccountManagement().down('#seachKeyword').getValue();
             store.getProxy().extraParams = {
               keyword : seachKeyword,
@@ -327,7 +303,7 @@ Ext.define('XMLifeOperating.controller.Authority', {
         'CityAccountManage #seachAccount' : {
           click : function(){
             //搜索城市经理账号
-            var store = self.getAccountStore();
+            var store = self.getAccountStore(),
                 seachKeyword = self.getCityAccountManage().down('#seachKeyword').getValue();
                 store.getProxy().extraParams = {
                    keyword : seachKeyword,
@@ -399,14 +375,14 @@ Ext.define('XMLifeOperating.controller.Authority', {
        * @type {[type]}
        */
             var self = this,
-                authorityStore = self.getAuthorityStore();
+                authorityStore = self.getAuthorityStore(),
                 cityStore = this.getAllCitiesStore(),
                 addGlobalAccount = this.getAddGlobalAccount(),
                 globalSelect = addGlobalAccount.down('#globalSelect'),
                 citySelect = addGlobalAccount.down('#citySelect'),
                 shopareaSelect = addGlobalAccount.down('#shopareaSelect'),
                 url = XMLifeOperating.generic.Global.URL.biz+'module/getNewAdminModules';
-                authorityStore.load();
+                authorityStore.setRootNode({expanded:true});;
                 authorityStore.on('load',function(store,nodes){
                     var global = {expanded:true,children:[]},
                         city = {expanded:true,children:[]},
@@ -435,40 +411,8 @@ Ext.define('XMLifeOperating.controller.Authority', {
                     globalSelect.setRootNode(global);
                     citySelect.setRootNode(city);
                     shopareaSelect.setRootNode(shoparea);
+                    return false;
                 });
-
-                modulesCheckbox = addGlobalAccount.down('#modulesCheckbox'),
-                radiogroup = addGlobalAccount.down('radiogroup');
-                isHaveCities = addGlobalAccount.down('#isHaveCities');
-
-                /*authorityStore.load({
-                  callback : function(stores){
-                    modulesCheckbox.removeAll();
-                    Ext.each(stores, function(model) {
-                      modulesCheckbox.add({
-                        xtype: 'checkboxfield',
-                        boxLabel  : model.get('text'),
-                        name      : 'modules',
-                        inputValue: model.get('uid')
-                      })
-                    });
-                  }
-                });*/
-                /**
-                 * 选择城市
-                 */
-                /*
-                cityStore.load({
-                  callback : function(stores){
-                    Ext.each(stores, function(model) {
-                      radiogroup.add({
-                        boxLabel: model.get('name'),
-                        name: 'city',
-                        inputValue: model.get('name') })
-                    });
-                  }
-                });*/
-
     },
     /**
      * 格式化从服务端取回来的数据
@@ -621,22 +565,6 @@ Ext.define('XMLifeOperating.controller.Authority', {
             }
           }
         });
-//        Ext.Ajax.request({
-//          method: 'POST',
-//          url: form.url,
-//          params: subData,
-//          success: function (data) {
-//            if (data.responseText == '1') {
-//              Ext.Msg.alert('添加成功', '成功添加');
-//              var store = self.getAccountStore();
-//              store.clearFilter(true);
-//              windowEl.close();
-//              store.load();
-//            } else {
-//              Ext.Msg.alert('失败', '失败');
-//            }
-//          }
-//        });
       };
     },
     resetSelect : function(){
