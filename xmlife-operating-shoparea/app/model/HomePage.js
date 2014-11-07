@@ -1,4 +1,4 @@
 Ext.define('XMLifeOperating.model.HomePage', {
     extend: 'Ext.data.Model',
-    fields: ['id', 'areaId', 'layoutId', 'order', 'version', 'name', 'enable', 'image', 'titles', 'url']
+    fields: ['areaId', 'id', 'layoutId', 'order', 'version', 'enable','type', 'items', 'name', 'image', 'titles', 'url']
 });

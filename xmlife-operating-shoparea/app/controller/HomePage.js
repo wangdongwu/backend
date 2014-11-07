@@ -151,7 +151,7 @@ Ext.define('XMLifeOperating.controller.HomePage', {
                     var record = selected[0].data;
                     //保存当前积木id
                     this.moduleId = record.id;
-                    this.isBanner = record.order == 0 ? true : false;
+                    this.isBanner = record.type == 'TYPE0' ? true : false;
                     //只当banner才需要新建
                     this.getHomePage().down('#addModuleItem').setDisabled(!this.isBanner);
 
@@ -165,7 +165,7 @@ Ext.define('XMLifeOperating.controller.HomePage', {
             // 大积木排序
             'homePage #moduleList dataview': {
                 beforedrop: function(node, data, dropRec, dropPosition) {
-                  if(dropRec.index == 0 || data.records[0].index == 0) return false;
+                  if(dropRec.index == 0 || data.records[0].type == 'TYPE0') return false;
                 },
                 drop: function(node, data, dropRec, dropPosition) {
                     var store = this.getHomePageModuleListStore();
@@ -242,7 +242,7 @@ Ext.define('XMLifeOperating.controller.HomePage', {
                     var win =  this.getModuleDetailEdit();
                     win.show();
 
-                    var store = getHomePageModuleDetailStore();
+                    var store = this.getHomePageModuleDetailStore();
                     if(store.length >= 5) {
                         this.setDisabled(true);
                     }
@@ -276,14 +276,18 @@ Ext.define('XMLifeOperating.controller.HomePage', {
 
                     if (form.isValid()) {
                         var values = form.getValues(),
-                            record = form.getRecord();
+                            record = form.getRecord(),
+                            post_url = '';
                         //新建时无index
                         if(record) {
                             values.index = record.index;
+                            post_url = 'homepage/updateModuleItem';
+                        } else {
+                            post_url = 'homepage/createModuleItem';
                         }
                         values.moduleId = this.moduleId;
 
-                        sendPutRequest('homepage/updateModuleItem', values, '属性编辑', '属性编辑成功', '属性编辑失败', function() {
+                        sendPutRequest(post_url, values, '属性编辑', '属性编辑成功', '属性编辑失败', function() {
                             me.getHomePageModuleDetailStore().load();
                             win.close();
                         });
@@ -293,10 +297,62 @@ Ext.define('XMLifeOperating.controller.HomePage', {
             // 预览首页
             'homePage #previewPage': {
                 click: function() {
-                    alert(0)
                     var store = this.getHomePagePreviewStore();
                     store.getProxy().extraParams = {layoutId: this.layoutId};
-                    store.load();
+                    store.load({
+                        callback: function(records) {
+                            if(!records || records.length == 0) return;
+                            var res_url = XMLifeOperating.generic.Global.URL.res + '/image/id-',
+                                html = '';
+
+                            for (var i = 0, n = records.length; i < n; i++) {
+                                var data = records[i].data,
+                                    type = data.type,
+                                    items = data.items;
+
+                                if(!(items && items.length)){
+                                    Ext.Msg.alert('提示信息','模块 “'+ data.name +'“ 缺少图片，暂无法预览！');
+                                    return;
+                                } 
+                                console.log(data);
+                                switch (type){
+                                    case 'TYPE0':
+                                        html += '<div style="width:100%"><a href="'+ items[0].url +'"><img src="'+ res_url + items[0].image +'" width="100%" /></a></div>';
+                                        break;
+
+                                    case 'TYPE1':
+                                        var str = '<ul class="x-clear" style="padding:0;">',
+                                            borderRB = 'border-right:1px solid #eee;border-bottom:1px solid #eee;',
+                                            borderLT = 'border-left:1px solid #eee;border-top:1px solid #eee;';
+
+                                        for (var j=0, n=items.length; j<n; j++) {
+                                            var titles = j==0? '<div style="position:absolute;top:20px;left:20px;font-family:\'Microsoft Yahei\';line-height:10px;"><p style="font-size:14px;color:green;">'+ items[j].titles[0]+'</p><p style="font-size:10px;color:gray;">'+ items[j].titles[1]+'</p><p style="font-size:12px;color:red;">'+ items[j].titles[2]+'</p></div>' : '';
+                                            str += '<li style="float:left;position:relative;width:'+ (j==0? '50%':'25%') +';border:1px solid #fff;'+ (j==1? borderRB:'') + (j==4? borderLT:'') + '">'+ titles +'<a href="'+ items[j].url +'"><img src="'+ res_url + items[j].image +'" width="100%" /></a></li>';
+                                        }
+                                        str += '</ul>'
+                                        html += str;
+                                        break;
+
+                                    case 'TYPE2':
+                                        var str = '<ul class="x-clear" style="padding:0;">',
+                                            borderRB = 'border-right:1px solid #eee;border-bottom:1px solid #eee;',
+                                            borderLT = 'border-left:1px solid #eee;border-top:1px solid #eee;';
+
+                                        for (var j=0, n=items.length; j<n; j++) {
+                                            var titles = j==0? '<div style="position:absolute;top:20px;left:20px;font-family:\'Microsoft Yahei\';line-height:10px;"><p style="font-size:14px;color:green;">'+ items[j].titles[0]+'</p><p style="font-size:10px;color:gray;">'+ items[j].titles[1]+'</p><p style="font-size:12px;color:red;">'+ items[j].titles[2]+'</p></div>' : '';
+                                            str += '<li style="float:left;position:relative;width:'+ (j==0? '50%':'25%') +';border:1px solid #fff;'+ (j==1? borderRB:'') + (j==4? borderLT:'') + '">'+ titles +'<a href="'+ items[j].url +'"><img src="'+ res_url + items[j].image +'" width="100%" /></a></li>';
+                                        }
+                                        str += '</ul>'
+                                        html += str;
+                                        break;
+
+                                    default:
+                                        break;
+                                }
+                            }
+                            Ext.get('homePreviewList').setHTML(html);
+                        }
+                    });
                 }
 
             }

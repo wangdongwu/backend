@@ -99,7 +99,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.homePage.HomePage', {
               align: 'center',
               renderer: function (v, meta, record, rowIdx, colIdx, store, view) {
                 if (record.get('order') == 0) {
-                    view.disable();
+                    //view.disable();
                 }
               }
           }
@@ -176,29 +176,29 @@ Ext.define('XMLifeOperating.view.centralPointManage.homePage.HomePage', {
 
     {
       xtype: 'panel',
-      itemId: 'indexPreview',
+      itemId: 'homePreview',
       title: '效果预览',
       columnWidth: 0.3,
       height: 400,
       autoScroll: true,
       items: [{
           xtype: 'dataview',
-          store: 'HomePagePreview',
+          //store: 'HomePagePreview',
           itemId: 'dataview',
           itemSelector: 'li',
-          emptyText: '当前暂无预览',
-          tpl: new Ext.XTemplate(
-              '<ul id="picViewList" style="width:100%;list-style:none;text-align:center;">',
-                '<tpl for=".">',
-                '<p>{name}</p>',
-                  '<tpl for="keys">',
-                    '<li class="picList" style="width:85%;border:1px solid #eee;">',
-                        '<p><img src="'+ XMLifeOperating.generic.Global.URL.res + '/image/id-'+ '{image}" width="80%" /></p>',
-                    '</li>',
-                  '</tpl>',
-                '</tpl>',
-              '</ul>'
-          )
+          tpl: '<div id="homePreviewList"><br>当前暂无预览</div>'
+          // tpl: new Ext.XTemplate(
+          //     '<ul id="picViewList" style="width:100%;list-style:none;text-align:center;">',
+          //       '<tpl for=".">',
+          //         '<p>{name}</p>',
+          //         '<tpl for="items">',
+          //           '<li class="picList" style="width:85%;border:1px solid #eee;">',
+          //               '<p><img src="'+ XMLifeOperating.generic.Global.URL.res + '/image/id-'+ '{image}" width="80%" /></p>',
+          //           '</li>',
+          //         '</tpl>',
+          //      '</tpl>',
+          //     '</ul>'
+          // )
       }]
     }]
 
