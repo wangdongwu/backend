@@ -5,7 +5,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.homePage.ModuleDetailEdit', 
         'Ext.form.Panel',
         'Ext.form.field.Text'
     ],
-    title: '属性编辑',
+    title: '新建/编辑属性',
     width: 380,
     buttonAlign: 'center',
     autoScroll: false,

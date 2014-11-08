@@ -398,6 +398,13 @@ Ext.define('XMLifeOperating.controller.HomePage', {
                     break;
 
                 case 'TYPE7':
+                    var str = '<ul class="x-clear" style="'+ wrapCss +'">';
+                    for (var j=0, m=items.length; j<m; j++) {
+                        //var titles = j==0? '<div style="position:absolute;top:20px;left:20px;"><p style="font-size:14px;color:green;">'+ items[j].titles[0]+'</p><p style="font-size:10px;-webkit-transform:scale(0.8);color:#c8c8c8;">'+ items[j].titles[1]+'</p><p style="font-size:12px;color:red;">'+ items[j].titles[2]+'</p></div>' : '';
+                        str += '<li style="float:left;position:relative;width:'+ (j==0? '49%':'49%') +';border:1px solid #fff;'+ (j==0? 'margin-right:2%;':'') + '"><a href="'+ items[j].url +'" target="_blank"><img src="'+ res_url + items[j].image +'" width="100%" /></a></li>';
+                    }
+                    str += '</ul>'
+                    html += str;
                     break;
 
                 case 'TYPE8':
