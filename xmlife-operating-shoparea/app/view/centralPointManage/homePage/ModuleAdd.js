@@ -6,7 +6,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.homePage.ModuleAdd', {
         'Ext.form.field.Text'
     ],
     title: '新建大积木',
-    width: 500,
+    width: 650,
     buttonAlign: 'center',
     autoScroll: false,
 
@@ -14,45 +14,45 @@ Ext.define('XMLifeOperating.view.centralPointManage.homePage.ModuleAdd', {
         xtype: 'form',
         layout: 'vbox',
         bodyPadding: 15,
-        style: 'line-height:22px;',
+        style: 'line-height:25px;',
         items: [{
             xtype: 'radiogroup',
             fieldLabel: '选择类型',
             labelWidth: 70,
             allowBlank: false,
             width: '100%',
+            defaults: {
+                style: 'margin-top:40px; line-height:5px; margin-right:40px;',
+            },
             columns: 2,
             vertical: true,
             items: [{
-                boxLabel: '类型1',
+                boxLabel: '<span style="display:inline-block; float:right; margin-top:-30px;">类型1：<img src="resources/images/type/1.jpg" height="75" /></span>',
                 name: 'type',
                 inputValue: 'TYPE1',
                 checked: true
             }, {
-                boxLabel: '类型2',
+                boxLabel: '<span style="display:inline-block; float:right; margin-top:-30px;">类型2：<img src="resources/images/type/2.jpg" height="75" /></span>',
                 name: 'type',
-                inputValue: 'TYPE2',
-                renderer: function(){
-                    return '<button>fdsafdsafafdafa</button>'
-                }
+                inputValue: 'TYPE2'
             }, {
-                boxLabel: '类型3',
+                boxLabel: '<span style="display:inline-block; float:right; margin-top:-17px;">类型3：<img src="resources/images/type/3.jpg" height="50" /></span>',
                 name: 'type',
                 inputValue: 'TYPE3'
             }, {
-                boxLabel: '类型4',
+                boxLabel: '<span style="display:inline-block; float:right; margin-top:-17px;">类型4：<img src="resources/images/type/4.jpg" height="50" /></span>',
                 name: 'type',
                 inputValue: 'TYPE4'
             }, {
-                boxLabel: '类型5',
+                boxLabel: '<span style="display:inline-block; float:right; margin-top:-17px;">类型5：<img src="resources/images/type/5.jpg" height="50" /></span>',
                 name: 'type',
                 inputValue: 'TYPE5'
             }, {
-                boxLabel: '类型6',
+                boxLabel: '<span style="display:inline-block; float:right; margin-top:-10px;">类型6：<img src="resources/images/type/6.jpg" height="35" /></span>',
                 name: 'type',
                 inputValue: 'TYPE6'
             }, {
-                boxLabel: '类型7',
+                boxLabel: '<span style="display:inline-block; float:right; margin-top:-10px;">类型7：<img src="resources/images/type/7.jpg" height="35" /></span>',
                 name: 'type',
                 inputValue: 'TYPE7'
             }]
