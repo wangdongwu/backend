@@ -4,21 +4,18 @@ Ext.define('XMLifeOperating.view.centralPointManage.homePage.HomePage', {
   alias: 'homePage',
   title: '主页配置',
   layout: 'column',
-  width: 600,
-  height: 400,
 
   initComponent: function() {
     this.items = [{
       xtype: 'panel',
       columnWidth: 0.3,
       border: 0,
-      height: 400,
 
       items: [{
         xtype: 'grid',
         itemId: 'versionList',
         title: '版本选择',
-        height: 200,
+        height: document.body.clientHeight/2-40,
         store: 'HomePage',
         bbar: [
           {
@@ -65,7 +62,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.homePage.HomePage', {
         xtype: 'grid',
         itemId: 'moduleList',
         title: '大积木列表',
-        height: 200,
+        height: document.body.clientHeight/2-28,
         store: 'HomePageModuleList',
         bbar: ['->',
           {
@@ -121,7 +118,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.homePage.HomePage', {
       title: '大积木详情',
       store: 'HomePageModuleDetail',
       columnWidth: 0.4,
-      height: 400,
+      height: document.body.clientHeight-68,
       bbar: ['->',{
             xtype: 'button',
             text: '新建小积木',
@@ -179,26 +176,15 @@ Ext.define('XMLifeOperating.view.centralPointManage.homePage.HomePage', {
       itemId: 'homePreview',
       title: '效果预览',
       columnWidth: 0.3,
-      height: 400,
+      height: document.body.clientHeight-68,
       autoScroll: true,
       items: [{
           xtype: 'dataview',
-          //store: 'HomePagePreview',
           itemId: 'dataview',
           itemSelector: 'li',
-          tpl: '<div id="homePreviewList"><br>当前暂无预览</div>'
-          // tpl: new Ext.XTemplate(
-          //     '<ul id="picViewList" style="width:100%;list-style:none;text-align:center;">',
-          //       '<tpl for=".">',
-          //         '<p>{name}</p>',
-          //         '<tpl for="items">',
-          //           '<li class="picList" style="width:85%;border:1px solid #eee;">',
-          //               '<p><img src="'+ XMLifeOperating.generic.Global.URL.res + '/image/id-'+ '{image}" width="80%" /></p>',
-          //           '</li>',
-          //         '</tpl>',
-          //      '</tpl>',
-          //     '</ul>'
-          // )
+          loadMask: true,
+          loadingText: 'Loading...',
+          tpl: '<div id="homePreviewList"><br>当前暂无预览</div>',
       }]
     }]
 
