@@ -25,8 +25,7 @@ Ext.define('XMLifeOperating.view.batchoperation.update.ProductPictureUpdateBatch
               xtype: 'radiogroup',
               fieldLabel: '文件类型',
               items: [
-                {boxLabel: '<span>Excel文件[2007或以上版本](*.<span style="color:red;">xlsx</span>)</span>', name: 'filetype', inputValue: '1', checked: true},
-                {boxLabel: '<span>Excel文件(*.<span style="color:red;">xls</span>)</span>', name: 'filetype', inputValue: '2'}
+                {boxLabel: '<span>(*.<span style="color:red;">jpg</span>)</span>', name: 'filetype', inputValue: '1', checked: true}
               ]
             },
             {
@@ -45,7 +44,8 @@ Ext.define('XMLifeOperating.view.batchoperation.update.ProductPictureUpdateBatch
               xtype: 'textareafield',
               grow: true,
               name: 'description',
-              fieldLabel: '提交说明'
+              fieldLabel: '提交说明',
+              emptyText: '提交说明(必填)'
             },
             {
               xtype: 'button',

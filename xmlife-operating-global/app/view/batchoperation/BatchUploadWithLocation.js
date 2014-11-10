@@ -73,6 +73,14 @@ Ext.define('XMLifeOperating.view.batchoperation.BatchUploadWithLocation', {
                 queryMode: 'local'
               },
               {
+                xtype: 'radiogroup',
+                fieldLabel: '文件类型',
+                items: [
+                  {boxLabel: '<span>Excel文件[2007或以上版本](*.<span style="color:red;">xlsx</span>)</span>', name: 'filetype', inputValue: '1', checked: true},
+                  {boxLabel: '<span>Excel文件(*.<span style="color:red;">xls</span>)</span>', name: 'filetype', inputValue: '2'}
+                ]
+              },
+              {
                 xtype: 'filefield',
                 fieldLabel: '文件路径',
                 name: 'file'
@@ -81,15 +89,8 @@ Ext.define('XMLifeOperating.view.batchoperation.BatchUploadWithLocation', {
                 xtype: 'textareafield',
                 grow: true,
                 name: 'description',
-                fieldLabel: '文件说明'
-              },
-              {
-                xtype: 'radiogroup',
-                fieldLabel: '文件类型',
-                items: [
-                  {boxLabel: '<span>Excel文件[2007或以上版本](*.<span style="color:red;">xlsx</span>)</span>', name: 'filetype', inputValue: '1', checked: true},
-                  {boxLabel: '<span>Excel文件(*.<span style="color:red;">xls</span>)</span>', name: 'filetype', inputValue: '2'}
-                ]
+                fieldLabel: '提交说明',
+                emptyText: '提交说明(必填)'
               },
               {
                 xtype: 'button',

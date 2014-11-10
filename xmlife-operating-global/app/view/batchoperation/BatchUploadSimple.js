@@ -41,7 +41,8 @@ Ext.define('XMLifeOperating.view.batchoperation.BatchUploadSimple', {
               xtype: 'textareafield',
               grow: true,
               name: 'description',
-              fieldLabel: '提交说明'
+              fieldLabel: '提交说明',
+              emptyText: '提交说明(必填)'
             },
             {
               xtype: 'button',
