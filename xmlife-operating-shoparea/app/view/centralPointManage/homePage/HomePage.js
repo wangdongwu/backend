@@ -72,7 +72,8 @@ Ext.define('XMLifeOperating.view.centralPointManage.homePage.HomePage', {
           },'-',{
               xtype: 'button',
               text: '从成品添加',
-              itemId: 'copyModule'
+              itemId: 'copyModule',
+              hidden: true
           }
         ],
         columns: [
@@ -130,6 +131,11 @@ Ext.define('XMLifeOperating.view.centralPointManage.homePage.HomePage', {
       }],
       columns: [
         {
+              text: '序号',
+              dataIndex: 'index',
+              width: 35,
+              align: 'center'
+        }, {
             text: '图片',
             dataIndex: 'image',
             width: 60,
@@ -140,17 +146,17 @@ Ext.define('XMLifeOperating.view.centralPointManage.homePage.HomePage', {
         }, {
             text: '名称',
             dataIndex: 'name',
-            width: 60,
+            width: 50,
             align: 'left',
         }, {
             text: 'titles',
             dataIndex: 'titles',
-            width: 120,
+            width: 115,
             align: 'left'
         }, {
             text: 'url',
             dataIndex: 'url',
-            width: 130,
+            width: 110,
             align: 'left'
         }, {
             xtype: 'actioncolumn',

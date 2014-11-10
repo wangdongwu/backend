@@ -92,7 +92,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.homePage.ModuleDetailEdit', 
             fieldLabel: 'url',
             labelWidth: 60,
             labelAlign: 'right',
-            allowBlank: false,
+            //allowBlank: false,
             hidden: true
         }, {
             xtype: 'fieldset',
