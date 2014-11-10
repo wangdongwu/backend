@@ -181,7 +181,7 @@ Ext.define('XMLifeOperating.controller.HomePage', {
                     sendPutRequest('homepage/setOrder',{
                         layoutId: this.layoutId,
                         moduleIds: moduleIds
-                    }, '设置启用', '启用成功', '启用失败', function() {
+                    }, '大积木排序', '大积木排序成功', '大积木排序失败', function() {
                         store.load();
                     });
                 }
@@ -342,6 +342,15 @@ Ext.define('XMLifeOperating.controller.HomePage', {
                             record = form.getRecord();
 
                         values.moduleId = this.moduleId;
+
+                        // 其它几种类型都放置url值传给后端
+                        if(this.urlType == 'SHOP') {
+                            values.url = values.shopId;
+                        } else if(this.urlType == 'CATEGORY') {
+                            values.url = values.cid;
+                        } else if(this.urlType == 'SKU') {
+                            values.url = values.pid;
+                        }
                         //新建时无index
                         if(record) {
                             values.index = record.index;
@@ -356,6 +365,23 @@ Ext.define('XMLifeOperating.controller.HomePage', {
                             });
                         }
                     }
+                }
+            },
+            // 小积木排序
+            'homePage #moduleDetail dataview': {
+                drop: function(node, data, dropRec, dropPosition) {
+                    var store = this.getHomePageModuleDetailStore();
+                    var indexs = [];
+                    for(var i=0, n=store.totalCount; i<n; i++){
+                        var record = store.getAt(i);
+                        indexs.push(record.get('index'));
+                    }
+                    sendPutRequest('homepage/setItemOrder',{
+                        indexs: indexs,
+                        moduleId: this.moduleId
+                    }, '小积木', '小积木成功', '小积木失败', function() {
+                        store.load();
+                    });
                 }
             },
             // 预览首页
