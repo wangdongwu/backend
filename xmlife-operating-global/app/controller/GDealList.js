@@ -123,28 +123,7 @@ Ext.define('XMLifeOperating.controller.GDealList', {
             phoneOrDealId: keyWords,
         };
         store.loadPage(1);
-        /*if (shopAreaId) {
-            if (keyWords == '') {
-                store.getProxy().extraParams = {
-                    shopArea: shopAreaId
-                };
-                store.loadPage(1);
-            } else {
-                store.getProxy().extraParams = {
-                    phoneOrDealId: keyWords,
-                    shopArea: shopAreaId
-                };
-                store.loadPage(1);
-            }
-        } else {
-            Ext.MessageBox.show({
-                title: '搜索',
-                msg: '搜索订单请选择中心',
-                icon: Ext.Msg.INFO,
-                buttons: Ext.Msg.OK
-            });
-            return;
-        }*/
+
     },
 
     onDealDetail: function(view, rowIndex, colIndex, column, e) {
@@ -193,27 +172,7 @@ Ext.define('XMLifeOperating.controller.GDealList', {
         var dealBackendId = dealitem.get('dealBackendId');
         var url = 'deal/transToProblem/' + dealBackendId;
         var me = this;
-        /*Ext.MessageBox.confirm(
-            '确认删除',
-            Ext.String.format("确定要转为问题订单 '{0}' 吗？", dealitem.get('dealBackendId')),
-            function(result) {
-                if (result == 'yes') {
-                    sendPutRequest(url, {}, '转为问题订单', '转为问题订单成功', '转为问题订单失败', function() {
-                        var sstore = me.getDealStore();
-                        sstore.getProxy().extraParams = {
-                            shopArea: Ext.getCmp('gDealList').down('#shopAread').getValue()
-                        }
-                        sstore.loadPage(1, {
-                            params: {
-                                start: 0,
-                                limit: 25,
-                                page: 1
-                            }
-                        });
-                    });
-                }
-            }
-        );*/
+
         Ext.MessageBox.confirm(
             '确认删除',
             Ext.String.format("确定要将<h5>'{0}'</h5>的订单转为问题订单吗？", '订单号为：' + dealitem.get('shortId') + ' 顾客为：' + dealitem.get('customerName')),

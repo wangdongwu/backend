@@ -7,15 +7,16 @@ Ext.define('XMLifeOperating.view.userManage.customer.CustomerDealList', {
         'Ext.form.field.Text',
         'Ext.form.field.Hidden',
     ],
-    tbar : [{
+    tbar : [/*{
          xtype: 'button',
             text: '返回',
             itemId: 'returnCustomerList'
-    }],
-    store : 'Deal'
+    }*/],
+    store : 'DealCustomerHistory'
     ,
     forceFit: true,
     layout: 'fit',
+    closable : true,
     columns : [
         {
             text: '订单号',

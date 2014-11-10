@@ -102,6 +102,7 @@ Ext.define('XMLifeOperating.controller.Navigation', {
         isNew = false;
       }
     });
+
     if (isNew) {
       contentPanel.add({
         xtype : id
