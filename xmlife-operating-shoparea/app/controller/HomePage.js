@@ -109,7 +109,7 @@ Ext.define('XMLifeOperating.controller.HomePage', {
                                 sendDeleteRequest(url, {
                                     layoutId: layoutId
                                 },
-                                '删除线路', '成功删除线路', '删除线路失败', function(response) {
+                                '删除版本', '删除版本成功', '删除版本失败', function(response) {
                                     me.getHomePageStore().load();
                                 });
                             }
@@ -155,6 +155,8 @@ Ext.define('XMLifeOperating.controller.HomePage', {
                     //保存当前积木id
                     this.moduleId = record.id;
                     this.isBanner = record.type == 'TYPE0' ? true : false;
+
+                    XMLifeOperating.generic.Global.isBanner = this.isBanner;
                     //只当banner才需要新建
                     this.getHomePage().down('#addModuleItem').setDisabled(!this.isBanner);
 
@@ -220,6 +222,7 @@ Ext.define('XMLifeOperating.controller.HomePage', {
             // 删除大积木
             'homePage #delModule': {
                 click: function(view, rowIndex, colIndex, column, e) {
+                    debugger;
                     var record = view.getRecord(view.findTargetByEvent(e)),
                         name = record.get('name'),
                         moduleId = record.get('id');
@@ -251,18 +254,41 @@ Ext.define('XMLifeOperating.controller.HomePage', {
                     }
                 }
             },
-            // 编辑小积木
+            // 操作小积木
             'homePage #editModuleItem': {
                 click: function(view, rowIndex, colIndex, column, e) {
-                    var win =  this.getModuleDetailEdit(),
-                        form = win.down('form').getForm(),
-                        urlTypeCombo = win.down('combo[name=urlType]'),
-                        record = view.getRecord(view.findTargetByEvent(e));
+                    var record = view.getRecord(view.findTargetByEvent(e)),
+                        actionType = e.target.getAttribute('class').indexOf('action-edit') >=0 ? 'edit' : 'del';
 
-                    form.loadRecord(record);
-                    //初始化选择及下拉状态
-                    urlTypeCombo.fireEvent('select',urlTypeCombo);
-                    win.show();
+                    // 编辑
+                    if (actionType == 'edit') {
+                        var win =  this.getModuleDetailEdit(),
+                            form = win.down('form').getForm();
+                        form.loadRecord(record);
+
+                        //初始化选择及下拉状态
+                        var urlTypeCombo = win.down('combo[name=urlType]');
+                        urlTypeCombo.fireEvent('select',urlTypeCombo);
+
+                        win.show();
+
+                    // 删除
+                    } else if (actionType == 'del') {
+                        Ext.MessageBox.confirm('确认删除', 
+                            Ext.String.format("确定删除小积木 '{0}' 吗？", record.get('name')),
+                            function(result) {
+                                if (result == 'yes') {
+                                    sendDeleteRequest('homepage/deleteModuleItem', {
+                                        moduleId: me.moduleId,
+                                        index: record.get('index')
+                                    },
+                                    '删除小积木', '小积木删除成功', '小积木删除失败', function(response) {
+                                        me.getHomePageModuleDetailStore().load();
+                                    });
+                                }
+                            }
+                        );
+                    }
                 }
             },
             // 选择url类型

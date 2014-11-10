@@ -95,9 +95,10 @@ Ext.define('XMLifeOperating.view.centralPointManage.homePage.HomePage', {
               icon: 'resources/images/delete.png',
               width: 50,
               align: 'center',
-              renderer: function (v, meta, record, rowIdx, colIdx, store, view) {
+              getClass:function(v, meta, record, rIndex, cIndex, store){
                 if (record.get('order') == 0) {
-                    //view.disable();
+                  meta.style = 'display:none;';
+                  //view.disable();
                 }
               }
           }
@@ -162,10 +163,13 @@ Ext.define('XMLifeOperating.view.centralPointManage.homePage.HomePage', {
             xtype: 'actioncolumn',
             itemId: 'editModuleItem',
             text: '操作',
-            tooltip: '编辑',
-            icon: 'resources/images/edit.png',
             width: 50,
-            align: 'center'
+            align: 'center',
+            renderer: function(){
+              var str1 = '<img src="resources/images/edit.png" class="x-action-col-icon action-edit" style="margin-left:5px;" />',
+                  str2 = '<img src="resources/images/delete.png" class="x-action-col-icon action-del" style="margin-left:5px;" />';
+              return XMLifeOperating.generic.Global.isBanner ? str1+str2 : str1;
+            }
         }
       ],
       viewConfig: {
