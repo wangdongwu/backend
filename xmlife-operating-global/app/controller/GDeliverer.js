@@ -115,6 +115,7 @@ Ext.define('XMLifeOperating.controller.GDeliverer', {
                     } else if (activeBindText == '查看未绑定的快递员') {
                         activeBindText='查看已绑定的快递员';
                         isUnbind = true;
+                         Ext.getCmp('gDelivererList').down('#shopArea').setValue('');
                     }
                     var store = this.getDelivererStore();
                     
@@ -125,7 +126,7 @@ Ext.define('XMLifeOperating.controller.GDeliverer', {
                     store.on('load',function(){
                         Ext.getCmp('gDelivererList').down('#activeBind').setText(activeBindText);
                         Ext.getCmp('gDelivererList').down('#activeSearch').setText('查看停单快递员');
-                        Ext.getCmp('gDelivererList').down('#shopArea').setValue('');
+                       
                         me.getGDelivererList().down('#searchDelivererKeyWords').setValue('');
                     })
                 }
