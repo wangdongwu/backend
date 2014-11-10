@@ -10,6 +10,7 @@ Ext.define('XMLifeOperating.Application', {
         'XMLifeOperating.generic.Global',
         'XMLifeOperating.generic.BaseProxy',
         'Ext.grid.plugin.DragDrop',
+        'Ext.grid.plugin.CellEditing',
         'Ext.grid.column.Action',
         'Ext.grid.feature.Summary',
         'Ext.grid.feature.GroupingSummary',

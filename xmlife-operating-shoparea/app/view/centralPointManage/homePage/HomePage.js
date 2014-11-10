@@ -37,7 +37,10 @@ Ext.define('XMLifeOperating.view.centralPointManage.homePage.HomePage', {
               text: '版本列表',
               dataIndex: 'version',
               width: 180,
-              align: 'left'
+              align: 'left',
+              editor: {
+                xtype: 'textfield'
+              }
           }, {
               text: '选择',
               itemId: 'setEnable',
@@ -56,7 +59,12 @@ Ext.define('XMLifeOperating.view.centralPointManage.homePage.HomePage', {
               width: 50,
               align: 'center'
           }
-        ]
+        ],
+        //selType: 'cellmodel',
+        plugins: [{
+          ptype: 'cellediting',
+          clicksToEdit: 2
+        }]
 
       }, {
         xtype: 'grid',
@@ -86,7 +94,10 @@ Ext.define('XMLifeOperating.view.centralPointManage.homePage.HomePage', {
               text: '列表',
               dataIndex: 'name',
               width: 225,
-              align: 'left'
+              align: 'left',
+              editor: {
+                xtype: 'textfield'
+              }
           }, {
               xtype: 'actioncolumn',
               itemId: 'delModule',
@@ -103,6 +114,11 @@ Ext.define('XMLifeOperating.view.centralPointManage.homePage.HomePage', {
               }
           }
         ],
+        //selType: 'cellmodel',
+        plugins: [{
+          ptype: 'cellediting',
+          clicksToEdit: 2
+        }],
         viewConfig: {
           plugins: {
             ptype: 'gridviewdragdrop',

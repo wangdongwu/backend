@@ -144,8 +144,18 @@ Ext.define('XMLifeOperating.controller.HomePage', {
                         layoutId: this.layoutId
                     }
                     store.load();
-                }
+                },
+                edit: function(editor, e) {
+                    var record = e.record;
 
+                    sendPutRequest('homepage',{
+                        layoutId: record.get('id'),
+                        version: record.get('version')
+                    }, '修改名称', '修改名称成功', '修改名称失败', function() {
+                        var store = me.getHomePageStore();
+                        store.load();
+                    });
+                }
             },
             // 大积木选择, 展示详情
             'homePage #moduleList': {
@@ -165,6 +175,17 @@ Ext.define('XMLifeOperating.controller.HomePage', {
                         moduleId: this.moduleId
                     }
                     store.load();
+                },
+                edit: function(editor, e) {
+                    var record = e.record;
+
+                    sendPutRequest('homepage/updateModule',{
+                        moduleId: record.get('id'),
+                        name: record.get('name')
+                    }, '修改名称', '修改名称成功', '修改名称失败', function() {
+                        var store = me.getHomePageModuleListStore().load();
+                        store.load();
+                    });
                 }
             },
             // 大积木排序
