@@ -27,7 +27,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopProductSoldOut', {
         align: 'center',
         renderer: function(value, e) {
             var categories = e.record.get('categoryNames');
-            var str =[];
+            var str = [];
 
             for (var i = 0, len = categories.length; i < len; i++) {
                 str.push(categories[i]);
@@ -43,7 +43,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopProductSoldOut', {
         sortable: true,
         align: 'center',
         style: 'cursor:pointer',
-        renderer: function() {
+        renderer: function(value,cmp,record,rowIndex,colIndex,store,grid) {
             return '<input type="button" value="重新上架" class="putaway" />';
         }
     }],

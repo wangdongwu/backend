@@ -16,6 +16,7 @@ Ext.define('XMLifeOperating.Application', {
         'Ext.form.field.Radio',
         'Ext.form.RadioGroup',
         'Ext.form.field.Time',
+        'Ext.menu.Menu',
         'Ext.data.*',
         'Ext.util.*',
         'Ext.form.FieldSet',

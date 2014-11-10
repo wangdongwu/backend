@@ -71,7 +71,6 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopShelf', {
             return '合计' + total;
         },
         tdCls: 'user-td'
-
     }, {
         text: '下架商品数',
         dataIndex: 'soldoutProductsCount',
@@ -112,17 +111,17 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopShelf', {
         dataIndex: 'status',
         itemId: 'showOrHide',
         renderer: function(value, metaData, record) {
-/*            var type = record.get('type');
+            /*            var type = record.get('type');
             if (type == 0) { //回收站分类
                 metaData.css = 'x-hide-display';
             } else{
                 metaData.css = 'x-grid-icon';*/
-                if (value == 0) { //隐藏
-                    return '<button>显示</button>';
-                } else if (value == 1) { //显示
-                    return '<button>隐藏</button>';
-                }
-           /* }*/
+            if (value == 0) { //隐藏
+                return '<button>显示</button>';
+            } else if (value == 1) { //显示
+                return '<button>隐藏</button>';
+            }
+            /* }*/
 
         },
         tdCls: 'user-td'
@@ -139,7 +138,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopShelf', {
         align: 'center',
         items: [{
             icon: 'resources/images/edit.png',
-/*            getClass: function(value, metaData, record) {
+            /*            getClass: function(value, metaData, record) {
                 if (value === 0) {
                     metaData.css = 'x-hide-display';
                 } else {
@@ -159,6 +158,29 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopShelf', {
             itemId: 'openCreateShelvesWin'
         }, {
             xtype: 'button',
+            text: '分类查看',
+            menu: {
+                xtype: 'menu',
+                items: [{
+                    text: '所有下架商品',
+                    itemId: 'viewAllSoldOutProduct'
+                },
+                {
+                    text: '所有上架商品',
+                    itemId: 'viewAllOnlineProduct'
+                },
+                {
+
+                    text: '所有雪藏商品',
+                    itemId: 'viewAllHiddenProduct'
+                },
+                {
+                    text: '所有废弃商品',
+                    itemId: 'viewAllAbandonedProduct'
+                }]
+            }
+        }, {
+            xtype: 'button',
             text: '保存排序',
             itemId: 'saveShelvesOrder'
         }, {
@@ -166,14 +188,6 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopShelf', {
             text: '返回',
             itemId: 'returnShopStore'
         }, '->', {
-            xtype: 'button',
-            text: '查看所有下架商品',
-            itemId: 'viewAllSoldOutProduct'
-        }, {
-            xtype: 'button',
-            text: '查看所有雪藏商品',
-            itemId: 'viewAllHiddenProduct'
-        }, {
             xtype: 'textfield',
             emptyText: '输入商品名称',
             name: 'keyword',

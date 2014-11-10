@@ -19,9 +19,12 @@ Ext.define('XMLifeOperating.controller.Shop', {
         'centralPointManage.shop.ShopBuyer',
         'centralPointManage.shop.ShopProductSoldOut',
         'centralPointManage.shop.ShopProductOffLine',
+        'centralPointManage.shop.ShopProductOnline',
+        'centralPointManage.shop.ShopProductAbandoned',
         'centralPointManage.shop.ShopProductSearch',
         'centralPointManage.shop.ShopProductSearchEdit',
         'centralPointManage.shop.ChangePriceRecordList'
+
     ],
 
     stores: [
@@ -39,7 +42,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
     ],
 
     models: [
-        'Shop', 
+        'Shop',
         'Shopper',
         'ShopBannerTemplate',
         'ShopCategories',
@@ -422,7 +425,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
                         var needAuditPrice = form.getValues()['needAuditPrice'];
                         shopStore.set('needAuditPrice', needAuditPrice);
                         //复制店铺
-                        if (form.getValues()['copyShopCheckbox'] && form.getValues()['copyShopCheckbox'] == 'on' && form.getValues()['copyShop'] !='') {
+                        if (form.getValues()['copyShopCheckbox'] && form.getValues()['copyShopCheckbox'] == 'on' && form.getValues()['copyShop'] != '') {
                             shopStore.set('beCopyedShopId', form.getValues()['copyShop']);
                         }
                         windowEl.mask('saving');
@@ -665,7 +668,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
                                 closable: true
                             });
                             //回收站限制
-                          /*  var flag = false;
+                            /*  var flag = false;
                             if (me.getCategoryRootsStore().getById(record.get('id')) && (me.getCategoryRootsStore().getById(record.get('id')).get('type') == 0)) {
                                 flag = true;
                             } else {
@@ -742,7 +745,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
                         return
                     } else {
                         toolbar.add({
-                            title: shop.get('name') + '下架商品',
+                            title: shop.get('name') + '-下架商品',
                             id: 'tab5_soldout',
                             layout: 'fit',
                             items: {
@@ -751,6 +754,31 @@ Ext.define('XMLifeOperating.controller.Shop', {
                             closable: true
                         });
                         tab.setActiveTab('tab5_soldout');
+                    }
+                }
+            },
+            'shopshelf #viewAllOnlineProduct': {
+                click: function() {
+                    var me = this,
+                        shopId = this.shopId,
+                        toolbar = Ext.getCmp('toolbar'),
+                        tab = me.getShopShelfTab(),
+                        shopStore = me.getShopStore();
+                    var shop = shopStore.getById(shopId);
+                    //下架商品tab切换
+                    if (me.tabIsExist('online')) {
+                        return
+                    } else {
+                        toolbar.add({
+                            title: shop.get('name') + '-上架商品',
+                            id: 'tab5_online',
+                            layout: 'fit',
+                            items: {
+                                xtype: 'shopproductonline'
+                            },
+                            closable: true
+                        });
+                        tab.setActiveTab('tab5_online');
                     }
                 }
             },
@@ -767,7 +795,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
                         return
                     } else {
                         toolbar.add({
-                            title: shop.get('name') + '雪藏商品',
+                            title: shop.get('name') + '-雪藏商品',
                             id: 'tab5_offline',
                             layout: 'fit',
                             items: {
@@ -780,6 +808,34 @@ Ext.define('XMLifeOperating.controller.Shop', {
 
                 }
             },
+
+            'shopshelf #viewAllAbandonedProduct': {
+                click: function() {
+                    var me = this,
+                        shopId = this.shopId,
+                        toolbar = Ext.getCmp('toolbar'),
+                        tab = me.getShopShelfTab(),
+                        shopStore = me.getShopStore();
+                    var shop = shopStore.getById(shopId);
+                    //雪藏商品tab切换
+                    if (me.tabIsExist('abandoned')) {
+                        return
+                    } else {
+                        toolbar.add({
+                            title: shop.get('name') + '-废弃商品',
+                            id: 'tab5_abandoned',
+                            layout: 'fit',
+                            items: {
+                                xtype: 'shopproductabandoned'
+                            },
+                            closable: true
+                        });
+                        tab.setActiveTab('tab5_abandoned');
+                    }
+
+                }
+            },
+
             'shopshelf #productSearch': {
                 click: function() {
                     var me = this;
@@ -1110,6 +1166,9 @@ Ext.define('XMLifeOperating.controller.Shop', {
                         productId: model.get('id')
                     }, '上架商品', '上架商品成功', '创建分类失败', success, failure);
                 }
+            },
+            'shopproductonline #putawayOrOut': {
+
             },
             'shopproductoffline #frozen': {
                 click: function(component, column, rowIndex, colIndex, e) {
@@ -1516,7 +1575,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
                         model.set('stock', '无限制');
                     }
                     //回收站修改限制
-/*                    if (type == 0) {
+                    /*                    if (type == 0) {
                         win.down('[name="name"]').setDisabled(true);
                         win.down('[name="purchasePrice"]').setDisabled(true);
                         win.down('[name="facePrice"]').setDisabled(true);
@@ -1933,6 +1992,49 @@ Ext.define('XMLifeOperating.controller.Shop', {
             }
         });
     },
+    /*    showFilterProductPanel: function(type) {
+        var me = this,
+            shopId = this.shopId,
+            toolbar = Ext.getCmp('toolbar'),
+            tab = me.getShopShelfTab(),
+            shopStore = me.getShopStore();
+        var shop = shopStore.getById(shopId);
+        var title = null;
+        var xtype = null;
+        switch (type) {
+            case 'soldout':
+                title = '下架商品';
+                xtype = 'shopproductsoldout';
+                break;
+            case 'offline':
+                title = '雪藏商品';
+                xtype = 'shopproductoffline';
+                break;
+            case 'online':
+                title = '上架商品';
+                xtype = 'shopproductsoldout';
+                break;
+            case 'abandoned':
+                title = '废弃商品';
+                xtype = 'shopproductoffline';
+                break;
+        }
+        //雪藏商品tab切换
+        if (me.tabIsExist(type)) {
+            return
+        } else {
+            toolbar.add({
+                title: shop.get('name') + title,
+                id: 'tab5_' + type,
+                layout: 'fit',
+                items: {
+                    xtype: xtype
+                },
+                closable: true
+            });
+            tab.setActiveTab('tab5_' + type);
+        }
+    }*/
     showProductSoldOutOrOffLineList: function(shopId, value) {
         var me = this,
             shopId = shopId,
@@ -1944,7 +2046,44 @@ Ext.define('XMLifeOperating.controller.Shop', {
             case 'offline':
                 me.showProductOffLineList(shopId);
                 break;
+            case 'online':
+                me.showProductOnlineList(shopId);
+                break;
+            case 'abandoned':
+                me.showProductAbandonedList(shopId);
+                break;
         }
+    },
+    showProductAbandonedList: function(shopId) {
+        var me = this,
+            categoryStore = me.getShopCategoriesStore(); //在货架页，category已经加载
+        categoryStore.getProxy().extraParams = {
+            shopId: shopId,
+            status: 2
+        }
+        categoryStore.loadPage(1, {
+            params: {
+                start: 0,
+                limit: 25,
+                page: 1
+            }
+        });
+    },
+    showProductOnlineList: function(shopId) {
+        var me = this,
+            categoryStore = me.getShopCategoriesStore(); //在货架页，category已经加载
+        categoryStore.getProxy().extraParams = {
+            shopId: shopId,
+            status: 0
+        }
+        categoryStore.loadPage(1, {
+            params: {
+                start: 0,
+                limit: 25,
+                page: 1
+            }
+        });
+
     },
     showProductSoldOutList: function(shopId) {
         var me = this,
