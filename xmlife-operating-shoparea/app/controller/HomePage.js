@@ -222,7 +222,6 @@ Ext.define('XMLifeOperating.controller.HomePage', {
             // 删除大积木
             'homePage #delModule': {
                 click: function(view, rowIndex, colIndex, column, e) {
-                    debugger;
                     var record = view.getRecord(view.findTargetByEvent(e)),
                         name = record.get('name'),
                         moduleId = record.get('id');
