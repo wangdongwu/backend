@@ -9,7 +9,10 @@ Ext.define('XMLifeOperating.controller.HomePage', {
         'centralPointManage.homePage.ModuleDetailEdit'
     ],
 
-    stores: ['HomePage', 'HomePageModuleList', 'HomePageModuleDetail', 'HomePageUrlType', 'HomePagePreview'],
+    stores: [
+        'HomePage', 'HomePageModuleList', 'HomePageModuleDetail', 'HomePagePreview', 'HomePageUrlType',
+        'HomePageShop', 'HomePageCategory', 'HomePageLeafCategory', 'HomePageProduct'
+    ],
 
 	models: ['HomePage'],
 
@@ -253,10 +256,70 @@ Ext.define('XMLifeOperating.controller.HomePage', {
                 click: function(view, rowIndex, colIndex, column, e) {
                     var win =  this.getModuleDetailEdit(),
                         form = win.down('form').getForm(),
+                        urlTypeCombo = win.down('combo[name=urlType]'),
                         record = view.getRecord(view.findTargetByEvent(e));
 
                     form.loadRecord(record);
+                    //初始化选择及下拉状态
+                    urlTypeCombo.fireEvent('select',urlTypeCombo);
                     win.show();
+                }
+            },
+            // 选择url类型
+            'moduleDetailEdit combo[name=urlType]': {
+                select: function(combo) {
+                    var win =  this.getModuleDetailEdit(),
+                        urlType = combo.getValue();
+
+                    this.urlType = urlType;
+
+                    if (urlType == 'SHOP' || urlType == 'CATEGORY' || urlType == 'SKU') {
+                        var store = me.getHomePageShopStore();
+                            store.getProxy().extraParams = {areaId: this.areaId};
+                            store.load();
+
+                        win.down('combo[name=cid]').setVisible(urlType == 'CATEGORY' || urlType == 'SKU');
+                        win.down('combo[name=pid]').setVisible(urlType == 'SKU');
+                    }
+
+                    win.down('#comboFieldset').setVisible(urlType != 'HTML');
+                    win.down('#urlTextField').setVisible(urlType == 'HTML');
+                }
+            },
+            // 选择店铺
+            'moduleDetailEdit combo[name=shopId]': {
+                select: function(combo) {
+                    var shopId = combo.getValue(),
+                        win =  this.getModuleDetailEdit(),
+                        categoryCombo = win.down('combo[name=cid]'),
+                        store = null;
+
+                    if(this.urlType != 'SHOP') {
+
+                        if (this.urlType == 'CATEGORY') {
+                            store = me.getHomePageCategoryStore();
+
+                        } else if (this.urlType == 'SKU') {
+                            store = me.getHomePageLeafCategoryStore();
+                        }
+                        store.load({ params: {shopId: shopId} });
+
+                        categoryCombo.setValue('');
+                        categoryCombo.bindStore(store);
+                    }
+                }
+            },
+            // 选择货架
+            'moduleDetailEdit combo[name=cid]': {
+                select: function(combo) {
+                    if(this.urlType == 'SKU') {
+                        var cid = combo.getValue(),
+                            win =  this.getModuleDetailEdit(),
+                            store = me.getHomePageProductStore();
+
+                        store.load({ params: {id: cid} });
+                        win.down('combo[name=pid]').setValue('');
+                    }
                 }
             },
             // 上传图片
@@ -321,7 +384,6 @@ Ext.define('XMLifeOperating.controller.HomePage', {
             borderL = 'border-left:1px solid #eee;',
             wrapCss = 'padding:0;font-family:\'Microsoft Yahei\';line-height:9px;';
 
-            console.log(records);
         for (var i = 0, n = records.length; i < n; i++) {
             var data = records[i].data,
                 type = data.type,

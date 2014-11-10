@@ -6,7 +6,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.homePage.ModuleDetailEdit', 
         'Ext.form.field.Text'
     ],
     title: '新建/编辑属性',
-    width: 380,
+    width: 450,
     buttonAlign: 'center',
     autoScroll: false,
 
@@ -14,7 +14,6 @@ Ext.define('XMLifeOperating.view.centralPointManage.homePage.ModuleDetailEdit', 
         xtype: 'form',
         layout: 'vbox',
         bodyPadding: 12,
-        //style: 'line-height:22px;',
         defaults: {
             width: '95%',
             margin: '8 0 0 0'
@@ -24,8 +23,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.homePage.ModuleDetailEdit', 
             name: 'name',
             fieldLabel: '名称',
             labelWidth: 60,
-            labelAlign: 'right',
-            allowBlank: false
+            labelAlign: 'right'
         }, {
             xtype: 'textfield',
             name: 'titles',
@@ -35,22 +33,67 @@ Ext.define('XMLifeOperating.view.centralPointManage.homePage.ModuleDetailEdit', 
         }, {
             xtype: 'combo',
             name: 'urlType',
-            fieldLabel: '类型',
+            fieldLabel: 'url类型',
             labelWidth: 60,
             labelAlign: 'right',
             store: 'HomePageUrlType',
             queryMode: 'local',
             displayField: 'name',
-            valueField: 'value',
+            valueField: 'urlType',
             emptyText: '请选择类型',
             allowBlank: false
         }, {
+            xtype: 'fieldset',
+            itemId: 'comboFieldset',
+            layout: 'column',
+            padding: 0,
+            border: false,
+            hidden: true,
+            defaults: {
+                margin: '0 2 0 0'
+            },
+            items:[{
+                xtype: 'combo',
+                name: 'shopId',
+                fieldLabel: '选择',
+                labelAlign: 'right',
+                labelWidth: 60,
+                store: 'HomePageShop',
+                queryMode: 'local',
+                displayField: 'name',
+                valueField: 'id',
+                emptyText: '请选择商铺',
+                width: 175
+            }, {
+                xtype: 'combo',
+                name: 'cid',
+                store: 'HomePageCategory',
+                queryMode: 'local',
+                displayField: 'name',
+                valueField: 'id',
+                emptyText: '请选择货架',
+                width: 115,
+                hidden: true
+            }, {
+                xtype: 'combo',
+                name: 'pid',
+                store: 'HomePageProduct',
+                queryMode: 'local',
+                displayField: 'name',
+                valueField: 'id',
+                emptyText: '请选择SKU',
+                width: 95,
+                hidden: true
+            }]
+        }, {
             xtype: 'textfield',
             name: 'url',
+            itemId: 'urlTextField',
             fieldLabel: 'url',
             labelWidth: 60,
             labelAlign: 'right',
-            allowBlank: false
+            allowBlank: false,
+            hidden: true
         }, {
             xtype: 'fieldset',
             layout: 'column',
@@ -63,22 +106,20 @@ Ext.define('XMLifeOperating.view.centralPointManage.homePage.ModuleDetailEdit', 
                 itemId:'imageHash',
                 labelWidth: 60,
                 labelAlign: 'right',
-                width: 262,
+                width: 329,
                 allowBlank: false,
                 //readOnly: true,
             }, {
                 xtype: 'form',
                 border: false,
                 itemId:'adf',
-                items:[
-                    {
-                        xtype: 'filefield',
-                        name: 'moduleUploadfile',
-                        buttonOnly: true,
-                        buttonText: '选择文件',
-                        hideLabel: true
-                    }
-                ]
+                items:[{
+                    xtype: 'filefield',
+                    name: 'moduleUploadfile',
+                    buttonOnly: true,
+                    buttonText: '选择文件',
+                    hideLabel: true
+                }]
             }]
         }],
         buttons: [{

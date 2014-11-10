@@ -135,7 +135,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.homePage.HomePage', {
             width: 60,
             align: 'center',
             renderer: function(value) {
-              return '<img src="'+ XMLifeOperating.generic.Global.URL.res + value +'" width="100%" />';
+              return '<span style="display:inline-block;min-height:35px;"><img src="'+ XMLifeOperating.generic.Global.URL.res + value +'" width="100%" style="min-height:20px;border:1px solid #eee;" /></span>';
             }
         }, {
             text: '名称',
