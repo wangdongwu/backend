@@ -27,12 +27,14 @@ Ext.define('XMLifeOperating.Application', {
         'login',
         'Authority',
         'Freight',
-        'WaitForAudit'
+        'WaitForAudit',
+        'DamagedProduct'
     ],
 
     stores: [
         'ShopArea',
         'SupportedCity',
+        'DamagedProduct'
     ],
 
     launch: function() {
