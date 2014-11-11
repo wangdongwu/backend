@@ -5,6 +5,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopProduct', {
     header: false,
     store: 'Product',
     itemId: 'ShelvesGoodsList',
+    columnLines: true,
     columns: [{
         xtype: 'rownumberer'
     }, {
@@ -183,12 +184,13 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopProduct', {
             }
             return returnStr;
         }
-    }, { 
+    }, {
         text: '编辑',
         xtype: 'actioncolumn',
         width: 50,
         icon: 'resources/images/edit.png',
         tooltip: 'Edit',
+        align: 'center',
         menuDisabled: true,
         sortable: true,
         itemId: 'openModifyShelvesGoodsWin',

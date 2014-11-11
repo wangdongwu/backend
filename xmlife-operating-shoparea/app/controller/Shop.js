@@ -1478,7 +1478,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
                     var value = row.value;
                     var field = e.context.field;
                     if (field == 'status') {
-                        var url = 'product/opt',
+                        var url = ['product'],
                             status = value,
                             id = rec.get('id');
                         var success = function(reponse) {
@@ -1498,9 +1498,23 @@ Ext.define('XMLifeOperating.controller.Shop', {
                                 buttons: Ext.Msg.OK
                             });
                         }
-                        sendPutRequest(url, {
+                        switch (status) {
+                            case 0://上架
+                            url.push('/online');
+                                break;
+                            case 1://雪藏
+                            url.push('/offline');
+                                break;
+                            case 2://废弃
+                            url.push('/remove');
+                                break;
+                            case 3://下架
+                            url.push('/soldout');
+                                break;
+
+                        }
+                        sendPutRequest(url.join(''), {
                             productId: id,
-                            type: status
                         }, '改变商品状态', '改变商品状态成功', '改变商品状态失败', success, failure);
 
                     } else {
