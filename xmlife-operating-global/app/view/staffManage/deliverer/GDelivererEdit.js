@@ -122,7 +122,7 @@ Ext.define('XMLifeOperating.view.staffManage.deliverer.GDelivererEdit', {
                     name: 'pwd',
                     fieldLabel: '密码',
                     labelWidth: 90,
-                    allowBlank:false,
+                    // allowBlank:false,
                    
                 },
                 /*{
