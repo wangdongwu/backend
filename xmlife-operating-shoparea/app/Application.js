@@ -51,7 +51,8 @@ Ext.define('XMLifeOperating.Application', {
         'BatchUpdatePrice',
         'DealWaitAssignDelivererList',
         'DealWaitAssignShopperList',
-        'shopConfig'
+        'shopConfig',
+        'DamagedProductApplyList'
     ],
 
     stores: [
@@ -81,7 +82,8 @@ Ext.define('XMLifeOperating.Application', {
         'HomePageModuleList',
         'HomePageModuleDetail',
         'DealWaitAssignDeliverer',
-        'ProductStatus'
+        'ProductStatus',
+        'DamagedProductApply'
     ],
 
     launch: function() {
