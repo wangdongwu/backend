@@ -30,7 +30,7 @@ Ext.define('XMLifeOperating.controller.DamagedProduct', {
       },
       'damagedGoodsList #search': {
         click: function (button) {
-//          var areaId = button.up("panel").down("#shopArea").getValue();
+          self.queryParams.areaId = button.up("panel").down("#shopArea").getValue();
           self.queryParams.startTime = self.formatDate(button.up("panel").down("datefield[name='startTime']").getValue());
           self.queryParams.endTime = self.formatDate(button.up("panel").down("datefield[name='endTime']").getValue());
           self.queryParams.status = button.up("panel").down("#status").getValue();
