@@ -183,7 +183,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopProduct', {
             }
             return returnStr;
         }
-    }, {
+    }, { 
         text: '编辑',
         xtype: 'actioncolumn',
         width: 50,
