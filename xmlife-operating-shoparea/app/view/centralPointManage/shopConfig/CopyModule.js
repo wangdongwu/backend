@@ -13,9 +13,17 @@ Ext.define('XMLifeOperating.view.centralPointManage.shopConfig.CopyModule', {
       xtype : 'form',
       items : [{
       xtype : 'combo',
+      fieldLabel: '店铺',
+      itemId : 'ShopSelect',
+      store: 'Shop',
+      queryMode: 'local',
+      displayField: 'name',
+      valueField: 'id',
+    },{
+      xtype : 'combo',
       fieldLabel: '版本',
       itemId : 'versionSelect',
-      store: 'ShopConfig',
+      store: 'ShopCopyVersion',
       queryMode: 'local',
       displayField: 'version',
       valueField: 'id',

@@ -1,7 +1,7 @@
 Ext.define('XMLifeOperating.controller.shopConfig', {
     extend: 'Ext.app.Controller',
     models: ['ShopArea','Shop','ShopConfig','shopModules','ShopModulesItem'],
-    stores: ['ShopArea','Shop','ShopConfig','shopModules','ShopCopyModule','ShopModulesItem','ShopUrlType',
+    stores: ['ShopArea','Shop','ShopConfig','ShopCopyVersion','shopModules','ShopCopyModule','ShopModulesItem','ShopUrlType',
     'HomePageShop', 'HomePageCategory', 'HomePageLeafCategory', 'HomePageProduct'],
     views: [
     'centralPointManage.shopConfig.ShopConfigManage',
@@ -171,6 +171,9 @@ Ext.define('XMLifeOperating.controller.shopConfig', {
             'CopyModule #versionSelect':{
               change : self.versionSelect
             },
+            'CopyModule #ShopSelect':{
+              change : self.ShopSelect
+            },
             'CopyModule #subCopy' :{
               click : self.subCopy
             }
@@ -181,6 +184,13 @@ Ext.define('XMLifeOperating.controller.shopConfig', {
               render : self.switchModuleType
             }*/
         });
+    },
+    ShopSelect : function(panel,newValue){
+      this.getShopCopyVersionStore().load({
+        params :{
+          shopId : newValue
+        }
+      })
     },
     versionSelect : function(panel,newValue){
       this.loadCopyModuleStore(newValue);
