@@ -26,12 +26,12 @@ Ext.define('XMLifeOperating.view.msgManage.SmsAdd', {
             items: [
                 {
                     xtype: 'label',
-                    text: '请输入消息内容（最多70字）：'
+                    text: '请输入短信内容（最多256字）：'
                 },
                 {
                     xtype: 'textarea',
                     name: 'content',
-                    maxLength: 25,
+                    maxLength: 256,
                     emptyText: '短信内容...',
                     allowBlank : false,
                     blankText: '内容不能为空',
