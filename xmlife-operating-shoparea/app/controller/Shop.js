@@ -669,14 +669,6 @@ Ext.define('XMLifeOperating.controller.Shop', {
                                 },
                                 closable: true
                             });
-                            //回收站限制
-                            /*  var flag = false;
-                            if (me.getCategoryRootsStore().getById(record.get('id')) && (me.getCategoryRootsStore().getById(record.get('id')).get('type') == 0)) {
-                                flag = true;
-                            } else {
-                                flag = false
-                            }
-                            me.getShopProductList().down('#openCreateShelvesGoodsWin').setDisabled(flag);*/
                             tab.setActiveTab('tab4_' + record.get('id'));
                         });
                         return;
@@ -699,7 +691,6 @@ Ext.define('XMLifeOperating.controller.Shop', {
                     var store = this.getCategoryRootsStore();
                     var me = this;
                     var data = {
-
                         ids: []
                     };
                     var success = function(task, operation) {
@@ -960,20 +951,25 @@ Ext.define('XMLifeOperating.controller.Shop', {
                         me = this;
                     var tabIdstrArray = this.tabIdStr.split('_');
                     var parentId = '',
-                        parentIdStr = '';
+                        parentIdStr = '',
+                        inputs = null,
+                        shelfId = null;
                     if (tabIdstrArray[0] == 'tab3' && tabIdstrArray[1] != undefined) {
                         parentId = tabIdstrArray[1];
                     }
+
                     if (form.isValid()) {
-                        form.updateRecord(shelves);
+                        inputs = form.getValues();
                         shopId = this.shopId;
+                        shelfId = shelves.get('id');
                         //修改分类
-                        if (shelves.get('id') != null && shelves.get('id') != '') {
+                        if (shelfId != null && shelfId != '') {
                             sendPutRequest('category/update', {
-                                id: shelves.get('id'),
-                                name: shelves.get('name'),
-                                xImage: shelves.get('xImage'),
-                                vImage: shelves.get('vImage')
+                                id: shelfId,
+                                name: inputs.name,
+                                xImage: inputs.xImage,
+                                vImage: inputs.vImage,
+                                leaf: inputs.leaf
                             }, '编辑分类', '成功编辑分类', '编辑分类失败', function() {
                                 editWindow.close();
                                 if (parentId == '') {
@@ -984,7 +980,6 @@ Ext.define('XMLifeOperating.controller.Shop', {
                             });
                             return;
                         } else { //添加分类
-
                             var shelvesName = Ext.getCmp('shelvesName').getValue();
                             var shelvesLeaf = Ext.getCmp('shelvesLeaf').getValue();
                             var xImage = Ext.getCmp('shopShelfxImage').getValue();
