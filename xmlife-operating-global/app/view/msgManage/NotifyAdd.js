@@ -29,7 +29,7 @@ Ext.define('XMLifeOperating.view.msgManage.NotifyAdd', {
             }, {
                 xtype: 'textarea',
                 name: 'content',
-                maxLength: 25,
+                maxLength: 256,
                 emptyText: '消息内容...',
                 allowBlank: false,
                 blankText: '内容不能为空',
