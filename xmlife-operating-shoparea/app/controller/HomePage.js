@@ -322,8 +322,8 @@ Ext.define('XMLifeOperating.controller.HomePage', {
                             form = win.down('form').getForm();
                         form.loadRecord(record);
                         //初始化选择及下拉状态
-                        var urlTypeCombo = win.down('combo[name=urlType]');
-                        urlTypeCombo.fireEvent('select',urlTypeCombo);
+                        var combo = win.down('combo[name=urlType]');
+                        combo.fireEvent('select',combo,'isInit');
                         //显示图片大小提示
                         var size = this.getItemSize(this.moduleType, rowIndex);
                         win.down('#picSizeTip').setText('（提示：尺寸'+ size +'，大小100K以内）');
@@ -350,16 +350,28 @@ Ext.define('XMLifeOperating.controller.HomePage', {
             },
             // 选择url类型
             'moduleDetailEdit combo[name=urlType]': {
-                select: function(combo) {
+                select: function(combo, flag) {
                     var win =  this.getModuleDetailEdit(),
+                        record = win.down('form').getRecord(),
                         urlType = combo.getValue();
 
                     this.urlType = urlType;
 
                     if (urlType == 'SHOP' || urlType == 'CATEGORY' || urlType == 'SKU') {
                         var store = me.getHomePageShopStore();
-                            store.getProxy().extraParams = {areaId: this.areaId};
-                            store.load();
+                        store.getProxy().extraParams = {areaId: this.areaId};
+                        store.load();
+
+                        // 编辑时，依次触发回填
+                        if(flag == 'isInit' && record.get('shopId')) {
+                            var shopCombo = win.down('combo[name=shopId]');
+                            shopCombo.fireEvent('select',shopCombo,'isInit');
+
+                            if(record.get('cid')) {
+                             var categoryCombo = win.down('combo[name=cid]');
+                                categoryCombo.fireEvent('select',categoryCombo,'isInit');
+                            }
+                        }
 
                         win.down('combo[name=cid]').setVisible(urlType == 'CATEGORY' || urlType == 'SKU');
                         win.down('combo[name=pid]').setVisible(urlType == 'SKU');
@@ -371,37 +383,39 @@ Ext.define('XMLifeOperating.controller.HomePage', {
             },
             // 选择店铺
             'moduleDetailEdit combo[name=shopId]': {
-                select: function(combo) {
+                select: function(combo, flag) {
                     var shopId = combo.getValue(),
                         win =  this.getModuleDetailEdit(),
-                        categoryCombo = win.down('combo[name=cid]'),
                         store = null;
 
                     if(this.urlType != 'SHOP') {
 
                         if (this.urlType == 'CATEGORY') {
                             store = me.getHomePageCategoryStore();
-
                         } else if (this.urlType == 'SKU') {
                             store = me.getHomePageLeafCategoryStore();
                         }
                         store.load({ params: {shopId: shopId} });
 
-                        categoryCombo.setValue('');
-                        categoryCombo.bindStore(store);
+                        // 选择父级下拉，清空之前选择（初始化时除外）
+                        if(flag != 'isInit') {
+                            win.down('combo[name=cid]').setValue('');
+                            win.down('combo[name=pid]').setValue('');
+                        }
+                        win.down('combo[name=cid]').bindStore(store);
                     }
                 }
             },
             // 选择货架
             'moduleDetailEdit combo[name=cid]': {
-                select: function(combo) {
+                select: function(combo, flag) {
                     if(this.urlType == 'SKU') {
                         var cid = combo.getValue(),
                             win =  this.getModuleDetailEdit(),
                             store = me.getHomePageProductStore();
 
                         store.load({ params: {categoryId: cid} });
-                        win.down('combo[name=pid]').setValue('');
+                        if(flag != 'isInit') win.down('combo[name=pid]').setValue('');
                     }
                 }
             },
