@@ -128,6 +128,10 @@ Ext.define('XMLifeOperating.view.centralPointManage.shopConfig.AddModuleItem', {
                         hideLabel: true
                     }
                 ]
+            },
+            {
+              border :0,
+              itemId : 'picSizeTip'
             }]
         }],
         buttons: [{

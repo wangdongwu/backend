@@ -79,16 +79,12 @@ Ext.define('XMLifeOperating.view.centralPointManage.shopConfig.AddModule', {
             allowBlank: false
         },
         {
-            xtype: 'combo',
-            itemId : 'position',
-            name: 'position',
-            fieldLabel: '位置',
-            store: '',
-            queryMode: 'local',
-            displayField: '',
-            valueField: '',
-            emptyText: '请选择位置',
-            allowBlank: false
+        xtype: 'numberfield',
+        itemId : 'position',
+        name: 'position',
+        fieldLabel: '请选择位置',
+        value: 1,
+        minValue: 1
         },
         {
           xtype : 'fieldcontainer',

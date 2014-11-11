@@ -55,11 +55,6 @@ Ext.define('XMLifeOperating.view.centralPointManage.shopConfig.ShopModuleDetail'
       text: '操作',
       tooltip: '删除',
       dataIndex : 'delete',
-      renderer : function(v){ 
-        if(v){
-          this.remove();
-        }
-      },
       itemId : 'delete',
       icon: 'resources/images/delete.png',
       align:'center'

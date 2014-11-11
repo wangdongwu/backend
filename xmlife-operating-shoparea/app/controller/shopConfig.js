@@ -1,7 +1,7 @@
 Ext.define('XMLifeOperating.controller.shopConfig', {
     extend: 'Ext.app.Controller',
     models: ['ShopArea','Shop','ShopConfig','shopModules','ShopModulesItem'],
-    stores: ['ShopArea','Shop','ShopConfig','shopModules','ShopModulesItem','ShopUrlType',
+    stores: ['ShopArea','Shop','ShopConfig','shopModules','ShopCopyModule','ShopModulesItem','ShopUrlType',
     'HomePageShop', 'HomePageCategory', 'HomePageLeafCategory', 'HomePageProduct'],
     views: [
     'centralPointManage.shopConfig.ShopConfigManage',
@@ -13,7 +13,8 @@ Ext.define('XMLifeOperating.controller.shopConfig', {
     'centralPointManage.shopConfig.AddModule',
     'centralPointManage.shopConfig.EditModule',
     'centralPointManage.shopConfig.AddVersion',
-    'centralPointManage.shopConfig.AddModuleItem'
+    'centralPointManage.shopConfig.AddModuleItem',
+    'centralPointManage.shopConfig.CopyModule'
     ],
     refs: [{
       ref: 'ShopConfigManage',
@@ -69,6 +70,11 @@ Ext.define('XMLifeOperating.controller.shopConfig', {
       ref: 'EditModule',
       selector: 'EditModule',
       xtype: 'EditModule',
+      autoCreate: true
+    },{
+      ref: 'CopyModule',
+      selector: 'CopyModule',
+      xtype: 'CopyModule',
       autoCreate: true
     }],
     init: function() {
@@ -162,6 +168,12 @@ Ext.define('XMLifeOperating.controller.shopConfig', {
             'AddModuleItem combo[name=cid]': {
                 select: self.skuSelect
             },
+            'CopyModule #versionSelect':{
+              change : self.versionSelect
+            },
+            'CopyModule #subCopy' :{
+              click : self.subCopy
+            }
 
             /*,
             'AddModule #moduleTypeRadio' : {
@@ -170,6 +182,28 @@ Ext.define('XMLifeOperating.controller.shopConfig', {
             }*/
         });
     },
+    versionSelect : function(panel,newValue){
+      this.loadCopyModuleStore(newValue);
+    },
+    subCopy : function(button){
+      var self = this,
+          windows = button.up('window'),
+          form = windows.down('form'),
+          param = Ext.merge({moduleId:form.getValues().moduleId},{layoutId:self.layoutId});
+      Ext.Ajax.request({
+        url : XMLifeOperating.generic.Global.URL.biz+'shopHomepage/copyModule',
+        method :'post',
+        params : param,
+        success : function(response){
+          if(response.responseText == 1){
+            windows.hide();
+            self.loadModuleVersionStore();
+            self.refreshPriview();
+          }
+        }
+      })
+    }
+    ,
     switchArea : function(){
       this.areaId = XMLifeOperating.generic.Global.current_operating;
       this.getInitData();
@@ -188,7 +222,7 @@ Ext.define('XMLifeOperating.controller.shopConfig', {
           
     },
     switchShop : function(panel,shopId){
-        this.currentShopId = shopId;
+        this.shopId = shopId;
         this.loadShopVersionStore(shopId);
     },
     /**
@@ -211,7 +245,7 @@ Ext.define('XMLifeOperating.controller.shopConfig', {
         })
       }else{
         form.submit({
-        params : {shopId:self.currentShopId},
+        params : {shopId:self.shopId},
         method : 'post',
         success : function(){
         },
@@ -306,8 +340,10 @@ Ext.define('XMLifeOperating.controller.shopConfig', {
       
     },
     addNewModuleItem : function(){
-      var addNewModuleItem = this.getAddModuleItem()
-          form = addNewModuleItem.down('form');
+      var addNewModuleItem = this.getAddModuleItem(),
+          form = addNewModuleItem.down('form'),
+          picSizeTip = form.down('#picSizeTip');
+          picSizeTip.html='<p style="margin-left:70px;color:red">提示：尺寸 640x320，大小100K以内）</p>';
           form.getForm().reset();
           addNewModuleItem.show();
     },
@@ -315,9 +351,13 @@ Ext.define('XMLifeOperating.controller.shopConfig', {
      * [addModule 新建模板]
      */
     addModule : function(){
-      var panel = this.getAddModule(),
-          form = panel.down('form');
-          
+      var self = this,
+          panel = this.getAddModule(),
+          form = panel.down('form'),
+          position = panel.down('#position');
+          sendGetRequest('shopHomepage/getCategoryNum',{shopId:self.shopId},'','','',function(response){
+            position.setMaxValue();
+          });
           form.getForm().reset();
           panel.show();
     },
@@ -398,7 +438,9 @@ Ext.define('XMLifeOperating.controller.shopConfig', {
      * @return {[type]} [description]
      */
     addfromTemplate : function(){
-      console.log('从成品添加');
+      var self = this,
+          CopyModule = self.getCopyModule();
+          CopyModule.show();
     },
     /**
      * [shopModuleSortCheck 拖动模块排序]
@@ -451,11 +493,11 @@ Ext.define('XMLifeOperating.controller.shopConfig', {
               record.set('order',i+1)
               index.push(record.get('index'));
           }
-          sendPutRequest('shopHomePage/setItemOrder ',{
+          sendPutRequest('shopHomepage/setItemOrder ',{
               moduleId: this.moduleId,
               indexs: index
           }, '设置启用', '启用成功', '启用失败', function() {
-              store.load();
+              self.loadShopModulesItem();
               self.refreshPriview();
           });
 
@@ -489,6 +531,7 @@ Ext.define('XMLifeOperating.controller.shopConfig', {
           type = selection.get('type'),
           moduleItemList = selection.get('items');
           this.moduleId = id;
+          this.moduleType = type;
           
           if(type == 'banner'){
             addNewModuleItem.setDisabled(false);
@@ -574,18 +617,29 @@ Ext.define('XMLifeOperating.controller.shopConfig', {
 
     },
     editModuleItem : function(){
-      var AddModuleItem = this.getAddModuleItem(),
+      var rowIndex = arguments[2],
+          AddModuleItem = this.getAddModuleItem(),
           urlTypeCombo = AddModuleItem.down('combo[name=urlType]'),
           form = AddModuleItem.down('form'),
+          picSizeTip = form.down('#picSizeTip'),
           model = arguments[5];
           model.set('index',model.index);
           form.loadRecord(model);
 
+           var size = this.getItemSize(this.moduleType, rowIndex);
+          picSizeTip.html='<p style="margin-left:70px;color:red">提示：尺寸'+ size +'，大小100K以内）</p>';
           urlTypeCombo.fireEvent('select',urlTypeCombo);
           AddModuleItem.show();
     },
     deleteModuleItem : function(){
-      debugger;
+      var self = this,
+          index = arguments[2];
+
+      sendDeleteRequest('shopHomepage/deleteModuleItem',{moduleId:this.moduleId,index:index},'','','',function(response){
+        if (response.responseText == 1) {
+          self.loadShopModulesItem();
+        };
+      })
     },
     subNewModuleItem : function(button){
       var self = this,
@@ -622,9 +676,6 @@ Ext.define('XMLifeOperating.controller.shopConfig', {
                       Ext.Msg.alert('添加数据失败', response.responseText);
                     }   
                 }
-              },
-              failure : function(){
-                debugger;
               }
             })
           }
@@ -651,7 +702,6 @@ Ext.define('XMLifeOperating.controller.shopConfig', {
      */
     refreshPriview : function(){
       var self = this;/*,
-          records ={"areaId":2,"id":"545735f32cd452e1a4eab9ef","modules":[{"id":"545735952cd452e1a4eab9ee","isAdvert":false,"items":[{"image":"54280de40cf292d0f893e0cc1f","name":"11","titles":["搞个活动"],"url":"http://www.xiaomei.com/shopbannerdetail.html","urlType":"SKU"},{"image":"542274e40cf292d0f893e0c22a","titles":["周黑鸭"],"url":"http://www.xiaomei.com/zhouheiya.html","urlType":"HTML"}],"layoutId":"545735f32cd452e1a4eab9ef","name":"banner","order":0,"type":"TYPE0"},{"id":"545737702cd452e1a4eab9f0","isAdvert":false,"items":[{"image":"54599ae90cf292d0f893e13ffc","params":{},"titles":["农贸市场","Food market","全部品类 >"],"url":"54131c6d0364b0ed8f1ffd91","urlType":"SHOP"},{"image":"5459988e0cf292d0f893e130f8","params":{"PRODUCTCATEGORY":{"cid":"541464d90364b19b21f3b2de","name":"放心肉类","shopId":"54131c6d0364b0ed8f1ffd91"}},"titles":["放心肉类"],"url":"541464d90364b19b21f3b2de","urlType":"CATEGORY"},{"image":"545998ac0cf292d0f893e13168","params":{"PRODUCTCATEGORY":{"cid":"541464d90364b19b21f3b2e0","name":"鱼虾蟹贝","shopId":"54131c6d0364b0ed8f1ffd91"}},"titles":["田园时蔬"],"url":"541464d90364b19b21f3b2e0","urlType":"CATEGORY"},{"image":"545998be0cf292d0f893e132d4","params":{"PRODUCTCATEGORY":{"cid":"541464da0364b19b21f3b2e4","name":"南北干货","shopId":"54131c6d0364b0ed8f1ffd91"}},"titles":["蛋奶豆制品"],"url":"541464da0364b19b21f3b2e4","urlType":"CATEGORY"},{"image":"545998d10cf292d0f893e13351","name":"fdsa","params":{},"titles":["3折特区"],"url":"541464dd0364b19b21f3b2ed","urlType":"SHOP"}],"layoutId":"545735f32cd452e1a4eab9ef","name":"supermarket","order":1,"type":"TYPE1"},{"id":"5458b67d2cd452e1a4eacdbf","isAdvert":false,"items":[{"image":"54599b080cf292d0f893e141cc","params":{},"titles":["某某商家或超市","Some market","全部品类 >"],"url":"54131c6d0364b0ed8f1ffd91","urlType":"SHOP"},{"image":"5459993d0cf292d0f893e1357a","name":"从","titles":["周黑鸭"],"url":"541466ea180ac35a8e42589d","urlType":"CATEGORY"},{"image":"545cc6350cf292d0f893e15358","name":"好","params":{},"titles":["买手介绍"],"url":"541466ea180ac35a8e4258a9","urlType":"HTML"}],"layoutId":"545735f32cd452e1a4eab9ef","name":"supermarket2","order":2,"type":"TYPE2"},{"id":"5458b6ea2cd452e1a4eacdc1","isAdvert":false,"items":[{"image":"5459999b0cf292d0f893e13978","params":{},"titles":["大洋世家"],"url":"http://www.xiaomei.com/shopbannerdetail.html","urlType":"HTML"},{"image":"545999b20cf292d0f893e13a3a","params":{},"titles":["周黑鸭"],"url":"http://www.xiaomei.com/zhouheiya.html","urlType":"HTML"}],"layoutId":"545735f32cd452e1a4eab9ef","name":"shop2","order":3,"type":"TYPE4"},{"id":"5458b6b52cd452e1a4eacdc0","isAdvert":false,"items":[{"image":"5459995f0cf292d0f893e13692","params":{},"titles":["大洋世家"],"url":"http://www.xiaomei.com/shopbannerdetail.html","urlType":"HTML"},{"image":"545999700cf292d0f893e137f4","params":{},"titles":["周黑鸭"],"url":"http://www.xiaomei.com/zhouheiya.html","urlType":"HTML"},{"image":"545999800cf292d0f893e13841","params":{},"titles":["买手介绍"],"url":"http://www.xiaomei.com/shopper_story.html","urlType":"HTML"}],"layoutId":"545735f32cd452e1a4eab9ef","name":"shop","order":4,"type":"TYPE3"},{"type":"TYPE8"},{"id":"5458b70a2cd452e1a4eacdc2","isAdvert":true,"items":[{"image":"545999d00cf292d0f893e13bb4","name":"牛肉","params":{},"titles":["大洋世家"],"url":"http://www.xiaomei.com/shopbannerdetail.html","urlType":"SHOP"}],"layoutId":"545735f32cd452e1a4eab9ef","name":"advert","order":5,"type":"TYPE6"},{"type":"TYPE9"},{"id":"545739712cd452e1a4eab9f5","isAdvert":true,"items":[{"image":"54599a410cf292d0f893e13cdc","params":{},"url":"http://www.xiaomei.com/shopbannerdetail.html","urlType":"HTML"},{"image":"54599a520cf292d0f893e13d76","params":{},"url":"http://www.xiaomei.com/shopbannerdetail.html","urlType":"HTML"}],"layoutId":"545735f32cd452e1a4eab9ef","name":"advert2","order":6,"type":"TYPE7"}],"shops":[{"address":"计量大厦17","areaIds":[2],"banners":[{"image":"541fc0c40cf292d0f893e0bc59","order":0,"title":"111","url":"http://dev.xiaomei.com"}],"closeTime":1305,"desc":"测试店铺","icon":"54131c2903643b27cfbb124f4b","lat":38.913611,"lng":77.013222,"logo":"54131c2903643b27cfbb125013","name":"测试店铺","openTime":90,"order":99999,"shopId":"5417085d0cf2458352c9340c","showType":0,"status":1,"storeLimitEnable":true},{"address":"文一路和万塘路交汇处","areaIds":[2],"banners":[{"image":"541fc0a10cf292d0f893e0b963","order":0,"title":"","url":""}],"closeTime":1425,"desc":"","icon":"5412fb110364452d87bd21c78e","lat":30.293879,"lng":120.130495,"logo":"5412fb110364452d87bd21c89a","name":"翠苑农贸市场","openTime":15,"order":99999,"shopId":"54131c6d0364b0ed8f1ffd91","showType":0,"status":1,"storeLimitEnable":false},{"address":"1111","areaIds":[2],"banners":[{"image":"11111","order":0,"title":"1111","url":"http://www.xiaomei.com"},{"image":"222222","order":0,"title":"222","url":"http://xiaomei.com"},{"image":"432424","order":0,"title":"3333","url":"http://xiaomei.com"},{"image":"","order":0,"title":"111","url":"http://xiaomei.com"}],"closeTime":1410,"desc":"","icon":"5412fb0d0364452d87bd21c139","lat":11.11,"lng":11.11,"logo":"5412fb100364452d87bd21c2a1","name":"测试商超","openTime":15,"order":99999,"shopId":"5425510e0cf27fe451af555e","showType":0,"status":1,"storeLimitEnable":true},{"address":"地球村100号","areaIds":[2],"banners":[{"image":"11","order":0,"title":"","url":""}],"closeTime":45,"desc":"","icon":"5412fb0d0364452d87bd21c139","lat":11.11,"lng":12.12,"logo":"5412fb100364452d87bd21c2a1","name":"测试店铺10号","openTime":15,"order":99999,"shopId":"545736030cf2a680caeac0e4","showType":0,"status":1,"storeLimitEnable":true},{"address":"文三路99999","areaIds":[2],"banners":[],"closeTime":1380,"desc":"","icon":"5412fb110364452d87bd21cdf9","lat":11.11,"lng":111.11,"logo":"541711950cf2bc282b845e49f9","name":"星巴克克","openTime":600,"order":99999,"shopId":"543f2bda0cf2d0067cd22049","showType":0,"status":1,"storeLimitEnable":false},{"address":"1111","areaIds":[2],"banners":[{"image":"541fc08a0cf292d0f893e0b86f","order":0,"title":"冠相品","url":"http://www.xiaomei.com/shopper_story.html"}],"closeTime":1335,"desc":"111","icon":"5412fb110364452d87bd21ca5e","lat":11.11,"lng":11.11,"logo":"5412fb110364452d87bd21cb98","name":"冠相品1","openTime":60,"order":99999,"shopId":"54131c6d0364b0ed8f1ffd92","showType":0,"status":1,"storeLimitEnable":true},{"address":"益乐店","areaIds":[2],"banners":[{"image":"541fbef60cf292d0f893e0b6f2","order":0,"title":"鲜丰水果","url":"http://www.xiaomei.com/shopper_story.html"}],"closeTime":1350,"desc":"鲜丰水果","icon":"5412fb110364452d87bd21cdf9","lat":11.11,"lng":11.11,"logo":"541711950cf2bc282b845e49f9","name":"鲜丰水果","openTime":15,"order":99999,"shopId":"54131c6d0364b0ed8f1ffd93","showType":0,"status":1,"storeLimitEnable":false}],"version":"国庆版本"};
       */ sendGetRequest('shopHomepage/getHomePage',{layoutId:self.layoutId},'','','',function(response){
         var data = Ext.decode(response.responseText);
         self.renderShopPage(data.modules);
@@ -676,10 +726,10 @@ Ext.define('XMLifeOperating.controller.shopConfig', {
                 type = data.type,
                 items = data.items;
 
-            if(!(items && items.length) && type != 'TYPE8' && type != 'TYPE9'){
+            /*if(!(items && items.length) && type != 'TYPE8' && type != 'TYPE9'){
                 Ext.Msg.alert('提示信息','模块 “'+ data.name +'“ 缺少图片，暂无法预览！');
                 return;
-            }
+            }*/
 
             switch (type){
                 case 'TYPE0':
@@ -831,16 +881,27 @@ Ext.define('XMLifeOperating.controller.shopConfig', {
         ShopConfigStore = this.getShopConfigStore();
         ShopConfigStore.load({
           params : {
-            shopId : ShopId || self.currentShopId
+            shopId : ShopId || self.shopId
           }
         })
+    },
+    loadCopyModuleStore : function(layoutId){
+      var self = this,
+        ShopCopyModuleStore = this.getShopCopyModuleStore();
+        ShopCopyModuleStore.load({
+          params : {
+            layoutId : layoutId,
+            shopId : self.shopId
+          }
+        });
     },
     loadModuleVersionStore : function(layoutId){
       var self = this,
         ShopModulesStore = this.getShopModulesStore();
         ShopModulesStore.load({
           params : {
-            layoutId : layoutId || self.layoutId
+            layoutId : layoutId || self.layoutId,
+            shopId : self.shopId
           }
         });
 
@@ -849,17 +910,18 @@ Ext.define('XMLifeOperating.controller.shopConfig', {
       var self = this,
           ShopModuleDetail = this.getShopModuleDetail(),
           deleteBts = ShopModuleDetail.down('#delete'),
-          ShopModulesItemStore = this.getShopModulesItemStore()
+          ShopModulesItemStore = this.getShopModulesItemStore();
           ShopModulesItemStore.load({
             params : {moduleId : this.moduleId}
           });
-          if(self.moduleDelete){
-            ShopModulesItemStore.on('load',function(records){
-              records.each(function(record){
-                record.set('delete',true);
-              });
-              ShopModuleDetail.reconfigure(records);
-            })
+          if(!self.moduleDelete){
+            ShopModulesItemStore.on('load',function(){
+              this.down('#delete').hide();
+            },ShopModuleDetail)
+        }else{
+          ShopModulesItemStore.on('load',function(){
+              this.down('#delete').show();
+          },ShopModuleDetail)
         }
     },
     processModuleItemData : function(form){
@@ -888,7 +950,19 @@ Ext.define('XMLifeOperating.controller.shopConfig', {
             button.setDisabled(false)
          }, this);
 
+    },
+     getItemSize: function(type, index) {
+        var sizes = {
+            'TYPE0': ['640x320'],
+            'TYPE1': ['326x360','180x180','180x180','180x180','180x180'],
+            'TYPE2': ['326x360','360x180','360x180'],
+            'TYPE3': ['240x228','240x228','240x228'],
+            'TYPE4': ['480x228','240x228'],
+            'TYPE5': ['240x228','480x228'],
+            'TYPE6': ['676x180'],
+            'TYPE7': ['326x180','326x180']
+        }
+        return sizes[type][index];
     }
-
     
 });
