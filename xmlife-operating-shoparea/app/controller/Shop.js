@@ -1499,17 +1499,17 @@ Ext.define('XMLifeOperating.controller.Shop', {
                             });
                         }
                         switch (status) {
-                            case 0://上架
-                            url.push('/online');
+                            case 0: //上架
+                                url.push('/online');
                                 break;
-                            case 1://雪藏
-                            url.push('/offline');
+                            case 1: //雪藏
+                                url.push('/offline');
                                 break;
-                            case 2://废弃
-                            url.push('/remove');
+                            case 2: //废弃
+                                url.push('/remove');
                                 break;
-                            case 3://下架
-                            url.push('/soldout');
+                            case 3: //下架
+                                url.push('/soldout');
                                 break;
 
                         }
@@ -2266,8 +2266,14 @@ Ext.define('XMLifeOperating.controller.Shop', {
             windowEl = editWindow.getEl(),
             form = editWindow.down('form').getForm(),
             me = this;
-        var inputs = form.updateRecord().getRecord().data;
-
+        var inputs = form.getValues();
+        var data = {
+            id: null,
+            bannerIds: [],
+            bannerUrls: [],
+            titles: []
+        }
+        inputs.id = form.getRecord().get('id');
         if (inputs.id != null) { //修改
             if (inputs.image == '') {
                 Ext.MessageBox.show({
@@ -2279,12 +2285,6 @@ Ext.define('XMLifeOperating.controller.Shop', {
                 return
             }
             var editBannerId = inputs.id;
-            var data = {
-                id: null,
-                bannerIds: [],
-                bannerUrls: [],
-                titles: []
-            }
             var allbaners = this.getShopBannerTemplateStore().data.items;
             var hash = inputs.image;
             this.getShopBannerTemplateStore().each(function(e) {
@@ -2299,17 +2299,10 @@ Ext.define('XMLifeOperating.controller.Shop', {
                 }
             });
             data.id = me.shopId;
-
         } else { //添加
-            var data = {
-                id: null,
-                bannerIds: [],
-                bannerUrls: [],
-                titles: []
-            }
+
             var allbaners = this.getShopBannerTemplateStore().data.items;
             var hash = inputs.image;
-
             this.getShopBannerTemplateStore().each(function(e) {
                 data.bannerIds.push(e.getId());
                 data.bannerUrls.push(e.data.url);
