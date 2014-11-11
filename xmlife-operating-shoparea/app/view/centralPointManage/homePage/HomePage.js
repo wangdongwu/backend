@@ -79,8 +79,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.homePage.HomePage', {
           },'-',{
               xtype: 'button',
               text: '从成品添加',
-              itemId: 'copyModule',
-              hidden: true
+              itemId: 'copyModule'
           }
         ],
         columns: [
@@ -138,7 +137,8 @@ Ext.define('XMLifeOperating.view.centralPointManage.homePage.HomePage', {
       bbar: ['->',{
             xtype: 'button',
             text: '新建小积木',
-            itemId: 'addModuleItem'
+            itemId: 'addModuleItem',
+            disabled: true
       }, {
             xtype: 'button',
             text: '刷新预览',

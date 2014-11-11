@@ -15,7 +15,8 @@ Ext.define('XMLifeOperating.view.centralPointManage.homePage.ModuleCopy', {
         bodyPadding: 15,
         items: [{
             xtype: 'combo',
-            itemId: 'comboVersion',
+            name: 'layoutId',
+            itemId: 'versionCombo',
             fieldLabel: '版本',
             labelWidth: 55,
             labelAlign: 'center',
@@ -27,11 +28,12 @@ Ext.define('XMLifeOperating.view.centralPointManage.homePage.ModuleCopy', {
             allowBlank: false
         }, {
             xtype: 'combo',
-            itemId: 'comboModule',
+            name: 'moduleId',
+            itemId: 'moduleCombo',
             fieldLabel: '积木',
             labelWidth: 55,
             labelAlign: 'center',
-            store: 'HomePageModuleList',
+            store: 'HomePageModuleCopy',
             queryMode: 'local',
             displayField: 'name',
             valueField: 'id',

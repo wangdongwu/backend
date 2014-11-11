@@ -10,8 +10,8 @@ Ext.define('XMLifeOperating.controller.HomePage', {
     ],
 
     stores: [
-        'HomePage', 'HomePageModuleList', 'HomePageModuleDetail', 'HomePagePreview', 'HomePageUrlType',
-        'HomePageShop', 'HomePageCategory', 'HomePageLeafCategory', 'HomePageProduct'
+        'HomePage', 'HomePageModuleList', 'HomePageModuleCopy', 'HomePageModuleDetail', 'HomePagePreview',
+        'HomePageUrlType', 'HomePageShop', 'HomePageCategory', 'HomePageLeafCategory', 'HomePageProduct'
     ],
 
 	models: ['HomePage'],
@@ -42,7 +42,7 @@ Ext.define('XMLifeOperating.controller.HomePage', {
         var me = this;
         this.layoutId = '';
         this.moduleId = '';
-        this.isBanner = false;
+        this.moduleType = '';
 
 		this.control({
             // 加载版本列表，并自动选择
@@ -144,6 +144,8 @@ Ext.define('XMLifeOperating.controller.HomePage', {
                         layoutId: this.layoutId
                     }
                     store.load();
+                    //灰掉新建小积木
+                    this.getHomePage().down('#addModuleItem').setDisabled(true);
                 },
                 edit: function(editor, e) {
                     var record = e.record;
@@ -161,14 +163,16 @@ Ext.define('XMLifeOperating.controller.HomePage', {
             'homePage #moduleList': {
                 selectionchange: function(model, selected) {
                     if(selected.length == 0) return;
+                    
+                    //保存当前大积木全局属性
                     var record = selected[0].data;
-                    //保存当前积木id
                     this.moduleId = record.id;
-                    this.isBanner = record.type == 'TYPE0' ? true : false;
+                    this.moduleType = record.type;
+                    //共享全局变量，供小积木列表删除按钮状态判断用
+                    XMLifeOperating.generic.Global.isBanner = this.moduleType == 'TYPE0' ? true : false;
 
-                    XMLifeOperating.generic.Global.isBanner = this.isBanner;
                     //只当banner才需要新建
-                    this.getHomePage().down('#addModuleItem').setDisabled(!this.isBanner);
+                    this.getHomePage().down('#addModuleItem').setDisabled(!XMLifeOperating.generic.Global.isBanner);
 
                     var store = this.getHomePageModuleDetailStore();
                     store.getProxy().extraParams = {
@@ -240,6 +244,34 @@ Ext.define('XMLifeOperating.controller.HomePage', {
                     win.show();
                 }
             },
+            // 动态显示已有大积木
+            'moduleCopy #versionCombo': {
+                select: function(combo) {
+                    var layoutId = combo.getValue();
+                    var store = this.getHomePageModuleCopyStore();
+                    store.load({
+                        params: {layoutId: layoutId}
+                    });
+                }
+            },
+            // 保存copy
+            'moduleCopy #save': {
+                click: function() {
+                    var win = this.getModuleCopy(),
+                        form = win.down('form'),
+                        values = form.getValues();
+
+                    if (form.isValid()) {
+                        sendRequest('homepage/copyModule', {
+                            layoutId: this.layoutId,
+                             moduleId: values.moduleId
+                        }, '拷贝大积木', '拷贝大积木成功', '拷贝大积木失败', function() {
+                            me.getHomePageModuleListStore().load();
+                            win.close();
+                        });
+                    }
+                }
+            },
             // 删除大积木
             'homePage #delModule': {
                 click: function(view, rowIndex, colIndex, column, e) {
@@ -268,32 +300,37 @@ Ext.define('XMLifeOperating.controller.HomePage', {
                     var win =  this.getModuleDetailEdit();
                     win.show();
 
+                    //显示图片大小提示
+                    var size = this.getItemSize(this.moduleType, 0);
+                    win.down('#picSizeTip').setText('（提示：尺寸'+ size +'，大小100K以内）');
+
                     var store = this.getHomePageModuleDetailStore();
                     if(store.length >= 5) {
                         this.setDisabled(true);
                     }
                 }
             },
-            // 操作小积木
+            // 编辑、删除小积木
             'homePage #editModuleItem': {
-                click: function(view, rowIndex, colIndex, column, e) {
+                click: function(view, item, rowIndex, colIndex, e) {
                     var record = view.getRecord(view.findTargetByEvent(e)),
-                        actionType = e.target.getAttribute('class').indexOf('action-edit') >=0 ? 'edit' : 'del';
+                        targetClass = e.target.getAttribute('class');
 
                     // 编辑
-                    if (actionType == 'edit') {
+                    if (targetClass.indexOf('action-edit') >=0) {
                         var win =  this.getModuleDetailEdit(),
                             form = win.down('form').getForm();
                         form.loadRecord(record);
-
                         //初始化选择及下拉状态
                         var urlTypeCombo = win.down('combo[name=urlType]');
                         urlTypeCombo.fireEvent('select',urlTypeCombo);
-
+                        //显示图片大小提示
+                        var size = this.getItemSize(this.moduleType, rowIndex);
+                        win.down('#picSizeTip').setText('（提示：尺寸'+ size +'，大小100K以内）');
                         win.show();
 
                     // 删除
-                    } else if (actionType == 'del') {
+                    } else if (targetClass.indexOf('action-del') >=0) {
                         Ext.MessageBox.confirm('确认删除', 
                             Ext.String.format("确定删除小积木 '{0}' 吗？", record.get('name')),
                             function(result) {
@@ -446,14 +483,14 @@ Ext.define('XMLifeOperating.controller.HomePage', {
 	},
     getItemSize: function(type, index) {
         var sizes = {
-            'TYPE0': ['676x320'],
+            'TYPE0': ['640x320'],
             'TYPE1': ['326x360','180x180','180x180','180x180','180x180'],
             'TYPE2': ['326x360','360x180','360x180'],
             'TYPE3': ['240x228','240x228','240x228'],
             'TYPE4': ['480x228','240x228'],
             'TYPE5': ['240x228','480x228'],
             'TYPE6': ['676x180'],
-            'TYPE7': ['326x180','676x180']
+            'TYPE7': ['326x180','326x180']
         }
         return sizes[type][index];
     },

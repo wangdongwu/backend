@@ -25,11 +25,17 @@ Ext.define('XMLifeOperating.view.centralPointManage.homePage.ModuleDetailEdit', 
             labelWidth: 60,
             labelAlign: 'right'
         }, {
+            xtype: 'label',
+            text: '（提示: 多个titles之间用;号隔开）',
+            width: '100%',
+            style: 'padding-left:58px;color:#999;text-align:left;'
+        }, {
             xtype: 'textfield',
             name: 'titles',
             fieldLabel: 'titles',
             labelWidth: 60,
             labelAlign: 'right'
+
         }, {
             xtype: 'combo',
             name: 'urlType',
@@ -94,6 +100,11 @@ Ext.define('XMLifeOperating.view.centralPointManage.homePage.ModuleDetailEdit', 
             labelAlign: 'right',
             //allowBlank: false,
             hidden: true
+        }, {
+            xtype: 'label',
+            itemId: 'picSizeTip',
+            width: '100%',
+            style: 'padding-left:58px;color:rgb(255, 68, 0);text-align:left;'
         }, {
             xtype: 'fieldset',
             layout: 'column',

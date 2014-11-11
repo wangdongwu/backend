@@ -6,7 +6,7 @@ Ext.define('XMLifeOperating.store.Navigation', {
     autoSync: false,
     autoLoad: false,
     root: {
-    	expanded: false,
+    	expanded: true,
     	children: [
 		    // {
 		    //     "id": "shoplist",
