@@ -233,7 +233,8 @@ Ext.define('XMLifeOperating.controller.CouponSend', {
             method: 'PUT',
             params: data,
             success: function () {
-              Ext.Msg.alert("success", 'success');
+              button.up('window').close();
+              self.getCouponSendRuleShoppingStore().load();
             }
           })
 
