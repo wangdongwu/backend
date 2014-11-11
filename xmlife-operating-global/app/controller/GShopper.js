@@ -139,7 +139,7 @@ Ext.define('XMLifeOperating.controller.GShopper', {
                     } else if (activeBindText == '查看未绑定的买手') {
                         activeBindText = '查看已绑定的买手';
                         isUnbind = true;
-                        Ext.getCmp('gShopperList').down('#shopArea').setValue('')
+                        Ext.getCmp('gShopperList').down('#shopArea').setValue('');
                     }
                     var store = this.getShopperStore();
                     store.getProxy().extraParams = {
@@ -149,7 +149,6 @@ Ext.define('XMLifeOperating.controller.GShopper', {
                     store.on('load', function() {
                         Ext.getCmp('gShopperList').down('#activeBind').setText(activeBindText);
                         Ext.getCmp('gShopperList').down('#activeSearch').setText('查看停单买手');
-                        /*isUnbind? Ext.getCmp('gShopperList').down('#shopArea').setValue(''):*/
                         me.getGShopperList().down('#searchBuyerKeyWords').setValue('');
                     });
                 }

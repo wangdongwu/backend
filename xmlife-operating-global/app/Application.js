@@ -43,7 +43,10 @@ Ext.define('XMLifeOperating.Application', {
         'AlipayRefund',
         'OnlineCardManage',
         'Message',
-        'BatchOperation'
+        'BatchOperation',
+        'Coupon',
+        'CardGroup',
+        'CouponSend'
         ],
 
     stores: [
@@ -63,7 +66,14 @@ Ext.define('XMLifeOperating.Application', {
         'DealItems',
         'Feedback',
         'FeedbackStatus',
-        'Message'
+        'Message',
+        'Coupon',
+        'CardGroup',
+        'CouponSendRuleDirect',
+        'CouponSendRuleShopping',
+        'CouponSendRuleUrl',
+        'CouponSendRuleRegister',
+        'CouponSend'
         ],
 
     launch: function() {
