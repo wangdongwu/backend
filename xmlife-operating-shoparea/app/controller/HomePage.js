@@ -195,7 +195,7 @@ Ext.define('XMLifeOperating.controller.HomePage', {
             // 大积木排序
             'homePage #moduleList dataview': {
                 beforedrop: function(node, data, dropRec, dropPosition) {
-                  if(dropRec.index == 0 || data.records[0].type == 'TYPE0') return false;
+                    if(dropRec.index == 0 || data.records[0].type == 'TYPE0') return false;
                 },
                 drop: function(node, data, dropRec, dropPosition) {
                     var store = this.getHomePageModuleListStore();
@@ -428,7 +428,7 @@ Ext.define('XMLifeOperating.controller.HomePage', {
                     uploadImage(form, textfield);
                 }
             },
-            // 新建/编辑小积木
+            // 保存小积木
             'moduleDetailEdit #save': {
                 click: function() {
                     var win =  this.getModuleDetailEdit(),
@@ -440,7 +440,7 @@ Ext.define('XMLifeOperating.controller.HomePage', {
 
                         values.moduleId = this.moduleId;
 
-                        // 其它几种类型都放置url值传给后端
+                        // 其它几种类型都置于url中传给后端
                         if(this.urlType == 'SHOP') {
                             values.url = values.shopId;
                         } else if(this.urlType == 'CATEGORY') {

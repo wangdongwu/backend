@@ -181,30 +181,33 @@ Ext.define('XMLifeOperating.controller.Message', {
             data.isUpload = isUpload;
 
             var sessionId = localStorage.getItem('sessionId') || '';
-            //linkType 
-            var linkType = win.down('#linkType').getValue();
-            var url = win.down('#linkUrl').getValue();
 
-            if (linkType == 2) { //h5
-                data.linkType = 2;
-                data.url = url;
-            } else if (linkType == 3) { //内部类型
-                data.linkType = 3;
-                var internalType = win.down('#internalType').getValue();
-                if (!internalType) {
-                    Ext.MessageBox.show({
-                        title: '提示',
-                        msg: '请选择功能页',
-                        icon: Ext.Msg.ERROR,
-                        buttons: Ext.Msg.OK
-                    });
-                    return
+            if(msgType == 1) {
+                //linkType 
+                var linkType = win.down('#linkType').getValue();
+                var url = win.down('#linkUrl').getValue();
+
+                if (linkType == 2) { //h5
+                    data.linkType = 2;
+                    data.url = url;
+                } else if (linkType == 3) { //内部类型
+                    data.linkType = 3;
+                    var internalType = win.down('#internalType').getValue();
+                    if (!internalType) {
+                        Ext.MessageBox.show({
+                            title: '提示',
+                            msg: '请选择功能页',
+                            icon: Ext.Msg.ERROR,
+                            buttons: Ext.Msg.OK
+                        });
+                        return
+                    } else {
+                        data.internalType = internalType;
+                    }
+
                 } else {
-                    data.internalType = internalType;
+                    data.linkType = 0;
                 }
-
-            } else {
-                data.linkType = 0;
             }
 
             form.submit({
