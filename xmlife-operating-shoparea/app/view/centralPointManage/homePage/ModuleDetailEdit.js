@@ -63,7 +63,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.homePage.ModuleDetailEdit', 
                 displayField: 'name',
                 valueField: 'id',
                 emptyText: '请选择商铺',
-                width: 175
+                width: 165
             }, {
                 xtype: 'combo',
                 name: 'cid',
@@ -72,7 +72,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.homePage.ModuleDetailEdit', 
                 displayField: 'name',
                 valueField: 'id',
                 emptyText: '请选择货架',
-                width: 115,
+                width: 110,
                 hidden: true
             }, {
                 xtype: 'combo',
@@ -82,7 +82,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.homePage.ModuleDetailEdit', 
                 displayField: 'name',
                 valueField: 'id',
                 emptyText: '请选择SKU',
-                width: 95,
+                width: 110,
                 hidden: true
             }]
         }, {

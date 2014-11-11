@@ -60,7 +60,6 @@ Ext.define('XMLifeOperating.view.centralPointManage.homePage.HomePage', {
               align: 'center'
           }
         ],
-        //selType: 'cellmodel',
         plugins: [{
           ptype: 'cellediting',
           clicksToEdit: 2
@@ -114,7 +113,6 @@ Ext.define('XMLifeOperating.view.centralPointManage.homePage.HomePage', {
               }
           }
         ],
-        //selType: 'cellmodel',
         plugins: [{
           ptype: 'cellediting',
           clicksToEdit: 2

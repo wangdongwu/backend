@@ -363,7 +363,7 @@ Ext.define('XMLifeOperating.controller.HomePage', {
                             win =  this.getModuleDetailEdit(),
                             store = me.getHomePageProductStore();
 
-                        store.load({ params: {id: cid} });
+                        store.load({ params: {categoryId: cid} });
                         win.down('combo[name=pid]').setValue('');
                     }
                 }
@@ -444,6 +444,19 @@ Ext.define('XMLifeOperating.controller.HomePage', {
 		});
 
 	},
+    getItemSize: function(type, index) {
+        var sizes = {
+            'TYPE0': ['676x320'],
+            'TYPE1': ['326x360','180x180','180x180','180x180','180x180'],
+            'TYPE2': ['326x360','360x180','360x180'],
+            'TYPE3': ['240x228','240x228','240x228'],
+            'TYPE4': ['480x228','240x228'],
+            'TYPE5': ['240x228','480x228'],
+            'TYPE6': ['676x180'],
+            'TYPE7': ['326x180','676x180']
+        }
+        return sizes[type][index];
+    },
     renderHomePage: function(records) {
         if(!records || records.length == 0) return;
         
