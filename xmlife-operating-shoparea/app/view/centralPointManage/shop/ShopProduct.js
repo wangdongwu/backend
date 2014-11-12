@@ -143,7 +143,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopProduct', {
             })
         }),
         renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
-           debugger
+
             var me = this,
                 editor = me.down('#putawayOrOut').getEditor(),
                 store = editor.getStore(),
