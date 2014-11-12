@@ -172,7 +172,7 @@ Ext.define('XMLifeOperating.controller.shopConfig', {
               change : self.versionSelect
             },
             'CopyModule #ShopSelect':{
-              change : self.ShopSelect
+              change : self.ShopCopySelect
             },
             'CopyModule #subCopy' :{
               click : self.subCopy
@@ -185,7 +185,7 @@ Ext.define('XMLifeOperating.controller.shopConfig', {
             }*/
         });
     },
-    ShopSelect : function(panel,newValue){
+    ShopCopySelect : function(panel,newValue){
       this.getShopCopyVersionStore().load({
         params :{
           shopId : newValue
@@ -216,6 +216,9 @@ Ext.define('XMLifeOperating.controller.shopConfig', {
     ,
     switchArea : function(){
       this.areaId = XMLifeOperating.generic.Global.current_operating;
+      this.getShopConfigStore().loadData([]);
+      this.getShopModulesStore().loadData([]);
+      this.getShopModulesItemStore().loadData([]);
       this.getInitData();
     },
     getInitData : function(){
@@ -234,6 +237,7 @@ Ext.define('XMLifeOperating.controller.shopConfig', {
     switchShop : function(panel,shopId){
         this.shopId = shopId;
         this.loadShopVersionStore(shopId);
+        this.getShopModulesStore().loadData([]);
     },
     /**
      * [subNewVersion 添加新版本]

@@ -11,7 +11,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.shopConfig.ShopModuleList', 
     text: '新建积木',
     disabled : true,
     itemId : 'addModule'
-  },{
+  },'->',{
     xtype: 'button',
     text: '从成品添加',
     disabled : true,

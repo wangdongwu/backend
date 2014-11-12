@@ -19,6 +19,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.shopConfig.ShopModuleDetail'
         text: '新建小积木',
         disabled : true
     },
+    '->',
     {
         itemId : 'refreshPriview',
         xtype : 'button',
