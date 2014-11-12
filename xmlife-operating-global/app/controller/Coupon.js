@@ -200,9 +200,13 @@ Ext.define('XMLifeOperating.controller.Coupon', {
     onCouponEditStep1:function(){
         //var cClass = me.getShopBannerTemplateModel();
         //var template = new cClass();
-        var win = this.getCouponEditStep1();
+        var winStep1 = this.getCouponEditStep1();
         //win.down('form').loadRecord(template);
-        win.show();
+        winStep1.show();
+        this.cleanWin();
+
+
+
     },
     onCouponEditStep1Next:function(){
         var editWindow = this.getCouponEditStep1(),
@@ -210,7 +214,7 @@ Ext.define('XMLifeOperating.controller.Coupon', {
             form = editWindow.down('form').getForm(),
             self = this;
             // debugger
-        if (form.isValid()) {
+        // if (form.isValid()) {
             /*var name = editWindow.down('[name=name]').getValue(),
                 desc = editWindow.down('[name=desc]').getValue(),
                 type = editWindow.down('[name=type]').getValue(),
@@ -235,10 +239,10 @@ Ext.define('XMLifeOperating.controller.Coupon', {
 
 
 
-        }else {
-            Ext.Msg.alert('Invalid Data', 'Please correct form errors');
-            return;
-        }
+        // }else {
+        //     Ext.Msg.alert('Invalid Data', 'Please correct form errors');
+        //     return;
+        // }
 
 
 
@@ -508,7 +512,7 @@ Ext.define('XMLifeOperating.controller.Coupon', {
         cities=s.substring(0,s.length-1);
         this.cities = cities;
         var store = Ext.create('XMLifeOperating.store.ShopCityShops', {
-            autoSync: true
+            autoSync: false
         });
         self.getGainShopId().bindStore(store,false);
         store.getProxy().extraParams = {
@@ -626,7 +630,7 @@ Ext.define('XMLifeOperating.controller.Coupon', {
         var selectModel = Ext.ComponentQuery.query('#searchGoodsShelfList')[0].getSelectionModel();
         var selectRecords = selectModel.getSelection();
         var categoryShopNameStore = Ext.create('XMLifeOperating.store.CategoryShopName', {
-                        autoSync: true
+                        autoSync: false
                     });
         self.getGainGoodsShelfId().bindStore(categoryShopNameStore, false);
         for(var j=0; j< selectRecords.length; j++){
@@ -706,7 +710,7 @@ Ext.define('XMLifeOperating.controller.Coupon', {
 
         winSkuEdit.show();
         var store = Ext.create('XMLifeOperating.store.ProductSkuPids', {
-                        autoSync: true
+                        autoSync: false
                     });
         // var store = self.getProductSkuPidsStore;
         store.load({
@@ -734,7 +738,7 @@ Ext.define('XMLifeOperating.controller.Coupon', {
         var selectModel = Ext.ComponentQuery.query('#searchSkuList')[0].getSelectionModel();
         var selectRecords = selectModel.getSelection();
         var productSkuPidsStore = Ext.create('XMLifeOperating.store.ProductSkuPids', {
-                        autoSync: true
+                        autoSync: false
                     });
         self.getGainTemplatesSkuId().bindStore(productSkuPidsStore, false);
 
@@ -781,9 +785,6 @@ Ext.define('XMLifeOperating.controller.Coupon', {
 
 
         }
-        console.log(productSkuPidsStoreArray);
-        console.log(productSkuPidsStore);
-
 
 
 
@@ -918,7 +919,42 @@ Ext.define('XMLifeOperating.controller.Coupon', {
                                 winStep2.close();
                                 winStep3.close();
                                 self.rendenCouponList(self.getCouponList());
+                                self.cleanWin();
                             });
+    },
+    cleanWin:function(){
+        var self = this,
+            winStep1 = self.getCouponEditStep1(),
+            winStep2 = self.getCouponEditStep2(),
+            winStep3 = self.getCouponEditStep3();
+        winStep1.down('[name=name]').setValue('');
+        winStep1.down('[name=desc]').setValue('');
+        winStep1.down('[name=type]').setValue('');
+        winStep1.down('[name=benchMark]').setValue('');
+        winStep1.down('[name=discountValue]').setValue('');
+        winStep1.down('[name=value]').setValue('');
+        winStep1.down('[name=maxDiscount]').setValue('');
+        winStep1.down('[name=isNew]').setValue('');
+        winStep1.down('[name=maxCouponNumHold]').setValue('');
+        winStep1.down('[name=expireStartDate]').setValue('');
+        winStep1.down('[name=expireEndDate]').setValue('');
+        winStep1.down('[name=delayUseStartHours]').setValue('');
+        winStep1.down('[name=delayUseEndHours]').setValue('');
+        winStep1.down('[name=globalCouponNum]').setValue('');
+        winStep1.down('[name=globalDailyCouponNum]').setValue('');
+        winStep1.down('[name=globalUserCouponNumHold]').setValue('');
+        winStep1.down('[name=userDailyCouponNumHold]').setValue('');
+
+        winStep2.down('[name=bindingType]').setValue('');
+        winStep2.down('[name=keywordShop]').setValue('');
+        self.getGainShopId().store.removeAll();
+        winStep2.down('[name=keywordGoodsShelf]').setValue('');
+        self.getGainGoodsShelfId().store.removeAll();
+        winStep2.down('[name=keywordTemplates]').setValue('');
+        self.getGainTemplatesSkuId().store.removeAll();
+
+        winStep3.down('[name=channel]').setValue(false);
+
     }
 
 });

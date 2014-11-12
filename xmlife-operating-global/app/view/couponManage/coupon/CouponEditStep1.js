@@ -211,7 +211,8 @@ Ext.define('XMLifeOperating.view.couponManage.coupon.CouponEditStep1', {
                                 //maxValue: new Date(),
                                 value: new Date(),
                                 format : 'Y-m-d',
-                                width:100
+                                width:100,
+                                allowBlank: false,
                             },{
                                 xtype: 'displayfield',
                                 value: '到',
@@ -223,7 +224,8 @@ Ext.define('XMLifeOperating.view.couponManage.coupon.CouponEditStep1', {
                                 //maxValue: new Date(),
                                 value: new Date(),
                                 format : 'Y-m-d',
-                                width:100
+                                width:100,
+                                allowBlank: false,
 
                             }]
                 },{
@@ -238,16 +240,22 @@ Ext.define('XMLifeOperating.view.couponManage.coupon.CouponEditStep1', {
                                 name: 'delayUseStartHours',
                                 width: 120,
                                 labelWidth: 60,
-                                allowBlank: false,
+                            },{
+                                xtype: 'displayfield',
+                                value: '小时',
+                                style: 'margin:0 5px'
                             },{
                                 xtype: 'textfield',
                                 fieldLabel:'到获得后',
                                 name: 'delayUseEndHours',
                                 width: 120,
                                 labelWidth: 60,
-                                allowBlank: false,
                                 style: 'margin-left:10px;',
-                            },]
+                            },{
+                                xtype: 'displayfield',
+                                value: '小时',
+                                style: 'margin:0 5px'
+                            }]
                 },{
                     xtype: 'container',
                     layout: 'column',

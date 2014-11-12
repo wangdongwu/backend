@@ -57,7 +57,15 @@ Ext.define('XMLifeOperating.view.centralPointManage.homePage.HomePage', {
               tooltip: '删除',
               icon: 'resources/images/delete.png',
               width: 45,
-              align: 'center'
+              align: 'center',
+              renderer: function(value, meta, record, rowIndex, colIndex, store, view) {
+                if(record.get('enable')) meta.style = 'display:none;';
+              },
+              listeners: {
+                click: function(view, meta, rowIndex, colIndex, e, record) {
+                  if(record.get('enable')) return false;
+                }
+              }
           }
         ],
         plugins: [{
@@ -112,10 +120,12 @@ Ext.define('XMLifeOperating.view.centralPointManage.homePage.HomePage', {
               icon: 'resources/images/delete.png',
               width: 45,
               align: 'center',
-              getClass:function(v, meta, record, rIndex, cIndex, store){
-                if (record.get('order') == 0) {
-                  meta.style = 'display:none;';
-                  //view.disable();
+              renderer:function(value, meta, record, rowIndex, colIndex, store, view){
+                if (record.get('type') == 'TYPE0') meta.style = 'display:none;';
+              },
+              listeners: {
+                click: function(view, meta, rowIndex, colIndex, e, record) {
+                  if (record.get('type') == 'TYPE0') return false;
                 }
               }
           }
