@@ -481,6 +481,7 @@ Ext.define('XMLifeOperating.controller.GShopper', {
         win.down('form').loadRecord(record);
         win.down('[name=onlineTime]').setValue(onlineTime);
         win.down('[name=offlineTime]').setValue(offlineTime);
+        win.down('[name=pwd]').setValue('');
         win.show();
     },
     saveEditWindow: function() {
@@ -497,7 +498,8 @@ Ext.define('XMLifeOperating.controller.GShopper', {
 
             shopper.set('onlineTime', (shopper.get('onlineTime').getHours() * 60 + shopper.get('onlineTime').getMinutes()));
             shopper.set('offlineTime', (shopper.get('offlineTime').getHours() * 60 + shopper.get('offlineTime').getMinutes()));
-            shopper.set('pwd', hex_md5(shopper.get('pwd')));
+            var pwd = editWindow.down('[name=pwd]').getValue();
+            shopper.set('pwd', hex_md5(pwd));
 
 
             if (shopper.get('id') != null && shopper.get('id') != '' && shopper.get('id') != undefined) {

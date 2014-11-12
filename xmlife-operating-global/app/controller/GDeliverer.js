@@ -461,6 +461,7 @@ Ext.define('XMLifeOperating.controller.GDeliverer', {
         win.down('form').loadRecord(record);
         win.down('[name=onlineTime]').setValue(onlineTime);
         win.down('[name=offlineTime]').setValue(offlineTime);
+        win.down('[name=pwd]').setValue('');
         win.show();
     },
     saveEditWindow: function() {
@@ -476,7 +477,8 @@ Ext.define('XMLifeOperating.controller.GDeliverer', {
 
             deliverer.set('onlineTime', (deliverer.get('onlineTime').getHours() * 60 + deliverer.get('onlineTime').getMinutes()));
             deliverer.set('offlineTime', (deliverer.get('offlineTime').getHours() * 60 + deliverer.get('offlineTime').getMinutes()));
-            deliverer.set('pwd', hex_md5(deliverer.get('pwd')));
+            var pwd = editWindow.down('[name=pwd]').getValue();
+            deliverer.set('pwd', hex_md5(pwd));
 
             if (deliverer.get('id') != null && deliverer.get('id') != '') {
                 var url = 'deliverer/' + deliverer.get('uid')
