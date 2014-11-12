@@ -881,7 +881,8 @@ Ext.define('XMLifeOperating.controller.shopConfig', {
     },
     skuSelect : function(combo) {
         if(this.urlType == 'SKU') {
-            var cid = combo.getValue(),
+            var self = this,
+                cid = combo.getValue(),
                 win =  this.getAddModuleItem(),
                 store = self.getHomePageProductStore();
 
