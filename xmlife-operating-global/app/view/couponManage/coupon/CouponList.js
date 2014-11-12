@@ -85,18 +85,32 @@ Ext.define('XMLifeOperating.view.couponManage.coupon.CouponList', {
             width: 60,
             sortable: false,
             align: 'left',
+            renderer: function (v) {
+                var date = new Date(v);
+                return date.getFullYear() + "." + (date.getMonth() + 1) + "." + date.getDate()
+            }
         }, {
             text: '结束日期',
             dataIndex: 'expireEndDate',
             width: 60,
             sortable: false,
-            align: 'left'
+            align: 'left',
+            renderer: function (v) {
+                var date = new Date(v);
+                return date.getFullYear() + "." + (date.getMonth() + 1) + "." + date.getDate()
+            }
+
         }, {
             text: '创建日期',
             dataIndex: 'gmtCreate',
             width: 60,
             sortable: false,
-            align: 'left'
+            align: 'left',
+            renderer: function (v) {
+                var date = new Date(v);
+                var str = date.getFullYear() + "." + (date.getMonth() + 1) + "." + date.getDate();
+                return str;
+            }
         }, {
             text: '创建者',
             dataIndex: 'createrName',

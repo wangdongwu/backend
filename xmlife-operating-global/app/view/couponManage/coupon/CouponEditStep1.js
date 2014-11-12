@@ -209,7 +209,8 @@ Ext.define('XMLifeOperating.view.couponManage.coupon.CouponEditStep1', {
                                 emptyText : '开始时间',
                                 //maxValue: new Date(),
                                 value: new Date(),
-                                format : 'Y-m-d'
+                                format : 'Y-m-d',
+                                width:100
                             },{
                                 xtype: 'displayfield',
                                 value: '到',
@@ -220,7 +221,9 @@ Ext.define('XMLifeOperating.view.couponManage.coupon.CouponEditStep1', {
                                 emptyText : '结束时间',
                                 //maxValue: new Date(),
                                 value: new Date(),
-                                format : 'Y-m-d'
+                                format : 'Y-m-d',
+                                width:100
+
                             }]
                 },{
                     xtype: 'displayfield',
@@ -232,8 +235,8 @@ Ext.define('XMLifeOperating.view.couponManage.coupon.CouponEditStep1', {
                                 xtype: 'textfield',
                                 fieldLabel:'获得后',
                                 name: 'delayUseStartHours',
-                                width: 100,
-                                labelWidth: 40,
+                                width: 120,
+                                labelWidth: 60,
                                 allowBlank: false,
                             },{
                                 xtype: 'textfield',
