@@ -893,6 +893,24 @@ Ext.define('XMLifeOperating.controller.Shop', {
                     }
                     if (url) {
                         var success = function(response) {
+
+                            var json = eval('(' + response.responseText + ')');
+                            if (json.success == false) {
+                                var items = json.items,
+                                    len = items.length;
+                                var nameStr = [];
+                                for (var i = 0; i < len; i++) {
+                                    var item = items[i];
+                                    nameStr.push(item.name.join('') + '(' + item.skuId + ');');
+                                }
+                                nameStr.push('还存在于其它分类，无法设置状态')
+                                Ext.MessageBox.show({
+                                    title: '提示',
+                                    msg: nameStr.join('<br/>'),
+                                    icon: Ext.Msg.ERROR,
+                                    buttons: Ext.Msg.OK
+                                });
+                            }
                             me.showCategoryRootsList(shopId);
                         }
                         var failure = function(response) {
@@ -1064,12 +1082,30 @@ Ext.define('XMLifeOperating.controller.Shop', {
                     }
                     if (url) {
                         var success = function(response) {
+                            var json = eval('(' + response.responseText + ')');
+                            if (json.success == false) {
+                                var items = json.items,
+                                    len = items.length;
+                                var nameStr = [];
+                                for (var i = 0; i < len; i++) {
+                                    var item = items[i];
+                                    nameStr.push(item.name.join('') + '(' + item.skuId + ');');
+                                }
+                                nameStr.push('还存在于其它分类，无法设置状态')
+                                Ext.MessageBox.show({
+                                    title: '提示',
+                                    msg: nameStr.join('<br/>'),
+                                    buttons: Ext.Msg.OK
+                                });
+                            }
                             me.showCategorySubsList(shopId, parentId);
+
                         }
                         var failure = function(response) {
                             Ext.MessageBox.show({
                                 title: '提示',
                                 msg: '货架状态操作失败！',
+                                textAlign: 'left',
                                 icon: Ext.Msg.ERROR,
                                 buttons: Ext.Msg.OK
                             });
@@ -1441,7 +1477,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
                     var rec = row.record;
                     var value = row.value;
                     var field = e.context.field;
-                
+
                     if (field == 'status') {
                         var url = 'product/opt',
                             status = value,

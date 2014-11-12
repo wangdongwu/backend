@@ -128,7 +128,6 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopShelf', {
             var record = model,
                 isLeaf = record.get('leaf');
             var returnStr = '';
-
             if (value == 0) { //隐藏
                 if (isLeaf) {
                     returnStr = '<button>显示</button>';
@@ -145,77 +144,77 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopShelf', {
                 }
             }
             return returnStr;
-        }
+        },
+        tdCls: 'user-td'
     }],
-dockedItems: [{
-    xtype: 'toolbar',
-    dock: 'top',
-    style: {
-        border: 'none'
-    },
-    items: [{
-        text: '添加货架',
-        itemId: 'openCreateShelvesWin'
-    }, {
-        xtype: 'button',
-        text: '状态查看',
-        menu: {
-            xtype: 'menu',
-            items: [{
-                text: '所有下架商品',
-                itemId: 'viewAllSoldOutProduct'
-            }, {
-                text: '所有上架商品',
-                itemId: 'viewAllOnlineProduct'
-            }, {
+    dockedItems: [{
+        xtype: 'toolbar',
+        dock: 'top',
+        style: {
+            border: 'none'
+        },
+        items: [{
+            text: '添加货架',
+            itemId: 'openCreateShelvesWin'
+        }, {
+            xtype: 'button',
+            text: '状态查看',
+            menu: {
+                xtype: 'menu',
+                items: [{
+                    text: '所有下架商品',
+                    itemId: 'viewAllSoldOutProduct'
+                }, {
+                    text: '所有上架商品',
+                    itemId: 'viewAllOnlineProduct'
+                }, {
+                    text: '所有雪藏商品',
+                    itemId: 'viewAllHiddenProduct'
+                }, {
+                    text: '所有废弃商品',
+                    itemId: 'viewAllAbandonedProduct'
+                }]
+            }
+        }, {
+            xtype: 'button',
+            text: '保存排序',
+            itemId: 'saveShelvesOrder'
+        }, {
+            xtype: 'button',
+            text: '返回',
+            itemId: 'returnShopStore'
+        }, '->', {
+            xtype: 'textfield',
+            emptyText: '输入商品名称',
+            name: 'keyword',
+            itemId: 'keyword'
 
-                text: '所有雪藏商品',
-                itemId: 'viewAllHiddenProduct'
-            }, {
-                text: '所有废弃商品',
-                itemId: 'viewAllAbandonedProduct'
-            }]
-        }
+        }, {
+            xtype: 'button',
+            itemId: 'productSearch',
+            text: '搜索',
+        }]
     }, {
-        xtype: 'button',
-        text: '保存排序',
-        itemId: 'saveShelvesOrder'
-    }, {
-        xtype: 'button',
-        text: '返回',
-        itemId: 'returnShopStore'
-    }, '->', {
-        xtype: 'textfield',
-        emptyText: '输入商品名称',
-        name: 'keyword',
-        itemId: 'keyword'
-
-    }, {
-        xtype: 'button',
-        itemId: 'productSearch',
-        text: '搜索',
-    }]
-}, {
-    xtype: 'toolbar',
-    dock: 'bottom',
-    items: [{
-        xtype: 'pagingtoolbar',
-        itemId: 'pagetool',
-        store: 'CategoryRoots',
-        displayInfo: true,
-        style: 'border:none'
-    }]
-}],
-viewConfig: {
-    plugins: {
-        ptype: 'gridviewdragdrop',
-        dragText: 'Drag and drop to reorder'
-    },
-    listeners: {
-        drop: function(node, data, dropRec, dropPosition) {
-            var me = this;
-            //Ext.getCmp('rowIndex').update(this);
+        xtype: 'toolbar',
+        dock: 'bottom',
+        items: [{
+            xtype: 'pagingtoolbar',
+            itemId: 'pagetool',
+            store: 'CategoryRoots',
+            displayInfo: true,
+            style: 'border:none'
+        }]
+    }],
+    viewConfig: {
+        plugins: {
+            ptype: 'gridviewdragdrop',
+            dragText: 'Drag and drop to reorder'
+        },
+        listeners: {
+            drop: function(node, data, dropRec, dropPosition) {
+                var me = this;
+                //Ext.getCmp('rowIndex').update(this);
+            }
         }
     }
-}
 });

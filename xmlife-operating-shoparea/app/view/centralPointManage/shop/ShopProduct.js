@@ -117,7 +117,6 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopProduct', {
         itemId: 'putawayOrOut',
         align: 'center',
         editor: Ext.create('Ext.form.ComboBox', {
-            id:'productstatuscombo',
             displayField: 'name',
             valueField: 'value',
             triggerAction: 'all',
@@ -143,7 +142,6 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopProduct', {
             })
         }),
         renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
-
             var me = this,
                 editor = me.down('#putawayOrOut').getEditor(),
                 store = editor.getStore(),
