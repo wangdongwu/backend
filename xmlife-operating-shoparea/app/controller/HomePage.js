@@ -49,6 +49,9 @@ Ext.define('XMLifeOperating.controller.HomePage', {
 			'homePage': {
                 onShowView: function() {
                     this.areaId = XMLifeOperating.generic.Global.current_operating;
+
+                    this.refreshView('all');
+
                     var store = this.getHomePageStore();
                     store.getProxy().extraParams = {
                         areaId: this.areaId
@@ -111,6 +114,7 @@ Ext.define('XMLifeOperating.controller.HomePage', {
                                 },
                                 '删除版本', '删除版本成功', '删除版本失败', function(response) {
                                     me.getHomePageStore().load();
+                                    me.refreshView('all');
                                 });
                             }
                         }
@@ -144,6 +148,7 @@ Ext.define('XMLifeOperating.controller.HomePage', {
                         layoutId: this.layoutId
                     }
                     store.load();
+                    this.refreshView('detail','preview');
                     //灰掉新建小积木
                     this.getHomePage().down('#addModuleItem').setDisabled(true);
                 },
@@ -288,6 +293,7 @@ Ext.define('XMLifeOperating.controller.HomePage', {
                                 },
                                 '删除大积木', '删除大积木成功', '删除大积木失败', function(response) {
                                     me.getHomePageModuleListStore().load();
+                                    me.refreshView('detail');
                                 });
                             }
                         }
@@ -493,8 +499,26 @@ Ext.define('XMLifeOperating.controller.HomePage', {
 
             }
 		});
-
 	},
+    // 中心、版本切换时，刷新视图
+    refreshView: function(target,view){
+        if(target == 'all' || target == 'list') {
+            this.getHomePageModuleListStore().load({
+                params: {layoutId:''}
+            });
+        }
+        if(target == 'all' || target == 'detail') {
+            this.getHomePageModuleDetailStore().load({
+                params: {moduleId:''}
+            });
+        }
+        if(target == 'all' || view == 'preview') {
+            setTimeout(function() {
+                Ext.get('homePreviewList').setHTML('<p style="text-align:center;">当前暂无预览</p>');
+            },300);
+        }
+    },
+    // 获取各类型大小，以提示
     getItemSize: function(type, index) {
         var sizes = {
             'TYPE0': ['640x320'],
@@ -508,6 +532,7 @@ Ext.define('XMLifeOperating.controller.HomePage', {
         }
         return sizes[type][index];
     },
+    // 渲染预览首页
     renderHomePage: function(records) {
         if(!records || records.length == 0) return;
         
