@@ -29,36 +29,36 @@ Ext.define('XMLifeOperating.controller.CouponSend', {
     'Deliverer'],
   refs: [
     {
-      ref: 'couponSendEditShopping',
-      selector: 'couponSendEditShopping',
-      xtype: 'couponSendEditShopping',
+      ref: 'CouponSendEditShopping',
+      selector: 'CouponSendEditShopping',
+      xtype: 'CouponSendEditShopping',
       autoCreate: true
     },
     {
-      ref: 'couponSendRuleCreateDirect',
+      ref: 'CouponSendRuleCreateDirect',
       xtype: 'CouponSendRuleCreateDirect',
       autoCreate: true
     },
     {
-      ref: 'couponSendEditRegister',
-      selector: 'couponSendEditRegister',
-      xtype: 'couponSendEditRegister',
+      ref: 'CouponSendEditRegister',
+      selector: 'CouponSendEditRegister',
+      xtype: 'CouponSendEditRegister',
       autoCreate: true
     },
     {
-      ref: 'couponSendEditUrl',
-      selector: 'couponSendEditUrl',
-      xtype: 'couponSendEditUrl',
+      ref: 'CouponSendEditUrl',
+      selector: 'CouponSendEditUrl',
+      xtype: 'CouponSendEditUrl',
       autoCreate: true
     },
     {
-      ref: 'couponSendShopSearch',
-      selector: 'couponSendShopSearch',
-      xtype: 'couponSendShopSearch',
+      ref: 'CouponSendShopSearch',
+      selector: 'CouponSendShopSearch',
+      xtype: 'CouponSendShopSearch',
       autoCreate: true
     },
     {
-      ref: 'couponSendRuleUpdateSimple',
+      ref: 'CouponSendRuleUpdateSimple',
       xtype: 'CouponSendRuleUpdateSimple',
       autoCreate: true
     },
@@ -212,7 +212,7 @@ Ext.define('XMLifeOperating.controller.CouponSend', {
           self.getCouponSendRuleDirectStore().load();
         }
       },
-      'couponSendEditShopping #save': {
+      'CouponSendEditShopping #save': {
         click: function (button) {
           var shopList = self.getShopList(),
             selectedShopList = shopList.getSelectionModel().getSelection();
@@ -240,21 +240,21 @@ Ext.define('XMLifeOperating.controller.CouponSend', {
 
         }
       },
-      'couponSendEditUrl #save': {
+      'CouponSendEditUrl #save': {
         click: function (button) {
           self.createSendRuleSimple(5, button);
           button.up('window').close();
           self.getCouponSendRuleUrlStore().load();
         }
       },
-      'couponSendEditRegister #save': {
+      'CouponSendEditRegister #save': {
         click: function (button) {
           self.createSendRuleSimple(3, button);
           button.up('window').close();
           self.getCouponSendRuleRegisterStore().load();
         }
       },
-      'couponSendEditShopping #searchShop': {
+      'CouponSendEditShopping #searchShop': {
         click: function () {
           var store1 = Ext.create('XMLifeOperating.store.Shop', {
             proxy: new XMLifeOperating.generic.BaseProxy('shop/name/filter'),

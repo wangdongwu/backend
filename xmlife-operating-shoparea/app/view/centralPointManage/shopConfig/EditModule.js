@@ -6,7 +6,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.shopConfig.EditModule', {
         'Ext.form.Panel',
         'Ext.form.field.Text'
     ],
-    title: '修改模块名称',
+    title: '修改模块',
     width: 300,
     buttonAlign: 'center',
     items: [{
@@ -26,6 +26,13 @@ Ext.define('XMLifeOperating.view.centralPointManage.shopConfig.EditModule', {
           xtype : 'textfield',
           name : 'name',
           fieldLabel : '模块名字'
+        },{
+          xtype: 'numberfield',
+          itemId : 'position',
+          name: 'position',
+          fieldLabel: '请选择位置',
+          value: 1,
+          minValue: 1
         }],
         buttons: [{
             xtype: 'button',

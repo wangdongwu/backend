@@ -1,7 +1,7 @@
 Ext.define('XMLifeOperating.view.couponManage.couponSend.CouponSendEditUrl', {
   extend: 'Ext.window.Window',
-  xtype: 'couponSendEditUrl',
-  alias: 'widget.couponSendEditUrl',
+  xtype: 'CouponSendEditUrl',
+  alias: 'widget.CouponSendEditUrl',
 
   requires: [
     'Ext.form.Panel',

@@ -26,6 +26,10 @@ Ext.define('XMLifeOperating.model.shopModules', {
     type: 'string'
   },
   {
+    name : 'typeCopy',
+    mapping : 'type'
+  },
+  {
     name: 'type',
     type: 'string',
     convert : function(v){

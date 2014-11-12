@@ -14,6 +14,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.shopConfig.ShopConfigManage'
         itemId : 'shopList',
         xtype : 'combo',
         fieldLabel: '选择店铺',
+        emptyText : '选择店铺',
         store: 'Shop',
         queryMode: 'local',
         displayField: 'name',

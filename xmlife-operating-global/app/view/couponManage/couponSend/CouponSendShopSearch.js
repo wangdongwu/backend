@@ -1,6 +1,6 @@
 Ext.define('XMLifeOperating.view.couponManage.couponSend.CouponSendShopSearch', {
     extend: 'Ext.window.Window',
-    xtype: 'couponSendShopSearch',
+    xtype: 'CouponSendShopSearch',
     
     requires: [
         'Ext.form.Panel',
@@ -81,7 +81,7 @@ Ext.define('XMLifeOperating.view.couponManage.couponSend.CouponSendShopSearch', 
                     text: 'Cancel',
                     handler:function(){
                         //关闭窗口
-                        Ext.ComponentQuery.query('couponSendShopSearch')[0].close();
+                        Ext.ComponentQuery.query('CouponSendShopSearch')[0].close();
                     }
                 }
             ]

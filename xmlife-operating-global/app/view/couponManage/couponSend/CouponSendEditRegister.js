@@ -1,6 +1,6 @@
 Ext.define('XMLifeOperating.view.couponManage.couponSend.CouponSendEditRegister', {
   extend: 'Ext.window.Window',
-  xtype: 'couponSendEditRegister',
+  xtype: 'CouponSendEditRegister',
 
   requires: [
     'Ext.form.Panel',

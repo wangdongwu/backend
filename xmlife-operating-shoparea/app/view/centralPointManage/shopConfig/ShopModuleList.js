@@ -37,9 +37,15 @@ Ext.define('XMLifeOperating.view.centralPointManage.shopConfig.ShopModuleList', 
       xtype: 'actioncolumn',
       text: '修改',
       tooltip: '修改',
+      dataIndex : 'typeCopy',
       width : 30,
       itemId : 'edit',
       icon: 'resources/images/edit.png',
+      renderer : function(v){
+        if(v == 'USERCOLLECT' || v == 'CATEGORY' || v == 'banner'){
+          this.remove();
+        }
+      },
       align:'center'
     },
     {
