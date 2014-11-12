@@ -150,27 +150,31 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopProduct', {
             var returnStr = '';
             if (!editor.getStore()) {
                 column.setEditor(Ext.create('Ext.form.ComboBox', {
+                    itemId: 'putawayOrOutComboBox',
                     displayField: 'name',
                     valueField: 'value',
                     triggerAction: 'all',
                     autoScroll: true,
                     editable: false,
-                    itemId: 'putawayOrOutComboBox',
                     queryMode: 'local',
                     store: Ext.create('Ext.data.Store', {
                         fields: ['value', 'name'],
                         data: [{
                             'value': 0,
-                            'name': '上架'
+                            'name': '上架',
+                            'recordId': 'onCarriage'
                         }, {
                             'value': 1,
-                            'name': '雪藏'
+                            'name': '雪藏',
+                            'recordId': 'frozen/unfreeze'
                         }, {
                             'value': 2,
-                            'name': '废弃'
+                            'name': '废弃',
+                            'recordId': 'waste'
                         }, {
                             'value': 3,
-                            'name': '下架'
+                            'name': '下架',
+                            'recordId': 'underCarriage'
                         }]
                     })
                 }))
@@ -230,13 +234,11 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopProduct', {
     tbar: [{
         text: '添加商品',
         xtype: 'button',
-        itemId: 'openCreateShelvesGoodsWin'
+        itemId: 'increaseProduct'
     }],
     plugins: [{
         ptype: 'cellediting',
         clicksToEdit: 1
     }]
-
-
 
 });

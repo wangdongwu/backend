@@ -1,8 +1,8 @@
 Ext.define('XMLifeOperating.controller.login', {
   extend: 'Ext.app.Controller',
   views: ['admin.login', 'Toolbar', 'Navigation'],
-  stores: ['ShopArea', 'Navigation', 'AdminGetInfo'],
-  models: ['ShopArea', 'AdminGetInfo'],
+  stores: ['ShopArea', 'Navigation', 'AdminAdminShopType'],
+  models: ['ShopArea', 'AdminAdminShopType'],
   refs: [{
     ref: 'login',
     selector: 'login',
@@ -245,6 +245,8 @@ Ext.define('XMLifeOperating.controller.login', {
         });
         shopAreaStore.load();
       }
+      //推送
+      me.getAdminAdminShopTypeStore().load();
       saveUidAndSession(account + "@a", localStorage.getItem("sessionId"));
       rpc.ServerConfig.setUrls("IM", [XMLifeOperating.generic.Global.URL.IM]);
       rpc.ServerConfig.setUrls("Long", [XMLifeOperating.generic.Global.URL.ws]);
@@ -268,20 +270,6 @@ Ext.define('XMLifeOperating.controller.login', {
         buttons: Ext.Msg.OK
       });
     }
-
-     sendGetRequest('admin/getInfo', null, '检测账号', '检测账号成功', '检测账号失败', success, failure);
-/*    var userStore = me.getAdminGetInfoStore();
-    userStore.load({
-      scope:me,
-      callback: function(records, operation, success) {
-        debugger
-        if(success){//成功
-
-        }else{//失败
-
-
-        }
-      }
-    })*/
+    sendGetRequest('admin/getInfo', null, '检测账号', '检测账号成功', '检测账号失败', success, failure);
   }
 });

@@ -26,7 +26,6 @@ Ext.define('XMLifeOperating.controller.Shop', {
         'centralPointManage.shop.ChangePriceRecordList'
 
     ],
-
     stores: [
         'Shop',
         'Shopper',
@@ -39,9 +38,9 @@ Ext.define('XMLifeOperating.controller.Shop', {
         'ProductSearch',
         'CategoryLeafCategorys',
         'ChangePriceRecordMyRecords',
-        'ProductStatus'
+        'ProductStatus',
+        'AdminAdminShopType'
     ],
-
     models: [
         'Shop',
         'Shopper',
@@ -54,7 +53,8 @@ Ext.define('XMLifeOperating.controller.Shop', {
         'ProductSearch',
         'CategoryLeafCategorys',
         'ChangePriceRecord',
-        'ProductStatus'
+        'ProductStatus',
+        'AdminAdminShopType'
     ],
     /*
       @param selector  widget.XX
@@ -1466,7 +1466,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
             /*
              * product事件
              */
-            '#ShelvesGoodsList': {
+            'shopproduct': {
                 validateedit: function(e, row) {
                     var me = this;
                     var rec = row.record;
@@ -1515,15 +1515,9 @@ Ext.define('XMLifeOperating.controller.Shop', {
                     } else {
                         return false;
                     }
-
-                    /*                    if (field == 'myDateColumnName') {
-                        var newDay = Ext.util.Format.date(val, 'l');
-                        rec.set('myDOWColumnName', newDay);
-                    }*/
                 }
-
             },
-            '#ShelvesGoodsList #setProductTop': {
+            'shopproduct #setProductTop': {
                 click: function(component, rowIndex, colIndex) {
                     var me = this;
                     var model = component.getStore().getAt(colIndex);
@@ -1558,7 +1552,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
 
                 }
             },
-            '#ShelvesGoodsList #openCreateShelvesGoodsWin': {
+            'shopproduct #increaseProduct': {
                 click: function(component, rowIndex, colIndex) {
                     var itemId = component.getItemId();
                     var win = this.getShopProductAdd();
@@ -1570,9 +1564,9 @@ Ext.define('XMLifeOperating.controller.Shop', {
                     form.reset();
                     var stockEnable = this.getShopStore().getById(this.shopId).data.storeLimitEnable;
                     if (stockEnable) {
-                        Ext.ComponentQuery.query('#stock')[0].setDisabled(false);
+                        Ext.ComponentQuery.query('#editstock')[0].setDisabled(false);
                     } else {
-                        Ext.ComponentQuery.query('#stock')[0].setDisabled(true);
+                        Ext.ComponentQuery.query('#editstock')[0].setDisabled(true);
                     }
                     model = this.getProductModel();
                     model = new model();
@@ -1580,7 +1574,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
                     me.openWin(win, model);
                 }
             },
-            '#ShelvesGoodsList #openModifyShelvesGoodsWin': {
+            'shopproduct #openModifyShelvesGoodsWin': {
                 click: function(component, dom, rowIndex, colIndex, e, store) {
                     var me = this;
                     var itemId = component.getItemId();
@@ -1621,33 +1615,20 @@ Ext.define('XMLifeOperating.controller.Shop', {
                     //库存判断
                     var stockEnable = this.getShopStore().getById(this.shopId).data.storeLimitEnable;
                     if (stockEnable) {
-                        win.down('#stock').setDisabled(false);
+                        win.down('#editstock').setDisabled(false);
                     } else {
-                        win.down('#stock').setDisabled(true);
+                        win.down('#editstock').setDisabled(true);
                     }
                     if (model.get('stock') == -1) {
                         model.set('stock', '无限制');
                     }
-                    //回收站修改限制
-                    /*                    if (type == 0) {
-                        win.down('[name="name"]').setDisabled(true);
-                        win.down('[name="purchasePrice"]').setDisabled(true);
-                        win.down('[name="facePrice"]').setDisabled(true);
-                        win.down('[name="discountPrice"]').setDisabled(true);
-                        win.down('[name="stock"]').setDisabled(true);
-                        win.down('#limitTypeFieldset').setDisabled(true);
-                    } else {
-                        win.down('[name="name"]').setDisabled(false);
-                        win.down('[name="purchasePrice"]').setDisabled(false);
-                        win.down('[name="facePrice"]').setDisabled(false);
-                        win.down('[name="discountPrice"]').setDisabled(false);
-                        win.down('#limitTypeFieldset').setDisabled(false);
-                    }*/
+
                     categorySelectionStore.load({
                         params: {
                             shopId: me.shopId
                         },
                         callback: function() {
+                            me.disableUnAuthorityCmp(me.shopId);
                             me.openWin(win, model);
                         }
                     })
@@ -1716,7 +1697,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
                             };
                         }
                         //库存判断
-                        var stockEnable = me.getShopProductAdd().down('#stock');
+                        var stockEnable = me.getShopProductAdd().down('#editstock');
                         if (!stockEnable.isDisabled()) {
                             stock = form.getValues()['stock'];
                             if (stock == '') {
@@ -1873,116 +1854,135 @@ Ext.define('XMLifeOperating.controller.Shop', {
                 }
             },
             'shopproductedit #editShelvesGoodsWin': {
+                /*                click: function() {
+                                    var editWindow = this.getShopProductEdit(),
+                                        windowEl = editWindow.getEl(),
+                                        form = editWindow.down('form').getForm(),
+                                        shelvesGoods = form.getRecord(),
+                                        me = this;
+                                    var tabIdstrArray = this.tabIdStr.split('_');
+                                    var categoryId = '',
+                                        limitType = 0,
+                                        limitCount = 0,
+                                        productLimitCount = 0,
+                                        belngShelf = null;
+                                    var data = {
+                                        id: null,
+                                        facePrice: null,
+                                        purchasePrice: null,
+                                        discountPrice: null,
+                                        limitType: null,
+                                        limitCount: null,
+                                        productLimitCount: null
+                                    }
+                                    if (tabIdstrArray[0] == 'tab4' && tabIdstrArray[1] != undefined) {
+                                        categoryId = tabIdstrArray[1];
+                                    }
+                                    if (form.isValid()) {
+                                        form.updateRecord(shelvesGoods);
+                                        shopId = this.shopId;
+                                        //限购参数
+                                        limitType = form.getValues()['limitType'];
+                                        if (limitType == 1) {
+                                            data.limitCount = form.getValues()['dayLimitCount'];
+                                            data.productLimitCount = form.getValues()['dayTodayLimitCount'];
+                                        } else if (limitType == 2) {
+                                            data.limitCount = form.getValues()['totalLimitCount'];
+                                            data.productLimitCount = form.getValues()['totalTodayLimitCount'];
+                                        } else {
+                                            data.limitType = 0;
+                                            data.limitCount = 0;
+                                            data.productLimitCount = 0;
+                                        }
+                                        if (limitCount == 0 || limitCount == null || limitCount == '') {
+                                            data.limitType = 0;
+                                        }
+
+                                        //移动货架参数
+                                        if (form.getValues()['changeBelongShelf'] && form.getValues()['changeBelongShelf'] == 'on') {
+                                            data.newCategory = form.getValues()['belngShelf'];
+                                            data.proCategoryId = shelvesGoods.data.categoryId;
+                                        }
+                                        //价格限制参数
+                                        var facePrice = me.priceTransform(shelvesGoods.get('facePrice'));
+                                        var discountPrice = me.priceTransform(shelvesGoods.get('discountPrice'));
+                                        var purchasePrice = me.priceTransform(shelvesGoods.get('purchasePrice'));
+                                        if (discountPrice != "") {
+                                            data.discountPrice = discountPrice;
+                                            if (discountPrice >= facePrice) {
+                                                Ext.Msg.alert('Invalid Data', '折扣价不能大于等于原价');
+                                                return;
+                                            };
+                                        }
+                                        //库存判断
+                                        var stockEnable = me.getShopProductEdit().down('#stock');
+                                        if (!stockEnable.isDisabled()) {
+                                            stock = form.getValues()['stock'];
+                                            if (stock == '') {
+                                                stock = -1;
+                                            } else if (stock == 0 || stock < -1) {
+                                                Ext.MessageBox.show({
+                                                    title: '提示',
+                                                    msg: '库存输入错误！',
+                                                    icon: Ext.Msg.ERROR,
+                                                    buttons: Ext.Msg.OK
+                                                });
+                                                return
+                                            }
+                                            shelvesGoods.set('stock', stock);
+                                            data.stock = shelvesGoods.get('stock');
+                                        }
+                                        shelvesGoods.set('shopId', shopId);
+                                        shelvesGoods.set('categoryId', categoryId);
+                                        shelvesGoods.set('facePrice', facePrice);
+                                        shelvesGoods.set('purchasePrice', purchasePrice);
+                                        shelvesGoods.set('discountPrice', discountPrice);
+                                        shelvesGoods.set('limitType', limitType);
+                                        shelvesGoods.set('limitCount', limitCount);
+                                        shelvesGoods.set('productLimitCount', productLimitCount);
+                                        windowEl.mask('saving');
+
+                                        data.id = shelvesGoods.get('id');
+                                        data.facePrice = facePrice;
+                                        data.purchasePrice = purchasePrice;
+
+                                        sendPutRequest('product/update', data, '编辑商品', '成功编辑商品', '编辑商品失败', function(response) {
+                                            windowEl.unmask();
+                                            if (response.responseText == '2') {
+                                                var message = Ext.MessageBox.show({
+                                                    title: '提示',
+                                                    msg: '价格修改成功，等待审核…',
+                                                    buttons: Ext.Msg.OK
+                                                });
+                                                setTimeout(function() {
+                                                    message.close();
+                                                }, 1000);
+                                            }
+                                            editWindow.close();
+                                            me.showProductList(categoryId);
+                                        });
+                                        return;
+                                    } else {
+                                        Ext.Msg.alert('Invalid Data', 'Please correct form errors');
+                                    }
+                                }*/
                 click: function() {
-                    var editWindow = this.getShopProductEdit(),
+                    var me = this;
+                    var editWindow = me.getShopProductEdit(),
                         windowEl = editWindow.getEl(),
                         form = editWindow.down('form').getForm(),
-                        shelvesGoods = form.getRecord(),
-                        me = this;
-                    var tabIdstrArray = this.tabIdStr.split('_');
-                    var categoryId = '',
-                        limitType = 0,
-                        limitCount = 0,
-                        productLimitCount = 0,
-                        belngShelf = null;
-                    var data = {
-                        id: null,
-                        facePrice: null,
-                        purchasePrice: null,
-                        discountPrice: null,
-                        limitType: null,
-                        limitCount: null,
-                        productLimitCount: null
-                    }
-                    if (tabIdstrArray[0] == 'tab4' && tabIdstrArray[1] != undefined) {
-                        categoryId = tabIdstrArray[1];
-                    }
-                    if (form.isValid()) {
-                        form.updateRecord(shelvesGoods);
-                        shopId = this.shopId;
-                        //限购参数
-                        limitType = form.getValues()['limitType'];
-                        if (limitType == 1) {
-                            data.limitCount = form.getValues()['dayLimitCount'];
-                            data.productLimitCount = form.getValues()['dayTodayLimitCount'];
-                        } else if (limitType == 2) {
-                            data.limitCount = form.getValues()['totalLimitCount'];
-                            data.productLimitCount = form.getValues()['totalTodayLimitCount'];
-                        } else {
-                            data.limitType = 0;
-                            data.limitCount = 0;
-                            data.productLimitCount = 0;
+                        record = form.getRecord(),
+                        adminShopTypeStore = me.getAdminAdminShopTypeStore(),
+                        userInfo = adminShopTypeStore.getAt(0).getData();
+                    var flags = [];
+                    for (var pro in userInfo) {
+                        if(pro == 'frozen/unfreeze'){
+                            return
                         }
-                        if (limitCount == 0 || limitCount == null || limitCount == '') {
-                            data.limitType = 0;
-                        }
-
-                        //移动货架参数
-                        if (form.getValues()['changeBelongShelf'] && form.getValues()['changeBelongShelf'] == 'on') {
-                            data.newCategory = form.getValues()['belngShelf'];
-                            data.proCategoryId = shelvesGoods.data.categoryId;
-                        }
-                        //价格限制参数
-                        var facePrice = me.priceTransform(shelvesGoods.get('facePrice'));
-                        var discountPrice = me.priceTransform(shelvesGoods.get('discountPrice'));
-                        var purchasePrice = me.priceTransform(shelvesGoods.get('purchasePrice'));
-                        if (discountPrice != "") {
-                            data.discountPrice = discountPrice;
-                            if (discountPrice >= facePrice) {
-                                Ext.Msg.alert('Invalid Data', '折扣价不能大于等于原价');
-                                return;
-                            };
-                        }
-                        //库存判断
-                        var stockEnable = me.getShopProductEdit().down('#stock');
-                        if (!stockEnable.isDisabled()) {
-                            stock = form.getValues()['stock'];
-                            if (stock == '') {
-                                stock = -1;
-                            } else if (stock == 0 || stock < -1) {
-                                Ext.MessageBox.show({
-                                    title: '提示',
-                                    msg: '库存输入错误！',
-                                    icon: Ext.Msg.ERROR,
-                                    buttons: Ext.Msg.OK
-                                });
-                                return
-                            }
-                            shelvesGoods.set('stock', stock);
-                            data.stock = shelvesGoods.get('stock');
-                        }
-                        shelvesGoods.set('shopId', shopId);
-                        shelvesGoods.set('categoryId', categoryId);
-                        shelvesGoods.set('facePrice', facePrice);
-                        shelvesGoods.set('purchasePrice', purchasePrice);
-                        shelvesGoods.set('discountPrice', discountPrice);
-                        shelvesGoods.set('limitType', limitType);
-                        shelvesGoods.set('limitCount', limitCount);
-                        shelvesGoods.set('productLimitCount', productLimitCount);
-                        windowEl.mask('saving');
-
-                        data.id = shelvesGoods.get('id');
-                        data.facePrice = facePrice;
-                        data.purchasePrice = purchasePrice;
-
-                        sendPutRequest('product/update', data, '编辑商品', '成功编辑商品', '编辑商品失败', function(response) {
-                            windowEl.unmask();
-                            if (response.responseText == '2') {
-                                var message = Ext.MessageBox.show({
-                                    title: '提示',
-                                    msg: '价格修改成功，等待审核…',
-                                    buttons: Ext.Msg.OK
-                                });
-                                setTimeout(function() {
-                                    message.close();
-                                }, 1000);
-                            }
-                            editWindow.close();
-                            me.showProductList(categoryId);
-                        });
-                        return;
-                    } else {
-                        Ext.Msg.alert('Invalid Data', 'Please correct form errors');
+                 
+                        if (!me.isDisabledCmp(editWindow.down('form'), pro)) {
+                            me[pro].call(me, form, record.get('id'), flags);
+                        };
                     }
                 }
             }
@@ -2046,49 +2046,6 @@ Ext.define('XMLifeOperating.controller.Shop', {
             }
         });
     },
-    /*    showFilterProductPanel: function(type) {
-        var me = this,
-            shopId = this.shopId,
-            toolbar = Ext.getCmp('toolbar'),
-            tab = me.getShopShelfTab(),
-            shopStore = me.getShopStore();
-        var shop = shopStore.getById(shopId);
-        var title = null;
-        var xtype = null;
-        switch (type) {
-            case 'soldout':
-                title = '下架商品';
-                xtype = 'shopproductsoldout';
-                break;
-            case 'offline':
-                title = '雪藏商品';
-                xtype = 'shopproductoffline';
-                break;
-            case 'online':
-                title = '上架商品';
-                xtype = 'shopproductsoldout';
-                break;
-            case 'abandoned':
-                title = '废弃商品';
-                xtype = 'shopproductoffline';
-                break;
-        }
-        //雪藏商品tab切换
-        if (me.tabIsExist(type)) {
-            return
-        } else {
-            toolbar.add({
-                title: shop.get('name') + title,
-                id: 'tab5_' + type,
-                layout: 'fit',
-                items: {
-                    xtype: xtype
-                },
-                closable: true
-            });
-            tab.setActiveTab('tab5_' + type);
-        }
-    }*/
     showProductSoldOutOrOffLineList: function(shopId, value) {
         var me = this,
             shopId = shopId,
@@ -2137,7 +2094,6 @@ Ext.define('XMLifeOperating.controller.Shop', {
                 page: 1
             }
         });
-
     },
     showProductSoldOutList: function(shopId) {
         var me = this,
@@ -2329,33 +2285,6 @@ Ext.define('XMLifeOperating.controller.Shop', {
             Ext.Msg.alert('Invalid Data', 'Please correct form errors');
         }
     },
-    tabIsExist: function(id) {
-        var me = this,
-            toolbar = Ext.getCmp('toolbar'),
-            tab = me.getShopShelfTab();
-        for (var i = 0; i < toolbar.items.length; i++) {
-            if (toolbar.items.keys[i].split('_')[1] == id) {
-                tab.setActiveTab(toolbar.items.keys[i])
-                return true;
-            }
-        };
-        return false
-    },
-    closeAllTabs: function() { //实际删除的是一级货架意外的货架
-        var me = this;
-        var shelfTab = me.getShopShelfTab();
-        var items = shelfTab.items.items;
-        var deleteIds = []
-        me.showShopList();
-        for (var i = 0, len = items.length; i < len; i++) {
-            if (items[i].id.search('tab2') == -1) {
-                deleteIds.push(items[i].id);
-            }
-        }
-        for (var j = 0, len = deleteIds.length; j < len; j++) {
-            shelfTab.remove(deleteIds[j]);
-        }
-    },
     changePriceRecordList: function(grid) {
         var status = grid.down('#isverifyCombo').getValue();
         var shopId = this.shopId;
@@ -2392,10 +2321,242 @@ Ext.define('XMLifeOperating.controller.Shop', {
     },
     priceTransform: function(value) {
         return parseInt((value * 100).toFixed());
+    },
+    disableUnAuthorityCmp: function(shopId) {
+        var me = this;
+        var shopStore = me.getShopStore(),
+            adminShopTypeStore = me.getAdminAdminShopTypeStore(),
+            currentShop = shopStore.getById(shopId),
+            currentShopType = currentShop.get('type'),
+            userInfo = adminShopTypeStore.getAt(0).getData(); //获取第一位
+
+        for (var properName in userInfo) {
+            var properArray = userInfo[properName];
+            if (properArray instanceof Array && properArray.indexOf(currentShopType) == -1) { //没有权限
+                var itemId = '#' + properName;
+                if (me.getShopProductEdit().down(itemId)) { //在ProductEdit中的操作
+                    me.getShopProductEdit().down(itemId).setDisabled(true);
+                } else if (me.getShopProductList().down(itemId)) { //在ProductList中的操作
+                    me.getShopProductList().down(itemId).setDisabled(true);
+                }
+            }
+        };
+    },
+    isDisabledCmp: function(view, cmpId) {
+        var me = this,
+            cmp = view.down('#' + cmpId);
+        if (cmp) {
+            if (!cmp.isDisabled()) {
+                return false
+            } else {
+                return true
+            }
+        } else {
+            return true
+        }
+    },
+    //商品信息修改
+    editprice: function(formData, productId, flags) {
+        var me = this;
+        var form = formData,
+            id = productId,
+            record = form.getRecord(),
+            values = form.getValues(),
+            facePrice = me.priceTransform(values['facePrice']),
+            discountPrice = me.priceTransform(values['discountPrice']),
+            purchasePrice = me.priceTransform(values['purchasePrice']),
+            editWindow = me.getShopProductEdit(),
+            flagIdx = flags.length,
+            data = {};
+        var success = function(response) {
+            if (response.responseText == 2) {
+                var message = Ext.MessageBox.show({
+                    title: '提示',
+                    msg: '价格修改成功，等待审核…',
+                    buttons: Ext.Msg.OK
+                });
+                setTimeout(function() {
+                    message.close();
+                }, 1000);
+            }
+            flags[flagIdx] = true;
+            if (flags.indexOf(0)) {
+                return
+            } else {
+                me.showProductList(record.get('categoryId'));
+                editWindow.close();
+            }
+        }
+        var failure = function(response) {
+            flags[flagIdx] = false;
+            Ext.MessageBox.show({
+                title: '提示',
+                msg: '限购库存失败',
+                icon: Ext.Msg.ERROR,
+                buttons: Ext.Msg.OK
+            });
+        }
+        if (discountPrice != "") {
+            data.discountPrice = discountPrice;
+            if (discountPrice >= facePrice) {
+                Ext.Msg.alert('Invalid Data', '折扣价不能大于等于原价');
+                return;
+            };
+        }
+        data.id = id;
+        data.facePrice = facePrice;
+        data.purchasePrice = purchasePrice;
+        flags.push(0);
+        sendPutRequest('product/updatePrice', data, '修改商品价格', '修改商品价格成功', '修改商品价格失败', success, failure);
+    },
+    editlimit: function(formData, productId, flags) {
+        var me = this;
+        var form = formData,
+            id = productId,
+            record = form.getRecord(),
+            limitType = form.getValues()['limitType'],
+            flagIdx = flags.length,
+            editWindow = me.getShopProductEdit(),
+            data = {};
+        var success = function(response) {
+            flags[flagIdx] = true;
+            if (flags.indexOf(0)) {
+                return
+            } else {
+                me.showProductList(record.get('categoryId'));
+                editWindow.close();
+            }
+        }
+        var failure = function(response) {
+            Ext.MessageBox.show({
+                title: '提示',
+                msg: '限购修改失败',
+                icon: Ext.Msg.ERROR,
+                buttons: Ext.Msg.OK
+            });
+        }
+        if (limitType == 1) {
+            data.limitCount = form.getValues()['dayLimitCount'];
+            data.productLimitCount = form.getValues()['dayTodayLimitCount'];
+        } else if (limitType == 2) {
+            data.limitCount = form.getValues()['totalLimitCount'];
+            data.productLimitCount = form.getValues()['totalTodayLimitCount'];
+        } else {
+            data.limitType = 0;
+            data.limitCount = 0;
+            data.productLimitCount = 0;
+        }
+        if (data.limitCount == 0 || data.limitCount == null || data.limitCount == '') {
+            data.limitType = 0;
+        }
+        data.id = id;
+        flags.push(0);
+        sendPutRequest('product/updateLimit', data, '修改商品限购', '修改商品限购成功', '修改商品限购失败', success, failure);
+    },
+    editstock: function(formData, productId, flags) {
+        var me = this;
+        var form = formData,
+            id = productId,
+            record = form.getRecord(),
+            stock = form.getValues()['stock'],
+            flagIdx = flags.length,
+            editWindow = me.getShopProductEdit(),
+            data = {};
+        var success = function(response) {
+            //record.set('stock', stock);
+            flags[flagIdx] = true;
+            if (flags.indexOf(0)) {
+                return
+            } else {
+                me.showProductList(record.get('categoryId'));
+                editWindow.close();
+            }
+        }
+        var failure = function(response) {
+            Ext.MessageBox.show({
+                title: '提示',
+                msg: '限购库存失败',
+                icon: Ext.Msg.ERROR,
+                buttons: Ext.Msg.OK
+            });
+        }
+        if (stock == '') {
+            stock = -1;
+        } else if (stock == 0 || stock < -1) {
+            Ext.MessageBox.show({
+                title: '提示',
+                msg: '库存输入错误！',
+                icon: Ext.Msg.ERROR,
+                buttons: Ext.Msg.OK
+            });
+            return
+        }
+        data.stock = stock;
+        data.id = id;
+        flags.push(0);
+        sendPutRequest('product/updateStock', data, '修改商品库存', '修改商品库存成功', '修改商品库存失败', success, failure);
+    },
+    changeStorageRack: function(formData, productId, flags) {
+        var me = this;
+        var form = formData,
+            id = productId,
+            record = form.getRecord(),
+            flagIdx = flags.length,
+            editWindow = me.getShopProductEdit(),
+            data = {};
+        var success = function() {
+            flags[flagIdx] = true;
+            if (flags.indexOf(0)) {
+                return
+            } else {
+                me.showProductList(record.get('categoryId'));
+                editWindow.close();
+            }
+        }
+        var failure = function() {
+            Ext.MessageBox.show({
+                title: '提示',
+                msg: '移动货架失败',
+                icon: Ext.Msg.ERROR,
+                buttons: Ext.Msg.OK
+            });
+        }
+        if (form.getValues()['changeBelongShelf'] && form.getValues()['changeBelongShelf'] == 'on') {
+            data.newCategory = form.getValues()['belngShelf'];
+            data.proCategoryId = record.data.categoryId;
+            data.id = id;
+            flags.push(0);
+            sendPutRequest('product/changeCategory', data, '修改商品货架', '修改商品货架成功', '修改商品货架失败', success, failure);
+        } else {
+            return
+        }
+    },
+    closeAllTabs: function() { //实际删除的是一级货架以外的货架
+        var me = this;
+        var shelfTab = me.getShopShelfTab();
+        var items = shelfTab.items.items;
+        var deleteIds = []
+        me.showShopList();
+        for (var i = 0, len = items.length; i < len; i++) {
+            if (items[i].id.search('tab2') == -1) {
+                deleteIds.push(items[i].id);
+            }
+        }
+        for (var j = 0, len = deleteIds.length; j < len; j++) {
+            shelfTab.remove(deleteIds[j]);
+        }
+    },
+    tabIsExist: function(id) {
+        var me = this,
+            toolbar = Ext.getCmp('toolbar'),
+            tab = me.getShopShelfTab();
+        for (var i = 0; i < toolbar.items.length; i++) {
+            if (toolbar.items.keys[i].split('_')[1] == id) {
+                tab.setActiveTab(toolbar.items.keys[i])
+                return true;
+            }
+        };
+        return false
     }
 
 });
-
-function putawayOrOut(obj) {
-
-}

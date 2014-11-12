@@ -57,7 +57,7 @@ Ext.define('XMLifeOperating.Application', {
 
     stores: [
         'Address',
-        'AdminGetInfo',
+        'AdminAdminShopType',
         'Capacity',
         'Customer',
         'Deal',
