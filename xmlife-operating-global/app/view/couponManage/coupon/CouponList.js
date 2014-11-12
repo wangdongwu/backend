@@ -24,7 +24,7 @@ Ext.define('XMLifeOperating.view.couponManage.coupon.CouponList', {
         width : 120,
         margin : '0 5 0 5',
         valueField: 'value',
-        value:'value',
+        value:'请选择类型',
         store : Ext.create('Ext.data.Store', {
             fields: ['value','status'],
             data : [
@@ -79,21 +79,12 @@ Ext.define('XMLifeOperating.view.couponManage.coupon.CouponList', {
                     return '否';
                 }              
             }
-        }, {
-            text: '所属卡包',
-            dataIndex: 'groupName',
-            width: 60,
-            sortable: false,
-            align: 'left',
-            renderer : function(v){
-                console.log();
-            }
-        }, {
+        },{
             text: '开始日期',
             dataIndex: 'expireStartDate',
             width: 60,
             sortable: false,
-            align: 'left'
+            align: 'left',
         }, {
             text: '结束日期',
             dataIndex: 'expireEndDate',
