@@ -70,7 +70,7 @@ Ext.define('XMLifeOperating.view.couponManage.couponSend.CouponShoppingRelease',
       sortable: true,
       align: 'left',
       renderer: function (v) {
-        v = 5;
+        v = 1;
         switch (v) {
           case 1:
             return '消费发放';

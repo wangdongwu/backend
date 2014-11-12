@@ -214,7 +214,7 @@ Ext.define('XMLifeOperating.controller.Coupon', {
             form = editWindow.down('form').getForm(),
             self = this;
             // debugger
-        // if (form.isValid()) {
+        if (form.isValid()) {
             /*var name = editWindow.down('[name=name]').getValue(),
                 desc = editWindow.down('[name=desc]').getValue(),
                 type = editWindow.down('[name=type]').getValue(),
@@ -239,10 +239,10 @@ Ext.define('XMLifeOperating.controller.Coupon', {
 
 
 
-        // }else {
-        //     Ext.Msg.alert('Invalid Data', 'Please correct form errors');
-        //     return;
-        // }
+        }else {
+            Ext.Msg.alert('Invalid Data', 'Please correct form errors');
+            return;
+        }
 
 
 
@@ -936,8 +936,10 @@ Ext.define('XMLifeOperating.controller.Coupon', {
         winStep1.down('[name=maxDiscount]').setValue('');
         winStep1.down('[name=isNew]').setValue('');
         winStep1.down('[name=maxCouponNumHold]').setValue('');
-        winStep1.down('[name=expireStartDate]').setValue('');
-        winStep1.down('[name=expireEndDate]').setValue('');
+
+        winStep1.down('[name=expireStartDate]').setValue(new Date());
+        winStep1.down('[name=expireEndDate]').setValue(new Date());
+
         winStep1.down('[name=delayUseStartHours]').setValue('');
         winStep1.down('[name=delayUseEndHours]').setValue('');
         winStep1.down('[name=globalCouponNum]').setValue('');

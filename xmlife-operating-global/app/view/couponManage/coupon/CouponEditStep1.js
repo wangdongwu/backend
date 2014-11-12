@@ -125,6 +125,7 @@ Ext.define('XMLifeOperating.view.couponManage.coupon.CouponEditStep1', {
                                 name: 'maxDiscount',
                                 width: 50,
                                 labelWidth: 90,
+                                text:50
                                 
                             }, {
                                 xtype: 'displayfield',
