@@ -43,7 +43,7 @@ Ext.define('XMLifeOperating.view.couponManage.coupon.CouponList', {
             dataIndex: 'id',
             width: 100,
             sortable: true,
-            align: 'left'
+            align: 'left',
         }, {
             text: '名称',
             dataIndex: 'name',
