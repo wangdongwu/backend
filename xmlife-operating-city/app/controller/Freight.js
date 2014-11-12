@@ -42,7 +42,7 @@ Ext.define('XMLifeOperating.controller.Freight', {
     var amountCmp = win.down('#amount');
     var deductdCmp = win.down('#deductd');
     var shipfeeDeductd = win.down('#shipfeeDeductd');
-    var shipfee = win.down('#shipfee').getValue();
+    var shipfee = win.down('#shipfee').getValue() * 100;
     if (shipfee > 0) {
       amountCmp.setDisabled(false);
       amountCmp.setVisible(true);
@@ -59,7 +59,12 @@ Ext.define('XMLifeOperating.controller.Freight', {
     var me = this;
     var win = me.getFreightSet();
     var customerDetail = view.getRecord(view.findTargetByEvent(e));
-    var name = customerDetail.get('name');
+    var values = {
+      name: customerDetail.get('name'),
+      shipfee: customerDetail.get('shipfee') / 100,
+      deductd: customerDetail.get('deductd'),
+    }
+
     var amountCmp = win.down('#amount');
     var deductdCmp = win.down('#deductd');
     var shipfeeDeductd = win.down('#shipfeeDeductd');
@@ -81,10 +86,11 @@ Ext.define('XMLifeOperating.controller.Freight', {
     } else {
       amountCmp.setValue(false);
     }
-    win.down('form').loadRecord(customerDetail);
+    win.down('form').getForm().setValues(values);
     win.show();
   },
   renderFreightList: function() {
+
     var me = this;
     var store = me.getSupportedcityGetByCodeStore();
     store.load({
@@ -92,6 +98,10 @@ Ext.define('XMLifeOperating.controller.Freight', {
         code: XMLifeOperating.generic.Global.currentCity
       }
     });
+
+  },
+  priceTransform: function(value) {
+    return parseInt((value * 100).toFixed());
   },
   submitData: function(button) {
     var me = this;
@@ -105,11 +115,11 @@ Ext.define('XMLifeOperating.controller.Freight', {
       var amount = subData.amount;
       var ajaxData = {};
       if (amount == 'on') {
-        ajaxData.shipfee = shipfee;
+        ajaxData.shipfee = me.priceTransform(shipfee);
         ajaxData.deductd = deductd;
         ajaxData.code = XMLifeOperating.generic.Global.currentCity;
       } else {
-        ajaxData.shipfee = shipfee;
+        ajaxData.shipfee = me.priceTransform(shipfee);
         ajaxData.code = XMLifeOperating.generic.Global.currentCity;
       }
       sendPutRequest('supportedcity/setShipfee', ajaxData, '编辑模板', '成功编辑模板', '编辑模板失败', function() {

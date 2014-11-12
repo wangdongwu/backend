@@ -8,29 +8,31 @@ Ext.define('XMLifeOperating.view.freightManage.FreightList', {
   titleAlign: 'left',
   closable: true,
   columns: [{
-      width: 60,
-      header: '运费',     
-      dataIndex: 'shipfee',
-    }, {
-      header: '满免',
-      width:100,
-      dataIndex: 'deductd', 
-      renderer:function(value){                          
-        if(value == 0 || value < 0){          
-          return '';
-        }else{
-          return value;
-        }
-      }
-    }, {
-        text: '操作',
-        width: 100,
-        itemId: 'setFreight',
-        menuDisabled: true,
-        align: 'center',
-        renderer: function(value, metadata, model, rowIndex, colIndex, store) {
-            return '<a class="showAddressDetail">编辑</a>';
-        }
+    width: 60,
+    header: '运费',
+    dataIndex: 'shipfee',
+    renderer: function(value) {
+      return value / 100;
     }
-  ]
+  }, {
+    header: '满免',
+    width: 100,
+    dataIndex: 'deductd',
+    renderer: function(value) {
+      if (value == 0 || value < 0) {
+        return '';
+      } else {
+        return value;
+      }
+    }
+  }, {
+    text: '操作',
+    width: 100,
+    itemId: 'setFreight',
+    menuDisabled: true,
+    align: 'center',
+    renderer: function(value, metadata, model, rowIndex, colIndex, store) {
+      return '<a class="showAddressDetail">编辑</a>';
+    }
+  }]
 });
