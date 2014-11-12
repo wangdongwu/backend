@@ -107,25 +107,6 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopShelf', {
         },
         tdCls: 'user-td'
     }, {
-        text: '状态',
-        dataIndex: 'status',
-        itemId: 'showOrHide',
-        renderer: function(value, metaData, record) {
-            /*            var type = record.get('type');
-            if (type == 0) { //回收站分类
-                metaData.css = 'x-hide-display';
-            } else{
-                metaData.css = 'x-grid-icon';*/
-            if (value == 0) { //隐藏
-                return '<button>显示</button>';
-            } else if (value == 1) { //显示
-                return '<button>隐藏</button>';
-            }
-            /* }*/
-
-        },
-        tdCls: 'user-td'
-    }, {
         text: '编辑',
         xtype: 'actioncolumn',
         dataIndex: 'type',
@@ -146,6 +127,44 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopShelf', {
                 }
             }*/
         }]
+    }, {
+        text: '状态',
+        dataIndex: 'status',
+        itemId: 'showOrHide',
+        renderer: function(value, metadata, model, rowIndex, colIndex, store) {
+            /* 
+            var type = record.get('type');
+            if (type == 0) { //回收站分类
+                metaData.css = 'x-hide-display';
+            } else{
+                metaData.css = 'x-grid-icon';
+                */
+            debugger
+            var record = model,
+                isLeaf = record.get('leaf');
+            var returnStr = '';
+
+            if (value == 0) { //隐藏
+                if (isLeaf) {
+                    returnStr = '<button>显示</button>';
+                } else {
+                    metaData.css = 'x-hide-display';
+                    returnStr = '<button disabled >显示</button>';
+                }
+
+            } else if (value == 1) { //显示
+                if (isLeaf) {
+                    returnStr = '<button>隐藏</button>';
+                } else {
+                    metaData.css = 'x-hide-display';
+                    returnStr = '<button disabled >隐藏</button>';
+                }
+            }
+            return returnStr;
+            /* }*/
+
+        },
+        tdCls: 'user-td'
     }],
     dockedItems: [{
         xtype: 'toolbar',
@@ -164,17 +183,14 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopShelf', {
                 items: [{
                     text: '所有下架商品',
                     itemId: 'viewAllSoldOutProduct'
-                },
-                {
+                }, {
                     text: '所有上架商品',
                     itemId: 'viewAllOnlineProduct'
-                },
-                {
+                }, {
 
                     text: '所有雪藏商品',
                     itemId: 'viewAllHiddenProduct'
-                },
-                {
+                }, {
                     text: '所有废弃商品',
                     itemId: 'viewAllAbandonedProduct'
                 }]

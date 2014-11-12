@@ -29,6 +29,15 @@
 
          }
      }, {
+         text: '编辑',
+         xtype: 'actioncolumn',
+         width: 50,
+         icon: 'resources/images/edit.png',
+         tooltip: 'Edit',
+         menuDisabled: true,
+         sortable: true,
+         itemId: 'openModifySecondShelvesWin',
+     }, {
          text: '状态',
          dataIndex: 'status',
          itemId: 'showOrHide',
@@ -40,15 +49,6 @@
              }
          },
          tdCls: 'user-td'
-     }, {
-         text: '编辑',
-         xtype: 'actioncolumn',
-         width: 50,
-         icon: 'resources/images/edit.png',
-         tooltip: 'Edit',
-         menuDisabled: true,
-         sortable: true,
-         itemId: 'openModifySecondShelvesWin',
      }],
      dockedItems: [{
          xtype: 'toolbar',
