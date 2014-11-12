@@ -270,7 +270,7 @@ Ext.define('XMLifeOperating.controller.login', {
     }
 
      sendGetRequest('admin/getInfo', null, '检测账号', '检测账号成功', '检测账号失败', success, failure);
-    var userStore = me.getAdminGetInfoStore();
+/*    var userStore = me.getAdminGetInfoStore();
     userStore.load({
       scope:me,
       callback: function(records, operation, success) {
@@ -282,6 +282,6 @@ Ext.define('XMLifeOperating.controller.login', {
 
         }
       }
-    })
+    })*/
   }
 });
