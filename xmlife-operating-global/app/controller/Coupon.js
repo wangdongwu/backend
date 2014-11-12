@@ -194,22 +194,15 @@ Ext.define('XMLifeOperating.controller.Coupon', {
         store.loadPage(1);
     },
     onCouponEditStep1:function(){
-        //var cClass = me.getShopBannerTemplateModel();
-        //var template = new cClass();
         var winStep1 = this.getCouponEditStep1();
-        //win.down('form').loadRecord(template);
         winStep1.show();
         this.cleanWin();
-
-
-
     },
     onCouponEditStep1Next:function(){
         var editWindow = this.getCouponEditStep1(),
             windowEl = editWindow.getEl(),
             form = editWindow.down('form').getForm(),
             self = this;
-            // debugger
         if (form.isValid()) {
 
         }else {
@@ -540,7 +533,7 @@ Ext.define('XMLifeOperating.controller.Coupon', {
         var searchShops='';
         var cities = this.cities;
         var gainShopIdStore =  self.getGainShopId().store;
-        
+
         var selectModelGainShops = Ext.ComponentQuery.query('#gainShopId')[0].getSelectionModel();
         var selectRecordsGainShops = selectModelGainShops.getSelection();
         

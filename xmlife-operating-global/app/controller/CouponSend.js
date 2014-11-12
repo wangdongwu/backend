@@ -13,20 +13,19 @@ Ext.define('XMLifeOperating.controller.CouponSend', {
     'couponManage.couponSend.CouponUrlRelease',
     'couponManage.couponSend.CouponSendEditUrl',
     'couponManage.couponSend.CouponReleaseDirect',
-    'couponManage.couponSend.CouponSendRuleUpdateSimple'
+    'couponManage.couponSend.CouponSendRuleUpdateSimple',
+    'couponManage.couponSend.CouponSendShopEditSearch'
   ],
 
   stores: [
     'Coupon',
     'SupportedCityCoupon',
-    'Deliverer',
     'CouponSendRuleDirect',
     'CouponSendRuleUrl',
     'CouponSendRuleRegister',
     'CouponSendRuleShopping'
   ],
-  models: ['Coupon',
-    'Deliverer'],
+  models: ['Coupon'],
   refs: [
     {
       ref: 'CouponSendEditShopping',
@@ -86,7 +85,17 @@ Ext.define('XMLifeOperating.controller.CouponSend', {
     {
       ref: 'keywordShop',
       selector: '#keywordShop'
-    }
+    },
+    {
+      ref: 'couponSendShopEditSearch',
+      selector: 'couponSendShopEditSearch',
+      xtype: 'couponSendShopEditSearch',
+      autoCreate: true
+    },
+    {
+      ref: 'sendSearchShopList',
+      selector: '#sendSearchShopList'
+    },
   ],
   init: function () {
     var self = this;
@@ -255,21 +264,10 @@ Ext.define('XMLifeOperating.controller.CouponSend', {
         }
       },
       'CouponSendEditShopping #searchShop': {
-        click: function () {
-          var store1 = Ext.create('XMLifeOperating.store.Shop', {
-            proxy: new XMLifeOperating.generic.BaseProxy('shop/name/filter'),
-            autoSync: true
-          });
-          self.getShopList().bindStore(store1, false);
-
-          var store = this.getShopList().store;
-          store.load({
-            params: {
-              name: self.getKeywordShop().getValue(),
-              cities: self.getCurCity().getValue()
-            }
-          });
-        }
+          click:self.onSearchShop
+      },
+      'couponSendShopEditSearch #searchShopSure-btn':{
+          click:self.onSearchShopSure
       },
       'couponReleaseDirect #ruleId': {
         click: function () {
@@ -296,6 +294,9 @@ Ext.define('XMLifeOperating.controller.CouponSend', {
             }
           })
         }
+      },
+      'CouponSendEditShopping #curCity':{
+          change:self.onCurCity
       }
     });
   },
@@ -349,5 +350,96 @@ Ext.define('XMLifeOperating.controller.CouponSend', {
         store.load();
       }
     })
+  },
+  onCurCity:function(combo){
+      var self = this;
+      var comboValue = combo.getValue();
+      var store = Ext.create('XMLifeOperating.store.ShopCityShops', {
+            autoSync: false
+        });
+      var cities = comboValue;
+        self.getShopList().bindStore(store,false);
+        store.getProxy().extraParams = {
+                        cities:cities
+                    }
+        store.load();
+  },
+  onSearchShop:function(){
+      var self = this;
+      var keywordShopValue = self.getKeywordShop().getValue();
+      if(keywordShopValue==''){
+          alert('搜索为空');
+          return;
+      }
+      var win = self.getCouponSendShopEditSearch();
+      win.show();
+      var store = Ext.create('XMLifeOperating.store.Shop', {
+          proxy: new XMLifeOperating.generic.BaseProxy('shop/name/filter'),
+          autoSync: true
+      });
+      self.getSendSearchShopList().bindStore(store, false);
+      store.load({
+          params: {
+              name: self.getKeywordShop().getValue(),
+              cities: self.getCurCity().getValue()
+          },
+          callback:function(records){
+              //初始化打勾
+              var model = Ext.ComponentQuery.query('#sendSearchShopList')[0].getSelectionModel();
+              model.deselectAll();
+              for (var i = 0; i < records.length; i++) {
+                  var index = store.indexOfId(records[i].get('id'));
+                  model.select(index, true);      
+              }
+          }
+      });
+  },
+  onSearchShopSure:function(){
+      var self = this;
+      var selectModel = Ext.ComponentQuery.query('#sendSearchShopList')[0].getSelectionModel();
+      var selectRecords = selectModel.getSelection();
+      var searchShops='';
+      var cities = self.getCurCity().getValue();
+      var gainShopIdStore =  self.getShopList().store;
+
+      var selectModelGainShops = Ext.ComponentQuery.query('#shopList')[0].getSelectionModel();
+      var selectRecordsGainShops = selectModelGainShops.getSelection();
+      
+      gainShopIdStore.load({
+          params:{
+              cities:cities
+          },
+          callback: function(records) {
+              //初始化打勾
+              var model = Ext.ComponentQuery.query('#shopList')[0].getSelectionModel();
+              model.deselectAll();
+
+              for (var i = 0; i < records.length; i++) {
+                  for(var j=0; j< selectRecords.length; j++){
+
+                      if(records[i].get('id')==selectRecords[j].get('id')){
+                          var index = gainShopIdStore.indexOfId(records[i].get('id'));
+                          model.select(index, true);
+                      }
+
+                  }
+                  
+              }
+
+              for(var i= 0; i<records.length;i++){
+                  for(var j=0; j< selectRecordsGainShops.length; j++){
+
+                      if(records[i].get('id')==selectRecordsGainShops[j].get('id')){
+                          var index = gainShopIdStore.indexOfId(records[i].get('id'));
+                          model.select(index, true);
+                      }
+
+                  }
+              }
+
+          }
+      });
+      var win = this.getCouponSendShopEditSearch()
+      win.close();
   }
 });

@@ -15,7 +15,7 @@ Ext.define('XMLifeOperating.view.couponManage.couponSend.CouponSendEditShopping'
   height: 550,
   resizable: false,
   layout: 'fit',
-  title: '创建注册发放',
+  title: '创建购物发放',
   initComponent: function () {
     var couponTypeStore = Ext.create('Ext.data.Store', {
       fields: ['value', 'type'],
@@ -111,16 +111,17 @@ Ext.define('XMLifeOperating.view.couponManage.couponSend.CouponSendEditShopping'
             selModel: Ext.create('Ext.selection.CheckboxModel', {
               mode: 'MULTI'
             }),
-            columns: [
-              {
-                text: '店铺名',
-                dataIndex: 'name'
-              },
-              {
-                text: '详情',
-                dataIndex: 'desc'
-              }
-            ]
+            columns:[{
+                        xtype: 'rownumberer'
+                    },{
+                        text: '店铺名',
+                        dataIndex: 'name',
+                        width:200,
+                        renderer: function(value,grid) {
+                            value = grid.record.get('cityName')+'-'+value;
+                            return value;
+                        }
+                    }]
           },
           {
             fieldLabel: '优惠券类型',
