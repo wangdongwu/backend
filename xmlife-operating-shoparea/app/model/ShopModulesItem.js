@@ -6,6 +6,15 @@ Ext.define('XMLifeOperating.model.ShopModulesItem', {
     type: 'string'
   },
   {
+    name : 'shopId'
+  },
+  {
+    name : 'cid'
+  },
+  {
+    name : 'pid'
+  },
+  {
     name: 'image',
     type: 'string'
   },

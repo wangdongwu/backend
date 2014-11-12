@@ -638,9 +638,14 @@ Ext.define('XMLifeOperating.controller.shopConfig', {
           picSizeTip = form.down('#picSizeTip'),
           model = arguments[5];
           model.set('index',model.index);
+          
           form.loadRecord(model);
+          
+          //初始化选择及下拉状态
+          var combo = AddModuleItem.down('combo[name=urlType]');
+          combo.fireEvent('select',combo,'isInit');
 
-           var size = this.getItemSize(this.moduleType, rowIndex);
+          var size = this.getItemSize(this.moduleType, rowIndex);
           picSizeTip.html='<p style="margin-left:70px;color:red">提示：尺寸'+ size +'，大小100K以内）</p>';
           urlTypeCombo.fireEvent('select',urlTypeCombo);
           AddModuleItem.show();
@@ -839,17 +844,29 @@ Ext.define('XMLifeOperating.controller.shopConfig', {
         }
         Ext.get('shopPreviewDetail').setHTML(html);
     },
-    urlTypeSelect : function(combo) {
+    urlTypeSelect : function(combo,flag) {
         var self = this,
             win =  this.getAddModuleItem(),
+            record = win.down('form').getRecord(),
             urlType = combo.getValue();
 
         this.urlType = urlType;
 
         if (urlType == 'SHOP' || urlType == 'CATEGORY' || urlType == 'SKU') {
             var store = self.getHomePageShopStore();
-                store.getProxy().extraParams = {areaId: this.areaId};
-                store.load();
+            store.getProxy().extraParams = {areaId: this.areaId};
+            store.load();
+
+            // 编辑时，依次触发回填
+            if(flag == 'isInit' && record.get('shopId')) {
+                var shopCombo = win.down('combo[name=shopId]');
+                shopCombo.fireEvent('select',shopCombo,'isInit');
+
+                if(record.get('cid')) {
+                 var categoryCombo = win.down('combo[name=cid]');
+                    categoryCombo.fireEvent('select',categoryCombo,'isInit');
+                }
+            }
 
             win.down('combo[name=cid]').setVisible(urlType == 'CATEGORY' || urlType == 'SKU');
             win.down('combo[name=pid]').setVisible(urlType == 'SKU');
@@ -857,29 +874,31 @@ Ext.define('XMLifeOperating.controller.shopConfig', {
 
         win.down('#comboFieldset').setVisible(urlType != 'HTML');
         win.down('#urlTextField').setVisible(urlType == 'HTML');
-    },
-    shopSelect :function(combo) {
+                },
+      shopSelect :function(combo,flag) {
         var self = this,
             shopId = combo.getValue(),
             win =  this.getAddModuleItem(),
-            categoryCombo = win.down('combo[name=cid]'),
             store = null;
 
         if(this.urlType != 'SHOP') {
 
             if (this.urlType == 'CATEGORY') {
                 store = self.getHomePageCategoryStore();
-
             } else if (this.urlType == 'SKU') {
                 store = self.getHomePageLeafCategoryStore();
             }
             store.load({ params: {shopId: shopId} });
 
-            categoryCombo.setValue('');
-            categoryCombo.bindStore(store);
+            // 选择父级下拉，清空之前选择（初始化时除外）
+            if(flag != 'isInit') {
+                win.down('combo[name=cid]').setValue('');
+                win.down('combo[name=pid]').setValue('');
+            }
+            win.down('combo[name=cid]').bindStore(store);
         }
     },
-    skuSelect : function(combo) {
+    skuSelect : function(combo,flag) {
         if(this.urlType == 'SKU') {
             var self = this,
                 cid = combo.getValue(),
@@ -888,6 +907,8 @@ Ext.define('XMLifeOperating.controller.shopConfig', {
 
             store.load({ params: {id: cid} });
             win.down('combo[name=pid]').setValue('');
+            store.load({ params: {categoryId: cid} });
+            if(flag != 'isInit') win.down('combo[name=pid]').setValue('');
         }
     }
     ,
