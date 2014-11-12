@@ -504,10 +504,11 @@ Ext.define('XMLifeOperating.controller.Authority', {
                         store.clearFilter(true);
                         windowEl.close();
                         store.load();
+                        self.resetSelect();
+
                       }else{
                         Ext.Msg.alert('失败', '更新账户'+account+'失败');
                       }
-                      self.resetSelect();
                   }
               });
             }else{
