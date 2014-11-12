@@ -210,12 +210,12 @@ Ext.define('XMLifeOperating.controller.Coupon', {
             form = editWindow.down('form').getForm(),
             self = this;
             // debugger
-        /*if (form.isValid()) {
+        if (form.isValid()) {
 
         }else {
             Ext.Msg.alert('Invalid Data', 'Please correct form errors');
             return;
-        }*/
+        }
 
 
 
