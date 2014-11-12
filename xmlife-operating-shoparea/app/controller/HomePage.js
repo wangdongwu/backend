@@ -369,13 +369,13 @@ Ext.define('XMLifeOperating.controller.HomePage', {
                         store.load();
 
                         // 编辑时，依次触发回填
-                        if(flag == 'isInit' && record.get('shopId')) {
+                        if(record.get('shopId')) {
                             var shopCombo = win.down('combo[name=shopId]');
-                            shopCombo.fireEvent('select',shopCombo,'isInit');
+                            shopCombo.fireEvent('select',shopCombo,flag);
 
                             if(record.get('cid')) {
                              var categoryCombo = win.down('combo[name=cid]');
-                                categoryCombo.fireEvent('select',categoryCombo,'isInit');
+                                categoryCombo.fireEvent('select',categoryCombo,flag);
                             }
                         }
 
@@ -454,6 +454,11 @@ Ext.define('XMLifeOperating.controller.HomePage', {
                         } else if(this.urlType == 'SKU') {
                             values.url = values.pid;
                         }
+                        if(!values.url) {
+                            Ext.Msg.alert('验证信息', 'url下拉有一项未选择，请选择完整。');
+                            return;
+                        }
+
                         //新建时无index
                         if(record) {
                             values.index = record.index;
@@ -521,7 +526,7 @@ Ext.define('XMLifeOperating.controller.HomePage', {
     // 获取各类型大小，以提示
     getItemSize: function(type, index) {
         var sizes = {
-            'TYPE0': ['640x320'],
+            'TYPE0': ['640x320','640x320','640x320','640x320','640x320','640x320'],
             'TYPE1': ['326x360','180x180','180x180','180x180','180x180'],
             'TYPE2': ['326x360','360x180','360x180'],
             'TYPE3': ['240x228','240x228','240x228'],
