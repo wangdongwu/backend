@@ -11,10 +11,8 @@ Ext.define('XMLifeOperating.controller.Coupon', {
             'couponManage.coupon.CouponSkuEditSearch'],
 
     stores: ['Coupon',
-             // 'ProductSkuPids'
              ],
     models: ['Coupon',
-             // 'ProductSkuPids'
              ],
     refs: [{
             ref: 'couponList',
@@ -93,12 +91,10 @@ Ext.define('XMLifeOperating.controller.Coupon', {
     init: function() {
         var self= this,
             categoryShopNameStoreArray = [],
-            productSkuPidsStoreArray = [];
+            productSkuPidsStoreArray = [],
+            gainShopStoreArray = [];
 
         this.control({
-            // 'couponList': {
-            //     added: me.onShow,
-            // },
             'couponList' : {
                 added : self.rendenCouponList,
             },
@@ -214,35 +210,12 @@ Ext.define('XMLifeOperating.controller.Coupon', {
             form = editWindow.down('form').getForm(),
             self = this;
             // debugger
-        if (form.isValid()) {
-            /*var name = editWindow.down('[name=name]').getValue(),
-                desc = editWindow.down('[name=desc]').getValue(),
-                type = editWindow.down('[name=type]').getValue(),
-                type = editWindow.down('[name=benchMark]').getValue(),//满_元
-                discountValue = editWindow.down('[name=discountValue]').getValue(),//打_折 / 减_元
-                value = editWindow.down('[name=value]').getValue(),
-                maxDiscount = editWindow.down('[name=maxDiscount]').getValue(),
-                isNew = editWindow.down('[name=isNew]').getValue(),
-                maxCouponNumHold = editWindow.down('[name=maxCouponNumHold]').getValue(),
-                expireStartDate = editWindow.down('[name=expireStartDate]').getValue(),
-                expireEndDate = editWindow.down('[name=expireEndDate]').getValue(),
-                delayUseStartHours = editWindow.down('[name=delayUseStartHours]').getValue(),
-                delayUseEndHours = editWindow.down('[name=delayUseEndHours]').getValue(),
-
-                delayUseStartHours = editWindow.down('[name=globalCouponNum]').getValue(),//全局总共可领
-                delayUseEndHours = editWindow.down('[name=globalDailyCouponNum]').getValue(),//全局每天可领
-                delayUseStartHours = editWindow.down('[name=globalUserCouponNumHold]').getValue(),//每人终身可领
-                delayUseEndHours = editWindow.down('[name=userDailyCouponNumHold]').getValue();//每人每天可领*/
-            //form.updateRecord(cardGroup);
-            //console.log(cardGroup);
-
-
-
+        /*if (form.isValid()) {
 
         }else {
             Ext.Msg.alert('Invalid Data', 'Please correct form errors');
             return;
-        }
+        }*/
 
 
 
@@ -512,6 +485,10 @@ Ext.define('XMLifeOperating.controller.Coupon', {
         var s=cities;
         cities=s.substring(0,s.length-1);
         this.cities = cities;
+        if(cities==''){
+            alert('请选择城市');
+            return;
+        }
         var store = Ext.create('XMLifeOperating.store.ShopCityShops', {
             autoSync: false
         });
@@ -543,6 +520,15 @@ Ext.define('XMLifeOperating.controller.Coupon', {
             params:{
                 name:keywordShopValue,
                 cities:cities
+            },
+            callback:function(records){
+                //初始化打勾
+                var model = Ext.ComponentQuery.query('#searchShopList')[0].getSelectionModel();
+                model.deselectAll();
+                for (var i = 0; i < records.length; i++) {
+                    var index = store.indexOfId(records[i].get('id'));
+                    model.select(index, true);      
+                }
             }
         });
         self.getSearchShopList().bindStore(store, false);
@@ -554,26 +540,43 @@ Ext.define('XMLifeOperating.controller.Coupon', {
         var searchShops='';
         var cities = this.cities;
         var gainShopIdStore =  self.getGainShopId().store;
-        self.getGainShopId().bindStore(gainShopIdStore,false);
-
+        
+        var selectModelGainShops = Ext.ComponentQuery.query('#gainShopId')[0].getSelectionModel();
+        var selectRecordsGainShops = selectModelGainShops.getSelection();
+        
         gainShopIdStore.load({
             params:{
                 cities:cities
             },
             callback: function(records) {
+                console.log(records.length);
                 //初始化打勾
                 var model = Ext.ComponentQuery.query('#gainShopId')[0].getSelectionModel();
                 model.deselectAll();
 
                 for (var i = 0; i < records.length; i++) {
                     for(var j=0; j< selectRecords.length; j++){
+
                         if(records[i].get('id')==selectRecords[j].get('id')){
                             var index = gainShopIdStore.indexOfId(records[i].get('id'));
                             model.select(index, true);
                         }
+
                     }
                     
                 }
+
+                for(var i= 0; i<records.length;i++){
+                    for(var j=0; j< selectRecordsGainShops.length; j++){
+
+                        if(records[i].get('id')==selectRecordsGainShops[j].get('id')){
+                            var index = gainShopIdStore.indexOfId(records[i].get('id'));
+                            model.select(index, true);
+                        }
+
+                    }
+                }
+
             }
         });
         var win = this.getCouponShopEditSearch()
@@ -705,8 +708,6 @@ Ext.define('XMLifeOperating.controller.Coupon', {
         var s=templates;
         templates=s.substring(0,s.length-1);
 
-        // var winTemplatesEdit = self.getCouponTemplatesEditSearch();
-        // winTemplatesEdit.close();
         var winSkuEdit = self.getCouponSkuEditSearch();
 
         winSkuEdit.show();
@@ -742,55 +743,18 @@ Ext.define('XMLifeOperating.controller.Coupon', {
                         autoSync: false
                     });
         self.getGainTemplatesSkuId().bindStore(productSkuPidsStore, false);
-
-
-        /*if(productSkuPidsStoreArray.length==0){
-            productSkuPidsStoreArray.push(selectRecords[j]);
-        }*/
         for(var j=0; j< selectRecords.length; j++){
-            //if(productSkuPidsStoreArray.length==0){
-             //   console.log(22222);
-                productSkuPidsStoreArray.push(selectRecords[j]);
-
-            /*}else{
-                console.log(111);
-                console.log(productSkuPidsStoreArray);
-                for(var i=0; i<productSkuPidsStoreArray.length; i++){
-                    if(selectRecords[j].get('pid')){
-                        return;
-                    }else{
-                        productSkuPidsStoreArray.push(selectRecords[j]);
-                    }
-                }
-            }*/
-            
-             
+                productSkuPidsStoreArray.push(selectRecords[j]);  
         }
         var model = Ext.ComponentQuery.query('#gainTemplatesSkuId')[0].getSelectionModel();
         model.deselectAll();
-
-
-
-
         for(var i=0; i< productSkuPidsStoreArray.length; i++){
-
-
-            
-
             var index = productSkuPidsStore.indexOfId(productSkuPidsStoreArray[i].get('pid'));
             if(index<0){
                 productSkuPidsStore.insert(0,productSkuPidsStoreArray[i]);
             }
-            console.log(index);
             model.select(index, true);
-
-
         }
-
-
-
-
-
         var winTemplatesEdit = self.getCouponTemplatesEditSearch();
         winTemplatesEdit.close();
         var winSkuEdit = self.getCouponSkuEditSearch();

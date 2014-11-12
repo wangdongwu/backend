@@ -24,7 +24,7 @@ Ext.define('XMLifeOperating.view.couponManage.coupon.CouponList', {
         width : 120,
         margin : '0 5 0 5',
         valueField: 'value',
-        value:'请选择类型',
+        value:'在用',
         store : Ext.create('Ext.data.Store', {
             fields: ['value','status'],
             data : [
