@@ -118,14 +118,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopShelf', {
         tdCls: 'user-td',
         align: 'center',
         items: [{
-            icon: 'resources/images/edit.png',
-            /*            getClass: function(value, metaData, record) {
-                if (value === 0) {
-                    metaData.css = 'x-hide-display';
-                } else {
-                    metaData.css = 'x-grid-icon';
-                }
-            }*/
+            icon: 'resources/images/edit.png'
         }]
     }, {
         text: '状态',
