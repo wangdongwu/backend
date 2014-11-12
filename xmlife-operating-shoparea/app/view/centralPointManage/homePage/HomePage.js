@@ -36,7 +36,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.homePage.HomePage', {
           }, {
               text: '版本列表',
               dataIndex: 'version',
-              width: 180,
+              width: 187,
               align: 'left',
               editor: {
                 xtype: 'textfield'
@@ -56,7 +56,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.homePage.HomePage', {
               text: '操作',
               tooltip: '删除',
               icon: 'resources/images/delete.png',
-              width: 50,
+              width: 45,
               align: 'center'
           }
         ],
@@ -91,7 +91,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.homePage.HomePage', {
           }, {
               text: '列表',
               dataIndex: 'name',
-              width: 180,
+              width: 175,
               align: 'left',
               editor: {
                 xtype: 'textfield'
@@ -99,8 +99,8 @@ Ext.define('XMLifeOperating.view.centralPointManage.homePage.HomePage', {
           }, {
               text: '类型',
               dataIndex: 'type',
-              width: 50,
-              align: 'left',
+              width: 55,
+              align: 'center',
               editor: {
                 xtype: 'textfield'
               }
@@ -110,7 +110,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.homePage.HomePage', {
               text: '操作',
               tooltip: '删除',
               icon: 'resources/images/delete.png',
-              width: 50,
+              width: 45,
               align: 'center',
               getClass:function(v, meta, record, rIndex, cIndex, store){
                 if (record.get('order') == 0) {
@@ -216,7 +216,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.homePage.HomePage', {
           itemSelector: 'li',
           loadMask: true,
           loadingText: 'Loading...',
-          tpl: '<div id="homePreviewList"><br>当前暂无预览</div>',
+          tpl: '<div id="homePreviewList"><p style="text-align:center;">当前暂无预览</p></div>',
       }]
     }]
 
