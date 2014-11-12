@@ -478,7 +478,11 @@ Ext.define('XMLifeOperating.controller.GDeliverer', {
             deliverer.set('onlineTime', (deliverer.get('onlineTime').getHours() * 60 + deliverer.get('onlineTime').getMinutes()));
             deliverer.set('offlineTime', (deliverer.get('offlineTime').getHours() * 60 + deliverer.get('offlineTime').getMinutes()));
             var pwd = editWindow.down('[name=pwd]').getValue();
-            deliverer.set('pwd', hex_md5(pwd));
+            pwd = pwd.replace(/(^\s+)|(\s+$)/g,"");
+            if(pwd!=''){
+                deliverer.set('pwd', hex_md5(pwd));
+            }
+            
 
             if (deliverer.get('id') != null && deliverer.get('id') != '') {
                 var url = 'deliverer/' + deliverer.get('uid')
