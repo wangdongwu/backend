@@ -88,8 +88,9 @@ Ext.define('XMLifeOperating.view.batchoperation.BatchUploadWithLocation', {
               {
                 xtype: 'textareafield',
                 grow: true,
-                name: 'description',
+                name: 'comment',
                 fieldLabel: '提交说明',
+                allowBlank: false,
                 emptyText: '提交说明(必填)'
               },
               {

@@ -43,8 +43,9 @@ Ext.define('XMLifeOperating.view.batchoperation.update.ProductPictureUpdateBatch
             {
               xtype: 'textareafield',
               grow: true,
-              name: 'description',
+              name: 'comment',
               fieldLabel: '提交说明',
+              allowBlank: false,
               emptyText: '提交说明(必填)'
             },
             {
