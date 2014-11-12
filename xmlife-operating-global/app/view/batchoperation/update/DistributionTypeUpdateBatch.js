@@ -48,6 +48,7 @@ Ext.define('XMLifeOperating.view.batchoperation.update.DistributionTypeUpdateBat
             {
               xtype: 'filefield',
               fieldLabel: '文件路径',
+              emptyText: '从svn中选择上传',
               name: 'file'
             },
             {

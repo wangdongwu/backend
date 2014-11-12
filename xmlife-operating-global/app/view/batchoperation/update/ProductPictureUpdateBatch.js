@@ -1,18 +1,18 @@
 Ext.define('XMLifeOperating.view.batchoperation.update.ProductPictureUpdateBatch', {
   extend: 'Ext.panel.Panel',
-  id : 'ProductPictureUpdateBatch',
-  xtype : 'ProductPictureUpdateBatch',
-  alias : 'widget.ProductPictureUpdateBatch',
-  title : '商品图片',
+  id: 'ProductPictureUpdateBatch',
+  xtype: 'ProductPictureUpdateBatch',
+  alias: 'widget.ProductPictureUpdateBatch',
+  title: '商品图片',
   closeAction: 'hide',
   resizable: false,
   forceFit: true,
-  items : [
+  items: [
     {
-      xtype : 'form',
+      xtype: 'form',
       border: 0,
-      edit : false,
-      items : [
+      edit: false,
+      items: [
         {
           xtype: 'fieldcontainer',
           defaultType: 'textfield',
@@ -31,12 +31,25 @@ Ext.define('XMLifeOperating.view.batchoperation.update.ProductPictureUpdateBatch
             {
               xtype: 'filefield',
               fieldLabel: '文件路径',
+              emptyText: '从svn中选择上传',
+              itemId: 'pictures',
               name: 'file',
-              listeners:{
-                afterrender:function(cmp){
+              listeners: {
+                afterrender: function (cmp) {
                   cmp.fileInputEl.set({
-                    multiple:'multiple'
+                    multiple: 'multiple'
                   });
+                },
+                change: function (value) {
+                  var files = value.fileInputEl.dom.files,
+                    str = '共' + files.length + '个文件 : ';
+                  showMax = files.length > 3 ? 3 : files.length;
+
+                  for (var i = 0; i < showMax; i++) {
+                    str += files[i].name;
+                    str += '  ';
+                  }
+                  this.inputEl.dom.value = str;
                 }
               }
             },

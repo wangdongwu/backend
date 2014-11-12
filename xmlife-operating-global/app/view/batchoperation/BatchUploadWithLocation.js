@@ -83,6 +83,7 @@ Ext.define('XMLifeOperating.view.batchoperation.BatchUploadWithLocation', {
               {
                 xtype: 'filefield',
                 fieldLabel: '文件路径',
+                emptyText: '从svn中选择上传',
                 name: 'file'
               },
               {

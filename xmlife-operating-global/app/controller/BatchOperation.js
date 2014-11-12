@@ -169,7 +169,9 @@ Ext.define('XMLifeOperating.controller.BatchOperation', {
             logArea = button.up('form').down('#resultLog');
 
           form.url = XMLifeOperating.generic.Global.URL.biz + 'backdoor/update/product/img2';
-          self.submitForm(form, logArea, path);
+          self.submitForm(form, logArea, path, function(){
+            button.up('form').down('#pictures').fileInputEl.set({multiple: 'multiple'});
+          });
         }
       },
       'DistributionTypeUpdateBatch #submit': {
@@ -189,7 +191,9 @@ Ext.define('XMLifeOperating.controller.BatchOperation', {
             logArea = button.up('form').down('#resultLog');
 
           form.url = XMLifeOperating.generic.Global.URL.biz + 'backdoor/update/product/addtemplates';
-          self.submitForm(form, logArea, path);
+          self.submitForm(form, logArea, path, function(){
+            button.up('form').down('#pictures').fileInputEl.set({multiple: 'multiple'});
+          });
         }
       },
       'DistributionLocationAddBatch #submit': {
@@ -225,7 +229,7 @@ Ext.define('XMLifeOperating.controller.BatchOperation', {
     });
 
   },
-  submitForm: function (form, logArea, path) {
+  submitForm: function (form, logArea, path, cb) {
     var sessionId = localStorage.getItem('sessionId') || '';
     if (form.isValid()) {
       if (form.url.indexOf('sessionId') < 0) {
@@ -235,9 +239,14 @@ Ext.define('XMLifeOperating.controller.BatchOperation', {
         waitMsg: '正在上传您的文件......',
         success: function(form, action) {
           this.customMethod(form, action);
+          if (cb) {
+            cb();
+          }
         },
         failure: function(form, action) {
-          this.customMethod(form, action);
+          if (cb) {
+            cb();
+          }
         },
         customMethod: function(form, action) {
           var data = JSON.parse(action.response.responseText);
