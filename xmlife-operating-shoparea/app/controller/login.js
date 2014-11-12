@@ -1,8 +1,8 @@
 Ext.define('XMLifeOperating.controller.login', {
   extend: 'Ext.app.Controller',
   views: ['admin.login', 'Toolbar', 'Navigation'],
-  stores: ['ShopArea', 'Navigation'],
-  models: ['ShopArea'],
+  stores: ['ShopArea', 'Navigation', 'AdminGetInfo'],
+  models: ['ShopArea', 'AdminGetInfo'],
   refs: [{
     ref: 'login',
     selector: 'login',
@@ -131,7 +131,7 @@ Ext.define('XMLifeOperating.controller.login', {
       newPassword = view.down('[name=newPassword]').getValue();
     reNewPassword = view.down('[name=reNewPassword]').getValue();
     loginUrl = XMLifeOperating.generic.Global.URL.biz + 'admin/login',
-    updateUrl = XMLifeOperating.generic.Global.URL.biz + 'admin/update/ownAccount';
+      updateUrl = XMLifeOperating.generic.Global.URL.biz + 'admin/update/ownAccount';
     if (self.edit) {
       var newPassword = view.down('[name=newPassword]').getValue(),
         name = view.down('[name=nick]').getValue();
@@ -216,9 +216,13 @@ Ext.define('XMLifeOperating.controller.login', {
     var me = this;
     var store = me.getNavigationStore();
     var shopAreaStore = me.getShopAreaStore();
-    store.on('load',function(navigationStore){
+    store.on('load', function(navigationStore) {
       var node = navigationStore.getRootNode();
-      node.insertChild(1,{id:'ShopConfigManage',text:'店铺配置',leaf:true});
+      node.insertChild(1, {
+        id: 'ShopConfigManage',
+        text: '店铺配置',
+        leaf: true
+      });
     });
     var success = function(response) {
       var obj = eval('(' + response.responseText + ')');
@@ -264,6 +268,20 @@ Ext.define('XMLifeOperating.controller.login', {
         buttons: Ext.Msg.OK
       });
     }
-    sendGetRequest('admin/getInfo', null, '检测账号', '检测账号成功', '检测账号失败', success, failure);
+
+     sendGetRequest('admin/getInfo', null, '检测账号', '检测账号成功', '检测账号失败', success, failure);
+    var userStore = me.getAdminGetInfoStore();
+    userStore.load({
+      scope:me,
+      callback: function(records, operation, success) {
+        debugger
+        if(success){//成功
+
+        }else{//失败
+
+
+        }
+      }
+    })
   }
 });
