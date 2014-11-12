@@ -41,12 +41,27 @@
          text: '状态',
          dataIndex: 'status',
          itemId: 'showOrHide',
-         renderer: function(value) {
+         renderer: function(value, metadata, model, rowIndex, colIndex, store) {
+             var record = model,
+                 isLeaf = record.get('leaf');
+             var returnStr = '';
+
              if (value == 0) { //隐藏
-                 return '<button>显示</button>';
+                 if (isLeaf) {
+                     returnStr = '<button>显示</button>';
+                 } else {
+                     metaData.css = 'x-hide-display';
+                     returnStr = '<button disabled >显示</button>';
+                 }
              } else if (value == 1) { //显示
-                 return '<button>隐藏</button>';
+                 if (isLeaf) {
+                     returnStr = '<button>隐藏</button>';
+                 } else {
+                     metaData.css = 'x-hide-display';
+                     returnStr = '<button disabled >隐藏</button>';
+                 }
              }
+             return returnStr;
          },
          tdCls: 'user-td'
      }],

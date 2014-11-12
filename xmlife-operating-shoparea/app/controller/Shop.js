@@ -38,7 +38,8 @@ Ext.define('XMLifeOperating.controller.Shop', {
         'ProductTemplate',
         'ProductSearch',
         'CategoryLeafCategorys',
-        'ChangePriceRecordMyRecords'
+        'ChangePriceRecordMyRecords',
+        'ProductStatus'
     ],
 
     models: [
@@ -52,7 +53,8 @@ Ext.define('XMLifeOperating.controller.Shop', {
         'ProductTemplate',
         'ProductSearch',
         'CategoryLeafCategorys',
-        'ChangePriceRecord'
+        'ChangePriceRecord',
+        'ProductStatus'
     ],
     /*
       @param selector  widget.XX
@@ -1433,41 +1435,49 @@ Ext.define('XMLifeOperating.controller.Shop', {
             /*
              * product事件
              */
-            '#ShelvesGoodsList #putawayOrOut, #ShelvesGoodsList #frozen': {
-                click: function(component, column, rowIndex, colIndex, e) {
+            '#ShelvesGoodsList': {
+                validateedit: function(e, row) {
+                    var me = this;
+                    var rec = row.record;
+                    var value = row.value;
+                    var field = e.context.field;
+                
+                    if (field == 'status') {
+                        var url = 'product/opt',
+                            status = value,
+                            id = rec.get('id');
+                        var success = function(reponse) {
+                            Ext.MessageBox.show({
+                                title: '提示',
+                                msg: '改变商品状态成功',
+                                buttons: Ext.Msg.OK
+                            });
+                            return true;
 
-                    var model = component.getStore().getAt(rowIndex);
-                    var node = e.target;
-                    var className = null
-                    var statusValue = null
-                    var url = ['product/'];
-                    var status;
-                    if (node.type == 'button') {
-                        statusValue = node.getAttribute('statusvalue');
+                        }
+                        var failure = function() {
+                            Ext.MessageBox.show({
+                                title: '提示',
+                                msg: '改变商品状态失败',
+                                icon: Ext.Msg.ERROR,
+                                buttons: Ext.Msg.OK
+                            });
+                        }
+                        sendPutRequest(url, {
+                            productId: id,
+                            type: status
+                        }, '改变商品状态', '改变商品状态成功', '改变商品状态失败', success, failure);
 
                     } else {
-                        statusValue = node.childNodes[0].getAttribute("statusValue");
+                        return false;
                     }
-                    url.push(statusValue)
-                    //statusValue为点击事件后商品的状态
-                    switch (statusValue) {
-                        case 'soldout': //让商品下架（目前处于上架状态）
-                            status = 3;
-                            break;
-                        case 'offline': //让商品雪藏（目前处于未雪藏）
-                            status = 1;
-                            break;
-                        case 'online': //让商品上架（目前处于售罄状态）
-                            status = 0;
-                            break;
-                    }
-                    sendPutRequest(url.join(''), {
-                        productId: model.get('id')
-                    }, '', '成功创建分类', '创建分类失败', function() {
-                        //me.fireEvent('refreshView');
-                        model.set('status', status);
-                    });
+
+                    /*                    if (field == 'myDateColumnName') {
+                        var newDay = Ext.util.Format.date(val, 'l');
+                        rec.set('myDOWColumnName', newDay);
+                    }*/
                 }
+
             },
             '#ShelvesGoodsList #setProductTop': {
                 click: function(component, rowIndex, colIndex) {

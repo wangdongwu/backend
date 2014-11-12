@@ -143,7 +143,6 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopShelf', {
                     metaData.css = 'x-hide-display';
                     returnStr = '<button disabled >显示</button>';
                 }
-
             } else if (value == 1) { //显示
                 if (isLeaf) {
                     returnStr = '<button>隐藏</button>';
@@ -153,8 +152,6 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopShelf', {
                 }
             }
             return returnStr;
-            /* }*/
-
         },
         tdCls: 'user-td'
     }],
@@ -169,7 +166,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopShelf', {
             itemId: 'openCreateShelvesWin'
         }, {
             xtype: 'button',
-            text: '分类查看',
+            text: '状态查看',
             menu: {
                 xtype: 'menu',
                 items: [{

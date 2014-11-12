@@ -5,13 +5,6 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopProduct', {
     header: false,
     store: 'Product',
     itemId: 'ShelvesGoodsList',
-    /*bbar: [{
-        xtype: 'pagingtoolbar',
-        itemId: 'pagetool',
-        store: 'Product',
-        displayInfo: true,
-        style: 'border:none'
-    }],*/
     columns: [{
         xtype: 'rownumberer'
     }, {
@@ -117,49 +110,78 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopProduct', {
             return value;
         }
     }, {
+        header: "状态",
+        width: 90,
+        dataIndex: 'status',
+        sortable: true,
+        itemId: 'putawayOrOut',
+        align: 'center',
+        editor: Ext.create('Ext.form.ComboBox', {
+            id:'productstatuscombo',
+            displayField: 'name',
+            valueField: 'value',
+            triggerAction: 'all',
+            autoScroll: true,
+            editable:false,
+            itemId: 'putawayOrOutComboBox',
+            queryMode:'local',
+            store: Ext.create('Ext.data.Store', {
+                fields: ['value', 'name'],
+                data: [{
+                    'value': 0,
+                    'name': '上架'
+                }, {
+                    'value': 1,
+                    'name': '雪藏'
+                }, {
+                    'value': 2,
+                    'name': '废弃'
+                }, {
+                    'value': 3,
+                    'name': '下架'
+                }]
+            })
+        }),
+        renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
+           debugger
+            var me = this,
+                editor = me.down('#putawayOrOut').getEditor(),
+                store = editor.getStore(),
+                comboRecordIndex = store.find(editor.valueField, value),
+                comboReocrd = store.getAt(comboRecordIndex);
+            var returnStr = '';
+            if (record == null) {
+                returnStr = value;
+            } else {
+                returnStr = comboReocrd.get(editor.displayField);
+            }
+            return returnStr;
+        },
+
+    }, /*{
         header: "",
         width: 90,
         dataIndex: 'status',
-        itemId: 'putawayOrOut',
         menuDisabled: true,
         sortable: true,
         align: 'center',
         renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
             var me = this;
-/*            if (!me.CategoryRootsStore) {
-                me.CategoryRootsStore = Ext.StoreMgr.lookup('CategoryRoots');
-            }
-            var category = me.CategoryRootsStore.getById(record.get('categoryId'));
-            type = category ? category.get('type') : 1;*/
             var str = '';
-/*            if (type == 0) {
-                switch (value) {
-                    case 3: //售罄，显示上架按钮
-                        str += '<input type="button" disabled="true" value="上架" statusValue="online" class="putaway" /><br/>';
-                        break;
-                    case 1:
-                        str += '--';
-                        break;
-                    case 0: //在上架中，显示下架按钮
-                        str += '<input type="button"   disabled="true"  value="下架" statusValue="soldout"  class="putaway" /><br/>';
-                        break;
-                }
-            } else {*/
-                switch (value) {
-                    case 3: //售罄，显示上架按钮
-                        str += '<input type="button" value="上架" statusValue="online" class="putaway" /><br/>';
-                        break;
-                    case 1:
-                        str += '--';
-                        break;
-                    case 0: //在上架中，显示下架按钮
-                        str += '<input type="button" value="下架" statusValue="soldout"  class="putaway" /><br/>';
-                        break;
-                }
-           /* }*/
+            switch (value) {
+                case 3: //售罄，显示上架按钮
+                    str += '<input type="button" value="上架" statusValue="online" class="putaway" /><br/>';
+                    break;
+                case 1:
+                    str += '--';
+                    break;
+                case 0: //在上架中，显示下架按钮
+                    str += '<input type="button" value="下架" statusValue="soldout"  class="putaway" /><br/>';
+                    break;
+            }
             return str;
         }
-    }, {
+    },*/ /*{
         header: "",
         width: 90,
         dataIndex: 'status',
@@ -169,38 +191,21 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopProduct', {
         align: 'center',
         renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
             var me = this;
-/*            if (!me.CategoryRootsStore) {
-                me.CategoryRootsStore = Ext.StoreMgr.lookup('CategoryRoots');
-            }
-            var category = me.CategoryRootsStore.getById(record.get('categoryId'));
-            type = category ? category.get('type') : 1;*/
             var str = '';
-/*            if (type == 0) {
-                switch (value) {
-                    case 0:
-                        str += '<input type="button" disabled="true" value="雪藏" statusValue="offline" class="frozen" />';
-                        break;
-                    case 1:
-                        str += '<input type="button" disabled="true" value="取消雪藏" statusValue="soldout" class="frozen" />';
-                        break;
-                    case 3:
-                        str += '<input type="button" disabled="true" value="雪藏" statusValue="offline"  class="frozen" />';
-                }
-            } else {*/
-                switch (value) {
-                    case 0:
-                        str += '<input type="button"  value="雪藏" statusValue="offline" class="frozen" />';
-                        break;
-                    case 1:
-                        str += '<input type="button"  value="取消雪藏" statusValue="soldout" class="frozen" />';
-                        break;
-                    case 3:
-                        str += '<input type="button"  value="雪藏" statusValue="offline"  class="frozen" />';
-                }
-          /*  }*/
+            switch (value) {
+                case 0:
+                    str += '<input type="button"  value="雪藏" statusValue="offline" class="frozen" />';
+                    break;
+                case 1:
+                    str += '<input type="button"  value="取消雪藏" statusValue="soldout" class="frozen" />';
+                    break;
+                case 3:
+                    str += '<input type="button"  value="雪藏" statusValue="offline"  class="frozen" />';
+            }
+
             return str;
         }
-    }, {
+    },*/ {
         text: '编辑',
         xtype: 'actioncolumn',
         width: 50,
@@ -209,7 +214,6 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopProduct', {
         menuDisabled: true,
         sortable: true,
         itemId: 'openModifyShelvesGoodsWin',
-
     }, {
         text: '排序',
         dataIndex: 'rank',
@@ -228,33 +232,31 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopProduct', {
         align: 'center',
         renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
             var me = this;
-/*            if (!me.CategoryRootsStore) {
-                me.CategoryRootsStore = Ext.StoreMgr.lookup('CategoryRoots');
+            if (value) {
+                return '<input type="button" value="取消置顶"/>'
+
+            } else {
+                return '<input type="button"  value="置顶"/>'
             }
-            var category = me.CategoryRootsStore.getById(record.get('categoryId'));
-            type = category ? category.get('type') : 1;*/
-/*            if (type == 0) {
-                if (value) {
-                    return '<input type="button" disabled="true"  value="取消置顶"/>'
-
-                } else {
-                    return '<input type="button" disabled="true"  value="置顶"/>'
-                }
-
-            } else {*/
-                if (value) {
-                    return '<input type="button" value="取消置顶"/>'
-
-                } else {
-                    return '<input type="button"  value="置顶"/>'
-                }
-           /* }*/
         }
     }],
+    /*bbar: [{
+        xtype: 'pagingtoolbar',
+        itemId: 'pagetool',
+        store: 'Product',
+        displayInfo: true,
+        style: 'border:none'
+    }],*/
     tbar: [{
         text: '添加商品',
         xtype: 'button',
         itemId: 'openCreateShelvesGoodsWin'
+    }],
+    plugins: [{
+        ptype: 'cellediting',
+        clicksToEdit: 1
     }]
+
+
 
 });

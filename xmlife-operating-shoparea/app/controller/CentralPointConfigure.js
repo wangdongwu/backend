@@ -54,16 +54,6 @@ Ext.define('XMLifeOperating.controller.CentralPointConfigure', {
                     alert(1111);
                 }
             },
-
-
-
-
-
-
-
-
-
-
             'centralpointconfigurelist #editCentralPoint': {
                 click: me.onEdit
             },

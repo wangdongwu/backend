@@ -79,14 +79,15 @@ Ext.define('XMLifeOperating.Application', {
         'HomePage',
         'HomePageModuleList',
         'HomePageModuleDetail',
-        'DealWaitAssignDeliverer'
+        'DealWaitAssignDeliverer',
+        'ProductStatus'
     ],
 
     launch: function() {
 
         // Setup a task to fadeOut the splashscreen
-      var splashscreen = Ext.getBody().mask('<div style="text-align:center;width:300px;">正在加载小美后台应用...<br/>请稍等</div>', 'splashscreen');
-        
+        var splashscreen = Ext.getBody().mask('<div style="text-align:center;width:300px;">正在加载小美后台应用...<br/>请稍等</div>', 'splashscreen');
+
         var task = new Ext.util.DelayedTask(function() {
             // Fade out the body mask
             splashscreen.fadeOut({
@@ -124,9 +125,9 @@ var uploadBlobImage = function(blobImage) {
         xhr.onreadystatechange = function() {
             if (xhr.readyState == 4) {
                 if (xhr.status == 200) {
-                   
+
                     var resid = xhr.responseText;
-              
+
                     if (resid.length != 26) {
                         Ext.MessageBox.show({
                             title: '无法上传图片',
@@ -138,7 +139,7 @@ var uploadBlobImage = function(blobImage) {
                     }
                     window.RECENT_UPLOADS.push(resid);
                 } else {
-                   
+
                     var resid = xhr.responseText;
                     if (resid.length != 26) {
                         Ext.MessageBox.show({
@@ -153,17 +154,17 @@ var uploadBlobImage = function(blobImage) {
             }
         };
         xhr.ontimeout = function() {
-          
+
         };
         xhr.send(form);
     };
 }
 var uploadImage = function(form, textfield) {
- 
+
     form.submit({
         url: XMLifeOperating.generic.Global.URL.upload,
         success: function(form, action) {
-           
+
             var resid = action.response.responseText;
             if (resid.length != 26) {
                 Ext.MessageBox.show({
@@ -180,7 +181,7 @@ var uploadImage = function(form, textfield) {
 
         // If you don't pass success:true, it will always go here
         failure: function(form, action) {
-          
+
             var resid = action.response.responseText;
             if (resid.length != 26) {
                 Ext.MessageBox.show({
