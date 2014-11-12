@@ -311,7 +311,8 @@ Ext.define('XMLifeOperating.controller.Coupon', {
             couponCost_d = grid.down('#couponCost_d'),//打/减
             couponCost_dz = grid.down('#couponCost_dz'),//打_折/减_元
             couponCost_z = grid.down('#couponCost_z'),//折/元
-            maxDiscountTextId = grid.down('#maxDiscountTextId');//最多优惠
+            maxDiscountTextId = grid.down('#maxDiscountTextId'),//最多优惠
+            couponCost_v =  grid.down('#couponCost_v');//优惠券价值
         var comboValue = combo.getValue();
         switch(comboValue){
             case 1:
@@ -325,6 +326,9 @@ Ext.define('XMLifeOperating.controller.Coupon', {
                 couponCost_z.setValue('元');
                 maxDiscountTextId.setVisible(false);
                 maxDiscountTextId.allowBlank = false;
+                couponCost_my.setValue('');
+                couponCost_dz.setValue('');
+                couponCost_v.setValue('');
                 break;
             case 2:
                 couponCost_m.setVisible(true);
@@ -337,6 +341,9 @@ Ext.define('XMLifeOperating.controller.Coupon', {
                 couponCost_z.setValue('折');
                 maxDiscountTextId.setVisible(true);
                 maxDiscountTextId.allowBlank = true;
+                couponCost_my.setValue('');
+                couponCost_dz.setValue('');
+                couponCost_v.setValue('');
                 break;
             case 3:
                 couponCost_m.setVisible(false);
@@ -345,8 +352,11 @@ Ext.define('XMLifeOperating.controller.Coupon', {
                 couponCost_d.setVisible(false);
                 couponCost_dz.setVisible(false);
                 couponCost_z.setVisible(false);
-                maxDiscountTextId.setVisible(true);
+                maxDiscountTextId.setVisible(false);
                 maxDiscountTextId.allowBlank = true;
+                couponCost_my.setValue('');
+                couponCost_dz.setValue('');
+                couponCost_v.setValue('');
                 break;
         }
     },
