@@ -132,14 +132,6 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopShelf', {
         dataIndex: 'status',
         itemId: 'showOrHide',
         renderer: function(value, metadata, model, rowIndex, colIndex, store) {
-            /* 
-            var type = record.get('type');
-            if (type == 0) { //回收站分类
-                metaData.css = 'x-hide-display';
-            } else{
-                metaData.css = 'x-grid-icon';
-                */
-            debugger
             var record = model,
                 isLeaf = record.get('leaf');
             var returnStr = '';
