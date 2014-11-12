@@ -91,7 +91,15 @@ Ext.define('XMLifeOperating.view.centralPointManage.homePage.HomePage', {
           }, {
               text: '列表',
               dataIndex: 'name',
-              width: 225,
+              width: 180,
+              align: 'left',
+              editor: {
+                xtype: 'textfield'
+              }
+          }, {
+              text: '类型',
+              dataIndex: 'type',
+              width: 50,
               align: 'left',
               editor: {
                 xtype: 'textfield'
