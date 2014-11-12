@@ -376,6 +376,7 @@ Ext.define('XMLifeOperating.controller.Coupon', {
         
         var couponTypeId = winStep1.down('#couponTypeId').getValue();
         var bindingType = winStep2.down('[name=bindingType]');
+        console.log(couponTypeId);
         if(couponTypeId!=3){
             bindingType.allowBlank = false;
         }
@@ -812,6 +813,7 @@ Ext.define('XMLifeOperating.controller.Coupon', {
             maxCouponNumHold = editWindow.down('[name=maxCouponNumHold]').getValue(),
             expireStartDate = (editWindow.down('[name=expireStartDate]').getValue()).getTime(),
             expireEndDate = (editWindow.down('[name=expireEndDate]').getValue()).getTime(),
+
             delayUseStartHours = editWindow.down('[name=delayUseStartHours]').getValue(),
             delayUseEndHours = editWindow.down('[name=delayUseEndHours]').getValue(),
 
@@ -819,7 +821,14 @@ Ext.define('XMLifeOperating.controller.Coupon', {
             globalDailyCouponNum = editWindow.down('[name=globalDailyCouponNum]').getValue(),//全局每天可领
             globalUserCouponNumHold = editWindow.down('[name=globalUserCouponNumHold]').getValue(),//每人终身可领
             userDailyCouponNumHold = editWindow.down('[name=userDailyCouponNumHold]').getValue();//每人每天可领*/
-
+            delayUseStartHours = delayUseStartHours.replace(/(^s*)|(s*$)/g, '');
+            delayUseEndHours = delayUseEndHours.replace(/(^s*)|(s*$)/g, '');
+            if(delayUseStartHours==''){
+                delayUseStartHours=-1
+            }
+            if(delayUseEndHours==''){
+                delayUseEndHours=-1
+            }
         //winStep2
         var bindingType = winStep2.down('[name=bindingType]').getValue();
         var bindings='';
