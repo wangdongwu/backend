@@ -123,7 +123,6 @@ Ext.define('XMLifeOperating.view.staffManage.deliverer.GDelivererEdit', {
                     fieldLabel: '密码',
                     labelWidth: 90,
                     // allowBlank:false,
-                   
                 },
                 /*{
                     name: 'areaIds',
