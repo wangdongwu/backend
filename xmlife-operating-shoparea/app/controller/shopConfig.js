@@ -227,10 +227,17 @@ Ext.define('XMLifeOperating.controller.shopConfig', {
           shopStore = this.getShopStore();
 
           shopList.setValue('');
+          shopStore.clearFilter(true);
+
           shopStore.load({
             params : {
               areaId : this.areaId
             }
+          });
+          shopStore.on('load',function(){
+            this.filter([function(item){
+              return item.get('status') !== 0;
+            }]);
           });
           
     },
@@ -856,6 +863,11 @@ Ext.define('XMLifeOperating.controller.shopConfig', {
             var store = self.getHomePageShopStore();
             store.getProxy().extraParams = {areaId: this.areaId};
             store.load();
+            store.on('load',function(){
+              this.filter([function(item){
+                 return item.get('status') !== 0;
+              }]);
+            });
 
             // 编辑时，依次触发回填
             if(flag == 'isInit' && record.get('shopId')) {
@@ -885,10 +897,16 @@ Ext.define('XMLifeOperating.controller.shopConfig', {
 
             if (this.urlType == 'CATEGORY') {
                 store = self.getHomePageCategoryStore();
+                store.on('load',function(){
+                  this.filter([function(item){
+                    return item.get('status') !== 0;
+                  }])
+                });
             } else if (this.urlType == 'SKU') {
                 store = self.getHomePageLeafCategoryStore();
             }
             store.load({ params: {shopId: shopId} });
+            
 
             // 选择父级下拉，清空之前选择（初始化时除外）
             if(flag != 'isInit') {
@@ -908,6 +926,12 @@ Ext.define('XMLifeOperating.controller.shopConfig', {
             store.load({ params: {id: cid} });
             win.down('combo[name=pid]').setValue('');
             store.load({ params: {categoryId: cid} });
+            store.on('load',function(){
+              this.filter(function(item){
+                var status = item.get('status');
+                return status == 0 || status == 3;
+              })
+            });
             if(flag != 'isInit') win.down('combo[name=pid]').setValue('');
         }
     }
