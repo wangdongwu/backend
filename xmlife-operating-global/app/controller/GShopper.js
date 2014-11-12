@@ -139,7 +139,7 @@ Ext.define('XMLifeOperating.controller.GShopper', {
                     } else if (activeBindText == '查看未绑定的买手') {
                         activeBindText = '查看已绑定的买手';
                         isUnbind = true;
-                        Ext.getCmp('gShopperList').down('#shopArea').setValue('')
+                        Ext.getCmp('gShopperList').down('#shopArea').setValue('');
                     }
                     var store = this.getShopperStore();
                     store.getProxy().extraParams = {
@@ -149,7 +149,6 @@ Ext.define('XMLifeOperating.controller.GShopper', {
                     store.on('load', function() {
                         Ext.getCmp('gShopperList').down('#activeBind').setText(activeBindText);
                         Ext.getCmp('gShopperList').down('#activeSearch').setText('查看停单买手');
-                        /*isUnbind? Ext.getCmp('gShopperList').down('#shopArea').setValue(''):*/
                         me.getGShopperList().down('#searchBuyerKeyWords').setValue('');
                     });
                 }
@@ -468,7 +467,6 @@ Ext.define('XMLifeOperating.controller.GShopper', {
         win.show();
     },
     onEdit: function(view, rowIndex, colIndex, column, e) {
-
         var shopper = view.getRecord(view.findTargetByEvent(e));
         var win = this.getEditWindow();
         var record = shopper;
@@ -478,9 +476,11 @@ Ext.define('XMLifeOperating.controller.GShopper', {
         var rightOfflineTime = record.get('offlineTime') % 60 < 10 ? '0' + record.get('offlineTime') % 60 : record.get('offlineTime') % 60;
         var onlineTime = leftOnlineTime + ':' + rightOnlineTime;
         var offlineTime = leftOfflineTime + ':' + rightOfflineTime;
-        record.set('onlineTime', onlineTime);
-        record.set('offlineTime', offlineTime);
+        // record.set('onlineTime', onlineTime);
+        // record.set('offlineTime', offlineTime);
         win.down('form').loadRecord(record);
+        win.down('[name=onlineTime]').setValue(onlineTime);
+        win.down('[name=offlineTime]').setValue(offlineTime);
         win.show();
     },
     saveEditWindow: function() {

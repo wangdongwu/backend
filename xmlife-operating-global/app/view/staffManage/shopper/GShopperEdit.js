@@ -6,6 +6,7 @@ Ext.define('XMLifeOperating.view.staffManage.shopper.GShopperEdit', {
         'Ext.form.Panel',
         'Ext.form.field.Text',
         'Ext.form.field.Hidden',
+        'Ext.form.field.Time'
     ],
     closeAction: 'hide',
     modal: true,
@@ -160,6 +161,7 @@ Ext.define('XMLifeOperating.view.staffManage.shopper.GShopperEdit', {
                     labelWidth: 90,
                     format:'H:i',
                     allowBlank:false,
+                    
                     
                 },
                 {

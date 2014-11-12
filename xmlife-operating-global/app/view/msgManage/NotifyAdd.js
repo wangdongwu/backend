@@ -47,13 +47,16 @@ Ext.define('XMLifeOperating.view.msgManage.NotifyAdd', {
                 allowBlank: false,
                 margin: '10 0 10 0'
             }, {
+                xtype: 'label',
+                text: '消息链接至：'
+            }, {
                 xtype: 'combo',
-                fieldLabel: '消息链接至',
                 name:'linkType',
                 itemId: 'linkType',
                 displayField: 'type',
                 valueField: 'value',
                 triggerAction: 'all',
+                editable: false,
                 store: Ext.create('Ext.data.Store', {
                     fields: ['value', 'type'],
                     data: [{
@@ -70,6 +73,7 @@ Ext.define('XMLifeOperating.view.msgManage.NotifyAdd', {
                 name:'internalType',
                 itemId: 'internalType',
                 hidden: true,
+                editable: false,
                 triggerAction: 'all',
                 displayField: 'type',
                 valueField: 'value',
