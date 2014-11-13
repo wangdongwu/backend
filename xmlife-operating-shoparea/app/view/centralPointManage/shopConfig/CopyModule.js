@@ -14,6 +14,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.shopConfig.CopyModule', {
       items : [{
       xtype : 'combo',
       fieldLabel: '店铺',
+      emptyText: '选择店铺',
       itemId : 'ShopSelect',
       store: 'Shop',
       queryMode: 'local',
@@ -22,6 +23,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.shopConfig.CopyModule', {
     },{
       xtype : 'combo',
       fieldLabel: '版本',
+      emptyText: '选择版本',
       itemId : 'versionSelect',
       store: 'ShopCopyVersion',
       queryMode: 'local',
@@ -30,6 +32,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.shopConfig.CopyModule', {
     },{
       xtype : 'combo',
       fieldLabel: '积木',
+      emptyText : '选择积木',
       name : 'moduleId',
       store: 'ShopCopyModule',
       queryMode: 'local',

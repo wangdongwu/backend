@@ -199,19 +199,43 @@ Ext.define('XMLifeOperating.controller.shopConfig', {
       var self = this,
           windows = button.up('window'),
           form = windows.down('form'),
-          param = Ext.merge({moduleId:form.getValues().moduleId},{layoutId:self.layoutId});
-      Ext.Ajax.request({
-        url : XMLifeOperating.generic.Global.URL.biz+'shopHomepage/copyModule',
-        method :'post',
-        params : param,
-        success : function(response){
-          if(response.responseText == 1){
-            windows.hide();
-            self.loadModuleVersionStore();
-            self.refreshPriview();
+          currentModuleStore = self.getShopModulesStore(),
+          copyModuleStore = self.getShopCopyModuleStore(),
+          moduleId = form.getValues().moduleId,
+          type = copyModuleStore.findRecord('id',moduleId).get('type'),
+          isHaveBanner,
+          param = Ext.merge({moduleId:moduleId},{layoutId:self.layoutId}),
+          sendCopyRequest = function(){
+            Ext.Ajax.request({
+                    url : XMLifeOperating.generic.Global.URL.biz+'shopHomepage/copyModule',
+                    method :'post',
+                    params : param,
+                    success : function(response){
+                      if(response.responseText == 1){
+                        windows.hide();
+                        self.loadModuleVersionStore();
+                        self.refreshPriview();
+                      }
+                    }
+            })
+          };
+          if(type == 'banner'){
+            isHaveBanner = currentModuleStore.findRecord('type','banner');
+            if(isHaveBanner){
+              Ext.MessageBox.confirm('提示','该版本中已经有banner了，<br/>是否要覆盖当前banner?',function(result){
+                if (result == 'yes') {
+                  sendCopyRequest();
+                }else{
+                  return false;
+                }
+              })
+            }else{
+                  sendCopyRequest();
+            }
+          }else{
+            sendCopyRequest();
           }
-        }
-      })
+      
     }
     ,
     switchArea : function(){
