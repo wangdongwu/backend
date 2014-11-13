@@ -16,6 +16,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.homePage.HomePage', {
         itemId: 'versionList',
         title: '版本选择',
         height: document.body.clientHeight/2-40,
+        forceFit: true,
         store: 'HomePage',
         bbar: [
           {
@@ -32,11 +33,13 @@ Ext.define('XMLifeOperating.view.centralPointManage.homePage.HomePage', {
         ],
         columns: [
           {
-              xtype: 'rownumberer'
+              xtype: 'rownumberer',
+              align: 'center',
+              width: '8%',
           }, {
               text: '版本列表',
               dataIndex: 'version',
-              width: 187,
+              width: '60%',
               align: 'left',
               editor: {
                 xtype: 'textfield'
@@ -45,7 +48,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.homePage.HomePage', {
               text: '选择',
               itemId: 'setEnable',
               dataIndex: 'enable',
-              width: 60,
+              width: '18%',
               align: 'center',
               renderer: function(value){
                 return value ? '<span style="color:green;">启用中</span>' : '<input type="button" value="启用" />'
@@ -56,7 +59,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.homePage.HomePage', {
               text: '操作',
               tooltip: '删除',
               icon: 'resources/images/delete.png',
-              width: 45,
+              width: '14%',
               align: 'center',
               renderer: function(value, meta, record, rowIndex, colIndex, store, view) {
                 if(record.get('enable')) meta.style = 'display:none;';
@@ -78,6 +81,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.homePage.HomePage', {
         itemId: 'moduleList',
         title: '大积木列表',
         height: document.body.clientHeight/2-28,
+        forceFit: true,
         store: 'HomePageModuleList',
         bbar: ['->',
           {
@@ -94,12 +98,12 @@ Ext.define('XMLifeOperating.view.centralPointManage.homePage.HomePage', {
           {
               text: '序号',
               dataIndex: 'order',
-              width: 40,
+              width: '10%',
               align: 'center'
           }, {
               text: '列表',
               dataIndex: 'name',
-              width: 175,
+              width: '58%',
               align: 'left',
               editor: {
                 xtype: 'textfield'
@@ -107,7 +111,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.homePage.HomePage', {
           }, {
               text: '类型',
               dataIndex: 'type',
-              width: 55,
+              width: '18%',
               align: 'center',
               editor: {
                 xtype: 'textfield'
@@ -118,7 +122,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.homePage.HomePage', {
               text: '操作',
               tooltip: '删除',
               icon: 'resources/images/delete.png',
-              width: 45,
+              width: '14%',
               align: 'center',
               renderer:function(value, meta, record, rowIndex, colIndex, store, view){
                 if (record.get('type') == 'TYPE0') meta.style = 'display:none;';
@@ -152,6 +156,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.homePage.HomePage', {
       store: 'HomePageModuleDetail',
       columnWidth: 0.4,
       height: document.body.clientHeight-68,
+      forceFit: true,
       bbar: ['->',{
             xtype: 'button',
             text: '新建小积木',
@@ -166,12 +171,12 @@ Ext.define('XMLifeOperating.view.centralPointManage.homePage.HomePage', {
         {
               text: '序号',
               dataIndex: 'index',
-              width: 35,
+              width: '8%',
               align: 'center'
         }, {
             text: '图片',
             dataIndex: 'image',
-            width: 60,
+            width: '18%',
             align: 'center',
             renderer: function(value) {
               return '<span style="display:inline-block;min-height:35px;"><img src="'+ XMLifeOperating.generic.Global.URL.res + value +'" width="100%" style="min-height:20px;border:1px solid #eee;" /></span>';
@@ -179,23 +184,23 @@ Ext.define('XMLifeOperating.view.centralPointManage.homePage.HomePage', {
         }, {
             text: '名称',
             dataIndex: 'name',
-            width: 50,
+            width: '15%',
             align: 'left',
         }, {
             text: 'titles',
             dataIndex: 'titles',
-            width: 115,
+            width: '24%',
             align: 'left'
         }, {
             text: 'url',
             dataIndex: 'url',
-            width: 110,
+            width: '24%',
             align: 'left'
         }, {
             xtype: 'actioncolumn',
             itemId: 'editModuleItem',
             text: '操作',
-            width: 50,
+            width: '11%',
             align: 'center',
             renderer: function(){
               var str1 = '<img src="resources/images/edit.png" class="x-action-col-icon action-edit" style="margin-left:5px;" />',

@@ -564,19 +564,19 @@ Ext.define('XMLifeOperating.controller.HomePage', {
                     break;
 
                 case 'TYPE1':
-                    var str = '<ul class="x-clear" style="'+ wrapCss +'">';
+                    var str = '<ul class="x-clear" style="'+ wrapCss + (i>1? borderT:'') +'">';
                     for (var j=0, m=items.length; j<m; j++) {
-                        var titles = j==0? '<div style="position:absolute;top:20px;left:20px;"><p style="font-size:14px;color:green;">'+ items[j].titles[0]+'</p><p style="font-size:10px;-webkit-transform:scale(0.8);color:#c8c8c8;">'+ items[j].titles[1]+'</p><p style="font-size:12px;color:red;">'+ items[j].titles[2]+'</p></div>' : '';
-                        str += '<li style="float:left;position:relative;width:'+ (j==0? '50%':'25%') +';border:1px solid #fff;'+ (j==1? borderR+borderB:'') + (j==4? borderL+borderT:'') + '">'+ titles +'<a href="'+ items[j].url +'" target="_blank"><img src="'+ res_url + items[j].image +'" width="100%" /></a></li>';
+                        var titles = j==0? '<div style="position:absolute;top:0;left:20px;"><p style="font-size:14px;color:green;">'+ items[j].titles[0]+'</p><p style="margin-left:-10px;font-size:10px;-webkit-transform:scale(0.8);color:#999;">'+ items[j].titles[1]+'</p><p style="font-size:12px;color:#F86125;">'+ items[j].titles[2]+'</p></div>' : '';
+                        str += '<li style="float:left;position:relative;width:'+ (j==0? '50%':'25%') +';border:1px solid #fff;'+ (j==1? borderR+borderB:'') + (j==2? borderB:'') + (j==3? borderR:'') + '">'+ titles +'<a href="'+ items[j].url +'" target="_blank"><img src="'+ res_url + items[j].image +'" width="100%" /></a></li>';
                     }
                     str += '</ul>'
                     html += str;
                     break;
 
                 case 'TYPE2':
-                    var str = '<ul class="x-clear" style="'+ wrapCss +'">';
+                    var str = '<ul class="x-clear" style="'+ wrapCss + (i>1? borderT:'') +'">';
                     for (var j=0, m=items.length; j<m; j++) {
-                        var titles = j==0? '<div style="position:absolute;top:20px;left:20px;"><p style="font-size:14px;color:green;">'+ items[j].titles[0]+'</p><p style="font-size:10px;-webkit-transform:scale(0.8);color:#c8c8c8;">'+ items[j].titles[1]+'</p><p style="font-size:12px;color:red;">'+ items[j].titles[2]+'</p></div>' : '';
+                        var titles = j==0? '<div style="position:absolute;top:0;left:20px;"><p style="font-size:14px;color:green;">'+ items[j].titles[0]+'</p><p style="margin-left:-10px;font-size:10px;-webkit-transform:scale(0.8);color:#999;">'+ items[j].titles[1]+'</p><p style="font-size:12px;color:#F86125;">'+ items[j].titles[2]+'</p></div>' : '';
                         str += '<li style="float:left;position:relative;width:'+ (j==0? '50%':'50%') +';border:1px solid #fff;'+ (j==1? borderB:'') + '">'+ titles +'<a href="'+ items[j].url +'" target="_blank"><img src="'+ res_url + items[j].image +'" width="100%" /></a></li>';
                     }
                     str += '</ul>'
@@ -584,9 +584,9 @@ Ext.define('XMLifeOperating.controller.HomePage', {
                     break;
 
                 case 'TYPE3':
-                    var str = '<ul class="x-clear" style="'+ wrapCss +'">';
+                    var str = '<ul class="x-clear" style="'+ wrapCss + (i>1? borderT:'') +'">';
                     for (var j=0, m=items.length; j<m; j++) {
-                        //var titles = j==0? '<div style="position:absolute;top:20px;left:20px;"><p style="font-size:14px;color:green;">'+ items[j].titles[0]+'</p><p style="font-size:10px;-webkit-transform:scale(0.8);color:#c8c8c8;">'+ items[j].titles[1]+'</p><p style="font-size:12px;color:red;">'+ items[j].titles[2]+'</p></div>' : '';
+                        //var titles = j==0? '<div style="position:absolute;top:0;left:20px;"><p style="font-size:14px;color:green;">'+ items[j].titles[0]+'</p><p style="font-size:10px;-webkit-transform:scale(0.8);color:#999;">'+ items[j].titles[1]+'</p><p style="font-size:12px;color:#F86125;">'+ items[j].titles[2]+'</p></div>' : '';
                         str += '<li style="float:left;position:relative;width:'+ (j==0? '33%':'33%') +';border:1px solid #fff;'+ (j==0 || j==1? borderR:'') + '"><a href="'+ items[j].url +'" target="_blank"><img src="'+ res_url + items[j].image +'" width="100%" /></a></li>';
                     }
                     str += '</ul>'
@@ -594,9 +594,9 @@ Ext.define('XMLifeOperating.controller.HomePage', {
                     break;
 
                 case 'TYPE4':
-                    var str = '<ul class="x-clear" style="'+ wrapCss +'">';
+                    var str = '<ul class="x-clear" style="'+ wrapCss + (i>1? borderT:'') +'">';
                     for (var j=0, m=items.length; j<m; j++) {
-                        //var titles = j==0? '<div style="position:absolute;top:20px;left:20px;"><p style="font-size:14px;color:green;">'+ items[j].titles[0]+'</p><p style="font-size:10px;-webkit-transform:scale(0.8);color:#c8c8c8;">'+ items[j].titles[1]+'</p><p style="font-size:12px;color:red;">'+ items[j].titles[2]+'</p></div>' : '';
+                        //var titles = j==0? '<div style="position:absolute;top:0;left:20px;"><p style="font-size:14px;color:green;">'+ items[j].titles[0]+'</p><p style="font-size:10px;-webkit-transform:scale(0.8);color:#999;">'+ items[j].titles[1]+'</p><p style="font-size:12px;color:#F86125;">'+ items[j].titles[2]+'</p></div>' : '';
                         str += '<li style="float:left;position:relative;width:'+ (j==0? '66%':'33%') +';border:1px solid #fff;'+ (j==0? borderR:'') + '"><a href="'+ items[j].url +'" target="_blank"><img src="'+ res_url + items[j].image +'" width="100%" /></a></li>';
                     }
                     str += '</ul>'
@@ -604,9 +604,9 @@ Ext.define('XMLifeOperating.controller.HomePage', {
                     break;
 
                 case 'TYPE5':
-                    var str = '<ul class="x-clear" style="'+ wrapCss +'">';
+                    var str = '<ul class="x-clear" style="'+ wrapCss + (i>1? borderT:'') +'">';
                     for (var j=0, m=items.length; j<m; j++) {
-                        //var titles = j==0? '<div style="position:absolute;top:20px;left:20px;"><p style="font-size:14px;color:green;">'+ items[j].titles[0]+'</p><p style="font-size:10px;-webkit-transform:scale(0.8);color:#c8c8c8;">'+ items[j].titles[1]+'</p><p style="font-size:12px;color:red;">'+ items[j].titles[2]+'</p></div>' : '';
+                        //var titles = j==0? '<div style="position:absolute;top:0;left:20px;"><p style="font-size:14px;color:green;">'+ items[j].titles[0]+'</p><p style="font-size:10px;-webkit-transform:scale(0.8);color:#999;">'+ items[j].titles[1]+'</p><p style="font-size:12px;color:#F86125;">'+ items[j].titles[2]+'</p></div>' : '';
                         str += '<li style="float:left;position:relative;width:'+ (j==0? '33%':'66%') +';border:1px solid #fff;'+ (j==0? borderR:'') + '"><a href="'+ items[j].url +'" target="_blank"><img src="'+ res_url + items[j].image +'" width="100%" /></a></li>';
                     }
                     str += '</ul>'
@@ -614,9 +614,9 @@ Ext.define('XMLifeOperating.controller.HomePage', {
                     break;
 
                 case 'TYPE6':
-                    var str = '<ul class="x-clear" style="'+ wrapCss +'">';
+                    var str = '<ul class="x-clear" style="'+ wrapCss + (i>1? borderT:'') +'">';
                     for (var j=0, m=items.length; j<m; j++) {
-                        //var titles = j==0? '<div style="position:absolute;top:20px;left:20px;"><p style="font-size:14px;color:green;">'+ items[j].titles[0]+'</p><p style="font-size:10px;-webkit-transform:scale(0.8);color:#c8c8c8;">'+ items[j].titles[1]+'</p><p style="font-size:12px;color:red;">'+ items[j].titles[2]+'</p></div>' : '';
+                        //var titles = j==0? '<div style="position:absolute;top:0;left:20px;"><p style="font-size:14px;color:green;">'+ items[j].titles[0]+'</p><p style="font-size:10px;-webkit-transform:scale(0.8);color:#999;">'+ items[j].titles[1]+'</p><p style="font-size:12px;color:#F86125;">'+ items[j].titles[2]+'</p></div>' : '';
                         str += '<li style="float:left;position:relative;width:'+ (j==0? '100%':'100%') +';border:1px solid #fff;'+ (j==0? borderR:'') + '"><a href="'+ items[j].url +'" target="_blank"><img src="'+ res_url + items[j].image +'" width="100%" /></a></li>';
                     }
                     str += '</ul>'
@@ -624,9 +624,9 @@ Ext.define('XMLifeOperating.controller.HomePage', {
                     break;
 
                 case 'TYPE7':
-                    var str = '<ul class="x-clear" style="'+ wrapCss +'">';
+                    var str = '<ul class="x-clear" style="'+ wrapCss + '">';
                     for (var j=0, m=items.length; j<m; j++) {
-                        //var titles = j==0? '<div style="position:absolute;top:20px;left:20px;"><p style="font-size:14px;color:green;">'+ items[j].titles[0]+'</p><p style="font-size:10px;-webkit-transform:scale(0.8);color:#c8c8c8;">'+ items[j].titles[1]+'</p><p style="font-size:12px;color:red;">'+ items[j].titles[2]+'</p></div>' : '';
+                        //var titles = j==0? '<div style="position:absolute;top:0;left:20px;"><p style="font-size:14px;color:green;">'+ items[j].titles[0]+'</p><p style="font-size:10px;-webkit-transform:scale(0.8);color:#999;">'+ items[j].titles[1]+'</p><p style="font-size:12px;color:#F86125;">'+ items[j].titles[2]+'</p></div>' : '';
                         str += '<li style="float:left;position:relative;width:'+ (j==0? '49%':'49%') +';border:1px solid #fff;'+ (j==0? 'margin-right:2%;':'') + '"><a href="'+ items[j].url +'" target="_blank"><img src="'+ res_url + items[j].image +'" width="100%" /></a></li>';
                     }
                     str += '</ul>'
@@ -634,11 +634,11 @@ Ext.define('XMLifeOperating.controller.HomePage', {
                     break;
 
                 case 'TYPE8':
-                    html += '<p></p>';
+                    html += '<p style="margin:0;'+ (i>1? borderT:'') +'">&nbsp;</p>';
                     break;
 
                 case 'TYPE9':
-                    html += '<p></p>';
+                    html += '<p style="margin:0;">&nbsp;</p>';
                     break;
 
                 default:
