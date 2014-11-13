@@ -1,7 +1,7 @@
 Ext.define('XMLifeOperating.store.AdminAdminShopType', {
     extend: 'Ext.data.Store',
     model:'XMLifeOperating.model.AdminAdminShopType',
-    data:[{
+/*    data:[{
     "waste": [
         3,
         2,
@@ -55,5 +55,5 @@ Ext.define('XMLifeOperating.store.AdminAdminShopType', {
         2,
         3
     ]
-}]
+}]*/
 });
