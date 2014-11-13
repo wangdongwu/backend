@@ -21,7 +21,6 @@ Ext.define('XMLifeOperating.view.couponManage.coupon.CouponEditStep2', {
         var  bindTypeStore= Ext.create('Ext.data.Store', {
             fields: ['value','type'],
             data : [
-                {"value": 0, "type": '不绑定'},
                 {"value": 1, "type": '商店'},
                 {"value": 2, "type": '货架'},
                 {"value": 3, "type": 'SKU'}
