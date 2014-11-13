@@ -50,7 +50,10 @@ Ext.define('XMLifeOperating.view.couponManage.cardGroup.CardGroupList', {
             dataIndex: 'id',
             width: 100,
             sortable: true,
-            align: 'center'
+            align: 'center',
+            editor: {
+                allowBlank: false
+            }
         }, {
             text: '名称',
             dataIndex: 'name',
@@ -88,6 +91,9 @@ Ext.define('XMLifeOperating.view.couponManage.cardGroup.CardGroupList', {
             dragText: 'Drag and drop to reorder'
         }
     },
+    plugins: [Ext.create('Ext.grid.plugin.CellEditing', {
+        clicksToEdit: 1
+    })]
 
 
 });

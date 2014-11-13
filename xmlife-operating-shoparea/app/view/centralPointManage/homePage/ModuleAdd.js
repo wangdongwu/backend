@@ -60,25 +60,27 @@ Ext.define('XMLifeOperating.view.centralPointManage.homePage.ModuleAdd', {
                 name: 'type',
                 inputValue: 'TYPE8'
             }]
-        }, {
-            xtype: 'radiogroup',
-            fieldLabel: '是否为广告',
-            labelWidth: 70,
-            allowBlank: false,
-            defaults: {
-                margin: '0 5 0 0'
-            },
-            items: [{
-                boxLabel: '是',
-                name: 'isAdvert',
-                inputValue: 'true'
-            }, {
-                boxLabel: '否',
-                name: 'isAdvert',
-                inputValue: 'false',
-                checked: true
-            }]
-        }, {
+        },
+        // {
+        //     xtype: 'radiogroup',
+        //     fieldLabel: '是否为广告',
+        //     labelWidth: 70,
+        //     allowBlank: false,
+        //     defaults: {
+        //         margin: '0 5 0 0'
+        //     },
+        //     items: [{
+        //         boxLabel: '是',
+        //         name: 'isAdvert',
+        //         inputValue: 'true'
+        //     }, {
+        //         boxLabel: '否',
+        //         name: 'isAdvert',
+        //         inputValue: 'false',
+        //         checked: true
+        //     }]
+        // },
+        {
             xtype: 'textfield',
             name: 'name',
             fieldLabel: '大积木名称',

@@ -22,9 +22,12 @@ Ext.define('XMLifeOperating.view.couponManage.couponSend.CouponRegisterRelease',
     {
       text: '编号',
       dataIndex: 'id',
-      width: 50,
+      width: 150,
       sortable: true,
-      align: 'left'
+      align: 'left',
+      editor: {
+          allowBlank: false
+      }
     },
     {
       text: '名称',
@@ -124,5 +127,8 @@ Ext.define('XMLifeOperating.view.couponManage.couponSend.CouponRegisterRelease',
         return '<button>编辑</button>';
       }
     }
-  ]
+  ],
+  plugins: [Ext.create('Ext.grid.plugin.CellEditing', {
+        clicksToEdit: 1
+  })]
 });
