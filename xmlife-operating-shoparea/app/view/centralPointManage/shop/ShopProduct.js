@@ -154,8 +154,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopProduct', {
                 returnStr = comboReocrd.get(editor.displayField);
             }
             return returnStr;
-        },
-
+        }
     }, /*{
         header: "",
         width: 90,
