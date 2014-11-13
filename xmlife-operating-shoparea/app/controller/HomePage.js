@@ -302,18 +302,17 @@ Ext.define('XMLifeOperating.controller.HomePage', {
             },
             // 新建小积木（banner）
             'homePage #addModuleItem': {
-                click: function() {
-                    var win =  this.getModuleDetailEdit();
+                click: function(button, e) {
+                    var store = this.getHomePageModuleDetailStore();
+                    if(store.totalCount >= 6) {
+                        Ext.Msg.alert('信息提示', 'banner最多只能建6个！');
+                        return;
+                    }
+                    var win = this.getModuleDetailEdit();
                     win.show();
-
                     //显示图片大小提示
                     var size = this.getItemSize(this.moduleType, 0);
                     win.down('#picSizeTip').setText('（提示：尺寸'+ size +'，大小100K以内）');
-
-                    var store = this.getHomePageModuleDetailStore();
-                    if(store.length >= 5) {
-                        this.setDisabled(true);
-                    }
                 }
             },
             // 编辑、删除小积木
@@ -369,7 +368,7 @@ Ext.define('XMLifeOperating.controller.HomePage', {
                         store.load();
 
                         // 编辑时，依次触发回填
-                        if(record.get('shopId')) {
+                        if(record && record.get('shopId')) {
                             var shopCombo = win.down('combo[name=shopId]');
                             shopCombo.fireEvent('select',shopCombo,flag);
 
