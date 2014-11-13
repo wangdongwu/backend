@@ -38,7 +38,6 @@ Ext.define('XMLifeOperating.view.couponManage.coupon.CouponEditStep2', {
                     store : bindTypeStore,
                     name : 'bindingType',
                     emptyText:'请选择绑定类型',
-                    allowBlank : false,
                     xtype : 'combo',
                     editable : false,
                     queryMode : 'local',
@@ -65,7 +64,7 @@ Ext.define('XMLifeOperating.view.couponManage.coupon.CouponEditStep2', {
                     },{
                         text: 'code',
                         dataIndex: 'code'
-                    }, {
+                    }, {    
                         text: '城市名',
                         dataIndex: 'name'
                     }],
@@ -99,7 +98,6 @@ Ext.define('XMLifeOperating.view.couponManage.coupon.CouponEditStep2', {
                             }]
                 },{
                     name: '',
-                    allowBlank: false,
                     fieldLabel: '店铺',
                     xtype: 'gridpanel',
                     itemId: 'gainShopId',
@@ -149,7 +147,6 @@ Ext.define('XMLifeOperating.view.couponManage.coupon.CouponEditStep2', {
                             }]
                 },{
                     name: '',
-                    allowBlank: false,
                     fieldLabel: '货架',
                     xtype: 'gridpanel',
                     itemId: 'gainGoodsShelfId',
@@ -193,7 +190,6 @@ Ext.define('XMLifeOperating.view.couponManage.coupon.CouponEditStep2', {
                             }]
                 },{
                     name: '',
-                    allowBlank: false,
                     fieldLabel: 'sku',
                     xtype: 'gridpanel',
                     itemId: 'gainTemplatesSkuId',

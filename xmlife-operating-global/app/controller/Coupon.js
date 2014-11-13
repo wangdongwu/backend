@@ -182,6 +182,9 @@ Ext.define('XMLifeOperating.controller.Coupon', {
             },
             'couponList #editCouponId':{
                 click:self.onCouponEdit
+            },
+            'couponEdit #save-coupon-edit-btn':{
+                click:self.onSaveCouponEdit
             }
 
         });
@@ -219,12 +222,6 @@ Ext.define('XMLifeOperating.controller.Coupon', {
             Ext.Msg.alert('Invalid Data', 'Please correct form errors');
             return;
         }
-
-
-
-
-
-
         var winStep1 = this.getCouponEditStep1();
         winStep1.close();
         var winStep2 = this.getCouponEditStep2();
@@ -352,9 +349,41 @@ Ext.define('XMLifeOperating.controller.Coupon', {
         
         var couponTypeId = winStep1.down('#couponTypeId').getValue();
         var bindingType = winStep2.down('[name=bindingType]');
-        console.log(couponTypeId);
+
+        var cityIsChosen = self.onIsChosen('gainNewCityIds','请选择城市');
+        if(cityIsChosen==true){
+            return;
+        }
         if(couponTypeId!=3){
             bindingType.allowBlank = false;
+        }
+        switch(bindingType.getValue()){
+            case 1:
+                var isChosen = self.onIsChosen('gainShopId','请选择店铺');
+                if(isChosen==true){
+                    return;
+                }    
+                break;            
+            case 2:
+                var isChosen = self.onIsChosen('gainShopId','请选择店铺');
+                if(isChosen==true){
+                    return;
+                }
+                var isChosen = self.onIsChosen('gainGoodsShelfId','请选择货架');
+                if(isChosen==true){
+                    return;
+                }  
+                break;
+            case 3:
+                var isChosen = self.onIsChosen('gainShopId','请选择店铺');
+                if(isChosen==true){
+                    return;
+                }
+                var isChosen = self.onIsChosen('gainTemplatesSkuId','请选择sku');
+                if(isChosen==true){
+                    return;
+                }
+                break;
         }
         if (form.isValid()) {
         }else {
@@ -367,6 +396,21 @@ Ext.define('XMLifeOperating.controller.Coupon', {
 
 
 
+    },
+    onIsChosen:function(ids,errorStr){
+        var selectModel = Ext.ComponentQuery.query('#'+ids+'')[0].getSelectionModel();
+        var selectRecords = selectModel.getSelection();
+        var citiesLen = selectRecords.length;
+        if(citiesLen==0){
+            Ext.MessageBox.show({
+                title: 'Edit Task Failed',
+                msg: errorStr,
+                icon: Ext.Msg.ERROR,
+                buttons: Ext.Msg.OK
+            });
+            return true;
+        }
+        return false;
     },
     onBindType:function(combo){
         var self = this;
@@ -928,9 +972,38 @@ Ext.define('XMLifeOperating.controller.Coupon', {
         win.down('form').loadRecord(records);
         var expireEndDate = new Date(records.get('expireEndDate'));
         var expireStartDate = new Date(records.get('expireStartDate'));
-        // debugger
- 
+        win.down('[name=expireEndDate]').setValue(expireEndDate);
+        win.down('[name=expireStartDate]').setValue(expireStartDate);
         win.show();
+    },
+    onSaveCouponEdit:function(){
+        var editWindow = this.getCouponEdit(),
+            windowEl = editWindow.getEl(),
+            form = editWindow.down('form').getForm(),
+            coupon = form.getRecord(),
+            self = this;
+        var url = 'coupon/modify/coupon';
+        var id = coupon.get('id'),
+            name = editWindow.down('[name=name]').getValue(),
+            desc = editWindow.down('[name=desc]').getValue(),
+            expireStartDate = (editWindow.down('[name=expireStartDate]').getValue()).getTime(),
+            expireEndDate = (editWindow.down('[name=expireEndDate]').getValue()).getTime(),
+            delayUseStartHours = editWindow.down('[name=delayUseStartHours]').getValue(),
+            delayUseEndHours = editWindow.down('[name=delayUseEndHours]').getValue();
+        var params = {
+                       id:id,
+                       name:name,
+                       desc:desc,
+                       expireStartDate:expireStartDate,
+                       expireEndDate:expireEndDate,
+                       delayUseStartHours:delayUseStartHours,
+                       delayUseEndHours:delayUseEndHours
+        };
+        sendRequest(url,params,'修改优惠券','成功修改优惠券','修改优惠券失败',function(){
+                                
+                                editWindow.close();
+                                self.rendenCouponList(self.getCouponList());
+                            });
     }
 
 });

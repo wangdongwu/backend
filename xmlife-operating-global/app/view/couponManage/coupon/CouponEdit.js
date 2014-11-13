@@ -79,7 +79,8 @@ Ext.define('XMLifeOperating.view.couponManage.coupon.CouponEdit', {
                                 name: 'benchMark',
                                 width: 50,
                                 labelWidth: 90,
-                                itemId:'couponCost_my'
+                                itemId:'couponCost_my',
+                                disabled:true
                             }, {
                                 xtype: 'displayfield',
                                 value: '元',
@@ -96,7 +97,8 @@ Ext.define('XMLifeOperating.view.couponManage.coupon.CouponEdit', {
                                 name: 'discountValue',
                                 width: 50,
                                 labelWidth: 90,
-                                itemId:'couponCost_dz'
+                                itemId:'couponCost_dz',
+                                disabled:true
                             },{
                                 xtype: 'displayfield',
                                 value: '折',
@@ -110,7 +112,8 @@ Ext.define('XMLifeOperating.view.couponManage.coupon.CouponEdit', {
                                 labelWidth: 80,
                                 allowBlank: false,
                                 labelAlign:'left',
-                                itemId:'couponCost_v'
+                                itemId:'couponCost_v',
+                                disabled:true
                             }]
                 },{
                     xtype: 'container',
@@ -126,7 +129,7 @@ Ext.define('XMLifeOperating.view.couponManage.coupon.CouponEdit', {
                                 name: 'maxDiscount',
                                 width: 50,
                                 labelWidth: 90,
-                                text:50
+                                disabled:true
                                 
                             }, {
                                 xtype: 'displayfield',
@@ -178,7 +181,8 @@ Ext.define('XMLifeOperating.view.couponManage.coupon.CouponEdit', {
                         xtype: 'text',
                         text: '标记为新手优惠券',
                         textAlign: 'left',
-                        style:'margin:5px 10px 0 8px'
+                        style:'margin:5px 10px 0 8px',
+
                     },{
                         xtype: 'textfield',
                         itemId:'existAtSameTime',
@@ -197,7 +201,7 @@ Ext.define('XMLifeOperating.view.couponManage.coupon.CouponEdit', {
                         itemId:'existAtSameTimeUnit',
                         text: '张',
                         textAlign: 'left',
-                        style:'margin:5px 0 0 8px'
+                        style:'margin:5px 0 0 8px',
                     }]
                 },{
                     xtype: 'container',
@@ -276,7 +280,9 @@ Ext.define('XMLifeOperating.view.couponManage.coupon.CouponEdit', {
                                 xtype: 'text',
                                 text: '张',
                                 textAlign: 'left',
-                                style:'margin:5px 0 0 8px'
+                                style:'margin:5px 0 0 8px',
+
+
                             },{
                                 xtype: 'textfield',
                                 fieldLabel:'全局每天可领',
