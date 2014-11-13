@@ -33,6 +33,7 @@ Ext.define('XMLifeOperating.model.CategoryLeaf', {
   'transferPprice',
   'unit',
   'unitname',
+  'pid',
   {
     name : 'name',
     convert : function(v){

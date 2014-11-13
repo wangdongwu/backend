@@ -55,7 +55,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.shopConfig.AddModule', {
                 name: 'type',
                 inputValue: 'TYPE7'
             }]
-        }, {
+        }/*, {
             xtype: 'radiogroup',
             fieldLabel: '是否为广告',
             allowBlank: false,
@@ -72,7 +72,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.shopConfig.AddModule', {
                 name: 'isAdvert',
                 inputValue: 'false'
             }]
-        }, {
+        }*/, {
             xtype: 'textfield',
             name: 'name',
             fieldLabel: '大积木名称',

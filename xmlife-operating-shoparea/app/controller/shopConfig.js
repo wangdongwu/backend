@@ -1,6 +1,6 @@
 Ext.define('XMLifeOperating.controller.shopConfig', {
     extend: 'Ext.app.Controller',
-    models: ['ShopArea','Shop','CategoryLeaf','ShopConfig','shopModules','ShopModulesItem'],
+    models: ['ShopArea','Shop','ShopConfig','shopModules','ShopModulesItem'],
     stores: ['ShopArea','Shop','ShopConfig','ShopCopyVersion','shopModules','ShopCopyModule','ShopModulesItem','ShopUrlType',
     'HomePageShop', 'HomePageCategory', 'HomePageLeafCategory', 'HomePageProduct'],
     views: [
@@ -290,7 +290,6 @@ Ext.define('XMLifeOperating.controller.shopConfig', {
     addNewVersion : function(){
       var AddVersion = this.getAddVersion();
           AddVersion.show();
-      console.log('添加新的店铺版本');
     },
     /**
      * [enableVersion 启用该版本]
@@ -323,7 +322,6 @@ Ext.define('XMLifeOperating.controller.shopConfig', {
           })
         })
       }
-      console.log('启用该版本');
     },
     editVersion : function(){
       var windows = this.getAddVersion(),
@@ -377,7 +375,9 @@ Ext.define('XMLifeOperating.controller.shopConfig', {
           form = panel.down('form'),
           position = panel.down('#position');
           sendGetRequest('shopHomepage/getCategoryNum',{shopId:self.shopId},'','','',function(response){
-            position.setMaxValue();
+            if(response.responseText){
+              position.setMaxValue(response.responseText);              
+            }
           });
           form.getForm().reset();
           panel.show();
@@ -505,7 +505,6 @@ Ext.define('XMLifeOperating.controller.shopConfig', {
      * @return {[type]} [description]
      */
     shopModuleDetailSort : function(node, data, dropRec, dropPosition){
-      console.log('拖动模块内元素排序');
       var self = this,
           store = this.getShopModulesItemStore(),
           index = [];
@@ -564,7 +563,6 @@ Ext.define('XMLifeOperating.controller.shopConfig', {
             this.moduleItemEdit = true;
           }
           this.loadShopModulesItem();
-      console.log('渲染模块详情 view');
     },
     /**
      * [switchModuleType 根据type 选择切换模板]
@@ -637,24 +635,23 @@ Ext.define('XMLifeOperating.controller.shopConfig', {
           }
 
     },
-    editModuleItem : function(){
+    editModuleItem : function(view){
       var rowIndex = arguments[2],
           AddModuleItem = this.getAddModuleItem(),
-          urlTypeCombo = AddModuleItem.down('combo[name=urlType]'),
+          combo = AddModuleItem.down('combo[name=urlType]'),
           form = AddModuleItem.down('form'),
           picSizeTip = form.down('#picSizeTip'),
-          model = arguments[5];
+          model = view.getRecord(view.findTargetByEvent(arguments[4]));
           model.set('index',model.index);
           
+          console.log(model);
           form.loadRecord(model);
           
           //初始化选择及下拉状态
-          var combo = AddModuleItem.down('combo[name=urlType]');
           combo.fireEvent('select',combo,'isInit');
 
           var size = this.getItemSize(this.moduleType, rowIndex);
           picSizeTip.html='<p style="margin-left:70px;color:red">提示：尺寸'+ size +'，大小100K以内）</p>';
-          urlTypeCombo.fireEvent('select',urlTypeCombo);
           AddModuleItem.show();
     },
     deleteModuleItem : function(){
@@ -746,7 +743,6 @@ Ext.define('XMLifeOperating.controller.shopConfig', {
             borderL = 'border-left:1px solid #eee;',
             wrapCss = 'padding:0;font-family:\'Microsoft Yahei\';line-height:9px;';
 
-            console.log(records);
         for (var i = 0, n = records.length; i < n; i++) {
             var data = records[i],
                 type = data.type,
@@ -917,19 +913,16 @@ Ext.define('XMLifeOperating.controller.shopConfig', {
     },
     skuSelect : function(combo,flag) {
         if(this.urlType == 'SKU') {
-            var self = this,
-                cid = combo.getValue(),
+            var cid = combo.getValue(),
                 win =  this.getAddModuleItem(),
-                store = self.getHomePageProductStore();
-
-            win.down('combo[name=pid]').setValue('');
+                store = this.getHomePageProductStore();
             store.load({ params: {categoryId: cid} });
             store.on('load',function(){
-              this.filter(function(item){
+              this.filter([function(item){
                 var status = item.get('status');
-                return status == 0 || status == 3;
-              })
-            });
+                return status == 0 || status== 3;
+              }])
+            })
             if(flag != 'isInit') win.down('combo[name=pid]').setValue('');
         }
     }
@@ -986,8 +979,8 @@ Ext.define('XMLifeOperating.controller.shopConfig', {
       var type = form.down('#urlType').getValue(),
           urlField = form.down('#urlTextField'),
           shopId = form.down('#shopId').getValue(),
-          cid = form.down('#cid').getValue(),
-          pid = form.down('#pid').getValue();
+          cid = form.down('combo[name=cid]').getValue(),
+          pid = form.down('combo[name=cid]').getValue();
       switch(type)
         {
         case 'SHOP':

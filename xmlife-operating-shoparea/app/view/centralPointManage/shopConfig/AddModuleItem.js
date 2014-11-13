@@ -7,7 +7,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.shopConfig.AddModuleItem', {
         'Ext.form.field.Text'
     ],
     title: '新建小积木',
-    width: 450,
+    width: 500,
     layout : 'fit',
     buttonAlign: 'center',
     items: [{
@@ -17,7 +17,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.shopConfig.AddModuleItem', {
         bodyPadding: 8,
         defaults : {
           labelWidth: 70,
-          width : 400
+          width : 450
         },
         items: [{
           xtype : 'textfield',
@@ -70,24 +70,22 @@ Ext.define('XMLifeOperating.view.centralPointManage.shopConfig.AddModuleItem', {
             }, {
                 xtype: 'combo',
                 name: 'cid',
-                itemId: 'cid',
                 store: 'HomePageCategory',
                 queryMode: 'local',
                 displayField: 'name',
                 valueField: 'id',
                 emptyText: '请选择货架',
-                width: 115,
+                width: 110,
                 hidden: true
             }, {
                 xtype: 'combo',
                 name: 'pid',
-                itemId: 'pid',
                 store: 'HomePageProduct',
                 queryMode: 'local',
                 displayField: 'name',
                 valueField: 'id',
                 emptyText: '请选择SKU',
-                width: 95,
+                width: 110,
                 hidden: true
             }]
         }, {

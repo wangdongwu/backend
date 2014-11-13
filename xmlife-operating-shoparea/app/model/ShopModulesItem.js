@@ -33,8 +33,12 @@ Ext.define('XMLifeOperating.model.ShopModulesItem', {
   {
     name: 'titles',
     convert : function(v){
-      return v.join(' ');
-    }
+      if(typeof(v) == 'object' && v.length >0){
+            return v.join(';');
+          } else {
+            return v;
+          }
+        }  
   },
   {
     name: 'url',
