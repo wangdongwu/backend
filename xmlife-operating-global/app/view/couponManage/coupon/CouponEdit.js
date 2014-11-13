@@ -62,7 +62,8 @@ Ext.define('XMLifeOperating.view.couponManage.coupon.CouponEdit', {
                     triggerAction : 'all',
                     displayField: 'type',
                     valueField: 'value',
-                    allowBlank:false                  
+                    allowBlank:false,
+                    disabled:true,                 
                 },
                 {
                     xtype: 'container',
@@ -140,10 +141,10 @@ Ext.define('XMLifeOperating.view.couponManage.coupon.CouponEdit', {
                     xtype: 'textfield',
                     name: 'id',
                     fieldLabel: '优惠券ID',
-                    labelWidth: 80,
+                    labelWidth:60,
+                    width:300,
                     readOnly:true,
-                    value:'121212',
-                    hidden:true
+                    disabled:true
                 },{
                     xtype: 'textfield',
                     name: 'groupId',
@@ -162,7 +163,7 @@ Ext.define('XMLifeOperating.view.couponManage.coupon.CouponEdit', {
                         itemId:'',
                         name: 'isNew',
                         allowBlank: false,
-                        disabled:false,
+                        disabled:true,
                         style:'margin:2px 10px 0 0',
                         handler:function(value,record){
                             if(value.getValue()){
@@ -189,7 +190,8 @@ Ext.define('XMLifeOperating.view.couponManage.coupon.CouponEdit', {
                         minWidth: 120,
                         maxWidth: 120,
                         allowBlank: true,
-                        style:'line-height:25px;'
+                        style:'line-height:25px;',
+                        disabled:true,
                     }, {
                         xtype: 'text',
                         itemId:'existAtSameTimeUnit',
@@ -214,6 +216,7 @@ Ext.define('XMLifeOperating.view.couponManage.coupon.CouponEdit', {
                                 format : 'Y-m-d',
                                 width:100,
                                 allowBlank: false,
+
                             },{
                                 xtype: 'displayfield',
                                 value: '到',
@@ -268,6 +271,7 @@ Ext.define('XMLifeOperating.view.couponManage.coupon.CouponEdit', {
                                 width: 150,
                                 labelWidth: 80,
                                 allowBlank: false,
+                                disabled:true,
                             },{
                                 xtype: 'text',
                                 text: '张',
@@ -281,6 +285,7 @@ Ext.define('XMLifeOperating.view.couponManage.coupon.CouponEdit', {
                                 labelWidth: 80,
                                 allowBlank: false,
                                 style: 'margin-left:10px;',
+                                disabled:true,
                             },{
                                 xtype: 'text',
                             
@@ -299,6 +304,7 @@ Ext.define('XMLifeOperating.view.couponManage.coupon.CouponEdit', {
                                 width: 150,
                                 labelWidth: 80,
                                 allowBlank: false,
+                                disabled:true,
                             },{
                                 xtype: 'text',
                              
@@ -313,6 +319,7 @@ Ext.define('XMLifeOperating.view.couponManage.coupon.CouponEdit', {
                                 labelWidth: 80,
                                 allowBlank: false,
                                 style: 'margin-left:10px;',
+                                disabled:true,
                             },{
                                 xtype: 'text',
                              

@@ -926,6 +926,10 @@ Ext.define('XMLifeOperating.controller.Coupon', {
         // debugger
         var win = this.getCouponEdit();
         win.down('form').loadRecord(records);
+        var expireEndDate = new Date(records.get('expireEndDate'));
+        var expireStartDate = new Date(records.get('expireStartDate'));
+        // debugger
+ 
         win.show();
     }
 
