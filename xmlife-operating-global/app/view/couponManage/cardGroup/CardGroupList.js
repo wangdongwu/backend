@@ -52,7 +52,8 @@ Ext.define('XMLifeOperating.view.couponManage.cardGroup.CardGroupList', {
             sortable: true,
             align: 'center',
             editor: {
-                allowBlank: false
+                allowBlank: false,
+                disabled:true
             }
         }, {
             text: '名称',

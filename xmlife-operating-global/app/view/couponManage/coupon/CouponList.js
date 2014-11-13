@@ -45,7 +45,8 @@ Ext.define('XMLifeOperating.view.couponManage.coupon.CouponList', {
             sortable: true,
             align: 'left',
             editor: {
-                allowBlank: false
+                allowBlank: false,
+                disabled:true
             }
         }, {
             text: '名称',
@@ -120,6 +121,14 @@ Ext.define('XMLifeOperating.view.couponManage.coupon.CouponList', {
             width: 60,
             sortable: false,
             align: 'left'
+        },{
+            xtype: 'actioncolumn',
+            width: 24,
+            icon: 'resources/images/edit.png',
+            tooltip: 'Edit',
+            menuDisabled: true,
+            sortable: false,
+            itemId: 'editCouponId',
         },
     ],
     viewConfig: {
@@ -129,7 +138,7 @@ Ext.define('XMLifeOperating.view.couponManage.coupon.CouponList', {
         }
     },
     plugins: [Ext.create('Ext.grid.plugin.CellEditing', {
-        clicksToEdit: 1
+
     })]
 
 

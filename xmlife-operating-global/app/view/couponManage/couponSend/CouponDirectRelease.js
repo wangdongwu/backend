@@ -32,7 +32,8 @@ Ext.define('XMLifeOperating.view.couponManage.couponSend.CouponDirectRelease', {
       sortable: true,
       align: 'left',
       editor: {
-          allowBlank: false
+          allowBlank: false,
+          disabled:true
       }
     },
     {

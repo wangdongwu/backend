@@ -8,7 +8,8 @@ Ext.define('XMLifeOperating.controller.Coupon', {
             'couponManage.coupon.CouponShopEditSearch',
             'couponManage.coupon.CouponGoodsShelfEditSearch',
             'couponManage.coupon.CouponTemplatesEditSearch',
-            'couponManage.coupon.CouponSkuEditSearch'],
+            'couponManage.coupon.CouponSkuEditSearch',
+            'couponManage.coupon.CouponEdit'],
 
     stores: ['Coupon',
              ],
@@ -87,6 +88,11 @@ Ext.define('XMLifeOperating.controller.Coupon', {
         },{
             ref: 'gainTemplatesSkuId',
             selector: '#gainTemplatesSkuId',
+        },{
+            ref: 'couponEdit',
+            selector: 'couponEdit',
+            xtype: 'couponEdit',
+            autoCreate: true
         }],
     init: function() {
         var self= this,
@@ -114,6 +120,7 @@ Ext.define('XMLifeOperating.controller.Coupon', {
             'couponList #add':{
                 click:self.onCouponEditStep1
             },
+
             'couponEditStep1 #nextButton':{
                 click:self.onCouponEditStep1Next
             },
@@ -172,6 +179,9 @@ Ext.define('XMLifeOperating.controller.Coupon', {
             //确认
             'couponEditStep3 #ensureButton':{
                 click:self.onEnsureButton
+            },
+            'couponList #editCouponId':{
+                click:self.onCouponEdit
             }
 
         });
@@ -347,20 +357,6 @@ Ext.define('XMLifeOperating.controller.Coupon', {
             bindingType.allowBlank = false;
         }
         if (form.isValid()) {
-            /*var selectModel = Ext.ComponentQuery.query('#gainShopId')[0].getSelectionModel();
-            var selectRecords = selectModel.getSelection();
-            var shops='';
-            selectRecords.forEach(function(item) {
-                if (item.get("id") != null) {
-                    shops+=item.get('id')+',';
-                }
-            });
-            var s=shops;
-            shops=s.substring(0,s.length-1);
-
-            var bindings = shops;
-            */
-
         }else {
             Ext.Msg.alert('Invalid Data', 'Please correct form errors');
             return;
@@ -923,6 +919,14 @@ Ext.define('XMLifeOperating.controller.Coupon', {
 
         winStep3.down('[name=channel]').setValue(false);
 
+    },
+    onCouponEdit:function(view, column, rowIndex, colIndex, e) {
+        var records = view.getRecord(view.findTargetByEvent(e));
+        console.log(records);
+        // debugger
+        var win = this.getCouponEdit();
+        win.down('form').loadRecord(records);
+        win.show();
     }
 
 });
