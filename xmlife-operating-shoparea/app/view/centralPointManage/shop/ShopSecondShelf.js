@@ -64,7 +64,14 @@
              return returnStr;
          },
          tdCls: 'user-td'
-     }],
+     },{
+            xtype: 'actioncolumn',
+            text: '操作',
+            width: 40,
+            icon: 'resources/images/delete.png',
+            tooltip: 'Delete',
+            itemId: 'delete',
+    }],
      dockedItems: [{
          xtype: 'toolbar',
          dock: 'top',

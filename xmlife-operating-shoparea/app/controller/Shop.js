@@ -869,6 +869,27 @@ Ext.define('XMLifeOperating.controller.Shop', {
                     me.openWin(win, model);
                 }
             },
+            'shopshelf #delete': {
+                click: function(view, rowIndex, colIndex, column, e) {
+                    var self = this;
+                    var shopshelf = view.getRecord(view.findTargetByEvent(e));   
+                    Ext.MessageBox.confirm('提示', '确定删除该货架吗?', function(result) {
+                        if (result == 'yes') {
+                           
+                            var shopId = shopshelf.get('shopId');
+                        }
+                        /*sendDeleteRequest(deleteUrl, null, '', '', '', function(response) {
+                            self.loadShopVersionStore();
+                            if (response.responseText == '1') {
+                                Ext.Msg.alert('成功', '成功删除改版本');
+                            } else {
+                                Ext.Msg.alert('失败', '删除该版本失败');
+                            }
+                        })*/
+                    })
+                }
+            },
+            
             'shopshelf #showOrHide': {
                 click: function(view, column, rowIndex, colIndex, e, record) {
 
@@ -1119,6 +1140,27 @@ Ext.define('XMLifeOperating.controller.Shop', {
                         });
                     }
 
+                }
+            },
+            //shopsecondshelf 删除事件
+            'shopsecondshelf #delete': {
+                click: function(view, rowIndex, colIndex, column, e) {
+                    var self = this;
+                    var shopshelf = view.getRecord(view.findTargetByEvent(e));   
+                    Ext.MessageBox.confirm('提示', '确定删除该货架吗?', function(result) {
+                        if (result == 'yes') {
+                           
+                            var shopId = shopshelf.get('shopId');
+                        }
+                        /*sendDeleteRequest(deleteUrl, null, '', '', '', function(response) {
+                            self.loadShopVersionStore();
+                            if (response.responseText == '1') {
+                                Ext.Msg.alert('成功', '成功删除改版本');
+                            } else {
+                                Ext.Msg.alert('失败', '删除该版本失败');
+                            }
+                        })*/
+                    })
                 }
             },
             //shopsecondshelf add &edit 事件

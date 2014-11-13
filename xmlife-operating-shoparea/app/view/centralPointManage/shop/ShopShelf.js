@@ -56,7 +56,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopShelf', {
     }, {
         text: '在线商品数',
         dataIndex: 'onlineProductsCount',
-        width: 100,
+        width: 70,
         sortable: true,
         align: 'center',
         groupable: false,
@@ -74,7 +74,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopShelf', {
     }, {
         text: '下架商品数',
         dataIndex: 'soldoutProductsCount',
-        width: 100,
+        width: 70,
         sortable: true,
         align: 'center',
         summaryType: 'sum',
@@ -92,7 +92,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopShelf', {
     }, {
         text: '雪藏商品数',
         dataIndex: 'unlineProductsCount',
-        width: 100,
+        width: 70,
         sortable: true,
         align: 'center',
         summaryType: function(records) {
@@ -110,7 +110,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopShelf', {
         text: '编辑',
         xtype: 'actioncolumn',
         dataIndex: 'type',
-        width: 50,
+        width: 70,
         tooltip: 'Edit',
         menuDisabled: true,
         sortable: true,
@@ -146,6 +146,13 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopShelf', {
             return returnStr;
         },
         tdCls: 'user-td'
+    },{
+            xtype: 'actioncolumn',
+            text: '操作',
+            width: 40,
+            icon: 'resources/images/delete.png',
+            tooltip: 'Delete',
+            itemId: 'delete',
     }],
     dockedItems: [{
         xtype: 'toolbar',
