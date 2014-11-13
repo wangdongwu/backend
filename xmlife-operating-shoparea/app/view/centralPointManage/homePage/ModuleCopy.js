@@ -39,6 +39,11 @@ Ext.define('XMLifeOperating.view.centralPointManage.homePage.ModuleCopy', {
             valueField: 'id',
             emptyText: '请选择大积木',
             allowBlank: false
+        }, {
+            xtype: 'textfield',
+            name: 'type',
+            itemId: 'moduleType',
+            hidden: true
         }],
         buttons: [{
             xtype: 'button',

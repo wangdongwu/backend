@@ -259,6 +259,13 @@ Ext.define('XMLifeOperating.controller.HomePage', {
                     });
                 }
             },
+            // 保持type值于hidden中用以提示
+            'moduleCopy #moduleCombo': {
+                select: function(combo,records) {
+                    var moduleType = records[0].get('type');
+                    this.getModuleCopy().down('#moduleType').setValue(moduleType);
+                }
+            },
             // 保存copy
             'moduleCopy #save': {
                 click: function() {
@@ -267,13 +274,31 @@ Ext.define('XMLifeOperating.controller.HomePage', {
                         values = form.getValues();
 
                     if (form.isValid()) {
-                        sendRequest('homepage/copyModule', {
-                            layoutId: this.layoutId,
-                             moduleId: values.moduleId
-                        }, '拷贝大积木', '拷贝大积木成功', '拷贝大积木失败', function() {
-                            me.getHomePageModuleListStore().load();
-                            win.close();
-                        });
+                        if(values.type == 'TYPE0') {
+                            Ext.MessageBox.confirm('确认拷贝banner', "拷贝banner将会替换当前banner, 你确定吗？",
+                                function(result) {
+                                    if (result == 'yes') {
+                                        sendRequest('homepage/copyModule', {
+                                            layoutId: this.layoutId,
+                                            moduleId: values.moduleId
+                                        }, '拷贝大积木', '拷贝大积木成功', '拷贝大积木失败', function() {
+                                            me.getHomePageModuleListStore().load();
+                                            win.close();
+                                        });
+                                    }
+                                }
+                            );
+                        } else {
+                            sendRequest('homepage/copyModule', {
+                                layoutId: this.layoutId,
+                                moduleId: values.moduleId
+                            }, '拷贝大积木', '拷贝大积木成功', '拷贝大积木失败', function() {
+                                me.getHomePageModuleListStore().load();
+                                win.close();
+                            });
+
+                        }
+
                     }
                 }
             },
