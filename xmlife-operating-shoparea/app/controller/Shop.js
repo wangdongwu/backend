@@ -1627,8 +1627,11 @@ Ext.define('XMLifeOperating.controller.Shop', {
                     if (model.get('stock') == -1) {
                         model.set('stock', '无限制');
                     }
-
-                    categorySelectionStore.load({
+                    categorySelectionStore.getProxy().extraParams = {
+                        shopId: me.shopId
+                    }
+                    me.openWin(win, model);
+/*                    categorySelectionStore.load({
                         params: {
                             shopId: me.shopId
                         },
@@ -1636,7 +1639,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
                             me.disableUnAuthorityCmp(me.shopId);
                             me.openWin(win, model);
                         }
-                    })
+                    })*/
                 }
             },
 
