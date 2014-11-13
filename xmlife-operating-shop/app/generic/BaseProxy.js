@@ -39,38 +39,9 @@ Ext.define('XMLifeOperating.generic.BaseProxy', {
                 if (error) {
                     msg = Ext.String.format('Error Code: {0}<br />Message: {1}', error.code, error.message);
                 } else {
-                    
-                    if(response.status == 401){
-                      Ext.Msg.alert('提示', 'session失效或者没有登录');
-                      return false;
-                    }
-                    if(response.status == 405){
-                      Ext.Msg.alert('提示', '访问了一个不应该被访问的路径');
-                      return false;
-                    }
-                    if(response.status == 0){
-                      Ext.Msg.alert('提示', '数据接口有问题....请找服务器端确认');
-                      return false;
-                    }
-                    switch (responseText) {
-                        case '-2':
-                             title = '提示';
-                             msg = '参数出错';
-                          break;
-                        case '-3':
-                          title = '请重新登录';
-                          msg = '您还没有登录或已登录过期请重新登录';
-                          break;
-                        case '-4':
-                            title = '提示';
-                            msg = '数据库端出错';
-                          break;
-                        case '-6':
-                            title = '提示';
-                            msg = '你没有权限做当前操作，请去申请相应的权限';
-                          break;
-                      }
-
+                    errorObj = requestException(response);
+                    title = errorObj.title;
+                    msg = errorObj.msg;
                 }
             } catch(err) {
                 msg = Ext.String.format('Fail to handle exception message:<br />{0}<br /><br />URL: {1}', err.message, proxy.url);
@@ -98,6 +69,43 @@ Ext.define('XMLifeOperating.generic.BaseProxy', {
 });
 
 //Ext.Ajax.cors = true;
+function requestException(response){
+  var responseText = response.responseText,
+      errorObj = {};
+  if(response.status == 401){
+      Ext.Msg.alert('提示', 'session失效或者没有登录');
+      return false;
+    }
+    if(response.status == 405){
+      Ext.Msg.alert('提示', '访问了一个不应该被访问的路径');
+      return false;
+    }
+    if(response.status == 0){
+      Ext.Msg.alert('提示', '数据接口有问题....请找服务器端确认');
+      return false;
+    }
+    switch (responseText) {
+        case '-2':
+             title = '提示';
+             msg = '参数出错';
+          break;
+        case '-3':
+          title = '请重新登录';
+          msg = '您还没有登录或已登录过期请重新登录';
+          break;
+        case '-4':
+            title = '提示';
+            msg = '数据库端出错';
+          break;
+        case '-6':
+            title = '提示';
+            msg = '你没有权限做当前操作，请去申请相应的权限';
+          break;
+      }
+  errorObj.title = title;
+  errorObj.msg = msg;
+  return errorObj;
+}
 
 var sendRequest = function(url, params, title, successMsg, errorMsg, success, failure) {
     if(!url || url.length < 1) {
@@ -123,16 +131,17 @@ var sendRequest = function(url, params, title, successMsg, errorMsg, success, fa
                 success(response);
             }
         },
-        failure: function(response,opts) {   
-            var error = Ext.decode(response.responseText);
-            var msg = Ext.String.format('{0}<br />Error Code: {1}<br />Message: {2}', errorMsg, error.code, error.message)
+        failure: function(response,opts) {
+            var errorObj = requestException(response);
+            if(response.status)
+              var error = Ext.decode(response.responseText);
+              //var msg = Ext.String.format('{0}<br />Error Code: {1}<br />Message: {2}', errorMsg, error.code, error.message)
             Ext.MessageBox.show({
-                title: title,
-                msg: msg,
+                title: errorObj.title,
+                msg: errorObj.msg,
                 icon: Ext.Msg.ERROR,
                 buttons: Ext.Msg.OK
             });
-
             if (failure) {
                 failure(response);
             }
@@ -166,16 +175,17 @@ var sendGetRequest = function(url, params, title, successMsg, errorMsg, success,
                 success(response);
             }
         },
-        failure: function(response,opts) {   
-            var error = Ext.decode(response.responseText);
-            var msg = Ext.String.format('{0}<br />Error Code: {1}<br />Message: {2}', errorMsg, error.code, error.message)
-            /*Ext.MessageBox.show({
-                title: title,
-                msg: msg,
+        failure: function(response,opts) {
+            var errorObj = requestException(response);
+            if(response.status)
+              var error = Ext.decode(response.responseText);
+              //var msg = Ext.String.format('{0}<br />Error Code: {1}<br />Message: {2}', errorMsg, error.code, error.message)
+            Ext.MessageBox.show({
+                title: errorObj.title,
+                msg: errorObj.msg,
                 icon: Ext.Msg.ERROR,
                 buttons: Ext.Msg.OK
-            });*/
-
+            });
             if (failure) {
                 failure(response);
             }
@@ -209,16 +219,17 @@ var sendPutRequest = function(url, params, title, successMsg, errorMsg, success,
                 success(response);
             }
         },
-        failure: function(response,opts) {   
-            var error = Ext.decode(response.responseText);
-            var msg = Ext.String.format('{0}<br />Error Code: {1}<br />Message: {2}', errorMsg, error.code, error.message)
-            /*Ext.MessageBox.show({
-                title: title,
-                msg: msg,
+        failure: function(response,opts) {
+            var errorObj = requestException(response);
+            if(response.status)
+              var error = Ext.decode(response.responseText);
+              //var msg = Ext.String.format('{0}<br />Error Code: {1}<br />Message: {2}', errorMsg, error.code, error.message)
+            Ext.MessageBox.show({
+                title: errorObj.title,
+                msg: errorObj.msg,
                 icon: Ext.Msg.ERROR,
                 buttons: Ext.Msg.OK
-            });*/
-
+            });
             if (failure) {
                 failure(response);
             }
