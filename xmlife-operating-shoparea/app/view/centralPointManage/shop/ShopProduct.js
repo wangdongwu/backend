@@ -121,9 +121,9 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopProduct', {
             valueField: 'value',
             triggerAction: 'all',
             autoScroll: true,
-            editable:false,
+            editable: false,
             itemId: 'putawayOrOutComboBox',
-            queryMode:'local',
+            queryMode: 'local',
             store: Ext.create('Ext.data.Store', {
                 fields: ['value', 'name'],
                 data: [{
@@ -143,11 +143,39 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopProduct', {
         }),
         renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
             var me = this,
+                column = me.down('#putawayOrOut'),
                 editor = me.down('#putawayOrOut').getEditor(),
-                store = editor.getStore(),
-                comboRecordIndex = store.find(editor.valueField, value),
-                comboReocrd = store.getAt(comboRecordIndex);
+                store = editor.getStore();
             var returnStr = '';
+            if (!editor.getStore()) {
+                column.setEditor(Ext.create('Ext.form.ComboBox', {
+                    displayField: 'name',
+                    valueField: 'value',
+                    triggerAction: 'all',
+                    autoScroll: true,
+                    editable: false,
+                    itemId: 'putawayOrOutComboBox',
+                    queryMode: 'local',
+                    store: Ext.create('Ext.data.Store', {
+                        fields: ['value', 'name'],
+                        data: [{
+                            'value': 0,
+                            'name': '上架'
+                        }, {
+                            'value': 1,
+                            'name': '雪藏'
+                        }, {
+                            'value': 2,
+                            'name': '废弃'
+                        }, {
+                            'value': 3,
+                            'name': '下架'
+                        }]
+                    })
+                }))
+            }
+            var comboRecordIndex = store.find(editor.valueField, value),
+                comboReocrd = store.getAt(comboRecordIndex);
             if (record == null) {
                 returnStr = value;
             } else {
@@ -155,54 +183,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopProduct', {
             }
             return returnStr;
         }
-    }, /*{
-        header: "",
-        width: 90,
-        dataIndex: 'status',
-        menuDisabled: true,
-        sortable: true,
-        align: 'center',
-        renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
-            var me = this;
-            var str = '';
-            switch (value) {
-                case 3: //售罄，显示上架按钮
-                    str += '<input type="button" value="上架" statusValue="online" class="putaway" /><br/>';
-                    break;
-                case 1:
-                    str += '--';
-                    break;
-                case 0: //在上架中，显示下架按钮
-                    str += '<input type="button" value="下架" statusValue="soldout"  class="putaway" /><br/>';
-                    break;
-            }
-            return str;
-        }
-    },*/ /*{
-        header: "",
-        width: 90,
-        dataIndex: 'status',
-        itemId: 'frozen',
-        menuDisabled: true,
-        sortable: true,
-        align: 'center',
-        renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
-            var me = this;
-            var str = '';
-            switch (value) {
-                case 0:
-                    str += '<input type="button"  value="雪藏" statusValue="offline" class="frozen" />';
-                    break;
-                case 1:
-                    str += '<input type="button"  value="取消雪藏" statusValue="soldout" class="frozen" />';
-                    break;
-                case 3:
-                    str += '<input type="button"  value="雪藏" statusValue="offline"  class="frozen" />';
-            }
-
-            return str;
-        }
-    },*/ {
+    }, {
         text: '编辑',
         xtype: 'actioncolumn',
         width: 50,
