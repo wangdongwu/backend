@@ -244,6 +244,7 @@ Ext.define('XMLifeOperating.controller.BatchOperation', {
           }
         },
         failure: function(form, action) {
+          this.customMethod(form, action);
           if (cb) {
             cb();
           }
