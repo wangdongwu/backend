@@ -1,6 +1,6 @@
 Ext.define('XMLifeOperating.controller.shopConfig', {
     extend: 'Ext.app.Controller',
-    models: ['ShopArea','Shop','ShopConfig','shopModules','ShopModulesItem'],
+    models: ['ShopArea','Shop','CategoryLeaf','ShopConfig','shopModules','ShopModulesItem'],
     stores: ['ShopArea','Shop','ShopConfig','ShopCopyVersion','shopModules','ShopCopyModule','ShopModulesItem','ShopUrlType',
     'HomePageShop', 'HomePageCategory', 'HomePageLeafCategory', 'HomePageProduct'],
     views: [
@@ -894,7 +894,6 @@ Ext.define('XMLifeOperating.controller.shopConfig', {
             store = null;
 
         if(this.urlType != 'SHOP') {
-
             if (this.urlType == 'CATEGORY') {
                 store = self.getHomePageCategoryStore();
                 store.on('load',function(){
@@ -923,7 +922,6 @@ Ext.define('XMLifeOperating.controller.shopConfig', {
                 win =  this.getAddModuleItem(),
                 store = self.getHomePageProductStore();
 
-            store.load({ params: {id: cid} });
             win.down('combo[name=pid]').setValue('');
             store.load({ params: {categoryId: cid} });
             store.on('load',function(){
