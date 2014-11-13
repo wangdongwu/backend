@@ -1567,10 +1567,11 @@ Ext.define('XMLifeOperating.controller.Shop', {
                         limitCount = '';
                     form.reset();
                     var stockEnable = this.getShopStore().getById(this.shopId).data.storeLimitEnable;
+                    var productAddWin = this.getShopProductAdd();
                     if (stockEnable) {
-                        Ext.ComponentQuery.query('#editstock')[0].setDisabled(false);
+                        productAddWin.down('#stock').setDisabled(false);
                     } else {
-                        Ext.ComponentQuery.query('#editstock')[0].setDisabled(true);
+                        productAddWin.down('#stock').setDisabled(true);
                     }
                     model = this.getProductModel();
                     model = new model();
@@ -1701,7 +1702,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
                             };
                         }
                         //库存判断
-                        var stockEnable = me.getShopProductAdd().down('#editstock');
+                        var stockEnable = me.getShopProductAdd().down('#stock');
                         if (!stockEnable.isDisabled()) {
                             stock = form.getValues()['stock'];
                             if (stock == '') {
