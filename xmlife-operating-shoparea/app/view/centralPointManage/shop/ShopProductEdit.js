@@ -207,6 +207,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopProductEdit', {
                     queryMode: 'local',
                     displayField: 'name',
                     valueField: 'id',
+                    triggerAction:'all',
                     emptyText: "请选择货架"
                 }]
             }],
