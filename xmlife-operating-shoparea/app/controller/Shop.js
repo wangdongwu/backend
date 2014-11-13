@@ -1515,6 +1515,10 @@ Ext.define('XMLifeOperating.controller.Shop', {
                     } else {
                         return false;
                     }
+                },
+                added: function() {
+                    var me = this;
+                    me.disableUnAuthorityCmp(me.shopId);
                 }
             },
             'shopproduct #setProductTop': {
@@ -1976,10 +1980,10 @@ Ext.define('XMLifeOperating.controller.Shop', {
                         userInfo = adminShopTypeStore.getAt(0).getData();
                     var flags = [];
                     for (var pro in userInfo) {
-                        if(pro == 'frozen/unfreeze'){
+                        if (pro == 'frozen/unfreeze') {
                             return
                         }
-                 
+
                         if (!me.isDisabledCmp(editWindow.down('form'), pro)) {
                             me[pro].call(me, form, record.get('id'), flags);
                         };
@@ -2332,12 +2336,15 @@ Ext.define('XMLifeOperating.controller.Shop', {
 
         for (var properName in userInfo) {
             var properArray = userInfo[properName];
+
             if (properArray instanceof Array && properArray.indexOf(currentShopType) == -1) { //没有权限
                 var itemId = '#' + properName;
                 if (me.getShopProductEdit().down(itemId)) { //在ProductEdit中的操作
                     me.getShopProductEdit().down(itemId).setDisabled(true);
                 } else if (me.getShopProductList().down(itemId)) { //在ProductList中的操作
                     me.getShopProductList().down(itemId).setDisabled(true);
+                } else { //状态下拉框禁用
+                    me.getShopProductList().down('#putawayOrOut').editor.findRecord('itemId', properName).set('disabled', true);
                 }
             }
         };

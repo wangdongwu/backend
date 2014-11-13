@@ -1,6 +1,6 @@
 Ext.define('XMLifeOperating.store.AdminAdminShopType', {
     extend: 'Ext.data.Store',
-    model:'XMLifeOperating.model.AdminAdminShopType'
+    model:'XMLifeOperating.model.AdminAdminShopType',
 /*    data:[{
     "waste": [
         3,
@@ -23,7 +23,6 @@ Ext.define('XMLifeOperating.store.AdminAdminShopType', {
     "onCarriage": [
         1,
         3,
-        2,
         4
     ],
     "editprice": [

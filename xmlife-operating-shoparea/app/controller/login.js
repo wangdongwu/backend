@@ -245,8 +245,8 @@ Ext.define('XMLifeOperating.controller.login', {
         });
         shopAreaStore.load();
       }
-      //推送
       me.getAdminAdminShopTypeStore().load();
+      //推送
       saveUidAndSession(account + "@a", localStorage.getItem("sessionId"));
       rpc.ServerConfig.setUrls("IM", [XMLifeOperating.generic.Global.URL.IM]);
       rpc.ServerConfig.setUrls("Long", [XMLifeOperating.generic.Global.URL.ws]);

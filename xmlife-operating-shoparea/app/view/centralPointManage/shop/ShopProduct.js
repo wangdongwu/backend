@@ -125,22 +125,47 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopProduct', {
             editable: false,
             itemId: 'putawayOrOutComboBox',
             queryMode: 'local',
+            tpl: Ext.create('Ext.XTemplate', '<ul class="x-list-plain">',
+                '<tpl for=".">',
+                '<li class="x-boundlist-item"',
+                '<tpl if="disabled == true">',
+                'style="color:lightgray;background-color:whitesmoke;"',
+                '</tpl>',
+                '>{name}</li>',
+                '</tpl>', '</ul>'),
             store: Ext.create('Ext.data.Store', {
-                fields: ['value', 'name'],
+                fields: ['value', 'name', 'itemId', 'disabled'],
                 data: [{
                     'value': 0,
-                    'name': '上架'
+                    'name': '上架',
+                    'itemId': 'onCarriage',
+                    'disabled': false
                 }, {
                     'value': 1,
-                    'name': '雪藏'
+                    'name': '雪藏',
+                    'itemId': 'frozen/unfreeze',
+                    'disabled': false
                 }, {
                     'value': 2,
-                    'name': '废弃'
+                    'name': '废弃',
+                    'itemId': 'waste',
+                    'disabled': false
                 }, {
                     'value': 3,
-                    'name': '下架'
+                    'name': '下架',
+                    'itemId': 'underCarriage',
+                    'disabled': false
                 }]
-            })
+            }),
+            listeners: {
+                beforeselect: function(combo, record, index) {
+                    if (record.get('disabled')) {
+                        return false
+                    } else {
+                        return true
+                    }
+                }
+            }
         }),
         renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
             var me = this,
@@ -149,7 +174,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopProduct', {
                 store = editor.getStore();
             var returnStr = '';
             if (!editor.getStore()) {
-                column.setEditor(Ext.create('Ext.form.ComboBox', {
+/*                column.setEditor(Ext.create('Ext.form.ComboBox', {
                     itemId: 'putawayOrOutComboBox',
                     displayField: 'name',
                     valueField: 'value',
@@ -157,27 +182,39 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopProduct', {
                     autoScroll: true,
                     editable: false,
                     queryMode: 'local',
+                    tpl: Ext.create('Ext.XTemplate', '<ul class="x-list-plain">',
+                        '<tpl for=".">',
+                        '<li class="x-boundlist-item"',
+                        '<tpl if="disabled == true">',
+                        'style="color:lightgray;background-color:whitesmoke;"',
+                        '</tpl>',
+                        '>{name}</li>',
+                        '</tpl>', '</ul>'),
                     store: Ext.create('Ext.data.Store', {
                         fields: ['value', 'name'],
                         data: [{
                             'value': 0,
                             'name': '上架',
-                            'recordId': 'onCarriage'
+                            'itemId': 'onCarriage',
+                            'disabled': false
                         }, {
                             'value': 1,
                             'name': '雪藏',
-                            'recordId': 'frozen/unfreeze'
+                            'itemId': 'frozen/unfreeze',
+                            'disabled': false
                         }, {
                             'value': 2,
                             'name': '废弃',
-                            'recordId': 'waste'
+                            'itemId': 'waste',
+                            'disabled': false
                         }, {
                             'value': 3,
                             'name': '下架',
-                            'recordId': 'underCarriage'
+                            'itemId': 'underCarriage',
+                            'disabled': false
                         }]
                     })
-                }))
+                }))*/
             }
             var comboRecordIndex = store.find(editor.valueField, value),
                 comboReocrd = store.getAt(comboRecordIndex);

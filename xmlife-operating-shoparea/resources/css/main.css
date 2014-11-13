@@ -212,3 +212,8 @@ body.dragging{background-color:#888fa3;}
 	text-align: center;
 	padding: 15px 5px 15px 5px;
 }
+
+.x-combo-grayed-out-item {
+color: lightgray;
+background-color: whitesmoke;
+}
