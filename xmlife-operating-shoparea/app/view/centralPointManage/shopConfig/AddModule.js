@@ -54,6 +54,10 @@ Ext.define('XMLifeOperating.view.centralPointManage.shopConfig.AddModule', {
                 boxLabel: '<img src="resources/images/type/7.jpg" height="60" width="135" />',
                 name: 'type',
                 inputValue: 'TYPE7'
+            }, {
+                boxLabel: '类型8：<img src="resources/images/type/8.jpg" width="132" height="10" />',
+                name: 'type',
+                inputValue: 'TYPE8'
             }]
         }/*, {
             xtype: 'radiogroup',

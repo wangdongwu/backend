@@ -829,17 +829,17 @@ Ext.define('XMLifeOperating.controller.shopConfig', {
                     break;
 
                 case 'TYPE8':
-                    html += '<p></p>';
+                    html += '<p>大空格</p>';
                     break;
 
                 case 'TYPE9':
-                    html += '<p></p>';
+                    html += '<p>小空格</p>';
                     break;
                 case 'USERCOLLECT':
                     html += '<div style="height:30px;line-height:30px;text-align:center;background:red;color:#fff;clear:both">收藏货架</div>';
                     break;
                 case 'CATEGORY':
-                    html += '<div style="height:30px;line-height:30px;text-align:center;background:#ddd;clear:both">普通货架</div>';
+                    html += '<div style="height:30px;line-height:30px;text-align:center;background:#ddd;clear:both">普通货架-'+data.name+'</div>';
                     break;
                 default:
                     break;
