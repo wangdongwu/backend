@@ -1477,7 +1477,6 @@ Ext.define('XMLifeOperating.controller.Shop', {
                     var rec = row.record;
                     var value = row.value;
                     var field = e.context.field;
-
                     if (field == 'status') {
                         var url = 'product/opt',
                             status = value,
