@@ -80,7 +80,6 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ChangePriceRecordList',
         { header: '商品名称',dataIndex:'productName'},
         { header: '商品类型',dataIndex:'categoryName'},
         { header: '所属店铺',dataIndex:'shopName'},
-        { header: '单位',dataIndex:''},
         { header: '原进价',dataIndex:'proPprice',
             renderer: function(value, da, record) {
                return value/100;
