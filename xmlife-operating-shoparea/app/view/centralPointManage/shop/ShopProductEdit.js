@@ -208,7 +208,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopProductEdit', {
                     queryMode:'remote',
                     store: 'CategoryLeafCategorys',
                     triggerAction: 'all',
-                    emptyText: '请选择货架',
+                    emptyText: '请选择货架'
                 }]
             }],
             buttons: [{

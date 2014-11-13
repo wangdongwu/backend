@@ -1636,7 +1636,6 @@ Ext.define('XMLifeOperating.controller.Shop', {
                             shopId: me.shopId
                         },
                         callback: function() {
-                            me.disableUnAuthorityCmp(me.shopId);
                             me.openWin(win, model);
                         }
                     })*/
@@ -1987,7 +1986,6 @@ Ext.define('XMLifeOperating.controller.Shop', {
                         if (pro == 'frozen/unfreeze') {
                             return
                         }
-
                         if (!me.isDisabledCmp(editWindow.down('form'), pro)) {
                             me[pro].call(me, form, record.get('id'), flags);
                         };
