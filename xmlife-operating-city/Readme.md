@@ -2,8 +2,6 @@
 
 This folder contains the javascript files for the application.
 
-# XMLifeOperating/resources
-
 This folder contains static resources (typically an `"images"` folder as well).
 
 # XMLifeOperating/overrides
