@@ -869,6 +869,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
                     me.openWin(win, model);
                 }
             },
+            //shopshelf 删除事件
             'shopshelf #delete': {
                 click: function(view, rowIndex, colIndex, column, e) {
                     var self = this;
