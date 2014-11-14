@@ -1870,7 +1870,6 @@ Ext.define('XMLifeOperating.controller.Shop', {
                         userInfo = adminShopTypeStore.getAt(0).getData();
                     var flags = [];
                     var count = 0;
-
                     for (var pro in userInfo) {
                         if (pro == 'frozen') {
                             continue
@@ -2240,11 +2239,11 @@ Ext.define('XMLifeOperating.controller.Shop', {
             currentShop = shopStore.getById(shopId),
             currentShopType = currentShop.get('type'),
             userInfo = adminShopTypeStore.getAt(0).getData(); //获取第一位
+
         for (var properName in userInfo) {
             var properArray = userInfo[properName];
-
+            var itemId = '#' + properName;
             if (properArray == '' || (properArray instanceof Array && properArray.indexOf(currentShopType) == -1)) { //没有权限
-                var itemId = '#' + properName;
                 if (me.getShopProductEdit().down(itemId)) { //在ProductEdit中的操作
                     me.getShopProductEdit().down(itemId).setDisabled(true);
                 } else if (me.getShopProductList().down(itemId)) { //在ProductList中的操作
@@ -2252,6 +2251,12 @@ Ext.define('XMLifeOperating.controller.Shop', {
                 } else { //状态下拉框禁用
                     var editor = me.getShopProductList().down('#putawayOrOut').editor;
                     editor.findRecord('itemId', properName).set('disabled', true);
+                }
+            }else{
+                if(me.getShopProductEdit().down(itemId)){
+                    me.getShopProductEdit().down(itemId).setDisabled(false);  
+                }else if(me.getShopProductList().down(itemId)){
+                    me.getShopProductList().down(itemId).setDisabled(false);
                 }
             }
         };
