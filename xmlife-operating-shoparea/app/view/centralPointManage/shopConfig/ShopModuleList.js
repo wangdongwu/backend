@@ -42,7 +42,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.shopConfig.ShopModuleList', 
       itemId : 'edit',
       icon: 'resources/images/edit.png',
       renderer : function(v){
-        if(v == 'USERCOLLECT' || v == 'CATEGORY' || v == 'banner'){
+        if(v == 'USERCOLLECT' || v == 'CATEGORY'){
           this.remove();
         }
       },
