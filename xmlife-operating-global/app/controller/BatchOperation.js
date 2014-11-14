@@ -6,6 +6,7 @@ Ext.define('XMLifeOperating.controller.BatchOperation', {
     'batchoperation.BatchUploadSimple',
     'batchoperation.BatchUploadWithLocation',
     'batchoperation.update.ProductCategoryUpdateBatch',
+    'batchoperation.update.ProductCategoryTemplateUpdateBatch',
     'batchoperation.update.ProductDescriptionUpdateBatch',
     'batchoperation.update.ProductNameUpdateBatch',
     'batchoperation.update.ProductPictureUpdateBatch',
@@ -19,8 +20,8 @@ Ext.define('XMLifeOperating.controller.BatchOperation', {
     'batchoperation.add.ProductInstanceAddBatch',
     'batchoperation.add.ProductTemplateAddBatch'
   ],
-  models : [],
-  stores : ['ShopArea', 'Shop'],
+  models: [],
+  stores: ['ShopArea', 'Shop'],
   refs: [
     {
       ref: 'ProductNameUpdateBatch',
@@ -34,200 +35,121 @@ Ext.define('XMLifeOperating.controller.BatchOperation', {
     self.control({
       'ProductNameUpdateBatch #submit': {
         click: function (button) {
-          var form = button.up('form').getForm(),
-              path = button.up("fieldcontainer").down("filefield").getValue(),
-              logArea = button.up('form').down('#resultLog');
-
-          form.url = XMLifeOperating.generic.Global.URL.biz + 'backdoor/update/product/name';
-          self.submitForm(form, logArea, path);
+          self.updateSimple(button, 'backdoor/update/product/name');
+        }
+      },
+      'ProductCategoryTemplateUpdateBatch #submit': {
+        click: function (button) {
+          self.updateSimple(button, 'backdoor/update/product/updatetemplate');
         }
       },
       'ProductDescriptionUpdateBatch #submit': {
         click: function (button) {
-          var form = button.up('form').getForm(),
-              path = button.up("fieldcontainer").down("filefield").getValue(),
-              logArea = button.up('form').down('#resultLog');
-
-          form.url = XMLifeOperating.generic.Global.URL.biz + 'backdoor/update/product/desc';
-          self.submitForm(form, logArea, path);
+          self.updateSimple(button, 'backdoor/update/product/desc');
         }
       },
       'ProductRankUpdateBatch #submit': {
         click: function (button) {
-          var form = button.up('form').getForm(),
-              path = button.up("fieldcontainer").down("filefield").getValue(),
-              logArea = button.up('form').down('#resultLog');
-
-          form.url = XMLifeOperating.generic.Global.URL.biz + 'backdoor/update/product/rank';
-          self.submitForm(form, logArea, path);
+          self.updateSimple(button, 'backdoor/update/product/rank');
         }
       },
       'ProductTagUpdateBatch #submit': {
         click: function (button) {
-          var form = button.up('form').getForm(),
-            path = button.up("fieldcontainer").down("filefield").getValue(),
-            logArea = button.up('form').down('#resultLog');
-
-          form.url = XMLifeOperating.generic.Global.URL.biz + 'backdoor/update/product/tag';
-          self.submitForm(form, logArea, path);
+          self.updateSimple(button, 'backdoor/update/product/tag');
         }
       },
       'ProductPriceUpdateBatch #areaId': {
-        select: function(combo, records, opts) {
-          if (records.length == 0) return;
-
-          var shopStore = this.getShopStore();
-          shopStore.load({
-            params: {areaId: records[0].data.id}
-          });
-        }
+        select: self.loadShopData
       },
       'ProductPriceUpdateBatch #submit': {
         click: function (button) {
-          var form = button.up('form').getForm(),
-            path = button.up("fieldcontainer").down("filefield").getValue(),
-              logArea = button.up('form').down('#resultLog');
-
-          form.url = XMLifeOperating.generic.Global.URL.biz + 'backdoor/update/product/price';
-          self.submitForm(form, logArea, path);
+          self.updateSimple(button, 'backdoor/update/product/price');
         }
       },
       'ProductStatusUpdateBatch #areaId': {
-        select: function(combo, records, opts) {
-          if (records.length == 0) return;
-
-          var shopStore = this.getShopStore();
-          shopStore.load({
-            params: {areaId: records[0].data.id}
-          });
-        }
+        select: self.loadShopData
       },
       'ProductStatusUpdateBatch #submit': {
         click: function (button) {
-          var form = button.up('form').getForm(),
-            path = button.up("fieldcontainer").down("filefield").getValue(),
-              logArea = button.up('form').down('#resultLog');
-
-          form.url = XMLifeOperating.generic.Global.URL.biz + 'backdoor/update/product/status';
-          self.submitForm(form, logArea, path);
+          self.updateSimple(button, 'backdoor/update/product/status');
         }
       },
       'ProductStockUpdateBatch #areaId': {
-        select: function(combo, records, opts) {
-          if (records.length == 0) return;
-
-          var shopStore = this.getShopStore();
-          shopStore.load({
-            params: {areaId: records[0].data.id}
-          });
-        }
+        select: self.loadShopData
       },
       'ProductStockUpdateBatch #submit': {
         click: function (button) {
-          var form = button.up('form').getForm(),
-            path = button.up("fieldcontainer").down("filefield").getValue(),
-            logArea = button.up('form').down('#resultLog');
-
-          form.url = XMLifeOperating.generic.Global.URL.biz + 'backdoor/update/product/stock';
-          self.submitForm(form, logArea, path);
+          self.updateSimple(button, 'backdoor/update/product/stock');
         }
       },
       'ProductCategoryUpdateBatch #areaId': {
-        select: function(combo, records, opts) {
-          if (records.length == 0) return;
-
-          var shopStore = this.getShopStore();
-          shopStore.load({
-            params: {areaId: records[0].data.id}
-          });
-        }
+        select: self.loadShopData
       },
       'ProductCategoryUpdateBatch #submit': {
         click: function (button) {
-          var form = button.up('form').getForm(),
-            path = button.up("fieldcontainer").down("filefield").getValue(),
-              logArea = button.up('form').down('#resultLog');
-
-          form.url = XMLifeOperating.generic.Global.URL.biz + 'product/resetCategory';
-          self.submitForm(form, logArea, path);
+          self.updateSimple(button, 'product/resetCategory');
         }
       },
       'ProductPictureUpdateBatch #areaId': {
-        select: function(combo, records, opts) {
-          if (records.length == 0) return;
-
-          var shopStore = this.getShopStore();
-          shopStore.load({
-            params: {areaId: records[0].data.id}
-          });
-        }
+        select: self.loadShopData
       },
       'ProductPictureUpdateBatch #submit': {
         click: function (button) {
-          var form = button.up('form').getForm(),
-            path = button.up("fieldcontainer").down("filefield").getValue(),
-            logArea = button.up('form').down('#resultLog');
-
-          form.url = XMLifeOperating.generic.Global.URL.biz + 'backdoor/update/product/img2';
-          self.submitForm(form, logArea, path, function(){
-            button.up('form').down('#pictures').fileInputEl.set({multiple: 'multiple'});
-          });
+          self.updateAndResumeMultiFileInput(button, 'backdoor/update/product/img2')
         }
       },
       'DistributionTypeUpdateBatch #submit': {
         click: function (button) {
-          var form = button.up('form').getForm(),
-            path = button.up("fieldcontainer").down("filefield").getValue(),
-            logArea = button.up('form').down('#resultLog');
-
-          form.url = XMLifeOperating.generic.Global.URL.biz + 'residentalDistrict/update/district/type';
-          self.submitForm(form, logArea, path);
+          self.updateSimple(button, 'residentalDistrict/update/district/type');
         }
       },
       'ProductTemplateAddBatch #submit': {
         click: function (button) {
-          var form = button.up('form').getForm(),
-            path = button.up("fieldcontainer").down("filefield").getValue(),
-            logArea = button.up('form').down('#resultLog');
-
-          form.url = XMLifeOperating.generic.Global.URL.biz + 'backdoor/update/product/addtemplates';
-          self.submitForm(form, logArea, path, function(){
-            button.up('form').down('#pictures').fileInputEl.set({multiple: 'multiple'});
-          });
+          self.updateAndResumeMultiFileInput(button, 'backdoor/update/product/addtemplates')
         }
       },
       'DistributionLocationAddBatch #submit': {
         click: function (button) {
-          var form = button.up('form').getForm(),
-            path = button.up("fieldcontainer").down("filefield").getValue(),
-            logArea = button.up('form').down('#resultLog');
-
-          form.url = XMLifeOperating.generic.Global.URL.biz + 'residentalDistrict/genDistrict';
-          self.submitForm(form, logArea, path);
+          self.updateSimple(button, 'residentalDistrict/genDistrict');
         }
       },
       'ProductInstanceAddBatch #areaId': {
-        select: function(combo, records, opts) {
-          if (records.length == 0) return;
-
-          var shopStore = this.getShopStore();
-          shopStore.load({
-            params: {areaId: records[0].data.id}
-          });
-        }
+        select: self.loadShopData
       },
       'ProductInstanceAddBatch #submit': {
         click: function (button) {
-          var form = button.up('form').getForm(),
-            path = button.up("fieldcontainer").down("filefield").getValue(),
-              logArea = button.up('form').down('#resultLog');
-
-          form.url = XMLifeOperating.generic.Global.URL.biz + 'product/appendProducts';
-          self.submitForm(form, logArea, path);
+          self.updateSimple(button, 'product/appendProducts');
         }
       }
     });
+  },
+  updateSimple: function (button, url) {
+    var form = button.up('form').getForm(),
+      path = button.up("fieldcontainer").down("filefield").getValue(),
+      logArea = button.up('form').down('#resultLog');
 
+    form.url = XMLifeOperating.generic.Global.URL.biz + url;
+    this.submitForm(form, logArea, path);
+  },
+  updateAndResumeMultiFileInput: function (button, url) {
+    var form = button.up('form').getForm(),
+      path = button.up("fieldcontainer").down("filefield").getValue(),
+      logArea = button.up('form').down('#resultLog');
+
+    form.url = XMLifeOperating.generic.Global.URL.biz + url;
+    this.submitForm(form, logArea, path, function () {
+      button.up('form').down('#pictures').fileInputEl.set({multiple: 'multiple'});
+    });
+  },
+  loadShopData: function(combo, records, opts) {
+    if (records.length == 0) return;
+
+    var shopStore = this.getShopStore();
+    var shopCombo = combo.up('form').down('#shopId')
+    shopCombo.setValue('');
+    shopStore.load({
+      params: {areaId: records[0].data.id}
+    });
   },
   submitForm: function (form, logArea, path, cb) {
     var sessionId = localStorage.getItem('sessionId') || '';
@@ -237,19 +159,19 @@ Ext.define('XMLifeOperating.controller.BatchOperation', {
       }
       form.submit({
         waitMsg: '正在上传您的文件......',
-        success: function(form, action) {
+        success: function (form, action) {
           this.customMethod(form, action);
           if (cb) {
             cb();
           }
         },
-        failure: function(form, action) {
+        failure: function (form, action) {
           this.customMethod(form, action);
           if (cb) {
             cb();
           }
         },
-        customMethod: function(form, action) {
+        customMethod: function (form, action) {
           var data = JSON.parse(action.response.responseText);
           var date = new Date(data.logTime);
           var dataStr = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + " " + date.getHours() + ":" + date.getMinutes();

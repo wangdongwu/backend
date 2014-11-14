@@ -3,7 +3,7 @@ Ext.define('XMLifeOperating.view.batchoperation.update.ProductCategoryUpdateBatc
   id : 'ProductCategoryUpdateBatch',
   xtype : 'ProductCategoryUpdateBatch',
   alias : 'widget.ProductCategoryUpdateBatch',
-  title : '商品分类',
+  title : '商品分类(实例)',
   closeAction: 'hide',
   resizable: false,
   forceFit: true,

@@ -19,6 +19,8 @@ Ext.define('XMLifeOperating.view.batchoperation.BatchUpdatePanel',{
       },{
         xtype: 'ProductCategoryUpdateBatch'
       },{
+        xtype: 'ProductCategoryTemplateUpdateBatch'
+      },{
         xtype : 'ProductRankUpdateBatch'
       },{
         xtype : 'ProductNameUpdateBatch'
