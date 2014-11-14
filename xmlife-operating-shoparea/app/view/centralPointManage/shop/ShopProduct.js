@@ -7,7 +7,6 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopProduct', {
     itemId: 'ShelvesGoodsList',
     columnLines: true,
     initComponent: function() {
-        console.log(123)
         var me = this;
         var store = Ext.create('Ext.data.Store', {
             fields: ['value', 'name', 'itemId', 'disabled'],

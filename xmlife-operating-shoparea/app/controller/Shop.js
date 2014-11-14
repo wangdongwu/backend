@@ -1871,25 +1871,25 @@ Ext.define('XMLifeOperating.controller.Shop', {
                     var count = 0;
 
                     for (var pro in userInfo) {
-                        if (pro == 'frozen/unfreeze') {
+                        if (pro == 'frozen') {
                             continue
                         }
                         if (!me.isDisabledCmp(editWindow.down('form'), pro)) {
                             count += 1;
                         }
                     }
-                  var clock = setInterval(function() {
-                        console.log(flags)
+                    var clock = setInterval(function() {
                         if (flags.indexOf(0) == -1 && flags.length == count) {
                             me.showProductList(record.get('categoryId'));
                             editWindow.close();
-                           clearInterval(clock);
+                            clearInterval(clock);
                         }
                     }, 500);
                     for (var pro in userInfo) {
-                        if (pro == 'frozen/unfreeze') {
+                        if (pro == 'frozen') {
                             return
                         }
+                        debugger
                         if (!me.isDisabledCmp(editWindow.down('form'), pro)) {
                             flags.push(0);
                             me[pro].call(me, form, record.get('id'), flags);
@@ -2242,7 +2242,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
         for (var properName in userInfo) {
             var properArray = userInfo[properName];
 
-            if ( properArray =='' || (properArray instanceof Array && properArray.indexOf(currentShopType) == -1)) { //没有权限
+            if (properArray == '' || (properArray instanceof Array && properArray.indexOf(currentShopType) == -1)) { //没有权限
                 var itemId = '#' + properName;
                 if (me.getShopProductEdit().down(itemId)) { //在ProductEdit中的操作
                     me.getShopProductEdit().down(itemId).setDisabled(true);
@@ -2259,11 +2259,14 @@ Ext.define('XMLifeOperating.controller.Shop', {
         var me = this,
             cmp = view.down('#' + cmpId);
         if (cmp) {
-            if (!cmp.isDisabled()) {
-                if (cmp.down && cmp.down('#belngShelf')) {
+            if (!cmp.isDisabled()) { //未被禁用
+                if (cmp.down && cmp.down('#belngShelf')) { //移动货架
                     return cmp.down('#belngShelf').isDisabled()
+                } else {
+                    return false
                 }
-                return false
+            } else {
+                return true
             }
         } else {
             return true
