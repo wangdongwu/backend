@@ -52,7 +52,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.shopConfig.ShopModuleList', 
       width : 30,
       dataIndex : 'typeCopy',
       renderer : function(v){
-        if(v == 'USERCOLLECT' || v == 'CATEGORY' || v == 'banner'){
+        if(v == 'USERCOLLECT' || v == 'CATEGORY' || v == 'TYPE0'){
           this.remove();
         }
       },
