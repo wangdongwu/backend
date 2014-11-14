@@ -13,6 +13,8 @@ dump
 .xm_config
 
 # extjs
+index.html
+app.json
 bootstrap.js
 bootstrap.css
 bootstrap.json
