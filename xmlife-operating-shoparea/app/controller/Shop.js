@@ -2239,11 +2239,10 @@ Ext.define('XMLifeOperating.controller.Shop', {
             currentShop = shopStore.getById(shopId),
             currentShopType = currentShop.get('type'),
             userInfo = adminShopTypeStore.getAt(0).getData(); //获取第一位
-
         for (var properName in userInfo) {
             var properArray = userInfo[properName];
 
-            if (properArray instanceof Array && properArray.indexOf(currentShopType) == -1) { //没有权限
+            if ( properArray =='' || (properArray instanceof Array && properArray.indexOf(currentShopType) == -1)) { //没有权限
                 var itemId = '#' + properName;
                 if (me.getShopProductEdit().down(itemId)) { //在ProductEdit中的操作
                     me.getShopProductEdit().down(itemId).setDisabled(true);

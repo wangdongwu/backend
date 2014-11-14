@@ -19,7 +19,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopProduct', {
             }, {
                 'value': 1,
                 'name': '雪藏',
-                'itemId': 'frozen/unfreeze',
+                'itemId': 'frozen',
                 'disabled': false
             }, {
                 'value': 2,

@@ -8,7 +8,7 @@ Ext.define('XMLifeOperating.model.AdminAdminShopType', {
 		'changeStorageRack',
 		'onCarriage',
 		'underCarriage',
-		'frozen/unfreeze',
+		'frozen',
 		'waste'
 	],
 	proxy: new XMLifeOperating.generic.BaseProxy('admin/adminShopType')
