@@ -772,10 +772,12 @@ Ext.define('XMLifeOperating.controller.shopConfig', {
                 type = data.type,
                 items = data.items;
 
-            /*if(!(items && items.length) && type != 'TYPE8' && type != 'TYPE9'){
-                Ext.Msg.alert('提示信息','模块 “'+ data.name +'“ 缺少图片，暂无法预览！');
+            if(!(items && items.length) && type != 'TYPE8' && type != 'TYPE9'){
+                /**Ext.Msg.alert('提示信息','模块 “'+ data.name +'“ 缺少图片，暂无法预览！');
                 return;
-            }*/
+                */
+               continue;
+            }
 
             switch (type){
                 case 'TYPE0':
