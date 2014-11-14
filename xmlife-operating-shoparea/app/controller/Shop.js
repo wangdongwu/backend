@@ -167,6 +167,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
             'shoplist #shopArea': {
                 select: function(combo) {
                     var dstore = me.getShopStore();
+                    dstore.clearFilter(true);
                     dstore.getProxy().extraParams = {
                         city: XMLifeOperating.generic.Global.currentCity,
                         areaId: combo.getValue()
@@ -1902,6 +1903,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
     },
     showShopList: function() {
         var dstore = this.getShopStore();
+        dstore.clearFilter(true);
         dstore.getProxy().extraParams = {
             city: XMLifeOperating.generic.Global.currentCity,
             areaId: this.areaId

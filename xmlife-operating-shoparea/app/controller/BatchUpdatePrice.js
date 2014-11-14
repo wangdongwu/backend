@@ -18,7 +18,7 @@ Ext.define('XMLifeOperating.controller.BatchUpdatePrice', {
       
       var self = this;
       var shopStore = self.getShopStore();
-
+      shopStore.clearFilter(true);
       shopStore.on('load',function(store,data){
         var ShopSelect = self.getBatchUpdatePrice().down('#ShopSelect');
         data.length > 0 ? ShopSelect.setValue(data[0].data.id) : ShopSelect.setValue('');
@@ -38,6 +38,7 @@ Ext.define('XMLifeOperating.controller.BatchUpdatePrice', {
         'BatchUpdatePrice #shopArea': {
               select: function(combo) {
                   var store = self.getShopStore();
+                  store.clearFilter(true);
                   store.getProxy().extraParams = {
                       city: XMLifeOperating.generic.Global.currentCity,
                       areaId: combo.getValue()
