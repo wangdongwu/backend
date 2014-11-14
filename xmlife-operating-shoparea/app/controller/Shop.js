@@ -1889,7 +1889,6 @@ Ext.define('XMLifeOperating.controller.Shop', {
                         if (pro == 'frozen') {
                             return
                         }
-                        debugger
                         if (!me.isDisabledCmp(editWindow.down('form'), pro)) {
                             flags.push(0);
                             me[pro].call(me, form, record.get('id'), flags);
