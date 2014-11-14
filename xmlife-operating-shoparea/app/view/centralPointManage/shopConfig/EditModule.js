@@ -11,7 +11,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.shopConfig.EditModule', {
     buttonAlign: 'center',
     items: [{
         xtype: 'form',
-        url : XMLifeOperating.generic.Global.URL.biz+'shopHomePage/updateModule',
+        url : XMLifeOperating.generic.Global.URL.biz+'shopHomepage/updateModule',
         layout: 'vbox',
         bodyPadding: 8,
         defaults : {
