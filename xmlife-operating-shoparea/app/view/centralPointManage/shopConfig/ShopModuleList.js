@@ -50,9 +50,9 @@ Ext.define('XMLifeOperating.view.centralPointManage.shopConfig.ShopModuleList', 
     },
     {
       width : 30,
-      dataIndex : 'isAdvert',
+      dataIndex : 'typeCopy',
       renderer : function(v){
-        if(!v){
+        if(v == 'USERCOLLECT' || v == 'CATEGORY' || v == 'banner'){
           this.remove();
         }
       },
