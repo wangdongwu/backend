@@ -165,18 +165,21 @@ Ext.define('XMLifeOperating.view.couponManage.coupon.CouponEditStep1', {
                         disabled:false,
                         style:'margin:2px 10px 0 0',
                         handler:function(value,record){
+
                             var existAtSameTime=Ext.ComponentQuery.query('#existAtSameTime')[0];
                             var existAtSameTimeUnit = Ext.ComponentQuery.query('#existAtSameTimeUnit')[0];
-                            existAtSameTime.setValue('');
+                            // existAtSameTime.setValue('');
                             if(value.getValue()){
                                 existAtSameTime.setVisible(false);
                                 existAtSameTimeUnit.setVisible(false);
                                 existAtSameTime.allowBlank = true;
+                                existAtSameTime.setValue('');
 
                             }else{
                                 existAtSameTime.setVisible(true);
                                 existAtSameTimeUnit.setVisible(true);
                                 existAtSameTime.allowBlank = false;
+                                existAtSameTime.setValue('');
                             }                                   
                         }
                     },{

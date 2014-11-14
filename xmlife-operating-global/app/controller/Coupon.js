@@ -102,7 +102,11 @@ Ext.define('XMLifeOperating.controller.Coupon', {
         },{
             ref: 'gainGoodsShelfIdEdit',
             selector: '#gainGoodsShelfIdEdit',
+        },{
+            ref: 'gainTemplatesSkuIdEdit',
+            selector: '#gainTemplatesSkuIdEdit',
         }],
+
     init: function() {
         var self= this,
             categoryShopNameStoreArray = [],
@@ -989,16 +993,14 @@ Ext.define('XMLifeOperating.controller.Coupon', {
         var expireStartDate = new Date(records.get('expireStartDate'));
         win.down('[name=expireEndDate]').setValue(expireEndDate);
         win.down('[name=expireStartDate]').setValue(expireStartDate);
-        win.show();
+        
         //先判断优惠券类型
         var type = records.get('type');
         self.onDecideType(win,type,records);
-        return;
-        // var bindingType = records.
-
         var store = Ext.create('XMLifeOperating.store.SupportedCityCoupon', {
-                        autoSync: true
+                        autoSync: false
                     });
+        this.getGainNewCityIdsEdit().store.removeAll();
         this.getGainNewCityIdsEdit().bindStore(store,false);
         var citiesArray = records.get('cities');
         store.load({
@@ -1014,38 +1016,138 @@ Ext.define('XMLifeOperating.controller.Coupon', {
                     
             }
         });
-        var cities = citiesArray.join(',');
-        var store1 = Ext.create('XMLifeOperating.store.ShopCityShops', {
-            autoSync: false
-        });
-        var shopsArray = records.get('shops');
-        self.getGainShopIdEdit().bindStore(store1,false);
-        store1.getProxy().extraParams = {
-                        cities:cities
+        if(type==3){
+            win.height = 500;
+            win.show();
+            return;
+        }else{
+            win.height= 700;
+            win.show();
+
+        }
+        //判断绑定类型
+        var bindingType = records.get('bindingType');
+        var gainShopIdEdit = win.down('#gainShopIdEdit'),
+            gainGoodsShelfIdEdit = win.down('#gainGoodsShelfIdEdit'),
+            gainTemplatesSkuIdEdit = win.down('#gainTemplatesSkuIdEdit');
+        switch(bindingType){
+            case 1:
+                gainShopIdEdit.setVisible(true);
+                gainGoodsShelfIdEdit.setVisible(false);
+                gainTemplatesSkuIdEdit.setVisible(false);
+                var cities = citiesArray.join(',');
+                var store1 = Ext.create('XMLifeOperating.store.ShopCityShops', {
+                    autoSync: false
+                });
+                var shopsArray = records.get('shops');
+                self.getGainShopIdEdit().store.removeAll();
+                self.getGainShopIdEdit().bindStore(store1,false);
+                store1.getProxy().extraParams = {
+                                cities:cities
+                            }
+                store1.load({
+                    callback:function(){
+                        //初始化打勾
+                        var model = Ext.ComponentQuery.query('#gainShopIdEdit')[0].getSelectionModel();
+                        model.deselectAll();
+
+                        for(var j=0;j<shopsArray.length;j++){
+                            var index = store1.indexOfId(shopsArray[j].shopId);
+                            model.select(index, true);
+                        }    
                     }
-        store1.load({
-            callback:function(){
-                //初始化打勾
-                var model = Ext.ComponentQuery.query('#gainShopIdEdit')[0].getSelectionModel();
-                model.deselectAll();
-
-                for(var j=0;j<shopsArray.length;j++){
-                    var index = store1.indexOfId(shopsArray[j].shopId);
-                    model.select(index, true);
-                }    
-            }
-        });
-
-        //debugger
-        var categoryShopNameStore = Ext.create('XMLifeOperating.store.CategoryShopName', {
+                });
+                break;
+            case 2:
+                gainShopIdEdit.setVisible(true);
+                gainGoodsShelfIdEdit.setVisible(true);
+                gainTemplatesSkuIdEdit.setVisible(false);
+                var cities = citiesArray.join(',');
+                var store1 = Ext.create('XMLifeOperating.store.ShopCityShops', {
+                    autoSync: false
+                });
+                var categoriesArray = records.get('categories');
+                var mapArray={};
+                self.getGainShopIdEdit().store.removeAll();
+                self.getGainShopIdEdit().bindStore(store1,false);
+                store1.getProxy().extraParams = {
+                                cities:cities
+                            }
+                store1.load({
+                    callback:function(){
+                        //初始化打勾
+                        var model = Ext.ComponentQuery.query('#gainShopIdEdit')[0].getSelectionModel();
+                        model.deselectAll();
+                         //store1.data.items[index].get('cityName')   
+                        for(var j=0;j<categoriesArray.length;j++){
+                            var index = store1.indexOfId(categoriesArray[j].shopId);
+                            model.select(index, true);
+                            categoriesArray[j].cityName = store1.data.items[index].get('cityName');
+                            categoriesArray[j].shopName = store1.data.items[index].get('name');
+                        }
+                        //console.log(categoriesArray);    
+                    }
+                });
+                var categoryShopNameStore = Ext.create('XMLifeOperating.store.CategoryShopName', {
                         autoSync: false
                     });
-        self.getGainGoodsShelfIdEdit().bindStore(categoryShopNameStore, false);
+                self.getGainGoodsShelfIdEdit().store.removeAll();
+                self.getGainGoodsShelfIdEdit().bindStore(categoryShopNameStore, false);
+                var modelGoodsShelf = Ext.ComponentQuery.query('#gainGoodsShelfIdEdit')[0].getSelectionModel();
+                modelGoodsShelf.deselectAll();
+                var cateArray = categoriesArray;
+                for(var i=0; i< cateArray.length; i++){
+                    categoryShopNameStore.insert(0,cateArray[i]);
+                    var index = categoryShopNameStore.indexOfId(cateArray[i].id);
+                    modelGoodsShelf.select(index, true);
+                }
+                break;
+            case 3:
+                gainShopIdEdit.setVisible(true);
+                gainGoodsShelfIdEdit.setVisible(false);
+                gainTemplatesSkuIdEdit.setVisible(true);
+                self.getGainShopIdEdit().store.removeAll();
+                var cities = citiesArray.join(',');
+                var store1 = Ext.create('XMLifeOperating.store.ShopCityShops', {
+                    autoSync: false
+                });
+                var productsArray = records.get('products');
+                self.getGainShopIdEdit().store.removeAll();
+                self.getGainShopIdEdit().bindStore(store1,false);
+                store1.getProxy().extraParams = {
+                                cities:cities
+                            }
+                store1.load({
+                    callback:function(){
+                        //初始化打勾
+                        var model = Ext.ComponentQuery.query('#gainShopIdEdit')[0].getSelectionModel();
+                        model.deselectAll();
+
+                        for(var j=0;j<productsArray.length;j++){
+                            var index = store1.indexOfId(productsArray[j].shopId);
+                            model.select(index, true);
+                            productsArray[j].cityName = store1.data.items[index].get('cityName');
+                            productsArray[j].shopName = store1.data.items[index].get('name');
+                            productsArray[j].pname = productsArray[j].names[0]+' '+productsArray[j].names[1];
+                        }    
+                    }
+                });
 
 
-
-
-
+                var productSkuPidsStore = Ext.create('XMLifeOperating.store.ProductSkuPids', {
+                        autoSync: false
+                    });
+                self.getGainTemplatesSkuIdEdit().store.removeAll();
+                self.getGainTemplatesSkuIdEdit().bindStore(productSkuPidsStore, false);
+                var modelProductSkuPids = Ext.ComponentQuery.query('#gainTemplatesSkuIdEdit')[0].getSelectionModel();
+                modelProductSkuPids.deselectAll();
+                for(var i=0; i< productsArray.length; i++){
+                    productSkuPidsStore.insert(0,productsArray[i]);
+                    var index = productSkuPidsStore.indexOfId(productsArray[i].id);
+                    modelProductSkuPids.select(index, true);
+                }
+                break;
+        }
 
     },
     onDecideType:function(grid,type){
@@ -1056,8 +1158,10 @@ Ext.define('XMLifeOperating.controller.Coupon', {
             couponCost_dz = grid.down('#couponCost_dz'),//打_折/减_元
             couponCost_z = grid.down('#couponCost_z'),//折/元
             maxDiscountTextId = grid.down('#maxDiscountTextId'),//最多优惠
-            maxDiscount = grid.down('[name=maxDiscount]'),//最多优惠_
-            couponCost_v =  grid.down('#couponCost_v');//优惠券价值
+            maxDiscount = grid.down('[name=maxDiscount]');//最多优惠_
+            gainShopIdEdit = grid.down('#gainShopIdEdit'),
+            gainGoodsShelfIdEdit = grid.down('#gainGoodsShelfIdEdit'),
+            gainTemplatesSkuIdEdit = grid.down('#gainTemplatesSkuIdEdit');
         switch(type){
             case 1:
                 couponCost_m.setVisible(true);
@@ -1071,6 +1175,7 @@ Ext.define('XMLifeOperating.controller.Coupon', {
                 couponCost_z.setValue('元');
                 couponCost_my.setValue(couponCost_my.getValue()/100);
                 couponCost_dz.setValue(couponCost_dz.getValue()/100);
+
                 break;
             case 2:
                 couponCost_m.setVisible(true);
@@ -1094,6 +1199,9 @@ Ext.define('XMLifeOperating.controller.Coupon', {
                 couponCost_dz.setVisible(false);
                 couponCost_z.setVisible(false);
                 maxDiscountTextId.setVisible(false);
+                gainShopIdEdit.setVisible(false);
+                gainGoodsShelfIdEdit.setVisible(false);
+                gainTemplatesSkuIdEdit.setVisible(false);
                 break;
         }
     },

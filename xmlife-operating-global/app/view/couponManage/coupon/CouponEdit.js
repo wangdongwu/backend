@@ -11,7 +11,7 @@ Ext.define('XMLifeOperating.view.couponManage.coupon.CouponEdit', {
         'Ext.draw.Text'
     ],
     closeAction: 'hide',
-    modal: true,
+    modal: true, 
     width: 450,
     height: 750,
     resizable: false,
@@ -160,15 +160,7 @@ Ext.define('XMLifeOperating.view.couponManage.coupon.CouponEdit', {
                         allowBlank: false,
                         disabled:true,
                         style:'margin:2px 10px 0 0',
-                        handler:function(value,record){
-                            if(value.getValue()){
-                                Ext.ComponentQuery.query('#existAtSameTime')[0].setVisible(false);
-                                Ext.ComponentQuery.query('#existAtSameTimeUnit')[0].setVisible(false);
-                            }else{
-                                Ext.ComponentQuery.query('#existAtSameTime')[0].setVisible(true);
-                                Ext.ComponentQuery.query('#existAtSameTimeUnit')[0].setVisible(true);
-                            }                                   
-                        }
+                        
                     },{
                         xtype: 'text',
                         text: '标记为新手优惠券',
@@ -231,6 +223,7 @@ Ext.define('XMLifeOperating.view.couponManage.coupon.CouponEdit', {
                 },{
                     xtype: 'displayfield',
                     value: '生效时间',
+                    style: 'margin:0'
                 },{
                     xtype: 'container',
                     layout: 'column',
@@ -264,8 +257,8 @@ Ext.define('XMLifeOperating.view.couponManage.coupon.CouponEdit', {
                                 xtype: 'textfield',
                                 fieldLabel:'全局总共可领',
                                 name: 'globalCouponNum',
-                                width: 150,
-                                labelWidth: 80,
+                                width: 160,
+                                labelWidth: 95,
                                 allowBlank: false,
                                 disabled:true,
                             },{
@@ -279,8 +272,8 @@ Ext.define('XMLifeOperating.view.couponManage.coupon.CouponEdit', {
                                 xtype: 'textfield',
                                 fieldLabel:'全局每天可领',
                                 name: 'globalDailyCouponNum',
-                                width: 150,
-                                labelWidth: 80,
+                                width: 160,
+                                labelWidth: 95,
                                 allowBlank: false,
                                 style: 'margin-left:10px;',
                                 disabled:true,
@@ -299,8 +292,8 @@ Ext.define('XMLifeOperating.view.couponManage.coupon.CouponEdit', {
                                 xtype: 'textfield',
                                 fieldLabel:'每人终身可领',
                                 name: 'globalUserCouponNumHold',
-                                width: 150,
-                                labelWidth: 80,
+                                width: 160,
+                                labelWidth: 95,
                                 allowBlank: false,
                                 disabled:true,
                             },{
@@ -313,8 +306,8 @@ Ext.define('XMLifeOperating.view.couponManage.coupon.CouponEdit', {
                                 xtype: 'textfield',
                                 fieldLabel:'每人每天可领',
                                 name: 'userDailyCouponNumHold',
-                                width: 150,
-                                labelWidth: 80,
+                                width: 160,
+                                labelWidth: 95,
                                 allowBlank: false,
                                 style: 'margin-left:10px;',
                                 disabled:true,
@@ -383,7 +376,26 @@ Ext.define('XMLifeOperating.view.couponManage.coupon.CouponEdit', {
                                 width:200,
                                 renderer: function(value,grid) {
                                     
-                                    value = grid.record.get('cityName')+'-'+value;
+                                    value = grid.record.get('cityName')+'-'+grid.record.get('shopName')+'-'+value;
+                                    return value;
+                                }
+                            }],
+                },{
+                    name: '',
+                    fieldLabel: 'sku',
+                    xtype: 'gridpanel',
+                    itemId: 'gainTemplatesSkuIdEdit',
+                    height: 100,
+                    selModel: Ext.create('Ext.selection.CheckboxModel', {
+                        mode: 'MULTI'
+                    }),
+                    columns: [{
+                                text: 'sku',
+                                dataIndex: 'pname',
+                                width:200,
+                                renderer: function(value,grid) {
+                                    
+                                    value = grid.record.get('cityName')+'-'+grid.record.get('shopName')+'-'+value;
                                     return value;
                                 }
                             }],
