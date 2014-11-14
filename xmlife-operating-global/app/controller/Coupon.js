@@ -1036,7 +1036,7 @@ Ext.define('XMLifeOperating.controller.Coupon', {
             }
         });
 
-        debugger
+        //debugger
         var categoryShopNameStore = Ext.create('XMLifeOperating.store.CategoryShopName', {
                         autoSync: false
                     });
