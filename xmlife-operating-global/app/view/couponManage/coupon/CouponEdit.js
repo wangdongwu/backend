@@ -13,7 +13,7 @@ Ext.define('XMLifeOperating.view.couponManage.coupon.CouponEdit', {
     closeAction: 'hide',
     modal: true,
     width: 450,
-    height: 550,
+    height: 750,
     resizable: false,
     layout: 'fit',
     title:'修改优惠券',
@@ -45,7 +45,7 @@ Ext.define('XMLifeOperating.view.couponManage.coupon.CouponEdit', {
                 {
                     xtype: 'textfield',
                     name: 'desc',
-                    fieldLabel: '使用范围',
+                    fieldLabel: '描述',
                     labelWidth: 80,
                     allowBlank:false,
                 },
@@ -148,14 +148,6 @@ Ext.define('XMLifeOperating.view.couponManage.coupon.CouponEdit', {
                     width:300,
                     readOnly:true,
                     disabled:true
-                },{
-                    xtype: 'textfield',
-                    name: 'groupId',
-                    fieldLabel: '所属卡包',
-                    labelWidth: 80,
-                    readOnly:true,
-                    value:'杭州奇怪大礼包9',
-                    hidden:true
                 },{
                     layout: 'hbox',
                     xtype: 'fieldset',
@@ -267,7 +259,7 @@ Ext.define('XMLifeOperating.view.couponManage.coupon.CouponEdit', {
                 },{
                     xtype: 'container',
                     layout: 'column',
-                    style: 'margin-top:10px;',
+                    style: 'margin-top:2px;',
                     items: [{
                                 xtype: 'textfield',
                                 fieldLabel:'全局总共可领',
@@ -302,7 +294,7 @@ Ext.define('XMLifeOperating.view.couponManage.coupon.CouponEdit', {
                 },{
                     xtype: 'container',
                     layout: 'column',
-                    style: 'margin-top:10px;',
+                    style: 'margin-top:2px;',
                     items: [{
                                 xtype: 'textfield',
                                 fieldLabel:'每人终身可领',
@@ -333,8 +325,69 @@ Ext.define('XMLifeOperating.view.couponManage.coupon.CouponEdit', {
                                 textAlign: 'left',
                                 style:'margin:5px 0 0 8px'
                             }]
-                },
-                
+                },{
+                    allowBlank: false,
+                    fieldLabel: '城市',
+                    xtype: 'gridpanel',
+                    itemId: 'gainNewCityIdsEdit',
+                    height: 100,
+                    selModel: Ext.create('Ext.selection.CheckboxModel', {
+                        mode: 'MULTI'
+                    }),
+                    columns: [{
+                        xtype: 'rownumberer'
+                    },{
+                        text: 'code',
+                        dataIndex: 'code'
+                    }, {    
+                        text: '城市名',
+                        dataIndex: 'name'
+                    }],
+                },{
+                    name: '',
+                    fieldLabel: '店铺',
+                    xtype: 'gridpanel',
+                    itemId: 'gainShopIdEdit',
+                    height: 100,
+                    selModel: Ext.create('Ext.selection.CheckboxModel', {
+                        mode: 'MULTI'
+                    }),
+                    columns: [{
+                                xtype: 'rownumberer'
+                            },{
+                                text: '店铺名',
+                                dataIndex: 'name',
+                                width:200,
+                                renderer: function(value,grid) {
+                                    
+                                    value = grid.record.get('cityName')+'-'+value;
+                                    return value;
+                                }
+                            },{
+                                text: 'shopId',
+                                dataIndex: 'id',
+                                width:100, 
+                            }],
+                },{
+                    name: '',
+                    fieldLabel: '货架',
+                    xtype: 'gridpanel',
+                    itemId: 'gainGoodsShelfIdEdit',
+                    height: 100,
+                    selModel: Ext.create('Ext.selection.CheckboxModel', {
+                        mode: 'MULTI'
+                    }),
+                    columns: [{
+                                text: '货架',
+                                dataIndex: 'name',
+                                width:200,
+                                renderer: function(value,grid) {
+                                    
+                                    value = grid.record.get('cityName')+'-'+value;
+                                    return value;
+                                }
+                            }],
+                }
  
 
 

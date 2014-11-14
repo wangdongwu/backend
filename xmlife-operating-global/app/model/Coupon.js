@@ -23,7 +23,13 @@ Ext.define('XMLifeOperating.model.Coupon', {
    	'channel',
     'groupName',
     'gmtCreate',
-    'createrName'
+    'createrName',
+    'products',
+    'categories',
+    'shops',
+    'cities',
+    'categories',
+    'bindingType'
     ],
     proxy: new XMLifeOperating.generic.BaseProxy('Shopper')
 });

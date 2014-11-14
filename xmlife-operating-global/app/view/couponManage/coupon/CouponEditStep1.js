@@ -45,7 +45,7 @@ Ext.define('XMLifeOperating.view.couponManage.coupon.CouponEditStep1', {
                 {
                     xtype: 'textfield',
                     name: 'desc',
-                    fieldLabel: '使用范围',
+                    fieldLabel: '描述',
                     labelWidth: 80,
                     allowBlank:false,
                 },
@@ -165,12 +165,18 @@ Ext.define('XMLifeOperating.view.couponManage.coupon.CouponEditStep1', {
                         disabled:false,
                         style:'margin:2px 10px 0 0',
                         handler:function(value,record){
+                            var existAtSameTime=Ext.ComponentQuery.query('#existAtSameTime')[0];
+                            var existAtSameTimeUnit = Ext.ComponentQuery.query('#existAtSameTimeUnit')[0];
+                            existAtSameTime.setValue('');
                             if(value.getValue()){
-                                Ext.ComponentQuery.query('#existAtSameTime')[0].setVisible(false);
-                                Ext.ComponentQuery.query('#existAtSameTimeUnit')[0].setVisible(false);
+                                existAtSameTime.setVisible(false);
+                                existAtSameTimeUnit.setVisible(false);
+                                existAtSameTime.allowBlank = true;
+
                             }else{
-                                Ext.ComponentQuery.query('#existAtSameTime')[0].setVisible(true);
-                                Ext.ComponentQuery.query('#existAtSameTimeUnit')[0].setVisible(true);
+                                existAtSameTime.setVisible(true);
+                                existAtSameTimeUnit.setVisible(true);
+                                existAtSameTime.allowBlank = false;
                             }                                   
                         }
                     },{
@@ -178,25 +184,29 @@ Ext.define('XMLifeOperating.view.couponManage.coupon.CouponEditStep1', {
                         text: '标记为新手优惠券',
                         textAlign: 'left',
                         style:'margin:5px 10px 0 8px'
-                    },{
-                        xtype: 'textfield',
-                        itemId:'existAtSameTime',
-                        name: 'maxCouponNumHold',
-                        fieldLabel: '可同时存在',
-                        labelSeparator: '',
-                        style:'margin-left:7px',
-                        labelWidth: 60,
-                        minWidth: 120,
-                        maxWidth: 120,
-                        allowBlank: true,
-                        style:'line-height:25px;'
-                    }, {
-                        xtype: 'text',
-                        itemId:'existAtSameTimeUnit',
-                        text: '张',
-                        textAlign: 'left',
-                        style:'margin:5px 0 0 8px'
                     }]
+                },{
+                    xtype: 'container',
+                    layout: 'column',
+                    items: [{
+                                xtype: 'textfield',
+                                itemId:'existAtSameTime',
+                                name: 'maxCouponNumHold',
+                                fieldLabel: '可同时存在',
+                                labelSeparator: '',
+                                style:'margin-left:7px',
+                                labelWidth: 60,
+                                minWidth: 120,
+                                maxWidth: 120,
+                                allowBlank: false,
+                                style:'line-height:25px;'
+                            }, {
+                                xtype: 'text',
+                                itemId:'existAtSameTimeUnit',
+                                text: '张',
+                                textAlign: 'left',
+                                style:'margin:5px 0 0 8px'
+                            }]
                 },{
                     xtype: 'container',
                     layout: 'column',
