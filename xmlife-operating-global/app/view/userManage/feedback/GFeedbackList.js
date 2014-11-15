@@ -93,7 +93,11 @@ Ext.define('XMLifeOperating.view.userManage.feedback.GFeedbackList', {
             width: 100,
             format:'Y-M-D',
             sortable: false,
-            align:'center',          
+            align:'center', 
+            renderer: function (v) {
+                var date = new Date(v);
+                return date.getFullYear() + "." + (date.getMonth() + 1) + "." + date.getDate()
+            }         
         },
         {
             text: '用户',
