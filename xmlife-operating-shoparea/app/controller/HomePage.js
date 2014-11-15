@@ -59,7 +59,7 @@ Ext.define('XMLifeOperating.controller.HomePage', {
                     store.load({
                         callback: function(records) {
                             if(!records || records.length == 0) return;
-                            //初始化选择启用项
+                            // 初始化选择启用项
                             var model = Ext.ComponentQuery.query('#versionList')[0].getSelectionModel();
                             model.deselectAll();
                             for (var i = 0, n = records.length; i < n; i++) {
