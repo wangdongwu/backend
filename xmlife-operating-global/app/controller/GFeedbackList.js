@@ -59,6 +59,8 @@ Ext.define('XMLifeOperating.controller.GFeedbackList', {
                         store.loadPage(1);
 
                         this.dayType=str;
+                        var win = this.getGFeedbackList();
+                        win.down('#feedbackStatus').setValue(false);
 
                     }
                 }
@@ -76,11 +78,13 @@ Ext.define('XMLifeOperating.controller.GFeedbackList', {
                     var mark=model.get('mark');
 
                     model.set('mark',!mark);
-                    if(mark==true){
-                        status=0;
+                    /*if(mark==true){
+                        mark=true;
                     }else{
-                        status=1; 
-                    }
+                        mark=1; 
+                    }*/
+                    mark = model.get('mark');
+                    console.log(mark);
                    /* switch(statusValue){
                         case 'online':
                             status=0;
@@ -94,7 +98,7 @@ Ext.define('XMLifeOperating.controller.GFeedbackList', {
                             
                     }*/
 
-                    sendPutRequest(url,{},'','成功操作标记','标记操作失败',function(){
+                    sendPutRequest(url,{mark:mark},'','成功操作标记','标记操作失败',function(){
                         var store = me.getFeedbackStore();
                             var dayType=me.dayType;
                             store.getProxy().extraParams={
