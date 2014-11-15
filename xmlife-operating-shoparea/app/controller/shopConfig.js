@@ -413,10 +413,13 @@ Ext.define('XMLifeOperating.controller.shopConfig', {
       form.submit({
         method : 'put',
         success : function(proxy,response){
-          
+          if(response.result == 1){
+            windows.hide();
+            self.loadModuleVersionStore();
+          }
         },
         failure : function(proxy,response){
-          if(response.responseText == 1){
+          if(response.result == 1){
             windows.hide();
             self.loadModuleVersionStore();
           }
