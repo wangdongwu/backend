@@ -126,6 +126,7 @@ Ext.define('XMLifeOperating.controller.CouponSend', {
       },
       'couponShoppingRelease #add': {
         click: function () {
+          self.cleanWin()
           self.getSupportedCityCouponStore().load();
           self.getCouponSendEditShopping().show();
         }
@@ -223,6 +224,13 @@ Ext.define('XMLifeOperating.controller.CouponSend', {
       },
       'CouponSendEditShopping #save': {
         click: function (button) {
+
+
+          var editWindow = this.getCouponSendEditShopping(),
+            form = editWindow.down('form').getForm(),
+            self = this;
+          var curCity = editWindow.down('#curCity').getValue();
+
           var shopList = self.getShopList(),
             selectedShopList = shopList.getSelectionModel().getSelection();
 
@@ -236,6 +244,16 @@ Ext.define('XMLifeOperating.controller.CouponSend', {
           }
           data.shopIds = shopIds;
           data.sendType = 1;
+          
+          if (form.isValid()) {
+              if(shopIds.length<=0){
+                  alert('请选择店铺');
+                  return;
+              }
+          }else {
+              Ext.Msg.alert('Invalid Data', 'Please correct form errors');
+              return;
+          }
 
           Ext.Ajax.request({
             url: XMLifeOperating.generic.Global.URL.biz + 'coupon/add/rule/send',
@@ -441,5 +459,8 @@ Ext.define('XMLifeOperating.controller.CouponSend', {
       });
       var win = this.getCouponSendShopEditSearch()
       win.close();
+  },
+  cleanWin:function(grid){
+      
   }
 });

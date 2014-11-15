@@ -75,8 +75,10 @@ Ext.define('XMLifeOperating.view.couponManage.couponSend.CouponSendEditShopping'
             triggerAction: 'all',
             displayField: 'name',
             valueField: 'code',
-            value: '请选择城市',
-            tooltip: 'Choose current city'
+            emptyText: '请选择城市',
+            value:'',
+            tooltip: 'Choose current city',
+            allowBlank:false
 
           },
           {
@@ -107,6 +109,7 @@ Ext.define('XMLifeOperating.view.couponManage.couponSend.CouponSendEditShopping'
             fieldLabel: '店铺',
             xtype: 'gridpanel',
             itemId: 'shopList',
+            allowBlank:false,
             height: 100,
             selModel: Ext.create('Ext.selection.CheckboxModel', {
               mode: 'MULTI'
