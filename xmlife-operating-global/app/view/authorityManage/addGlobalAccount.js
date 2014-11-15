@@ -14,7 +14,7 @@ Ext.define('XMLifeOperating.view.authorityManage.addGlobalAccount', {
     xtype : 'addGlobalAccount',
     alias : 'widget.addGlobalAccount',
     title : '创建管理员账号',
-    width : 440,
+    width : 450,
     closeAction: 'hide',
     modal: true,
     layout : 'fit',
@@ -80,24 +80,25 @@ Ext.define('XMLifeOperating.view.authorityManage.addGlobalAccount', {
         autoScroll: true
       }, 
       items : [
-      
         {
+          xtype : 'panel',
           title : '全局权限',
-          xtype :'AuthoritySelect',
-          itemId : 'globalSelect'
-        },
-        {
-          title : '城市权限',
-          xtype :'AuthoritySelect',
-          itemId : 'citySelect'
-        },{
-          title : '中心权限',
-          xtype :'AuthoritySelect',
-          itemId : 'shopareaSelect'
+          items: [
+          {
+            xtype :'AuthoritySelect',
+            itemId : 'globalSelect'
+          }],
         }
-      ]
-    },
-    {
+        ,
+        {
+          xtype : 'panel',
+          border : 0,
+          title : '城市权限',
+          items: [{
+            xtype :'AuthoritySelect',
+            itemId : 'citySelect'
+          },
+          {
       xtype : 'checkbox',
       boxLabel  : '城市权限管理',
       itemId : 'isHaveCities',
@@ -135,7 +136,78 @@ Ext.define('XMLifeOperating.view.authorityManage.addGlobalAccount', {
         name      : 'cities',
         inputValue: '330100'
       }]
-      }
+      }],
+        },{
+          xtype : 'panel',
+          border : 0,
+          title : '中心权限',
+          items: [{
+            xtype :'AuthoritySelect',
+            itemId : 'shopareaSelect'
+          },
+          {
+            xtype : 'panel',
+            border : 0,
+            bodyPadding :'5 0',
+            items : [
+            /*{
+              xtype : 'panel',
+              border : 0,
+              defaults : {
+                labelWidth : 50
+              },
+              items : [
+              {
+          fieldLabel : '省份',
+          store : 'Province',
+          name : 'cpro',
+          itemId: 'cmbProvince',
+          allowBlank : false,
+          blankText: '请选择省份',
+          xtype : 'combo',
+          editable : false,
+          mode : 'local',
+          triggerAction : 'all',
+          displayField: 'name',
+          valueField: 'code',
+          queryMode:'local'
+        },
+        {
+            fieldLabel : '城市',
+            name : 'city',
+            store : 'AllCities',
+            itemId: 'cmbCity',
+            blankText: '请选择城市',
+            allowBlank : false,
+            xtype : 'combo',
+            editable : false,
+            mode : 'local',
+            triggerAction : 'all',
+            displayField: 'name',
+            valueField: 'code',
+            queryMode:'local',
+            emptyText: "请先选择省份"
+          }]
+            }
+            */
+            ,
+            {
+              fieldLabel : '选择中心',
+              xtype:'combobox',
+              name:'areaId',
+              itemId:'shopAread',
+              store:'ShopArea',
+              emptyText:'请选择中心',
+              editable: false,
+              displayField:'name',
+              valueField:'id'
+            }
+          ]
+          }
+          ],
+        }
+      ]
+    }
     ]
     }],
     buttons : [{

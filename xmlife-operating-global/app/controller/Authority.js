@@ -15,8 +15,8 @@ Ext.define('XMLifeOperating.controller.Authority', {
       'authorityManage.AddMerchantAccount',
       'authorityManage.AuthoritySelect'
     ],
-    models : ['Account'],
-    stores : ['Account','Authority','Province','AllCities', 'SupportedCity', 'ShopArea', 'Shop'],
+    models : ['Account','ShopArea'],
+    stores : ['Account','Authority','Province','ShopArea','AllCities', 'SupportedCity', 'ShopArea', 'Shop'],
     refs: [{
       ref: 'AuthorityTabPanel',
       selector: 'AuthorityTabPanel',
