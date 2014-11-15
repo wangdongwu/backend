@@ -160,7 +160,7 @@ Ext.define('XMLifeOperating.view.couponManage.coupon.CouponEditStep2', {
                                 width:200,
                                 renderer: function(value,grid) {
                                     
-                                    value = grid.record.get('cityName')+'-'+value;
+                                    value = grid.record.get('cityName')+'-'+grid.record.get('shopName')+'-'+value;
                                     return value;
                                 }
                             }],

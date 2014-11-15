@@ -3,7 +3,7 @@ Ext.define('XMLifeOperating.store.FeedbackStatus', {
     fields:['name', 'value'],
  
     data:[
-        { 'name': '标记','value':'0'},
-        { 'name': '未标记','value':'1'},
+        { 'name': '标记','value':true},
+        { 'name': '未标记','value':false},
     ],
 });

@@ -3,7 +3,14 @@ Ext.define('XMLifeOperating.controller.GFeedbackList', {
     views: ['userManage.feedback.GFeedbackList'],
     stores: ['Feedback','FeedbackStatus'],
     models: ['Feedback'],
-
+    refs: [
+        {
+            ref: 'gFeedbackList',
+            selector: 'gFeedbackList',
+            xtype: 'gFeedbackList',
+            autoCreate: true
+        },
+    ],
     init: function() {
 
         var me=this;
@@ -58,13 +65,13 @@ Ext.define('XMLifeOperating.controller.GFeedbackList', {
             },
             'gFeedbackList #mark':{
                 click: function (component, column, rowIndex,colIndex,e) {
-                    
+                    alert(11);
                     var model=component.getStore().getAt(rowIndex);
 
                     var feedbackId=model.get('id');
 
                     var className = e.target.className;            
-                    var url= 'feedback/'+feedbackId;
+                    var url= 'feedback/mark/'+feedbackId;
 
                     var mark=model.get('mark');
 
@@ -88,7 +95,7 @@ Ext.define('XMLifeOperating.controller.GFeedbackList', {
                     }*/
 
                     sendPutRequest(url,{},'','成功操作标记','标记操作失败',function(){
-                        var store = this.getFeedbackStore();
+                        var store = me.getFeedbackStore();
                             var dayType=me.dayType;
                             store.getProxy().extraParams={
                                 dayType:dayType,
@@ -100,6 +107,9 @@ Ext.define('XMLifeOperating.controller.GFeedbackList', {
                     });
                 }
             },
+            'gFeedbackList #feedbackStatus':{
+                change:me.onFeedbackStatus
+            }
 
         });
     },
@@ -107,11 +117,26 @@ Ext.define('XMLifeOperating.controller.GFeedbackList', {
     onShow: function() {
         var store = this.getFeedbackStore();
             store.getProxy().extraParams={
-              dayType:5,
+              dayType:1,
               mark:false
             };
           store.loadPage(1);
-          this.dayType=5;
+          this.dayType=1;
     },
-    
+    onFeedbackStatus:function(combo){
+        var win = this.getGFeedbackList();
+        var mark = combo.getValue();
+        var dayType = this.dayType;
+        this.rendenFeedbackList(this.getGFeedbackList(),mark,dayType);
+        
+    },
+    rendenFeedbackList:function(grid,mark,dayType){
+        var store = grid.store;
+        store.getProxy().extraParams={
+          dayType:dayType,
+          mark:mark
+        };
+        store.loadPage(1);
+        this.dayType=dayType;
+    }
 });

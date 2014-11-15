@@ -31,51 +31,44 @@ Ext.define('XMLifeOperating.view.userManage.feedback.GFeedbackList', {
             layout: 'hbox',
             items : [
             {
-            checked: true,    
-            boxLabel:'今天',
-            name : 'dayType',
-            itemId: 'dayType1'
-            },
-        {
-            boxLabel:'昨天',
-            name : 'dayType',
-            itemId: 'dayType2'
-            },
-        {
-            boxLabel:'前天',
-            name : 'dayType',
-            itemId: 'dayType3'
-            },
-        {
-            boxLabel:'本周',
-            name : 'dayType',
-            itemId: 'dayType4'
-            },
-        {
-            boxLabel:'上周',
-            name : 'dayType',
-            itemId: 'dayType5'
-            },
-        {
-            boxLabel:'本月',
-            name : 'dayType',
-            itemId: 'dayType6'
-            },
-        {
-            boxLabel:'上月',
-            name : 'dayType',
-            itemId: 'dayType7'
-            }
-        ]
-        }
-        ,
+                checked: true,    
+                boxLabel:'今天',
+                name : 'dayType',
+                itemId: 'dayType1',
+                value:1
+            },{
+                boxLabel:'昨天',
+                name : 'dayType',
+                itemId: 'dayType2'
+            },{
+                boxLabel:'前天',
+                name : 'dayType',
+                itemId: 'dayType3'
+            },{
+                boxLabel:'本周',
+                name : 'dayType',
+                itemId: 'dayType4'
+            },{
+                boxLabel:'上周',
+                name : 'dayType',
+                itemId: 'dayType5'
+            },{
+                boxLabel:'本月',
+                name : 'dayType',
+                itemId: 'dayType6'
+            },{
+                boxLabel:'上月',
+                name : 'dayType',
+                itemId: 'dayType7'
+            }]
+        },
         '->',
-        ,
         {
             labelWidth: 40,
             xtype:'combo',
+            itemId:'feedbackStatus',
             store:'FeedbackStatus',
-            value:'0',
+            value:'未标记',
             editable: false,
             queryMode:'local',
             displayField:'name',

@@ -131,7 +131,12 @@ Ext.define('XMLifeOperating.controller.Coupon', {
                 }
             },
             'couponList #add':{
-                click:self.onCouponEditStep1
+                click:function(){
+                    self.onCouponEditStep1()
+                    categoryShopNameStoreArray = [];
+                    productSkuPidsStoreArray = [];
+                    gainShopStoreArray = [];
+                }
             },
 
             'couponEditStep1 #nextButton':{
@@ -219,7 +224,7 @@ Ext.define('XMLifeOperating.controller.Coupon', {
                           }
         store.loadPage(1);
     },
-    onCouponEditStep1:function(){
+    onCouponEditStep1:function(categoryShopNameStoreArray){
         var winStep1 = this.getCouponEditStep1();
         winStep1.show();
         this.cleanWin();
@@ -977,6 +982,7 @@ Ext.define('XMLifeOperating.controller.Coupon', {
         self.getGainShopId().store.removeAll();
         winStep2.down('[name=keywordGoodsShelf]').setValue('');
         self.getGainGoodsShelfId().store.removeAll();
+    
         winStep2.down('[name=keywordTemplates]').setValue('');
         self.getGainTemplatesSkuId().store.removeAll();
 
@@ -1174,7 +1180,7 @@ Ext.define('XMLifeOperating.controller.Coupon', {
                 couponCost_d.setValue('减');
                 couponCost_z.setValue('元');
                 couponCost_my.setValue(couponCost_my.getValue()/100);
-                couponCost_dz.setValue(couponCost_dz.getValue()/100);
+                couponCost_dz.setValue(couponCost_dz.getValue()/10);
 
                 break;
             case 2:
