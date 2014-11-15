@@ -59,5 +59,8 @@ Ext.define('XMLifeOperating.model.shopModules', {
   {
     name :'order',
     type : 'number'
+  },{
+    name : 'position',
+    mapping : 'order'
   }]
 });
