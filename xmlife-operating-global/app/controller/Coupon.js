@@ -992,7 +992,6 @@ Ext.define('XMLifeOperating.controller.Coupon', {
     onCouponEdit:function(view, column, rowIndex, colIndex, e) {
         var self = this;
         var records = view.getRecord(view.findTargetByEvent(e));
-        console.log(records);
         var win = this.getCouponEdit();
         win.down('form').loadRecord(records);
         var expireEndDate = new Date(records.get('expireEndDate'));
@@ -1180,7 +1179,7 @@ Ext.define('XMLifeOperating.controller.Coupon', {
                 couponCost_d.setValue('减');
                 couponCost_z.setValue('元');
                 couponCost_my.setValue(couponCost_my.getValue()/100);
-                couponCost_dz.setValue(couponCost_dz.getValue()/10);
+                couponCost_dz.setValue(couponCost_dz.getValue()/100);
 
                 break;
             case 2:
@@ -1194,7 +1193,7 @@ Ext.define('XMLifeOperating.controller.Coupon', {
                 couponCost_d.setValue('打');
                 couponCost_z.setValue('折');
                 couponCost_my.setValue(couponCost_my.getValue()/100);
-                couponCost_dz.setValue(couponCost_dz.getValue()/100);
+                couponCost_dz.setValue(couponCost_dz.getValue()/10);
                 maxDiscount.setValue(maxDiscount.getValue()/100);
                 break;
             case 3:

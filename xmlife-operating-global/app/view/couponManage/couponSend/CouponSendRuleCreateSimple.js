@@ -80,7 +80,7 @@ Ext.define('XMLifeOperating.view.couponManage.couponSend.CouponSendRuleCreateSim
                 emptyText: '开始时间',
                 value: new Date(),
                 width: 145,
-                format: 'Y-m-d H:i:s'
+                format: 'Y-m-d'
               },
               {
                 xtype: 'displayfield',
@@ -92,8 +92,7 @@ Ext.define('XMLifeOperating.view.couponManage.couponSend.CouponSendRuleCreateSim
                 name: 'endTime',
                 width: 145,
                 emptyText: '结束时间',
-                value: new Date(),
-                format: 'Y-m-d H:i:s'
+                format: 'Y-m-d'
               }
             ]
           },
