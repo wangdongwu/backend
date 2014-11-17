@@ -2360,6 +2360,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
         if (data.limitCount == 0 || data.limitCount == null || data.limitCount == '') {
             data.limitType = 0;
         }
+        data.limitType = limitType;
         data.id = id;
         sendPutRequest('product/updateLimit', data, '修改商品限购', '修改商品限购成功', '修改商品限购失败', success, failure);
     },
