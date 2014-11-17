@@ -10,7 +10,13 @@ Ext.define('XMLifeOperating.model.CouponRule', {
     'subType',
     'gmtCreate',
     'id',
-    'status'
+    'status',
+    'shopIds',
+    'benchMark',
+    'couponeId',
+    'createrId',
+    'value',
+    'gmtModified'
   ]
 });
 
