@@ -138,7 +138,7 @@ Ext.define('XMLifeOperating.view.couponManage.couponSend.CouponSendEditShopping'
           {
             fieldLabel: '优惠券类型',
             name: 'subType',
-            labelWidth: 90,
+            labelWidth: 80,
             store: couponTypeStore,
             allowBlank: false,
             xtype: 'combo',
@@ -153,9 +153,11 @@ Ext.define('XMLifeOperating.view.couponManage.couponSend.CouponSendEditShopping'
             xtype: 'textfield',
             name: 'couponId',
             fieldLabel: '赠优惠券',
-            labelWidth: 60,
+            labelWidth: 80,
             emptyText: '请输入优惠券ID或卡包ID',
-            allowBlank:false
+            allowBlank:false,
+            width:300
+
           },
           {
             xtype: 'container',
@@ -165,7 +167,8 @@ Ext.define('XMLifeOperating.view.couponManage.couponSend.CouponSendEditShopping'
               {
                 xtype: 'displayfield',
                 value: '有效获得时间:',
-                style: 'margin-right:5px'
+                style: 'margin-right:5px',
+                width:80
               },
               {
                 xtype: 'datefield',
@@ -174,7 +177,8 @@ Ext.define('XMLifeOperating.view.couponManage.couponSend.CouponSendEditShopping'
                 //maxValue: new Date(),
                 value: new Date(),
                 format: 'Y-m-d',
-                allowBlank:false
+                allowBlank:false,
+                width:100
               },
               {
                 xtype: 'displayfield',
@@ -185,7 +189,7 @@ Ext.define('XMLifeOperating.view.couponManage.couponSend.CouponSendEditShopping'
                 xtype: 'datefield',
                 name: 'endTime',
                 emptyText: '结束时间',
-                //maxValue: new Date(),
+                width:100,
                 format: 'Y-m-d',
                 allowBlank:false
               }
