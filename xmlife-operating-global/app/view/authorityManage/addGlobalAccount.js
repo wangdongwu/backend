@@ -75,10 +75,6 @@ Ext.define('XMLifeOperating.view.authorityManage.addGlobalAccount', {
       plain: true,
       bodyPadding : '5px 0',
       itemId : 'modulesCheckbox',
-      defaults :{
-        height : 200,
-        autoScroll: true
-      }, 
       items : [
         {
           xtype : 'panel',
@@ -86,17 +82,19 @@ Ext.define('XMLifeOperating.view.authorityManage.addGlobalAccount', {
           items: [
           {
             xtype :'AuthoritySelect',
-            itemId : 'globalSelect'
+            itemId : 'globalSelect',
+            height : 280
           }],
         }
         ,
         {
           xtype : 'panel',
-          border : 0,
           title : '城市权限',
           items: [{
             xtype :'AuthoritySelect',
-            itemId : 'citySelect'
+            itemId : 'citySelect',
+            height : 200,
+            autoScroll :true
           },
           {
       xtype : 'checkbox',
@@ -139,15 +137,15 @@ Ext.define('XMLifeOperating.view.authorityManage.addGlobalAccount', {
       }],
         },{
           xtype : 'panel',
-          border : 0,
           title : '中心权限',
           items: [{
             xtype :'AuthoritySelect',
-            itemId : 'shopareaSelect'
+            itemId : 'shopareaSelect',
+            height :280,
+            autoScroll :true
           },
           {
             xtype : 'panel',
-            border : 0,
             bodyPadding :'5 0',
             items : [
             /*{
@@ -192,6 +190,7 @@ Ext.define('XMLifeOperating.view.authorityManage.addGlobalAccount', {
             */
             ,
             {
+              fieldLabel : '选择城市',
               xtype: 'checkbox',
               boxLabel  : '杭州',
               name      : 'cities',
