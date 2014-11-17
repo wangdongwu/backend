@@ -120,7 +120,14 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopShelf', {
         items: [{
             icon: 'resources/images/edit.png'
         }]
-    }, {
+    },{
+            xtype: 'actioncolumn',
+            text: '操作',
+            width: 40,
+            icon: 'resources/images/delete.png',
+            tooltip: 'Delete',
+            itemId: 'delete',
+    } ,{
         text: '状态',
         dataIndex: 'status',
         itemId: 'showOrHide',
@@ -146,13 +153,6 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopShelf', {
             return returnStr;
         },
         tdCls: 'user-td'
-    },{
-            xtype: 'actioncolumn',
-            text: '操作',
-            width: 40,
-            icon: 'resources/images/delete.png',
-            tooltip: 'Delete',
-            itemId: 'delete',
     }],
     dockedItems: [{
         xtype: 'toolbar',

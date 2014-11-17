@@ -74,7 +74,9 @@ Ext.define('XMLifeOperating.generic.BaseProxy', {
 //Ext.Ajax.cors = true;
 function requestException(response){
   var responseText = response.responseText,
-      errorObj = {};
+      errorObj = {},
+      title = '',
+      msg = '';
   if(response.status == 401){
       Ext.Msg.alert('提示', 'session失效或者没有登录');
       return false;

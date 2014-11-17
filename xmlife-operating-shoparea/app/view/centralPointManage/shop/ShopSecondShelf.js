@@ -37,7 +37,14 @@
          menuDisabled: true,
          sortable: true,
          itemId: 'openModifySecondShelvesWin',
-     }, {
+     },{
+            xtype: 'actioncolumn',
+            text: '操作',
+            width: 40,
+            icon: 'resources/images/delete.png',
+            tooltip: 'Delete',
+            itemId: 'delete',
+    } ,{
          text: '状态',
          dataIndex: 'status',
          itemId: 'showOrHide',
@@ -64,14 +71,7 @@
              return returnStr;
          },
          tdCls: 'user-td'
-     },{
-            xtype: 'actioncolumn',
-            text: '操作',
-            width: 40,
-            icon: 'resources/images/delete.png',
-            tooltip: 'Delete',
-            itemId: 'delete',
-    }],
+     }],
      dockedItems: [{
          xtype: 'toolbar',
          dock: 'top',
