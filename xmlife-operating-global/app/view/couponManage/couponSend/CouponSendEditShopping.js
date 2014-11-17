@@ -35,7 +35,16 @@ Ext.define('XMLifeOperating.view.couponManage.couponSend.CouponSendEditShopping'
             xtype: 'textfield',
             name: 'name',
             fieldLabel: '优惠券名称',
+            width:300,
             allowBlank: false
+          },
+          {
+            xtype: 'textfield',
+            itemId: 'ruleId',
+            fieldLabel: '优惠券Id',
+            width:300,
+            hidden:true,
+            disabled:true
           },
           {
             xtype: 'container',

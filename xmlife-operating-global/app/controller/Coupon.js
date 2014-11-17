@@ -374,6 +374,8 @@ Ext.define('XMLifeOperating.controller.Coupon', {
         }
         if(couponTypeId!=3){
             bindingType.allowBlank = false;
+        }else{
+            bindingType.allowBlank = true;
         }
         switch(bindingType.getValue()){
             case 1:

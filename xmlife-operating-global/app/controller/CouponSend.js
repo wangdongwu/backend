@@ -150,22 +150,35 @@ Ext.define('XMLifeOperating.controller.CouponSend', {
       },
       'couponShoppingRelease #update': {
         click: function () {
-
             self.updateSendRuleSimple(arguments[5]);
-            /*var panel = this.getCouponSendRuleUpdateSimple(),
-              ruleId = panel.down('#ruleId'),
-              name = panel.down('#name'),
-              startTime = panel.down('#startTime'),
-              endTime = panel.down('#endTime');
-
+        }
+      },
+      'couponShoppingRelease #lookOver': {
+        click: function () {
+            // self.getCouponSendEditShopping().show();
+            var model = arguments[5];
+            // debugger
+            var panel = this.getCouponSendEditShopping(),
+            ruleId = panel.down('#ruleId'),
+            name = panel.down('[name=name]'),
+            startTime = panel.down('[name=startTime]'),
+            endTime = panel.down('[name=endTime]'),
+            saveButton = panel.down('#save'),
+            subType = panel.down('[name=subType]'),
+            couponId = panel.down('[name=couponId]'),
+            benchMark = panel.down('[name=benchMark]');
             ruleId.setValue(model.get('id'));
             name.setValue(model.get('name'));
+            subType.setValue(model.get('subType'));
             startTime.setValue(new Date(model.get('startTime')));
             endTime.setValue(new Date(model.get('endTime')));
-
+            couponId.setValue(model.get('couponId'));
+            benchMark.setValue(model.get('benchMark')/100);
+            ruleId.setVisible(true);
+            saveButton.setVisible(false);
             panel.show();
 
-            self.getCouponSendEditShopping().show();*/
+
         }
       },
       'couponDirectRelease #update': {

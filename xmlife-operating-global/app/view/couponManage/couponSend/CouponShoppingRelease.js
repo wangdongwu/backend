@@ -108,7 +108,7 @@ Ext.define('XMLifeOperating.view.couponManage.couponSend.CouponShoppingRelease',
     {
       text: '状态',
       dataIndex: 'status',
-      width: 100,
+      width: 60,
       sortable: false,
       align: 'left',
       itemId: 'toggleStatus',
@@ -122,11 +122,20 @@ Ext.define('XMLifeOperating.view.couponManage.couponSend.CouponShoppingRelease',
     },
     {
       text: '编辑',
-      width: 100,
+      width: 60,
       itemId: 'update',
       sortable: false,
       renderer: function (v) {
         return '<button>编辑</button>';
+      }
+    },
+    {
+      text: '查看',
+      width: 60,
+      itemId: 'lookOver',
+      sortable: false,
+      renderer: function (v) {
+        return '<button>查看</button>';
       }
     }
   ],
