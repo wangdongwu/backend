@@ -993,6 +993,7 @@ Ext.define('XMLifeOperating.controller.Coupon', {
     onCouponEdit:function(view, column, rowIndex, colIndex, e) {
         var self = this;
         var records = view.getRecord(view.findTargetByEvent(e));
+        console.log(records);
         var win = this.getCouponEdit();
         win.down('form').loadRecord(records);
         var expireEndDate = new Date(records.get('expireEndDate'));

@@ -116,6 +116,23 @@ Ext.define('XMLifeOperating.view.centralPointManage.residentalDistrict.Residenta
             sortable: true,
             align: 'left'
         }, {
+            text: '小区类型',
+            dataIndex: 'type',
+            width: 150,
+            sortable: true,
+            align: 'left',
+            renderer : function(v){
+                // console.log(value);
+
+                var data = {
+                    '0': '住宅小区',
+                    '1': '写字楼',
+                    '2': '酒店',
+                    '3': '医院'
+                };             
+                return data[v];
+            }
+        }, {
             text: '操作',
             dataIndex: 'isActive',
             width: 60,

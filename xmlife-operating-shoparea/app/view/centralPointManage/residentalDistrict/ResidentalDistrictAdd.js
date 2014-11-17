@@ -52,7 +52,30 @@ Ext.define('XMLifeOperating.view.centralPointManage.residentalDistrict.Residenta
                     fieldLabel: '地址',
                     labelWidth: 60,
                     allowBlank: false
-                }
+                }, {
+                    fieldLabel : '小区类型',
+                    labelWidth: 60,
+                    itemId:'typeId',
+                    name : 'type',
+                    allowBlank : false,
+                    xtype : 'combo',
+                    editable : false,
+                    queryMode : 'local',
+                    triggerAction : 'all',
+                    displayField: 'type',
+                    valueField: 'value',
+                    emptyText:'请选择小区类型',
+                    allowBlank:false,
+                    store : Ext.create('Ext.data.Store', {
+                        fields: ['value','type'],
+                        data : [
+                            {"value": 0, "type": '住宅小区'},
+                            {"value": 1, "type": '写字楼'},
+                            {"value": 2, "type": '酒店'},
+                            {"value": 3, "type": '医院'}
+                        ],
+                    })                
+                },
             ],
             buttons: [{
                 text: '保存',
