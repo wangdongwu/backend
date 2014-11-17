@@ -23,7 +23,8 @@ Ext.define('XMLifeOperating.controller.CouponSend', {
     'CouponSendRuleDirect',
     'CouponSendRuleUrl',
     'CouponSendRuleRegister',
-    'CouponSendRuleShopping'
+    'CouponSendRuleShopping',
+    'CouponSendRuleDirectStatus'
   ],
   models: ['Coupon'],
   refs: [
@@ -95,7 +96,7 @@ Ext.define('XMLifeOperating.controller.CouponSend', {
     {
       ref: 'sendSearchShopList',
       selector: '#sendSearchShopList'
-    },
+    }
   ],
   init: function () {
     var self = this;
@@ -212,7 +213,7 @@ Ext.define('XMLifeOperating.controller.CouponSend', {
       },
       'couponDirectRelease #release': {
         click: function () {
-          self.getCouponReleaseDirect().show();
+            self.getCouponReleaseDirect().show();
         }
       },
       'CouponSendRuleCreateDirect #save': {
@@ -289,7 +290,7 @@ Ext.define('XMLifeOperating.controller.CouponSend', {
       },
       'couponReleaseDirect #ruleId': {
         click: function () {
-          self.getCouponSendRuleDirectStore().load();
+          self.getCouponSendRuleDirectStatusStore().load();
         }
       },
       'couponReleaseDirect #release': {

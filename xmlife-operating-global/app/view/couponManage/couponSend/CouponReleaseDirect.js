@@ -34,7 +34,7 @@ Ext.define('XMLifeOperating.view.couponManage.couponSend.CouponReleaseDirect', {
             itemId: 'ruleId',
             fieldLabel: '选择规则',
             name: 'sendRuleId',
-            store: 'CouponSendRuleDirect',
+            store: 'CouponSendRuleDirectStatus',
             editable: false,
             triggerAction: 'all',
             displayField: 'name',
