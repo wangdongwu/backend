@@ -70,7 +70,7 @@ Ext.define('XMLifeOperating.view.couponManage.coupon.CouponEditStep2', {
                     }],
                 },{
                     xtype: 'button',
-                    text:'选择城市',
+                    text:'请点击选择城市',
                     itemId:'choiceCityId'
                 },{
                     xtype:'displayfield',

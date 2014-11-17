@@ -558,6 +558,7 @@ Ext.define('XMLifeOperating.controller.Coupon', {
             return;
         }
         var keywordShopValue = self.getKeywordShop().getValue();
+        // console.log(keywordShopValue);
         if(keywordShopValue==''){
             alert('搜索为空');
             return;
