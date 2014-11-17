@@ -491,6 +491,9 @@ Ext.define('XMLifeOperating.controller.Shopper', {
             store.getProxy().extraParams = {
                 unbind: isUnbind
             };
+            store.on('load', function() {
+                me.getShopperList().down('#searchBuyerKeyWords').setValue(keyWords);
+            });
             store.loadPage(1, {
                 params: {
                     start: 0,
