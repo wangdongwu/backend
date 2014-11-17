@@ -67,7 +67,6 @@ Ext.define('XMLifeOperating.controller.GFeedbackList', {
             },
             'gFeedbackList #mark':{
                 click: function (component, column, rowIndex,colIndex,e) {
-                    alert(11);
                     var model=component.getStore().getAt(rowIndex);
 
                     var feedbackId=model.get('id');
@@ -78,13 +77,8 @@ Ext.define('XMLifeOperating.controller.GFeedbackList', {
                     var mark=model.get('mark');
 
                     model.set('mark',!mark);
-                    /*if(mark==true){
-                        mark=true;
-                    }else{
-                        mark=1; 
-                    }*/
                     mark = model.get('mark');
-                    console.log(mark);
+                    //console.log(mark);
                    /* switch(statusValue){
                         case 'online':
                             status=0;
@@ -103,11 +97,12 @@ Ext.define('XMLifeOperating.controller.GFeedbackList', {
                             var dayType=me.dayType;
                             store.getProxy().extraParams={
                                 dayType:dayType,
-                                mark:false
+                                mark:!mark
                               };
                             store.loadPage(1);
-                           // me.fireEvent('refreshView');
-                           // model.set('mark',status);
+                            // me.fireEvent('refreshView');
+                            // model.set('mark',status);
+                           
                     });
                 }
             },
