@@ -150,7 +150,22 @@ Ext.define('XMLifeOperating.controller.CouponSend', {
       },
       'couponShoppingRelease #update': {
         click: function () {
-          self.updateSendRuleSimple(arguments[5]);
+
+            self.updateSendRuleSimple(arguments[5]);
+            /*var panel = this.getCouponSendRuleUpdateSimple(),
+              ruleId = panel.down('#ruleId'),
+              name = panel.down('#name'),
+              startTime = panel.down('#startTime'),
+              endTime = panel.down('#endTime');
+
+            ruleId.setValue(model.get('id'));
+            name.setValue(model.get('name'));
+            startTime.setValue(new Date(model.get('startTime')));
+            endTime.setValue(new Date(model.get('endTime')));
+
+            panel.show();
+
+            self.getCouponSendEditShopping().show();*/
         }
       },
       'couponDirectRelease #update': {
@@ -161,6 +176,7 @@ Ext.define('XMLifeOperating.controller.CouponSend', {
 
       'couponRegisterRelease #update': {
         click: function () {
+
           self.updateSendRuleSimple(arguments[5]);
         }
       },

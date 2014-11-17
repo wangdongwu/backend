@@ -76,6 +76,7 @@ Ext.define('XMLifeOperating.controller.CardGroup', {
                 data.coupons = values.coupons;
             }
             data.value = parseInt((values.value * 100).toFixed());
+            data.coupons = data.coupons[0];
             var success = function(response) {
                 self.onShow();
                 editWindow.close();
