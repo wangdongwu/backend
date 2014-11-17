@@ -146,6 +146,7 @@ Ext.define('XMLifeOperating.controller.Coupon', {
             'couponEditStep1 #couponTypeId':{
                 change:self.onCouponTypeId
             },
+
             'couponEditStep2 #nextButton':{
                 click:self.onCouponEditStep2Next
             },
@@ -979,6 +980,8 @@ Ext.define('XMLifeOperating.controller.Coupon', {
         winStep1.down('[name=globalDailyCouponNum]').setValue('');
         winStep1.down('[name=globalUserCouponNumHold]').setValue('');
         winStep1.down('[name=userDailyCouponNumHold]').setValue('');
+        winStep1.down('[name=globalUserCouponNumHold]').setDisabled(false);
+        winStep1.down('[name=userDailyCouponNumHold]').setDisabled(false);
 
         winStep2.down('[name=bindingType]').setValue('');
         winStep2.down('[name=keywordShop]').setValue('');

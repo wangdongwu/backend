@@ -127,7 +127,7 @@ Ext.define('XMLifeOperating.controller.CouponSend', {
       },
       'couponShoppingRelease #add': {
         click: function () {
-          self.cleanWin()
+          self.cleanWin(self.getCouponSendEditShopping());
           self.getSupportedCityCouponStore().load();
           self.getCouponSendEditShopping().show();
         }
@@ -423,7 +423,7 @@ Ext.define('XMLifeOperating.controller.CouponSend', {
       win.show();
       var store = Ext.create('XMLifeOperating.store.Shop', {
           proxy: new XMLifeOperating.generic.BaseProxy('shop/name/filter'),
-          autoSync: true
+          autoSync: false
       });
       self.getSendSearchShopList().bindStore(store, false);
       store.load({
@@ -491,6 +491,17 @@ Ext.define('XMLifeOperating.controller.CouponSend', {
       win.close();
   },
   cleanWin:function(grid){
-      
+      var self = this;
+      var saveButton = grid.down('#save'),
+          name = grid.down('[name=name]'),
+          ruleId = grid.down('#ruleId'),
+          benchMark = grid.down('[name=benchMark]'),
+          curCity = grid.down('#curCity');
+          /*name = grid.down('[name=name]'),
+          name = grid.down('[name=name]');*/
+      saveButton.setVisible(true);
+      name.setValue('');
+      ruleId.setVisible(false);
+      self.getShopList().store.removeAll();
   }
 });
