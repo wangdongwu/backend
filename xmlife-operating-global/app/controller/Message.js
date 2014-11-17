@@ -113,7 +113,6 @@ Ext.define('XMLifeOperating.controller.Message', {
         });
     },
     onLinkTypeSelect: function(component, record) {
-
         var me = this;
         var linkType = record;
         var nextCmp = component.nextSibling();
@@ -125,11 +124,15 @@ Ext.define('XMLifeOperating.controller.Message', {
         } else if (linkType == 3) { //内部功能
             nextCmp.isVisible() ? null : nextCmp.setVisible(true);
             urlCmp.isVisible() ? urlCmp.setVisible(false) : null;
+        } else {
+            nextCmp.isVisible() ? nextCmp.setVisible(false) : null;
+            urlCmp.isVisible() ? urlCmp.setVisible(false) : null;
         }
     },
     onAdd: function(method) {
         var record = new(this.getMessageModel());
         var win = this[method]();
+        win.down('form').getForm().reset();
         win.down('form').loadRecord(record);
         win.show();
     },
@@ -182,7 +185,7 @@ Ext.define('XMLifeOperating.controller.Message', {
 
             var sessionId = localStorage.getItem('sessionId') || '';
 
-            if(msgType == 1) {
+            if (msgType == 1) {
                 //linkType 
                 var linkType = win.down('#linkType').getValue();
                 var url = win.down('#linkUrl').getValue();

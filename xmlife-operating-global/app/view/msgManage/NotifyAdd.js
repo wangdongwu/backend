@@ -51,7 +51,7 @@ Ext.define('XMLifeOperating.view.msgManage.NotifyAdd', {
                 text: '消息链接至：'
             }, {
                 xtype: 'combo',
-                name:'linkType',
+                name: 'linkType',
                 itemId: 'linkType',
                 displayField: 'type',
                 valueField: 'value',
@@ -60,6 +60,9 @@ Ext.define('XMLifeOperating.view.msgManage.NotifyAdd', {
                 store: Ext.create('Ext.data.Store', {
                     fields: ['value', 'type'],
                     data: [{
+                        'value': 0,
+                        'type': '无'
+                    }, {
                         'value': 2,
                         'type': 'H5页面'
                     }, {
@@ -70,7 +73,7 @@ Ext.define('XMLifeOperating.view.msgManage.NotifyAdd', {
             }, {
                 xtype: 'combo',
                 fieldLabel: '请选择功能页',
-                name:'internalType',
+                name: 'internalType',
                 itemId: 'internalType',
                 hidden: true,
                 editable: false,
@@ -89,10 +92,10 @@ Ext.define('XMLifeOperating.view.msgManage.NotifyAdd', {
                 })
             }, {
                 xtype: 'textfield',
-                fieldLabel:'请输入消息URL',
+                fieldLabel: '请输入消息URL',
                 name: 'url',
-                itemId:'linkUrl',
-                hidden:true,
+                itemId: 'linkUrl',
+                hidden: true,
                 emptyText: 'http://',
                 regex: XMLifeOperating.generic.Global.VALIDATION_CONSTANTS.URL,
                 regexText: '请输入正确的URL',
@@ -105,8 +108,7 @@ Ext.define('XMLifeOperating.view.msgManage.NotifyAdd', {
                 xtype: 'filefield',
                 name: 'file',
                 emptyText: '请选择文件...',
-                buttonText: '上传/修改',
-                //allowBlank: false
+                buttonText: '上传/修改'
             }],
             buttons: [{
                 text: '确定',
