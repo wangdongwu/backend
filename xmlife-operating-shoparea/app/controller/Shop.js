@@ -872,25 +872,33 @@ Ext.define('XMLifeOperating.controller.Shop', {
             //shopshelf 删除事件
             'shopshelf #delete': {
                 click: function(view, rowIndex, colIndex, column, e) {
-                    var self = this;
-                    var shopshelf = view.getRecord(view.findTargetByEvent(e));   
+                    var self = this,
+                    shopId = this.shopId,
+                    shopshelf = view.getRecord(view.findTargetByEvent(e));
                     Ext.MessageBox.confirm('提示', '确定删除该货架吗?', function(result) {
                         if (result == 'yes') {
-                           
-                            var shopId = shopshelf.get('shopId');
+                            var id = shopshelf.data.id,
+                                param = {
+                                    id: id
+                                },
+                                url = 'category/delete';
                         }
-                        /*sendDeleteRequest(deleteUrl, null, '', '', '', function(response) {
-                            self.loadShopVersionStore();
+                        sendDeleteRequest(url, param, '', '', '', function(response) {
                             if (response.responseText == '1') {
-                                Ext.Msg.alert('成功', '成功删除改版本');
+                                Ext.Msg.alert('成功', '成功删除该货架');
+                            } else if (response.responseText == '-1') {
+                                Ext.Msg.alert('失败', '该叶子节点下有商品');
+                            } else if (response.responseText == '-2') {
+                                Ext.Msg.alert('失败', '该分类下有子分类');
                             } else {
-                                Ext.Msg.alert('失败', '删除该版本失败');
+                                Ext.Msg.alert('失败', '删除失败');
                             }
-                        })*/
+                            self.showCategoryRootsList(shopId);
+                        })
                     })
                 }
             },
-            
+
             'shopshelf #showOrHide': {
                 click: function(view, column, rowIndex, colIndex, e, record) {
 
@@ -1146,21 +1154,30 @@ Ext.define('XMLifeOperating.controller.Shop', {
             //shopsecondshelf 删除事件
             'shopsecondshelf #delete': {
                 click: function(view, rowIndex, colIndex, column, e) {
-                    var self = this;
-                    var shopshelf = view.getRecord(view.findTargetByEvent(e));   
+                    var self = this,
+                        shopshelf = view.getRecord(view.findTargetByEvent(e)),
+                        shopId = this.shopId,
+                        vparentId = this.tabIdStr.split('_')[1];
                     Ext.MessageBox.confirm('提示', '确定删除该货架吗?', function(result) {
                         if (result == 'yes') {
-                           
-                            var shopId = shopshelf.get('shopId');
+                            var id = shopshelf.data.id,
+                                param = {
+                                    id: id
+                                },
+                                url = 'category/delete';
                         }
-                        /*sendDeleteRequest(deleteUrl, null, '', '', '', function(response) {
-                            self.loadShopVersionStore();
+                        sendDeleteRequest(url, param, '', '', '', function(response) {
                             if (response.responseText == '1') {
-                                Ext.Msg.alert('成功', '成功删除改版本');
+                                Ext.Msg.alert('成功', '成功该货架');
+                            } else if (response.responseText == '-1') {
+                                Ext.Msg.alert('失败', '该叶子节点下有商品');
+                            } else if (response.responseText == '-2') {
+                                Ext.Msg.alert('失败', '该分类下有子分类');
                             } else {
-                                Ext.Msg.alert('失败', '删除该版本失败');
+                                Ext.Msg.alert('失败', '删除失败');
                             }
-                        })*/
+                            self.showCategorySubsList(shopId, parentId);
+                        })
                     })
                 }
             },
@@ -1921,12 +1938,12 @@ Ext.define('XMLifeOperating.controller.Shop', {
                             count += 1;
                         }
                     }
-                  var clock = setInterval(function() {
+                    var clock = setInterval(function() {
                         console.log(flags)
                         if (flags.indexOf(0) == -1 && flags.length == count) {
                             me.showProductList(record.get('categoryId'));
                             editWindow.close();
-                           clearInterval(clock);
+                            clearInterval(clock);
                         }
                     }, 500);
                     for (var pro in userInfo) {
@@ -2285,7 +2302,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
         for (var properName in userInfo) {
             var properArray = userInfo[properName];
 
-            if ( properArray =='' || (properArray instanceof Array && properArray.indexOf(currentShopType) == -1)) { //没有权限
+            if (properArray == '' || (properArray instanceof Array && properArray.indexOf(currentShopType) == -1)) { //没有权限
                 var itemId = '#' + properName;
                 if (me.getShopProductEdit().down(itemId)) { //在ProductEdit中的操作
                     me.getShopProductEdit().down(itemId).setDisabled(true);
