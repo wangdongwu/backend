@@ -3,7 +3,7 @@ Ext.define('XMLifeOperating.controller.DamagedProductApplyList', {
 
     views: ['damagedProductApply.DamagedProductApplyList','damagedProductApply.AddDamagedProductApply'],
 
-    stores: ['DamagedProductApply', 'ShopArea','DamagedProductStatus','ShopCityShops','ProductSearch'],
+    stores: ['DamagedProductApply', 'ShopArea','DamagedProductStatus','Shop','ProductSearch'],
 
     models: ['DamagedProductApply', 'ShopArea','Shop'],
 
@@ -65,7 +65,7 @@ Ext.define('XMLifeOperating.controller.DamagedProductApplyList', {
                     var win = this.getAddDamagedProductApply();
                     win.down('form').loadRecord(line);
                     
-                    var store = Ext.create('XMLifeOperating.store.ShopCityShops', {
+                    var store = Ext.create('XMLifeOperating.store.Shop', {
                         autoSync: true
                     });
                     store.load({
