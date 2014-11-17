@@ -483,12 +483,12 @@ Ext.define('XMLifeOperating.controller.CouponSend', {
       curCity.setValue('');
       subType.setValue('');
       couponId.setValue('');
-
       grid.down('[name=startTime]').setValue(new Date());
       grid.down('[name=endTime]').setValue('');
       self.getShopList().store.removeAll();
   },
   onLookOver:function(model){
+      var self = this;
       var panel = this.getCouponSendEditShopping(),
       ruleId = panel.down('#ruleId'),
       name = panel.down('[name=name]'),
@@ -507,6 +507,18 @@ Ext.define('XMLifeOperating.controller.CouponSend', {
       benchMark.setValue(model.get('benchMark')/100);
       ruleId.setVisible(true);
       saveButton.setVisible(false);
+      var gainShopIdStore = Ext.create('XMLifeOperating.store.ShopCityShops', {
+                    autoSync: false
+                });
+      var gainShopIdStore =  self.getShopList().store;
+      gainShopIdStore.removeAll();
+      self.getShopList().bindStore(gainShopIdStore,false);
+      var shopsArray = model.get('shops');
+      for(var i=0; i<shopsArray.length;i++){
+          shopsArray[i].id = shopsArray[i].shopId;
+          shopsArray[i].cityName = '';
+          gainShopIdStore.insert(0,shopsArray[i]);
+      }
       panel.show();
   }
 });

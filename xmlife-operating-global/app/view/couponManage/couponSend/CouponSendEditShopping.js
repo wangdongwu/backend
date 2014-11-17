@@ -124,14 +124,17 @@ Ext.define('XMLifeOperating.view.couponManage.couponSend.CouponSendEditShopping'
               mode: 'MULTI'
             }),
             columns:[{
-                        xtype: 'rownumberer'
+                        xtype: 'rownumberer',
+                        itemId: 'rownumbererId'
                     },{
                         text: '店铺名',
                         dataIndex: 'name',
                         width:200,
                         renderer: function(value,grid) {
-                            value = grid.record.get('cityName')+'-'+value;
+                            //value = grid.record.get('cityName')+'-'+value;
+                            value = grid.record.raw.cityName+'-'+grid.record.raw.name;
                             return value;
+
                         }
                     }]
           },
