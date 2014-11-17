@@ -154,31 +154,8 @@ Ext.define('XMLifeOperating.controller.CouponSend', {
         }
       },
       'couponShoppingRelease #lookOver': {
-        click: function () {
-            // self.getCouponSendEditShopping().show();
-            var model = arguments[5];
-            // debugger
-            var panel = this.getCouponSendEditShopping(),
-            ruleId = panel.down('#ruleId'),
-            name = panel.down('[name=name]'),
-            startTime = panel.down('[name=startTime]'),
-            endTime = panel.down('[name=endTime]'),
-            saveButton = panel.down('#save'),
-            subType = panel.down('[name=subType]'),
-            couponId = panel.down('[name=couponId]'),
-            benchMark = panel.down('[name=benchMark]');
-            ruleId.setValue(model.get('id'));
-            name.setValue(model.get('name'));
-            subType.setValue(model.get('subType'));
-            startTime.setValue(new Date(model.get('startTime')));
-            endTime.setValue(new Date(model.get('endTime')));
-            couponId.setValue(model.get('couponId'));
-            benchMark.setValue(model.get('benchMark')/100);
-            ruleId.setVisible(true);
-            saveButton.setVisible(false);
-            panel.show();
-
-
+        click:function(){
+            self.onLookOver(arguments[5]);
         }
       },
       'couponDirectRelease #update': {
@@ -497,11 +474,39 @@ Ext.define('XMLifeOperating.controller.CouponSend', {
           ruleId = grid.down('#ruleId'),
           benchMark = grid.down('[name=benchMark]'),
           curCity = grid.down('#curCity');
-          /*name = grid.down('[name=name]'),
-          name = grid.down('[name=name]');*/
+          subType = grid.down('[name=subType]'),
+          couponId = grid.down('[name=couponId]');
       saveButton.setVisible(true);
       name.setValue('');
       ruleId.setVisible(false);
+      benchMark.setValue('');
+      curCity.setValue('');
+      subType.setValue('');
+      couponId.setValue('');
+
+      grid.down('[name=startTime]').setValue(new Date());
+      grid.down('[name=endTime]').setValue('');
       self.getShopList().store.removeAll();
+  },
+  onLookOver:function(model){
+      var panel = this.getCouponSendEditShopping(),
+      ruleId = panel.down('#ruleId'),
+      name = panel.down('[name=name]'),
+      startTime = panel.down('[name=startTime]'),
+      endTime = panel.down('[name=endTime]'),
+      saveButton = panel.down('#save'),
+      subType = panel.down('[name=subType]'),
+      couponId = panel.down('[name=couponId]'),
+      benchMark = panel.down('[name=benchMark]');
+      ruleId.setValue(model.get('id'));
+      name.setValue(model.get('name'));
+      subType.setValue(model.get('subType'));
+      startTime.setValue(new Date(model.get('startTime')));
+      endTime.setValue(new Date(model.get('endTime')));
+      couponId.setValue(model.get('couponId'));
+      benchMark.setValue(model.get('benchMark')/100);
+      ruleId.setVisible(true);
+      saveButton.setVisible(false);
+      panel.show();
   }
 });

@@ -13,7 +13,7 @@ Ext.define('XMLifeOperating.model.CouponRule', {
     'status',
     'shopIds',
     'benchMark',
-    'couponeId',
+    'couponId',
     'createrId',
     'value',
     'gmtModified'
