@@ -497,7 +497,7 @@ Ext.define('XMLifeOperating.controller.CouponSend', {
       saveButton = panel.down('#save'),
       subType = panel.down('[name=subType]'),
       couponId = panel.down('[name=couponId]'),
-      benchMark = panel.down('[name=benchMark]'),
+      benchMark = panel.down('[name=benchMark]');
       ruleId.setValue(model.get('id'));
       name.setValue(model.get('name'));
       subType.setValue(model.get('subType'));
