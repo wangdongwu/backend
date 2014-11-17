@@ -75,7 +75,10 @@ Ext.define('XMLifeOperating.generic.BaseProxy', {
 function requestException(response){
   var responseText = response.responseText,
       errorObj = {};
+
   if(response.status == 401){
+      localStorage.removeItem('sessionId');
+      localStorage.removeItem('username');
       Ext.Msg.alert('提示', 'session失效或者没有登录');
       return false;
     }

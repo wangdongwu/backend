@@ -89,6 +89,8 @@ Ext.define('XMLifeOperating.controller.login', {
         click: function() {
           var loginOutUrl = XMLifeOperating.generic.Global.URL.biz + 'admin/logout',
             sessionId = localStorage.getItem('sessionId');
+          localStorage.removeItem('sessionId');
+          localStorage.removeItem('username'); 
           Ext.Ajax.request({
             url: loginOutUrl,
             method: 'post',
