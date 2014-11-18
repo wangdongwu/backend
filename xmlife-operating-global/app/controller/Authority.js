@@ -114,6 +114,7 @@ Ext.define('XMLifeOperating.controller.Authority', {
                 cityIds = model.get('cityIds'),
                 modules = model.get('modules'); 
                 moduleIds = model.get('moduleIds');
+                self.resetSelect();
                 form.loadRecord(model);
                 accountField.setDisabled(true);
                 self.initSelectData(form,modules);
@@ -158,7 +159,7 @@ Ext.define('XMLifeOperating.controller.Authority', {
                   cmbCity.setValue(cityId);
 
                   accountField.setDisabled(true);
-
+                  form.getForm().reset();
                   form.loadRecord(model);
 
                   form.edit = true;
