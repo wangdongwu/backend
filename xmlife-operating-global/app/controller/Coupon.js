@@ -967,7 +967,7 @@ Ext.define('XMLifeOperating.controller.Coupon', {
         winStep1.down('[name=benchMark]').setValue('');
         winStep1.down('[name=discountValue]').setValue('');
         winStep1.down('[name=value]').setValue('');
-        winStep1.down('[name=maxDiscount]').setValue('');
+        winStep1.down('[name=maxDiscount]').setValue(50);
         winStep1.down('[name=isNew]').setValue('');
         winStep1.down('[name=maxCouponNumHold]').setValue('');
 

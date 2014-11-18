@@ -120,13 +120,19 @@ Ext.define('XMLifeOperating.view.couponManage.coupon.CouponEditStep1', {
                                 xtype: 'displayfield',
                                 value: '最多优惠',
                                 style: 'margin-right:5px'
-                            },{
+                            }/*,{
                                 xtype: 'textfield',
                                 name: 'maxDiscount',
                                 width: 50,
                                 labelWidth: 90,
-                                text:50
-                                
+                                text:50  
+                            }*/,{
+                                xtype: 'numberfield',
+                                width:50,
+                                name: 'maxDiscount',
+                                value: 50,
+                                maxValue: 300,
+                                minValue: 0
                             }, {
                                 xtype: 'displayfield',
                                 value: '元',
