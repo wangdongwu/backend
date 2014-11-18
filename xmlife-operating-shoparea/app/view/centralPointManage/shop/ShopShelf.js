@@ -19,7 +19,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopShelf', {
         text: '货架名称',
         dataIndex: 'name',
         align: 'center',
-        width: 150,
+        width: 100,
         tdCls: 'user-td'
     }, {
         text: '是否有次级货架',
