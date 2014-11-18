@@ -92,7 +92,8 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopList', {
             width: 80,
             sortable: true,
             align: 'center',
-        }, {
+        }, 
+        /*{
             header: "Banner配置",
             width: 90,
             itemId: 'seeBannerBtn',
@@ -103,7 +104,8 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopList', {
                 var seeBtn = '<a href="javascript:void(0)">查看</a>';
                 return seeBtn;
             }
-        }, {
+        },*/ 
+        {
             text: '入住买手',
             dataIndex: 'shopperCount',
             itemId: 'shopperCountId',
