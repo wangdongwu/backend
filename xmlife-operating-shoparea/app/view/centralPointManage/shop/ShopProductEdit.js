@@ -112,10 +112,14 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopProductEdit', {
                             var limitType = me.previousSibling();
                             var dayTodayLimitCount = me.nextSibling().getValue();
                             if (limitType.checked) {
-                                if (dayTodayLimitCount) { //当日限购数量已填
-                                    return value > dayTodayLimitCount ? '每人当日限购应小于当日限购' : true;
+                                if (value) {
+                                    if (dayTodayLimitCount) { //当日限购数量已填
+                                        return value > dayTodayLimitCount ? '每人当日限购应小于当日限购' : true;
+                                    } else {
+                                        return true;
+                                    }
                                 } else {
-                                    return value ? true : false;
+                                    return false;
                                 }
                             } else {
                                 return true
@@ -134,10 +138,14 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopProductEdit', {
                             var dayLimitCount = me.previousSibling().getValue();
                             var limitType = me.previousSibling().previousSibling();
                             if (limitType.checked) {
-                                if (dayLimitCount) { //每人当日限购数量已填
-                                    return value >= dayLimitCount ? true : '当日限购应大于每人当日限购';
+                                if (value) {
+                                    if (dayLimitCount) { //每人当日限购数量已填
+                                        return value > dayLimitCount ? '每人当日限购应小于当日限购' : true;
+                                    } else {
+                                        return true;
+                                    }
                                 } else {
-                                    return value ? true : false;
+                                    return false
                                 }
                             } else {
                                 return true
@@ -169,10 +177,14 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopProductEdit', {
                             var limitType = me.previousSibling();
                             var totalTodayLimitCount = me.nextSibling().getValue();
                             if (limitType.checked) {
-                                if (totalTodayLimitCount) { //当日限购数量已填
-                                    return value > totalTodayLimitCount ? '每人累计限购应小于当日限购' : true;
+                                if (value) {
+                                    if (totalTodayLimitCount) { //当日限购数量已填
+                                        return value > totalTodayLimitCount ? '每人累计限购应小于当日限购' : true;
+                                    } else {
+                                        return true;
+                                    }
                                 } else {
-                                    return value ? true : false;
+                                    return false;
                                 }
                             } else {
                                 return true
@@ -191,11 +203,16 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopProductEdit', {
                             var totalLimitCount = me.previousSibling().getValue();
                             var limitType = me.previousSibling().previousSibling();
                             if (limitType.checked) {
-                                if (totalLimitCount) { //每人累计限购数量已填
-                                    return value >= totalLimitCount ? true : '当日限购应大于每人累计限购';
+                                if (value) {
+                                    if (totalLimitCount) { //每人累计限购数量已填
+                                        return value >= totalLimitCount ? true : '当日限购应大于每人累计限购';
+                                    } else {
+                                        return true;
+                                    }
                                 } else {
-                                    return value ? true : false;
+                                    return false
                                 }
+
                             } else {
                                 return true
                             }
