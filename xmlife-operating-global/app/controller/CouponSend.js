@@ -134,18 +134,25 @@ Ext.define('XMLifeOperating.controller.CouponSend', {
       },
       'couponDirectRelease #add': {
         click: function () {
-          self.getCouponSendRuleCreateDirect().show();
+            var win = self.getCouponSendRuleCreateDirect();
+            win.down('form').getForm().reset();
+            win.show();
         }
       },
 
       'couponRegisterRelease #add': {
         click: function () {
-          self.getCouponSendEditRegister().show();
+            var win = self.getCouponSendEditRegister();
+            win.down('form').getForm().reset();
+            win.show();
+          
         }
       },
       'couponUrlRelease #add': {
         click: function () {
-          self.getCouponSendEditUrl().show();
+            var win = self.getCouponSendEditUrl();
+            win.down('form').getForm().reset();
+            win.show();
         }
       },
       'couponShoppingRelease #update': {

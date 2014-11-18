@@ -49,7 +49,7 @@ Ext.define('XMLifeOperating.controller.CardGroup', {
     onCardGroupEdit: function(grid) {
 
         var win = this.getCardGroupEdit();
-
+        win.down('form').getForm().reset();
         win.show();
     },
     onSaveCardGroup: function() {
