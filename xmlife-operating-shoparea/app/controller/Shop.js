@@ -1932,31 +1932,36 @@ Ext.define('XMLifeOperating.controller.Shop', {
                         userInfo = adminShopTypeStore.getAt(0).getData();
                     var flags = [];
                     var count = 0;
-                    for (var pro in userInfo) {
-                        if (pro == 'frozen') {
-                            continue
-                        }
-                        if (!me.isDisabledCmp(editWindow.down('form'), pro)) {
-                            count += 1;
-                        }
-                    }
-                    var clock = setInterval(function() {
-                        if (flags.indexOf(0) == -1 && flags.length == count) {
-                            me.showProductList(record.get('categoryId'));
-                            editWindow.close();
-                            clearInterval(clock);
-                        }
-                    }, 500);
-                    for (var pro in userInfo) {
-                        if (pro == 'frozen') {
-                            return
-                        }
-                        if (!me.isDisabledCmp(editWindow.down('form'), pro)) {
-                            flags.push(0);
-                            me[pro].call(me, form, record.get('id'), flags);
-                        }
-                    }
 
+                    if (form.isValid()) {
+                        for (var pro in userInfo) {
+                            if (pro == 'frozen') {
+                                continue
+                            }
+                            if (!me.isDisabledCmp(editWindow.down('form'), pro)) {
+                                count += 1;
+                            }
+                        }
+                        var clock = setInterval(function() {
+                            if (flags.indexOf(0) == -1 && flags.length == count) {
+                                me.showProductList(record.get('categoryId'));
+                                editWindow.close();
+                                clearInterval(clock);
+                            }
+                        }, 500);
+                        for (var pro in userInfo) {
+                            if (pro == 'frozen') {
+                                return
+                            }
+                            if (!me.isDisabledCmp(editWindow.down('form'), pro)) {
+
+                                flags.push(0);
+                                me[pro].call(me, form, record.get('id'), flags);
+                            }
+                        }
+                    } else {
+                        Ext.Msg.alert('无效数据', '请更正表单数据！');
+                    }
                 }
             }
         });
