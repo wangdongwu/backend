@@ -870,6 +870,39 @@ Ext.define('XMLifeOperating.controller.Shop', {
                     me.openWin(win, model);
                 }
             },
+            //shopshelf 删除事件
+            'shopshelf #delete': {
+                click: function(view, rowIndex, colIndex, column, e) {
+                    var self = this,
+                        shopId = self.shopId,
+                        shopshelf = view.getRecord(view.findTargetByEvent(e));
+                    Ext.MessageBox.confirm('提示', '确定删除该货架吗?', function(result) {
+                        if (result == 'yes') {
+                            var id = shopshelf.data.id,
+                                param = {
+                                    id: id
+                                },
+                                url = 'category/delete';
+                            sendDeleteRequest(url, param, '', '', '', function(response) {
+                                if (response.responseText == '1') {
+                                    Ext.Msg.alert('成功', '成功删除该货架');
+                                }
+                                self.showCategoryRootsList(shopId);
+                            }, function(response) {
+                                if (response.responseText == '-1') {
+                                    Ext.Msg.alert('失败', '该叶子节点下有商品');
+                                } else if (response.responseText == '-2') {
+                                    Ext.Msg.alert('失败', '该分类下有子分类');
+                                } else {
+                                    Ext.Msg.alert('失败', '删除失败');
+                                }
+
+                            })
+                        }
+                    })
+                }
+            },
+
             'shopshelf #showOrHide': {
                 click: function(view, column, rowIndex, colIndex, e, record) {
 
@@ -1120,6 +1153,38 @@ Ext.define('XMLifeOperating.controller.Shop', {
                         });
                     }
 
+                }
+            },
+            //shopsecondshelf 删除事件
+            'shopsecondshelf #delete': {
+                click: function(view, rowIndex, colIndex, column, e) {
+                    var self = this,
+                        shopshelf = view.getRecord(view.findTargetByEvent(e)),
+                        shopId = self.shopId,
+                        parentId = self.tabIdStr.split('_')[1];
+                    Ext.MessageBox.confirm('提示', '确定删除该货架吗?', function(result) {
+                        if (result == 'yes') {
+                            var id = shopshelf.data.id,
+                                param = {
+                                    id: id
+                                },
+                                url = 'category/delete';                      
+                            sendDeleteRequest(url, param, '', '', '', function(response) {
+                                if (response.responseText == '1') {
+                                    Ext.Msg.alert('成功', '成功删除该货架');
+                                }
+                                self.showCategorySubsList(shopId, parentId);
+                            },function(response){
+                                if (response.responseText == '-1') {
+                                    Ext.Msg.alert('失败', '该叶子节点下有商品');
+                                } else if (response.responseText == '-2') {
+                                    Ext.Msg.alert('失败', '该分类下有子分类');
+                                } else {
+                                    Ext.Msg.alert('失败', '删除失败');
+                                }
+                            })
+                        }
+                    })
                 }
             },
             //shopsecondshelf add &edit 事件
@@ -1879,6 +1944,10 @@ Ext.define('XMLifeOperating.controller.Shop', {
                         }
                     }
                     var clock = setInterval(function() {
+
+
+                        
+
                         if (flags.indexOf(0) == -1 && flags.length == count) {
                             me.showProductList(record.get('categoryId'));
                             editWindow.close();
@@ -2242,8 +2311,10 @@ Ext.define('XMLifeOperating.controller.Shop', {
 
         for (var properName in userInfo) {
             var properArray = userInfo[properName];
+
             var itemId = '#' + properName;
             if (properArray == '' || (properArray instanceof Array && properArray.indexOf(currentShopType) == -1)) { //没有权限
+
                 if (me.getShopProductEdit().down(itemId)) { //在ProductEdit中的操作
                     me.getShopProductEdit().down(itemId).setDisabled(true);
                 } else if (me.getShopProductList().down(itemId)) { //在ProductList中的操作

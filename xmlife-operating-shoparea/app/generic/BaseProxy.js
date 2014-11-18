@@ -74,7 +74,10 @@ Ext.define('XMLifeOperating.generic.BaseProxy', {
 //Ext.Ajax.cors = true;
 function requestException(response){
   var responseText = response.responseText,
-      errorObj = {};
+
+      errorObj = {},
+      title = '',
+      msg = '';
 
   if(response.status == 401){
       localStorage.removeItem('sessionId');
