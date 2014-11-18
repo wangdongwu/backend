@@ -270,23 +270,14 @@ Ext.define('XMLifeOperating.controller.ProductTemplate', {
     saveRank: function(view, e, rank){
         var record = view.getRecord(view.findTargetByEvent(e));
         record.set('rank',rank);
-        //弹窗编辑过会保存names记录
-        var names = record.get('names') || [];
-        if(!names.length){
-            names.push(record.get('name'));
+        
+        var names = [];
+        if (record.get('name').indexOf('\n')) {
+            names = record.get('name').split('\n');
         }
+        record.set('names',names);
 
-        sendPutRequest('producttemplate/update', {
-            id: record.get('id'),
-            names: names,
-            desc: record.get('desc'),
-            picture: record.get('picture'),
-            unit: record.get('unit') || 1,
-            tag: record.get('tag'),
-            barCode: record.get('barCode'),
-            rank: record.get('rank'),
-            rank2: record.get('rank2')
-        }, '编辑商品', '成功编辑商品', '编辑商品失败', function() {});
+        sendPutRequest('producttemplate/update',record.data, '编辑商品', '成功编辑商品', '编辑商品失败', function() {});
     },
     saveEditWindow: function() {
         var editWindow = this.getEditWindow(),
