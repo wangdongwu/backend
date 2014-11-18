@@ -1168,13 +1168,13 @@ Ext.define('XMLifeOperating.controller.Shop', {
                                 param = {
                                     id: id
                                 },
-                                url = 'category/delete';                      
+                                url = 'category/delete';
                             sendDeleteRequest(url, param, '', '', '', function(response) {
                                 if (response.responseText == '1') {
                                     Ext.Msg.alert('成功', '成功删除该货架');
                                 }
                                 self.showCategorySubsList(shopId, parentId);
-                            },function(response){
+                            }, function(response) {
                                 if (response.responseText == '-1') {
                                     Ext.Msg.alert('失败', '该叶子节点下有商品');
                                 } else if (response.responseText == '-2') {
@@ -1686,10 +1686,11 @@ Ext.define('XMLifeOperating.controller.Shop', {
 
                     //库存判断
                     var stockEnable = this.getShopStore().getById(this.shopId).data.storeLimitEnable;
-                    if (stockEnable) {
-                        win.down('#editstock').setDisabled(false);
-                    } else {
-                        win.down('#editstock').setDisabled(true);
+                    var stockCmp = win.down('#editstock');
+                    if (!stockEnable) { //库存关闭
+                        if (!stockCmp.isDisabled()) { //有权限
+                            stockCmp.setDisabled(true);
+                        }
                     }
                     if (model.get('stock') == -1) {
                         model.set('stock', '无限制');
@@ -1697,7 +1698,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
                     categorySelectionStore.getProxy().extraParams = {
                         shopId: me.shopId
                     }
-   
+
                     me.openWin(win, model);
                 }
             },
@@ -1940,10 +1941,6 @@ Ext.define('XMLifeOperating.controller.Shop', {
                         }
                     }
                     var clock = setInterval(function() {
-
-
-                        
-
                         if (flags.indexOf(0) == -1 && flags.length == count) {
                             me.showProductList(record.get('categoryId'));
                             editWindow.close();
@@ -2319,14 +2316,15 @@ Ext.define('XMLifeOperating.controller.Shop', {
                     var editor = me.getShopProductList().down('#putawayOrOut').editor;
                     editor.findRecord('itemId', properName).set('disabled', true);
                 }
-            }else{
-                if(me.getShopProductEdit().down(itemId)){
-                    me.getShopProductEdit().down(itemId).setDisabled(false);  
-                }else if(me.getShopProductList().down(itemId)){
+            } else {
+                if (me.getShopProductEdit().down(itemId)) {
+                    me.getShopProductEdit().down(itemId).setDisabled(false);
+                } else if (me.getShopProductList().down(itemId)) {
                     me.getShopProductList().down(itemId).setDisabled(false);
                 }
             }
         };
+
     },
     isDisabledCmp: function(view, cmpId) {
         var me = this,
