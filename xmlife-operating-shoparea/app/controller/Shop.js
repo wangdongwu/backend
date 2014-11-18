@@ -1659,7 +1659,9 @@ Ext.define('XMLifeOperating.controller.Shop', {
                     var categoryId = component.getRecord(component.findTargetByEvent(e)).get('categoryId');
                     var categoryStore = me.getCategoryRootsStore().getById(categoryId);
                     var categoryType = categoryStore ? categoryStore.get('type') : 1;
+
                     form.reset();
+
                     model = component.getStore().getAt(rowIndex);
                     limitType = model.get('limitType');
                     limitCount = model.get('limitCount');
@@ -1695,15 +1697,8 @@ Ext.define('XMLifeOperating.controller.Shop', {
                     categorySelectionStore.getProxy().extraParams = {
                         shopId: me.shopId
                     }
+   
                     me.openWin(win, model);
-                    /* categorySelectionStore.load({
-                              params: {
-                                  shopId: me.shopId
-                              },
-                              callback: function() {
-                                  me.openWin(win, model);
-                              }
-                          })*/
                 }
             },
             //product add & edit事件
@@ -1745,6 +1740,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
                         if (limitType == 1) {
                             limitCount = form.getValues()['dayLimitCount'];
                             productLimitCount = form.getValues()['dayTodayLimitCount'];
+
                         } else if (limitType == 2) {
                             limitCount = form.getValues()['totalLimitCount'];
                             productLimitCount = form.getValues()['totalTodayLimitCount'];

@@ -113,8 +113,8 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopProductAdd', {
                     allowBlank: true,
                     step: 1,
                     labelWidth: 90,
-                    itemId:'stock',
-                    disabled:true
+                    itemId: 'stock',
+                    disabled: true
                 }, {
                     xtype: 'fieldset',
                     border: false,
@@ -138,13 +138,16 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopProductAdd', {
                             labelWidth: 120,
                             labelAlign: 'left',
                             width: 200,
+                            minValue: 1,
                             validator: function(value) {
-                                var radio = Ext.ComponentQuery.query('#limitType1')[0];
-                                if (radio.checked) {
-                                    if (value < 1 || value > 10) {
-                                        return '设置范围为1~10'
+                                var me = this;
+                                var limitType = me.previousSibling();
+                                var dayTodayLimitCount = me.nextSibling().getValue();
+                                if (limitType.checked) {
+                                    if (dayTodayLimitCount) { //当日限购数量已填
+                                        return value > dayTodayLimitCount ? '每人当日限购应小于当日限购' : true;
                                     } else {
-                                        return true
+                                        return value ? true : false;
                                     }
                                 } else {
                                     return true
@@ -158,7 +161,22 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopProductAdd', {
                             labelWidth: 110,
                             labelAlign: 'left',
                             width: 200,
-                            minValue: 0
+                            minValue: 1,
+                            validator: function(value) {
+                                var me = this;
+                                var dayLimitCount = me.previousSibling().getValue();
+                                var limitType = me.previousSibling().previousSibling();
+                                if (limitType.checked) {
+                                    if (dayLimitCount) { //每人当日限购数量已填
+                                        return value >= dayLimitCount ? true : '当日限购应大于每人当日限购';
+                                    } else {
+                                        return value ? true : false;
+                                    }
+                                } else {
+                                    return true
+                                }
+                            }
+
                         }]
 
                     }, {
@@ -179,13 +197,16 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopProductAdd', {
                             labelWidth: 120,
                             labelAlign: 'left',
                             width: 200,
+                            minValue: 1,
                             validator: function(value) {
-                                var radio = Ext.ComponentQuery.query('#limitType2')[0];
-                                if (radio.checked) {
-                                    if (value < 1 || value > 10) {
-                                        return '设置范围为1~10'
+                                var me = this;
+                                var limitType = me.previousSibling();
+                                var totalTodayLimitCount = me.nextSibling().getValue();
+                                if (limitType.checked) {
+                                    if (totalTodayLimitCount) { //当日限购数量已填
+                                        return value > totalTodayLimitCount ? '每人累计限购应小于当日限购' : true;
                                     } else {
-                                        return true
+                                        return value ? true : false;
                                     }
                                 } else {
                                     return true
@@ -198,7 +219,21 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopProductAdd', {
                             labelWidth: 110,
                             labelAlign: 'left',
                             width: 200,
-                            minValue: 0
+                            minValue: 1,
+                            validator: function(value) {
+                                var me = this;
+                                var totalLimitCount = me.previousSibling().getValue();
+                                var limitType = me.previousSibling().previousSibling();
+                                if (limitType.checked) {
+                                    if (totalLimitCount) { //每人累计限购数量已填
+                                        return value >= totalLimitCount ? true : '当日限购应大于每人累计限购';
+                                    } else {
+                                        return value ? true : false;
+                                    }
+                                } else {
+                                    return true
+                                }
+                            }
                         }]
                     }]
 
