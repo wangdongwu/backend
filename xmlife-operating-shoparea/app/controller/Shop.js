@@ -1698,6 +1698,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
                     categorySelectionStore.getProxy().extraParams = {
                         shopId: me.shopId
                     }
+                    categorySelectionStore.load();
 
                     me.openWin(win, model);
                 }

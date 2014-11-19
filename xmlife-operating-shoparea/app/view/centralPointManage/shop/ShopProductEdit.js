@@ -249,7 +249,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopProductEdit', {
                     editable: false,
                     width: 360,
                     disabled: true,
-                    queryMode: 'remote',
+                    queryMode: 'local',
                     store: 'CategoryLeafCategorys',
                     triggerAction: 'all',
                     emptyText: '请选择货架'
