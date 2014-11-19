@@ -211,7 +211,6 @@ Ext.define('XMLifeOperating.controller.Coupon', {
     rendenCouponList:function(grid){
         var store = grid.store;
         // store.loadPage(1);
-        store.clearFilter();
         store.getProxy().extraParams={
                             status:1
                           };

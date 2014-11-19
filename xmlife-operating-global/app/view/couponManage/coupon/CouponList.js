@@ -47,6 +47,7 @@ Ext.define('XMLifeOperating.view.couponManage.coupon.CouponList', {
             editor: {
                 allowBlank: false,
                 disabled:true,
+                readonly:false
             },
         }, {
             text: '名称',
