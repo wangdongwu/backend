@@ -1,12 +1,25 @@
 Ext.define('XMLifeOperating.controller.SoldOutProduct', {
 	extend: 'Ext.app.Controller',
-	views: ['soldoutProductManage.soldoutRecord.soldoutRecordList'],
-	stores: ['OfflineProductGetOfflineRecords'],
-	models: ['OfflineProductGetOfflineRecords'],
+	views: [
+		'soldoutProductManage.soldoutRecord.soldoutRecordList',
+		'soldoutProductManage.shopperRecord.shopperRecordList'
+	],
+	stores: [
+		'OfflineProductGetOfflineRecords',
+		'GetOptLogs'
+	],
+	models: [
+		'OfflineProductGetOfflineRecords',
+		'GetOptLogs'
+	],
 	refs: [{
 		ref: 'soldoutRecordList',
 		selector: 'soldoutRecordList',
 		xtype: 'soldoutRecordList'
+	}, {
+		ref: 'shopperRecordList',
+		selector: 'shopperRecordList',
+		xtype: 'shopperRecordList'
 	}],
 	init: function() {
 		var me = this;
@@ -14,11 +27,20 @@ Ext.define('XMLifeOperating.controller.SoldOutProduct', {
 			'soldoutRecordList': {
 				show: me.showSoldoutRecordList
 			},
+			'shopperRecordList': {
+				show: me.showShopperRecordList
+			},
 			'soldoutRecordList #queryRecordBtn': {
 				click: me.querySoldoutRecordList
 			},
+			'shopperRecordList #queryRecordBtn': {
+				click: me.queryShopperRecordList
+			},
 			'soldoutRecordList #recordSearchBtn': {
 				click: me.searchSoldoutRecordList
+			},
+			'shopperRecordList #recordSearchBtn': {
+				click: me.searchShopperRecordList
 			}
 		});
 	},
@@ -40,6 +62,12 @@ Ext.define('XMLifeOperating.controller.SoldOutProduct', {
 			}
 		});
 	},
+	showShopperRecordList: function() {
+		var me = this;
+		var store = me.getGetOptLogsStore(),
+			recordList = me.getShopperRecordList();
+		store.load();
+	},
 	querySoldoutRecordList: function() {
 		var me = this;
 		var store = me.getOfflineProductGetOfflineRecordsStore(),
@@ -58,6 +86,13 @@ Ext.define('XMLifeOperating.controller.SoldOutProduct', {
 				limit: 25
 			}
 		});
+	},
+	queryShopperRecordList: function() {
+		var me = this;
+		var store = me.getGetOptLogsStore(),
+			recordList = me.getShopperRecordList(),
+			keyWords = recordList.down('#recordSearchKeyWords').setValue('');
+		store.load();
 	},
 	searchSoldoutRecordList: function() {
 		var me = this;
@@ -85,6 +120,30 @@ Ext.define('XMLifeOperating.controller.SoldOutProduct', {
 				limit: 25
 			}
 		})
+
+	},
+	searchShopperRecordList: function() {
+		var me = this;
+		var store = me.getGetOptLogsStore(),
+			recordList = me.getShopperRecordList(),
+			keyWords = recordList.down('#recordSearchKeyWords').getValue(),
+			keyType = null;
+		if (keyWords == '') {
+			store.load();
+		} else {
+			if (keyWords.length == 11 && isNaN(keyWords)) {
+				keyType = 1
+			} else {
+				keyType = 0;
+			}
+			store.load({
+				params: {
+					keyword: keyWords,
+					keyType: keyType
+				}
+			});
+
+		}
 
 	}
 

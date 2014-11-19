@@ -1,7 +1,7 @@
 Ext.define('XMLifeOperating.controller.login', {
   extend: 'Ext.app.Controller',
   views: ['admin.login', 'Toolbar', 'Navigation'],
-  stores: ['Navigation','SupportedCity'],
+  stores: ['Navigation', 'SupportedCity'],
   refs: [{
     ref: 'login',
     selector: 'login',
@@ -78,8 +78,8 @@ Ext.define('XMLifeOperating.controller.login', {
         click: function() {
           var loginOutUrl = XMLifeOperating.generic.Global.URL.biz + 'admin/logout',
             sessionId = localStorage.getItem('sessionId');
-            localStorage.removeItem('sessionId');
-            localStorage.removeItem('username');
+          localStorage.removeItem('sessionId');
+          localStorage.removeItem('username');
           Ext.Ajax.request({
             url: loginOutUrl,
             method: 'post',
@@ -123,7 +123,7 @@ Ext.define('XMLifeOperating.controller.login', {
       newPassword = view.down('[name=newPassword]').getValue();
     reNewPassword = view.down('[name=reNewPassword]').getValue();
     loginUrl = XMLifeOperating.generic.Global.URL.biz + 'admin/login',
-    updateUrl = XMLifeOperating.generic.Global.URL.biz + 'admin/update/ownAccount';
+      updateUrl = XMLifeOperating.generic.Global.URL.biz + 'admin/update/ownAccount';
     if (self.edit) {
       var newPassword = view.down('[name=newPassword]').getValue(),
         name = view.down('[name=nick]').getValue();
@@ -213,20 +213,20 @@ Ext.define('XMLifeOperating.controller.login', {
       if (type == 'City') { //中心长账号登陆
         store.setProxy(new XMLifeOperating.generic.BaseProxy('module/getUserModulesTree'));
         XMLifeOperating.generic.Global.current_operating = obj.areaId;
-/*        store.setRootNode({
+        store.setRootNode({
           expanded: true
-        });*/
+        });
       } else if (type == 'Global') { //高级权限账号登陆
         store.setProxy(new XMLifeOperating.generic.BaseProxy('module/getPlatModulesTree'));
-      /*  me.getCmbGlobalCenter().show();*/
+        /*  me.getCmbGlobalCenter().show();*/
         store.getProxy().extraParams = {
           type: 'City'
         };
-/*        store.setRootNode({
+        store.setRootNode({
           expanded: true
-        });*/
-        me.loadCity(obj.cities,obj.cityIds);
-       /* shopCityStore.load();*/
+        });
+        me.loadCity(obj.cities, obj.cityIds);
+        /* shopCityStore.load();*/
       } else {
         Ext.MessageBox.show({
           title: '登录失败',
@@ -244,12 +244,15 @@ Ext.define('XMLifeOperating.controller.login', {
     }
     sendGetRequest('admin/getInfo', null, '检测账号', '检测账号成功', '检测账号失败', success, failure);
   },
-  loadCity:function(names,ids){
+  loadCity: function(names, ids) {
     var me = this;
     var shopCityStore = me.getSupportedCityStore();
     var cityCombo = me.getHeaderToolbar().down('#cmbGlobalCity');
-    for(var i=0,len = (names.length>=ids.length)?names.length:ids.length;i<len;i++){
-      shopCityStore.add({'name':names[i],'code':ids[i]});
+    for (var i = 0, len = (names.length >= ids.length) ? names.length : ids.length; i < len; i++) {
+      shopCityStore.add({
+        'name': names[i],
+        'code': ids[i]
+      });
     }
     cityCombo.setValue(XMLifeOperating.generic.Global.currentCity);
   }
