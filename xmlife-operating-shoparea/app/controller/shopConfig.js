@@ -79,6 +79,7 @@ Ext.define('XMLifeOperating.controller.shopConfig', {
     }],
     init: function() {
       var self = this;
+      this.moduleType = '';
         self.control({
             'ShopConfigManage' : {
               added : self.getInitData,
@@ -582,10 +583,10 @@ Ext.define('XMLifeOperating.controller.shopConfig', {
           selection = selection[0],
           id = selection.get('id'),
           type = selection.get('type'),
+          typeCopy = selection.get('typeCopy'),
           moduleItemList = selection.get('items');
           this.moduleId = id;
-          this.moduleType = type;
-          
+          this.moduleType = typeCopy;
           if(type == 'banner'){
             addNewModuleItem.setDisabled(false);
             this.moduleDelete = true;
