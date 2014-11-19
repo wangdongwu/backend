@@ -64,7 +64,6 @@ Ext.define('XMLifeOperating.controller.login', {
               usernameField.setValue(data.account).setDisabled(true);
             }
           })
-
           newPasswordField.show();
           reNewPasswordField.show()
 
@@ -115,7 +114,6 @@ Ext.define('XMLifeOperating.controller.login', {
       });*/
       self.detectAccount();
     };
-
   },
   login: function() {
     var self = this,
@@ -191,7 +189,6 @@ Ext.define('XMLifeOperating.controller.login', {
         }
       });
     }
-
   },
   bindKeyMap: function(ele) {
     new Ext.util.KeyMap({
@@ -228,14 +225,14 @@ Ext.define('XMLifeOperating.controller.login', {
         store.setRootNode({
           expanded: true
         });
-        shopCityStore.load();
+        me.loadCity(obj.cities,obj.cityIds);
+       /* shopCityStore.load();*/
       } else {
         Ext.MessageBox.show({
           title: '登录失败',
           msg: '改账号没有权限',
           buttons: Ext.Msg.OK
         });
-
       }
     }
     var failure = function(response) {
@@ -246,5 +243,15 @@ Ext.define('XMLifeOperating.controller.login', {
       });
     }
     sendGetRequest('admin/getInfo', null, '检测账号', '检测账号成功', '检测账号失败', success, failure);
+  },
+  loadCity:function(names,ids){
+    var me = this;
+    var shopCityStore = me.getSupportedCityStore();
+    var cityCombo = me.getHeaderToolbar().down('#cmbGlobalCity');
+    for(var i=0,len = (names.length>=ids.length)?names.length:ids.length;i<len;i++){
+      shopCityStore.add({'name':names[i],'code':ids[i]});
+    }
+    cityCombo.setValue(XMLifeOperating.generic.Global.currentCity);
   }
+
 });

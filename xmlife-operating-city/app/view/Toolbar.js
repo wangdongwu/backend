@@ -37,7 +37,6 @@ Ext.define('XMLifeOperating.view.Toolbar', {
             triggerAction: 'all',
             displayField: 'name',
             valueField: 'code',
-            value: XMLifeOperating.generic.Global.currentCity,
             tooltip: 'Choose current city'
         },
         '->', {
