@@ -87,14 +87,28 @@ Ext.define('XMLifeOperating.view.centralPointManage.shopConfig.AddModuleItem', {
                 emptyText: '请选择SKU',
                 width: 110,
                 hidden: true
+            },
+            {
+                xtype: 'combo',
+                name: 'fid',
+                fieldLabel: '选择',
+                labelWidth: 70,
+                store: 'HomePageFunction',
+                queryMode: 'local',
+                displayField: 'name',
+                valueField: 'value',
+                value: 'WALLET',
+                emptyText: '请选择页面',
+                width: 165,
+                hidden: true
             }]
         }, {
             xtype: 'textfield',
             name: 'url',
             itemId: 'urlTextField',
             fieldLabel: 'url',
+            emptyText: 'http://',
             labelWidth: 70,
-            allowBlank: false,
             hidden: true
         },{
             xtype: 'container',

@@ -2,7 +2,7 @@ Ext.define('XMLifeOperating.controller.shopConfig', {
     extend: 'Ext.app.Controller',
     models: ['ShopArea','Shop','ShopConfig','shopModules','ShopModulesItem'],
     stores: ['ShopArea','Shop','ShopConfig','ShopCopyVersion','shopModules','ShopCopyModule','ShopModulesItem','ShopUrlType',
-    'HomePageShop', 'HomePageCategory', 'HomePageLeafCategory', 'HomePageProduct'],
+    'HomePageShop', 'HomePageCategory', 'HomePageLeafCategory', 'HomePageProduct','HomePageFunction'],
     views: [
     'centralPointManage.shopConfig.ShopConfigManage',
     'centralPointManage.shopConfig.ShopVersionPanel',
@@ -386,7 +386,7 @@ Ext.define('XMLifeOperating.controller.shopConfig', {
       var addNewModuleItem = this.getAddModuleItem(),
           form = addNewModuleItem.down('form'),
           picSizeTip = form.down('#picSizeTip');
-          picSizeTip.html='<p style="margin-left:70px;color:red">提示：尺寸 640x320，大小100K以内）</p>';
+          picSizeTip.html='<p style="margin:0;padding:0;margin-left:70px;color:red">提示：尺寸 640x320，大小100K以内）</p>';
           form.getForm().reset();
           addNewModuleItem.show();
     },
@@ -400,7 +400,7 @@ Ext.define('XMLifeOperating.controller.shopConfig', {
           position = panel.down('#position');
           sendGetRequest('shopHomepage/getCategoryNum',{shopId:self.shopId},'','','',function(response){
             if(response.responseText){
-              position.setMaxValue(response.responseText);              
+              position.setMaxValue(++response.responseText);              
             }
           });
           form.getForm().reset();
@@ -416,12 +416,15 @@ Ext.define('XMLifeOperating.controller.shopConfig', {
           if(response.result == 1){
             windows.hide();
             self.loadModuleVersionStore();
+            self.refreshPriview();
           }
         },
         failure : function(proxy,response){
           if(response.result == 1){
             windows.hide();
             self.loadModuleVersionStore();
+            self.refreshPriview();
+
           }
         }
       })
@@ -439,12 +442,15 @@ Ext.define('XMLifeOperating.controller.shopConfig', {
           if (response.result == '1') {
             windowView.hide();
             self.loadModuleVersionStore();
+            self.refreshPriview();
           };
         },
         failure : function(proxy,response){
           if (response.result == '1') {
             windowView.hide();
             self.loadModuleVersionStore();
+            self.refreshPriview();
+
           };          
         }
       })
@@ -895,19 +901,37 @@ Ext.define('XMLifeOperating.controller.shopConfig', {
             });
 
             // 编辑时，依次触发回填
-            if(flag == 'isInit' && record.get('shopId')) {
+            if(record && record.get('shopId')) {
                 var shopCombo = win.down('combo[name=shopId]');
-                shopCombo.fireEvent('select',shopCombo,'isInit');
+                shopCombo.fireEvent('select',shopCombo,flag);
 
                 if(record.get('cid')) {
                  var categoryCombo = win.down('combo[name=cid]');
-                    categoryCombo.fireEvent('select',categoryCombo,'isInit');
+                    categoryCombo.fireEvent('select',categoryCombo,flag);
                 }
             }
-
+            if(record && record.get('url') && flag == 'isInit') {
+                win.down('#urlTextField').setValue('');
+            }
+            win.down('combo[name=fid]').setVisible(false);
+            win.down('combo[name=shopId]').setVisible(true);
             win.down('combo[name=cid]').setVisible(urlType == 'CATEGORY' || urlType == 'SKU');
             win.down('combo[name=pid]').setVisible(urlType == 'SKU');
-        }
+
+        }else if(urlType == 'FUNCTION') {
+            // 只在初始化时赋值，url类型切换时不用
+            if(record && record.get('url') && flag == 'isInit') {
+                win.down('combo[name=fid]').setValue(record.get('url'));
+                win.down('#urlTextField').setValue('');
+            }
+
+            win.down('combo[name=fid]').setVisible(true);
+            // 隐藏除功能之外的combo
+            var otherCombos = win.query('#comboFieldset combo[name!=fid]');
+            Ext.each(otherCombos, function(elem, i) {
+                elem.setVisible(false);
+            });
+          }
 
         win.down('#comboFieldset').setVisible(urlType != 'HTML');
         win.down('#urlTextField').setVisible(urlType == 'HTML');
@@ -1009,7 +1033,8 @@ Ext.define('XMLifeOperating.controller.shopConfig', {
           urlField = form.down('#urlTextField'),
           shopId = form.down('#shopId').getValue(),
           cid = form.down('combo[name=cid]').getValue(),
-          pid = form.down('combo[name=cid]').getValue();
+          pid = form.down('combo[name=pid]').getValue()
+          fid = form.down('combo[name=fid]').getValue();
       switch(type)
         {
         case 'SHOP':
@@ -1020,6 +1045,9 @@ Ext.define('XMLifeOperating.controller.shopConfig', {
           break;
         case 'SKU':
           urlField.setValue(pid)
+          break;
+        case 'FUNCTION':
+          urlField.setValue(fid)
           break;
         }
     },

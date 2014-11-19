@@ -5,6 +5,7 @@ Ext.define('XMLifeOperating.store.ShopUrlType', {
         { 'name': '店铺', 'urlType': 'SHOP'},
         { 'name': '货架', 'urlType': 'CATEGORY'},
         { 'name': 'SKU', 'urlType': 'SKU'},
-        { 'name': 'url', 'urlType': 'HTML'}           
+        { 'name': '功能页面', 'urlType': 'FUNCTION'},
+        { 'name': 'url', 'urlType': 'HTML'}       
     ]
 });
