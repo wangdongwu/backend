@@ -38,6 +38,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopSecondShelfAdd', {
                     name: 'name',
                     fieldLabel: '货架名称',
                     labelWidth: 90,
+                    allowBlank: false,
                     id: 'secondShelvesName',
                 }, {
                     fieldLabel: '是否有子类',
