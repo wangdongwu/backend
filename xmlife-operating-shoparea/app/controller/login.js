@@ -26,7 +26,7 @@ Ext.define('XMLifeOperating.controller.login', {
 		ref: 'txtShopAreaName',
 		selector: 'headerToolbar #txtShopAreaName'
 	}],
-	init: function () {
+	init: function() {
 		var self = this;
 		var sessionId = localStorage.getItem('sessionId');
 		var areaId = localStorage.getItem('areaId');
@@ -37,7 +37,7 @@ Ext.define('XMLifeOperating.controller.login', {
 
 		this.control({
 			'login': {
-				show: function (panel) {
+				show: function(panel) {
 					var ele = panel.getEl();
 					self.bindKeyMap(ele);
 				}
@@ -46,7 +46,7 @@ Ext.define('XMLifeOperating.controller.login', {
 				click: self.login
 			},
 			'headerToolbar #txtUserName': {
-				click: function () {
+				click: function() {
 					var sessionId = localStorage.getItem('sessionId');
 					if (!sessionId) {
 						this.getLogin().show();
@@ -54,7 +54,7 @@ Ext.define('XMLifeOperating.controller.login', {
 				}
 			},
 			'headerToolbar #editAdmin': {
-				click: function () {
+				click: function() {
 					var loginView = this.getLogin(),
 						form = loginView.down('form'),
 						formEl = form.getForm(),
@@ -69,7 +69,7 @@ Ext.define('XMLifeOperating.controller.login', {
 					formEl.reset();
 					Ext.Ajax.request({
 						url: XMLifeOperating.generic.Global.URL.biz + 'admin/getInfo',
-						success: function (result) {
+						success: function(result) {
 							var data = Ext.decode(result.responseText);
 							nickField.show().setValue(data.name).setDisabled(true);
 							usernameField.setValue(data.account).setDisabled(true);
@@ -86,7 +86,7 @@ Ext.define('XMLifeOperating.controller.login', {
 				}
 			},
 			'headerToolbar #btnSignOut': {
-				click: function () {
+				click: function() {
 					var loginOutUrl = XMLifeOperating.generic.Global.URL.biz + 'admin/logout',
 						sessionId = localStorage.getItem('sessionId');
 					localStorage.removeItem('sessionId');
@@ -94,14 +94,14 @@ Ext.define('XMLifeOperating.controller.login', {
 					Ext.Ajax.request({
 						url: loginOutUrl,
 						method: 'post',
-						success: function (response) {
+						success: function(response) {
 							if (response.responseText) {
 								localStorage.removeItem('sessionId');
 								localStorage.removeItem('username');
 								window.location.reload();
 							}
 						},
-						failure: function (response) {
+						failure: function(response) {
 							Ext.MessageBox.show({
 								title: '注销失败',
 								msg: '您现在已经注销了!',
@@ -124,7 +124,7 @@ Ext.define('XMLifeOperating.controller.login', {
 			self.detectAccount();
 		}
 	},
-	login: function () {
+	login: function() {
 
 		var self = this,
 			view = this.getLogin(),
@@ -133,7 +133,7 @@ Ext.define('XMLifeOperating.controller.login', {
 			newPassword = view.down('[name=newPassword]').getValue();
 		reNewPassword = view.down('[name=reNewPassword]').getValue();
 		loginUrl = XMLifeOperating.generic.Global.URL.biz + 'admin/login',
-		updateUrl = XMLifeOperating.generic.Global.URL.biz + 'admin/update/ownAccount';
+			updateUrl = XMLifeOperating.generic.Global.URL.biz + 'admin/update/ownAccount';
 		if (self.edit) {
 			var newPassword = view.down('[name=newPassword]').getValue(),
 				name = view.down('[name=nick]').getValue();
@@ -146,7 +146,7 @@ Ext.define('XMLifeOperating.controller.login', {
 					newPwd: newPassword
 				},
 				method: 'put',
-				success: function (response) {
+				success: function(response) {
 					if (response.responseText == 1) {
 						self.getLogin().hide();
 						Ext.Msg.alert('成功', '成功更新' + username + '账户');
@@ -164,7 +164,7 @@ Ext.define('XMLifeOperating.controller.login', {
 					pwd: password
 				},
 				method: 'post',
-				success: function (response) {
+				success: function(response) {
 					if (response.responseText) {
 						var data = Ext.JSON.decode(response.responseText);
 						/*本地储存信息*/
@@ -185,7 +185,7 @@ Ext.define('XMLifeOperating.controller.login', {
 						view.hide();
 					}
 				},
-				failure: function (response) {
+				failure: function(response) {
 					if (response.status == 401) {
 						var data = {
 							'Unauthorized': '对不起，你登录失败了，请重新登录'
@@ -201,12 +201,12 @@ Ext.define('XMLifeOperating.controller.login', {
 		}
 
 	},
-	bindKeyMap: function (ele) {
+	bindKeyMap: function(ele) {
 		new Ext.util.KeyMap({
 			target: ele,
 			binding: [{
 				key: 13,
-				fn: function () {
+				fn: function() {
 					this.login();
 				},
 				scope: this,
@@ -214,7 +214,7 @@ Ext.define('XMLifeOperating.controller.login', {
 			}]
 		});
 	},
-	detectAccount: function () {
+	detectAccount: function() {
 		var me = this;
 		var store = me.getNavigationStore();
 		var shopAreaStore = me.getShopAreaStore();
@@ -226,21 +226,25 @@ Ext.define('XMLifeOperating.controller.login', {
         leaf: true
       });
     });*/
-		var success = function (response) {
+		var success = function(response) {
 			var obj = eval('(' + response.responseText + ')');
 			var type = obj.adminType;
 			var account = obj.account,
 				areaId = obj.areaId,
-        filterFunArr= [];
-        if(Ext.isArray(areaId)){
-          Ext.each(areaId, function(id) {
-            filterFunArr.push(function(v){ return v.get('id') == id})
-          }, this);
-        }else if(areaId == 0){
-          shopAreaStore.clearFilter(true);
-        }else{
-          filterFunArr.push(function(v){ return v.get('id') == areaId})
-        }
+				filterFunArr = [];
+			if (Ext.isArray(areaId)) {
+				Ext.each(areaId, function(id) {
+					filterFunArr.push(function(v) {
+						return v.get('id') == id
+					})
+				}, this);
+			} else if (areaId == 0) {
+				shopAreaStore.clearFilter(true);
+			} else {
+				filterFunArr.push(function(v) {
+					return v.get('id') == areaId
+				})
+			}
 			if (type == 'Area') { //中心长账号登陆
 				store.setProxy(new XMLifeOperating.generic.BaseProxy('module/getUserModulesTree'));
 				XMLifeOperating.generic.Global.current_operating = obj.areaId;
@@ -256,9 +260,18 @@ Ext.define('XMLifeOperating.controller.login', {
 				store.setRootNode({
 					expanded: true
 				});
-        shopAreaStore.clearFilter(true);
-        shopAreaStore.filter(filterFunArr);
-				shopAreaStore.load();
+				shopAreaStore.clearFilter(true);
+				shopAreaStore.filter(filterFunArr);
+				shopAreaStore.load({
+					callback: function() {
+						this.filter();
+						if (this.data.items[0]) { //若存在符合筛选的中心
+							XMLifeOperating.generic.Global.current_operating = this.data.items[0].get('id');
+						} else { //若不存在符合筛选的中心,默认为0，无法加载（基本上不存在此情况）
+							XMLifeOperating.generic.Global.current_operating = 0
+						}
+					}
+				});
 			}
 			me.getAdminAdminShopTypeStore().load();
 			//推送
@@ -270,7 +283,7 @@ Ext.define('XMLifeOperating.controller.login', {
 			var NotificationCls = window.Notification || window.webkitNotification || window.mozNotification || window.msNotification;
 			if (!window.cordova && NotificationCls) {
 				if (NotificationCls.permission !== 'denied') {
-					NotificationCls.requestPermission(function (permission) {
+					NotificationCls.requestPermission(function(permission) {
 						if (!('permission' in NotificationCls)) {
 							NotificationCls.permission = permission;
 						}
@@ -278,7 +291,7 @@ Ext.define('XMLifeOperating.controller.login', {
 				}
 			}
 		}
-		var failure = function (response) {
+		var failure = function(response) {
 			Ext.MessageBox.show({
 				title: '账号检测失败',
 				msg: data[responseText.statusText],
