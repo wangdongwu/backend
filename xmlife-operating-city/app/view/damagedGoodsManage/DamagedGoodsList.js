@@ -125,7 +125,10 @@ Ext.define('XMLifeOperating.view.damagedGoodsManage.DamagedGoodsList', {
       dataIndex: 'totalPrice',
       width: 100,
       sortable: false,
-      align: 'left'
+      align: 'left',
+      renderer: function(value) {
+      return value / 100;
+      }
     }, {
       text: '所属商家',
       dataIndex: 'shopName',
