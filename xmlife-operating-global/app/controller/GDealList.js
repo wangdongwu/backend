@@ -117,7 +117,7 @@ Ext.define('XMLifeOperating.controller.GDealList', {
             keyWords = me.getGDealList().down('#keyword').getValue(),
             store = this.getDealStore(),
             view = this.getGDealList();
-            view.grid.down('#shopAread').setValue('');
+            view.down('#shopAread').setValue('');
             view.down('#statusSearch').setValue('')
         store.getProxy().extraParams = {
             phoneOrDealId: keyWords,

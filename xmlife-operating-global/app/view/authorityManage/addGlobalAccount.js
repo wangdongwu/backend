@@ -200,7 +200,7 @@ Ext.define('XMLifeOperating.view.authorityManage.addGlobalAccount', {
               fieldLabel : '选择中心',
               xtype:'combobox',
               name:'areaId',
-              itemId:'shopAread',
+              itemId:'shopArea',
               store:'ShopArea',
               editable: false,
               displayField:'name',
