@@ -6,11 +6,11 @@ Ext.define('XMLifeOperating.store.Navigation', {
     defaultRootId : '',
     extend: 'Ext.data.TreeStore',
     model:'XMLifeOperating.model.Navigation',
-    autoLoad:false,
+/*    autoLoad:false,
     root:{
         expanded:false
-    },
-    /*root: {
+    },*/
+    root: {
         text: 'Root',
         expanded: true,
         children: [{
@@ -18,6 +18,20 @@ Ext.define('XMLifeOperating.store.Navigation', {
             text: '运费管理',
             leaf: true
         }, {
+            id:'soldoutProductManage',
+            text:'下架商品管理',
+            leaf:false,
+            children:[
+            {
+                id:'soldoutRecordList',
+                text:'下架记录',
+                leaf:true
+            },{
+                id:'shopperRecordList',
+                text:'买手记录',
+                leaf:true
+            }]
+        },{
             id: 'freightList',
             text: '改价审核',
             leaf: true
@@ -34,5 +48,5 @@ Ext.define('XMLifeOperating.store.Navigation', {
             text: '个人中心',
             leaf: true
         }]
-    }*/
+    }
     });

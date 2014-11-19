@@ -213,18 +213,18 @@ Ext.define('XMLifeOperating.controller.login', {
       if (type == 'City') { //中心长账号登陆
         store.setProxy(new XMLifeOperating.generic.BaseProxy('module/getUserModulesTree'));
         XMLifeOperating.generic.Global.current_operating = obj.areaId;
-        store.setRootNode({
+/*        store.setRootNode({
           expanded: true
-        });
+        });*/
       } else if (type == 'Global') { //高级权限账号登陆
         store.setProxy(new XMLifeOperating.generic.BaseProxy('module/getPlatModulesTree'));
       /*  me.getCmbGlobalCenter().show();*/
         store.getProxy().extraParams = {
           type: 'City'
         };
-        store.setRootNode({
+/*        store.setRootNode({
           expanded: true
-        });
+        });*/
         me.loadCity(obj.cities,obj.cityIds);
        /* shopCityStore.load();*/
       } else {
