@@ -32,6 +32,9 @@ Ext.define('XMLifeOperating.controller.GFeedbackList', {
                     if(newV==true){
                         var itemId=record.itemId,str;
                         switch(itemId){
+                            case 'dayType0':
+                                str=0;
+                                break;
                             case 'dayType1':
                                 str=1;
                                 break;
@@ -53,14 +56,13 @@ Ext.define('XMLifeOperating.controller.GFeedbackList', {
                         }
                         var store = this.getFeedbackStore();
                         store.getProxy().extraParams={
-                            dayType:str,
-                            mark:false
-                          };
+                            dayType:str
+                        };
                         store.loadPage(1);
 
                         this.dayType=str;
                         var win = this.getGFeedbackList();
-                        win.down('#feedbackStatus').setValue(false);
+                        win.down('#feedbackStatus').setValue(null);
 
                     }
                 }
@@ -78,30 +80,28 @@ Ext.define('XMLifeOperating.controller.GFeedbackList', {
 
                     model.set('mark',!mark);
                     mark = model.get('mark');
-                    //console.log(mark);
-                   /* switch(statusValue){
-                        case 'online':
-                            status=0;
-                            break;
-                        case 'offline':
-                            status=1;
-                            break;
-                        case 'soldout':
-                            status=3;
-                            break;
-                            
-                    }*/
 
                     sendPutRequest(url,{mark:mark},'','成功操作标记','标记操作失败',function(){
                         var store = me.getFeedbackStore();
-                            var dayType=me.dayType;
-                            store.getProxy().extraParams={
-                                dayType:dayType,
-                                mark:!mark
-                              };
-                            store.loadPage(1);
-                            // me.fireEvent('refreshView');
-                            // model.set('mark',status);
+                        var dayType=me.dayType;
+                        var mark = me.getGFeedbackList().down('#feedbackStatus').getValue();
+                        var params = {
+                            dayType:dayType,
+                            mark:mark
+                        };
+                        if(mark==null){
+                            params={
+                                dayType:dayType
+                            };
+                        }
+                        store.getProxy().extraParams = params;
+                        store.loadPage(1, {
+                            params: {
+                                start: 0,
+                                limit: 25,
+                                page: 1
+                            }
+                        });
                            
                     });
                 }
@@ -114,13 +114,16 @@ Ext.define('XMLifeOperating.controller.GFeedbackList', {
     },
 
     onShow: function() {
-        var store = this.getFeedbackStore();
+        /*var store = this.getFeedbackStore();
             store.getProxy().extraParams={
-              dayType:1,
-              mark:false
+              dayType:0,
             };
-          store.loadPage(1);
-          this.dayType=1;
+          store.loadPage(0);
+          this.dayType=0;*/
+        var radios = Ext.ComponentQuery.query('#gFeedbackRadios')[0].setValue({
+            dayType: 0
+        });
+        this.dayType = 0;
     },
     onFeedbackStatus:function(combo){
         var win = this.getGFeedbackList();

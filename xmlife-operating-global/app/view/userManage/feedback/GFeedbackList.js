@@ -29,38 +29,46 @@ Ext.define('XMLifeOperating.view.userManage.feedback.GFeedbackList', {
                 margin : '0 5'
             },
             layout: 'hbox',
-            items : [
-            {
-                checked: true,    
-                boxLabel:'今天',
-                name : 'dayType',
-                itemId: 'dayType1',
-                value:1
-            },{
-                boxLabel:'昨天',
-                name : 'dayType',
-                itemId: 'dayType2'
-            },{
-                boxLabel:'前天',
-                name : 'dayType',
-                itemId: 'dayType3'
-            },{
-                boxLabel:'本周',
-                name : 'dayType',
-                itemId: 'dayType4'
-            },{
-                boxLabel:'上周',
-                name : 'dayType',
-                itemId: 'dayType5'
-            },{
-                boxLabel:'本月',
-                name : 'dayType',
-                itemId: 'dayType6'
-            },{
-                boxLabel:'上月',
-                name : 'dayType',
-                itemId: 'dayType7'
-            }]
+            items: [{
+                xtype: 'radiogroup',
+                itemId:'gFeedbackRadios',
+                items: [{
+                    boxLabel: '今天',
+                    name: 'dayType',
+                    itemId: 'dayType0',
+                    inputValue: '0'
+                }, {
+                    boxLabel: '昨天',
+                    name: 'dayType',
+                    itemId: 'dayType1',
+                    inputValue: '1'
+                }, {
+                    boxLabel: '前天',
+                    name: 'dayType',
+                    itemId: 'dayType2',
+                    inputValue: '2'
+                }, {
+                    boxLabel: '本周',
+                    name: 'dayType',
+                    itemId: 'dayType3',
+                    inputValue: '3'
+                }, {
+                    boxLabel: '上周',
+                    name: 'dayType',
+                    itemId: 'dayType4',
+                    inputValue: '4'
+                }, {
+                    boxLabel: '本月',
+                    name: 'dayType',
+                    itemId: 'dayType5',
+                    inputValue: '5'
+                }, {
+                    boxLabel: '上月',
+                    name: 'dayType',
+                    itemId: 'dayType6',
+                    inputValue: '6'
+                }]
+            }],
         },
         '->',
         {
@@ -73,6 +81,7 @@ Ext.define('XMLifeOperating.view.userManage.feedback.GFeedbackList', {
             queryMode:'local',
             displayField:'name',
             valueField:'value',
+            emptyText:'全部'
         }
     ],
     

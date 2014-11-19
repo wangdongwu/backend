@@ -3,7 +3,14 @@ Ext.define('XMLifeOperating.controller.FeedbackList', {
     views: ['userManage.feedback.FeedbackList'],
     stores: ['Feedback', 'FeedbackStatus'],
     models: ['Feedback'],
-
+    refs: [
+        {
+            ref: 'feedbackList',
+            selector: 'feedbackList',
+            xtype: 'feedbackList',
+            autoCreate: true
+        },
+    ],
     init: function() {
 
         var me = this;
@@ -74,11 +81,6 @@ Ext.define('XMLifeOperating.controller.FeedbackList', {
                         var params = {
                             dayType: str
                         };
-                        var mark = combo.getValue();
-                        if (mark != null) {
-                            params['mark'] = mark;
-                        }
-
                         store.getProxy().extraParams = params;
                         store.loadPage(1, {
                             params: {
@@ -88,6 +90,7 @@ Ext.define('XMLifeOperating.controller.FeedbackList', {
                             }
                         });
                         this.dayType = str;
+                        me.getFeedbackList().down('#feedbackStatus').setValue(null);
 
                     }
                 }
@@ -100,25 +103,27 @@ Ext.define('XMLifeOperating.controller.FeedbackList', {
                     var feedbackId = model.get('id');
 
                     var className = e.target.className;
-                    var url = 'feedback/' + feedbackId;
+                    var url= 'feedback/mark/'+feedbackId;
 
-                    var mark = model.get('mark');
+                    var mark=model.get('mark');
 
-                    model.set('mark', !mark);
-                    if (mark == true) {
-                        status = 0;
-                    } else {
-                        status = 1;
-                    }
+                    model.set('mark',!mark);
+                    mark = model.get('mark');
 
-                    sendPutRequest(url, {}, '', '成功操作标记', '标记操作失败', function() {
-                        var store = this.getFeedbackStore();
+                    sendPutRequest(url, {mark:mark}, '', '成功操作标记', '标记操作失败', function() {
+                        var store = me.getFeedbackStore();
                         var dayType = me.dayType;
-
-                        store.getProxy().extraParams = {
-                            dayType: dayType,
-                            mark: false
+                        var mark = me.getFeedbackList().down('#feedbackStatus').getValue();
+                        var params = {
+                            dayType:dayType,
+                            mark:mark
                         };
+                        if(mark==null){
+                            params={
+                                dayType:dayType
+                            };
+                        }
+                        store.getProxy().extraParams = params;
                         store.loadPage(1, {
                             params: {
                                 start: 0,
@@ -134,10 +139,9 @@ Ext.define('XMLifeOperating.controller.FeedbackList', {
     },
 
     onShow: function() {
- /*        var store = this.getFeedbackStore();
+        /* var store = this.getFeedbackStore();
         store.getProxy().extraParams = {
-            dayType: 0,
-            mark: false
+            dayType: 6
         }
         store.loadPage(1, {
             params: {

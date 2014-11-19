@@ -72,6 +72,8 @@ Ext.define('XMLifeOperating.view.userManage.feedback.FeedbackList', {
             queryMode: 'local',
             displayField: 'name',
             valueField: 'value',
+            emptyText:'全部',
+
         }
     ],
 
@@ -84,6 +86,10 @@ Ext.define('XMLifeOperating.view.userManage.feedback.FeedbackList', {
             format: 'Y-M-D',
             sortable: true,
             align: 'center',
+            renderer: function (v) {
+                var date = new Date(v);
+                return date.getFullYear() + "." + (date.getMonth() + 1) + "." + date.getDate()
+            }   
         }, {
             text: '用户',
             dataIndex: 'name',
@@ -104,7 +110,7 @@ Ext.define('XMLifeOperating.view.userManage.feedback.FeedbackList', {
             align: 'center',
         }, {
             header: "标记",
-            width: 60,
+            width: 100,
             dataIndex: 'mark',
             itemId: 'mark',
             menuDisabled: true,
