@@ -226,6 +226,7 @@ Ext.define('XMLifeOperating.controller.CouponSend', {
       },
       'couponDirectRelease #release': {
         click: function () {
+            self.getCouponSendRuleDirectStatusStore().load();
             self.getCouponReleaseDirect().show();
         }
       },

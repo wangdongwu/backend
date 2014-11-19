@@ -46,8 +46,8 @@ Ext.define('XMLifeOperating.view.couponManage.coupon.CouponList', {
             align: 'left',
             editor: {
                 allowBlank: false,
-                disabled:true
-            }
+                disabled:true,
+            },
         }, {
             text: '名称',
             dataIndex: 'name',
@@ -138,7 +138,7 @@ Ext.define('XMLifeOperating.view.couponManage.coupon.CouponList', {
         }
     },
     plugins: [Ext.create('Ext.grid.plugin.CellEditing', {
-
+        clicksToEdit: 1
     })]
 
 
