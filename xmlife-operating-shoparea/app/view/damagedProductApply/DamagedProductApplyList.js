@@ -125,6 +125,9 @@ Ext.define('XMLifeOperating.view.damagedProductApply.DamagedProductApplyList', {
             width: 60,
             sortable: true,
             align: 'center',
+            renderer: function(value) {
+                return value / 100;
+            }
         },{
             text: '所属商家（快照）',
             dataIndex: 'shopName',
