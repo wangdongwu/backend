@@ -48,7 +48,7 @@ Ext.define('XMLifeOperating.controller.DamagedProduct', {
             status = button.up("panel").down("#status").getValue();
 
           var sessionId = localStorage.getItem('sessionId') || '';
-          var url = XMLifeOperating.generic.Global.URL.biz + 'damagedProductApply/exportApplyList' +
+          var url = XMLifeOperating.generic.Global.URL.biz + 'damagedProductApply/exportAuditList' +
             '?cityId=' + XMLifeOperating.generic.Global.currentCity +
             '&areaId=' + areaId +
             '&startTime=' + self.formatDate(startTime) +
