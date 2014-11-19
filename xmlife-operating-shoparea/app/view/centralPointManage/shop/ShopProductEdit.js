@@ -140,7 +140,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopProductEdit', {
                             if (limitType.checked) {
                                 if (value) {
                                     if (dayLimitCount) { //每人当日限购数量已填
-                                        return value > dayLimitCount ? '每人当日限购应小于当日限购' : true;
+                                        return value < dayLimitCount ? '每人当日限购应小于当日限购' : true;
                                     } else {
                                         return true;
                                     }
