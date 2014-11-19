@@ -946,11 +946,11 @@ Ext.define('XMLifeOperating.controller.shopConfig', {
         if(this.urlType != 'SHOP') {
             if (this.urlType == 'CATEGORY') {
                 store = self.getHomePageCategoryStore();
-                store.on('load',function(){
+                /*store.on('load',function(){
                   this.filter([function(item){
                     return item.get('status') !== 0;
                   }])
-                });
+                });*/
             } else if (this.urlType == 'SKU') {
                 store = self.getHomePageLeafCategoryStore();
             }

@@ -383,6 +383,7 @@ Ext.define('XMLifeOperating.controller.Authority', {
                 citySelect = addGlobalAccount.down('#citySelect'),
                 shopareaSelect = addGlobalAccount.down('#shopareaSelect'),
                 url = XMLifeOperating.generic.Global.URL.biz+'module/getNewAdminModules';
+
                 authorityStore.setRootNode({expanded:true});;
                 authorityStore.on('load',function(store,nodes){
                     var global = {expanded:true,children:[]},
@@ -574,14 +575,11 @@ Ext.define('XMLifeOperating.controller.Authority', {
           treePanelList = form.query('treepanel'),
           nodes;
       Ext.each(treePanelList, function(treepanel) {
+        treepanel.collapseAll();
         nodes = treepanel.getRootNode();
             nodes.cascadeBy(function(node){
               if(node.get('checked')){
                 node.set('checked',false);
-              }
-              
-              if(!node.isRoot() && !node.isLeaf()){
-                node.collapse(true);
               }
             });
             
@@ -590,9 +588,10 @@ Ext.define('XMLifeOperating.controller.Authority', {
     ,
     initSelectData : function(form,modules){
       var treePanelList = form.query('treepanel'),
+          modules = modules,
           checkList,
           nodes;
-          var expandParentNodes = function expandParent(node){
+          /*var expandParentNodes = function expandParent(node){
                var parentNode = node.parentNode;
                if(node.getDepth() !=1 && parentNode){
                   node.parentNode.expand(true);
@@ -605,18 +604,15 @@ Ext.define('XMLifeOperating.controller.Authority', {
                   node.parentNode.collapse(true);
                   collParent(parentNode);
               }
-           };
+           }*/
+          this.resetSelect();
           Ext.each(treePanelList, function(treepanel) {
             nodes = treepanel.getRootNode();
             nodes.cascadeBy(function(node){
               Ext.each(modules, function(module) {
-                if(node.get('checked')){
-                  node.set('checked',false); 
-                  collParentNodes(node);
-                }
                if(node.get('uniqueName') == module){
                   node.set('checked',true);
-                  expandParentNodes(node);
+                  treepanel.expandPath(node.getPath())
                   return false;
                }
                 
