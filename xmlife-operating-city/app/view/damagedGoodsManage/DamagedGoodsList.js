@@ -100,9 +100,14 @@ Ext.define('XMLifeOperating.view.damagedGoodsManage.DamagedGoodsList', {
     }, {
       text: '申报时间',
       dataIndex: 'applyTime',
-      width: 60,
-      sortable: false,
-      align: 'left'
+      width: 70,
+      sortable: true,
+      align: 'center',
+      renderer: function(value) {
+          var newTime = new Date(value);
+          newDate = newTime.getFullYear() + '.' + (newTime.getMonth() + 1) + '.' + newTime.getDate();
+          return newDate;
+      }   
     },{
       text: '商品名称',
       dataIndex: 'productName',
