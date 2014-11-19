@@ -77,7 +77,10 @@ Ext.define('XMLifeOperating.view.userManage.customer.CustomerList', {
         text: '余额',
         dataIndex: 'balance',
         width: 60,
-        align: 'center'
+        align: 'center',
+        renderer: function(value) {
+            return value / 100;
+        }
     }, {
         text: '收获地址',
         width: 100,
