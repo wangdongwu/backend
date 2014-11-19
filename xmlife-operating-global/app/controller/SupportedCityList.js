@@ -151,8 +151,6 @@ Ext.define('XMLifeOperating.controller.SupportedCityList', {
             windowEl.mask('saving');
             form.updateRecord(city);
 
-
-
             city.save({
                 success: function(task, operation) {
                     windowEl.unmask();
@@ -187,40 +185,36 @@ Ext.define('XMLifeOperating.controller.SupportedCityList', {
         // var status = addWindow.down('combo[name=cstatue]').getValue();
         var shipfee = addWindow.down('textfield[name=logisticsPrice]').getValue();
         var deductd = addWindow.down('textfield[name=deductdPrice]').getValue();
-
-        city.set('code',cityCode);
-        city.set('lng',this.selectedRecord.get('lng'));
-        city.set('lat',this.selectedRecord.get('lat'));
-        city.set('name',this.selectedRecord.get('name'));
-        city.set('status',0);
-        city.set('shipfee',shipfee);
-        city.set('deductd',deductd);
-
-        me = this;
-
-
+        var name = this.selectedRecord.get('name');
+        var ajaxParamas = {
+            code: cityCode,
+            name: name,
+            shipfee: shipfee,
+            deductd: deductd
+        }
+        var me = this;
         if(form.isValid()) {
             windowEl.mask('saving');
-            form.updateRecord(city);
-            city.save({
-                success: function(task, operation) {
-                    windowEl.unmask();
-                    addWindow.close();
-                    me.getSupportedCityStore().load();
-                },
-                failure: function(task, operation) {
-                    var error = operation.getError(),
-                       msg = Ext.isObject(error) ? error.status + ' ' + error.statusText : error;
 
-                    Ext.MessageBox.show({
-                        title: 'Edit Task Failed',
-                        msg: msg,
-                        icon: Ext.Msg.ERROR,
-                        buttons: Ext.Msg.OK
-                    });
-                    windowEl.unmask();
-                }
-            })
+            var success = function(responseText) {
+                windowEl.unmask();
+                addWindow.close();
+                me.getSupportedCityStore().load();
+            }
+            var failure = function(responseText) {
+                var error = operation.getError(),
+                msg = Ext.isObject(error) ? error.status + ' ' + error.statusText : error;
+
+                Ext.MessageBox.show({
+                    title: 'Edit Task Failed',
+                    msg: msg,
+                    icon: Ext.Msg.ERROR,
+                    buttons: Ext.Msg.OK
+                });
+                windowEl.unmask();
+            }
+        sendRequest('supportedcity', ajaxParamas, '添加城市', '添加城市成功', '添加城市失败', success, failure);
+
         } else {
             Ext.Msg.alert('Invalid Data', 'Please correct form errors');
         }
