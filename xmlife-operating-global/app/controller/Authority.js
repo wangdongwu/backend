@@ -114,7 +114,7 @@ Ext.define('XMLifeOperating.controller.Authority', {
                 cityIds = model.get('cityIds'),
                 modules = model.get('modules'); 
                 moduleIds = model.get('moduleIds');
-                self.resetSelect();
+                //self.resetSelect();
                 form.loadRecord(model);
                 accountField.setDisabled(true);
                 self.initSelectData(form,modules);
@@ -581,7 +581,7 @@ Ext.define('XMLifeOperating.controller.Authority', {
               }
               
               if(!node.isRoot() && !node.isLeaf()){
-                node.setCollapsed(true);
+                node.collapse(true);
               }
             });
             
@@ -598,14 +598,26 @@ Ext.define('XMLifeOperating.controller.Authority', {
                   node.parentNode.expand(true);
                   expandParent(parentNode);
               }
-           }
+           },
+           collParentNodes = function collParent(node){
+               var parentNode = node.parentNode;
+               if(node.getDepth() !=1 && parentNode){
+                  node.parentNode.collapse(true);
+                  collParent(parentNode);
+              }
+           };
           Ext.each(treePanelList, function(treepanel) {
             nodes = treepanel.getRootNode();
             nodes.cascadeBy(function(node){
               Ext.each(modules, function(module) {
+                if(node.get('checked')){
+                  node.set('checked',false); 
+                  collParentNodes(node);
+                }
                if(node.get('uniqueName') == module){
                   node.set('checked',true);
                   expandParentNodes(node);
+                  return false;
                }
                 
               }, this);
