@@ -204,7 +204,6 @@ Ext.define('XMLifeOperating.controller.login', {
     },
     getUserInfor : function(){
       sendGetRequest('admin/getInfo', null, '', '', '', function(){
-        debugger;
       });
     }
 });
