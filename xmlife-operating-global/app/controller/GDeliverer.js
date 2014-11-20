@@ -4,7 +4,7 @@ Ext.define('XMLifeOperating.controller.GDeliverer', {
         'staffManage.deliverer.GDelivererEdit',
         'staffManage.deliverer.GDealDelivererHistoryList',
         'staffManage.deliverer.GDelivererWorkTimeList',
-        'staffManage.deliverer.GDealItemsList'
+        'staffManage.deliverer.GDealItemsListDeliverer'
     ],
 
     stores: ['Deliverer',
@@ -44,13 +44,11 @@ Ext.define('XMLifeOperating.controller.GDeliverer', {
             xtype: 'gDelivererWorkTimeList',
             autoCreate: true
         }, {
-            ref: 'gDealItemsList',
-            selector: 'gDealItemsList',
-            xtype: 'gDealItemsList',
+            ref: 'gDealItemsListDeliverer',
+            selector: 'gDealItemsListDeliverer',
+            xtype: 'gDealItemsListDeliverer',
             autoCreate: true
-        },
-
-        {
+        },{
             ref: 'contentPanel',
             selector: '#contentPanel',
             xtype: 'panel'
@@ -316,7 +314,7 @@ Ext.define('XMLifeOperating.controller.GDeliverer', {
             'gDealDelivererHistoryList #dealItemsId': {
                 click: function(view, column, rowIndex, colIndex, e) {
 
-                    var tab = this.getGDealItemsList();
+                    var tab = this.getGDealItemsListDeliverer();
                     var content = this.getContentPanel();
                     content.removeAll(false);
                     var deal = view.getRecord(view.findTargetByEvent(e));
@@ -334,7 +332,7 @@ Ext.define('XMLifeOperating.controller.GDeliverer', {
 
             },
             ///返回历史订单
-            'gDealItemsList #dealDelivererHistoryListReturn': {
+            'gDealItemsListDeliverer #dealDelivererHistoryListReturn': {
                 click: function() {
                     var tab = me.getGDealDelivererHistoryList();
                     var content = this.getContentPanel();

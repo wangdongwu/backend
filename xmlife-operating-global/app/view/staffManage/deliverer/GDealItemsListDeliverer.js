@@ -1,18 +1,19 @@
-Ext.define('XMLifeOperating.view.staffManage.shopper.GDealItemsList', {
+Ext.define('XMLifeOperating.view.staffManage.deliverer.GDealItemsListDeliverer', {
     extend: 'Ext.grid.Panel',
-    id: 'gDealItemsList',
-    xtype: 'gDealItemsList',
-
+    xtype: 'gDealItemsListDeliverer',
+    id:'gDealItemsListDeliverer',
     header: false,
-
+    title: '配送员采购清单',
     store: 'DealItems',
+    
     tbar: [
         {
             xtype: 'button',
             text: '返回',
-            itemId: 'dealShopperHistoryListReturn'
+            itemId: 'dealDelivererHistoryListReturn'
         }
     ],
+
     columns: [
         {
             xtype: 'rownumberer'

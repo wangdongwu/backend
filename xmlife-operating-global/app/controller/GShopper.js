@@ -5,7 +5,7 @@ Ext.define('XMLifeOperating.controller.GShopper', {
         'staffManage.shopper.GShopperEdit',
         'staffManage.shopper.GDealShopperHistoryList',
         'staffManage.shopper.GShopperWorkTimeList',
-        'staffManage.shopper.GDealItemsList'
+        'staffManage.shopper.GDealItemsListShopper'
     ],
 
     stores: ['Shopper',
@@ -46,12 +46,12 @@ Ext.define('XMLifeOperating.controller.GShopper', {
             xtype: 'gShopperWorkTimeList',
             autoCreate: true
         },
-        /*{
-            ref: 'dealItemsList',
-            selector: 'dealItemsList',
-            xtype: 'dealItemsList',
+        {
+            ref: 'gDealItemsListShopper',
+            selector: 'gDealItemsListShopper',
+            xtype: 'gDealItemsListShopper',
             autoCreate: true
-        }*/
+        }
     ],
     init: function() {
 
@@ -329,8 +329,8 @@ Ext.define('XMLifeOperating.controller.GShopper', {
             //采购清单
             'gDealShopperHistoryList #dealItemsId': {
                 click: function(view, column, rowIndex, colIndex, e) {
-
-                    var tab = this.getGDealItemsList();
+                    alert
+                    var tab = this.getGDealItemsListShopper();
                     var content = this.getContentPanel();
                     content.removeAll(false);
 
@@ -349,7 +349,7 @@ Ext.define('XMLifeOperating.controller.GShopper', {
 
             },
             ///返回历史订单
-            'gDealItemsList #dealShopperHistoryListReturn': {
+            'gDealItemsListShopper #dealShopperHistoryListReturn': {
                 click: function() {
                     var tab = me.getGDealShopperHistoryList();
                     var content = this.getContentPanel();
