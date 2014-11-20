@@ -44,6 +44,8 @@ Ext.define('XMLifeOperating.controller.login', {
             var sessionId = localStorage.getItem('sessionId');
             if(!sessionId){
               this.getLogin().show();
+            }else{
+              this.getUserInfor();
             }
           }
         },
@@ -116,6 +118,7 @@ Ext.define('XMLifeOperating.controller.login', {
           //self.getCurrentUsername().setText(username);
           Ext.Ajax.defaultHeaders = {'auth-token' : sessionId};
           self.getNavigationStore().setRootNode({expanded:true});
+          this.getUserInfor();
       };
       
     },
@@ -198,6 +201,11 @@ Ext.define('XMLifeOperating.controller.login', {
                 }
               ]
             });
+    },
+    getUserInfor : function(){
+      sendGetRequest('admin/getInfo', null, '', '', '', function(){
+        debugger;
+      });
     }
 });
 

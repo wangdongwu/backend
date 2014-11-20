@@ -677,6 +677,7 @@ Ext.define('XMLifeOperating.controller.shopConfig', {
           picSizeTip = form.down('#picSizeTip'),
           model = view.getRecord(view.findTargetByEvent(arguments[4]));
           model.set('index',model.index);
+          this.moduleItemEdit = true;
           
           console.log(model);
           form.loadRecord(model);
