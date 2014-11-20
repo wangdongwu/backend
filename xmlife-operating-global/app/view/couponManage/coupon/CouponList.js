@@ -44,11 +44,6 @@ Ext.define('XMLifeOperating.view.couponManage.coupon.CouponList', {
             width: 100,
             sortable: true,
             align: 'left',
-            editor: {
-                allowBlank: false,
-                disabled:true,
-                readonly:false
-            },
         }, {
             text: '名称',
             dataIndex: 'name',
@@ -133,14 +128,6 @@ Ext.define('XMLifeOperating.view.couponManage.coupon.CouponList', {
         },
     ],
     viewConfig: {
-        plugins: {
-            ptype: 'gridviewdragdrop',
-            dragText: 'Drag and drop to reorder'
-        }
+        enableTextSelection : true 
     },
-    plugins: [Ext.create('Ext.grid.plugin.CellEditing', {
-        clicksToEdit: 1
-    })]
-
-
 });

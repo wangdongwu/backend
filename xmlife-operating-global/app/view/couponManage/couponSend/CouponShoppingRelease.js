@@ -25,11 +25,7 @@ Ext.define('XMLifeOperating.view.couponManage.couponSend.CouponShoppingRelease',
       dataIndex: 'id',
       width: 150,
       sortable: true,
-      align: 'left',
-      editor: {
-          allowBlank: false,
-          disabled:true
-      }
+      align: 'left'
     },
     {
       text: '名称',
@@ -139,8 +135,8 @@ Ext.define('XMLifeOperating.view.couponManage.couponSend.CouponShoppingRelease',
       }
     }
   ],
-  plugins: [Ext.create('Ext.grid.plugin.CellEditing', {
-        clicksToEdit: 1
-  })]
+  viewConfig: {
+      enableTextSelection : true 
+  },
 
 });

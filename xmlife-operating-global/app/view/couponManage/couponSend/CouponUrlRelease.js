@@ -129,7 +129,7 @@ Ext.define('XMLifeOperating.view.couponManage.couponSend.CouponUrlRelease', {
       }
     }
   ],
-  plugins: [Ext.create('Ext.grid.plugin.CellEditing', {
-        clicksToEdit: 1
-  })]
+  viewConfig: {
+      enableTextSelection : true 
+  },
 });
