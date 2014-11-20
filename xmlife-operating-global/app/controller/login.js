@@ -203,7 +203,11 @@ Ext.define('XMLifeOperating.controller.login', {
             });
     },
     getUserInfor : function(){
-      sendGetRequest('admin/getInfo', null, '', '', '', function(){
+      sendGetRequest('admin/getInfo', null, '', '', '', function(response){
+        if(response.status == 200){
+          var data = Ext.decode(response.responseText);
+          XMLifeOperating.generic.Global.currentAdminInfor = data;
+        }
       });
     }
 });

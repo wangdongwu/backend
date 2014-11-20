@@ -68,11 +68,21 @@ Ext.define('XMLifeOperating.controller.Authority', {
     ],
     init : function(){
       var self = this;
+      var shopAreaStore = self.getShopAreaStore();
+          shopAreaStore.on('load',function(){
+            var currentAdminAreaId = XMLifeOperating.generic.Global.currentAdminInfor.areaId;
+            this.insert(0,{id: 0,name: "全部"});
+            this.filter([function(v){
+              return currentAdminAreaId == 0 ? true : v.get('id') == currentAdminAreaId;
+            }])
+          });
+
       self.control({
         'GlobalAccountManage' : {
           activate : function(){
             self.loadData('Global');
             self.initGlobalAuthority();
+            self.getShopAreaStore().load();
           }
         },
         'GlobalAccountManage #addGlobalAccount' : {

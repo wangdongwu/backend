@@ -1,7 +1,7 @@
 Ext.define('XMLifeOperating.controller.shopConfig', {
     extend: 'Ext.app.Controller',
-    models: ['ShopArea','Shop','ShopConfig','shopModules','ShopModulesItem'],
-    stores: ['ShopArea','Shop','ShopConfig','ShopCopyVersion','shopModules','ShopCopyModule','ShopModulesItem','ShopUrlType',
+    models: ['ShopArea','ShopConfig','shopModules','ShopModulesItem'],
+    stores: ['ShopArea','HomePageShop','ShopConfig','ShopCopyVersion','shopModules','ShopCopyModule','ShopModulesItem','ShopUrlType',
     'HomePageShop', 'HomePageCategory', 'HomePageLeafCategory', 'HomePageProduct','HomePageFunction'],
     views: [
     'centralPointManage.shopConfig.ShopConfigManage',
@@ -213,7 +213,7 @@ Ext.define('XMLifeOperating.controller.shopConfig', {
                     params : param,
                     success : function(response){
                       if(response.responseText == 1){
-                        windows.hide();
+                        windows.destroy();
                         self.loadModuleVersionStore();
                         self.refreshPriview();
                       }
@@ -249,21 +249,16 @@ Ext.define('XMLifeOperating.controller.shopConfig', {
     getInitData : function(){
       var panel = this.getShopConfigManage(),
           shopList = panel.down('#shopList'),
-          shopStore = this.getShopStore();
+          shopStore = this.getHomePageShopStore();
 
           shopList.setValue('');
-          shopStore.clearFilter(true);
-
+          
           shopStore.load({
             params : {
               areaId : this.areaId
             }
           });
-          shopStore.on('load',function(){
-            this.filter([function(item){
-              return item.get('status') !== 0;
-            }]);
-          });
+          
           
     },
     switchShop : function(panel,shopId){
@@ -286,7 +281,7 @@ Ext.define('XMLifeOperating.controller.shopConfig', {
         sendPutRequest('shopHomepage',{layoutId:self.layoutId,version:version},'','','',function(response){
           if(response.responseText == 1){
             self.loadShopVersionStore();
-            windowView.hide();
+            windowView.destroy();
           }
         })
       }else{
@@ -297,7 +292,7 @@ Ext.define('XMLifeOperating.controller.shopConfig', {
         },
         failure : function(proxy,response){
           if(response.result == 1){
-            windowView.hide();
+            windowView.destroy();
             self.loadShopVersionStore();
           }
         }
@@ -415,14 +410,14 @@ Ext.define('XMLifeOperating.controller.shopConfig', {
         method : 'put',
         success : function(proxy,response){
           if(response.result == 1){
-            windows.hide();
+            windows.destroy();
             self.loadModuleVersionStore();
             self.refreshPriview();
           }
         },
         failure : function(proxy,response){
           if(response.result == 1){
-            windows.hide();
+            windows.destroy();
             self.loadModuleVersionStore();
             self.refreshPriview();
 
@@ -441,14 +436,14 @@ Ext.define('XMLifeOperating.controller.shopConfig', {
         },
         success : function(proxy,response){
           if (response.result == '1') {
-            windowView.hide();
+            windowView.destroy();
             self.loadModuleVersionStore();
             self.refreshPriview();
           };
         },
         failure : function(proxy,response){
           if (response.result == '1') {
-            windowView.hide();
+            windowView.destroy();
             self.loadModuleVersionStore();
             self.refreshPriview();
 
@@ -712,7 +707,7 @@ Ext.define('XMLifeOperating.controller.shopConfig', {
             
             sendPutRequest('shopHomepage/updateModuleItem',param,'','','',function(response){
               if(response.responseText == 1){
-                windows.hide();
+                windows.destroy();
                 self.loadShopModulesItem();
                 self.refreshPriview();
               }else{
@@ -727,7 +722,7 @@ Ext.define('XMLifeOperating.controller.shopConfig', {
               success : function(response){
                 if(response.responseText == 1){
                   if(response.responseText == 1){
-                      windows.hide();
+                      windows.destroy();
                       self.loadShopModulesItem();
                       self.refreshPriview();
                     }else{
@@ -896,11 +891,6 @@ Ext.define('XMLifeOperating.controller.shopConfig', {
             var store = self.getHomePageShopStore();
             store.getProxy().extraParams = {areaId: this.areaId};
             store.load();
-            store.on('load',function(){
-              this.filter([function(item){
-                 return item.get('status') !== 0;
-              }]);
-            });
 
             // 编辑时，依次触发回填
             if(record && record.get('shopId')) {
@@ -1022,7 +1012,7 @@ Ext.define('XMLifeOperating.controller.shopConfig', {
           });
           if(!self.moduleDelete){
             ShopModulesItemStore.on('load',function(){
-              this.down('#delete').hide();
+              this.down('#delete').destroy();
             },ShopModuleDetail)
         }else{
           ShopModulesItemStore.on('load',function(){

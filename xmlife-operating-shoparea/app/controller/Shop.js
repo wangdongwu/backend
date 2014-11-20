@@ -159,7 +159,12 @@ Ext.define('XMLifeOperating.controller.Shop', {
     }],
     init: function() {
         var me = this,
-            isSuccess = true;
+            isSuccess = true,
+            shopStore = this.getShopStore();
+            shopStore.on('load',function(){
+              this.clearFilter(true);
+              return ;
+            })
         this.control({
             /*
              *shoplist事件
@@ -167,7 +172,6 @@ Ext.define('XMLifeOperating.controller.Shop', {
             'shoplist #shopArea': {
                 select: function(combo) {
                     var dstore = me.getShopStore();
-                    dstore.clearFilter(true);
                     dstore.getProxy().extraParams = {
                         city: XMLifeOperating.generic.Global.currentCity,
                         areaId: combo.getValue()
@@ -179,6 +183,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
                             page: 1
                         }
                     });
+                    
                     this.areaId = combo.getValue();
                 }
             },
@@ -1970,7 +1975,6 @@ Ext.define('XMLifeOperating.controller.Shop', {
     },
     showShopList: function() {
         var dstore = this.getShopStore();
-        dstore.clearFilter(true);
         dstore.getProxy().extraParams = {
             city: XMLifeOperating.generic.Global.currentCity,
             areaId: this.areaId

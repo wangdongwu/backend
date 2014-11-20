@@ -154,7 +154,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.shopConfig.AddModuleItem', {
             xtype: 'button',
             text: '取消',
             handler: function() {
-                this.up('window').close();
+                this.up('window').destroy();
             }
         }]
     }]
