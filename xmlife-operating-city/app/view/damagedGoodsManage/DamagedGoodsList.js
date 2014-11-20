@@ -140,7 +140,19 @@ Ext.define('XMLifeOperating.view.damagedGoodsManage.DamagedGoodsList', {
       dataIndex: 'reasonCode',
       width: 100,
       sortable: false,
-      align: 'left'
+      align: 'left',
+      renderer: function(value) {
+                switch (value) {
+                    case 1:
+                        return '过期';
+                        break;
+                    case 2:
+                        return '无法退货';
+                        break;
+                    default:
+                        return '未知';
+                }
+      }
     }, {
       text: '状态',
       dataIndex: 'status',
