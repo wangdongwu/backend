@@ -60,7 +60,7 @@ Ext.define('XMLifeOperating.view.msgManage.NotifyAdd', {
                 store: Ext.create('Ext.data.Store', {
                     fields: ['value', 'type'],
                     data: [{
-                        'value': 0,
+                        'value': 1,
                         'type': '无'
                     }, {
                         'value': 2,

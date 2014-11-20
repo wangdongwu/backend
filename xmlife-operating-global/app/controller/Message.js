@@ -209,7 +209,7 @@ Ext.define('XMLifeOperating.controller.Message', {
                     }
 
                 } else {
-                    data.linkType = 0;
+                    data.linkType = 1;
                 }
             }
 
