@@ -44,7 +44,8 @@ Ext.define('XMLifeOperating.view.refundManage.DealDetailRefund', {
                                 {
                                     xtype:'displayfield',
                                     fieldLabel:'用户名',
-                                    labelWidth: 100,
+                                    labelWidth: 60,
+                                    width:150,
                                     name:'userName',
                                     style:{
                                         margin:'0 30px 0 0'
@@ -53,7 +54,7 @@ Ext.define('XMLifeOperating.view.refundManage.DealDetailRefund', {
                                 {
                                     xtype:'displayfield',
                                     fieldLabel:'用户电话',
-                                    labelWidth: 100,
+                                    labelWidth: 60,
                                     name:'userPhone',
                                     style:{
                                         color:'#ff0000'
@@ -81,7 +82,8 @@ Ext.define('XMLifeOperating.view.refundManage.DealDetailRefund', {
                                 {
                                     xtype:'displayfield',
                                     fieldLabel:'订单编号',
-                                    labelWidth: 100,
+                                    labelWidth: 60,
+                                    width:150,
                                     name:'shortId',
                                     style:{
                                         margin:'0 30px 0 0',
@@ -90,7 +92,7 @@ Ext.define('XMLifeOperating.view.refundManage.DealDetailRefund', {
                                 {
                                     xtype:'displayfield',
                                     fieldLabel:'下单时间',
-                                    labelWidth: 100,
+                                    labelWidth: 60,
                                     name:'createTime',
                                     
                                 },
@@ -116,17 +118,24 @@ Ext.define('XMLifeOperating.view.refundManage.DealDetailRefund', {
                                 {
                                     xtype:'displayfield',
                                     fieldLabel:'订单金额',
-                                    labelWidth: 100,
-                                    name:'shortId',
+                                    labelWidth: 60,
+                                    name:'dealPrice',
+                                    width:150,
                                     style:{
                                         margin:'0 30px 0 0',
+                                    },
+                                    renderer:function(v){
+                                        return v/100;
                                     }
                                 },
                                 {
                                     xtype:'displayfield',
                                     fieldLabel:'退款金额',
-                                    labelWidth: 100,
-                                    name:'createTime',
+                                    labelWidth: 60,
+                                    name:'amount',
+                                    renderer:function(v){
+                                        return v/100;
+                                    }
                                     
                                 },
                             ]
@@ -151,8 +160,9 @@ Ext.define('XMLifeOperating.view.refundManage.DealDetailRefund', {
                                 {
                                     xtype:'displayfield',
                                     fieldLabel:'收货人',
-                                    labelWidth: 100,
-                                    name:'shortId',
+                                    labelWidth: 60,
+                                    width:150,
+                                    name:'contacts',
                                     style:{
                                         margin:'0 30px 0 0',
                                     }
@@ -160,8 +170,8 @@ Ext.define('XMLifeOperating.view.refundManage.DealDetailRefund', {
                                 {
                                     xtype:'displayfield',
                                     fieldLabel:'收货电话',
-                                    labelWidth: 100,
-                                    name:'createTime',
+                                    labelWidth: 60,
+                                    name:'contactsPhone',
                                     
                                 },
                             ]
@@ -171,19 +181,21 @@ Ext.define('XMLifeOperating.view.refundManage.DealDetailRefund', {
                 },
                 {
                     xtype: 'displayfield',
-                    name: 'shortId',
+                    name: 'address',
                     fieldLabel: '收货地址',
                     allowBlank:false,
                     labelAlign:'center',
-                    margin:'0 0 0 10px'
+                    margin:'0 0 0 10px',
+                    labelWidth: 60,
                 },
                 {
                     xtype: 'displayfield',
-                    name: '对应中心',
+                    name: 'areaName',
                     fieldLabel: '对应中心',
                     allowBlank:false,
                     labelAlign:'center',
-                    margin:'0 0 0 10px'
+                    margin:'0 0 0 10px',
+                    labelWidth: 60,
                 },
 				
                 
