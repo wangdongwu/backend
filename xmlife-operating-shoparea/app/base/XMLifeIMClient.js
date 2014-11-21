@@ -37,7 +37,6 @@ rpc.XMLifeIMClient.prototype.showNotification = function(msg) {
 			if (NotificationCls.permission === "granted") {
 				var notify = new NotificationCls(title, {
 					body:  date+msgObj.content,
-
 					tag: id
 				});
 			}
@@ -63,6 +62,7 @@ rpc.XMLifeIMClient.prototype.dealWithMessage = function(msgArr) {
 	//消息操作
 	var obj = msg.getRpcJSONObject();
     var msgType = msg.getMsgType();
+
 	switch(msgType){
 		case rpc.BackendDealNotificationMessage.TYPE:
 		Ext.getCmp('moduleNavigation').fireEvent('messagePushResponse',obj.moduleId);
