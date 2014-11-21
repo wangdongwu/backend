@@ -4,6 +4,7 @@ Ext.define('XMLifeOperating.controller.HomePage', {
 	views: [
         'centralPointManage.homePage.HomePage',
         'centralPointManage.homePage.VersionAdd',
+        'centralPointManage.homePage.VersionEnable',
         'centralPointManage.homePage.ModuleAdd',
         'centralPointManage.homePage.ModuleCopy',
         'centralPointManage.homePage.ModuleDetailEdit'
@@ -25,6 +26,10 @@ Ext.define('XMLifeOperating.controller.HomePage', {
 		xtype: 'versionAdd',
 		autoCreate: true
 	}, {
+        ref: 'versionEnable',
+        xtype: 'versionEnable',
+        autoCreate: true
+    }, {
 		ref: 'moduleAdd',
 		xtype: 'moduleAdd',
 		autoCreate: true
@@ -60,7 +65,6 @@ Ext.define('XMLifeOperating.controller.HomePage', {
 						callback: function (records) {
 							if (!records || records.length == 0) return;
 							// 初始化选择启用项
-
 							var model = Ext.ComponentQuery.query('#versionList')[0].getSelectionModel();
 							model.deselectAll();
 							for (var i = 0, n = records.length; i < n; i++) {
@@ -91,8 +95,7 @@ Ext.define('XMLifeOperating.controller.HomePage', {
                             areaId: this.areaId,
                             version: version
                         }, '添加版本', '添加版本成功', '添加版本失败', function() {
-                            var store = me.getHomePageStore();
-                            store.load();
+                            me.getHomePageStore().load();
                             win.close();
                         });
                     }
@@ -122,18 +125,70 @@ Ext.define('XMLifeOperating.controller.HomePage', {
                     );
                 }
             },
-            // 启用版本
+            // 版本启用设置
             'homePage #setEnable': {
                 click: function(view, rowIndex, colIndex, column, e) {
                     var record = view.getRecord(view.findTargetByEvent(e));
-                    sendPutRequest('homepage/enable',{
-                        areaId: this.areaId,
-                        layoutId: record.get('id')
-                    }, '设置启用', '启用成功', '启用失败', function() {
-                        var store = me.getHomePageStore();
-                        store.load();
-                    });
-                    //e.stopPropagation();
+                    if(record.get('type') == 1) {
+                        // sendPutRequest('homepage/enable', values, '取消定时', '取消成功', '取消失败', function() {
+                        //     me.getHomePageStore().load();
+                        // }); 
+                    }else {
+                        var win = this.getVersionEnable();
+                        win.down('form').getForm().loadRecord(record);
+                        win.show();
+                    }
+                }
+            },
+            // 立即/定时启用切换
+            'versionEnable #timeEnable': {
+                change: function(radio) {
+                    var win = this.getVersionEnable();
+                    if(radio.getValue()){
+                        Ext.each(win.query('datefield'), function(elem, index) {
+                            elem.setVisible(true);
+                        });
+                    } else {
+                        Ext.each(win.query('datefield'), function(elem, index) {
+                            elem.setVisible(false);
+                        });
+                    }
+                }
+            },
+            // 定时时间处理
+            'versionEnable datefield': {
+                select: function(elem) {
+                    var value = elem.getValue(),
+                        selDate = Ext.Date.format(value, 'Y-m-d'),
+                        curDate = Ext.Date.format(new Date(), 'Y-m-d');
+                    // 如果选择是当天，推迟
+                    if(selDate == curDate) {
+                        value = Ext.Date.add(new Date(), Ext.Date.MINUTE, 30);
+                        elem.setValue(value);
+                    }
+                }
+            },
+            // 保存启用设置
+            'versionEnable #save': {
+                click: function() {
+                    var win = this.getVersionEnable(),
+                        form = win.down('form').getForm(),
+                        values = form.getValues(),
+                        record = form.getRecord();
+
+                    if(values.type == 1){
+                        if(!form.isValid()) return;
+                        if(values.endTime <= values.startTime){
+                            Ext.Msg.alert('错误提示', '结束时间不能小于开始时间！');
+                            return;
+                        }
+                    }
+                    values.areaId = this.areaId;
+                    values.layoutId = record.get('id');
+                    sendPutRequest('homepage/enable', values, '设置启用', '启用成功', '启用失败', function() {
+                        me.getHomePageStore().load();
+                        win.close();
+                    }); 
                 }
             },
             // 选择版本，展示大积木列表

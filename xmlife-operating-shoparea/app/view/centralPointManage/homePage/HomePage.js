@@ -50,8 +50,13 @@ Ext.define('XMLifeOperating.view.centralPointManage.homePage.HomePage', {
               dataIndex: 'enable',
               width: '18%',
               align: 'center',
-              renderer: function(value){
-                return value ? '<span style="color:green;">启用中</span>' : '<input type="button" value="启用" />'
+              renderer: function(value, meta, record, rowIndex, colIndex, store, view){
+                return value ? (record.get('type') == 1 ? '<input type="button" value="取消定时" />' : '<span style="color:green;">启用中</span>') : '<input type="button" value="启用" />'
+              },
+              listeners: {
+                click: function(view, meta, rowIndex, colIndex, e, record) {
+                  if(record.get('enable') && record.get('type') == 0) return false;
+                }
               }
           }, {
               xtype: 'actioncolumn',
