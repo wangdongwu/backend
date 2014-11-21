@@ -70,6 +70,9 @@ Ext.define('XMLifeOperating.controller.Authority', {
       var self = this;
       var shopAreaStore = self.getShopAreaStore();
           shopAreaStore.on('load',function(){
+            if(!XMLifeOperating.generic.Global.currentAdminInfor.areaId){
+              return false;
+            }
             var currentAdminAreaId = XMLifeOperating.generic.Global.currentAdminInfor.areaId;
             this.insert(0,{id: 0,name: "全部"});
             this.filter([function(v){
