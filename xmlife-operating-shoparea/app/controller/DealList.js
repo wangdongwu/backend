@@ -159,7 +159,7 @@ Ext.define('XMLifeOperating.controller.DealList', {
 
                 },
             },
-            '#dealDetail': {
+            'dealList #dealDetail': {
                 click: me.onDealDetail
             },
             'dealList #customerDetail': {
