@@ -102,7 +102,7 @@ Ext.define('XMLifeOperating.view.couponManage.couponSend.CouponSendEditShopping'
                 labelAlign: 'left',
                 emptyText: '搜索店铺',
                 name: 'keywordShop',
-                itemId: 'keywordShop',
+                itemId: 'keywordShopCouponSend',
                 style: 'margin-right:10px;'
               },
               {

@@ -84,8 +84,8 @@ Ext.define('XMLifeOperating.controller.CouponSend', {
       selector: '#shopList'
     },
     {
-      ref: 'keywordShop',
-      selector: '#keywordShop'
+      ref: 'keywordShopCouponSend',
+      selector: '#keywordShopCouponSend'
     },
     {
       ref: 'couponSendShopEditSearch',
@@ -399,7 +399,7 @@ Ext.define('XMLifeOperating.controller.CouponSend', {
   },
   onSearchShop:function(){
       var self = this;
-      var keywordShopValue = self.getKeywordShop().getValue();
+      var keywordShopValue = self.getKeywordShopCouponSend().getValue();
       if(keywordShopValue==''){
           alert('搜索为空');
           return;
@@ -413,7 +413,7 @@ Ext.define('XMLifeOperating.controller.CouponSend', {
       self.getSendSearchShopList().bindStore(store, false);
       store.load({
           params: {
-              name: self.getKeywordShop().getValue(),
+              name: keywordShopValue,
               cities: self.getCurCity().getValue()
           },
           callback:function(records){
