@@ -51,6 +51,9 @@ Ext.define('XMLifeOperating.view.staffManage.deliverer.GDealItemsListDeliverer',
             dataIndex: 'pprice',
             width: 100,
             sortable: false,
+            renderer: function(value) {
+                return value / 100;
+            },
                
         },
         {
@@ -58,6 +61,9 @@ Ext.define('XMLifeOperating.view.staffManage.deliverer.GDealItemsListDeliverer',
             dataIndex: 'fprice',
             width: 100,
             sortable: false,
+            renderer: function(value) {
+                return value / 100;
+            },
                
         },
         {
@@ -65,14 +71,19 @@ Ext.define('XMLifeOperating.view.staffManage.deliverer.GDealItemsListDeliverer',
             dataIndex: 'price',
             width: 80,
             sortable: false,
+            renderer: function(value) {
+                return value / 100;
+            },
                
         },
         {
             text: '销售总价',
-            dataIndex: 'dealPrice',
-            
+            dataIndex: 'dealPrice',   
             width: 80,
             sortable: false,
+            renderer: function(value) {
+                return value / 100;
+            },
                
         },
         {
@@ -87,6 +98,9 @@ Ext.define('XMLifeOperating.view.staffManage.deliverer.GDealItemsListDeliverer',
             dataIndex: 'returnPrice',
             width: 100,
             sortable: false,
+            renderer: function(value) {
+                return value / 100;
+            },
                
         },
         {
@@ -101,6 +115,9 @@ Ext.define('XMLifeOperating.view.staffManage.deliverer.GDealItemsListDeliverer',
             dataIndex: 'cancelPrice',
             width: 100,
             sortable: false,
+            renderer: function(value) {
+                return value / 100;
+            },
                
         },
         {
@@ -108,6 +125,9 @@ Ext.define('XMLifeOperating.view.staffManage.deliverer.GDealItemsListDeliverer',
             dataIndex: 'actualItemPrice',
             width: 100,
             sortable: false,
+            renderer: function(value) {
+                return value / 100;
+            },
                
         },
         
