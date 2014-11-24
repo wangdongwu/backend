@@ -54,29 +54,40 @@ Ext.define('XMLifeOperating.view.staffManage.shopper.DealItemsLists', {
             dataIndex: 'pprice',
             width: 100,
             sortable: true,
-            align: 'center',  
+            align: 'center',
+            renderer: function(value) {
+                return value / 100;
+            },  
         },
         {
             text: '原价',
             dataIndex: 'fprice',
             width: 100,
             sortable: true,
-            align: 'center',  
+            align: 'center',
+            renderer: function(value) {
+                return value / 100;
+            },  
         },
         {
             text: '售价',
             dataIndex: 'price',
             width: 80,
             sortable: true,
-            align: 'center',  
+            align: 'center',
+            renderer: function(value) {
+                return value / 100;
+            },  
         },
         {
             text: '销售总价',
-            dataIndex: 'dealPrice',
-            
+            dataIndex: 'dealPrice',   
             width: 80,
             sortable: true,
-            align: 'center',  
+            align: 'center',
+            renderer: function(value) {
+                return value / 100;
+            },  
         },
         {
             text: '退货数量',
@@ -90,7 +101,10 @@ Ext.define('XMLifeOperating.view.staffManage.shopper.DealItemsLists', {
             dataIndex: 'returnPrice',
             width: 100,
             sortable: true,
-            align: 'center',  
+            align: 'center',
+            renderer: function(value) {
+                return value / 100;
+            },  
         },
         {
             text: '取消数量',
@@ -104,14 +118,20 @@ Ext.define('XMLifeOperating.view.staffManage.shopper.DealItemsLists', {
             dataIndex: 'cancelPrice',
             width: 100,
             sortable: true,
-            align: 'center',  
+            align: 'center',
+            renderer: function(value) {
+                return value / 100;
+            },  
         },
         {
             text: '成交总价',
             dataIndex: 'actualItemPrice',
             width: 100,
             sortable: true,
-            align: 'center',  
+            align: 'center',
+            renderer: function(value) {
+                return value / 100;
+            },  
         },
         
         
