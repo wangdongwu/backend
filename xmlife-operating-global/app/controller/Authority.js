@@ -16,7 +16,7 @@ Ext.define('XMLifeOperating.controller.Authority', {
 		'authorityManage.AuthoritySelect'
 	],
 	models: ['Account', 'ShopArea'],
-	stores: ['Account', 'Authority', 'Province', 'ShopArea', 'AllCities', 'SupportedCity', 'ShopArea', 'Shop'],
+	stores: ['Account', 'Authority', 'Province', 'SpecialShopArea','ShopArea', 'AllCities', 'SupportedCity', 'ShopArea', 'Shop'],
 	refs: [{
 		ref: 'AuthorityTabPanel',
 		selector: 'AuthorityTabPanel',
@@ -69,8 +69,8 @@ Ext.define('XMLifeOperating.controller.Authority', {
 		var self = this;
 		self.application.on('admin/getInfo', function (data) {
 			var areaId = data.areaId;
-			var shopAreaStore = self.getShopAreaStore();
-			shopAreaStore.on('load', function () {
+			var specialShopArea = self.getSpecialShopAreaStore();
+			specialShopArea.on('load', function () {
 				this.insert(0, {
 					id: 0,
 					name: "全部"
@@ -89,7 +89,7 @@ Ext.define('XMLifeOperating.controller.Authority', {
 				activate: function () {
 					self.loadData('Global');
 					self.initGlobalAuthority();
-					self.getShopAreaStore().load();
+					self.getSpecialShopAreaStore().load();
 				}
 			},
 			'GlobalAccountManage #addGlobalAccount': {
