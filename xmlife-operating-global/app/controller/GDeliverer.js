@@ -160,14 +160,9 @@ Ext.define('XMLifeOperating.controller.GDeliverer', {
             //历史订单
             'gDelivererList #dealDelivererHistoryId': {
                 click: function(view, column, rowIndex, colIndex, e) {
-                    var tab = this.getGDealDelivererHistoryList();
-                    var content = this.getContentPanel();
-                    content.removeAll(false);
-
-                    var deliverer = view.getRecord(view.findTargetByEvent(e));
-
-                    var delivererId = deliverer.get('uid');
-                    var dealDelivererHistoryStroe = this.getDealDelivererHistoryStore();
+                    var deliverer = view.getRecord(view.findTargetByEvent(e)),
+                        delivererId = deliverer.get('uid'),
+                        dealDelivererHistoryStroe = this.getDealDelivererHistoryStore();
 
                     dealDelivererHistoryStroe.getProxy().extraParams = {
                         deliverer: delivererId,
@@ -175,7 +170,13 @@ Ext.define('XMLifeOperating.controller.GDeliverer', {
                     }
                     dealDelivererHistoryStroe.loadPage(1);
 
-                    content.add(tab);
+                    var content = this.getContentPanel(),
+                        newTab = this.getGDealDelivererHistoryList();
+
+                    content.remove(content.activeTab, false);
+                    content.add(newTab);
+                    content.setActiveTab(newTab);
+
                     this.delivererId = delivererId;
                 }
             },
@@ -227,35 +228,20 @@ Ext.define('XMLifeOperating.controller.GDeliverer', {
             //返回配送员清单
             'gDealDelivererHistoryList #delivererReturn,gDelivererWorkTimeList #delivererReturn': {
                 click: function() {
-
-                    var tab = me.getGDelivererList();
-                    /*var store = me.getdelivererStore();
-                    store.load({
-                        params: {
-                            unbind: true
-                        },
-                        callback: function() {
-                            Ext.getCmp('delivererList').down('#activeBind').setText('查看已绑定的买手');
-                            Ext.getCmp('delivererList').down('#shopArea').setValue('');
-                        }
-                    });*/
-
-                    var content = this.getContentPanel();
-                    content.removeAll(false);
-                    content.add(tab);
+                    var content = this.getContentPanel(),
+                        newTab = this.getGDelivererList();
+                        
+                    content.remove(content.activeTab, true);
+                    content.add(newTab);
+                    content.setActiveTab(newTab);
                 }
             },
             //考勤管理
             'gDelivererList #delivererWorkTimeId': {
                 click: function(view, column, rowIndex, colIndex, e) {
-
-                    var tab = this.getGDelivererWorkTimeList();
-                    var content = this.getContentPanel();
-                    content.removeAll(false);
-                    var deliverer = view.getRecord(view.findTargetByEvent(e));
-
-                    var delivererId = deliverer.get('uid');
-                    var delivererWorkTimeStore = this.getDelivererWorkTimeStore();
+                    var deliverer = view.getRecord(view.findTargetByEvent(e)),
+                        delivererId = deliverer.get('uid'),
+                        delivererWorkTimeStore = this.getDelivererWorkTimeStore();
 
                     delivererWorkTimeStore.getProxy().extraParams = {
                         deliverer: delivererId,
@@ -263,7 +249,13 @@ Ext.define('XMLifeOperating.controller.GDeliverer', {
                     }
                     delivererWorkTimeStore.loadPage(1);
 
-                    content.add(tab);
+                    var content = this.getContentPanel(),
+                        newTab = this.getGDelivererWorkTimeList();
+                        
+                    content.remove(content.activeTab, false);
+                    content.add(newTab);
+                    content.setActiveTab(newTab);
+
                     this.deliverer = delivererId;
                 }
             },
@@ -313,10 +305,6 @@ Ext.define('XMLifeOperating.controller.GDeliverer', {
             //订单详情
             'gDealDelivererHistoryList #dealItemsId': {
                 click: function(view, column, rowIndex, colIndex, e) {
-
-                    var tab = this.getGDealItemsListDeliverer();
-                    var content = this.getContentPanel();
-                    content.removeAll(false);
                     var deal = view.getRecord(view.findTargetByEvent(e));
                     var dealBackendId = deal.get('dealBackendId')
 
@@ -327,17 +315,25 @@ Ext.define('XMLifeOperating.controller.GDeliverer', {
                             dayType: 0
                         }
                     });
-                    content.add(tab);
+
+                    var content = this.getContentPanel(),
+                        newTab = this.getGDealItemsListDeliverer();
+                        
+                    content.remove(content.activeTab, false);
+                    content.add(newTab);
+                    content.setActiveTab(newTab);
                 }
 
             },
             ///返回历史订单
             'gDealItemsListDeliverer #dealDelivererHistoryListReturn': {
                 click: function() {
-                    var tab = me.getGDealDelivererHistoryList();
-                    var content = this.getContentPanel();
-                    content.removeAll(false);
-                    content.add(tab);
+                    var content = this.getContentPanel(),
+                        newTab = this.getGDealDelivererHistoryList();
+                        
+                    content.remove(content.activeTab, true);
+                    content.add(newTab);
+                    content.setActiveTab(newTab);
                 }
             },
             'gDelivererList #closeOrOpenOrder': {

@@ -1,14 +1,8 @@
-/**
- * @class SimpleTasks.view.lists.Tree
- * @extends Ext.tree.Panel
- * The task list view.  A tree that displays all of the task lists.
- */
 Ext.define('XMLifeOperating.view.staffManage.deliverer.GDealDelivererHistoryList', {
     extend: 'Ext.grid.Panel',
     xtype: 'gDealDelivererHistoryList',
-
-    title: '历史订单',
-
+    title: '配送员历史订单',
+    columnLines: true,
     store: 'DealDelivererHistory',
     dockedItems : [
       {
@@ -206,8 +200,5 @@ Ext.define('XMLifeOperating.view.staffManage.deliverer.GDealDelivererHistoryList
             ptype: 'gridviewdragdrop',
             dragText: 'Drag and drop to reorder'
         }
-    },
-    columnLines: true,
-    frame: true,
-    iconCls: 'icon-grid'
+    }
 });

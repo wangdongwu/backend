@@ -129,9 +129,7 @@ Ext.define('XMLifeOperating.view.staffManage.deliverer.GDealItemsListDeliverer',
                 return value / 100;
             },
                
-        },
-        
-        
+        }
     ],
     viewConfig: {
         plugins: {

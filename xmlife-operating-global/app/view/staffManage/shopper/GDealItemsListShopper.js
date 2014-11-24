@@ -2,7 +2,6 @@ Ext.define('XMLifeOperating.view.staffManage.shopper.GDealItemsListShopper', {
     extend: 'Ext.grid.Panel',
     id: 'gDealItemsListShopper',
     xtype: 'gDealItemsListShopper',
-
     header: false,
     title: '买手采购清单',
     store: 'DealItems',
@@ -111,11 +110,8 @@ Ext.define('XMLifeOperating.view.staffManage.shopper.GDealItemsListShopper', {
             sortable: false,
             renderer: function(value) {
                 return value / 100;
-            },
-
-        },
-
-
+            }
+        }
     ],
     viewConfig: {
         plugins: {
@@ -123,5 +119,4 @@ Ext.define('XMLifeOperating.view.staffManage.shopper.GDealItemsListShopper', {
             dragText: 'Drag and drop to reorder'
         }
     }
-
 });

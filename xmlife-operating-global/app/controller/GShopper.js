@@ -184,19 +184,21 @@ Ext.define('XMLifeOperating.controller.GShopper', {
             //历史订单
             'gShopperList #dealShopperHistoryId': {
                 click: function(view, column, rowIndex, colIndex, e) {
-                    var tab = this.getGDealShopperHistoryList();
-                    var content = this.getContentPanel();
-                    content.removeAll(false);
                     var Shopper = view.getRecord(view.findTargetByEvent(e));
                     var shopperId = Shopper.get('uid');
                     var dealShopperHistoryStroe = this.getDealShopperHistoryStore();
-
                     dealShopperHistoryStroe.getProxy().extraParams = {
                         shopper: shopperId,
                         dayType: 0
                     };
                     dealShopperHistoryStroe.loadPage(1);
-                    content.add(tab);
+
+                    var content = this.getContentPanel(),
+                        newTab = this.getGDealShopperHistoryList();
+                    content.remove(content.activeTab, false);
+                    content.add(newTab);
+                    content.setActiveTab(newTab);
+
                     this.shopperId = shopperId;
                 }
             },
@@ -245,41 +247,34 @@ Ext.define('XMLifeOperating.controller.GShopper', {
             //返回买手清单
             'gDealShopperHistoryList #shopperReturn,gShopperWorkTimeList #shopperReturn': {
                 click: function() {
-                    var tab = me.getGShopperList();
-                    /*var store = me.getShopperStore();
-                    store.load({
-                        params: {
-                            unbind: true
-                        },
-                        callback: function() {
-                            Ext.getCmp('shopperList').down('#activeBind').setText('查看已绑定的买手');
-                            Ext.getCmp('shopperList').down('#shopArea').setValue('');
-                        }
-                    });*/
+                    var content = this.getContentPanel(),
+                        newTab = this.getGShopperList();
 
-                    var content = this.getContentPanel();
-                    content.removeAll(false);
-                    content.add(tab);
+                    content.remove(content.activeTab, true);
+                    content.add(newTab);
+                    content.setActiveTab(newTab);
                 }
             },
 
             //考勤管理
             'gShopperList #shopperWorkTimeId': {
                 click: function(view, column, rowIndex, colIndex, e) {
+                    var shopper = view.getRecord(view.findTargetByEvent(e)),
+                        shopperId = shopper.get('uid'),
+                        ShopperWorkTimeStore = this.getShopperWorkTimeStore();
 
-                    var tab = this.getGShopperWorkTimeList();
-                    var content = this.getContentPanel();
-                    content.removeAll(false);
-                    var shopper = view.getRecord(view.findTargetByEvent(e));
-
-                    var shopperId = shopper.get('uid');
-                    var ShopperWorkTimeStore = this.getShopperWorkTimeStore();
                     ShopperWorkTimeStore.getProxy().extraParams = {
                         shopper: shopperId,
                         dayType: 3
                     }
                     ShopperWorkTimeStore.loadPage(1);
-                    content.add(tab);
+
+                    var content = this.getContentPanel(),
+                        newTab = this.getGShopperWorkTimeList();
+                    content.remove(content.activeTab, false);
+                    content.add(newTab);
+                    content.setActiveTab(newTab);
+
                     this.shopperId = shopperId;
                 }
             },
@@ -329,11 +324,6 @@ Ext.define('XMLifeOperating.controller.GShopper', {
             //采购清单
             'gDealShopperHistoryList #dealItemsId': {
                 click: function(view, column, rowIndex, colIndex, e) {
-                    alert
-                    var tab = this.getGDealItemsListShopper();
-                    var content = this.getContentPanel();
-                    content.removeAll(false);
-
                     var deal = view.getRecord(view.findTargetByEvent(e));
                     var dealBackendId = deal.get('dealBackendId')
 
@@ -344,17 +334,24 @@ Ext.define('XMLifeOperating.controller.GShopper', {
                             dayType: 0
                         }
                     });
-                    content.add(tab);
+
+                    var content = this.getContentPanel(),
+                        newTab = this.getGDealItemsListShopper();
+                    content.remove(content.activeTab, false);
+                    content.add(newTab);
+                    content.setActiveTab(newTab);
                 }
 
             },
             ///返回历史订单
             'gDealItemsListShopper #dealShopperHistoryListReturn': {
                 click: function() {
-                    var tab = me.getGDealShopperHistoryList();
-                    var content = this.getContentPanel();
-                    content.removeAll(false);
-                    content.add(tab);
+                    var content = this.getContentPanel(),
+                        newTab = this.getGDealShopperHistoryList();
+
+                    content.remove(content.activeTab, true);
+                    content.add(newTab);
+                    content.setActiveTab(newTab);
                 }
             },
             'gShopperList #closeOrOpenOrder': {
