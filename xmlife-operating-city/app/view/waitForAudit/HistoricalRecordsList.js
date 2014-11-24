@@ -6,7 +6,7 @@ Ext.define('XMLifeOperating.view.waitForAudit.HistoricalRecordsList', {
     store: 'HistoricalRecords',
     title: '改价审核',
    // titleAlign : 'left',
-    closable : false,
+    closable : true,
     forceFit: true,
     requires:[
             'Ext.panel.Panel',

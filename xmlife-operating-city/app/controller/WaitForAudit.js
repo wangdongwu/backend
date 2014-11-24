@@ -113,8 +113,6 @@ Ext.define('XMLifeOperating.controller.WaitForAudit', {
             //改价审核历史记录
             'waitForAuditList button[name=historicalRecords]' : {
                 click : function(){
-                    // var winStep1 = this.getHistoricalRecordsList();
-                    // winStep1.show();
                     var me = this;
                     var tab=this.getHistoricalRecordsList();
                     var content = this.getContentPanel();
@@ -133,7 +131,16 @@ Ext.define('XMLifeOperating.controller.WaitForAudit', {
                             page: 1
                         }
                     });
-                    content.add(tab);
+                    var contentItems = content.items.items;
+                    var id = 'historicalRecordsList';
+                    var isNew = true;
+                    Ext.Array.each(contentItems, function(item) {
+                      if (item.id === id) isNew = false;
+                    });
+                    if (isNew) {
+                      content.add(tab);
+                    }
+                    
                     content.setActiveTab(tab);
                 }
             },
@@ -255,8 +262,17 @@ Ext.define('XMLifeOperating.controller.WaitForAudit', {
         var tab = this.getWaitForAuditList();
         this.rendenWaitForAuditList(tab);
         var content = this.getContentPanel();
-        content.remove(this.getHistoricalRecordsList());
-        content.add(tab);
+        var historicalRecordsListTab = Ext.getCmp('historicalRecordsList');
+        content.remove(historicalRecordsListTab);
+        var contentItems = content.items.items;
+        var id = 'waitForAuditList';
+        var isNew = true;
+        Ext.Array.each(contentItems, function(item) {
+          if (item.id === id) isNew = false;
+        });
+        if (isNew) {
+          content.add(tab);
+        }
         content.setActiveTab(tab);
     },
     onShow: function() {
