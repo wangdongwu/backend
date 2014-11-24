@@ -1,7 +1,7 @@
 Ext.define('XMLifeOperating.controller.HomePage', {
-	extend: 'Ext.app.Controller',
+    extend: 'Ext.app.Controller',
 
-	views: [
+    views: [
         'centralPointManage.homePage.HomePage',
         'centralPointManage.homePage.VersionAdd',
         'centralPointManage.homePage.VersionEnable',
@@ -15,67 +15,67 @@ Ext.define('XMLifeOperating.controller.HomePage', {
         'HomePageUrlType', 'HomePageShop', 'HomePageCategory', 'HomePageLeafCategory', 'HomePageProduct', 'HomePageFunction'
     ],
 
-	models: ['HomePage'],
+    models: ['HomePage'],
 
-	refs: [{
-		ref: 'homePage',
-		selector: 'homePage',
-		autoCreate: true
-	}, {
-		ref: 'versionAdd',
-		xtype: 'versionAdd',
-		autoCreate: true
-	}, {
+    refs: [{
+        ref: 'homePage',
+        selector: 'homePage',
+        autoCreate: true
+    }, {
+        ref: 'versionAdd',
+        xtype: 'versionAdd',
+        autoCreate: true
+    }, {
         ref: 'versionEnable',
         xtype: 'versionEnable',
         autoCreate: true
     }, {
-		ref: 'moduleAdd',
-		xtype: 'moduleAdd',
-		autoCreate: true
-	}, {
-		ref: 'moduleCopy',
-		xtype: 'moduleCopy',
-		autoCreate: true
-	}, {
-		ref: 'moduleDetailEdit',
-		xtype: 'moduleDetailEdit',
-		autoCreate: true
-	}],
+        ref: 'moduleAdd',
+        xtype: 'moduleAdd',
+        autoCreate: true
+    }, {
+        ref: 'moduleCopy',
+        xtype: 'moduleCopy',
+        autoCreate: true
+    }, {
+        ref: 'moduleDetailEdit',
+        xtype: 'moduleDetailEdit',
+        autoCreate: true
+    }],
 
-	init: function () {
-		var me = this;
-		this.layoutId = '';
-		this.moduleId = '';
-		this.moduleType = '';
+    init: function () {
+        var me = this;
+        this.layoutId = '';
+        this.moduleId = '';
+        this.moduleType = '';
 
-		this.control({
-			// 加载版本列表，并自动选择
-			'homePage': {
-				onShowView: function () {
-					this.areaId = XMLifeOperating.generic.Global.current_operating;
+        this.control({
+            // 加载版本列表，并自动选择
+            'homePage': {
+                onShowView: function () {
+                    this.areaId = XMLifeOperating.generic.Global.current_operating;
 
-					this.refreshView('all');
+                    this.refreshView('all');
 
-					var store = this.getHomePageStore();
-					store.getProxy().extraParams = {
-						areaId: this.areaId
-					};
-					store.load({
-						callback: function (records) {
-							if (!records || records.length == 0) return;
-							// 初始化选择启用项
-							var model = Ext.ComponentQuery.query('#versionList')[0].getSelectionModel();
-							model.deselectAll();
-							for (var i = 0, n = records.length; i < n; i++) {
-								if (records[i].get('enable') == true) {
-									model.select(i, true);
-								}
-							}
-						}
-					});
-				}
-			},
+                    var store = this.getHomePageStore();
+                    store.getProxy().extraParams = {
+                        areaId: this.areaId
+                    };
+                    store.load({
+                        callback: function (records) {
+                            if (!records || records.length === 0) return;
+                            // 初始化选择启用项
+                            var model = Ext.ComponentQuery.query('#versionList')[0].getSelectionModel();
+                            model.deselectAll();
+                            for (var i = 0, n = records.length; i < n; i++) {
+                                if (records[i].get('enable') === true) {
+                                    model.select(i, true);
+                                }
+                            }
+                        }
+                    });
+                }
+            },
             // 添加版本
             'homePage #addVersion': {
                 click: function() {
@@ -87,7 +87,7 @@ Ext.define('XMLifeOperating.controller.HomePage', {
             'versionAdd #save': {
                 click: function() {
                     var win = this.getVersionAdd(),
-                        form = win.down('form').getForm();
+                        form = win.down('form').getForm(),
                         version = win.down('#version').getValue();
 
                     if (form.isValid()) {
@@ -194,7 +194,7 @@ Ext.define('XMLifeOperating.controller.HomePage', {
             // 选择版本，展示大积木列表
             'homePage #versionList': {
                 selectionchange: function(model, selected) {
-                    if(selected.length == 0) return;
+                    if(selected.length === 0) return;
                     var record = selected[0].data;
                     //保存当前版本id
                     this.layoutId = record.id;
@@ -202,7 +202,7 @@ Ext.define('XMLifeOperating.controller.HomePage', {
                     var store = this.getHomePageModuleListStore();
                     store.getProxy().extraParams = {
                         layoutId: this.layoutId
-                    }
+                    };
                     store.load();
                     this.refreshView('detail','preview');
                     //灰掉新建小积木
@@ -223,7 +223,7 @@ Ext.define('XMLifeOperating.controller.HomePage', {
             // 大积木选择, 展示详情
             'homePage #moduleList': {
                 selectionchange: function(model, selected) {
-                    if(selected.length == 0) return;
+                    if(selected.length === 0) return;
                     
                     //保存当前大积木全局属性
                     var record = selected[0].data;
@@ -238,7 +238,7 @@ Ext.define('XMLifeOperating.controller.HomePage', {
                     var store = this.getHomePageModuleDetailStore();
                     store.getProxy().extraParams = {
                         moduleId: this.moduleId
-                    }
+                    };
                     store.load();
                 },
                 edit: function(editor, e) {
@@ -256,14 +256,14 @@ Ext.define('XMLifeOperating.controller.HomePage', {
             // 大积木排序
             'homePage #moduleList dataview': {
                 beforedrop: function(node, data, dropRec, dropPosition) {
-                    if(dropRec.index == 0 || data.records[0].type == 'TYPE0') return false;
+                    if(dropRec.index === 0 || data.records[0].type == 'TYPE0') return false;
                 },
                 drop: function(node, data, dropRec, dropPosition) {
                     var store = this.getHomePageModuleListStore();
                     var moduleIds = [];
                     for(var i=0, n=store.totalCount; i<n; i++){
                         var record = store.getAt(i);
-                        record.set('order',i)
+                        record.set('order',i);
                         moduleIds.push(record.get('id'));
                     }
                     sendPutRequest('homepage/setOrder',{
@@ -603,8 +603,8 @@ Ext.define('XMLifeOperating.controller.HomePage', {
                 }
 
             }
-		});
-	},
+        });
+    },
     // 中心、版本切换时，刷新视图
     refreshView: function(target,view){
         if(target == 'all' || target == 'list') {
@@ -634,12 +634,12 @@ Ext.define('XMLifeOperating.controller.HomePage', {
             'TYPE5': ['240x228','480x228'],
             'TYPE6': ['676x180'],
             'TYPE7': ['326x180','326x180']
-        }
+        };
         return sizes[type][index];
     },
     // 渲染预览首页
     renderHomePage: function(records) {
-        if(!records || records.length == 0) return;
+        if(!records || records.length === 0) return;
         
         var res_url = XMLifeOperating.generic.Global.URL.res + '/image/id-',
             html = '';
@@ -653,7 +653,11 @@ Ext.define('XMLifeOperating.controller.HomePage', {
         for (var i = 0, n = records.length; i < n; i++) {
             var data = records[i].data,
                 type = data.type,
-                items = data.items;
+                items = data.items,
+                str = '',
+                titles = '',
+                j = 0,
+                m = 0;
 
             if(!(items && items.length) && type != 'TYPE8' && type != 'TYPE9'){
                 Ext.Msg.alert('提示信息','模块 “'+ data.name +'“ 缺少图片，暂无法预览！');
@@ -666,72 +670,72 @@ Ext.define('XMLifeOperating.controller.HomePage', {
                     break;
 
                 case 'TYPE1':
-                    var str = '<ul class="x-clear" style="'+ wrapCss + (i>1? borderT:'') +'">';
-                    for (var j=0, m=items.length; j<m; j++) {
-                        var titles = j==0? '<div style="position:absolute;top:0;left:20px;"><p style="font-size:14px;color:green;">'+ items[j].titles[0]+'</p><p style="margin-left:-10px;font-size:10px;-webkit-transform:scale(0.8);color:#999;">'+ items[j].titles[1]+'</p><p style="font-size:12px;color:#F86125;">'+ items[j].titles[2]+'</p></div>' : '';
-                        str += '<li style="float:left;position:relative;width:'+ (j==0? '50%':'25%') +';border:1px solid #fff;'+ (j==1? borderR+borderB:'') + (j==2? borderB:'') + (j==3? borderR:'') + '">'+ titles + (items[j].url ? '<a href="'+ items[j].url +'" target="_blank">' : '') +'<img src="'+ res_url + items[j].image +'" width="100%" />'+ (items[j].url ? '</a>' : '') +'</li>';
+                    str = '<ul class="x-clear" style="'+ wrapCss + (i>1? borderT:'') +'">';
+                    for (j=0, m=items.length; j<m; j++) {
+                        titles = j===0? '<div style="position:absolute;top:0;left:20px;"><p style="font-size:14px;color:green;">'+ items[j].titles[0]+'</p><p style="margin-left:-10px;font-size:10px;-webkit-transform:scale(0.8);color:#999;">'+ items[j].titles[1]+'</p><p style="font-size:12px;color:#F86125;">'+ items[j].titles[2]+'</p></div>' : '';
+                        str += '<li style="float:left;position:relative;width:'+ (j===0? '50%':'25%') +';border:1px solid #fff;'+ (j==1? borderR+borderB:'') + (j==2? borderB:'') + (j==3? borderR:'') + '">'+ titles + (items[j].url ? '<a href="'+ items[j].url +'" target="_blank">' : '') +'<img src="'+ res_url + items[j].image +'" width="100%" />'+ (items[j].url ? '</a>' : '') +'</li>';
                     }
-                    str += '</ul>'
+                    str += '</ul>';
                     html += str;
                     break;
 
                 case 'TYPE2':
-                    var str = '<ul class="x-clear" style="'+ wrapCss + (i>1? borderT:'') +'">';
-                    for (var j=0, m=items.length; j<m; j++) {
-                        var titles = j==0? '<div style="position:absolute;top:0;left:20px;"><p style="font-size:14px;color:green;">'+ items[j].titles[0]+'</p><p style="margin-left:-10px;font-size:10px;-webkit-transform:scale(0.8);color:#999;">'+ items[j].titles[1]+'</p><p style="font-size:12px;color:#F86125;">'+ items[j].titles[2]+'</p></div>' : '';
-                        str += '<li style="float:left;position:relative;width:'+ (j==0? '50%':'50%') +';border:1px solid #fff;'+ (j==1? borderB:'') + '">'+ titles + (items[j].url ? '<a href="'+ items[j].url +'" target="_blank">' : '') +'<img src="'+ res_url + items[j].image +'" width="100%" />'+ (items[j].url ? '</a>' : '') +'</li>';
+                    str = '<ul class="x-clear" style="'+ wrapCss + (i>1? borderT:'') +'">';
+                    for (j=0, m=items.length; j<m; j++) {
+                        titles = j===0? '<div style="position:absolute;top:0;left:20px;"><p style="font-size:14px;color:green;">'+ items[j].titles[0]+'</p><p style="margin-left:-10px;font-size:10px;-webkit-transform:scale(0.8);color:#999;">'+ items[j].titles[1]+'</p><p style="font-size:12px;color:#F86125;">'+ items[j].titles[2]+'</p></div>' : '';
+                        str += '<li style="float:left;position:relative;width:'+ (j===0? '50%':'50%') +';border:1px solid #fff;'+ (j===1? borderB:'') + '">'+ titles + (items[j].url ? '<a href="'+ items[j].url +'" target="_blank">' : '') +'<img src="'+ res_url + items[j].image +'" width="100%" />'+ (items[j].url ? '</a>' : '') +'</li>';
                     }
-                    str += '</ul>'
+                    str += '</ul>';
                     html += str;
                     break;
 
                 case 'TYPE3':
-                    var str = '<ul class="x-clear" style="'+ wrapCss + (i>1? borderT:'') +'">';
-                    for (var j=0, m=items.length; j<m; j++) {
-                        //var titles = j==0? '<div style="position:absolute;top:0;left:20px;"><p style="font-size:14px;color:green;">'+ items[j].titles[0]+'</p><p style="font-size:10px;-webkit-transform:scale(0.8);color:#999;">'+ items[j].titles[1]+'</p><p style="font-size:12px;color:#F86125;">'+ items[j].titles[2]+'</p></div>' : '';
-                        str += '<li style="float:left;position:relative;width:'+ (j==0? '33%':'33%') +';border:1px solid #fff;'+ (j==0 || j==1? borderR:'') + '">'+ (items[j].url ? '<a href="'+ items[j].url +'" target="_blank">' : '') +'<img src="'+ res_url + items[j].image +'" width="100%" />'+ (items[j].url ? '</a>' : '') +'</li>';
+                    str = '<ul class="x-clear" style="'+ wrapCss + (i>1? borderT:'') +'">';
+                    for (j=0, m=items.length; j<m; j++) {
+                        //titles = j==0? '<div style="position:absolute;top:0;left:20px;"><p style="font-size:14px;color:green;">'+ items[j].titles[0]+'</p><p style="font-size:10px;-webkit-transform:scale(0.8);color:#999;">'+ items[j].titles[1]+'</p><p style="font-size:12px;color:#F86125;">'+ items[j].titles[2]+'</p></div>' : '';
+                        str += '<li style="float:left;position:relative;width:'+ (j===0? '33%':'33%') +';border:1px solid #fff;'+ (j===0 || j==1? borderR:'') + '">'+ (items[j].url ? '<a href="'+ items[j].url +'" target="_blank">' : '') +'<img src="'+ res_url + items[j].image +'" width="100%" />'+ (items[j].url ? '</a>' : '') +'</li>';
                     }
-                    str += '</ul>'
+                    str += '</ul>';
                     html += str;
                     break;
 
                 case 'TYPE4':
-                    var str = '<ul class="x-clear" style="'+ wrapCss + (i>1? borderT:'') +'">';
-                    for (var j=0, m=items.length; j<m; j++) {
-                        //var titles = j==0? '<div style="position:absolute;top:0;left:20px;"><p style="font-size:14px;color:green;">'+ items[j].titles[0]+'</p><p style="font-size:10px;-webkit-transform:scale(0.8);color:#999;">'+ items[j].titles[1]+'</p><p style="font-size:12px;color:#F86125;">'+ items[j].titles[2]+'</p></div>' : '';
-                        str += '<li style="float:left;position:relative;width:'+ (j==0? '66%':'33%') +';border:1px solid #fff;'+ (j==0? borderR:'') + '">'+ (items[j].url ? '<a href="'+ items[j].url +'" target="_blank">' : '') +'<img src="'+ res_url + items[j].image +'" width="100%" />'+ (items[j].url ? '</a>' : '') +'</li>';
+                    str = '<ul class="x-clear" style="'+ wrapCss + (i>1? borderT:'') +'">';
+                    for (j=0, m=items.length; j<m; j++) {
+                        //titles = j==0? '<div style="position:absolute;top:0;left:20px;"><p style="font-size:14px;color:green;">'+ items[j].titles[0]+'</p><p style="font-size:10px;-webkit-transform:scale(0.8);color:#999;">'+ items[j].titles[1]+'</p><p style="font-size:12px;color:#F86125;">'+ items[j].titles[2]+'</p></div>' : '';
+                        str += '<li style="float:left;position:relative;width:'+ (j===0? '66%':'33%') +';border:1px solid #fff;'+ (j===0? borderR:'') + '">'+ (items[j].url ? '<a href="'+ items[j].url +'" target="_blank">' : '') +'<img src="'+ res_url + items[j].image +'" width="100%" />'+ (items[j].url ? '</a>' : '') +'</li>';
                     }
-                    str += '</ul>'
+                    str += '</ul>';
                     html += str;
                     break;
 
                 case 'TYPE5':
-                    var str = '<ul class="x-clear" style="'+ wrapCss + (i>1? borderT:'') +'">';
-                    for (var j=0, m=items.length; j<m; j++) {
-                        //var titles = j==0? '<div style="position:absolute;top:0;left:20px;"><p style="font-size:14px;color:green;">'+ items[j].titles[0]+'</p><p style="font-size:10px;-webkit-transform:scale(0.8);color:#999;">'+ items[j].titles[1]+'</p><p style="font-size:12px;color:#F86125;">'+ items[j].titles[2]+'</p></div>' : '';
-                        str += '<li style="float:left;position:relative;width:'+ (j==0? '33%':'66%') +';border:1px solid #fff;'+ (j==0? borderR:'') + '">'+ (items[j].url ? '<a href="'+ items[j].url +'" target="_blank">' : '') +'<img src="'+ res_url + items[j].image +'" width="100%" />'+ (items[j].url ? '</a>' : '') +'</li>';
+                    str = '<ul class="x-clear" style="'+ wrapCss + (i>1? borderT:'') +'">';
+                    for (j=0, m=items.length; j<m; j++) {
+                        //titles = j==0? '<div style="position:absolute;top:0;left:20px;"><p style="font-size:14px;color:green;">'+ items[j].titles[0]+'</p><p style="font-size:10px;-webkit-transform:scale(0.8);color:#999;">'+ items[j].titles[1]+'</p><p style="font-size:12px;color:#F86125;">'+ items[j].titles[2]+'</p></div>' : '';
+                        str += '<li style="float:left;position:relative;width:'+ (j===0? '33%':'66%') +';border:1px solid #fff;'+ (j===0? borderR:'') + '">'+ (items[j].url ? '<a href="'+ items[j].url +'" target="_blank">' : '') +'<img src="'+ res_url + items[j].image +'" width="100%" />'+ (items[j].url ? '</a>' : '') +'</li>';
                     }
-                    str += '</ul>'
+                    str += '</ul>';
                     html += str;
                     break;
 
                 case 'TYPE6':
-                    var str = '<ul class="x-clear" style="'+ wrapCss + (i>1? borderT:'') +'">';
-                    for (var j=0, m=items.length; j<m; j++) {
+                    str = '<ul class="x-clear" style="'+ wrapCss + (i>1? borderT:'') +'">';
+                    for (j=0, m=items.length; j<m; j++) {
                         //var titles = j==0? '<div style="position:absolute;top:0;left:20px;"><p style="font-size:14px;color:green;">'+ items[j].titles[0]+'</p><p style="font-size:10px;-webkit-transform:scale(0.8);color:#999;">'+ items[j].titles[1]+'</p><p style="font-size:12px;color:#F86125;">'+ items[j].titles[2]+'</p></div>' : '';
-                        str += '<li style="float:left;position:relative;width:'+ (j==0? '100%':'100%') +';border:1px solid #fff;'+ (j==0? borderR:'') + '">'+ (items[j].url ? '<a href="'+ items[j].url +'" target="_blank">' : '') +'<img src="'+ res_url + items[j].image +'" width="100%" />'+ (items[j].url ? '</a>' : '') +'</li>';
+                        str += '<li style="float:left;position:relative;width:'+ (j===0? '100%':'100%') +';border:1px solid #fff;'+ (j===0? borderR:'') + '">'+ (items[j].url ? '<a href="'+ items[j].url +'" target="_blank">' : '') +'<img src="'+ res_url + items[j].image +'" width="100%" />'+ (items[j].url ? '</a>' : '') +'</li>';
                     }
-                    str += '</ul>'
+                    str += '</ul>';
                     html += str;
                     break;
 
                 case 'TYPE7':
-                    var str = '<ul class="x-clear" style="'+ wrapCss + '">';
-                    for (var j=0, m=items.length; j<m; j++) {
-                        //var titles = j==0? '<div style="position:absolute;top:0;left:20px;"><p style="font-size:14px;color:green;">'+ items[j].titles[0]+'</p><p style="font-size:10px;-webkit-transform:scale(0.8);color:#999;">'+ items[j].titles[1]+'</p><p style="font-size:12px;color:#F86125;">'+ items[j].titles[2]+'</p></div>' : '';
-                        str += '<li style="float:left;position:relative;width:'+ (j==0? '49%':'49%') +';border:1px solid #fff;'+ (j==0? 'margin-right:2%;':'') + '">'+ (items[j].url ? '<a href="'+ items[j].url +'" target="_blank">' : '') +'<img src="'+ res_url + items[j].image +'" width="100%" />'+ (items[j].url ? '</a>' : '') +'</li>';
+                    str = '<ul class="x-clear" style="'+ wrapCss + '">';
+                    for (j=0, m=items.length; j<m; j++) {
+                        //titles = j==0? '<div style="position:absolute;top:0;left:20px;"><p style="font-size:14px;color:green;">'+ items[j].titles[0]+'</p><p style="font-size:10px;-webkit-transform:scale(0.8);color:#999;">'+ items[j].titles[1]+'</p><p style="font-size:12px;color:#F86125;">'+ items[j].titles[2]+'</p></div>' : '';
+                        str += '<li style="float:left;position:relative;width:'+ (j===0? '49%':'49%') +';border:1px solid #fff;'+ (j===0? 'margin-right:2%;':'') + '">'+ (items[j].url ? '<a href="'+ items[j].url +'" target="_blank">' : '') +'<img src="'+ res_url + items[j].image +'" width="100%" />'+ (items[j].url ? '</a>' : '') +'</li>';
                     }
-                    str += '</ul>'
+                    str += '</ul>';
                     html += str;
                     break;
 
