@@ -179,7 +179,7 @@ Ext.define('XMLifeOperating.view.couponManage.couponSend.CouponSendEditShopping'
                 emptyText: '开始时间',
                 //maxValue: new Date(),
                 value: new Date(),
-                format: 'Y-m-d',
+                format: 'Y-m-d H:i:s',
                 allowBlank:false,
                 width:100
               },
@@ -193,7 +193,7 @@ Ext.define('XMLifeOperating.view.couponManage.couponSend.CouponSendEditShopping'
                 name: 'endTime',
                 emptyText: '结束时间',
                 width:100,
-                format: 'Y-m-d',
+                format: 'Y-m-d H:i:s',
                 allowBlank:false
               }
             ]
