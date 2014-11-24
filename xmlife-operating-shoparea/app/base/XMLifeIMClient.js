@@ -55,10 +55,10 @@ rpc.XMLifeIMClient.prototype.dealWithMessage = function(msgArr) {
 	}
 	this.sendReceived(msgIdArr);
      //消息提示
-	for (var i = 0; i < len; i++) {
+/*	for (var i = 0; i < len; i++) {
 		var msg = msgArr[i];
 		this.showNotification(msg);
-	}
+	}*/
 	//消息操作
 	var obj = msg.getRpcJSONObject();
     var msgType = msg.getMsgType();
