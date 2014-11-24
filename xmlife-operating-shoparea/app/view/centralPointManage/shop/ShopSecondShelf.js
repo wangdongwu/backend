@@ -44,6 +44,7 @@
             icon: 'resources/images/delete.png',
             tooltip: 'Delete',
             itemId: 'delete',
+            tdCls: 'user-td',
     } ,{
          text: '状态',
          dataIndex: 'status',
