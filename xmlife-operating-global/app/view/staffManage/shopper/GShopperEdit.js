@@ -1,7 +1,6 @@
 Ext.define('XMLifeOperating.view.staffManage.shopper.GShopperEdit', {
     extend: 'Ext.window.Window',
     xtype: 'gShopperEdit',
-    
     requires: [
         'Ext.form.Panel',
         'Ext.form.field.Text',
@@ -11,7 +10,7 @@ Ext.define('XMLifeOperating.view.staffManage.shopper.GShopperEdit', {
     closeAction: 'hide',
     modal: true,
     width: 450,
-    height: 550,
+    height: 350,
     resizable: false,
     layout: 'fit',
 
@@ -175,19 +174,15 @@ Ext.define('XMLifeOperating.view.staffManage.shopper.GShopperEdit', {
                 },
                 
             ],
-            buttons: [
-                {
-                    text: 'Save',
-                    itemId: 'save-shopper-edit-btn'
-                },
-                {
-                    text: 'Cancel',
-                    handler:function(){
-                        //关闭窗口
-                        Ext.ComponentQuery.query('gShopperEdit')[0].close();
-                    }
+            buttons: [{
+                text: '保存',
+                itemId: 'save-shopper-edit-btn'
+            },{
+                text: '取消',
+                handler:function(){
+                    this.up('window').close();
                 }
-            ]
+            }]
         }]
 
         this.callParent(arguments);

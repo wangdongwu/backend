@@ -1,7 +1,6 @@
 Ext.define('XMLifeOperating.view.staffManage.deliverer.GDelivererEdit', {
     extend: 'Ext.window.Window',
-    xtype: 'gDelivererEdit',
-    
+    xtype: 'gDelivererEdit',  
     requires: [
         'Ext.form.Panel',
         'Ext.form.field.Text',
@@ -11,7 +10,7 @@ Ext.define('XMLifeOperating.view.staffManage.deliverer.GDelivererEdit', {
     closeAction: 'hide',
     modal: true,
     width: 450,
-    height: 550,
+    height: 350,
     resizable: false,
     layout: 'fit',
     
@@ -163,24 +162,18 @@ Ext.define('XMLifeOperating.view.staffManage.deliverer.GDelivererEdit', {
                 },
                 
             ],
-            buttons: [
-                {
-                    text: 'Save',
-                    itemId: 'save-deliverer-edit-btn'
-                },
-                {
-                    text: 'Cancel',
-                    handler:function(){
-                        //关闭窗口
-                        Ext.ComponentQuery.query('gDelivererEdit')[0].close();
-                    }
+            buttons: [{
+                text: '保存',
+                itemId: 'save-deliverer-edit-btn'
+            },{
+                text: '取消',
+                handler:function(){
+                    this.up('window').close();
                 }
-            ]
+            }]
         }]
 
         this.callParent(arguments);
-
     }
-
-        
+    
 });

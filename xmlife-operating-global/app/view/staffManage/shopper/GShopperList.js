@@ -80,13 +80,13 @@ Ext.define('XMLifeOperating.view.staffManage.shopper.GShopperList', {
         {
             text: 'uid',
             dataIndex: 'uid',
-            width: 100,
+            width: 50,
             sortable: true,
             align: 'left'
         }, {
             text: '姓名',
             dataIndex: 'name',
-            width: 100,
+            width: 80,
             sortable: false,
             align: 'left',
         }, {
@@ -100,7 +100,7 @@ Ext.define('XMLifeOperating.view.staffManage.shopper.GShopperList', {
         {
             text: '电话',
             dataIndex: 'phone',
-            width: 100,
+            width: 105,
             sortable: false,
             align: 'left',
         }, 
@@ -114,7 +114,7 @@ Ext.define('XMLifeOperating.view.staffManage.shopper.GShopperList', {
         {
             text: '服务商铺',
             dataIndex: 'shopNames',
-            width: 100,
+            width: 150,
             sortable: false,
             align: 'left',
             renderer: function(value) {
@@ -145,78 +145,78 @@ Ext.define('XMLifeOperating.view.staffManage.shopper.GShopperList', {
         }, {
             text: '订单数',
             dataIndex: 'deals',
-            width: 50,
+            width: 55,
             sortable: false,
-            align: 'left'
+            align: 'center'
         }, {
             text: '退单数',
             dataIndex: 'returnDealNum',
-            width: 50,
+            width: 55,
             sortable: false,
-            align: 'left'
+            align: 'center'
         }, {
             text: '好评数',
             dataIndex: 'goods',
-            width: 50,
+            width: 55,
             sortable: false,
-            align: 'left'
+            align: 'center'
         }, {
             text: '中评数',
             dataIndex: 'mediums',
-            width: 50,
+            width: 55,
             sortable: false,
-            align: 'left'
+            align: 'center'
         }, {
             text: '差评数',
             dataIndex: 'bads',
-            width: 50,
+            width: 55,
             sortable: false,
-            align: 'left'
+            align: 'center'
+        }, 
+        {
+            header: "考勤管理",
+            align: 'center',
+            width: 80,
+            itemId: 'shopperWorkTimeId',
+            menuDisabled: true,
+            sortable: false,
+            renderer: function(value, metadata, model, rowIndex, colIndex, store) {
+                var seeBtn = '<span style="color:green;cursor:pointer;">查看</span>';
+                return seeBtn;
+            }
+        }, {
+            header: "历史订单",
+            align: 'center',
+            width: 80,
+            itemId: 'dealShopperHistoryId',
+            menuDisabled: true,
+            sortable: false,
+            renderer: function(value, metadata, model, rowIndex, colIndex, store) {
+
+                var seeBtn = '<span style="color:green;cursor:pointer;">查看</span>';
+                return seeBtn;
+            }
         }, 
         {
             xtype: 'actioncolumn',
-            width: 24,
+            header: "编辑",
+            align: 'center',
+            width: 40,
             icon: 'resources/images/edit.png',
             tooltip: 'Edit',
             menuDisabled: true,
             sortable: false,
             itemId: 'editShopperId',
             hidden:(XMLifeOperating.generic.Global.operating_type == 'center')
-        }, 
-        {
-            header: "考勤管理",
-            width: 90,
-            itemId: 'shopperWorkTimeId',
-            menuDisabled: true,
-            sortable: false,
-             
-
-            renderer: function(value, metadata, model, rowIndex, colIndex, store) {
-
-                var seeBtn = '<span style="cursor:pointer">查看</span>';
-                return seeBtn;
-            }
-        }, {
-            header: "历史订单",
-            width: 90,
-            itemId: 'dealShopperHistoryId',
-            menuDisabled: true,
-            sortable: false,
-             
-            renderer: function(value, metadata, model, rowIndex, colIndex, store) {
-
-                var seeBtn = '<span style="cursor:pointer">查看</span>';
-                return seeBtn;
-            }
         },
         {
-            header:"",
-            width: 90,
+            header:"操作",
+            align: 'center',
+            width: 70,
             dataIndex: 'isActive',
             itemId: 'closeOrOpenOrder',
             menuDisabled: true,
             sortable: false,
-             
             renderer : function(value) {
                 var str='';
                 if(value==true){
@@ -226,9 +226,7 @@ Ext.define('XMLifeOperating.view.staffManage.shopper.GShopperList', {
                 }
                 return str;
             } 
-        },
-
-
+        }
     ],
     viewConfig: {
         plugins: {
@@ -249,6 +247,6 @@ Ext.define('XMLifeOperating.view.staffManage.shopper.GShopperList', {
             combo.setValue(XMLifeOperating.generic.Global.current_operating);
             combo.fireEvent('select', combo);
         }
-    },
+    }
 
 });

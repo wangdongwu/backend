@@ -1,17 +1,10 @@
-/**
- * @class SimpleTasks.view.lists.Tree
- * @extends Ext.tree.Panel
- * The task list view.  A tree that displays all of the task lists.
- */
 Ext.define('XMLifeOperating.view.staffManage.deliverer.GDelivererWorkTimeList', {
     extend: 'Ext.grid.Panel',
     xtype: 'gDelivererWorkTimeList',
-
-    title: '考勤管理',
-
+    title: '配送员考勤管理',
+    columnLines: true,
     store: 'DelivererWorkTime',
-    dockedItems : [
-      {
+    dockedItems: [{
       xtype : 'pagingtoolbar',
       itemId : 'pagetoll',
       store : 'DelivererWorkTime',
@@ -19,9 +12,8 @@ Ext.define('XMLifeOperating.view.staffManage.deliverer.GDelivererWorkTimeList', 
       displayInfo : true/*,
       items : ['->'],   
       prependButtons: true*/
-    }
-    ],
-   tbar: [
+    }],
+    tbar: [
         {
             xtype: 'button',
             text: '返回',
@@ -154,8 +146,6 @@ Ext.define('XMLifeOperating.view.staffManage.deliverer.GDelivererWorkTimeList', 
             ptype: 'gridviewdragdrop',
             dragText: 'Drag and drop to reorder'
         }
-    },
-    columnLines: true,
-    frame: true,
-    iconCls: 'icon-grid'
+    }
+    
 });
