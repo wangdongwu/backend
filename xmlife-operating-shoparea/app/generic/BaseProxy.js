@@ -74,12 +74,14 @@ Ext.define('XMLifeOperating.generic.BaseProxy', {
 //Ext.Ajax.cors = true;
 function requestException(response){
   var responseText = response.responseText,
-
-      errorObj = {},
-      title = '',
-      msg = '';
-
+      errorObj = {};
   if(response.status == 401){
+      localStorage.removeItem('sessionId');
+      localStorage.removeItem('username');
+      Ext.Msg.alert('提示', '用户名或者密码错误');
+      return false;
+    }
+    if(response.status == 403){
       localStorage.removeItem('sessionId');
       localStorage.removeItem('username');
       Ext.Msg.alert('提示', 'session失效或者没有登录');

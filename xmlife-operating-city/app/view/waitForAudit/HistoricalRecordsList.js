@@ -4,9 +4,9 @@ Ext.define('XMLifeOperating.view.waitForAudit.HistoricalRecordsList', {
     xtype: 'historicalRecordsList',
     autoScroll: true,
     store: 'HistoricalRecords',
-    title: '改价审核',
+    title: '审核历史记录',
    // titleAlign : 'left',
-    closable : false,
+    closable : true,
     forceFit: true,
     requires:[
             'Ext.panel.Panel',

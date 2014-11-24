@@ -22,7 +22,10 @@ Ext.define('XMLifeOperating.model.DealWaitAssignShopper', {
 		'completeTime',
 		'actualDealPrice',
 		'dealPrice',
-		'shortId'
+		'shortId',
+		'contactsPhone',
+		'dtoAddress',
+		'contactsName'
 	],
 	proxy: dataProxy
 });

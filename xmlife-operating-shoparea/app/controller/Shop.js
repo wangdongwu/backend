@@ -374,6 +374,8 @@ Ext.define('XMLifeOperating.controller.Shop', {
                         }
                     });
                     content.add(tab);
+                    tab.down('#isverifyCombo').setValue('');
+                    tab.down('[name=goodsSkuId]').setValue('');
                 }
             },
             /*
@@ -895,9 +897,9 @@ Ext.define('XMLifeOperating.controller.Shop', {
                                 self.showCategoryRootsList(shopId);
                             }, function(response) {
                                 if (response.responseText == '-1') {
-                                    Ext.Msg.alert('失败', '该叶子节点下有商品');
+                                    Ext.Msg.alert('失败', '分类中有商品，无法删除');
                                 } else if (response.responseText == '-2') {
-                                    Ext.Msg.alert('失败', '该分类下有子分类');
+                                    Ext.Msg.alert('失败', '分类中包含次级分类，无法删除');
                                 } else {
                                     Ext.Msg.alert('失败', '删除失败');
                                 }
@@ -1181,9 +1183,9 @@ Ext.define('XMLifeOperating.controller.Shop', {
                                 self.showCategorySubsList(shopId, parentId);
                             }, function(response) {
                                 if (response.responseText == '-1') {
-                                    Ext.Msg.alert('失败', '该叶子节点下有商品');
+                                    Ext.Msg.alert('失败', '分类中有商品，无法删除');
                                 } else if (response.responseText == '-2') {
-                                    Ext.Msg.alert('失败', '该分类下有子分类');
+                                    Ext.Msg.alert('失败', '分类中包含次级分类，无法删除');
                                 } else {
                                     Ext.Msg.alert('失败', '删除失败');
                                 }

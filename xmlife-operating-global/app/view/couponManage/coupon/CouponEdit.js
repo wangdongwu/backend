@@ -12,7 +12,7 @@ Ext.define('XMLifeOperating.view.couponManage.coupon.CouponEdit', {
     ],
     closeAction: 'hide',
     modal: true, 
-    width: 450,
+    width: 500,
     height: 750,
     resizable: false,
     layout: 'fit',
@@ -194,15 +194,15 @@ Ext.define('XMLifeOperating.view.couponManage.coupon.CouponEdit', {
                     items: [{
                                 xtype: 'displayfield',
                                 value: '全局有效期:',
-                                style: 'margin-right:5px'
+                                width:80
                             },{
                                 xtype : 'datefield',
                                 name : 'expireStartDate',
                                 emptyText : '开始时间',
                                 //maxValue: new Date(),
                                 value: new Date(),
-                                format : 'Y-m-d',
-                                width:100,
+                                format : 'Y-m-d H:i:s',
+                                width:150,
                                 allowBlank: false,
 
                             },{
@@ -215,8 +215,8 @@ Ext.define('XMLifeOperating.view.couponManage.coupon.CouponEdit', {
                                 emptyText : '结束时间',
                                 //maxValue: new Date(),
                                 value: new Date(),
-                                format : 'Y-m-d',
-                                width:100,
+                                format : 'Y-m-d H:i:s',
+                                width:150,
                                 allowBlank: false,
 
                             }]

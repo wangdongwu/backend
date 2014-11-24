@@ -116,7 +116,7 @@ Ext.define('XMLifeOperating.controller.WaitForAudit', {
                     var me = this;
                     var tab=this.getHistoricalRecordsList();
                     var content = this.getContentPanel();
-                    content.removeAll(false);
+                    content.remove(me.getWaitForAuditList());
                     var shopStore = self.getShopStore();
                     shopStore.removeAll(false);
                     var historicalRecords = this.getHistoricalRecordsStore();
@@ -131,7 +131,17 @@ Ext.define('XMLifeOperating.controller.WaitForAudit', {
                             page: 1
                         }
                     });
-                    content.add(tab);
+                    var contentItems = content.items.items;
+                    var id = 'historicalRecordsList';
+                    var isNew = true;
+                    Ext.Array.each(contentItems, function(item) {
+                      if (item.id === id) isNew = false;
+                    });
+                    if (isNew) {
+                      content.add(tab);
+                    }
+                    
+                    content.setActiveTab(tab);
                 }
             },
             'waitForAuditList button[name=aKeyBy]':{
@@ -243,34 +253,7 @@ Ext.define('XMLifeOperating.controller.WaitForAudit', {
                                 });
                         }
                     });
-                    /*Ext.MessageBox.confirm(
-                        '审核改价商品',
-                        Ext.String.format("确认通过价格修改吗？", ''),
-                        function(result) {
-
-                            if (result == 'yes') {
-                                pass=true;
-
-                            }else if(result == 'no'){
-                                pass=false;
-                            }else{
-                                return;
-                            }
-                            var url = 'changePriceRecord/audit';
-                            var params = {
-                                ids:ids,
-                                pass:pass,
-                                description:''
-                            };
-                           
-                            sendPutRequest(url, params, '一键审核商品改价', '一键审核商品改价不通过成功', '一键审核商品改价不通过失败',
-                                function(response) {
-                                    self.rendenWaitForAuditList(self.getWaitForAuditList());
-
-                                });
-                           
-                        }
-                    );*/
+                    
                 }
             }
         });
@@ -279,8 +262,18 @@ Ext.define('XMLifeOperating.controller.WaitForAudit', {
         var tab = this.getWaitForAuditList();
         this.rendenWaitForAuditList(tab);
         var content = this.getContentPanel();
-        content.removeAll(false);
-        content.add(tab);
+        var historicalRecordsListTab = Ext.getCmp('historicalRecordsList');
+        content.remove(historicalRecordsListTab);
+        var contentItems = content.items.items;
+        var id = 'waitForAuditList';
+        var isNew = true;
+        Ext.Array.each(contentItems, function(item) {
+          if (item.id === id) isNew = false;
+        });
+        if (isNew) {
+          content.add(tab);
+        }
+        content.setActiveTab(tab);
     },
     onShow: function() {
         var store = this.getWaitForAuditStore();

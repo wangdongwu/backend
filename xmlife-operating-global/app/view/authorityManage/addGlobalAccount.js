@@ -190,7 +190,7 @@ Ext.define('XMLifeOperating.view.authorityManage.addGlobalAccount', {
 							xtype: 'combobox',
 							name: 'areaId',
 							itemId: 'shopArea',
-							store: 'ShopArea',
+							store: 'SpecialShopArea',
 							editable: false,
 							displayField: 'name',
 							valueField: 'id'

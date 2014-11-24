@@ -164,21 +164,28 @@ Ext.define('XMLifeOperating.view.operationManage.refund.RefundList', {
             return value / 100;
           }
       },
-        { header: '退款金额', dataIndex: 'amount',
-          renderer : function(value){
-              return value / 100;
-            }
-        },
-        { header: '退款去处', dataIndex: 'refundType',
-          renderer : function(v){
-            var data ={
-                  "ALIPAY": '支付宝',
-                    "TENPAY": '财付通',
-                    "BALANCE": '余额退款'
-                   };
-              return data[v];
+      { header: '退款金额', dataIndex: 'amount',
+        renderer : function(value){
+            return value / 100;
           }
-    }
+      },
+      { header: '退款去处', dataIndex: 'refundType',
+        renderer : function(v){
+          var data ={
+                "ALIPAY": '支付宝',
+                  "TENPAY": '财付通',
+                  "BALANCE": '余额退款'
+                 };
+            return data[v];
+        }
+      },{ header: '我方处理时间', width: 80, align: 'center', dataIndex: 'auditTime',
+        renderer : function(v){
+          if(v==null){
+            return '未处理';
+          }
+          return v;
+        }
+      }
     ],
 
     columnLines: true,

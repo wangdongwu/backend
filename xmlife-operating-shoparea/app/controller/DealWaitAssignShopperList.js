@@ -1,7 +1,8 @@
 Ext.define('XMLifeOperating.controller.DealWaitAssignShopperList', {
     extend: 'Ext.app.Controller',
 
-    views: ['operationManage.dealWaitAssignShopper.DealWaitAssignShopperList'],
+    views: ['operationManage.dealWaitAssignShopper.DealWaitAssignShopperList',
+            'operationManage.dealWaitAssignShopper.DWSDealDetail'],
 
     stores: ['DealWaitAssignShopper', 'ShopArea', 'DealStatus', 'Customer', 'DealItems'],
 
@@ -26,9 +27,9 @@ Ext.define('XMLifeOperating.controller.DealWaitAssignShopperList', {
         xtype: 'dealCustomerDetail',
         autoCreate: true
     }, {
-        ref: 'dealDetail',
-        selector: 'dealDetail',
-        xtype: 'dealDetail',
+        ref: 'dWSDealDetail',
+        selector: 'dWSDealDetail',
+        xtype: 'dWSDealDetail',
         autoCreate: true
     }],
 
@@ -159,8 +160,11 @@ Ext.define('XMLifeOperating.controller.DealWaitAssignShopperList', {
     },
 
     onDealDetail: function(view, rowIndex, colIndex, column, e) {
+        /*alert(111);
+        return;*/
         var dealDetail = view.getRecord(view.findTargetByEvent(e));
-        var win = this.getDealDetail();
+        console.log(dealDetail);
+        var win = this.getDWSDealDetail();
         win.down('form').loadRecord(dealDetail);
         win.show();
         var store = this.getDealItemsStore();

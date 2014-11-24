@@ -322,14 +322,24 @@ Ext.define('XMLifeOperating.view.dealManage.GDealList', {
             } 
         },
         {
+          text: '操作',
+          width: 80,
+          itemId: 'toproblemdeal',
+          menuDisabled: true,
+          sortable: false,
+          align: 'center',
+          renderer: function(value, metadata, model, rowIndex, colIndex, store) {
+            return Ext.String.format('<a>转为问题订单</a>', value, value);
+          }
+        },
+        {
             text: '操作',
-            width: 80,
-            itemId: 'toproblemdeal',
+            itemId: 'showReturnProductBtn',
             menuDisabled: true,
             sortable: false,
             align: 'center',
             renderer: function(value, metadata, model, rowIndex, colIndex, store) {
-                return Ext.String.format('<a>转为问题订单</a>', value, value);
+                return Ext.String.format('<button>退货</button>', value, value);
             }
         },
        
