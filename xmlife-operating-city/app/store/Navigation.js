@@ -7,10 +7,10 @@ Ext.define('XMLifeOperating.store.Navigation', {
     extend: 'Ext.data.TreeStore',
     model:'XMLifeOperating.model.Navigation',
     autoLoad:false,
-    root:{
+/*    root:{
         expanded:false
-    },
-/*    root: {
+    },*/
+    root: {
         text: 'Root',
         expanded: true,
         children: [{
@@ -48,5 +48,5 @@ Ext.define('XMLifeOperating.store.Navigation', {
             text: '个人中心',
             leaf: true
         }]
-    }*/
-    });
+    }
+});

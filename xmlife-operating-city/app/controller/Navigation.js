@@ -62,18 +62,14 @@ Ext.define('XMLifeOperating.controller.Navigation', {
         contentItems = contentPanel.items.items,
         id = selected.raw.id,
         isNew = true;
-
     if (!selected.raw.leaf) return;
-
     Ext.Array.each(contentItems, function(item) {
-      if (item.id === id) isNew = false;
+      if (item.xtype === id) isNew = false;
     });
     if (isNew) {
       contentPanel.add({xtype: id});
     }
-    
     contentPanel.setActiveTab(id);
-
     // 保存当前模块，为切换中心/城市时fireEvent所用
     this.currentModule = contentPanel.getActiveTab();
   }

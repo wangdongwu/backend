@@ -5,39 +5,106 @@ Ext.define('XMLifeOperating.view.soldoutProductManage.shopperRecord.shopperRecor
     title: '买手记录',
     titleAlign: 'left',
     store: 'GetOptLogs',
+    closable: true,
+    forceFit:true,
     columns: [{
         header: '买手姓名',
-        dataIndex: 'shopper'
+        dataIndex: 'shopper',
+        align: 'center'
     }, {
         header: '联系方式',
         dataIndex: 'phoneNum',
+        align: 'center'
     }, {
         header: '今日推送任务数',
-        dataIndex: 'todayPush'
+        dataIndex: 'todayPush',
+        align: 'center'
     }, {
         header: '今日维持下架数',
         dataIndex: 'todayKeep',
+        align: 'center',
+        renderer:function(value,metaData,record,rowIndex,colIndex,store,view){
+            var percent = (parseInt(value*100)/record.get('todayPush')).toFixed();
+
+            if(percent == Infinity || percent == NaN || percent == 'NaN'){
+                return value;
+            }else{
+                return value+'('+percent+'%)';
+            }
+        }
     }, {
         header: '今日重新上架数',
         dataIndex: 'todayOnline',
+        align: 'center',
+        renderer:function(value,metaData,record,rowIndex,colIndex,store,view){
+            var percent = (parseInt(value*100)/record.get('todayPush')).toFixed();
+
+            if(percent == Infinity || percent == NaN || percent == 'NaN'){
+                return value;
+            }else{
+                return value+'('+percent+'%)';
+            }
+        }
     }, {
         header: '本周推送任务数',
-        dataIndex: 'weekPush'
+        dataIndex: 'weekPush',
+        align: 'center'
     }, {
         header: '本周维持下架数',
-        dataIndex: 'weekKeep'
+        dataIndex: 'weekKeep',
+        align: 'center',
+        renderer:function(value,metaData,record,rowIndex,colIndex,store,view){
+            var percent = (parseInt(value*100)/record.get('weekPush')).toFixed();
+
+            if(percent == Infinity || percent == NaN || percent == 'NaN'){
+                return value;
+            }else{
+                return value+'('+percent+'%)';
+            }
+        }
     }, {
         header: '本周重新上架数',
-        dataIndex: 'weekOnline'
+        dataIndex: 'weekOnline',
+        align: 'center',
+        renderer:function(value,metaData,record,rowIndex,colIndex,store,view){
+            var percent = (parseInt(value*100)/record.get('weekPush')).toFixed();
+
+            if(percent == Infinity || percent == NaN || percent == 'NaN'){
+                return value;
+            }else{
+                return value+'('+percent+'%)';
+            }
+        }
     }, {
         header: '本月推送任务数',
-        dataIndex: 'monthPush'
+        dataIndex: 'monthPush',
+        align: 'center'
     }, {
         header: '本月维持下架数',
-        dataIndex: 'monthkeep'
+        dataIndex: 'monthkeep',
+        align: 'center',
+        renderer:function(value,metaData,record,rowIndex,colIndex,store,view){
+            var percent = (parseInt(value*100)/record.get('monthPush')).toFixed();
+
+            if(percent == Infinity || percent == NaN || percent == 'NaN'){
+                return value;
+            }else{
+                return value+'('+percent+'%)';
+            }
+        }
     }, {
         header: '本月重新上架数',
-        dataIndex: 'monthOnline'
+        dataIndex: 'monthOnline',
+        align: 'center',
+        renderer:function(value,metaData,record,rowIndex,colIndex,store,view){
+            var percent = (parseInt(value*100)/record.get('monthPush')).toFixed();
+
+            if(percent == Infinity || percent == NaN || percent == 'NaN'){
+                return value;
+            }else{
+                return value+'('+percent+'%)';
+            }
+        }
     }],
     dockedItems: [{
         xtype: 'toolbar',
@@ -45,31 +112,7 @@ Ext.define('XMLifeOperating.view.soldoutProductManage.shopperRecord.shopperRecor
         style: {
             border: 'none'
         },
-        items: [/*{
-                xtype: 'datefield',
-                name: 'startTime',
-                emptyText: '开始时间',
-                format: 'Y-m-d',
-                value: (function() {
-                    var date = new Date();
-                    date.setDate(date.getDate());
-                    return date;
-                })()
-            }, '到', {
-                xtype: 'datefield',
-                name: 'endTime',
-                emptyText: '结束时间',
-                format: 'Y-m-d',
-                value: (function() {
-                    var date = new Date();
-                    date.setDate(date.getDate());
-                    return date;
-                })()
-            }, {
-                xtype: 'button',
-                text: '查询',
-                itemId: 'queryRecordBtn'
-            },*/
+        items: [
             '->', {
                 xtype: 'textfield',
                 fieldLabel: '请输入搜索内容',
@@ -82,6 +125,6 @@ Ext.define('XMLifeOperating.view.soldoutProductManage.shopperRecord.shopperRecor
                 text: '搜索',
                 itemId: 'recordSearchBtn'
             }
-        ]
-    }]
-});
+            ]
+        }]
+    });

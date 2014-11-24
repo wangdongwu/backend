@@ -2294,7 +2294,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
             if (discountPrice >= facePrice) {
                 Ext.Msg.alert('Invalid Data', '折扣价不能大于等于原价');
                 return;
-            };
+            }
         }
         data.id = id;
         data.facePrice = facePrice;

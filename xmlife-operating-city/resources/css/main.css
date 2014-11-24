@@ -206,12 +206,18 @@ body.dragging{background-color:#888fa3;}
 	margin-left: 5px;
 	margin-top: 3px;
 }
-
-
-
-
 .x-btn-toolbar {
   border: 1px solid #999999;
   border-top-color: #a6a6a6;
   color: black;
+}
+
+.x-tip {
+    width: auto !important;
+}
+.x-tip-body {
+    width: auto !important;
+}
+.x-tip-body span {
+    width: auto !important;
 }

@@ -10,7 +10,9 @@ Ext.define('XMLifeOperating.model.OfflineProductGetOfflineRecords', {
 		'skuId',
 		'skuName',
 		'template',
-		'time'
+		'time',
+		'shopType',
+		'status'
 	],
 	proxy: new XMLifeOperating.generic.BaseProxy('offlineProduct/getOfflineRecords','result')
 });

@@ -25,3 +25,4 @@ build/
 build.xml
 ext*/
 Ext4*/
+/.gitmessage
