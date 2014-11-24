@@ -374,6 +374,8 @@ Ext.define('XMLifeOperating.controller.Shop', {
                         }
                     });
                     content.add(tab);
+                    tab.down('#isverifyCombo').setValue('');
+                    tab.down('[name=goodsSkuId]').setValue('');
                 }
             },
             /*
