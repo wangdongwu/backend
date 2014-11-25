@@ -90,25 +90,28 @@ Ext.define('XMLifeOperating.controller.Navigation', {
     var selected = Selectarr[0],
         contentPanel = this.getContentPanel(),
         contentItems = contentPanel.items.items,
-        id = selected.raw.id
+        id = selected.raw.id,
         isNew = true;
     if (!selected.raw.leaf) {return false}
 
     this.getModuleTitle().setText(selected.raw.text);
         
     Ext.Array.each(contentItems,function(item) {
-      if (item.id === id) {
-        contentPanel.setActiveTab(item.show());
-        isNew = false;
-      }
+      if (item.id === id) isNew = false;
     });
-
     if (isNew) {
-      contentPanel.add({
-        xtype : id
-      });
-      contentPanel.setActiveTab(id);
+      // 在多层级结构中子级替掉父级时，存在隐藏未消毁的面板，再注册会报错
+      var hidePanel = Ext.ComponentQuery.query(id)[0];
+      if(hidePanel) {
+        //contentPanel.add(hidePanel);
+      }else {
+        contentPanel.add({xtype: id});
+      }
+
     }
+
+    contentPanel.setActiveTab(id);
+
     return contentPanel.getActiveTab();
   }
 });

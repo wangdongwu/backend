@@ -195,6 +195,7 @@ Ext.define('XMLifeOperating.controller.GShopper', {
 
                     var content = this.getContentPanel(),
                         newTab = this.getGDealShopperHistoryList();
+                    
                     content.remove(content.activeTab, false);
                     content.add(newTab);
                     content.setActiveTab(newTab);
