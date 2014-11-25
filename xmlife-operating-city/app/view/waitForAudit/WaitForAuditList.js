@@ -108,7 +108,7 @@ Ext.define('XMLifeOperating.view.waitForAudit.WaitForAuditList', {
         { header: '商品名称',dataIndex:'productName'},
         { header: '商品类型',dataIndex:'categoryName'},
         { header: '所属店铺',dataIndex:'shopName'},
-        { header: '原进价',dataIndex:'proPprice',
+        { header: '进价',dataIndex:'proPprice',
             renderer: function(value, da, record) {
                return value/100;
             }
@@ -124,7 +124,23 @@ Ext.define('XMLifeOperating.view.waitForAudit.WaitForAuditList', {
                return value;
             }
         },
-        { header: '原售价',dataIndex:'proDprice',
+        { header: '原价',dataIndex:'proPrice',
+            renderer: function(value, da, record) {
+               return value/100;
+            }
+        },
+        { header: '改后原价',dataIndex:'price',
+            renderer: function(value, da, record) {
+               var price = record.get('price');
+               var proPrice = record.get('proPrice');
+               value = value/100;
+               if(price!=proPrice){
+                    return '<span style="color:red;">'+value+'</span>';
+               }
+               return value;
+            }
+        },
+        { header: '售价',dataIndex:'proDprice',
             renderer: function(value, da, record) {
                return value/100;
             }
