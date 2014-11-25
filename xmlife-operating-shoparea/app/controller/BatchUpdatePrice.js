@@ -15,7 +15,7 @@ Ext.define('XMLifeOperating.controller.BatchUpdatePrice', {
     }],
 
     init: function() {
-      
+
       var self = this;
       var shopStore = self.getShopStore();
       shopStore.clearFilter(true);
@@ -44,13 +44,12 @@ Ext.define('XMLifeOperating.controller.BatchUpdatePrice', {
                       areaId: combo.getValue()
                   }
                   store.load();
-                  
+
                   self.areaId = combo.getValue();
               }
         },
         'BatchUpdatePrice #ShopSelect': {
             select: function(combo){
-              //self.shopId = combo.getValue();
             }
         },
         'BatchUpdatePrice button': {
@@ -70,11 +69,11 @@ Ext.define('XMLifeOperating.controller.BatchUpdatePrice', {
                 waitMsg: '正在上传您的文件......',
                 success: function(form, action){
                   var data = action.response.responseText;
-                 
+
                 },
                 failure : function(form, action){
                   var data = action.response.responseText;
-               
+
                 }
               });
             }
@@ -85,3 +84,4 @@ Ext.define('XMLifeOperating.controller.BatchUpdatePrice', {
 
     }
 });
+
