@@ -54,14 +54,29 @@ Ext.define('XMLifeOperating.controller.GShopper', {
         }
     ],
     init: function() {
+        var me = this,
+            isActive = true,
+            isUnbind = true,
+            activeTab = null;
 
-        var me = this;
-        var isActive = true,
-            isUnbind = true;
         this.control({
-
             'gShopperList': {
                 added: me.onShow,
+                // 接收自定义事件，处理进入或关闭二级面板时显示
+                setActive: function() {
+                    var content = this.getContentPanel(),
+                        isExist = false;
+                        
+                    Ext.each(content.items.items, function(item) {
+                        if (activeTab.id === item.id) {
+                            isExist = true;
+                        }
+                    });
+                    if (!isExist) {
+                        content.add(activeTab);
+                    }
+                    content.setActiveTab(activeTab);
+                }
             },
             'gShopperList #shopArea': {
                 render: function(combo) {
@@ -199,8 +214,15 @@ Ext.define('XMLifeOperating.controller.GShopper', {
                     content.remove(content.activeTab, false);
                     content.add(newTab);
                     content.setActiveTab(newTab);
+                    activeTab = newTab;
 
                     this.shopperId = shopperId;
+                }
+            },
+            //当关掉子级，变量应重新定位到父级
+            'gDealShopperHistoryList': {
+                close: function() {
+                    activeTab = this.getGShopperList();
                 }
             },
             'gDealShopperHistoryList radio[name="dayType"]': {
@@ -254,6 +276,7 @@ Ext.define('XMLifeOperating.controller.GShopper', {
                     content.remove(content.activeTab, true);
                     content.add(newTab);
                     content.setActiveTab(newTab);
+                    activeTab = newTab;
                 }
             },
 
@@ -275,14 +298,20 @@ Ext.define('XMLifeOperating.controller.GShopper', {
                     content.remove(content.activeTab, false);
                     content.add(newTab);
                     content.setActiveTab(newTab);
+                    activeTab = newTab;
 
                     this.shopperId = shopperId;
+                }
+            },
+            //当关掉子级，变量应重新定位到父级
+            'gShopperWorkTimeList': {
+                close: function() {
+                    activeTab = this.getGShopperList();
                 }
             },
             'gShopperWorkTimeList radio[name="dayType"]': {
                 change: function(record, newV, oldV) {
                     var shopperId = this.shopperId;
-
 
                     if (newV == true) {
 
@@ -341,8 +370,15 @@ Ext.define('XMLifeOperating.controller.GShopper', {
                     content.remove(content.activeTab, false);
                     content.add(newTab);
                     content.setActiveTab(newTab);
+                    activeTab = newTab;
                 }
 
+            },
+            //当关掉子级，变量应重新定位到父级
+            'gDealItemsListShopper': {
+                close: function() {
+                    activeTab = this.getGDealShopperHistoryList();
+                }
             },
             ///返回历史订单
             'gDealItemsListShopper #dealShopperHistoryListReturn': {
@@ -353,6 +389,7 @@ Ext.define('XMLifeOperating.controller.GShopper', {
                     content.remove(content.activeTab, true);
                     content.add(newTab);
                     content.setActiveTab(newTab);
+                    activeTab = newTab;
                 }
             },
             'gShopperList #closeOrOpenOrder': {

@@ -3,6 +3,7 @@ Ext.define('XMLifeOperating.view.staffManage.shopper.GDealItemsListShopper', {
     id: 'gDealItemsListShopper',
     xtype: 'gDealItemsListShopper',
     header: false,
+    closable: true,
     title: '买手采购清单',
     store: 'DealItems',
     tbar: [{

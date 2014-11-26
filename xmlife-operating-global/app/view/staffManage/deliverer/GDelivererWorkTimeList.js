@@ -3,6 +3,7 @@ Ext.define('XMLifeOperating.view.staffManage.deliverer.GDelivererWorkTimeList', 
     xtype: 'gDelivererWorkTimeList',
     title: '配送员考勤管理',
     columnLines: true,
+    closable: true,
     store: 'DelivererWorkTime',
     dockedItems: [{
       xtype : 'pagingtoolbar',

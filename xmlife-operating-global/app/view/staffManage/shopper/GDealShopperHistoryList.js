@@ -4,6 +4,7 @@ Ext.define('XMLifeOperating.view.staffManage.shopper.GDealShopperHistoryList', {
     xtype: 'gDealShopperHistoryList',
     title: '买手历史订单',
     columnLines: true,
+    closable: true,
     store: 'DealShopperHistory',
     dockedItems : [
       {
@@ -175,7 +176,7 @@ Ext.define('XMLifeOperating.view.staffManage.shopper.GDealShopperHistoryList', {
              
             renderer : function(value, metadata, model, rowIndex, colIndex, store) { 
 
-                var seeBtn = '<span style="cursor:pointer">查看</span>';
+                var seeBtn = '<span style="color:green;cursor:pointer;">查看</span>';
                 return seeBtn; 
             } 
         },

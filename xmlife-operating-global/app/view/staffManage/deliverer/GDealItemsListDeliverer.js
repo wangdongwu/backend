@@ -3,6 +3,7 @@ Ext.define('XMLifeOperating.view.staffManage.deliverer.GDealItemsListDeliverer',
     xtype: 'gDealItemsListDeliverer',
     id:'gDealItemsListDeliverer',
     header: false,
+    closable: true,
     title: '配送员采购清单',
     store: 'DealItems',
     

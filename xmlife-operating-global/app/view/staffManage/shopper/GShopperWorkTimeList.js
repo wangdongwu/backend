@@ -4,6 +4,7 @@ Ext.define('XMLifeOperating.view.staffManage.shopper.GShopperWorkTimeList', {
     xtype: 'gShopperWorkTimeList',
     title: '买手考勤管理',
     columnLines: true,
+    closable: true,
     store: 'ShopperWorkTime',
     dockedItems : [
       {
