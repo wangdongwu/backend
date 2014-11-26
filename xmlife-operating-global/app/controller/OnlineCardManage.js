@@ -23,20 +23,39 @@ Ext.define('XMLifeOperating.controller.OnlineCardManage', {
     xtype: 'CardDetail',
     autoCreate: true
   }],
-  init: function() {
+  init: function () {
     var self = this;
     self.status = 1;
     self.control({
       'OnlineCardManage': {
-        activate: function() {
+        activate: function () {
           var me = this;
           // self.getOnlineCardStore().load({params:{status:1}});
           self.getOnlineCardManage().down('#status').select('1');
           self.getCardTemplateStore().load();
         }
       },
+      'OnlineCardManage #saveSort': {
+        click: function () {
+          var store = self.getOnlineCardStore(),
+            idList = [];
+          store.each(function (v) {
+            idList.push(v.get('id'));
+          });
+          sendPutRequest('cardBatch/updateOrder', {
+            idList: idList
+          }, '', '', '', function (response) {
+            if (response.responseText == 1) {
+              Ext.Msg.alert('提示', '排序成功');
+            } else {
+              Ext.Msg.alert('提示', '排序失败');
+            }
+            store.load();
+          })
+        }
+      },
       'OnlineCardManage #status': {
-        change: function(combo, v) {
+        change: function (combo, v) {
           var store = self.getOnlineCardStore();
           self.status = v;
           store.getProxy().extraParams = {
@@ -46,7 +65,7 @@ Ext.define('XMLifeOperating.controller.OnlineCardManage', {
         }
       },
       'OnlineCardManage #addNewCart': {
-        click: function() {
+        click: function () {
           var addOnlineCard = self.getAddOnlineCard(),
             templeteCombo = addOnlineCard.down('#templeteCombo'),
             soldPrice = addOnlineCard.down('#soldPrice');
@@ -56,14 +75,13 @@ Ext.define('XMLifeOperating.controller.OnlineCardManage', {
         }
       },
       'OnlineCardManage #showDetail': {
-        click: function(panel) {
+        click: function (panel) {
           var model = arguments[5],
             data = model.getData(),
             cardDetail = self.getCardDetail(),
             status = model.get('status'),
             button = cardDetail.down('#hander'),
             date = new Date();
-
           if (new Date(data.endTime) < date) {
             button.setDisabled(true);
           }
@@ -86,12 +104,12 @@ Ext.define('XMLifeOperating.controller.OnlineCardManage', {
         }
       },
       'addOnlineCard': {
-        activate: function() {
+        activate: function () {
           self.getCardTemplateStore().load();
         }
       },
       'addOnlineCard #templeteCombo': {
-        change: function(combo, newValue, oldValue) {
+        change: function (combo, newValue, oldValue) {
           var addOnlineCard = combo.up('window'),
             form = addOnlineCard.down('form'),
             templeteCon = addOnlineCard.down('#templeteCon'),
@@ -110,27 +128,24 @@ Ext.define('XMLifeOperating.controller.OnlineCardManage', {
         }
       },
       'addOnlineCard #submit': {
-        click: function(button) {
+        click: function (button) {
           var addOnlineCard = button.up('window'),
             form = addOnlineCard.down('form'),
             soldPrice = form.down('#soldPrice'),
             price = form.down('#soldPrice').getValue();
           soldPrice.setValue(price * 100);
-
-
           if (addOnlineCard.isEdit) {
             /*修改*/
             form.submit({
               url: form.editUrl,
               method: 'put',
-              success: function(response) {
+              success: function (response) {
                 soldPrice.setValue(price);
               },
-              failure: function(form, result) {
-
+              failure: function (form, result) {
                 soldPrice.setValue(price);
                 if (result.response.responseText == 1) {
-                  self.loadCartData(function(cartStore) {
+                  self.loadCartData(function (cartStore) {
                     var cardDetail = self.getCardDetail(),
                       data = cartStore.findRecord('id', cardDetail.currentId).getData();
                     cardDetail.show().update(data);
@@ -138,16 +153,14 @@ Ext.define('XMLifeOperating.controller.OnlineCardManage', {
                 };
               }
             });
-
           } else {
             /*添加*/
             form.submit({
               method: 'put',
-              success: function(response) {
+              success: function (response) {
                 soldPrice.setValue(price);
               },
-              failure: function(form, result) {
-
+              failure: function (form, result) {
                 soldPrice.setValue(price);
                 if (result.response.responseText == 1) {
                   Ext.Msg.alert('失败', '添加成功');
@@ -161,7 +174,7 @@ Ext.define('XMLifeOperating.controller.OnlineCardManage', {
         }
       },
       'CardDetail #edit': {
-        click: function(button) {
+        click: function (button) {
           var CardDetail = button.up('window'),
             id = CardDetail.currentId,
             addOnlineCard = self.getAddOnlineCard(),
@@ -171,22 +184,17 @@ Ext.define('XMLifeOperating.controller.OnlineCardManage', {
             form = addOnlineCard.down('form'),
             store = self.getOnlineCardStore(),
             model = store.getById(id);
-
           addOnlineCard.isEdit = true;
-
           CardDetail.hide();
           templeteCombo.setDisabled(true);
           soldPrice.setDisabled(true);
-
           form.loadRecord(model);
           addOnlineCard.setTitle('修改充值卡');
           addOnlineCard.show();
-
-
         }
       },
       'CardDetail #hander': {
-        click: function(button) {
+        click: function (button) {
           var cardDetail = button.up('window');
           Ext.Ajax.request({
             url: XMLifeOperating.generic.Global.URL.biz + cardDetail.url,
@@ -194,12 +202,12 @@ Ext.define('XMLifeOperating.controller.OnlineCardManage', {
             params: {
               id: cardDetail.currentId
             },
-            success: function(response) {
+            success: function (response) {
               var status = null;
               if (response.responseText == 1) {
                 if (cardDetail.status == 1) {
                   Ext.Msg.alert('成功', '下架成功');
-                  status = 1
+                  status = 1;
                 } else {
                   Ext.Msg.alert('成功', '上架成功');
                   status = 0;
@@ -212,7 +220,7 @@ Ext.define('XMLifeOperating.controller.OnlineCardManage', {
                 self.getCardDetail().destroy();
               }
             },
-            failure: function(response) {
+            failure: function (response) {
               Ext.Msg.alert('失败', '下架失败');
             }
           })
@@ -220,19 +228,19 @@ Ext.define('XMLifeOperating.controller.OnlineCardManage', {
       }
     });
   },
-  loadCartData: function(callback) {
+  loadCartData: function (callback) {
     var status = this.status;
     this.getOnlineCardStore().load({
       params: {
         status: status
       },
-      callback: function() {
+      callback: function () {
         callback && callback(this);
       }
     });
     this.getAddOnlineCard().destroy();
   },
-  formatData: function(data) {
+  formatData: function (data) {
     if (data.type == 0) {
       data.type = '普通卡';
     } else if (data.type == 2) {

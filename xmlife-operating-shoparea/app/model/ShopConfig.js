@@ -23,4 +23,3 @@ Ext.define('XMLifeOperating.model.ShopConfig', {
     type: 'boolean'
   }]
 });
-'enable','hierarchy','id','modules','shopId','version'
