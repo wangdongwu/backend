@@ -232,7 +232,6 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopProduct', {
                 ptype: 'cellediting',
                 clicksToEdit: 1
             }],
-
         });
         me.callParent(arguments);
     }

@@ -111,7 +111,11 @@ Ext.define('XMLifeOperating.controller.Shop', {
         xtype: 'shopshelfadd',
         autoCreate: true
     }, {
-
+        ref: 'shopProductSoldOut',
+        selector: 'shopProductSoldOut',
+        xtype: 'shopProductSoldOut',
+        autoCreate: true
+    }, {
         ref: 'shopSecondShelfAdd',
         selector: 'shopsecondshelfadd',
         xtype: 'shopsecondshelfadd',
@@ -161,10 +165,10 @@ Ext.define('XMLifeOperating.controller.Shop', {
         var me = this,
             isSuccess = true,
             shopStore = this.getShopStore();
-            shopStore.on('load',function(){
-              this.clearFilter(true);
-              return ;
-            })
+        shopStore.on('load', function() {
+            this.clearFilter(true);
+            return;
+        })
         this.control({
             /*
              *shoplist事件
@@ -183,7 +187,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
                             page: 1
                         }
                     });
-                    
+
                     this.areaId = combo.getValue();
                 }
             },
@@ -756,6 +760,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
                         });
                         tab.setActiveTab('tab5_soldout');
                     }
+                    me.disableUnAuthorityCmp(me.shopId, me.getShopProductSoldOut());
                 }
             },
             'shopshelf #viewAllOnlineProduct': {
@@ -809,7 +814,6 @@ Ext.define('XMLifeOperating.controller.Shop', {
 
                 }
             },
-
             'shopshelf #viewAllAbandonedProduct': {
                 click: function() {
                     var me = this,
@@ -833,10 +837,8 @@ Ext.define('XMLifeOperating.controller.Shop', {
                         });
                         tab.setActiveTab('tab5_abandoned');
                     }
-
                 }
             },
-
             'shopshelf #productSearch': {
                 click: function() {
                     var me = this;
@@ -909,7 +911,6 @@ Ext.define('XMLifeOperating.controller.Shop', {
                     })
                 }
             },
-
             'shopshelf #showOrHide': {
                 click: function(view, column, rowIndex, colIndex, e, record) {
 
@@ -1042,16 +1043,13 @@ Ext.define('XMLifeOperating.controller.Shop', {
                                 } else {
                                     me.showCategorySubsList(shopId, parentId);
                                 }
-
                             });
                         }
-
                     } else {
                         Ext.Msg.alert('Invalid Data', 'Please correct form errors');
                     }
                 }
             },
-
             /*
              * shopsecondshelf 事件
              */
@@ -1061,7 +1059,6 @@ Ext.define('XMLifeOperating.controller.Shop', {
                     var store = me.getCategorySubsStore() || {};
                     var tab = me.getShopShelfTab() || {};
                     var tabId = tab.getActiveTab().getId().slice(5) || {};
-
                     var data = {
                         parentId: null,
                         ids: []
@@ -1078,7 +1075,6 @@ Ext.define('XMLifeOperating.controller.Shop', {
                             icon: Ext.Msg.ERROR,
                             buttons: Ext.Msg.OK
                         });
-
                     }
                     data.parentId = tabId;
                     store.each(function(e) {
@@ -1100,7 +1096,6 @@ Ext.define('XMLifeOperating.controller.Shop', {
                     }
                     me.openWin(win, model);
                 }
-
             },
             'shopsecondshelf #showOrHide': {
                 click: function(view, column, rowIndex, colIndex, e, record) {
@@ -1150,7 +1145,6 @@ Ext.define('XMLifeOperating.controller.Shop', {
                         sendPutRequest(url, {
                             id: id
                         }, '货架显示隐藏', '货架显示隐藏操作成功', '货架显示隐藏操作失败', success, failure);
-
                     } else {
                         Ext.MessageBox.show({
                             title: '提示',
@@ -1159,7 +1153,6 @@ Ext.define('XMLifeOperating.controller.Shop', {
                             buttons: Ext.Msg.OK
                         });
                     }
-
                 }
             },
             //shopsecondshelf 删除事件
@@ -1239,7 +1232,6 @@ Ext.define('XMLifeOperating.controller.Shop', {
                                 me.showCategorySubsList(shopId, parentId);
                             });
                         }
-
                     } else {
                         Ext.Msg.alert('Invalid Data', 'Please correct form errors');
                     }
@@ -1248,34 +1240,62 @@ Ext.define('XMLifeOperating.controller.Shop', {
             /*
              * soldout、offline查看事件
              */
-            'shopproductsoldout #putawayOrOut': {
-                click: function(component, column, rowIndex, colIndex, e) {
+            'shopProductSoldOut': {
+                validateedit: function(e, row) {
                     var me = this;
-                    var model = component.getStore().getAt(rowIndex);
-                    var className = e.target.className;
-                    var url = 'product/online';
-                    var status = 0; //让商品上架（目前处于售罄状态）
-                    var shopId = this.shopId;
-                    var success = function(task, operation) {
-                        me.showProductSoldOutOrOffLineList(shopId, 'soldout');
-                    };
-                    var failure = function(task, operation) {
-                        var error = operation.getError(),
-                            msg = Ext.isObject(error) ? error.status + ' ' + error.statusText : error;
-                        Ext.MessageBox.show({
-                            title: '商品上架失败',
-                            msg: msg,
-                            icon: Ext.Msg.ERROR,
-                            buttons: Ext.Msg.OK
-                        });
-                    };
-                    sendPutRequest(url, {
-                        productId: model.get('id')
-                    }, '上架商品', '上架商品成功', '创建分类失败', success, failure);
+                    var rec = row.record;
+                    var value = row.value;
+                    var field = e.context.field;
+                    var store = e.grid.getStore();
+                    var shopId = me.shopId;
+                    if (field == 'status') {
+                        var url = ['product'],
+                            status = value,
+                            id = rec.get('id');
+                        var success = function(reponse) {
+                            me.showProductSoldOutList(shopId);
+                            Ext.MessageBox.show({
+                                title: '提示',
+                                msg: '改变商品状态成功',
+                                buttons: Ext.Msg.OK
+                            });
+                            return true;
+                        }
+                        var failure = function() {
+                            me.showProductSoldOutList(shopId);
+                            Ext.MessageBox.show({
+                                title: '提示',
+                                msg: '改变商品状态失败',
+                                icon: Ext.Msg.ERROR,
+                                buttons: Ext.Msg.OK
+                            });
+                            return false;
+                        }
+                        switch (status) {
+                            case 0: //上架
+                                url.push('/online');
+                                break;
+                            case 1: //雪藏
+                                url.push('/offline');
+                                break;
+                            case 2: //废弃
+                                url.push('/remove');
+                                break;
+                            case 3: //下架
+                                url.push('/soldout');
+                                break;
+                        }
+                        sendPutRequest(url.join(''), {
+                            productId: id,
+                        }, '改变商品状态', '改变商品状态成功', '改变商品状态失败', success, failure);
+                    } else {
+                        return false;
+                    }
+                },
+                added: function() {
+                    var me = this;
+                    me.disableUnAuthorityCmp(me.shopId, me.getShopProductSoldOut());
                 }
-            },
-            'shopproductonline #putawayOrOut': {
-
             },
             'shopproductoffline #frozen': {
                 click: function(component, column, rowIndex, colIndex, e) {
@@ -1534,7 +1554,6 @@ Ext.define('XMLifeOperating.controller.Shop', {
                         editWindow.close();
                         me.showShopList();
                     });
-
                 }
             },
             /*
@@ -1590,7 +1609,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
                 },
                 added: function() {
                     var me = this;
-                    me.disableUnAuthorityCmp(me.shopId);
+                    me.disableUnAuthorityCmp(me.shopId, me.getShopProductList(), me.getShopProductEdit());
                 }
             },
             'shopproduct #setProductTop': {
@@ -1607,7 +1626,6 @@ Ext.define('XMLifeOperating.controller.Shop', {
                     }
                     if (status) {
                         requestStr = 'product/canceltop';
-
                     } else {
                         requestStr = 'product/top';
                     }
@@ -1797,7 +1815,6 @@ Ext.define('XMLifeOperating.controller.Shop', {
                             windowEl.unmask();
                             return;
                         }
-
                         //添加参数
                         shelvesGoods.set('shopId', shopId);
                         shelvesGoods.set('categoryId', categoryId);
@@ -1810,92 +1827,6 @@ Ext.define('XMLifeOperating.controller.Shop', {
                         shelvesGoods.set('productTemplateId', selectRecords[0].raw.id);
                         //开始保存
                         windowEl.mask('saving');
-                        //商品模板检测
-                        /*                        var success = function(response) {
-                            var json = eval('(' + response.responseText + ')'),
-                                exist = json.exist,
-                                cateNames = json.cateNames;
-                            if (exist) {
-                                Ext.MessageBox.confirm('提示',
-                                    '该商品在货架：' + cateNames.join('|') + '已存在，保存将会覆盖原有商品价格，是否继续？',
-                                    function(opt) {
-                                        if (opt == 'yes') {
-                                            shelvesGoods.save({
-                                                success: function(task, operation) {
-                                                    var responseText = operation.response.responseText;
-                                                    if (responseText == '-100') {
-                                                        Ext.MessageBox.show({
-                                                            title: '提示',
-                                                            msg: '添加错误：-100，请联系开发人员！',
-                                                            icon: Ext.Msg.ERROR,
-                                                            buttons: Ext.Msg.OK
-                                                        });
-                                                    }
-                                                    windowEl.unmask();
-                                                    editWindow.close();
-                                                    me.showProductList(categoryId);
-
-                                                },
-                                                failure: function(task, operation) {
-                                                    var error = operation.getError(),
-                                                        msg = Ext.isObject(error) ? error.status + ' ' + error.statusText : error;
-                                                    Ext.MessageBox.show({
-                                                        title: 'Edit Task Failed',
-                                                        msg: msg,
-                                                        icon: Ext.Msg.ERROR,
-                                                        buttons: Ext.Msg.OK
-                                                    });
-                                                    windowEl.unmask();
-                                                }
-                                            });
-                                        } else {
-
-                                            return
-                                        }
-                                    });
-                            } else {
-                                shelvesGoods.save({
-                                    success: function(task, operation) {
-                                        var responseText = operation.response.responseText;
-                                        if (responseText == '-100') {
-                                            Ext.MessageBox.show({
-                                                title: '提示',
-                                                msg: '添加错误：-100，请联系开发人员！',
-                                                icon: Ext.Msg.ERROR,
-                                                buttons: Ext.Msg.OK
-                                            });
-                                        }
-                                        windowEl.unmask();
-                                        editWindow.close();
-                                        me.showProductList(categoryId);
-
-                                    },
-                                    failure: function(task, operation) {
-                                        var error = operation.getError(),
-                                            msg = Ext.isObject(error) ? error.status + ' ' + error.statusText : error;
-                                        Ext.MessageBox.show({
-                                            title: 'Edit Task Failed',
-                                            msg: msg,
-                                            icon: Ext.Msg.ERROR,
-                                            buttons: Ext.Msg.OK
-                                        });
-                                        windowEl.unmask();
-                                    }
-                                });
-                            }
-                        };
-                        var failure = function(response) {
-                            Ext.MessageBox.show({
-                                title: '提示',
-                                msg: '保存失败',
-                                icon: Ext.Msg.ERROR,
-                                buttons: Ext.Msg.OK
-                            });
-                        }
-                        sendGetRequest('product/getSameTemplateProductPrice', {
-                            shopId: this.shopId,
-                            templateId: selectRecords[0].raw.id
-                        }, '检测商品', '检测成功', '检测失败', success, failure);*/
                         shelvesGoods.save({
                             success: function(task, operation) {
                                 var responseText = operation.response.responseText;
@@ -2306,36 +2237,43 @@ Ext.define('XMLifeOperating.controller.Shop', {
     priceTransform: function(value) {
         return parseInt((value * 100).toFixed());
     },
-    disableUnAuthorityCmp: function(shopId) {
+    disableUnAuthorityCmp: function(shopId, listview, editview) {
         var me = this;
         var shopStore = me.getShopStore(),
             adminShopTypeStore = me.getAdminAdminShopTypeStore(),
             currentShop = shopStore.getById(shopId),
             currentShopType = currentShop.get('type'),
-            userInfo = adminShopTypeStore.getAt(0).getData(); //获取第一位
+            userInfo = adminShopTypeStore.getAt(0).getData(), //获取第一位
+            listview = listview || me.getShopProductList(),
+            editview = editview || me.getShopProductEdit();
 
         for (var properName in userInfo) {
             var properArray = userInfo[properName];
-
             var itemId = '#' + properName;
             if (properArray == '' || (properArray instanceof Array && properArray.indexOf(currentShopType) == -1)) { //没有权限
-
-                if (me.getShopProductEdit().down(itemId)) { //在ProductEdit中的操作
-                    me.getShopProductEdit().down(itemId).setDisabled(true);
-                } else if (me.getShopProductList().down(itemId)) { //在ProductList中的操作
-                    me.getShopProductList().down(itemId).setDisabled(true);
+                if (editview.down(itemId)) { //在ProductEdit中的操作
+                    editview.down(itemId).setDisabled(true);
+                } else if (listview.down(itemId)) { //在ProductList中的操作
+                    listview.down(itemId).setDisabled(true);
                 } else { //状态下拉框禁用
-                    var editor = me.getShopProductList().down('#putawayOrOut').editor;
-                    editor.findRecord('itemId', properName).set('disabled', true);
+                    var editor = listview.down('#putawayOrOut').editor;
+                    if (editor.findRecord('itemId', properName)) {
+                        editor.findRecord('itemId', properName).set('disabled', true);
+                    }
                 }
             } else {
-                if (me.getShopProductEdit().down(itemId)) {
-                    me.getShopProductEdit().down(itemId).setDisabled(false);
-                } else if (me.getShopProductList().down(itemId)) {
-                    me.getShopProductList().down(itemId).setDisabled(false);
+                if (editview.down(itemId)) {
+                    editview.down(itemId).setDisabled(false);
+                } else if (listview.down(itemId)) {
+                    listview.down(itemId).setDisabled(false);
+                } else {
+                    var editor = listview.down('#putawayOrOut').editor;
+                    if (editor.findRecord('itemId', properName)) {
+                        editor.findRecord('itemId', properName).set('disabled', false);
+                    }
                 }
             }
-        };
+        }
 
     },
     isDisabledCmp: function(view, cmpId) {

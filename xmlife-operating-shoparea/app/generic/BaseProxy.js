@@ -201,9 +201,9 @@ var requestAction = function(url, params, method, title, successMsg, errorMsg, s
         },
         failure: function(response,opts) {
             var errorObj = requestException(response);
-            if(response.status)
-              var error = Ext.decode(response.responseText);
-              //var msg = Ext.String.format('{0}<br />Error Code: {1}<br />Message: {2}', errorMsg, error.code, error.message)
+            if(response.status && response.responseText!=''){
+                 var error = Ext.decode(response.responseText);
+            }
             Ext.MessageBox.show({
                 title: errorObj.title,
                 msg: errorObj.msg,
