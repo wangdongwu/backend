@@ -91,20 +91,24 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopProductSoldOut', {
                 align: 'center',
                 editor: combo,
                 renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
-                    var me = this,
-                        column = me.down('#putawayOrOut'),
-                        editor = me.down('#putawayOrOut').getEditor(),
-                        store = editor.getStore(),
-                        value = value || 3;
-                    var returnStr = '';
-                    var comboRecordIndex = store.find(editor.valueField, value),
-                        comboReocrd = store.getAt(comboRecordIndex);
-                    if (record === null) {
-                        returnStr = value;
+                    if (view.getRefOwner().ownerCt.tab.active) {
+                        var me = this,
+                            column = me.down('#putawayOrOut'),
+                            editor = me.down('#putawayOrOut').getEditor(),
+                            store = editor.getStore(),
+                            value = value || 3,
+                            returnStr = '';
+                        var comboRecordIndex = store.find(editor.valueField, value),
+                            comboReocrd = store.getAt(comboRecordIndex);
+                        if (record === null) {
+                            returnStr = value;
+                        } else {
+                            returnStr = comboReocrd.get(editor.displayField);
+                        }
+                        return returnStr;
                     } else {
-                        returnStr = comboReocrd.get(editor.displayField);
+                        return '';
                     }
-                    return returnStr;
                 }
             }],
             bbar: [{

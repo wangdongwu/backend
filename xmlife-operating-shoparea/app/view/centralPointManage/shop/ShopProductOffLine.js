@@ -1,7 +1,7 @@
 Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopProductOffLine', {
     extend: 'Ext.grid.Panel',
     closable: true,
-    xtype: 'shopproductoffline',
+    xtype: 'shopProductOffLine',
     header: false,
     columnLines: true,
     store: 'ShopCategories',
@@ -84,12 +84,31 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopProductOffLine', {
                 text: '操作',
                 width: 90,
                 dataIndex: 'status',
-                itemId: 'frozen',
+                itemId: 'putawayOrOut',
                 menuDisabled: true,
                 sortable: true,
                 align: 'center',
-                renderer: function(value) {
-                    return '<input type="button" value="取消雪藏" class="frozen" />'
+                style: 'cursor:pointer',
+                editor: combo,
+                renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
+                    if (view.getRefOwner().ownerCt.tab.active) {
+                        var me = this,
+                            column = me.down('#putawayOrOut'),
+                            editor = me.down('#putawayOrOut').getEditor(),
+                            store = editor.getStore(),
+                            value = value || 1,
+                            returnStr = '';
+                        var comboRecordIndex = store.find(editor.valueField, value),
+                            comboReocrd = store.getAt(comboRecordIndex);
+                        if (record == null) {
+                            returnStr = value;
+                        } else {
+                            returnStr = comboReocrd.get(editor.displayField);
+                        }
+                        return returnStr;
+                    } else {
+                        return '';
+                    }
                 }
             }],
             bbar: [{
@@ -102,9 +121,6 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopProductOffLine', {
             plugins: [{
                 ptype: 'cellediting',
                 clicksToEdit: 1
-            },  {
-                ptype: 'gridviewdragdrop',
-                dragText: 'Drag and drop to reorder'
             }]
         });
         me.callParent(arguments);

@@ -116,6 +116,21 @@ Ext.define('XMLifeOperating.controller.Shop', {
         xtype: 'shopProductSoldOut',
         autoCreate: true
     }, {
+        ref: 'shopProductOnline',
+        selector: 'shopProductOnline',
+        xtype: 'shopProductOnline',
+        autoCreate: true
+    }, {
+        ref: 'shopProductOffLine',
+        selector: 'shopProductOffLine',
+        xtype: 'shopProductOffLine',
+        autoCreate: true
+    }, {
+        ref: 'shopProductAbandoned',
+        selector: 'shopProductAbandoned',
+        xtype: 'shopProductAbandoned',
+        autoCreate: true
+    }, {
         ref: 'shopSecondShelfAdd',
         selector: 'shopsecondshelfadd',
         xtype: 'shopsecondshelfadd',
@@ -754,7 +769,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
                             id: 'tab5_soldout',
                             layout: 'fit',
                             items: {
-                                xtype: 'shopproductsoldout'
+                                xtype: 'shopProductSoldOut'
                             },
                             closable: true
                         });
@@ -780,7 +795,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
                             id: 'tab5_online',
                             layout: 'fit',
                             items: {
-                                xtype: 'shopproductonline'
+                                xtype: 'shopProductOnline'
                             },
                             closable: true
                         });
@@ -794,8 +809,8 @@ Ext.define('XMLifeOperating.controller.Shop', {
                         shopId = this.shopId,
                         toolbar = Ext.getCmp('toolbar'),
                         tab = me.getShopShelfTab(),
-                        shopStore = me.getShopStore();
-                    var shop = shopStore.getById(shopId);
+                        shopStore = me.getShopStore(),
+                        shop = shopStore.getById(shopId);
                     //雪藏商品tab切换
                     if (me.tabIsExist('offline')) {
                         return
@@ -805,7 +820,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
                             id: 'tab5_offline',
                             layout: 'fit',
                             items: {
-                                xtype: 'shopproductoffline'
+                                xtype: 'shopProductOffLine'
                             },
                             closable: true
                         });
@@ -831,7 +846,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
                             id: 'tab5_abandoned',
                             layout: 'fit',
                             items: {
-                                xtype: 'shopproductabandoned'
+                                xtype: 'shopProductAbandoned'
                             },
                             closable: true
                         });
@@ -1238,91 +1253,50 @@ Ext.define('XMLifeOperating.controller.Shop', {
                 }
             },
             /*
-             * soldout、offline查看事件
+             * soldout、offline、online、abandon查看事件
              */
             'shopProductSoldOut': {
                 validateedit: function(e, row) {
                     var me = this;
-                    var rec = row.record;
-                    var value = row.value;
-                    var field = e.context.field;
-                    var store = e.grid.getStore();
-                    var shopId = me.shopId;
-                    if (field == 'status') {
-                        var url = ['product'],
-                            status = value,
-                            id = rec.get('id');
-                        var success = function(reponse) {
-                            me.showProductSoldOutList(shopId);
-                            Ext.MessageBox.show({
-                                title: '提示',
-                                msg: '改变商品状态成功',
-                                buttons: Ext.Msg.OK
-                            });
-                            return true;
-                        }
-                        var failure = function() {
-                            me.showProductSoldOutList(shopId);
-                            Ext.MessageBox.show({
-                                title: '提示',
-                                msg: '改变商品状态失败',
-                                icon: Ext.Msg.ERROR,
-                                buttons: Ext.Msg.OK
-                            });
-                            return false;
-                        }
-                        switch (status) {
-                            case 0: //上架
-                                url.push('/online');
-                                break;
-                            case 1: //雪藏
-                                url.push('/offline');
-                                break;
-                            case 2: //废弃
-                                url.push('/remove');
-                                break;
-                            case 3: //下架
-                                url.push('/soldout');
-                                break;
-                        }
-                        sendPutRequest(url.join(''), {
-                            productId: id,
-                        }, '改变商品状态', '改变商品状态成功', '改变商品状态失败', success, failure);
-                    } else {
-                        return false;
-                    }
+                    me.productStatusValidate(e, row, me.showProductSoldOutList);
                 },
                 added: function() {
                     var me = this;
                     me.disableUnAuthorityCmp(me.shopId, me.getShopProductSoldOut());
                 }
             },
-            'shopproductoffline #frozen': {
-                click: function(component, column, rowIndex, colIndex, e) {
+            'shopProductOffLine': {
+                validateedit: function(e, row) {
                     var me = this;
-                    var model = component.getStore().getAt(rowIndex);
-                    var className = e.target.className;
-                    var statusValue = Ext.query("." + className)[rowIndex].getAttribute("statusValue");
-                    var url = 'product/soldout';
-                    var status = 3; //商品下架（目前处于雪藏）
-                    var shopId = this.shopId;
-                    var success = function(task, operation) {
-                        me.showProductSoldOutOrOffLineList(shopId, 'offline');
-                    };
-                    var failure = function(task, operation) {
-                        var error = operation.getError(),
-                            msg = Ext.isObject(error) ? error.status + ' ' + error.statusText : error;
-                        Ext.MessageBox.show({
-                            title: '商品取消雪藏失败',
-                            msg: msg,
-                            icon: Ext.Msg.ERROR,
-                            buttons: Ext.Msg.OK
-                        });
-                    };
-                    sendPutRequest(url, {
-                        productId: model.get('id')
-                    }, '取消雪藏商品', '取消雪藏成功', '取消雪藏失败', success, failure);
+                    me.productStatusValidate(e, row, me.showProductOffLineList);
+                },
+                added: function() {
+                    var me = this;
+                    me.disableUnAuthorityCmp(me.shopId, me.getShopProductOffLine());
                 }
+
+            },
+            'shopProductOnline': {
+                validateedit: function(e, row) {
+                    var me = this;
+                    me.productStatusValidate(e, row, me.showProductOnlineList);
+                },
+                added: function() {
+                    var me = this;
+                    me.disableUnAuthorityCmp(me.shopId, me.getShopProductOnline());
+                }
+
+            },
+            'shopProductAbandoned': {
+                validateedit: function(e, row) {
+                    var me = this;
+                    me.productStatusValidate(e, row, me.showProductAbandonedList);
+                },
+                added: function() {
+                    var me = this;
+                    me.disableUnAuthorityCmp(me.shopId, me.getShopProductAbandoned());
+                }
+
             },
             /*
              * product search &edit事件
@@ -2086,7 +2060,6 @@ Ext.define('XMLifeOperating.controller.Shop', {
             bannerUrls: [],
             titles: []
         }
-
         if (store.data.items.length <= 1) {
             Ext.MessageBox.show({
                 title: '提示',
@@ -2106,7 +2079,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
             data.id = me.shopId;
             var success = function(task, operation) {
                 store.remove(record);
-            };
+            }
             var failure = function(task, operation) {
                 var error = operation.getError(),
                     msg = Ext.isObject(error) ? error.status + ' ' + error.statusText : error;
@@ -2116,7 +2089,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
                     icon: Ext.Msg.ERROR,
                     buttons: Ext.Msg.OK
                 });
-            };
+            }
             var str = '确认删除Banner？';
             Ext.MessageBox.confirm('提示', str, function(str) {
                 if (str == 'yes') {
@@ -2166,7 +2139,6 @@ Ext.define('XMLifeOperating.controller.Shop', {
             });
             data.id = me.shopId;
         } else { //添加
-
             var allbaners = this.getShopBannerTemplateStore().data.items;
             var hash = inputs.image;
             this.getShopBannerTemplateStore().each(function(e) {
@@ -2214,7 +2186,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
                 limit: 25,
                 page: 1
             }
-        });
+        }); 
     },
     skuIdSearch: function() {
         var changePriceRecordList = this.getChangePriceRecordList(),
@@ -2225,7 +2197,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
         store.getProxy().extraParams = {
             shopId: shopId,
             skuId: goodsSkuId || ''
-        };
+        }
         store.loadPage(1, {
             params: {
                 start: 0,
@@ -2471,6 +2443,60 @@ Ext.define('XMLifeOperating.controller.Shop', {
             }
         };
         return false
+    },
+    productStatusValidate: function(e, row, fn) {
+        var me = this;
+        var rec = row.record;
+        var value = row.value;
+        var field = e.context.field;
+        var store = e.grid.getStore();
+        var shopId = me.shopId;
+        if (field === 'status') {
+            var url = ['product'],
+                status = value,
+                id = rec.get('id');
+            var success = function(reponse) {
+                fn.call(me, shopId);
+                Ext.MessageBox.show({
+                    title: '提示',
+                    msg: '改变商品状态成功',
+                    buttons: Ext.Msg.OK
+                });
+                return true;
+            };
+            var failure = function() {
+                fn.call(me, shopId);
+                Ext.MessageBox.show({
+                    title: '提示',
+                    msg: '改变商品状态失败',
+                    icon: Ext.Msg.ERROR,
+                    buttons: Ext.Msg.OK
+                });
+                return false;
+            };
+            switch (status) {
+                case 0: //上架
+                    url.push('/online');
+                    break;
+                case 1: //雪藏
+                    url.push('/offline');
+                    break;
+                case 2: //废弃
+                    url.push('/remove');
+                    break;
+                case 3: //下架
+                    url.push('/soldout');
+                    break;
+                default:
+                    return;
+                    break;
+            }
+            sendPutRequest(url.join(''), {
+                productId: id,
+            }, '改变商品状态', '改变商品状态成功', '改变商品状态失败', success, failure);
+        } else {
+            return false;
+        }
     }
 
 });
