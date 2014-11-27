@@ -1,5 +1,6 @@
 <!DOCTYPE HTML>
 <html>
+
 <head>
     <meta charset="UTF-8">
     <title>XMLifeOperating</title>
@@ -24,10 +25,17 @@
     <script type="text/javascript" src="app/base/IMClient.js"></script>
     <script type="text/javascript" src="app/base/IMClientManager.js"></script>
     <script type="text/javascript" src="app/base/XMLifeIMClient.js"></script>
+    <script src="//cdn.ravenjs.com/1.1.2/jquery,native/raven.min.js"></script>
+    <script>
+    Raven.config('http://83335601936f477ea4f8b07ae4357d2e@115.28.83.225/sentry/4', {}).install();
+    window.onerror = Raven.process;
+    </script>
     <!-- </x-compile> -->
     <link rel="stylesheet" href="resources/css/splash.css">
     <link rel="stylesheet" href="resources/css/main.css">
-    <link rel="stylesheet"  href="resources/css/bootstrap.min.css">
+    <link rel="stylesheet" href="resources/css/bootstrap.min.css">
 </head>
+
 <body></body>
+
 </html>
