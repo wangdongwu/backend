@@ -12,7 +12,7 @@ Ext.define('XMLifeOperating.view.Toolbar', {
     cls: 'topHeadToolbar',
     items: [{
             xtype: 'image',
-            src: '/resources/images/logo.png',
+            src: './resources/images/logo.png',
             itemId: 'myTestImg',
             style: {
                 marginLeft: '10px',
@@ -22,12 +22,11 @@ Ext.define('XMLifeOperating.view.Toolbar', {
             xtype: 'label',
             itemId: 'txtModuleTitle',
             margin: '0 20 0 20'
-        },
-        {
+        }, {
             xtype: 'displayfield',
             fieldLabel: 'version',
-            itemId:'versionNum',
-            labelWidth:60,
+            itemId: 'versionNum',
+            labelWidth: 60,
             value: ''
         },
         '->', {
@@ -51,17 +50,15 @@ Ext.define('XMLifeOperating.view.Toolbar', {
             itemId: 'txtUserName',
             margin: '0 10 0 10',
             menu: {
-                items: [
-                    {
+                items: [{
                         text: '修改密码',
-                        itemId : 'editAdmin'
-                        // iconCls: 'tasks-new'
+                        itemId: 'editAdmin'
+                            // iconCls: 'tasks-new'
                     },
-                    '-',
-                    {
+                    '-', {
                         text: '注销',
                         itemId: 'btnSignOut'
-                        // iconCls: 'tasks-new-list'
+                            // iconCls: 'tasks-new-list'
                     },
                 ]
             }
@@ -74,15 +71,14 @@ Ext.define('XMLifeOperating.view.Toolbar', {
                 view.down('#txtUserName').setText(username);
             }
             Ext.Ajax.request({
-               url: './version.json',
-               success: function(response, opts) {
-                  var obj = Ext.decode(response.responseText);
-                  view.down('#versionNum').setValue(obj.buildNumber);
-
-               },
-               failure: function(response, opts) {
-                  console.log('server-side failure with status code ' + response.status);
-               }
+                url: './version.json',
+                success: function(response, opts) {
+                    var obj = Ext.decode(response.responseText);
+                    view.down('#versionNum').setValue(obj.buildNumber);
+                },
+                failure: function(response, opts) {
+                    console.log('server-side failure with status code ' + response.status);
+                }
             });
         }
     }
