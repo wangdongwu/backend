@@ -3,16 +3,13 @@ Ext.define('XMLifeOperating.controller.FeedbackList', {
     views: ['userManage.feedback.FeedbackList'],
     stores: ['Feedback', 'FeedbackStatus'],
     models: ['Feedback'],
-    refs: [
-        {
-            ref: 'feedbackList',
-            selector: 'feedbackList',
-            xtype: 'feedbackList',
-            autoCreate: true
-        },
-    ],
+    refs: [{
+        ref: 'feedbackList',
+        selector: 'feedbackList',
+        xtype: 'feedbackList',
+        autoCreate: true
+    }],
     init: function() {
-
         var me = this;
         this.control({
             'feedbackList': {
@@ -91,27 +88,22 @@ Ext.define('XMLifeOperating.controller.FeedbackList', {
                         });
                         this.dayType = str;
                         me.getFeedbackList().down('#feedbackStatus').setValue(null);
-
                     }
                 }
             },
             'feedbackList #mark': {
                 click: function(component, column, rowIndex, colIndex, e) {
-
                     var model = component.getStore().getAt(rowIndex);
-
                     var feedbackId = model.get('id');
-
                     var className = e.target.className;
-                    var url= 'feedback/mark/'+feedbackId;
-
-                    var mark=model.get('mark');
-
-                    model.set('mark',!mark);
+                    var url = 'feedback/mark/' + feedbackId;
+                    var mark = model.get('mark');
+                    model.set('mark', !mark);
                     mark = model.get('mark');
-
-                    sendPutRequest(url, {mark:mark}, '', '成功操作标记', '标记操作失败', function() {
-                        var store = me.getFeedbackStore();
+                    sendPutRequest(url, {
+                        mark: mark
+                    }, '', '成功操作标记', '标记操作失败', function() {
+                        /*var store = me.getFeedbackStore();
                         var dayType = me.dayType;
                         var mark = me.getFeedbackList().down('#feedbackStatus').getValue();
                         var params = {
@@ -130,14 +122,12 @@ Ext.define('XMLifeOperating.controller.FeedbackList', {
                                 limit: 25,
                                 page: 1
                             }
-                        });
+                        });*/
                     });
                 }
             },
-
         });
     },
-
     onShow: function() {
         /* var store = this.getFeedbackStore();
         store.getProxy().extraParams = {
@@ -154,7 +144,5 @@ Ext.define('XMLifeOperating.controller.FeedbackList', {
             dayType: 0
         });
         this.dayType = 0;
-
     }
-
 });
