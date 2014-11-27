@@ -19,12 +19,18 @@ Ext.define('XMLifeOperating.view.Toolbar', {
                 marginLeft: '10px',
                 height : '33px'
             }
-        }
-        , 
+        }, 
         {
             xtype: 'label',
             itemId: 'txtModuleTitle',
             margin: '0 20 0 20'
+        },
+        {
+            xtype: 'displayfield',
+            fieldLabel: 'version',
+            itemId:'versionNum',
+            labelWidth:60,
+            value: ''
         },
         '->',
 /*        {
@@ -96,6 +102,17 @@ Ext.define('XMLifeOperating.view.Toolbar', {
         if(areaName){
           view.down('#txtShopAreaName').setText(areaName);
         }
+        Ext.Ajax.request({
+           url: './version.json',
+           success: function(response, opts) {
+              var obj = Ext.decode(response.responseText);
+              view.down('#versionNum').setValue(obj.buildNumber);
+
+           },
+           failure: function(response, opts) {
+              console.log('server-side failure with status code ' + response.status);
+           }
+        });
       }
     }
 });

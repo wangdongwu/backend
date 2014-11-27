@@ -23,6 +23,13 @@ Ext.define('XMLifeOperating.view.Toolbar', {
             itemId: 'txtModuleTitle',
             margin: '0 20 0 20'
         },
+        {
+            xtype: 'displayfield',
+            fieldLabel: 'version',
+            itemId:'versionNum',
+            labelWidth:60,
+            value: ''
+        },
         '->', {
             xtype: 'combo',
             itemId: 'cmbGlobalCity',
@@ -66,6 +73,17 @@ Ext.define('XMLifeOperating.view.Toolbar', {
             if (username) {
                 view.down('#txtUserName').setText(username);
             }
+            Ext.Ajax.request({
+               url: './version.json',
+               success: function(response, opts) {
+                  var obj = Ext.decode(response.responseText);
+                  view.down('#versionNum').setValue(obj.buildNumber);
+
+               },
+               failure: function(response, opts) {
+                  console.log('server-side failure with status code ' + response.status);
+               }
+            });
         }
     }
 });
