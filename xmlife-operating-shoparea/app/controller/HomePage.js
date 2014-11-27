@@ -43,7 +43,7 @@ Ext.define('XMLifeOperating.controller.HomePage', {
         autoCreate: true
     }],
 
-    init: function () {
+    init: function() {
         var me = this;
         this.layoutId = '';
         this.moduleId = '';
@@ -52,7 +52,7 @@ Ext.define('XMLifeOperating.controller.HomePage', {
         this.control({
             // 加载版本列表，并自动选择
             'homePage': {
-                onShowView: function () {
+                onShowView: function() {
                     this.areaId = XMLifeOperating.generic.Global.current_operating;
 
                     this.refreshView('all');
@@ -62,13 +62,13 @@ Ext.define('XMLifeOperating.controller.HomePage', {
                         areaId: this.areaId
                     };
                     store.load({
-                        callback: function (records) {
+                        callback: function(records) {
                             if (!records || records.length === 0) return;
                             // 初始化选择启用项
                             var model = Ext.ComponentQuery.query('#versionList')[0].getSelectionModel();
                             model.deselectAll();
                             for (var i = 0, n = records.length; i < n; i++) {
-                                if (records[i].get('enable') === true) {
+                                if (records[i].get('status') === 1) {
                                     model.select(i, true);
                                 }
                             }
@@ -91,7 +91,7 @@ Ext.define('XMLifeOperating.controller.HomePage', {
                         version = win.down('#version').getValue();
 
                     if (form.isValid()) {
-                        sendRequest('homepage',{
+                        sendRequest('homepage', {
                             areaId: this.areaId,
                             version: version
                         }, '添加版本', '添加版本成功', '添加版本失败', function() {
@@ -108,43 +108,70 @@ Ext.define('XMLifeOperating.controller.HomePage', {
                         version = record.get('version'),
                         layoutId = record.get('id');
 
-                    Ext.MessageBox.confirm('确认删除', 
+                    Ext.MessageBox.confirm('确认删除',
                         Ext.String.format("确定删除版本 '{0}' 吗？", version),
                         function(result) {
                             if (result == 'yes') {
                                 var url = 'homepage/' + layoutId;
                                 sendDeleteRequest(url, {
-                                    layoutId: layoutId
-                                },
-                                '删除版本', '删除版本成功', '删除版本失败', function(response) {
-                                    me.getHomePageStore().load();
-                                    me.refreshView('all');
-                                });
+                                        layoutId: layoutId
+                                    },
+                                    '删除版本', '删除版本成功', '删除版本失败',
+                                    function(response) {
+                                        me.getHomePageStore().load();
+                                        me.refreshView('all');
+                                    });
                             }
                         }
                     );
                 }
             },
-            // 版本启用设置
+            // 设置默认版本
+            'homePage #setDefault': {
+                click: function(view, rowIndex, colIndex, column, e) {
+                    var record = view.getRecord(view.findTargetByEvent(e));
+                    if (record.get('default')) {
+                        return;
+                    } else {
+                        Ext.MessageBox.confirm('默认版本设置', "确定要设置该版本为默认版本吗？",
+                            function(result) {
+                                if (result == 'yes') {
+                                    sendPutRequest('homepage/setDefault', {
+                                        areaId: me.areaId,
+                                        layoutId: record.get('id')
+                                    }, '设置默认版本', '默认版本成功', '默认版本失败', function() {
+                                        me.getHomePageStore().load();
+                                    });
+                                }
+                            }
+                        );
+                    }
+                }
+            },
+            // 取消定时/弹窗设置
             'homePage #setEnable': {
                 click: function(view, rowIndex, colIndex, column, e) {
                     var record = view.getRecord(view.findTargetByEvent(e));
-                    if(record.get('type') == 1) {
-                        // sendPutRequest('homepage/enable', values, '取消定时', '取消成功', '取消失败', function() {
-                        //     me.getHomePageStore().load();
-                        // }); 
-                    }else {
+                    // 取消定时
+                    if (record.get('status') == 2) {
+                        sendPutRequest('homepage/cancelTiming', {
+                            areaId: this.areaId,
+                            layoutId: record.get('id')
+                        }, '取消定时', '取消成功', '取消失败', function() {
+                            me.getHomePageStore().load();
+                        });
+                    } else { // 弹出启用设置窗口
                         var win = this.getVersionEnable();
                         win.down('form').getForm().loadRecord(record);
                         win.show();
                     }
                 }
             },
-            // 立即/定时启用切换
+            // 启用类型切换
             'versionEnable #timeEnable': {
                 change: function(radio) {
                     var win = this.getVersionEnable();
-                    if(radio.getValue()){
+                    if (radio.getValue()) {
                         Ext.each(win.query('datefield'), function(elem, index) {
                             elem.setVisible(true);
                         });
@@ -162,7 +189,7 @@ Ext.define('XMLifeOperating.controller.HomePage', {
                         selDate = Ext.Date.format(value, 'Y-m-d'),
                         curDate = Ext.Date.format(new Date(), 'Y-m-d');
                     // 如果选择是当天，推迟
-                    if(selDate == curDate) {
+                    if (selDate == curDate) {
                         value = Ext.Date.add(new Date(), Ext.Date.MINUTE, 30);
                         elem.setValue(value);
                     }
@@ -176,9 +203,9 @@ Ext.define('XMLifeOperating.controller.HomePage', {
                         values = form.getValues(),
                         record = form.getRecord();
 
-                    if(values.type == 1){
-                        if(!form.isValid()) return;
-                        if(values.endTime <= values.startTime){
+                    if (values.type == 1) {
+                        if (!form.isValid()) return;
+                        if (values.endTime <= values.startTime) {
                             Ext.Msg.alert('错误提示', '结束时间不能小于开始时间！');
                             return;
                         }
@@ -188,13 +215,13 @@ Ext.define('XMLifeOperating.controller.HomePage', {
                     sendPutRequest('homepage/enable', values, '设置启用', '启用成功', '启用失败', function() {
                         me.getHomePageStore().load();
                         win.close();
-                    }); 
+                    });
                 }
             },
             // 选择版本，展示大积木列表
             'homePage #versionList': {
                 selectionchange: function(model, selected) {
-                    if(selected.length === 0) return;
+                    if (selected.length === 0) return;
                     var record = selected[0].data;
                     //保存当前版本id
                     this.layoutId = record.id;
@@ -204,14 +231,14 @@ Ext.define('XMLifeOperating.controller.HomePage', {
                         layoutId: this.layoutId
                     };
                     store.load();
-                    this.refreshView('detail','preview');
+                    this.refreshView('detail', 'preview');
                     //灰掉新建小积木
                     this.getHomePage().down('#addModuleItem').setDisabled(true);
                 },
                 edit: function(editor, e) {
                     var record = e.record;
 
-                    sendPutRequest('homepage',{
+                    sendPutRequest('homepage', {
                         layoutId: record.get('id'),
                         version: record.get('version')
                     }, '修改名称', '修改名称成功', '修改名称失败', function() {
@@ -223,8 +250,8 @@ Ext.define('XMLifeOperating.controller.HomePage', {
             // 大积木选择, 展示详情
             'homePage #moduleList': {
                 selectionchange: function(model, selected) {
-                    if(selected.length === 0) return;
-                    
+                    if (selected.length === 0) return;
+
                     //保存当前大积木全局属性
                     var record = selected[0].data;
                     this.moduleId = record.id;
@@ -244,7 +271,7 @@ Ext.define('XMLifeOperating.controller.HomePage', {
                 edit: function(editor, e) {
                     var record = e.record;
 
-                    sendPutRequest('homepage/updateModule',{
+                    sendPutRequest('homepage/updateModule', {
                         moduleId: record.get('id'),
                         name: record.get('name')
                     }, '修改名称', '修改名称成功', '修改名称失败', function() {
@@ -256,17 +283,17 @@ Ext.define('XMLifeOperating.controller.HomePage', {
             // 大积木排序
             'homePage #moduleList dataview': {
                 beforedrop: function(node, data, dropRec, dropPosition) {
-                    if(dropRec.index === 0 || data.records[0].type == 'TYPE0') return false;
+                    if (dropRec.index === 0 || data.records[0].type == 'TYPE0') return false;
                 },
                 drop: function(node, data, dropRec, dropPosition) {
                     var store = this.getHomePageModuleListStore();
                     var moduleIds = [];
-                    for(var i=0, n=store.totalCount; i<n; i++){
+                    for (var i = 0, n = store.totalCount; i < n; i++) {
                         var record = store.getAt(i);
-                        record.set('order',i);
+                        record.set('order', i);
                         moduleIds.push(record.get('id'));
                     }
-                    sendPutRequest('homepage/setOrder',{
+                    sendPutRequest('homepage/setOrder', {
                         layoutId: this.layoutId,
                         moduleIds: moduleIds
                     }, '大积木排序', '大积木排序成功', '大积木排序失败', function() {
@@ -284,8 +311,8 @@ Ext.define('XMLifeOperating.controller.HomePage', {
             // 新建大积木保存
             'moduleAdd #save': {
                 click: function() {
-                    var win =  this.getModuleAdd(),
-                        form =  win.down('form').getForm(),
+                    var win = this.getModuleAdd(),
+                        form = win.down('form').getForm(),
                         values = form.getValues();
 
                     values.layoutId = this.layoutId;
@@ -311,13 +338,15 @@ Ext.define('XMLifeOperating.controller.HomePage', {
                     var layoutId = combo.getValue();
                     var store = this.getHomePageModuleCopyStore();
                     store.load({
-                        params: {layoutId: layoutId}
+                        params: {
+                            layoutId: layoutId
+                        }
                     });
                 }
             },
             // 保持type值于hidden中用以提示
             'moduleCopy #moduleCombo': {
-                select: function(combo,records) {
+                select: function(combo, records) {
                     var moduleType = records[0].get('type');
                     this.getModuleCopy().down('#moduleType').setValue(moduleType);
                 }
@@ -330,7 +359,7 @@ Ext.define('XMLifeOperating.controller.HomePage', {
                         values = form.getValues();
 
                     if (form.isValid()) {
-                        if(values.type == 'TYPE0') {
+                        if (values.type == 'TYPE0') {
                             Ext.MessageBox.confirm('确认拷贝banner', "拷贝banner将会替换当前banner, 你确定吗？",
                                 function(result) {
                                     if (result == 'yes') {
@@ -365,17 +394,18 @@ Ext.define('XMLifeOperating.controller.HomePage', {
                         name = record.get('name'),
                         moduleId = record.get('id');
 
-                    Ext.MessageBox.confirm('确认删除', 
+                    Ext.MessageBox.confirm('确认删除',
                         Ext.String.format("确定删除大积木 '{0}' 吗？", name),
                         function(result) {
                             if (result == 'yes') {
                                 sendDeleteRequest('homepage/deleteModule', {
-                                    moduleId: moduleId
-                                },
-                                '删除大积木', '删除大积木成功', '删除大积木失败', function(response) {
-                                    me.getHomePageModuleListStore().load();
-                                    me.refreshView('detail');
-                                });
+                                        moduleId: moduleId
+                                    },
+                                    '删除大积木', '删除大积木成功', '删除大积木失败',
+                                    function(response) {
+                                        me.getHomePageModuleListStore().load();
+                                        me.refreshView('detail');
+                                    });
                             }
                         }
                     );
@@ -385,7 +415,7 @@ Ext.define('XMLifeOperating.controller.HomePage', {
             'homePage #addModuleItem': {
                 click: function(button, e) {
                     var store = this.getHomePageModuleDetailStore();
-                    if(store.totalCount >= 6) {
+                    if (store.totalCount >= 6) {
                         Ext.Msg.alert('信息提示', 'banner最多只能建6个！');
                         return;
                     }
@@ -393,7 +423,7 @@ Ext.define('XMLifeOperating.controller.HomePage', {
                     win.show();
                     //显示图片大小提示
                     var size = this.getItemSize(this.moduleType, 0);
-                    win.down('#picSizeTip').setText('（提示：尺寸'+ size +'，大小100K以内）');
+                    win.down('#picSizeTip').setText('（提示：尺寸' + size + '，大小100K以内）');
                 }
             },
             // 编辑、删除小积木
@@ -402,31 +432,32 @@ Ext.define('XMLifeOperating.controller.HomePage', {
                     var record = view.getRecord(view.findTargetByEvent(e)),
                         targetClass = e.target.getAttribute('class');
                     // 编辑
-                    if (targetClass.indexOf('action-edit') >=0) {
-                        var win =  this.getModuleDetailEdit(),
+                    if (targetClass.indexOf('action-edit') >= 0) {
+                        var win = this.getModuleDetailEdit(),
                             form = win.down('form').getForm();
                         form.loadRecord(record);
                         //初始化选择及下拉状态
                         var combo = win.down('combo[name=urlType]');
-                        combo.fireEvent('select',combo,'isInit');
+                        combo.fireEvent('select', combo, 'isInit');
                         //显示图片大小提示
                         var size = this.getItemSize(this.moduleType, rowIndex);
-                        win.down('#picSizeTip').setText('（提示：尺寸'+ size +'，大小100K以内）');
+                        win.down('#picSizeTip').setText('（提示：尺寸' + size + '，大小100K以内）');
                         win.show();
 
-                    // 删除
-                    } else if (targetClass.indexOf('action-del') >=0) {
-                        Ext.MessageBox.confirm('确认删除', 
+                        // 删除
+                    } else if (targetClass.indexOf('action-del') >= 0) {
+                        Ext.MessageBox.confirm('确认删除',
                             Ext.String.format("确定删除小积木 '{0}' 吗？", record.get('name')),
                             function(result) {
                                 if (result == 'yes') {
                                     sendDeleteRequest('homepage/deleteModuleItem', {
-                                        moduleId: me.moduleId,
-                                        index: record.get('index')
-                                    },
-                                    '删除小积木', '小积木删除成功', '小积木删除失败', function(response) {
-                                        me.getHomePageModuleDetailStore().load();
-                                    });
+                                            moduleId: me.moduleId,
+                                            index: record.get('index')
+                                        },
+                                        '删除小积木', '小积木删除成功', '小积木删除失败',
+                                        function(response) {
+                                            me.getHomePageModuleDetailStore().load();
+                                        });
                                 }
                             }
                         );
@@ -436,7 +467,7 @@ Ext.define('XMLifeOperating.controller.HomePage', {
             // 选择url类型
             'moduleDetailEdit combo[name=urlType]': {
                 select: function(combo, flag) {
-                    var win =  this.getModuleDetailEdit(),
+                    var win = this.getModuleDetailEdit(),
                         record = win.down('form').getRecord(),
                         urlType = combo.getValue();
 
@@ -444,31 +475,33 @@ Ext.define('XMLifeOperating.controller.HomePage', {
 
                     if (urlType == 'SHOP' || urlType == 'CATEGORY' || urlType == 'SKU') {
                         var store = me.getHomePageShopStore();
-                        store.getProxy().extraParams = {areaId: this.areaId};
+                        store.getProxy().extraParams = {
+                            areaId: this.areaId
+                        };
                         store.load();
 
                         // 编辑时，依次触发回填
-                        if(record && record.get('shopId')) {
+                        if (record && record.get('shopId')) {
                             var shopCombo = win.down('combo[name=shopId]');
-                            shopCombo.fireEvent('select',shopCombo,flag);
+                            shopCombo.fireEvent('select', shopCombo, flag);
 
-                            if(record.get('cid')) {
-                             var categoryCombo = win.down('combo[name=cid]');
-                                categoryCombo.fireEvent('select',categoryCombo,flag);
+                            if (record.get('cid')) {
+                                var categoryCombo = win.down('combo[name=cid]');
+                                categoryCombo.fireEvent('select', categoryCombo, flag);
                             }
                         }
                         // 处理掉url值，url类型切换时不干扰url值
-                        if(record && record.get('url') && flag == 'isInit') {
+                        if (record && record.get('url') && flag == 'isInit') {
                             win.down('#urlTextField').setValue('');
                         }
                         win.down('combo[name=fid]').setVisible(false);
                         win.down('combo[name=shopId]').setVisible(true);
                         win.down('combo[name=cid]').setVisible(urlType == 'CATEGORY' || urlType == 'SKU');
                         win.down('combo[name=pid]').setVisible(urlType == 'SKU');
-                        
-                    } else if(urlType == 'FUNCTION') {
+
+                    } else if (urlType == 'FUNCTION') {
                         // 只在初始化时赋值，url类型切换时不用
-                        if(record && record.get('url') && flag == 'isInit') {
+                        if (record && record.get('url') && flag == 'isInit') {
                             win.down('combo[name=fid]').setValue(record.get('url'));
                             win.down('#urlTextField').setValue('');
                         }
@@ -489,20 +522,24 @@ Ext.define('XMLifeOperating.controller.HomePage', {
             'moduleDetailEdit combo[name=shopId]': {
                 select: function(combo, flag) {
                     var shopId = combo.getValue(),
-                        win =  this.getModuleDetailEdit(),
+                        win = this.getModuleDetailEdit(),
                         store = null;
 
-                    if(this.urlType != 'SHOP') {
+                    if (this.urlType != 'SHOP') {
 
                         if (this.urlType == 'CATEGORY') {
                             store = me.getHomePageCategoryStore();
                         } else if (this.urlType == 'SKU') {
                             store = me.getHomePageLeafCategoryStore();
                         }
-                        store.load({ params: {shopId: shopId} });
+                        store.load({
+                            params: {
+                                shopId: shopId
+                            }
+                        });
 
                         // 选择父级下拉，清空之前选择（初始化时除外）
-                        if(flag != 'isInit') {
+                        if (flag != 'isInit') {
                             win.down('combo[name=cid]').setValue('');
                             win.down('combo[name=pid]').setValue('');
                         }
@@ -513,13 +550,17 @@ Ext.define('XMLifeOperating.controller.HomePage', {
             // 选择货架
             'moduleDetailEdit combo[name=cid]': {
                 select: function(combo, flag) {
-                    if(this.urlType == 'SKU') {
+                    if (this.urlType == 'SKU') {
                         var cid = combo.getValue(),
-                            win =  this.getModuleDetailEdit(),
+                            win = this.getModuleDetailEdit(),
                             store = me.getHomePageProductStore();
 
-                        store.load({ params: {categoryId: cid} });
-                        if(flag != 'isInit') win.down('combo[name=pid]').setValue('');
+                        store.load({
+                            params: {
+                                categoryId: cid
+                            }
+                        });
+                        if (flag != 'isInit') win.down('combo[name=pid]').setValue('');
                     }
                 }
             },
@@ -535,8 +576,8 @@ Ext.define('XMLifeOperating.controller.HomePage', {
             // 保存小积木
             'moduleDetailEdit #save': {
                 click: function() {
-                    var win =  this.getModuleDetailEdit(),
-                        form =  win.down('form').getForm();
+                    var win = this.getModuleDetailEdit(),
+                        form = win.down('form').getForm();
 
                     if (form.isValid()) {
                         var values = form.getValues(),
@@ -545,22 +586,22 @@ Ext.define('XMLifeOperating.controller.HomePage', {
                         values.moduleId = this.moduleId;
 
                         // 其它几种类型都置于url中传给后端
-                        if(this.urlType == 'SHOP') {
+                        if (this.urlType == 'SHOP') {
                             values.url = values.shopId;
-                        } else if(this.urlType == 'CATEGORY') {
+                        } else if (this.urlType == 'CATEGORY') {
                             values.url = values.cid;
-                        } else if(this.urlType == 'SKU') {
+                        } else if (this.urlType == 'SKU') {
                             values.url = values.pid;
-                        } else if(this.urlType == 'FUNCTION') {
+                        } else if (this.urlType == 'FUNCTION') {
                             values.url = values.fid;
                         }
-                        if(this.urlType != 'HTML' && !values.url) {
+                        if (this.urlType != 'HTML' && !values.url) {
                             Ext.Msg.alert('验证信息', 'url下拉有一项未选择，请选择完整。');
                             return;
                         }
 
                         //新建时无index
-                        if(record) {
+                        if (record) {
                             values.index = record.index;
                             sendPutRequest('homepage/updateModuleItem', values, '属性编辑', '属性编辑成功', '属性编辑失败', function() {
                                 me.getHomePageModuleDetailStore().load();
@@ -580,11 +621,11 @@ Ext.define('XMLifeOperating.controller.HomePage', {
                 drop: function(node, data, dropRec, dropPosition) {
                     var store = this.getHomePageModuleDetailStore();
                     var indexs = [];
-                    for(var i=0, n=store.totalCount; i<n; i++){
+                    for (var i = 0, n = store.totalCount; i < n; i++) {
                         var record = store.getAt(i);
                         indexs.push(record.get('index'));
                     }
-                    sendPutRequest('homepage/setItemOrder',{
+                    sendPutRequest('homepage/setItemOrder', {
                         indexs: indexs,
                         moduleId: this.moduleId
                     }, '小积木', '小积木成功', '小积木失败', function() {
@@ -596,7 +637,9 @@ Ext.define('XMLifeOperating.controller.HomePage', {
             'homePage #previewPage': {
                 click: function() {
                     var store = this.getHomePagePreviewStore();
-                    store.getProxy().extraParams = {layoutId: this.layoutId};
+                    store.getProxy().extraParams = {
+                        layoutId: this.layoutId
+                    };
                     store.load({
                         callback: me.renderHomePage
                     });
@@ -606,41 +649,45 @@ Ext.define('XMLifeOperating.controller.HomePage', {
         });
     },
     // 中心、版本切换时，刷新视图
-    refreshView: function(target,view){
-        if(target == 'all' || target == 'list') {
+    refreshView: function(target, view) {
+        if (target == 'all' || target == 'list') {
             this.getHomePageModuleListStore().load({
-                params: {layoutId:''}
+                params: {
+                    layoutId: ''
+                }
             });
         }
-        if(target == 'all' || target == 'detail') {
+        if (target == 'all' || target == 'detail') {
             this.getHomePageModuleDetailStore().load({
-                params: {moduleId:''}
+                params: {
+                    moduleId: ''
+                }
             });
         }
-        if(target == 'all' || view == 'preview') {
+        if (target == 'all' || view == 'preview') {
             setTimeout(function() {
                 Ext.get('homePreviewList').setHTML('<p style="text-align:center;">当前暂无预览</p>');
-            },300);
+            }, 300);
         }
     },
     // 获取各类型大小，以提示
     getItemSize: function(type, index) {
         var sizes = {
-            'TYPE0': ['640x320','640x320','640x320','640x320','640x320','640x320'],
-            'TYPE1': ['326x360','180x180','180x180','180x180','180x180'],
-            'TYPE2': ['326x360','360x180','360x180'],
-            'TYPE3': ['240x228','240x228','240x228'],
-            'TYPE4': ['480x228','240x228'],
-            'TYPE5': ['240x228','480x228'],
+            'TYPE0': ['640x320', '640x320', '640x320', '640x320', '640x320', '640x320'],
+            'TYPE1': ['326x360', '180x180', '180x180', '180x180', '180x180'],
+            'TYPE2': ['326x360', '360x180', '360x180'],
+            'TYPE3': ['240x228', '240x228', '240x228'],
+            'TYPE4': ['480x228', '240x228'],
+            'TYPE5': ['240x228', '480x228'],
             'TYPE6': ['676x180'],
-            'TYPE7': ['326x180','326x180']
+            'TYPE7': ['326x180', '326x180']
         };
         return sizes[type][index];
     },
     // 渲染预览首页
     renderHomePage: function(records) {
-        if(!records || records.length === 0) return;
-        
+        if (!records || records.length === 0) return;
+
         var res_url = XMLifeOperating.generic.Global.URL.res + '/image/id-',
             html = '';
 
@@ -659,88 +706,88 @@ Ext.define('XMLifeOperating.controller.HomePage', {
                 j = 0,
                 m = 0;
 
-            if(!(items && items.length) && type != 'TYPE8' && type != 'TYPE9'){
-                Ext.Msg.alert('提示信息','模块 “'+ data.name +'“ 缺少图片，暂无法预览！');
+            if (!(items && items.length) && type != 'TYPE8' && type != 'TYPE9') {
+                Ext.Msg.alert('提示信息', '模块 “' + data.name + '“ 缺少图片，暂无法预览！');
                 return;
             }
 
-            switch (type){
+            switch (type) {
                 case 'TYPE0':
-                    html += '<div style="width:100%">'+ (items[0].url ? '<a href="'+ items[0].url +'" target="_blank">' : '') +'<img src="'+ res_url + items[0].image +'" width="100%" />'+ (items[0].url ? '</a>': '') +'</div>';
+                    html += '<div style="width:100%">' + (items[0].url ? '<a href="' + items[0].url + '" target="_blank">' : '') + '<img src="' + res_url + items[0].image + '" width="100%" />' + (items[0].url ? '</a>' : '') + '</div>';
                     break;
 
                 case 'TYPE1':
-                    str = '<ul class="x-clear" style="'+ wrapCss + (i>1? borderT:'') +'">';
-                    for (j=0, m=items.length; j<m; j++) {
-                        titles = j===0? '<div style="position:absolute;top:0;left:20px;"><p style="font-size:14px;color:green;">'+ items[j].titles[0]+'</p><p style="margin-left:-10px;font-size:10px;-webkit-transform:scale(0.8);color:#999;">'+ items[j].titles[1]+'</p><p style="font-size:12px;color:#F86125;">'+ items[j].titles[2]+'</p></div>' : '';
-                        str += '<li style="float:left;position:relative;width:'+ (j===0? '50%':'25%') +';border:1px solid #fff;'+ (j==1? borderR+borderB:'') + (j==2? borderB:'') + (j==3? borderR:'') + '">'+ titles + (items[j].url ? '<a href="'+ items[j].url +'" target="_blank">' : '') +'<img src="'+ res_url + items[j].image +'" width="100%" />'+ (items[j].url ? '</a>' : '') +'</li>';
+                    str = '<ul class="x-clear" style="' + wrapCss + (i > 1 ? borderT : '') + '">';
+                    for (j = 0, m = items.length; j < m; j++) {
+                        titles = j === 0 ? '<div style="position:absolute;top:0;left:20px;"><p style="font-size:14px;color:green;">' + items[j].titles[0] + '</p><p style="margin-left:-10px;font-size:10px;-webkit-transform:scale(0.8);color:#999;">' + items[j].titles[1] + '</p><p style="font-size:12px;color:#F86125;">' + items[j].titles[2] + '</p></div>' : '';
+                        str += '<li style="float:left;position:relative;width:' + (j === 0 ? '50%' : '25%') + ';border:1px solid #fff;' + (j == 1 ? borderR + borderB : '') + (j == 2 ? borderB : '') + (j == 3 ? borderR : '') + '">' + titles + (items[j].url ? '<a href="' + items[j].url + '" target="_blank">' : '') + '<img src="' + res_url + items[j].image + '" width="100%" />' + (items[j].url ? '</a>' : '') + '</li>';
                     }
                     str += '</ul>';
                     html += str;
                     break;
 
                 case 'TYPE2':
-                    str = '<ul class="x-clear" style="'+ wrapCss + (i>1? borderT:'') +'">';
-                    for (j=0, m=items.length; j<m; j++) {
-                        titles = j===0? '<div style="position:absolute;top:0;left:20px;"><p style="font-size:14px;color:green;">'+ items[j].titles[0]+'</p><p style="margin-left:-10px;font-size:10px;-webkit-transform:scale(0.8);color:#999;">'+ items[j].titles[1]+'</p><p style="font-size:12px;color:#F86125;">'+ items[j].titles[2]+'</p></div>' : '';
-                        str += '<li style="float:left;position:relative;width:'+ (j===0? '50%':'50%') +';border:1px solid #fff;'+ (j===1? borderB:'') + '">'+ titles + (items[j].url ? '<a href="'+ items[j].url +'" target="_blank">' : '') +'<img src="'+ res_url + items[j].image +'" width="100%" />'+ (items[j].url ? '</a>' : '') +'</li>';
+                    str = '<ul class="x-clear" style="' + wrapCss + (i > 1 ? borderT : '') + '">';
+                    for (j = 0, m = items.length; j < m; j++) {
+                        titles = j === 0 ? '<div style="position:absolute;top:0;left:20px;"><p style="font-size:14px;color:green;">' + items[j].titles[0] + '</p><p style="margin-left:-10px;font-size:10px;-webkit-transform:scale(0.8);color:#999;">' + items[j].titles[1] + '</p><p style="font-size:12px;color:#F86125;">' + items[j].titles[2] + '</p></div>' : '';
+                        str += '<li style="float:left;position:relative;width:' + (j === 0 ? '50%' : '50%') + ';border:1px solid #fff;' + (j === 1 ? borderB : '') + '">' + titles + (items[j].url ? '<a href="' + items[j].url + '" target="_blank">' : '') + '<img src="' + res_url + items[j].image + '" width="100%" />' + (items[j].url ? '</a>' : '') + '</li>';
                     }
                     str += '</ul>';
                     html += str;
                     break;
 
                 case 'TYPE3':
-                    str = '<ul class="x-clear" style="'+ wrapCss + (i>1? borderT:'') +'">';
-                    for (j=0, m=items.length; j<m; j++) {
+                    str = '<ul class="x-clear" style="' + wrapCss + (i > 1 ? borderT : '') + '">';
+                    for (j = 0, m = items.length; j < m; j++) {
                         //titles = j==0? '<div style="position:absolute;top:0;left:20px;"><p style="font-size:14px;color:green;">'+ items[j].titles[0]+'</p><p style="font-size:10px;-webkit-transform:scale(0.8);color:#999;">'+ items[j].titles[1]+'</p><p style="font-size:12px;color:#F86125;">'+ items[j].titles[2]+'</p></div>' : '';
-                        str += '<li style="float:left;position:relative;width:'+ (j===0? '33%':'33%') +';border:1px solid #fff;'+ (j===0 || j==1? borderR:'') + '">'+ (items[j].url ? '<a href="'+ items[j].url +'" target="_blank">' : '') +'<img src="'+ res_url + items[j].image +'" width="100%" />'+ (items[j].url ? '</a>' : '') +'</li>';
+                        str += '<li style="float:left;position:relative;width:' + (j === 0 ? '33%' : '33%') + ';border:1px solid #fff;' + (j === 0 || j == 1 ? borderR : '') + '">' + (items[j].url ? '<a href="' + items[j].url + '" target="_blank">' : '') + '<img src="' + res_url + items[j].image + '" width="100%" />' + (items[j].url ? '</a>' : '') + '</li>';
                     }
                     str += '</ul>';
                     html += str;
                     break;
 
                 case 'TYPE4':
-                    str = '<ul class="x-clear" style="'+ wrapCss + (i>1? borderT:'') +'">';
-                    for (j=0, m=items.length; j<m; j++) {
+                    str = '<ul class="x-clear" style="' + wrapCss + (i > 1 ? borderT : '') + '">';
+                    for (j = 0, m = items.length; j < m; j++) {
                         //titles = j==0? '<div style="position:absolute;top:0;left:20px;"><p style="font-size:14px;color:green;">'+ items[j].titles[0]+'</p><p style="font-size:10px;-webkit-transform:scale(0.8);color:#999;">'+ items[j].titles[1]+'</p><p style="font-size:12px;color:#F86125;">'+ items[j].titles[2]+'</p></div>' : '';
-                        str += '<li style="float:left;position:relative;width:'+ (j===0? '66%':'33%') +';border:1px solid #fff;'+ (j===0? borderR:'') + '">'+ (items[j].url ? '<a href="'+ items[j].url +'" target="_blank">' : '') +'<img src="'+ res_url + items[j].image +'" width="100%" />'+ (items[j].url ? '</a>' : '') +'</li>';
+                        str += '<li style="float:left;position:relative;width:' + (j === 0 ? '66%' : '33%') + ';border:1px solid #fff;' + (j === 0 ? borderR : '') + '">' + (items[j].url ? '<a href="' + items[j].url + '" target="_blank">' : '') + '<img src="' + res_url + items[j].image + '" width="100%" />' + (items[j].url ? '</a>' : '') + '</li>';
                     }
                     str += '</ul>';
                     html += str;
                     break;
 
                 case 'TYPE5':
-                    str = '<ul class="x-clear" style="'+ wrapCss + (i>1? borderT:'') +'">';
-                    for (j=0, m=items.length; j<m; j++) {
+                    str = '<ul class="x-clear" style="' + wrapCss + (i > 1 ? borderT : '') + '">';
+                    for (j = 0, m = items.length; j < m; j++) {
                         //titles = j==0? '<div style="position:absolute;top:0;left:20px;"><p style="font-size:14px;color:green;">'+ items[j].titles[0]+'</p><p style="font-size:10px;-webkit-transform:scale(0.8);color:#999;">'+ items[j].titles[1]+'</p><p style="font-size:12px;color:#F86125;">'+ items[j].titles[2]+'</p></div>' : '';
-                        str += '<li style="float:left;position:relative;width:'+ (j===0? '33%':'66%') +';border:1px solid #fff;'+ (j===0? borderR:'') + '">'+ (items[j].url ? '<a href="'+ items[j].url +'" target="_blank">' : '') +'<img src="'+ res_url + items[j].image +'" width="100%" />'+ (items[j].url ? '</a>' : '') +'</li>';
+                        str += '<li style="float:left;position:relative;width:' + (j === 0 ? '33%' : '66%') + ';border:1px solid #fff;' + (j === 0 ? borderR : '') + '">' + (items[j].url ? '<a href="' + items[j].url + '" target="_blank">' : '') + '<img src="' + res_url + items[j].image + '" width="100%" />' + (items[j].url ? '</a>' : '') + '</li>';
                     }
                     str += '</ul>';
                     html += str;
                     break;
 
                 case 'TYPE6':
-                    str = '<ul class="x-clear" style="'+ wrapCss + (i>1? borderT:'') +'">';
-                    for (j=0, m=items.length; j<m; j++) {
+                    str = '<ul class="x-clear" style="' + wrapCss + (i > 1 ? borderT : '') + '">';
+                    for (j = 0, m = items.length; j < m; j++) {
                         //var titles = j==0? '<div style="position:absolute;top:0;left:20px;"><p style="font-size:14px;color:green;">'+ items[j].titles[0]+'</p><p style="font-size:10px;-webkit-transform:scale(0.8);color:#999;">'+ items[j].titles[1]+'</p><p style="font-size:12px;color:#F86125;">'+ items[j].titles[2]+'</p></div>' : '';
-                        str += '<li style="float:left;position:relative;width:'+ (j===0? '100%':'100%') +';border:1px solid #fff;'+ (j===0? borderR:'') + '">'+ (items[j].url ? '<a href="'+ items[j].url +'" target="_blank">' : '') +'<img src="'+ res_url + items[j].image +'" width="100%" />'+ (items[j].url ? '</a>' : '') +'</li>';
+                        str += '<li style="float:left;position:relative;width:' + (j === 0 ? '100%' : '100%') + ';border:1px solid #fff;' + (j === 0 ? borderR : '') + '">' + (items[j].url ? '<a href="' + items[j].url + '" target="_blank">' : '') + '<img src="' + res_url + items[j].image + '" width="100%" />' + (items[j].url ? '</a>' : '') + '</li>';
                     }
                     str += '</ul>';
                     html += str;
                     break;
 
                 case 'TYPE7':
-                    str = '<ul class="x-clear" style="'+ wrapCss + '">';
-                    for (j=0, m=items.length; j<m; j++) {
+                    str = '<ul class="x-clear" style="' + wrapCss + '">';
+                    for (j = 0, m = items.length; j < m; j++) {
                         //titles = j==0? '<div style="position:absolute;top:0;left:20px;"><p style="font-size:14px;color:green;">'+ items[j].titles[0]+'</p><p style="font-size:10px;-webkit-transform:scale(0.8);color:#999;">'+ items[j].titles[1]+'</p><p style="font-size:12px;color:#F86125;">'+ items[j].titles[2]+'</p></div>' : '';
-                        str += '<li style="float:left;position:relative;width:'+ (j===0? '49%':'49%') +';border:1px solid #fff;'+ (j===0? 'margin-right:2%;':'') + '">'+ (items[j].url ? '<a href="'+ items[j].url +'" target="_blank">' : '') +'<img src="'+ res_url + items[j].image +'" width="100%" />'+ (items[j].url ? '</a>' : '') +'</li>';
+                        str += '<li style="float:left;position:relative;width:' + (j === 0 ? '49%' : '49%') + ';border:1px solid #fff;' + (j === 0 ? 'margin-right:2%;' : '') + '">' + (items[j].url ? '<a href="' + items[j].url + '" target="_blank">' : '') + '<img src="' + res_url + items[j].image + '" width="100%" />' + (items[j].url ? '</a>' : '') + '</li>';
                     }
                     str += '</ul>';
                     html += str;
                     break;
 
                 case 'TYPE8':
-                    html += '<p style="margin:0;'+ (i>1? borderT:'') +'">&nbsp;</p>';
+                    html += '<p style="margin:0;' + (i > 1 ? borderT : '') + '">&nbsp;</p>';
                     break;
 
                 case 'TYPE9':

@@ -35,27 +35,44 @@ Ext.define('XMLifeOperating.view.centralPointManage.homePage.HomePage', {
           {
               xtype: 'rownumberer',
               align: 'center',
-              width: '8%',
+              width: '5%',
           }, {
               text: '版本列表',
               dataIndex: 'version',
-              width: '60%',
+              width: '30%',
               align: 'left',
               editor: {
                 xtype: 'textfield'
               }
           }, {
+              text: '角色',
+              dataIndex: 'default',
+              itemId: 'setDefault',
+              width: '14%',
+              align: 'center',
+              renderer: function(value) {
+                return value ? '默认' : '<input type="button" value="设置" style="margin-left: -4px;" />';
+              }
+          }, {
+              text: '定时',
+              dataIndex: 'startTime',
+              width: '22%',
+              align: 'center',
+              renderer: function(value, meta, record) {
+                return '<span style="display: inline-block; margin-left: -3px;">'+ value + '<br />' + record.get('endTime') + '</span>';
+              }
+          }, {
               text: '选择',
               itemId: 'setEnable',
-              dataIndex: 'enable',
-              width: '18%',
+              dataIndex: 'status',
+              width: '19%',
               align: 'center',
               renderer: function(value, meta, record, rowIndex, colIndex, store, view){
-                return value ? (record.get('type') == 1 ? '<input type="button" value="取消定时" />' : '<span style="color:green;">启用中</span>') : '<input type="button" value="启用" />'
+                return value ? (value == 2 ? '<input type="button" value="取消定时" style="margin-left: -4px; padding: 3px 2px 5px;" />' : '<span style="color:green;">启用中</span>') : '<input type="button" value="启用" style="margin-left: -3px;" />';
               },
               listeners: {
                 click: function(view, meta, rowIndex, colIndex, e, record) {
-                  if(record.get('enable') && record.get('type') == 0) return false;
+                  if(record.get('status') == 1) return false;
                 }
               }
           }, {
@@ -64,14 +81,14 @@ Ext.define('XMLifeOperating.view.centralPointManage.homePage.HomePage', {
               text: '操作',
               tooltip: '删除',
               icon: 'resources/images/delete.png',
-              width: '14%',
+              width: '10%',
               align: 'center',
               renderer: function(value, meta, record, rowIndex, colIndex, store, view) {
-                if(record.get('enable')) meta.style = 'display:none;';
+                if (record.get('status') == 1) meta.style = 'display: none;';
               },
               listeners: {
                 click: function(view, meta, rowIndex, colIndex, e, record) {
-                  if(record.get('enable')) return false;
+                  if (record.get('status') == 1) return false;
                 }
               }
           }
@@ -130,7 +147,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.homePage.HomePage', {
               width: '14%',
               align: 'center',
               renderer:function(value, meta, record, rowIndex, colIndex, store, view){
-                if (record.get('type') == 'TYPE0') meta.style = 'display:none;';
+                if (record.get('type') == 'TYPE0') meta.style = 'display: none;';
               },
               listeners: {
                 click: function(view, meta, rowIndex, colIndex, e, record) {
@@ -238,10 +255,9 @@ Ext.define('XMLifeOperating.view.centralPointManage.homePage.HomePage', {
           loadingText: 'Loading...',
           tpl: '<div id="homePreviewList"><p style="text-align:center;">当前暂无预览</p></div>',
       }]
-    }]
+    }];
 
     this.callParent(arguments);
-
   }
 
 });
