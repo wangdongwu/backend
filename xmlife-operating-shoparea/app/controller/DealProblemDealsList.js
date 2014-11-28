@@ -1,13 +1,11 @@
 Ext.define('XMLifeOperating.controller.DealProblemDealsList', {
     extend: 'Ext.app.Controller',
-
     views: ['operationManage.dealProblemDeals.DealProblemDealsList',
         'operationManage.dealProblemDeals.DealProblemDealsReapportion',
         'operationManage.dealProblemDeals.DealProblemDealsReapportionShopper',
         'operationManage.dealProblemDeals.DealProblemDealsReapportionDeliverer',
         'operationManage.dealProblemDeals.DPDealDetail'
     ],
-
     stores: [
         'DealProblemDeals',
         'ShopArea',
@@ -16,7 +14,6 @@ Ext.define('XMLifeOperating.controller.DealProblemDealsList', {
         'Deliverer',
         'DealItems'
     ],
-
     models: [
         'DealProblemDeals',
         'ShopArea',
@@ -25,7 +22,6 @@ Ext.define('XMLifeOperating.controller.DealProblemDealsList', {
         'Deliverer',
         'DealItems'
     ],
-
     refs: [{
         ref: 'dealProblemDealsList',
         selector: 'dealProblemDealsList',
@@ -55,9 +51,7 @@ Ext.define('XMLifeOperating.controller.DealProblemDealsList', {
         xtype: 'dPDealDetail',
         autoCreate: true
     }],
-
     init: function() {
-
         var me = this;
         this.control({
 
@@ -71,11 +65,9 @@ Ext.define('XMLifeOperating.controller.DealProblemDealsList', {
                         }
                     });
                     this.areaId = combo.getValue();
-
-                },
+                }
             },
             //刷新按钮
-
             'dealProblemDealsList #update': {
                 click: function() {
 
@@ -93,20 +85,14 @@ Ext.define('XMLifeOperating.controller.DealProblemDealsList', {
                     } else {
                         return;
                     }
-
-
-                },
+                }
             },
             'dealProblemDealsList #refresh': {
                 click: me.onRefresh
-
             },
-
-
             'dealProblemDealsList #cancellation': {
                 click: me.onCancellation
             },
-
             'dealProblemDealsList #reapportion': {
                 click: me.onReapportion
             },
@@ -216,7 +202,6 @@ Ext.define('XMLifeOperating.controller.DealProblemDealsList', {
             return
         }
     },
-
     onReapportion: function(view, rowIndex, colIndex, column, e) {
         var reapportion = view.getRecord(view.findTargetByEvent(e));
         var win = this.getReapportion();
@@ -253,7 +238,6 @@ Ext.define('XMLifeOperating.controller.DealProblemDealsList', {
             }
         });
     },
-
     onReapportionShopper: function(view, rowIndex, colIndex, column, e) {
         var reapportion = view.getRecord(view.findTargetByEvent(e));
 
@@ -338,13 +322,11 @@ Ext.define('XMLifeOperating.controller.DealProblemDealsList', {
     onReapportionDeliverer: function(view, rowIndex, colIndex, column, e) {
         var me = this;
         var reapportionDeliverer = Ext.ComponentQuery.query('#dealForm')[0].getRecord();
-
         var win = this.getReapportionDealTasksDeliverer();
         win.down('form').loadRecord(reapportionDeliverer);
         win.show();
-
         var store = this.getDelivererStore();
-       
+
         store.load({
             params: {
                 // deliveryZone: reapportionDeliverer.get('zoneId'),
@@ -363,7 +345,6 @@ Ext.define('XMLifeOperating.controller.DealProblemDealsList', {
             }
         });
     },
-
     onPutReapportionDeliverer: function(view, rowIndex, colIndex, column, e) {
         var editWindow1 = this.getReapportionDealTasksDeliverer();
         var editWindow2 = this.getReapportion();
@@ -416,9 +397,7 @@ Ext.define('XMLifeOperating.controller.DealProblemDealsList', {
                 }
             }
         );
-
     },
-
     onCancellation: function(view, rowIndex, colIndex, column, e) {
         var dealitem = view.getRecord(view.findTargetByEvent(e));
         var dealBackendId = dealitem.get('dealBackendId');

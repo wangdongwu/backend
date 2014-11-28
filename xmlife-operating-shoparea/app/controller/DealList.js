@@ -54,9 +54,6 @@ Ext.define('XMLifeOperating.controller.DealList', {
                     this.areaId = combo.getValue();
                 }
             },
-            'dealList':{
-
-            },
             'dealList #productInvoice': {
                 click: function() {
                     var me = this;
