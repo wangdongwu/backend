@@ -13,6 +13,7 @@ dump
 .xm_config
 
 # extjs
+.arcconfig
 index.html
 app.json
 bootstrap.js

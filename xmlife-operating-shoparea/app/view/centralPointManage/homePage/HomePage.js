@@ -10,7 +10,6 @@ Ext.define('XMLifeOperating.view.centralPointManage.homePage.HomePage', {
       xtype: 'panel',
       columnWidth: 0.3,
       border: 0,
-
       items: [{
         xtype: 'grid',
         itemId: 'versionList',

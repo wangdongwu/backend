@@ -5,34 +5,28 @@ Ext.define('XMLifeOperating.view.centralPointManage.shopConfig.ShopConfigManage'
   alias: 'widget.ShopConfigManage',
   title: '主页配置',
   layout: 'hbox',
-  height : '100%',
-  defaults : {
-    height : '100%',
+  height: '100%',
+  defaults: {
+    height: '100%',
   },
-  tbar : [
-      {
-        itemId : 'shopList',
-        xtype : 'combo',
-        fieldLabel: '选择店铺',
-        emptyText : '选择店铺',
-        store: 'HomePageShop',
-        queryMode: 'local',
-        displayField: 'name',
-        valueField: 'id',
-    }
-  ],
-  items: [
-    {
-          xtype : 'ShopVersionPanel',
-          flex: 3
-        },
-        {
-          xtype : 'ShopModuleDetail',
-          flex: 4
-        },
-        {
-          xtype : 'ShopPreview',
-          flex : 3
-        }
-  ],
+  tbar: [{
+    itemId: 'shopList',
+    xtype: 'combo',
+    fieldLabel: '选择店铺',
+    emptyText: '选择店铺',
+    store: 'HomePageShop',
+    queryMode: 'local',
+    displayField: 'name',
+    valueField: 'id',
+  }],
+  items: [{
+    xtype: 'ShopVersionPanel',
+    flex: 4
+  }, {
+    xtype: 'ShopModuleDetail',
+    flex: 3
+  }, {
+    xtype: 'ShopPreview',
+    flex: 3
+  }],
 });
