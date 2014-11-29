@@ -19,22 +19,65 @@ Ext.define('XMLifeOperating.view.centralPointManage.homePage.ModuleDetailEdit', 
             margin: '8 0 0 0'
         },
         items: [{
-            xtype: 'textfield',
-            name: 'name',
-            fieldLabel: '名称',
-            labelWidth: 60,
-            labelAlign: 'right'
+
+          xtype : 'combo',
+          name : 'name',
+          labelWidth: 60,
+          labelAlign: 'right',
+          queryMode : 'local',
+          hideTrigger : true,
+          typeAhead : true,
+          store : 'ModuleNameComplete',
+          fieldLabel : '名称',
+          displayField: 'name',
+          valueField: 'name',
+          minChars: 1,
+          tpl: Ext.create('Ext.XTemplate',
+              '<tpl for=".">',
+                          '<div class="x-boundlist-item" style="color:green;text-align:left">{name}</div>',
+              '</tpl>'
+          ),
+          listeners: {
+                buffer  : 50,
+                focus   : function (component) {
+                    this.expand();
+                },
+                removed : function (component) {
+                    this.store.clearFilter(true);
+                }
+            }            
         }, {
             xtype: 'label',
             text: '（提示: 多个titles之间用;号隔开）',
             width: '100%',
             style: 'padding-left:58px;color:#999;text-align:left;'
         }, {
-            xtype: 'textfield',
-            name: 'titles',
-            fieldLabel: 'titles',
-            labelWidth: 60,
-            labelAlign: 'right'
+            xtype : 'combo',
+          name : 'titles',
+          labelWidth: 60,
+          labelAlign: 'right',
+          queryMode : 'local',
+          hideTrigger : true,
+          typeAhead : true,
+          store : 'ModuleNameComplete',
+          fieldLabel : 'titles',
+          displayField: 'name',
+          valueField: 'name',
+          minChars: 1,
+          tpl: Ext.create('Ext.XTemplate',
+              '<tpl for=".">',
+                          '<div class="x-boundlist-item" style="color:green;text-align:left">{name}</div>',
+              '</tpl>'
+          ),
+          listeners: {
+                buffer  : 50,
+                focus   : function (component) {
+                    this.expand();
+                },
+                removed : function (component) {
+                    this.store.clearFilter(true);
+                }
+            }
 
         }, {
             xtype: 'combo',

@@ -20,9 +20,30 @@ Ext.define('XMLifeOperating.view.centralPointManage.shopConfig.AddModuleItem', {
           width : 450
         },
         items: [{
-          xtype : 'textfield',
+          xtype : 'combo',
           name : 'name',
-          fieldLabel : '名称'
+          queryMode : 'local',
+          hideTrigger : true,
+          typeAhead : true,
+          store : 'ModuleNameComplete',
+          fieldLabel : '名称',
+          displayField: 'name',
+          valueField: 'name',
+          minChars: 1,
+          tpl: Ext.create('Ext.XTemplate',
+              '<tpl for=".">',
+                          '<div class="x-boundlist-item" style="color:green;text-align:left">{name}</div>',
+              '</tpl>'
+          ),
+          listeners: {
+                buffer  : 50,
+                focus   : function (component) {
+                    this.expand();
+                },
+                removed : function (component) {
+                    this.store.clearFilter(true);
+                }
+            }
         },
         {
           xtype : 'textfield',
@@ -31,9 +52,30 @@ Ext.define('XMLifeOperating.view.centralPointManage.shopConfig.AddModuleItem', {
           hidden : true
         },
           {
-            xtype: 'textfield',
-            name: 'titles',
-            fieldLabel: 'titles',
+          xtype : 'combo',
+          name : 'titles',
+          queryMode : 'local',
+          hideTrigger : true,
+          typeAhead : true,
+          store : 'ModuleNameComplete',
+          fieldLabel : 'titles',
+          displayField: 'name',
+          valueField: 'name',
+          minChars: 1,
+          tpl: Ext.create('Ext.XTemplate',
+              '<tpl for=".">',
+                          '<div class="x-boundlist-item" style="color:green;text-align:left">{name}</div>',
+              '</tpl>'
+          ),
+          listeners: {
+                buffer  : 50,
+                focus   : function (component) {
+                    this.expand();
+                },
+                removed : function (component) {
+                    this.store.clearFilter(true);
+                }
+            }
         }, {
             xtype: 'combo',
             itemId : 'urlType',

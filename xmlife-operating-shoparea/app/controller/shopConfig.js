@@ -1,7 +1,7 @@
 Ext.define('XMLifeOperating.controller.shopConfig', {
   extend: 'Ext.app.Controller',
   models: ['ShopArea', 'ShopConfig', 'shopModules', 'ShopModulesItem'],
-  stores: ['ShopArea', 'HomePageShop', 'ShopConfig', 'ShopCopyVersion', 'shopModules', 'ShopCopyModule', 'ShopModulesItem', 'ShopUrlType',
+  stores: ['ModuleNameComplete','ShopArea', 'HomePageShop', 'ShopConfig', 'ShopCopyVersion', 'shopModules', 'ShopCopyModule', 'ShopModulesItem', 'ShopUrlType',
     'HomePageShop', 'HomePageCategory', 'HomePageLeafCategory', 'HomePageProduct', 'HomePageFunction'
   ],
   views: [
@@ -745,6 +745,8 @@ Ext.define('XMLifeOperating.controller.shopConfig', {
     }, '', '', '', function (response) {
       if (response.responseText == 1) {
         self.loadShopModulesItem();
+      }else{
+          Ext.Msg.alert('失败', '删除模块失败');
       };
     })
   },
@@ -753,8 +755,10 @@ Ext.define('XMLifeOperating.controller.shopConfig', {
       windows = button.up('window'),
       form = button.up('form'),
       param;
+
     self.processModuleItemData(form);
     param = form.getValues();
+    self.saveModuleName(form);
     param.moduleId = self.moduleId;
     if (self.moduleItemEdit) {
       sendPutRequest('shopHomepage/updateModuleItem', param, '', '', '', function (response) {
@@ -1089,6 +1093,27 @@ Ext.define('XMLifeOperating.controller.shopConfig', {
       button.setDisabled(false)
     }, this);
   },
+  saveModuleName : function(form){
+    //把用户输入的内容存储起来
+    var param = form.getValues(),
+        moduleNameComplete = this.getModuleNameCompleteStore();
+
+      if(moduleNameComplete.find('name',param.name) == -1){
+        if(moduleNameComplete.snapshot){
+          if(moduleNameComplete.snapshot.length >= 20){
+            moduleNameComplete.snapshot.each(function(record){
+              record.destroy();
+              return false;
+            })
+          }
+        }
+        if(param.name && param.name.length > 0){
+          moduleNameComplete.add({name:param.name});
+          moduleNameComplete.sync();
+        }
+      }
+  }
+  ,
   getItemSize: function (type, index) {
     var sizes = {
       'TYPE0': ['640x320'],
