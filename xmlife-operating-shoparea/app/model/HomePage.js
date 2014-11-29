@@ -13,7 +13,7 @@ Ext.define('XMLifeOperating.model.HomePage', {
     	},
         {name: 'startTime', convert: function(v,r) {
                 if (v) {
-                    return Ext.Date.format(new Date(v), 'm-d H:i');
+                    return Ext.Date.format(new Date(v), 'Y-m-d H:i:s');
                 } else {
                     return '';
                 }
@@ -21,7 +21,7 @@ Ext.define('XMLifeOperating.model.HomePage', {
         },
         {name: 'endTime', convert: function(v,r) {
                 if (v) {
-                    return Ext.Date.format(new Date(v), 'm-d H:i');
+                    return Ext.Date.format(new Date(v), 'Y-m-d H:i:s');
                 } else {
                     return '';
                 }

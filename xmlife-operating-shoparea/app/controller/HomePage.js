@@ -167,6 +167,23 @@ Ext.define('XMLifeOperating.controller.HomePage', {
                     }
                 }
             },
+            // 编辑定时时间
+            'homePage #editTime': {
+                click: function(view, rowIndex, colIndex, column, e) {
+                    var record = view.getRecord(view.findTargetByEvent(e));
+                    if(record.get('startTime')) {
+                        var win = this.getVersionEnable(),
+                            form = win.down('form').getForm();
+                        form.loadRecord(record);
+                        win.down('#timeEnable').setValue(1);
+                        // 若当前定时正在执行，开始时间不能改
+                        if (record.get('status') == 1) {
+                            win.down('datefield[name=startTime]').setDisabled(true);
+                        }
+                        win.show();
+                    }
+                }
+            },
             // 启用类型切换
             'versionEnable #timeEnable': {
                 change: function(radio) {
@@ -208,6 +225,10 @@ Ext.define('XMLifeOperating.controller.HomePage', {
                         if (values.endTime <= values.startTime) {
                             Ext.Msg.alert('错误提示', '结束时间不能小于开始时间！');
                             return;
+                        }
+                        // 若当前定时正在执行，开始时间disabled后，不会被自动保存，需手动添加进去
+                        if (!values.startTime) {
+                            values.startTime = record.get('startTime');
                         }
                     }
                     values.areaId = this.areaId;

@@ -54,11 +54,16 @@ Ext.define('XMLifeOperating.view.centralPointManage.homePage.HomePage', {
               }
           }, {
               text: '定时',
+              itemId: 'editTime',
               dataIndex: 'startTime',
               width: '22%',
               align: 'center',
               renderer: function(value, meta, record) {
-                return '<span style="display: inline-block; margin-left: -3px;">'+ value + '<br />' + record.get('endTime') + '</span>';
+                if (value) {
+                  var startTime = Ext.Date.format(new Date(value), 'm-d H:i'),
+                      endTime = Ext.Date.format(new Date( record.get('endTime') ), 'm-d H:i');
+                  return '<span style="display: inline-block; margin-left: -3px;">'+ startTime + '<br />' + endTime + '</span>';
+                }
               }
           }, {
               text: '选择',
