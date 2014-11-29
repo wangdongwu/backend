@@ -351,7 +351,7 @@ Ext.define('XMLifeOperating.controller.shopConfig', {
   modifyTime: function () {
     var model = arguments[5],
       status = model.get('status');
-    if (status != 2) {
+    if (status == 0) {
       return false;
     }
     Array.prototype.push.apply(arguments, [true]);
@@ -373,9 +373,7 @@ Ext.define('XMLifeOperating.controller.shopConfig', {
       layoutId = model.get('layoutId');
     isEdit && model.set('type', '1');
     form.loadRecord(model);
-    if (status == 1) {
-      return false;
-    } else if (status == 2 && !isEdit) {
+    if (status == 2 && !isEdit) {
       sendPutRequest('shopHomepage/cancelTiming', {
         shopId: shopId,
         layoutId: layoutId

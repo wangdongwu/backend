@@ -88,7 +88,14 @@ Ext.define('XMLifeOperating.view.centralPointManage.shopConfig.EnableVersion', {
         minValue: new Date(),
         emptyText: '请选择结束时间',
         labelWidth: 70,
-        name: 'endTime'
+        name: 'endTime',
+        listeners : {
+          change: function () {
+             if (Ext.Date.format(this.getValue(), 'Y-m-d') == Ext.Date.format(new Date(), 'Y-m-d')) {
+              this.setValue(Ext.Date.add(new Date(), Ext.Date.MINUTE, 30))
+            }
+          }
+        }
       }]
     }],
     buttons: [{
