@@ -66,37 +66,58 @@ Ext.define('XMLifeOperating.view.dealManage.GDealDetail', {
                     xtype: 'displayfield',
                     name: 'allProductPrice',
                     fieldLabel: '货品价格',
-                    allowBlank: false
+                    allowBlank: false,
+                    renderer: function(value) {
+                        return value / 100;
+                    }
                 }, {
                     xtype: 'displayfield',
                     name: 'shipfee',
                     fieldLabel: '运费',
-                    allowBlank: false
+                    allowBlank: false,
+                    renderer: function(value) {
+                        return value / 100;
+                    }
                 }, {
                     xtype: 'displayfield',
                     name: 'couponReduce',
                     fieldLabel: '已优惠',
-                    allowBlank: false
+                    allowBlank: false,
+                    renderer: function(value) {
+                        return value / 100;
+                    }
                 }, {
                     xtype: 'displayfield',
                     name: 'coupon',
                     fieldLabel: '使用优惠券',
-                    allowBlank: false
+                    allowBlank: false,
+                    renderer: function(value) {
+                        return value / 100;
+                    }
                 }, {
                     xtype: 'displayfield',
                     name: 'dealPrice',
                     fieldLabel: '总计',
-                    allowBlank: false
+                    allowBlank: false,
+                    renderer: function(value) {
+                        return value / 100;
+                    }
                 }, {
                     xtype: 'displayfield',
                     name: 'balance',
                     fieldLabel: '余额支付',
-                    allowBlank: false
+                    allowBlank: false,
+                    renderer: function(value) {
+                        return value / 100;
+                    }
                 }, {
                     xtype: 'displayfield',
                     name: 'tenpay',
                     fieldLabel: '微信支付',
-                    allowBlank: false
+                    allowBlank: false,
+                    renderer: function(value) {
+                        return value / 100;
+                    }
                 }, {
                     name: 'gDealDetails',
                     store: 'DealItems',
