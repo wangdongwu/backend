@@ -213,12 +213,15 @@ Ext.define('XMLifeOperating.view.couponManage.coupon.CouponEdit', {
                                 xtype : 'datefield',
                                 name : 'expireEndDate',
                                 emptyText : '结束时间',
-                                //maxValue: new Date(),
                                 value: new Date(),
                                 format : 'Y-m-d H:i:s',
                                 width:150,
                                 allowBlank: false,
-
+                                listeners: {
+                                    select: function () {
+                                        this.setValue(new Date(arguments[1].getTime()+  86399000 ));
+                                    }
+                                }
                             }]
                 },{
                     xtype: 'displayfield',
