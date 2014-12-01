@@ -307,6 +307,11 @@ Ext.define('XMLifeOperating.controller.CouponSend', {
                             button.up('window').close();
                         },
                         failure: function(form, action) {
+                            if(action.response.responseText == 'send rule is invalid!'){
+                                Ext.Msg.alert('失败原因', '优惠券已失效.');
+                                button.up('window').close();
+                                return;
+                            }
                             var responseText = Ext.decode(action.response.responseText),
                                 totalUids = responseText.totalUids,
                                 successUids = responseText.successUids,
