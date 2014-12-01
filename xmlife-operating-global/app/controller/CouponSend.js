@@ -198,8 +198,7 @@ Ext.define('XMLifeOperating.controller.CouponSend', {
             'CouponSendRuleUpdateSimple #update': {
                 click: function(button) {
                     var form = button.up('form').getForm();
-                    data = form.getValues();
-
+                    var data = form.getValues();
                     data.start = Date.parse(data.start);
                     data.end = Date.parse(data.end);
                     Ext.Ajax.request({
