@@ -114,33 +114,33 @@ Ext.define('XMLifeOperating.controller.DealProblemDealsList', {
             'dealProblemDealsList #dealSearch': {
                 click: me.onProblemDealsSearch
             },
-            'dealProblemDealsList #autoAllocation':{
+            'dealProblemDealsList #autoAllocation': {
                 click: me.onAutoAllocation
             }
         });
     },
-    onAutoAllocation:function(view, rowIndex, colIndex, column, e) {
+    onAutoAllocation: function(view, rowIndex, colIndex, column, e) {
         var record = view.getRecord(view.findTargetByEvent(e));
         var shopperNamesLen = record.get('shopperNames');
         var me = this;
-        var mark=0;
-        for(var j=0;j<shopperNamesLen.length;j++){
-            if(shopperNamesLen[j]!=null){
-                mark=1;
+        var mark = 0;
+        for (var j = 0; j < shopperNamesLen.length; j++) {
+            if (shopperNamesLen[j] != null) {
+                mark = 1;
                 break;
             }
         }
-        if(mark==1){
+        if (mark == 1) {
             return;
         }
-       
+
         Ext.MessageBox.confirm(
             '确认删除',
             Ext.String.format("确定要对该'{0}'订单自动分配买手吗？", record.get('shortId')),
             function(result) {
                 if (result == 'yes') {
                     sendPutRequest('deal/assignShopper', {
-                        dealId:record.get('dealBackendId')
+                        dealId: record.get('dealBackendId')
                     }, '分单', '分单成功', '分单失败', function(response) {
 
                         if (response.responseText == -2) {
@@ -150,7 +150,7 @@ Ext.define('XMLifeOperating.controller.DealProblemDealsList', {
                                 icon: Ext.Msg.ERROR,
                                 buttons: Ext.Msg.OK
                             });
-                        } else if(response.responseText==1){
+                        } else if (response.responseText == 1) {
                             Ext.MessageBox.show({
                                 title: '',
                                 msg: '该订单自动分配成功',
@@ -206,28 +206,28 @@ Ext.define('XMLifeOperating.controller.DealProblemDealsList', {
         var reapportion = view.getRecord(view.findTargetByEvent(e));
         var win = this.getReapportion();
         var shopperNamesLen = reapportion.get('shopperNames');
-        var mark=0;
-        for(var j=0;j<shopperNamesLen.length;j++){
-            if(shopperNamesLen[j]!=null){
-                mark=1;
+        var mark = 0;
+        for (var j = 0; j < shopperNamesLen.length; j++) {
+            if (shopperNamesLen[j] != null) {
+                mark = 1;
                 break;
             }
         }
-        if(mark==0){
+        if (mark == 0) {
             return;
         }
         win.down('form').loadRecord(reapportion);
         win.show();
         var store = this.getDealTasksStore();
         this.reapportionDealId = reapportion.get('dealBackendId');
-        
+
         store.load({
             params: {
                 dealId: this.reapportionDealId,
             },
 
             callback: function(records) {
-              
+
                 var model = Ext.ComponentQuery.query('#dealTasks')[0].getSelectionModel();
                 model.deselectAll();
                 for (var i = 0; i < records.length; i++) {
@@ -247,7 +247,7 @@ Ext.define('XMLifeOperating.controller.DealProblemDealsList', {
 
         var store = this.getShopperStore();
         store.getProxy().extraParams = {};
-      
+
         store.load({
             params: {
                 shopId: reapportion.get('shopId'),
@@ -354,7 +354,7 @@ Ext.define('XMLifeOperating.controller.DealProblemDealsList', {
         var uid = reapportionDeliverer.get('uid');
         var dealId = this.reapportionDealId;
         var me = this;
-       
+
 
         Ext.MessageBox.confirm(
             '确认删除',
@@ -365,7 +365,7 @@ Ext.define('XMLifeOperating.controller.DealProblemDealsList', {
                         dealId: dealId,
                         delivererId: uid
                     }, '分单', '分单成功', '分单失败', function(response) {
-                       
+
                         if (response.responseText != 1) {
                             Ext.MessageBox.show({
                                 title: '订单重新分配失败',
@@ -449,17 +449,32 @@ Ext.define('XMLifeOperating.controller.DealProblemDealsList', {
         );
     },
     onDPDealDetail: function(view, rowIndex, colIndex, column, e) {
-        var dealDetail = view.getRecord(view.findTargetByEvent(e));
-        var win = this.getDPDealDetail();
-        win.down('form').loadRecord(dealDetail);
-        win.show();
+        var record = view.getRecord(view.findTargetByEvent(e)),
+            win = this.getDPDealDetail(),
+            form = win.down('form').getForm();
+        // 单独获取详情的接口
+        Ext.Ajax.request({
+            method: 'GET',
+            url: XMLifeOperating.generic.Global.URL.biz + 'deal/' + record.get('dealBackendId'),
+            params: {},
+            success: function(response) {
+                if (response.status == 200 && response.statusText == 'OK') {
+                    var data = Ext.decode(response.responseText);
+                    form.setValues(data);
+                }
+            },
+            failure: function() {
+                Ext.Msg.alert('获取订单详情失败！');
+            }
+        });
+        
         var store = this.getDealItemsStore();
         store.load({
             params: {
-                deal: dealDetail.get('dealBackendId'),
+                deal: record.get('dealBackendId'),
             },
             callback: function(records) {
-               
+
                 var model = Ext.ComponentQuery.query('#dealDetails')[0].getSelectionModel();
                 model.deselectAll();
                 for (var i = 0; i < records.length; i++) {
@@ -468,6 +483,8 @@ Ext.define('XMLifeOperating.controller.DealProblemDealsList', {
                 }
             }
         });
+
+        win.show();
     },
     onProblemDealsSearch: function(view, e, eOpts) {
         var me = this,

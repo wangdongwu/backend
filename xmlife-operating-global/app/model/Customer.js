@@ -1,16 +1,4 @@
 Ext.define('XMLifeOperating.model.Customer', {
     extend: 'Ext.data.Model',
-    fields: ['id', 'uid','name','created','phone','avatar','deals','balance','dtoAddress','enable','lastLogin'],
-    proxy: new XMLifeOperating.generic.BaseProxy('customer')
+    fields: ['id', 'uid','name','created','phone','avatar','deals','balance','dtoAddress','enable','lastLogin']
 });
- 
-
-	// public String id;
-	// public long uid;
-	// public String name;
-	// public String phone;
-	// public String avatar;
-	// // stat
-	// public int deals;
-	// // payment
-	// public int balance;

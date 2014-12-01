@@ -26,9 +26,9 @@ Ext.define('XMLifeOperating.controller.DealShopAreaList', {
         selector: 'dSADealDetail',
         xtype: 'dSADealDetail',
         autoCreate: true
-    },{
-        ref:'dealShopAreaList',
-        selector:'dealShopAreaList'
+    }, {
+        ref: 'dealShopAreaList',
+        selector: 'dealShopAreaList'
     }],
 
     init: function() {
@@ -62,7 +62,7 @@ Ext.define('XMLifeOperating.controller.DealShopAreaList', {
                                 dealId: dealShopArea.get('dealBackendId')
                             }, '', '', '', function(str) {
                                 if (str.responseText != 0) {
-                                  
+
                                     return;
                                 }
                                 var sstore = me.getDealShopAreaStore();
@@ -127,15 +127,30 @@ Ext.define('XMLifeOperating.controller.DealShopAreaList', {
         }
     },
     onDSADealDetail: function(view, rowIndex, colIndex, column, e) {
-        var dealDetail = view.getRecord(view.findTargetByEvent(e));
-        var win = this.getDSADealDetail();
-        win.down('form').loadRecord(dealDetail);
-        win.show();
+        var record = view.getRecord(view.findTargetByEvent(e)),
+            win = this.getDSADealDetail(),
+            form = win.down('form').getForm();
+        // 单独获取详情的接口
+        Ext.Ajax.request({
+            method: 'GET',
+            url: XMLifeOperating.generic.Global.URL.biz + 'deal/' + record.get('dealBackendId'),
+            params: {},
+            success: function(response) {
+                if (response.status == 200 && response.statusText == 'OK') {
+                    var data = Ext.decode(response.responseText);
+                    form.setValues(data);
+                }
+            },
+            failure: function() {
+                Ext.Msg.alert('获取订单详情失败！');
+            }
+        });
+        
         var store = this.getDealItemsStore();
         store.load({
             params: {
-                deal: dealDetail.get('dealBackendId'),
-                task: dealDetail.get('taskId')
+                deal: record.get('dealBackendId'),
+                task: record.get('taskId')
             },
             callback: function(records) {
                 var model = Ext.ComponentQuery.query('#dealDetails')[0].getSelectionModel();
@@ -146,6 +161,8 @@ Ext.define('XMLifeOperating.controller.DealShopAreaList', {
                 }
             }
         });
+
+        win.show();
     },
     onShopAreaSearch: function(view, e, eOpts) {
         var me = this,
@@ -178,6 +195,4 @@ Ext.define('XMLifeOperating.controller.DealShopAreaList', {
         }
 
     }
-
-
 });

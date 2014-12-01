@@ -11,10 +11,10 @@ Ext.define('XMLifeOperating.controller.CustomerList', {
         selector: '#shopArea',
     }, {
         ref: 'keywordc',
-        selector: '#keywordc',
+        selector: '#keywordc'
     }, {
         ref: 'customerTitle',
-        selector: '#customerTitle',
+        selector: '#customerTitle'
     }, {
         ref: 'customerAddress',
         selector: 'customerAddress',
@@ -37,7 +37,6 @@ Ext.define('XMLifeOperating.controller.CustomerList', {
     }],
 
     init: function() {
-
         var me = this;
         this.control({
 
@@ -61,17 +60,10 @@ Ext.define('XMLifeOperating.controller.CustomerList', {
             '#customerSearch': {
                 click: function() {
                     var store = this.getCustomerStore();
-                    /*                    store.load({
-                        params: {
-                            shopArea: Ext.getCmp('customerList').down('#shopArea').getValue(),
-                            nameOrPhone: me.getKeywordc().getValue()
-                        }
-                    });*/
                     store.getProxy().extraParams = {
                         shopArea: Ext.getCmp('customerList').down('#shopArea').getValue(),
                         nameOrPhone: me.getKeywordc().getValue()
                     };
-                    // sstore.load();
                     store.loadPage(1, {
                         params: {
                             start: 0,
@@ -92,15 +84,9 @@ Ext.define('XMLifeOperating.controller.CustomerList', {
             '#customerTitle': {
                 click: function() {
                     var store = this.getCustomerStore();
-                    /*                    store.load({
-                        params: {
-                            enable: false,
-                        }
-                    });*/
                     store.getProxy().extraParams = {
                         enable: false
                     };
-                    // sstore.load()
                     store.loadPage(1, {
                         params: {
                             start: 0,
@@ -110,19 +96,15 @@ Ext.define('XMLifeOperating.controller.CustomerList', {
                     });
                 }
             },
-
             '#addressCustomer': {
                 click: me.onAddressCustomer
             },
-
             'customerList #orderHistory': {
                 click: me.onOrderHistory
             },
-
             '#operationc': {
                 click: me.onOperationc
-            },
-
+            }
         });
     },
 
@@ -131,7 +113,7 @@ Ext.define('XMLifeOperating.controller.CustomerList', {
         var customerDetail = view.getRecord(view.findTargetByEvent(e));
         var uid = customerDetail.get('uid');
         var store = self.getAddressStore();
-        
+
         var win = self.getCustomerAddress();
         store.on('load', function(store, addressList) {
             win.show();
@@ -155,17 +137,12 @@ Ext.define('XMLifeOperating.controller.CustomerList', {
         content.add(win);
         store.getProxy().url = XMLifeOperating.generic.Global.URL.biz + 'deal/customerHistory';
         store.on('load', function() {
-            // content.removeAll(false);
-            // content.add(win);
-            /*
-                还原原来的deal url
-                 */
-            //store.getProxy().url = oldProxyUrl;             
+           
         })
 
         store.getProxy().extraParams = {
             customer: uid,
-            assignShopper : true
+            assignShopper: true
         };
         store.loadPage(1, {
             params: {
@@ -178,24 +155,16 @@ Ext.define('XMLifeOperating.controller.CustomerList', {
     },
 
     onOperationc: function(view, rowIndex, colIndex, column, e) {
-        alert(789);
         var customerDetail = view.getRecord(view.findTargetByEvent(e));
         var uid = customerDetail.get('uid');
         var enable = !customerDetail.get('enable');
         var me = this;
         var url = 'customer/enable/' + uid;
-        alert(url);
 
         sendPutRequest(url, {
             enable: enable
         }, '封号', '封号成功', '封号失败', function() {
             var store = me.getCustomerStore();
-            /*            store.load({
-                params: {
-                    shopArea: Ext.getCmp('customerList').down('#shopArea').getValue(),
-                    nameOrPhone: me.getKeywordc().getValue()
-                }
-            });*/
             store.getProxy().extraParams = {
                 shopArea: Ext.getCmp('customerList').down('#shopArea').getValue(),
                 nameOrPhone: me.getKeywordc().getValue()
@@ -208,6 +177,6 @@ Ext.define('XMLifeOperating.controller.CustomerList', {
                 }
             });
         });
-    },
+    }
 
 });

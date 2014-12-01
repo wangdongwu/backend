@@ -31,6 +31,7 @@ Ext.define('XMLifeOperating.controller.DealList', {
         xtype: 'dealDetail',
         autoCreate: true
     }],
+    
     init: function() {
         var me = this;
         this.control({
@@ -41,8 +42,8 @@ Ext.define('XMLifeOperating.controller.DealList', {
                     sstore.getProxy().url = XMLifeOperating.generic.Global.URL.biz + 'deal';
                     sstore.getProxy().extraParams = {
                         shopArea: combo.getValue(),
-                        beginTime:me.beginTime,
-                        endTime:me.endTime
+                        beginTime: me.beginTime,
+                        endTime: me.endTime
                     }
                     sstore.loadPage(1, {
                         params: {
@@ -143,8 +144,8 @@ Ext.define('XMLifeOperating.controller.DealList', {
                     sstore.getProxy().extraParams = {
                         shopArea: Ext.getCmp('dealList').down('#shopArea').getValue(),
                         status: combo.getValue(),
-                        beginTime:beginTime,
-                        endTime:endTime
+                        beginTime: beginTime,
+                        endTime: endTime
                     }
                     sstore.loadPage(1, {
                         params: {
@@ -173,34 +174,33 @@ Ext.define('XMLifeOperating.controller.DealList', {
                 click: me.onCancalDeal
             }
         });
-},
-dateReset:function(){
+    },
+    dateReset: function() {
 
-    var me =this;
-    var dealList = me.getDealList();
-    var beginTimeCmp = dealList.down('[name=beginTime]');
-    var endTimeCmp  = dealList.down('[name=endTime]');
-    beginTimeCmp.reset();
-    endTimeCmp.reset();
-    this.beginTime = beginTimeCmp.rawValue;
-    this.endTime = endTimeCmp.rawValue;
-    
-},
+        var me = this;
+        var dealList = me.getDealList();
+        var beginTimeCmp = dealList.down('[name=beginTime]');
+        var endTimeCmp = dealList.down('[name=endTime]');
+        beginTimeCmp.reset();
+        endTimeCmp.reset();
+        this.beginTime = beginTimeCmp.rawValue;
+        this.endTime = endTimeCmp.rawValue;
 
-dateString: function(date) {
-    var date  = date||{};
-    return date.getFullYear() + '-' + (date.getMonth() + 1) +'-'+ date.getDate();
-},
-onRefresh: function(view, e, eOpts) {
-    var me = this;
-    if (!view.isDisabled()) {
+    },
+    dateString: function(date) {
+        var date = date || {};
+        return date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
+    },
+    onRefresh: function(view, e, eOpts) {
+        var me = this;
+        if (!view.isDisabled()) {
             //发送刷新请求
             var sstore = this.getDealStore();
-            me.dateReset();//日期号码重置
+            me.dateReset(); //日期号码重置
             sstore.getProxy().extraParams = {
                 shopArea: this.areaId,
-                endTime:me.endTime,
-                beginTime:me.beginTime
+                endTime: me.endTime,
+                beginTime: me.beginTime
             };
             sstore.loadPage(1, {
                 params: {
@@ -232,9 +232,9 @@ onRefresh: function(view, e, eOpts) {
     },
     dealSearch: function() {
         var me = this,
-        keyWords = me.getDealList().down('#keyword').getValue(),
-        store = this.getDealStore(),
-        view = this.getDealList();
+            keyWords = me.getDealList().down('#keyword').getValue(),
+            store = this.getDealStore(),
+            view = this.getDealList();
         var shopAreaId = Ext.getCmp('dealList').down('#shopArea').getValue();
         if (keyWords == '') {
             if (shopAreaId) {
@@ -262,18 +262,31 @@ onRefresh: function(view, e, eOpts) {
     },
 
     onDealDetail: function(view, rowIndex, colIndex, column, e) {
-        var dealDetail = view.getRecord(view.findTargetByEvent(e));
-        var win = this.getDealDetail();
-        win.down('form').loadRecord(dealDetail);
-        win.show();
+        var record = view.getRecord(view.findTargetByEvent(e)),
+            win = this.getDealDetail(),
+            form = win.down('form').getForm();
+        // 单独获取详情的接口
+        Ext.Ajax.request({
+            method: 'GET',
+            url: XMLifeOperating.generic.Global.URL.biz + 'deal/' + record.get('dealBackendId'),
+            params: {},
+            success: function(response) {
+                if (response.status == 200 && response.statusText == 'OK') {
+                    var data = Ext.decode(response.responseText);
+                    form.setValues(data);
+                }
+            },
+            failure: function() {
+                Ext.Msg.alert('获取订单详情失败！');
+            }
+        });
+
         var store = this.getDealItemsStore();
         store.load({
             params: {
-                deal: dealDetail.get('dealBackendId'),
+                deal: record.get('dealBackendId'),
             },
-
             callback: function(records) {
-            
                 var model = Ext.ComponentQuery.query('#dealDetails')[0].getSelectionModel();
                 model.deselectAll();
                 for (var i = 0; i < records.length; i++) {
@@ -282,16 +295,18 @@ onRefresh: function(view, e, eOpts) {
                 }
             }
         });
+
+        win.show();
     },
 
     onCustomerDetail: function(view, rowIndex, colIndex, column, e) {
         var dealDetail = view.getRecord(view.findTargetByEvent(e));
         var store = this.getCustomerStore();
-       
+
         var win = this.getDealCustomerDetail();
         store.on('load', function(store, records, successful, eOpts) {
             store.data.items[0].data['dtoAddress'] = dealDetail.getData()['dtoAddress'];
-           
+
             win.down('form').loadRecord(store.data.items[0]);
             win.show();
         });
@@ -308,7 +323,7 @@ onRefresh: function(view, e, eOpts) {
         var url = 'deal/transToProblem/' + dealBackendId;
         var me = this;
         var status = dealitem.get('status');
-        if (status == 7 || status == 4 || status==6) {
+        if (status == 7 || status == 4 || status == 6) {
             return;
         }
         Ext.MessageBox.confirm(
@@ -347,12 +362,12 @@ onRefresh: function(view, e, eOpts) {
                             }
 
                         });
-}
-}
-);
-},
-onCancalDeal: function(view, rowIndex, colIndex, column, e) {
-    var dealitem = view.getRecord(view.findTargetByEvent(e));
+                }
+            }
+        );
+    },
+    onCancalDeal: function(view, rowIndex, colIndex, column, e) {
+        var dealitem = view.getRecord(view.findTargetByEvent(e));
         //var dealBackendId = dealitem.get('dealBackendId');
         //var url = 'deal/transToProblem/' + dealBackendId;
         // deal/cancelDeal PUT参数{dealId}
@@ -368,42 +383,41 @@ onCancalDeal: function(view, rowIndex, colIndex, column, e) {
             Ext.String.format("确定要取消<h5>'{0}'</h5>的订单吗？", '订单号为：' + dealitem.get('shortId') + ' 顾客为：' + dealitem.get('customerName')),
             function(result) {
                 if (result == 'yes') {
-
                     sendPutRequest(url, {
-                        dealId: dealBackendId
-                    }, '取消订单', '取消订单成功', '取消订单失败',
-                    function(response) {
-                        if (response.responseText != 1) {
-                            Ext.MessageBox.show({
-                                title: '订单操作',
-                                msg: '取消订单失败',
-                                icon: Ext.Msg.ERROR,
-                                buttons: Ext.Msg.OK
-                            });
-                        } else {
-                            Ext.MessageBox.show({
-                                title: '订单操作',
-                                msg: '该订单被成功取消',
-                                icon: Ext.Msg.INFO,
-                                buttons: Ext.Msg.OK
-                            });
-                            var sstore = me.getDealStore();
-                            sstore.getProxy().extraParams = {
-                                shopArea: me.areaId
-                            }
-                            sstore.loadPage(1, {
-                                params: {
-                                    start: 0,
-                                    limit: 25,
-                                    page: 1
+                            dealId: dealBackendId
+                        }, '取消订单', '取消订单成功', '取消订单失败',
+                        function(response) {
+                            if (response.responseText != 1) {
+                                Ext.MessageBox.show({
+                                    title: '订单操作',
+                                    msg: '取消订单失败',
+                                    icon: Ext.Msg.ERROR,
+                                    buttons: Ext.Msg.OK
+                                });
+                            } else {
+                                Ext.MessageBox.show({
+                                    title: '订单操作',
+                                    msg: '该订单被成功取消',
+                                    icon: Ext.Msg.INFO,
+                                    buttons: Ext.Msg.OK
+                                });
+                                var sstore = me.getDealStore();
+                                sstore.getProxy().extraParams = {
+                                    shopArea: me.areaId
                                 }
-                            });
-                        }
+                                sstore.loadPage(1, {
+                                    params: {
+                                        start: 0,
+                                        limit: 25,
+                                        page: 1
+                                    }
+                                });
+                            }
 
-                    });
-}
-}
-);
-},
+                        });
+                }
+            }
+        );
+    }
 
 });

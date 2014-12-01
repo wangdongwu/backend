@@ -10,16 +10,14 @@ Ext.define('XMLifeOperating.controller.DealWaitAssignDelivererList', {
         'DealWaitAssignDeliverer',
         'ShopArea',
         'DealItems',
-        'Deliverer',
-
+        'Deliverer'
     ],
 
     models: [
         'DealWaitAssignDeliverer',
         'ShopArea',
         'DealItems',
-        'Deliverer',
-
+        'Deliverer'
     ],
 
     refs: [{
@@ -29,7 +27,7 @@ Ext.define('XMLifeOperating.controller.DealWaitAssignDelivererList', {
         autoCreate: true
     }, {
         ref: 'shopArea',
-        selector: '#shopArea',
+        selector: '#shopArea'
     }, {
         ref: 'dWDealDetail',
         selector: 'dWDealDetail',
@@ -43,13 +41,11 @@ Ext.define('XMLifeOperating.controller.DealWaitAssignDelivererList', {
     }],
 
     init: function() {
-
         var me = this;
         this.control({
             'dealWaitAssignDelivererList #shopArea': {
                 select: function(combo) {
                     var sstore = this.getDealWaitAssignDelivererStore();
-
                     sstore.load({
                         params: {
                             shopArea: combo.getValue()
@@ -62,7 +58,6 @@ Ext.define('XMLifeOperating.controller.DealWaitAssignDelivererList', {
             //刷新按钮
             'dealWaitAssignDelivererList #update': {
                 click: function() {
-
                     var me = this;
                     var store = this.getDealWaitAssignDelivererStore()
 
@@ -77,19 +72,14 @@ Ext.define('XMLifeOperating.controller.DealWaitAssignDelivererList', {
                     } else {
                         return;
                     }
-
-
-                },
+                }
             },
             'dealWaitAssignDelivererList #refresh': {
                 click: me.onRefresh
-
             },
-
             'dealWaitReapportionDeliverer #putReapportionDeliverer': {
                 click: me.onPutReapportionDeliverer
             },
-
             'dealWaitAssignDelivererList #reapportion': {
                 click: me.onReapportionDeliverer
             },
@@ -100,7 +90,7 @@ Ext.define('XMLifeOperating.controller.DealWaitAssignDelivererList', {
             'dealWaitAssignDelivererList #dealSearch': {
                 click: me.onWaitAssignDelivererSearch
             },
-            'dealWaitAssignDelivererList #returnGoods':{
+            'dealWaitAssignDelivererList #returnGoods': {
                 click: me.onReturnGoods
             }
         });
@@ -139,17 +129,31 @@ Ext.define('XMLifeOperating.controller.DealWaitAssignDelivererList', {
     },
 
     onDealDetail: function(view, rowIndex, colIndex, column, e) {
-        var dealDetail = view.getRecord(view.findTargetByEvent(e));
-        var win = this.getDWDealDetail();
-        win.down('form').loadRecord(dealDetail);
-        win.show();
+        var record = view.getRecord(view.findTargetByEvent(e)),
+            win = this.getDWDealDetail(),
+            form = win.down('form').getForm();
+        // 单独获取详情的接口
+        Ext.Ajax.request({
+            method: 'GET',
+            url: XMLifeOperating.generic.Global.URL.biz + 'deal/' + record.get('dealBackendId'),
+            params: {},
+            success: function(response) {
+                if (response.status == 200 && response.statusText == 'OK') {
+                    var data = Ext.decode(response.responseText);
+                    form.setValues(data);
+                }
+            },
+            failure: function() {
+                Ext.Msg.alert('获取订单详情失败！');
+            }
+        });
+        
         var store = this.getDealItemsStore();
         store.load({
             params: {
-                deal: dealDetail.get('dealBackendId'),
+                deal: record.get('dealBackendId'),
             },
             callback: function(records) {
-               
                 var model = Ext.ComponentQuery.query('#dealDetails')[0].getSelectionModel();
                 model.deselectAll();
                 for (var i = 0; i < records.length; i++) {
@@ -158,6 +162,8 @@ Ext.define('XMLifeOperating.controller.DealWaitAssignDelivererList', {
                 }
             }
         });
+
+        win.show();
     },
 
     onReapportionDeliverer: function(view, rowIndex, colIndex, column, e) {
@@ -196,7 +202,7 @@ Ext.define('XMLifeOperating.controller.DealWaitAssignDelivererList', {
         var uid = reapportionDeliverer.get('uid');
         var dealId = this.reapportionDealId;
         var me = this;
-       
+
         Ext.MessageBox.confirm(
             '确认删除',
             Ext.String.format("确定该订单分配给'{0}'吗？", reapportionDeliverer.get('name')),
@@ -206,7 +212,7 @@ Ext.define('XMLifeOperating.controller.DealWaitAssignDelivererList', {
                         dealId: dealId,
                         delivererId: uid
                     }, '分单', '分单成功', '分单失败', function(response) {
-                       
+
                         if (response.responseText != 1) {
                             Ext.MessageBox.show({
                                 title: '订单重新分配失败',
@@ -268,7 +274,7 @@ Ext.define('XMLifeOperating.controller.DealWaitAssignDelivererList', {
         }
 
     },
-    onReturnGoods:function(view, e, eOpts){
+    onReturnGoods: function(view, e, eOpts) {
         var record = view.getStore().getAt(eOpts);
         var dealId = record.get('dealBackendId');
         var me = this;
@@ -276,30 +282,30 @@ Ext.define('XMLifeOperating.controller.DealWaitAssignDelivererList', {
         var str = '订单全部退货吗？';
         var url = 'deal/returnDeal';
         Ext.MessageBox.confirm("选择框", str, function(str) {
-                if (str != 'yes') {
-                    return;
+            if (str != 'yes') {
+                return;
+            }
+            sendPutRequest(url, {
+                dealId: dealId,
+            }, '操作退货', '成功操作退货', '退货失败', function(response) {
+                if (response.responseText == -2) {
+                    Ext.MessageBox.show({
+                        title: '订单操作',
+                        msg: '退货失败',
+                        icon: Ext.Msg.ERROR,
+                        buttons: Ext.Msg.OK
+                    });
+                } else {
+                    Ext.MessageBox.show({
+                        title: '订单操作',
+                        msg: '退货成功',
+                        icon: Ext.Msg.INFO,
+                        buttons: Ext.Msg.OK
+                    });
+                    me.fireEvent('refreshView');
                 }
-                sendPutRequest(url, {
-                    dealId: dealId,
-                }, '操作退货', '成功操作退货', '退货失败', function(response) {
-                    if (response.responseText == -2) {
-                                Ext.MessageBox.show({
-                                    title: '订单操作',
-                                    msg: '退货失败',
-                                    icon: Ext.Msg.ERROR,
-                                    buttons: Ext.Msg.OK
-                                });
-                    } else {
-                        Ext.MessageBox.show({
-                            title: '订单操作',
-                            msg: '退货成功',
-                            icon: Ext.Msg.INFO,
-                            buttons: Ext.Msg.OK
-                        });
-                        me.fireEvent('refreshView');
-                    }
-                });
+            });
 
-        })
+        });
     }
 });

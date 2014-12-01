@@ -2,7 +2,8 @@ Ext.define('XMLifeOperating.controller.DealWaitAssignShopperList', {
     extend: 'Ext.app.Controller',
 
     views: ['operationManage.dealWaitAssignShopper.DealWaitAssignShopperList',
-            'operationManage.dealWaitAssignShopper.DWSDealDetail'],
+        'operationManage.dealWaitAssignShopper.DWSDealDetail'
+    ],
 
     stores: ['DealWaitAssignShopper', 'ShopArea', 'DealStatus', 'Customer', 'DealItems'],
 
@@ -14,13 +15,13 @@ Ext.define('XMLifeOperating.controller.DealWaitAssignShopperList', {
         xtype: 'dealwaitassignshopperlist'
     }, {
         ref: 'shopArea',
-        selector: '#shopArea',
+        selector: '#shopArea'
     }, {
         ref: 'keyword',
-        selector: '#keyword',
+        selector: '#keyword'
     }, {
         ref: 'statusSearch',
-        selector: '#statusSearch',
+        selector: '#statusSearch'
     }, {
         ref: 'dealCustomerDetail',
         selector: 'dealCustomerDetail',
@@ -34,7 +35,6 @@ Ext.define('XMLifeOperating.controller.DealWaitAssignShopperList', {
     }],
 
     init: function() {
-
         var me = this;
         this.control({
             'dealwaitassignshopperlist #shopArea': {
@@ -70,8 +70,7 @@ Ext.define('XMLifeOperating.controller.DealWaitAssignShopperList', {
                             page: 1
                         }
                     });
-
-                },
+                }
             },
             'dealwaitassignshopperlist #dealDetail': {
                 click: me.onDealDetail
@@ -87,7 +86,6 @@ Ext.define('XMLifeOperating.controller.DealWaitAssignShopperList', {
             },
             'dealwaitassignshopperlist #refresh': {
                 click: me.onRefresh
-
             }
         });
     },
@@ -128,7 +126,6 @@ Ext.define('XMLifeOperating.controller.DealWaitAssignShopperList', {
         }
     },
     onWaitAssignShopperSearch: function() {
-
         var me = this,
             keyWords = me.getDealWaitAssignShopperList().down('#keyword').getValue(),
             store = this.getDealWaitAssignShopperStore(),
@@ -160,20 +157,31 @@ Ext.define('XMLifeOperating.controller.DealWaitAssignShopperList', {
     },
 
     onDealDetail: function(view, rowIndex, colIndex, column, e) {
-        /*alert(111);
-        return;*/
-        var dealDetail = view.getRecord(view.findTargetByEvent(e));
-        console.log(dealDetail);
-        var win = this.getDWSDealDetail();
-        win.down('form').loadRecord(dealDetail);
-        win.show();
+        var record = view.getRecord(view.findTargetByEvent(e)),
+            win = this.getDWSDealDetail(),
+            form = win.down('form').getForm();
+        // 单独获取详情的接口
+        Ext.Ajax.request({
+            method: 'GET',
+            url: XMLifeOperating.generic.Global.URL.biz + 'deal/' + record.get('dealBackendId'),
+            params: {},
+            success: function(response) {
+                if (response.status == 200 && response.statusText == 'OK') {
+                    var data = Ext.decode(response.responseText);
+                    form.setValues(data);
+                }
+            },
+            failure: function() {
+                Ext.Msg.alert('获取订单详情失败！');
+            }
+        });
+        
         var store = this.getDealItemsStore();
         store.load({
             params: {
-                deal: dealDetail.get('dealBackendId'),
+                deal: record.get('dealBackendId'),
             },
             callback: function(records) {
-
                 var model = Ext.ComponentQuery.query('#dealDetails')[0].getSelectionModel();
                 model.deselectAll();
                 for (var i = 0; i < records.length; i++) {
@@ -182,6 +190,8 @@ Ext.define('XMLifeOperating.controller.DealWaitAssignShopperList', {
                 }
             }
         });
+
+        win.show();
     },
 
     onCustomerDetail: function(view, rowIndex, colIndex, column, e) {
