@@ -127,11 +127,11 @@ Ext.define('XMLifeOperating.controller.CustomerList', {
     },
 
     onAddressCustomer: function(view, rowIndex, colIndex, column, e) {
-        var self = this;
-        var customerDetail = view.getRecord(view.findTargetByEvent(e));
-        var uid = customerDetail.get('uid');
-        var store = self.getAddressStore();
-        var win = self.getCustomerAddress()
+        var self = this,
+            customerDetail = view.getRecord(view.findTargetByEvent(e)),
+            uid = customerDetail.get('uid'),
+            store = self.getAddressStore(),
+            win = self.getCustomerAddress();
         store.on('load', function(store, addressList) {
             win.show();
         });
@@ -143,13 +143,13 @@ Ext.define('XMLifeOperating.controller.CustomerList', {
     },
 
     onOrderHistory: function(view, rowIndex, colIndex, column, e) {
-        var self = this;
-        var customerDetail = view.getRecord(view.findTargetByEvent(e));
-        var uid = customerDetail.get('uid');
-        var store = self.getDealCustomerHistoryStore();
-        var win = self.getCustomerDealList()
-        var content = self.getContentPanel();
-        var oldProxyUrl = store.getProxy().url;
+        var self = this,
+            customerDetail = view.getRecord(view.findTargetByEvent(e)),
+            uid = customerDetail.get('uid'),
+            store = self.getDealCustomerHistoryStore(),
+            win = self.getCustomerDealList(),
+            content = self.getContentPanel(),
+            oldProxyUrl = store.getProxy().url;
         win.setTitle('用户详细信息—' + customerDetail.get('phone'));
         if (!content.items.get(win.getId())) {
             content.add(win);
@@ -168,12 +168,12 @@ Ext.define('XMLifeOperating.controller.CustomerList', {
     },
 
     onOperationc: function(view, rowIndex, colIndex, column, e) {
-        var customerDetail = view.getRecord(view.findTargetByEvent(e));
-        var uid = customerDetail.get('uid');
-        var enable = customerDetail.get('enable');
-        var me = this;
-        var url = 'customer/enable/' + uid;
-        var str = '确认要此操作吗？';
+        var customerDetail = view.getRecord(view.findTargetByEvent(e)),
+            uid = customerDetail.get('uid'),
+            enable = customerDetail.get('enable'),
+            me = this,
+            url = 'customer/enable/' + uid,
+            str = '确认要此操作吗？';
         if (enable == true) {
             str = '确认要封号吗？';
             enable = false;
@@ -199,13 +199,13 @@ Ext.define('XMLifeOperating.controller.CustomerList', {
     },
 
     onConsumePayListId: function(view, rowIndex, colIndex, column, e) {
-        var self = this;
-        var customerDetail = view.getRecord(view.findTargetByEvent(e));
-        var uid = customerDetail.get('uid');
-        var store = self.getCustomerUserCashflowStore();
-        var win = self.getCustomerConsumePayList()
-        var content = self.getContentPanel();
-        var oldProxyUrl = store.getProxy().url;
+        var self = this,
+            customerDetail = view.getRecord(view.findTargetByEvent(e)),
+            uid = customerDetail.get('uid'),
+            store = self.getCustomerUserCashflowStore(),
+            win = self.getCustomerConsumePayList(),
+            content = self.getContentPanel(),
+            oldProxyUrl = store.getProxy().url;
         win.setTitle('充值和消费—' + customerDetail.get('phone'));
         if (!content.items.get(win.getId())) {
             content.add(win);
@@ -223,13 +223,13 @@ Ext.define('XMLifeOperating.controller.CustomerList', {
     },
 
     onCouponListId: function(view, rowIndex, colIndex, column, e) {
-        var self = this;
-        var customerDetail = view.getRecord(view.findTargetByEvent(e));
-        var uid = customerDetail.get('uid');
-        var store = self.getCustomerUserCouponStore();
-        var win = self.getCustomerCouponList()
-        var content = self.getContentPanel();
-        var oldProxyUrl = store.getProxy().url;
+        var self = this,
+            customerDetail = view.getRecord(view.findTargetByEvent(e)),
+            uid = customerDetail.get('uid'),
+            store = self.getCustomerUserCouponStore(),
+            win = self.getCustomerCouponList(),
+            content = self.getContentPanel(),
+            oldProxyUrl = store.getProxy().url;
         win.setTitle('优惠券—' + customerDetail.get('phone'));
         if (!content.items.get(win.getId())) {
             content.add(win);

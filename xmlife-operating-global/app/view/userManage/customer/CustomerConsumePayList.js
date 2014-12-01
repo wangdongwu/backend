@@ -38,6 +38,9 @@ Ext.define('XMLifeOperating.view.userManage.customer.CustomerConsumePayList', {
         text: '金额',
         dataIndex: 'amount',
         width: 80,
+        renderer: function(value) {
+            return value/100;
+        }
     }],
     dockedItems: [{
         xtype: 'pagingtoolbar',
