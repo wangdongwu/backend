@@ -385,7 +385,7 @@ Ext.define('XMLifeOperating.controller.HomePage', {
                                 function(result) {
                                     if (result == 'yes') {
                                         sendRequest('homepage/copyModule', {
-                                            layoutId: this.layoutId,
+                                            layoutId: me.layoutId,
                                             moduleId: values.moduleId
                                         }, '拷贝大积木', '拷贝大积木成功', '拷贝大积木失败', function() {
                                             me.getHomePageModuleListStore().load();
