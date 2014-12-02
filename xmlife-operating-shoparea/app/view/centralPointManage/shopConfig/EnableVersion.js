@@ -72,9 +72,6 @@ Ext.define('XMLifeOperating.view.centralPointManage.shopConfig.EnableVersion', {
           change: function () {
             var form = this.up('form'),
               endTime = form.down('datefield[name="endTime"]');
-            if (Ext.Date.format(this.getValue(), 'Y-m-d') == Ext.Date.format(new Date(), 'Y-m-d')) {
-              this.setValue(Ext.Date.add(new Date(), Ext.Date.MINUTE, 30))
-            }
             if (endTime.getValue() < this.getValue()) {
               endTime.setValue('');
             }
@@ -88,14 +85,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.shopConfig.EnableVersion', {
         minValue: new Date(),
         emptyText: '请选择结束时间',
         labelWidth: 70,
-        name: 'endTime',
-        listeners : {
-          change: function () {
-             if (Ext.Date.format(this.getValue(), 'Y-m-d') == Ext.Date.format(new Date(), 'Y-m-d')) {
-              this.setValue(Ext.Date.add(new Date(), Ext.Date.MINUTE, 30))
-            }
-          }
-        }
+        name: 'endTime'
       }]
     }],
     buttons: [{
