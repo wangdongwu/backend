@@ -1,6 +1,8 @@
-var dataProxy = new XMLifeOperating.generic.BaseProxy('deal/items');
 Ext.define('XMLifeOperating.model.DealItems', {
     extend: 'Ext.data.Model',
-    fields: ['dealBackendId','unit','name','shopName','num','cancelPrice','cancelNum','returnNum','dealPrice','pprice','fprice','price','actualItemPrice','returnPrice'],
-    proxy: dataProxy,
+    fields: [
+        'dealBackendId', 'unit', 'name', 'shopName', 'orderNum', 'cancelNum', 'returnNum', 'num',
+        'price', 'cancelPrice', 'returnPrice', 'dealPrice', 'pprice', 'fprice', 'actualItemPrice', 'couponPrice'
+    ],
+    proxy: new XMLifeOperating.generic.BaseProxy('deal/items')
 });

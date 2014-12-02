@@ -108,46 +108,52 @@ Ext.define('XMLifeOperating.view.userManage.customer.CustomerList', {
             text: '余额',
             dataIndex: 'balance',
             width: 60,
+            align: 'center',
             renderer: function(value) {
                 return value/100;
             }
         }, {
             text: '收获地址',
-            width: 60,
             itemId: 'addressCustomer',
+            width: 60,
+            align: 'center',
             menuDisabled: true,
             renderer: function(value, metadata, model, rowIndex, colIndex, store) {
-                return '<a class="showAddressDetail">查看收货地址</a>';
+                return '<a href="javascript:;">查看</a>';
             }
         }, {
             text: '历史订单',
-            width: 60,
             itemId: 'orderHistory',
+            width: 60,
+            align: 'center',
             menuDisabled: true,
             renderer: function(value, metadata, model, rowIndex, colIndex, store) {
-                return '<a class="showDealList">查看历史订单</a>';
+                return '<a href="javascript:;">查看</a>';
             }
         }, {
             text: '充值和消费',
             width: 60,
+            align: 'center',
             itemId: 'consumePayListId',
             menuDisabled: true,
             renderer: function(value, metadata, model, rowIndex, colIndex, store) {
-                return '<a href="javascript:void(0)">查看</a>';
+                return '<a href="javascript:;">查看</a>';
             }
         }, {
             text: '优惠券',
             width: 60,
+            align: 'center',
             itemId: 'couponListId',
             menuDisabled: true,
             renderer: function(value, metadata, model, rowIndex, colIndex, store) {
-                return '<a href="javascript:void(0)">查看</a>';
+                return '<a href="javascript:;">查看</a>';
             }
         }, {
-            header: "",
-            width: 40,
+            header: "操作",
             dataIndex: 'enable',
             itemId: 'operationc',
+            width: 40,
+            align: 'center',
             menuDisabled: true,
             sortable: false,
             align: 'center',

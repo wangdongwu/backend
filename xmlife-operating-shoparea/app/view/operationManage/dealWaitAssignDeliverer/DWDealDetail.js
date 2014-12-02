@@ -2,14 +2,14 @@ Ext.define('XMLifeOperating.view.operationManage.dealWaitAssignDeliverer.DWDealD
     extend: 'Ext.window.Window',
     xtype: 'dWDealDetail',
     title: '订单详情',
-    requires: [
+     requires: [
         'Ext.form.Panel',
         'Ext.form.field.Text',
         'Ext.form.field.Hidden'
     ],
     closeAction: 'hide',
     modal: true,
-    width: 550,
+    width: 700,
     resizable: false,
     layout: 'fit',
 
@@ -133,26 +133,46 @@ Ext.define('XMLifeOperating.view.operationManage.dealWaitAssignDeliverer.DWDealD
                             xtype: 'rownumberer'
                         }, {
                             text: '店铺名',
-                            width: 90,
                             dataIndex: 'shopName'
                         }, {
                             text: '商品名',
+                            width: '25%',
                             dataIndex: 'name'
                         }, {
                             text: '单价',
-                            width: 50,
                             dataIndex: 'price',
+                            width: '10%',
+                            align: 'center',
                             renderer: function(value) {
                                 return value / 100;
                             }
                         }, {
-                            text: '数量',
-                            width: 50,
-                            dataIndex: 'num'
+                            text: '下单数量',
+                            dataIndex: 'orderNum',
+                            align: 'center'
                         }, {
-                            text: '合计',
-                            width: 50,
+                            text: '取消数量',
+                            dataIndex: 'cancelNum',
+                            align: 'center'
+                        }, {
+                            text: '退货数量',
+                            dataIndex: 'returnNum',
+                            align: 'center'
+                        }, {
+                            text: '实际数量',
+                            dataIndex: 'num',
+                            align: 'center'
+                        }, {
+                            text: '合计金额',
                             dataIndex: 'actualItemPrice',
+                            align: 'center',
+                            renderer: function(value) {
+                                return value / 100;
+                            }
+                        }, {
+                            text: '优惠后金额',
+                            dataIndex: 'couponPrice',
+                            align: 'center',
                             renderer: function(value) {
                                 return value / 100;
                             }
