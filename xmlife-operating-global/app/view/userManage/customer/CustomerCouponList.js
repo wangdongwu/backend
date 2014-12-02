@@ -5,7 +5,7 @@ Ext.define('XMLifeOperating.view.userManage.customer.CustomerCouponList', {
     requires: [
         'Ext.form.Panel',
         'Ext.form.field.Text',
-        'Ext.form.field.Hidden',
+        'Ext.form.field.Hidden'
     ],
     tbar: [
         /*{
@@ -25,16 +25,19 @@ Ext.define('XMLifeOperating.view.userManage.customer.CustomerCouponList', {
         dataIndex: 'type',
         width: 80,
         sortable: false,
-
-        itemId: 'dealDetail',
-        renderer: function(value, metadata, model, rowIndex, colIndex, store) {
-            return '<a>' + value + '</a>'
+        renderer: function(v) {
+            var data = {
+                    '1' : '满减券',
+                    '2' : '打折券',
+                    '3' : '免运费券'
+                };             
+            return data[v];
         }
     }, {
         text: '名称',
         dataIndex: 'name',
         width: 60,
-        sortable: false,
+        sortable: false
     }, {
         text: '开始时间',
         dataIndex: 'startTime',
