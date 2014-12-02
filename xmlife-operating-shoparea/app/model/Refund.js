@@ -17,7 +17,14 @@ Ext.define('XMLifeOperating.model.Refund', {
     'refundType',
     'status',
     'dealPrice',
-    'userName'
+    'userName',
+    'onThirdFeedBack',
+    'auditTime',
+    'returnCode',
+    'contacts',
+    'contactsPhone',
+    'address',
+    'areaName'
     ],
     proxy: new XMLifeOperating.generic.BaseProxy('refund'),
 });

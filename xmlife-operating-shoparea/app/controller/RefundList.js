@@ -1,16 +1,22 @@
 Ext.define('XMLifeOperating.controller.RefundList', {
     extend: 'Ext.app.Controller',
 
-    views: ['operationManage.refund.RefundList'],
+    views: ['operationManage.refund.RefundList',
+            'operationManage.refund.DealDetailRefund'],
 
-    stores: ['Refund'],
+    stores: ['Refund','DealItems'],
 
-    models: ['Refund'],
+    models: ['Refund','DealItems'],
 
     refs: [{
         ref: 'RefundList',
         selector: 'RefundList',
         xtype: 'RefundList',
+        autoCreate: true
+    }, {
+        ref: 'dealDetailRefund',
+        selector: 'dealDetailRefund',
+        xtype: 'dealDetailRefund',
         autoCreate: true
     }],
 
@@ -35,6 +41,7 @@ Ext.define('XMLifeOperating.controller.RefundList', {
 
                     beginTime.setValue(date);
                     endTime.setValue(date);
+                    self.onCleanSearch();
                 }
             },
             'RefundList button[name=yesterday]': {
@@ -44,6 +51,7 @@ Ext.define('XMLifeOperating.controller.RefundList', {
                         endTime = RefundList.down('[name=endTime]');
                     beginTime.setValue(new Date(+new Date() - 86400000));
                     endTime.setValue(new Date());
+                    self.onCleanSearch();
                 }
             },
             'RefundList button[name=oldSevenDay]': {
@@ -53,6 +61,7 @@ Ext.define('XMLifeOperating.controller.RefundList', {
                         endTime = RefundList.down('[name=endTime]');
                     beginTime.setValue(new Date(+new Date() - 604800000));
                     endTime.setValue(new Date());
+                    self.onCleanSearch();
                 }
             },
             'RefundList button[name=oldMonth]': {
@@ -62,28 +71,27 @@ Ext.define('XMLifeOperating.controller.RefundList', {
                         endTime = RefundList.down('[name=endTime]');
                     beginTime.setValue(new Date(+new Date() - 2592000000));
                     endTime.setValue(new Date());
+                    self.onCleanSearch();
                 }
             },
             'RefundList combo': {
                 change: function(grid, value) {
+                    if (grid.itemId == 'refundTypeSearch') {
+                        return;
+                    }
+                    self.onCleanSearch();
                     self.rendenRefundList(this.getRefundList());
                 }
             },
             'RefundList datefield': {
                 change: function() {
+                    self.onCleanSearch();
                     self.rendenRefundList(this.getRefundList());
                 }
             },
             'RefundList button[name=searchDeal]': {
                 click: function() {
-                    var RefundList = this.getRefundList(),
-                        SearchInput = RefundList.down('[name=mobileSearch]'),
-                        mobile = SearchInput.getValue(),
-                        store = self.getRefundStore();
-                    store.getProxy().extraParams = {
-                        mobile: mobile
-                    };
-                    store.load();
+                    self.onSearchDeal();
                 }
             },
             'RefundList button[name=allSelect]': {
@@ -148,17 +156,15 @@ Ext.define('XMLifeOperating.controller.RefundList', {
                             Ext.Msg.alert('提示', '成功拒绝' + self.sm.getCount() + '条退款记录');
                         }
                         self.rendenRefundList(self.getRefundList());
-
-
-                    }, function() {
-
-                    })
-
+                    }, function() {})
                 }
-            }
+            },
+            'RefundList #dealDetailRefund': {
+                click: self.onDealDetailRefund
+            },
         });
-
     },
+
     getRefundIdList: function(typeObj) {
         var list = this.selectObjList,
             idObj = {},
@@ -187,9 +193,11 @@ Ext.define('XMLifeOperating.controller.RefundList', {
             return idObj;
         }
     },
+
     selectChange: function(obj, objList) {
         this.selectObjList = objList;
     },
+
     storeFilter: function() {
         var self = this;
         this.getRefundStore().clearFilter(true);
@@ -204,6 +212,7 @@ Ext.define('XMLifeOperating.controller.RefundList', {
             }
         }]);
     },
+
     rendenRefundList: function(grid) {
         var beginTime = grid.down('[name=beginTime]').rawValue,
             endTime = grid.down('[name=endTime]').rawValue,
@@ -226,5 +235,42 @@ Ext.define('XMLifeOperating.controller.RefundList', {
                 page: 1
             }
         });
-    }
+    },
+
+    onSearchDeal: function() {
+        var self = this,
+            RefundList = this.getRefundList(),
+            SearchInput = RefundList.down('[name=mobileSearch]'),
+            mobileOrDealId = SearchInput.getValue(),
+            store = self.getRefundStore(),
+            refundTypeSearch = RefundList.down('[name=refundTypeSearch]').getValue(),
+            params = {
+                dealId: mobileOrDealId
+            };
+        if (refundTypeSearch == 'mobile') {
+            params = {
+                mobile: mobileOrDealId
+            };
+        }
+        store.getProxy().extraParams = params;
+        store.load();
+    },
+
+    onCleanSearch:function(){
+        this.getRefundList().down('[name=mobileSearch]').setValue('');
+        this.getRefundList().down('[name=refundTypeSearch]').setValue('');
+    },
+
+    onDealDetailRefund: function(view, rowIndex, colIndex, column, e) {
+        var record = view.getRecord(view.findTargetByEvent(e));
+        var win = this.getDealDetailRefund();
+        win.down('form').loadRecord(record);
+        win.show();
+        var store = this.getDealItemsStore();
+        store.load({
+            params: {
+                deal: record.get('dealBackendId'),
+            }
+        });
+    },
 });

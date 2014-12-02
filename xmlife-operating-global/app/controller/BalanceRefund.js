@@ -39,10 +39,11 @@ Ext.define('XMLifeOperating.controller.BalanceRefund', {
                 click : function(ele){
                     var RefundList = this.getBalanceRefundList(),
                         beginTime = RefundList.down('[name=beginTime]'),
-                        endTime = RefundList.down('[name=endTime]');
+                        endTime = RefundList.down('[name=endTime]'),
                         date = new Date();
-                        beginTime.setValue(date);
-                        endTime.setValue(date);
+                    beginTime.setValue(date);
+                    endTime.setValue(date);
+                    self.onCleanSearch(RefundList);
                 }
             },
             'balanceRefundList button[name=yesterday]':{
@@ -50,8 +51,9 @@ Ext.define('XMLifeOperating.controller.BalanceRefund', {
                     var RefundList = this.getBalanceRefundList(),
                         beginTime = RefundList.down('[name=beginTime]'),
                         endTime = RefundList.down('[name=endTime]');
-                        beginTime.setValue(new Date(+new Date()-86400000));
-                        endTime.setValue(new Date(+new Date()-86400000));
+                    beginTime.setValue(new Date(+new Date()-86400000));
+                    endTime.setValue(new Date(+new Date()-86400000));
+                    self.onCleanSearch(RefundList);
                 }
             },
             'balanceRefundList button[name=oldSevenDay]':{
@@ -59,8 +61,9 @@ Ext.define('XMLifeOperating.controller.BalanceRefund', {
                     var RefundList = this.getBalanceRefundList(),
                         beginTime = RefundList.down('[name=beginTime]'),
                         endTime = RefundList.down('[name=endTime]');
-                        beginTime.setValue(new Date(+new Date()-604800000));
-                        endTime.setValue(new Date());
+                    beginTime.setValue(new Date(+new Date()-604800000));
+                    endTime.setValue(new Date());
+                    self.onCleanSearch(RefundList);
                 }
             },
             'balanceRefundList button[name=oldMonth]':{
@@ -68,17 +71,20 @@ Ext.define('XMLifeOperating.controller.BalanceRefund', {
                     var RefundList = this.getBalanceRefundList(),
                         beginTime = RefundList.down('[name=beginTime]'),
                         endTime = RefundList.down('[name=endTime]');
-                        beginTime.setValue(new Date(+new Date()-2592000000));
-                        endTime.setValue(new Date());
+                    beginTime.setValue(new Date(+new Date()-2592000000));
+                    endTime.setValue(new Date());
+                    self.onCleanSearch(RefundList);
                 }
             },
-            'balanceRefundList #statusCombo':{
+            'balanceRefundList #gStatusCombo':{
             	change : function(grid,value){
+                    self.onCleanSearch(this.getBalanceRefundList());
                     self.rendenBalanceRefundList(this.getBalanceRefundList());
                 }
             },
             'balanceRefundList datefield':{
                 change : function(){
+                    self.onCleanSearch(this.getBalanceRefundList());
                     self.rendenBalanceRefundList(this.getBalanceRefundList());
                 }
             },
@@ -110,13 +116,11 @@ Ext.define('XMLifeOperating.controller.BalanceRefund', {
                             }
                             self.rendenBalanceRefundList(self.getBalanceRefundList());
                         },function(){
- 
                         })
                 }
             },
             'balanceRefundList button[name=agreeRefund]' : {
                 click : function(){
-
                     var idObj = self.getBalanceRefundIdList({type:'agree'});
                     if(idObj && idObj.refundType == 'tenpay'){
                         self.getTenpayLogin().show();
@@ -140,23 +144,24 @@ Ext.define('XMLifeOperating.controller.BalanceRefund', {
                                     }
                                 });  
                             }*/
-                            
-                            
                         },function(){
- 
                         });
-                        
                 }
             },
-        });
 
+            'balanceRefundList button[name=searchDeal]': {
+                click: function() {
+                    self.onSearchDeal();
+                }
+            }
+        });
     },
     rendenBalanceRefundList : function(grid){
     	var beginTime = grid.down('[name=beginTime]').rawValue,
     		endTime = grid.down('[name=endTime]').rawValue,
     		//refundType = grid.down('#refundTypeCombo').getValue(),
     		refundType='BALANCE',
-            status = grid.down('#statusCombo').getValue();
+            status = grid.down('#gStatusCombo').getValue();
             store = grid.store;
             store.getProxy().extraParams={
 	            beginTime : beginTime,
@@ -246,5 +251,31 @@ Ext.define('XMLifeOperating.controller.BalanceRefund', {
             return idObj;
         }
     },
+
+    onSearchDeal: function() {
+        var self = this,
+            RefundList = this.getBalanceRefundList(),
+            SearchInput = RefundList.down('[name=mobileSearch]'),
+            mobileOrDealId = SearchInput.getValue(),
+            store = self.getBalanceRefundStore(),
+            refundTypeSearch = RefundList.down('[name=refundTypeSearch]').getValue(),
+            params = {
+                dealId: mobileOrDealId,
+                refundType:'BALANCE'
+            };
+        if (refundTypeSearch == 'mobile') {
+            params = {
+                mobile: mobileOrDealId,
+                refundType:'BALANCE'
+            };
+        }
+        store.getProxy().extraParams = params;
+        store.load();
+    },
+
+    onCleanSearch:function(grid){
+        grid.down('[name=mobileSearch]').setValue('');
+        grid.down('[name=refundTypeSearch]').setValue('');
+    }
 });
 
