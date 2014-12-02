@@ -161,7 +161,6 @@ var uploadBlobImage = function(blobImage){
         xhr.send(form);
     };
 }
-
 var uploadImage = function(form, textfield) {
 
     var sessionId = localStorage.getItem('sessionId') || '';

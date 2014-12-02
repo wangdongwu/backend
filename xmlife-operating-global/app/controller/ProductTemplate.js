@@ -200,18 +200,8 @@ Ext.define('XMLifeOperating.controller.ProductTemplate', {
             'productTemplateEdit #btnSave': {
                 click: me.saveEditWindow
             },
-            'productTemplateEdit filefield[name="productTemplateUploadfile"]': {
-                change: function(uploadfile) {
-                    var form = uploadfile.ownerCt;
-                    var hash = uploadfile.previousNode().previousNode();
-
-                    uploadImage(form, hash);
-                }
-            },
             'productTemplateEdit #menuitem': {
-                click: function() {
-
-                }
+                click: function() {}
             },
             'batchAddWindow #addProduct': {
                 click: function(gird) {
@@ -300,7 +290,6 @@ Ext.define('XMLifeOperating.controller.ProductTemplate', {
             //获取当前视图store（存在多个切换）
             var store = me.getProductTemplateList().down('#productTemplateGrid').getStore(),
                 storeId = store.storeId;
-
             var names = [];
             names.push(productTemplate.get('name1'));
             names.push(productTemplate.get('name2'));
@@ -319,28 +308,66 @@ Ext.define('XMLifeOperating.controller.ProductTemplate', {
                 var rank = productTemplate.get('rank');
                 var rank2 = productTemplate.get('rank2');
 
-                sendPutRequest('producttemplate/update', {
-                    id: id,
-                    names: names,
-                    desc: desc,
-                    picture: picture,
-                    unit: unit || 1,
-                    tag: tag,
-                    barCode: barcode,
-                    rank: rank,
-                    rank2: rank2,
-                }, '编辑商品', '成功编辑商品', '编辑商品失败', function() {
-                    windowEl.unmask();
-                    editWindow.close();
-                    //根据store来源，加载相应的store刷新列表
-                    if (storeId == 'ProductTemplatePageSearch') {
-                        var keyword = Ext.getCmp('productTemplateList').down('#keyword').getValue();
-                        store.getProxy().extraParams = {
-                            keyword: keyword
-                        };
+
+                var sessionId = localStorage.getItem('sessionId') || '';
+
+                form.submit({
+                    url: XMLifeOperating.generic.Global.URL.biz + 'producttemplate/update?sessionId=' + sessionId,
+                    params: {
+                        id: id,
+                        'sessionId': sessionId
+                    },
+                    waitMsg : '正在提交数据',
+                    waitTitle : '提示',  
+                    success: function(form, action) {
+                        var resid = action.response.responseText;
+                        if (resid.length != 26) {
+                            Ext.MessageBox.show({
+                                title: '无法上传图片',
+                                msg: 'Error: <br />' + resid,
+                                icon: Ext.Msg.ERROR,
+                                buttons: Ext.Msg.OK
+                            });
+                            return;
+                        }
+                        store.loadPage(1);
+                    },
+                    failure: function(form, action) {
+                        var resid = action.response.responseText;
+                        if (resid.length != 26) {
+                            Ext.MessageBox.show({
+                                title: '无法上传图片',
+                                msg: 'Error: <br />' + resid,
+                                icon: Ext.Msg.ERROR,
+                                buttons: Ext.Msg.OK
+                            });
+                            return;
+                        }
                     }
-                    store.loadPage(1);
                 });
+
+                /*                sendPutRequest('producttemplate/update', {
+                                    id: id,
+                                    names: names,
+                                    desc: desc,
+                                    picture: picture,
+                                    unit: unit || 1,
+                                    tag: tag,
+                                    barCode: barcode,
+                                    rank: rank,
+                                    rank2: rank2,
+                                }, '编辑商品', '成功编辑商品', '编辑商品失败', function() {
+                                    windowEl.unmask();
+                                    editWindow.close();
+                                    //根据store来源，加载相应的store刷新列表
+                                    if (storeId == 'ProductTemplatePageSearch') {
+                                        var keyword = Ext.getCmp('productTemplateList').down('#keyword').getValue();
+                                        store.getProxy().extraParams = {
+                                            keyword: keyword
+                                        };
+                                    }
+                                    store.loadPage(1);
+                                });*/
 
             } else {
 
@@ -365,10 +392,9 @@ Ext.define('XMLifeOperating.controller.ProductTemplate', {
                         icon: Ext.Msg.ERROR,
                         buttons: Ext.Msg.OK
                     });
-                     windowEl.unmask();
-                     return;
+                    windowEl.unmask();
+                    return;
                 }
-
                 var success = function(task, operation) {
                     windowEl.unmask();
                     editWindow.close();
@@ -393,7 +419,7 @@ Ext.define('XMLifeOperating.controller.ProductTemplate', {
                     windowEl.unmask();
                 }
                 sendRequest('producttemplate', {
-                    categoryId:categoryId,
+                    categoryId: categoryId,
                     names: names,
                     desc: desc,
                     picture: picture,
