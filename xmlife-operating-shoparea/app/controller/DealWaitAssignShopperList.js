@@ -179,10 +179,10 @@ Ext.define('XMLifeOperating.controller.DealWaitAssignShopperList', {
         var store = this.getDealItemsStore();
         store.load({
             params: {
-                deal: record.get('dealBackendId'),
+                deal: record.get('dealBackendId')
             },
             callback: function(records) {
-                var model = Ext.ComponentQuery.query('#dealDetails')[0].getSelectionModel();
+                var model = win.down('#dealDetails').getSelectionModel();
                 model.deselectAll();
                 for (var i = 0; i < records.length; i++) {
                     var index = store.indexOfId(records[i].get('id'));

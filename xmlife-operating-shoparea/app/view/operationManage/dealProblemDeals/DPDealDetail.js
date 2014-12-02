@@ -23,7 +23,7 @@ Ext.define('XMLifeOperating.view.operationManage.dealProblemDeals.DPDealDetail',
             defaults: {
                 margin: 0,
                 padding: 0,
-                labelWidth: 68,
+                labelWidth: 85,
                 labelPad: 15,
                 labelAlign: 'right'
             },
@@ -68,7 +68,7 @@ Ext.define('XMLifeOperating.view.operationManage.dealProblemDeals.DPDealDetail',
                     fieldLabel: '货品价格',
                     allowBlank: false,
                     renderer: function(value) {
-                        return value / 100;
+                        return value / 100 + ' 元';
                     }
                 }, {
                     xtype: 'displayfield',
@@ -76,7 +76,7 @@ Ext.define('XMLifeOperating.view.operationManage.dealProblemDeals.DPDealDetail',
                     fieldLabel: '运费',
                     allowBlank: false,
                     renderer: function(value) {
-                        return value / 100;
+                        return value / 100 + ' 元';
                     }
                 }, {
                     xtype: 'displayfield',
@@ -84,23 +84,20 @@ Ext.define('XMLifeOperating.view.operationManage.dealProblemDeals.DPDealDetail',
                     fieldLabel: '已优惠',
                     allowBlank: false,
                     renderer: function(value) {
-                        return value / 100;
+                        return value / 100 + ' 元';
                     }
                 }, {
                     xtype: 'displayfield',
-                    name: 'coupon',
+                    name: 'coupons',
                     fieldLabel: '使用优惠券',
-                    allowBlank: false,
-                    renderer: function(value) {
-                        return value / 100;
-                    }
+                    allowBlank: false
                 }, {
                     xtype: 'displayfield',
                     name: 'dealPrice',
-                    fieldLabel: '总计',
+                    fieldLabel: '总计(含运费)',
                     allowBlank: false,
                     renderer: function(value) {
-                        return value / 100;
+                        return value / 100 + ' 元';
                     }
                 }, {
                     xtype: 'displayfield',
@@ -108,7 +105,7 @@ Ext.define('XMLifeOperating.view.operationManage.dealProblemDeals.DPDealDetail',
                     fieldLabel: '余额支付',
                     allowBlank: false,
                     renderer: function(value) {
-                        return value / 100;
+                        return value / 100 + ' 元';
                     }
                 }, {
                     xtype: 'displayfield',
@@ -116,16 +113,23 @@ Ext.define('XMLifeOperating.view.operationManage.dealProblemDeals.DPDealDetail',
                     fieldLabel: '微信支付',
                     allowBlank: false,
                     renderer: function(value) {
-                        return value / 100;
+                        return value / 100 + ' 元';
                     }
                 }, {
-                    name: 'gDealDetails',
-                    store: 'DealItems',
-                    fieldLabel: '购买清单',
+                    xtype: 'displayfield',
+                    name: 'alipay',
+                    fieldLabel: '支付宝支付',
+                    allowBlank: false,
+                    renderer: function(value) {
+                        return value / 100 + ' 元';
+                    }
+                }, {
                     xtype: 'gridpanel',
-                    itemId: 'gDealDetails',
+                    itemId: 'dealDetails',
+                    store: 'DealItems',
                     forceFit: true,
-                    columns: [{
+                    columns: [
+                        {
                             xtype: 'rownumberer'
                         }, {
                             text: '店铺名',

@@ -150,15 +150,17 @@ Ext.define('XMLifeOperating.controller.CustomerList', {
             win = self.getCustomerDealList(),
             content = self.getContentPanel(),
             oldProxyUrl = store.getProxy().url;
+
         win.setTitle('用户详细信息—' + customerDetail.get('phone'));
         if (!content.items.get(win.getId())) {
             content.add(win);
         }
         content.setActiveTab(win.getId());
+
         store.getProxy().url = XMLifeOperating.generic.Global.URL.biz + 'deal/customerHistory';
         store.on('load', function() {
             store.getProxy().url = oldProxyUrl;
-        })
+        });
         store.load({
             params: {
                 customer: uid,

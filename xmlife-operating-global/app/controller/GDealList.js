@@ -210,10 +210,10 @@ Ext.define('XMLifeOperating.controller.GDealList', {
         var store = this.getDealItemsStore();
         store.load({
             params: {
-                deal: record.get('dealBackendId') || record.get('dealId'),
+                deal: record.get('dealBackendId') || record.get('dealId')
             },
             callback: function(records) {
-                var model = Ext.ComponentQuery.query('#gDealDetails')[0].getSelectionModel();
+                var model = win.down('#dealDetails').getSelectionModel();
                 model.deselectAll();
                 for (var i = 0; i < records.length; i++) {
                     var index = store.indexOfId(records[i].get('id'));

@@ -39,7 +39,6 @@ Ext.define('XMLifeOperating.controller.CustomerList', {
     init: function() {
         var me = this;
         this.control({
-
             'customerList #shopArea': {
                 select: function(combo) {
                     var sstore = this.getCustomerStore();
@@ -126,32 +125,28 @@ Ext.define('XMLifeOperating.controller.CustomerList', {
     },
 
     onOrderHistory: function(view, rowIndex, colIndex, column, e) {
-        var self = this;
-        var customerDetail = view.getRecord(view.findTargetByEvent(e));
-        var uid = customerDetail.get('uid');
-        var store = self.getDealStore();
-        var win = self.getCustomerDealList()
-        var content = self.getContentPanel();
-        var oldProxyUrl = store.getProxy().url;
+        var self = this,
+            customerDetail = view.getRecord(view.findTargetByEvent(e)),
+            uid = customerDetail.get('uid'),
+            //store = self.getDealCustomerHistoryStore(),
+            store = self.getDealStore(),
+            win = self.getCustomerDealList(),
+            content = self.getContentPanel(),
+            oldProxyUrl = store.getProxy().url;
+
         content.removeAll(false);
         content.add(win);
+
         store.getProxy().url = XMLifeOperating.generic.Global.URL.biz + 'deal/customerHistory';
         store.on('load', function() {
-           
-        })
-
-        store.getProxy().extraParams = {
-            customer: uid,
-            assignShopper: true
-        };
-        store.loadPage(1, {
+            store.getProxy().url = oldProxyUrl;
+        });
+        store.load({
             params: {
-                start: 0,
-                limit: 25,
-                page: 1
+                customer: uid,
+                assignShopper: true
             }
         });
-
     },
 
     onOperationc: function(view, rowIndex, colIndex, column, e) {
