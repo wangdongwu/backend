@@ -11,7 +11,11 @@ Ext.define('XMLifeOperating.view.Viewport', {
         xtype: 'moduleNavigation',
         region: 'west',
         width: 200,
+        border: false,
         frame: true,
+        split:true,
+        margins: '2 0 5 5',
+        padding:0,
         title: '导航',
         titleAlign: 'center',
         collapsible: true

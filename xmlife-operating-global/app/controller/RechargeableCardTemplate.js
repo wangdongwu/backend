@@ -34,13 +34,13 @@ Ext.define('XMLifeOperating.controller.RechargeableCardTemplate', {
         selector: 'rechargeableCardTemplateReturnCardDetail',
         xtype: 'rechargeableCardTemplateReturnCardDetail',
         autoCreate: true
-    },{
+    }, {
         ref: 'rechargeableCardTemplateDetail',
         selector: 'rechargeableCardTemplateDetail',
         xtype: 'rechargeableCardTemplateDetail',
         autoCreate: true
     }],
-    init: function() {
+    init: function() { 
         var me = this;
         this.control({
 
@@ -230,7 +230,7 @@ Ext.define('XMLifeOperating.controller.RechargeableCardTemplate', {
                     type: RechargeableCardTemplate.data.type,
                     name: RechargeableCardTemplate.data.name,
                     desc: RechargeableCardTemplate.data.desc,
-                    amount: RechargeableCardTemplate.data.amount * 100,
+                    amount: me.priceTransform(RechargeableCardTemplate.data.amount),
                     simpleDesc: RechargeableCardTemplate.data.simpleDesc,
                     newAccount: newAccount
                 },
@@ -266,11 +266,11 @@ Ext.define('XMLifeOperating.controller.RechargeableCardTemplate', {
             windowEl.mask('saving');
             var values = form.getValues();
             var name = values.name,
-                amount = values.immediatelyAmount * 100 + values.returnAmount * 100,
+                amount = me.priceTransform(values.immediatelyAmount) + me.priceTransform(values.returnAmount),
                 simpleDesc = values.simpleDesc,
                 desc = values.desc,
-                immediatelyAmount = values.immediatelyAmount * 100,
-                batchAmount = values.returnAmount * 100,
+                immediatelyAmount = me.priceTransform(values.immediatelyAmount),
+                batchAmount = me.priceTransform(values.returnAmount),
                 count = values.count,
                 newAccount = values.newAccount,
                 days = [],
@@ -284,15 +284,14 @@ Ext.define('XMLifeOperating.controller.RechargeableCardTemplate', {
             } else {
                 newAccount = false;
             }
-
             for (var j = 0, length = count; j < length; j++) {
                 dayCount.push(values['chargedayamount_' + (j + 1)]);
-                if (values['chargedayamount_' + (j + 1)] <= values['chargedayamount_' + (j)]) {
+                if (parseInt(values['chargedayamount_' + (j + 1)]) <= parseInt(values['chargedayamount_' + (j)])) {
                     dayErrorFlag = true
                 }
                 days.push(values['chargedayamount_' + (j + 1)]);
-                amounts.push(values['chargearrivemoney_' + (j + 1)] * 100);
-                sum += values['chargearrivemoney_' + (j + 1)] * 100;
+                amounts.push(me.priceTransform(values['chargearrivemoney_' + (j + 1)]));
+                sum += me.priceTransform(values['chargearrivemoney_' + (j + 1)]);
             }
             //返还价格判断
             if (sum != batchAmount) {
@@ -374,7 +373,7 @@ Ext.define('XMLifeOperating.controller.RechargeableCardTemplate', {
         desc = record.get('desc');
         newAccount = (record.get('newAccount') == 'true' || record.get('newAccount') == true) ? '是' : '否';
         var returnCardDetail = me.getRechargeableCardTemplateReturnCardDetail();
-        var   cardDetail   = me.getRechargeableCardTemplateDetail()
+        var cardDetail = me.getRechargeableCardTemplateDetail()
         var values = {
             id: record.get('id'),
             type: record.get('type'),
@@ -386,13 +385,13 @@ Ext.define('XMLifeOperating.controller.RechargeableCardTemplate', {
 
 
         if (type == 0) {
-            values.amount = record.get('amount')/100;
+            values.amount = record.get('amount') / 100;
             cardDetail.down('form').getForm().setValues(values);
             cardDetail.show();
         } else if (type == 2) {
             rule = record.get('rule');
-            values.returnAmount = rule.batchAmount/100;
-            values.immediatelyAmount = (record.get('amount') - rule.batchAmount)/100;
+            values.returnAmount = rule.batchAmount / 100;
+            values.immediatelyAmount = (record.get('amount') - rule.batchAmount) / 100;
             values.count = rule.count;
             var days = [];
             var amounts = [];
@@ -408,5 +407,8 @@ Ext.define('XMLifeOperating.controller.RechargeableCardTemplate', {
             returnCardDetail.down('form').getForm().setValues(values);
             returnCardDetail.show();
         }
+    },
+    priceTransform: function(value) {
+        return parseInt((value * 100).toFixed());
     }
 });

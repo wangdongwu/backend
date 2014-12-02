@@ -7,15 +7,19 @@ Ext.define('XMLifeOperating.controller.ProductTemplate', {
         'templateManage.productTemplate.batchAddWindow'
     ],
 
-    stores: ['ProductTemplatePageSearch',
+    stores: [
+        'ProductTemplatePageSearch',
         'ProductUnit',
         'ProductTemplateRoots',
+        'ProductTemplateSubs',
         'ProductTemplateGetByCategoryId'
     ],
 
-    models: ['ProductTemplatePageSearch',
+    models: [
+        'ProductTemplatePageSearch',
         'ProductUnit',
         'ProductTemplateRoots',
+        'ProductTemplateSubs',
         'ProductTemplateGetByCategoryId'
     ],
 
@@ -52,8 +56,39 @@ Ext.define('XMLifeOperating.controller.ProductTemplate', {
 
         this.control({
             'productTemplateList': {
-                added: function() {
+                show: function() {
+                    var me = this;
+                    var rootStore = me.getProductTemplateRootsStore();
+                    var tabpanel = me.getProductTemplateList().down('tabpanel');
+                    var callback = function(records, response, isSuccessed) {
+                        var len = records ? records.length : 0;
+                        if (len) {
+                            for (var i = 0; i < len; i++) {
+                                tabpanel.add({
+                                    title: records[i].get('name'),
+                                    id: records[i].get('id')
+                                });
+                            }
+                            tabpanel.setActiveTab(0);
+                        }
+                    };
+                    rootStore.load({
+                        callback: callback
+                    });
+                }
+            },
+            'productTemplateList #productTemplateTabs': {
+                tabchange: function(tabpanel, newCard, oldCard, e) {
+                    var me = this;
+                    var rootId = newCard.id;
+                    var tree = me.getProductTemplateList().down('#productTemplateTree');
+                    var categoryStore = me.getProductTemplateSubsStore();
 
+                    categoryStore.load({
+                        params: {
+                            parentId: rootId
+                        }
+                    });
                 }
             },
             'productTemplateList #batchModifi': {
@@ -78,25 +113,6 @@ Ext.define('XMLifeOperating.controller.ProductTemplate', {
                 }
             },
             'productTemplateList #productTemplateTree': {
-                beforeitemexpand: function(node, opts) {
-                    var store = node.store;
-                    var id = node.data.id
-                    if (node.data.leaf == false) { //非子节点
-                        var proxy = node.store.getProxy();
-                        if (proxy.proxyConfig != 'producttemplate/subs') {
-                            proxy.proxyConfig = 'producttemplate/subs';
-                            store.setProxy({
-                                type: 'ajax',
-                                url: XMLifeOperating.generic.Global.URL.biz + 'producttemplate/subs',
-                                extraParams: {
-                                    parentId: id
-                                }
-                            });
-                        };
-                    } else { //子节点
-                        return false
-                    }
-                },
                 //view tree视图，record 节点数据， item节点dom ，index 节点顺序 ，e 事件响应， opts view事件
                 itemclick: function(view, record, item, index, e, opts) {
                     var me = this;
@@ -126,7 +142,6 @@ Ext.define('XMLifeOperating.controller.ProductTemplate', {
                         return false
                     }
                 }
-
             },
             '#productSearch': {
                 click: function() {
@@ -343,6 +358,7 @@ Ext.define('XMLifeOperating.controller.ProductTemplate', {
                                 icon: Ext.Msg.ERROR,
                                 buttons: Ext.Msg.OK
                             });
+                            windowEl.unmask();
                             return;
                         } else if (resid == 1) {
                             Ext.Msg.alert('提示', '修改商品模板成功！');
@@ -415,7 +431,7 @@ Ext.define('XMLifeOperating.controller.ProductTemplate', {
                                 buttons: Ext.Msg.OK
                             });
                             return;
-                        }else if (resid == 1) {
+                        } else if (resid == 1) {
                             Ext.Msg.alert('提示', '添加商品模板成功！');
                             editWindow.close();
                             store.loadPage(1);
