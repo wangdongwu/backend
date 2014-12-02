@@ -1,9 +1,12 @@
 Ext.define('XMLifeOperating.controller.CustomerList', {
     extend: 'Ext.app.Controller',
 
-    views: ['userManage.customer.CustomerList', 'userManage.customer.CustomerAddress', 'userManage.customer.CustomerDealList'],
+    views: [
+        'userManage.customer.CustomerList', 'userManage.customer.CustomerAddress',
+        'userManage.customer.CustomerDealList', 'dealManage.DealDetail'
+    ],
 
-    stores: ['Customer', 'ShopArea', 'Address', 'Deal'],
+    stores: ['Customer', 'ShopArea', 'Address', 'Deal', 'DealItems'],
 
     models: ['Customer', 'ShopArea', 'Address', 'Deal'],
     refs: [{
@@ -34,6 +37,11 @@ Ext.define('XMLifeOperating.controller.CustomerList', {
         ref: 'contentPanel',
         selector: '#contentPanel',
         xtype: 'panel'
+    }, {
+        ref: 'dealDetail',
+        selector: 'dealDetail',
+        xtype: 'dealDetail',
+        autoCreate: true
     }],
 
     init: function() {
@@ -103,6 +111,9 @@ Ext.define('XMLifeOperating.controller.CustomerList', {
             },
             '#operationc': {
                 click: me.onOperationc
+            },
+            'CustomerDealList #dealDetail': {
+                click: me.onDealDetail
             }
         });
     },
@@ -122,6 +133,44 @@ Ext.define('XMLifeOperating.controller.CustomerList', {
                 customer: uid
             }
         });
+    },
+
+    onDealDetail: function(view, rowIndex, colIndex, column, e) {
+        var record = view.getRecord(view.findTargetByEvent(e)),
+            win = this.getDealDetail(),
+            form = win.down('form').getForm();
+        // 单独获取详情的接口
+        Ext.Ajax.request({
+            method: 'GET',
+            url: XMLifeOperating.generic.Global.URL.biz + 'deal/' + record.get('dealBackendId'),
+            params: {},
+            success: function(response) {
+                if (response.status == 200 && response.statusText == 'OK') {
+                    var data = Ext.decode(response.responseText);
+                    form.setValues(data);
+                }
+            },
+            failure: function() {
+                Ext.Msg.alert('获取订单详情失败！');
+            }
+        });
+
+        var store = this.getDealItemsStore();
+        store.load({
+            params: {
+                deal: record.get('dealBackendId'),
+            },
+            callback: function(records) {
+                var model = win.down('#dealDetails').getSelectionModel();
+                model.deselectAll();
+                for (var i = 0; i < records.length; i++) {
+                    var index = store.indexOfId(records[i].get('id'));
+                    model.select(index, true);
+                }
+            }
+        });
+
+        win.show();
     },
 
     onOrderHistory: function(view, rowIndex, colIndex, column, e) {
