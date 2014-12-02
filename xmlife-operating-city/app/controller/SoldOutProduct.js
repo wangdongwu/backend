@@ -3,6 +3,7 @@ Ext.define('XMLifeOperating.controller.SoldOutProduct', {
     views: [
         'soldoutProductManage.soldoutRecord.soldoutRecordList',
         'soldoutProductManage.soldoutRecord.soldoutProductInstanceEdit',
+        'soldoutProductManage.soldoutRecord.soldoutProductTemplateEdit',
         'soldoutProductManage.shopperRecord.shopperRecordList'
     ],
     stores: [
@@ -23,6 +24,11 @@ Ext.define('XMLifeOperating.controller.SoldOutProduct', {
         ref: 'soldoutProductInstanceEdit',
         selector: 'soldoutProductInstanceEdit',
         xtype: 'soldoutProductInstanceEdit',
+        autoCreate: true
+    }, {
+        ref: 'soldoutProductTemplateEdit',
+        selector: 'soldoutProductTemplateEdit',
+        xtype: 'soldoutProductTemplateEdit',
         autoCreate: true
     }, {
         ref: 'shopperRecordList',
@@ -46,11 +52,14 @@ Ext.define('XMLifeOperating.controller.SoldOutProduct', {
             'soldoutRecordList #editProduct': {
                 editProduct: me.editProduct
             },
-/*            'soldoutRecordList combo[itemId=statusCombo]': {
-                enableStatus: me.enableStatus
-            },*/
+            /*            'soldoutRecordList combo[itemId=statusCombo]': {
+                            enableStatus: me.enableStatus
+                        },*/
             'soldoutProductInstanceEdit #editShelvesGoodsWin': {
                 click: me.saveProductInstanceEdit
+            },
+            'soldoutProductTemplateEdit #btnSave': {
+                click: me.saveProductTemplateEdit
             },
             'shopperRecordList': {
                 show: me.showShopperRecordList
@@ -208,7 +217,30 @@ Ext.define('XMLifeOperating.controller.SoldOutProduct', {
         win.down('form').getForm().setValues(values);
         win.show();
     },
-    editProductTemplate: function(win, record) {},
+    editProductTemplate: function(win, record) {
+        var me = this,
+            editWin = win,
+            templateData = record.get('template'),
+            values = {};
+        values.barCode = templateData.barCode;
+        values.canPartiallyReturn = templateData.canPartiallyReturn;
+        values.desc = templateData.desc;
+        values.id = templateData.id;
+        values.picMap = templateData.picMap;
+        values.picture = templateData.picture;
+        values.rank = templateData.rank;
+        values.rank2 = templateData.rank2;
+        values.skuId = templateData.skuId;
+        values.tag = templateData.tag;
+        values.unit = templateData.unit;
+        values.unitname = templateData.unitname;
+        values.name = templateData.name.split('\n');
+        for (var i = 1, len = values.name.length; i <= len; i++) {
+            values['name' + i] = values.name[i - 1];
+        }
+        win.down('form').getForm().setValues(values);
+        win.show();
+    },
     productStatusChange: function(e, row) {
         var me = this;
         me.productStatusValidate(e, row, me.showSoldoutRecordList);
@@ -217,7 +249,7 @@ Ext.define('XMLifeOperating.controller.SoldOutProduct', {
         var me = this;
         var record = cell.record;
         var shopType = record.get('shopType');
-        me.disableUnAuthorityCmp(shopType,null,me.getSoldoutProductInstanceEdit());
+        me.disableUnAuthorityCmp(shopType, null, me.getSoldoutProductInstanceEdit());
     },
     productStatusValidate: function(e, row, fn, args) {
         var me = this;
@@ -485,6 +517,63 @@ Ext.define('XMLifeOperating.controller.SoldOutProduct', {
             }
         } else {
             Ext.Msg.alert('无效数据', '请更正表单数据！');
+        }
+    },
+    saveProductTemplateEdit: function() {
+        var me = this;
+        var win = me.getSoldoutProductTemplateEdit();
+        var form = win.down('form');
+        var values = form.getForm().getValues();
+
+        if (form.isValid()) {
+            var id = values.id;
+            var desc = values.desc;
+            var picture = values.picture;
+            var unit = values.unit;
+            var tag = values.tag;
+            var barcode = values.barCode;
+            var rank = values.rank;
+            var rank2 = values.rank2;
+            var sessionId = localStorage.getItem('sessionId') || '';
+            form.submit({
+                url: XMLifeOperating.generic.Global.URL.biz + 'producttemplate/update?sessionId=' + sessionId,
+                params: {
+                    id: id,
+                    'sessionId': sessionId
+                },
+                waitMsg: '正在提交数据',
+                waitTitle: '提示',
+                success: function(form, action) {
+                    var resid = action.response.responseText;
+                    if (resid.length != 26) {
+                        Ext.MessageBox.show({
+                            title: '无法上传图片',
+                            msg: 'Error: <br />' + resid,
+                            icon: Ext.Msg.ERROR,
+                            buttons: Ext.Msg.OK
+                        });
+                        return;
+                    }
+                    store.loadPage(1);
+                },
+                failure: function(form, action) {
+                    var resid = action.response.responseText;
+                    if (resid.length != 26) {
+                        Ext.MessageBox.show({
+                            title: '无法上传图片',
+                            msg: 'Error: <br />' + resid,
+                            icon: Ext.Msg.ERROR,
+                            buttons: Ext.Msg.OK
+                        });
+                        return;
+                    }
+                }
+            });
+
+        } else {
+
+            Ext.Msg.alert('无效数据', '请更正表单数据！');
+
         }
     }
 })

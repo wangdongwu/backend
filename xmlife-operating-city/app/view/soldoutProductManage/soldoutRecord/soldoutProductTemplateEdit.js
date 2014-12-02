@@ -28,6 +28,11 @@ Ext.define('XMLifeOperating.view.soldoutProductManage.soldoutRecord.soldoutProdu
         },
         items: [{
             xtype: 'textfield',
+            name: 'id',
+            hidden: true,
+            readOnly: true
+        }, {
+            xtype: 'textfield',
             name: 'name1',
             fieldLabel: '商品名称1',
             labelWidth: 90,
@@ -60,12 +65,6 @@ Ext.define('XMLifeOperating.view.soldoutProductManage.soldoutRecord.soldoutProdu
             fieldLabel: '商品名称2',
             labelWidth: 90,
             validator: function(str) {
-                /*var len = getStrLength(str);
-                if(len > 14){
-                    return '商品名称最大长度为7';
-                }else{
-                    return true;
-                }*/
                 var value = str;
                 var length = 0;
                 for (var i = 0, len = value.length; i < len; i++) {
@@ -92,12 +91,6 @@ Ext.define('XMLifeOperating.view.soldoutProductManage.soldoutRecord.soldoutProdu
             fieldLabel: '商品名称3',
             labelWidth: 90,
             validator: function(str) {
-                /*var len = getStrLength(str);
-                if(len > 14){
-                    return '商品名称最大长度为7';
-                }else{
-                    return true;
-                }*/
                 var value = str;
                 var length = 0;
                 for (var i = 0, len = value.length; i < len; i++) {
@@ -156,7 +149,7 @@ Ext.define('XMLifeOperating.view.soldoutProductManage.soldoutRecord.soldoutProdu
             xtype: 'filefield',
             fieldLabel: '上传图片',
             emptyText: '请选择图片',
-            name:'pictures',
+            name: 'pictures',
             itemId: 'productTemplateUploadfile',
             listeners: {
                 afterrender: function(cmp) {

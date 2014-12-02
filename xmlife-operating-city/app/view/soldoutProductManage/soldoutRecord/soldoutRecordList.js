@@ -27,7 +27,7 @@ Ext.define('XMLifeOperating.view.soldoutProductManage.soldoutRecord.soldoutRecor
         var combo = Ext.create('Ext.form.ComboBox', {
             displayField: 'name',
             valueField: 'value',
-            itemId:'statusCombo',
+            itemId: 'statusCombo',
             triggerAction: 'all',
             autoScroll: true,
             editable: false,
@@ -94,20 +94,38 @@ Ext.define('XMLifeOperating.view.soldoutProductManage.soldoutRecord.soldoutRecor
                 aligin: 'center',
                 itemId: 'editProduct',
                 items: [{
+                    xtye:'button',
                     icon: 'resources/images/edit.png',
+                    text:'编辑实例',
                     tooltip: '编辑实例',
                     itemId: 'editProductInstance',
                     aligin: 'left',
                     handler: function(grid, rowIndex, colIndex, btn, e, record, row) {
                         var me = this;
-                        me.fireEvent('editProduct',{record:record,iconId:'editProductInstance'})
+                        me.fireEvent('editProduct', {
+                            record: record,
+                            iconId: 'editProductInstance'
+                        });
                     }
                 }, {
                     icon: 'resources/images/edit.png',
                     tooltip: '编辑模板',
                     itemId: 'editProductTemplate',
-                    aligin: 'right'
-                }]
+                    aligin: 'right',
+                    handler: function(grid, rowIndex, colIndex, btn, e, record, row) {
+                        var me = this;
+                        me.fireEvent('editProduct', {
+                            record: record,
+                            iconId: 'editProductTemplate'
+                        })
+                    }
+                }],
+/*                renderer:function(){
+                    return
+                    '<img role="button" alt="" src="resources/images/edit.png" class="x-action-col-icon x-action-col-0   " data-qtip="编辑实例">编辑实例
+                    <img role="button" alt="" src="resources/images/edit.png" class="x-action-col-icon x-action-col-1   " data-qtip="编辑模板">编辑模板'
+                   
+                }*/
             }, {
                 header: '操作',
                 dataIndex: 'status',
