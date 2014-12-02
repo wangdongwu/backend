@@ -307,18 +307,17 @@ Ext.define('XMLifeOperating.controller.ProductTemplate', {
                 var barcode = productTemplate.get('barCode');
                 var rank = productTemplate.get('rank');
                 var rank2 = productTemplate.get('rank2');
-
-
                 var sessionId = localStorage.getItem('sessionId') || '';
 
                 form.submit({
                     url: XMLifeOperating.generic.Global.URL.biz + 'producttemplate/update?sessionId=' + sessionId,
                     params: {
                         id: id,
-                        'sessionId': sessionId
+                        sessionId: sessionId,
+                        name: names.join('\n')
                     },
-                    waitMsg : '正在提交数据',
-                    waitTitle : '提示',  
+                    waitMsg: '正在提交数据',
+                    waitTitle: '提示',
                     success: function(form, action) {
                         var resid = action.response.responseText;
                         if (resid.length != 26) {
@@ -331,6 +330,7 @@ Ext.define('XMLifeOperating.controller.ProductTemplate', {
                             return;
                         }
                         store.loadPage(1);
+                        windowEl.unmask();
                     },
                     failure: function(form, action) {
                         var resid = action.response.responseText;
@@ -341,33 +341,12 @@ Ext.define('XMLifeOperating.controller.ProductTemplate', {
                                 icon: Ext.Msg.ERROR,
                                 buttons: Ext.Msg.OK
                             });
+                            windowEl.unmask();
                             return;
                         }
+                        windowEl.unmask();
                     }
                 });
-
-                /*                sendPutRequest('producttemplate/update', {
-                                    id: id,
-                                    names: names,
-                                    desc: desc,
-                                    picture: picture,
-                                    unit: unit || 1,
-                                    tag: tag,
-                                    barCode: barcode,
-                                    rank: rank,
-                                    rank2: rank2,
-                                }, '编辑商品', '成功编辑商品', '编辑商品失败', function() {
-                                    windowEl.unmask();
-                                    editWindow.close();
-                                    //根据store来源，加载相应的store刷新列表
-                                    if (storeId == 'ProductTemplatePageSearch') {
-                                        var keyword = Ext.getCmp('productTemplateList').down('#keyword').getValue();
-                                        store.getProxy().extraParams = {
-                                            keyword: keyword
-                                        };
-                                    }
-                                    store.loadPage(1);
-                                });*/
 
             } else {
 
@@ -382,6 +361,7 @@ Ext.define('XMLifeOperating.controller.ProductTemplate', {
                 var skuId = productTemplate.get('skuId');
                 var rank = productTemplate.get('rank');
                 var rank2 = productTemplate.get('rank2');
+                var sessionId = localStorage.getItem('sessionId') || '';
 
                 if (treeSelected.length == 1) {
                     var categoryId = treeSelected.items[0].get('id');
@@ -395,41 +375,44 @@ Ext.define('XMLifeOperating.controller.ProductTemplate', {
                     windowEl.unmask();
                     return;
                 }
-                var success = function(task, operation) {
-                    windowEl.unmask();
-                    editWindow.close();
-                    //根据store来源，加载相应的store刷新列表
-                    if (storeId == 'ProductTemplatePageSearch') {
-                        var keyword = Ext.getCmp('productTemplateList').down('#keyword').getValue();
-                        store.getProxy().extraParams = {
-                            keyword: keyword
-                        };
+                form.submit({
+                    url: XMLifeOperating.generic.Global.URL.biz + 'producttemplate?sessionId=' + sessionId,
+                    params: {
+                        categoryId: categoryId,
+                        sessionId: sessionId,
+                        name: names.join('\n')
+                    },
+                    waitMsg: '正在提交数据',
+                    waitTitle: '提示',
+                    success: function(form, action) {
+                        var resid = action.response.responseText;
+                        if (resid.length != 26) {
+                            Ext.MessageBox.show({
+                                title: '无法上传图片',
+                                msg: 'Error: <br />' + resid,
+                                icon: Ext.Msg.ERROR,
+                                buttons: Ext.Msg.OK
+                            });
+                            return;
+                        }
+                        store.loadPage(1);
+                        windowEl.unmask();
+                    },
+                    failure: function(form, action) {
+                        var resid = action.response.responseText;
+                        if (resid.length != 26) {
+                            Ext.MessageBox.show({
+                                title: '无法上传图片',
+                                msg: 'Error: <br />' + resid,
+                                icon: Ext.Msg.ERROR,
+                                buttons: Ext.Msg.OK
+                            });
+                            windowEl.unmask();
+                            return;
+                        }
+                        windowEl.unmask();
                     }
-                    store.loadPage(1);
-                }
-                var failure = function(task, operation) {
-                    var error = operation.getError(),
-                        msg = Ext.isObject(error) ? error.status + ' ' + error.statusText : error;
-                    Ext.MessageBox.show({
-                        title: 'Edit Task Failed',
-                        msg: msg,
-                        icon: Ext.Msg.ERROR,
-                        buttons: Ext.Msg.OK
-                    });
-                    windowEl.unmask();
-                }
-                sendRequest('producttemplate', {
-                    categoryId: categoryId,
-                    names: names,
-                    desc: desc,
-                    picture: picture,
-                    unit: unit || 1,
-                    tag: tag,
-                    skuId: skuId,
-                    barCode: barCode,
-                    rank: rank,
-                    rank2: rank2,
-                }, '添加商品', '成功添加商品', '添加商品失败', success, failure);
+                });
             }
 
         } else {

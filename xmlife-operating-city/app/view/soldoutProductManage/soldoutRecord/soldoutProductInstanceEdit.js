@@ -7,8 +7,6 @@ Ext.define('XMLifeOperating.view.soldoutProductManage.soldoutRecord.soldoutProdu
         'Ext.form.field.Text',
         'Ext.form.field.Hidden',
         'Ext.selection.CheckboxModel',
-        'Ext.layout.container.Column',
-        'Ext.form.FieldSet'
     ],
     closeAction: 'hide',
     modal: true,

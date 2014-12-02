@@ -34,7 +34,6 @@ Ext.define('XMLifeOperating.view.templateManage.productTemplate.ProductTemplateL
 		titleAlign: 'center',
 		hearPosition: 'center',
 		layout: 'card',
-
 		dockedItems: [{
 			xtype: 'pagingtoolbar',
 			itemId: 'pagetoll',

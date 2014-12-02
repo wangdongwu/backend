@@ -52,34 +52,59 @@ Ext.define('XMLifeOperating.view.soldoutProductManage.soldoutRecord.soldoutRecor
             }
         });
         Ext.applyIf(me, {
+            defaults: {
+                aligin: 'center'
+            },
             columns: [{
                 header: '买手姓名',
-                dataIndex: 'shopper',
-                aligin: 'center'
+                dataIndex: 'shopper'
             }, {
                 header: '联系方式',
-                dataIndex: 'phoneNum',
-                aligin: 'center'
+                dataIndex: 'phoneNum'
             }, {
                 header: '所属店铺',
-                dataIndex: 'shopName',
-                aligin: 'center'
+                dataIndex: 'shopName'
             }, {
                 header: '下架SKU名称',
-                dataIndex: 'skuName',
-                aligin: 'center'
+                dataIndex: 'skuName'
             }, {
                 header: '下架SKU ID',
-                dataIndex: 'skuId',
-                aligin: 'center'
+                dataIndex: 'skuId'
             }, {
                 header: '下架原因',
                 dataIndex: 'reason',
-                aligin: 'center'
+                renderer: function(value) {
+                    var me = this;
+                    var bina = value.toString(2);
+                    var str = '';
+                    switch (bina) {
+                        case '1':
+                            str = '商品缺货';
+                            break;
+                        case '10':
+                            str = '图片错误';
+                            break;
+                        case '100':
+                            str = '价格错误';
+                            break;
+                        case '1000':
+                            str = '规格错误';
+                            break;
+                        case '10000':
+                            str = '商品名错误';
+                            break;
+                        case '100000':
+                            str = '条形码错误';
+                            break;
+                        default:
+                            str = '未知错误';
+                            break;
+                    }
+                    return str;
+                }
             }, {
                 header: '操作时间',
                 dataIndex: 'time',
-                aligin: 'center',
                 renderer: function(value) {
                     var date = new Date(value);
                     var str = [];
@@ -89,17 +114,14 @@ Ext.define('XMLifeOperating.view.soldoutProductManage.soldoutRecord.soldoutRecor
                     return str.join('-');
                 }
             }, {
-                header: '编辑',
+                header: '编辑实例',
                 xtype: 'actioncolumn',
-                aligin: 'center',
-                itemId: 'editProduct',
+                itemId: 'editProductInstance',
                 items: [{
-                    xtye:'button',
                     icon: 'resources/images/edit.png',
-                    text:'编辑实例',
                     tooltip: '编辑实例',
                     itemId: 'editProductInstance',
-                    aligin: 'left',
+                    aligin: 'center',
                     handler: function(grid, rowIndex, colIndex, btn, e, record, row) {
                         var me = this;
                         me.fireEvent('editProduct', {
@@ -107,11 +129,16 @@ Ext.define('XMLifeOperating.view.soldoutProductManage.soldoutRecord.soldoutRecor
                             iconId: 'editProductInstance'
                         });
                     }
-                }, {
+                }],
+            }, {
+                header: '编辑模板',
+                xtype: 'actioncolumn',
+                itemId: 'editProductTemplate',
+                items: [{
                     icon: 'resources/images/edit.png',
                     tooltip: '编辑模板',
                     itemId: 'editProductTemplate',
-                    aligin: 'right',
+                    aligin: 'center',
                     handler: function(grid, rowIndex, colIndex, btn, e, record, row) {
                         var me = this;
                         me.fireEvent('editProduct', {
@@ -119,17 +146,10 @@ Ext.define('XMLifeOperating.view.soldoutProductManage.soldoutRecord.soldoutRecor
                             iconId: 'editProductTemplate'
                         })
                     }
-                }],
-/*                renderer:function(){
-                    return
-                    '<img role="button" alt="" src="resources/images/edit.png" class="x-action-col-icon x-action-col-0   " data-qtip="编辑实例">编辑实例
-                    <img role="button" alt="" src="resources/images/edit.png" class="x-action-col-icon x-action-col-1   " data-qtip="编辑模板">编辑模板'
-                   
-                }*/
+                }]
             }, {
                 header: '操作',
                 dataIndex: 'status',
-                aligin: 'center',
                 itemId: 'putawayOrOut',
                 editor: combo,
                 sortable: true,

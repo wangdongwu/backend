@@ -125,7 +125,6 @@ Ext.define('XMLifeOperating.view.templateManage.productTemplate.ProductTemplateE
                 }
             },
             maxLengthText: '商品名称最大长度为7',
-
         }, {
             xtype: 'textfield',
             name: 'barCode',
@@ -163,8 +162,9 @@ Ext.define('XMLifeOperating.view.templateManage.productTemplate.ProductTemplateE
             xtype: 'filefield',
             fieldLabel: '上传图片',
             emptyText: '请选择图片',
-            name:'pictures',
+            name: 'pictures',
             itemId: 'productTemplateUploadfile',
+            labelPad: -5,
             listeners: {
                 afterrender: function(cmp) {
                     cmp.fileInputEl.set({

@@ -151,6 +151,7 @@ Ext.define('XMLifeOperating.view.soldoutProductManage.soldoutRecord.soldoutProdu
             emptyText: '请选择图片',
             name: 'pictures',
             itemId: 'productTemplateUploadfile',
+            labelPad:-5,
             listeners: {
                 afterrender: function(cmp) {
                     cmp.fileInputEl.set({

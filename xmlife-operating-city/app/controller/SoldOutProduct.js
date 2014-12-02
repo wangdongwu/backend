@@ -49,12 +49,9 @@ Ext.define('XMLifeOperating.controller.SoldOutProduct', {
             'soldoutRecordList #recordSearchBtn': {
                 click: me.searchSoldoutRecordList
             },
-            'soldoutRecordList #editProduct': {
+            'soldoutRecordList #editProductInstance, soldoutRecordList #editProductTemplate': {
                 editProduct: me.editProduct
             },
-            /*            'soldoutRecordList combo[itemId=statusCombo]': {
-                            enableStatus: me.enableStatus
-                        },*/
             'soldoutProductInstanceEdit #editShelvesGoodsWin': {
                 click: me.saveProductInstanceEdit
             },
@@ -535,11 +532,14 @@ Ext.define('XMLifeOperating.controller.SoldOutProduct', {
             var rank = values.rank;
             var rank2 = values.rank2;
             var sessionId = localStorage.getItem('sessionId') || '';
+            var names = [values.name1, values.name2, values.name3];
+
             form.submit({
                 url: XMLifeOperating.generic.Global.URL.biz + 'producttemplate/update?sessionId=' + sessionId,
                 params: {
                     id: id,
-                    'sessionId': sessionId
+                    sessionId: sessionId,
+                    name: names.join('\n')
                 },
                 waitMsg: '正在提交数据',
                 waitTitle: '提示',

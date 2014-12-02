@@ -15,6 +15,7 @@ Ext.define('XMLifeOperating.Application', {
         'Ext.panel.Panel',
         'Ext.grid.*',
         'Ext.ux.RowExpander',
+        'Ext.layout.container.Column'
     ],
 
     views: [

@@ -109,8 +109,8 @@ Ext.define('XMLifeOperating.controller.login', {
             Ext.Ajax.defaultHeaders = {
                 'auth-token': sessionId
             };
-            /*      self.getNavigationStore().setRootNode({
-              expanded: true
+/*            self.getNavigationStore().setRootNode({
+                expanded: true
             });*/
             self.detectAccount();
         };
@@ -167,8 +167,8 @@ Ext.define('XMLifeOperating.controller.login', {
                         /*设置用户名字*/
                         self.getCurrentUsername().setText(username);
                         /*加载tree*/
-                        /*            self.getNavigationStore().setRootNode({
-                          expanded: true
+/*                        self.getNavigationStore().setRootNode({
+                            expanded: true
                         });*/
                         self.detectAccount();
 
@@ -213,20 +213,20 @@ Ext.define('XMLifeOperating.controller.login', {
             if (type == 'City') { //中心长账号登陆
                 store.setProxy(new XMLifeOperating.generic.BaseProxy('module/getUserModulesTree'));
                 XMLifeOperating.generic.Global.current_operating = obj.areaId;
-                /*      store.setRootNode({
-                          expanded: true
-                        });*/
+                store.setRootNode({
+                    expanded: true
+                });
             } else if (type == 'Global') { //高级权限账号登陆
                 store.setProxy(new XMLifeOperating.generic.BaseProxy('module/getPlatModulesTree'));
                 /*me.getCmbGlobalCenter().show();*/
                 store.getProxy().extraParams = {
                     type: 'City'
                 };
-                /*        store.setRootNode({
-                          expanded: true
-                        });*/
+                store.setRootNode({
+                    expanded: true
+                });
                 me.loadCity(obj.cities, obj.cityIds);
-                /* shopCityStore.load();*/
+                shopCityStore.load();
             } else {
                 Ext.MessageBox.show({
                     title: '登录失败',
