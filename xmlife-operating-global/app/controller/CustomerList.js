@@ -121,7 +121,7 @@ Ext.define('XMLifeOperating.controller.CustomerList', {
 
             'CustomerList #couponListId': {
                 click: me.onCouponListId
-            },
+            }
 
         });
     },
@@ -217,11 +217,13 @@ Ext.define('XMLifeOperating.controller.CustomerList', {
         store.on('load', function() {
             store.getProxy().url = oldProxyUrl;
         })
+
         store.load({
             params: {
                 uid: uid
             }
         });
+        consumePayCount = 1;
     },
 
     onCouponListId: function(view, rowIndex, colIndex, column, e) {
