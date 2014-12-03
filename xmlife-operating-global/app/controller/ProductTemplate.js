@@ -326,6 +326,7 @@ Ext.define('XMLifeOperating.controller.ProductTemplate', {
                     },
                     failure: function(form, action) {
                         var resid = action.response.responseText;
+                        editWindow.close();
                         if (resid == -99) {
                             Ext.MessageBox.show({
                                 title: '提示',
@@ -334,6 +335,14 @@ Ext.define('XMLifeOperating.controller.ProductTemplate', {
                                 buttons: Ext.Msg.OK
                             });
                             windowEl.unmask();
+                            return;
+                        } else if (resid == 175) {
+                            Ext.MessageBox.show({
+                                title: '提示',
+                                msg: '模板命名过长',
+                                icon: Ext.Msg.ERROR,
+                                buttons: Ext.Msg.OK
+                            });
                             return;
                         }
                         windowEl.unmask();
@@ -393,6 +402,14 @@ Ext.define('XMLifeOperating.controller.ProductTemplate', {
                                 buttons: Ext.Msg.OK
                             });
                             windowEl.unmask();
+                            return;
+                        } else if (resid == 175) {
+                            Ext.MessageBox.show({
+                                title: '提示',
+                                msg: '模板命名过长',
+                                icon: Ext.Msg.ERROR,
+                                buttons: Ext.Msg.OK
+                            });
                             return;
                         }
                         windowEl.unmask();

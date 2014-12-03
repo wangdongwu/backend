@@ -551,11 +551,19 @@ Ext.define('XMLifeOperating.controller.SoldOutProduct', {
                 },
                 failure: function(form, action) {
                     var resid = action.response.responseText;
-                    editWindow.close();
+                    win.close();
                     if (resid == -99) {
                         Ext.MessageBox.show({
                             title: '提示',
                             msg: '图片命名为:SKUID+"-"+一位数字 ',
+                            icon: Ext.Msg.ERROR,
+                            buttons: Ext.Msg.OK
+                        });
+                        return;
+                    } else if (resid == 175) {
+                        Ext.MessageBox.show({
+                            title: '提示',
+                            msg: '模板命名过长',
                             icon: Ext.Msg.ERROR,
                             buttons: Ext.Msg.OK
                         });
