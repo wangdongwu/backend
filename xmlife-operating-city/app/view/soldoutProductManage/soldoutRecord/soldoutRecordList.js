@@ -10,7 +10,7 @@ Ext.define('XMLifeOperating.view.soldoutProductManage.soldoutRecord.soldoutRecor
     forceFit: true,
     initComponent: function() {
         var me = this;
-        var pros=['商品缺货','图片错误','价格错误','规格错误','商品名错误','条形码错误'];
+        var pros = ['商品缺货', '图片错误', '价格错误', '规格错误', '商品名错误', '条形码错误'];
         var store = Ext.create('Ext.data.Store', {
             fields: ['value', 'name', 'itemId', 'disabled'],
             data: [{
@@ -79,7 +79,7 @@ Ext.define('XMLifeOperating.view.soldoutProductManage.soldoutRecord.soldoutRecor
                     var bina = value.toString(2);
                     var str = [];
                     for (var i = 0, len = bina.length; i < len; i++) {
-                        if(bina.charAt(i)==1){
+                        if (bina.charAt(i) == 1) {
                             str.push(pros[i])
                         }
                     }
@@ -131,7 +131,7 @@ Ext.define('XMLifeOperating.view.soldoutProductManage.soldoutRecord.soldoutRecor
                     }
                 }]
             }, {
-                header: '操作',
+                header: '状态',
                 dataIndex: 'status',
                 itemId: 'putawayOrOut',
                 editor: combo,
@@ -144,12 +144,23 @@ Ext.define('XMLifeOperating.view.soldoutProductManage.soldoutRecord.soldoutRecor
                         returnStr = '',
                         product = record.get('product'),
                         value = value || product.status;
-                    var comboRecordIndex = store.find(editor.valueField, value),
-                        comboReocrd = store.getAt(comboRecordIndex);
-                    if (record == null) {
-                        returnStr = value;
+                    var comboRecordIndex = store.find(editor.valueField, value);
+                    if (comboRecordIndex === -1) {
+                        switch (value) {
+                            case 2:
+                                returnStr = '废弃';
+                                break;
+                            case 3:
+                                returnStr = '下架';
+                                break;
+                        }
                     } else {
-                        returnStr = comboReocrd.get(editor.displayField);
+                        var comboReocrd = store.getAt(comboRecordIndex);
+                        if (record == null) {
+                            returnStr = value;
+                        } else {
+                            returnStr = comboReocrd.get(editor.displayField);
+                        }
                     }
                     return returnStr;
                 }

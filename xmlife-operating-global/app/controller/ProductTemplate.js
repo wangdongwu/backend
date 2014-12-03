@@ -326,10 +326,10 @@ Ext.define('XMLifeOperating.controller.ProductTemplate', {
                     },
                     failure: function(form, action) {
                         var resid = action.response.responseText;
-                        if (resid.length != 26) {
+                        if (resid == -99) {
                             Ext.MessageBox.show({
-                                title: '无法上传图片',
-                                msg: 'Error: <br />' + resid,
+                                title: '提示',
+                                msg: '图片命名为:SKUID+"-"+一位数字',
                                 icon: Ext.Msg.ERROR,
                                 buttons: Ext.Msg.OK
                             });
@@ -384,10 +384,10 @@ Ext.define('XMLifeOperating.controller.ProductTemplate', {
                     },
                     failure: function(form, action) {
                         var resid = action.response.responseText;
-                        if (resid.length != 26) {
+                        if (resid == -99) {
                             Ext.MessageBox.show({
-                                title: '无法上传图片',
-                                msg: 'Error: <br />' + resid,
+                                title: '提示',
+                                msg: '图片命名为:SKUID+"-"+一位数字',
                                 icon: Ext.Msg.ERROR,
                                 buttons: Ext.Msg.OK
                             });
