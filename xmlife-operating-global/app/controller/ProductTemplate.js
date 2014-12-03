@@ -384,6 +384,7 @@ Ext.define('XMLifeOperating.controller.ProductTemplate', {
                     },
                     failure: function(form, action) {
                         var resid = action.response.responseText;
+                        editWindow.close();
                         if (resid == -99) {
                             Ext.MessageBox.show({
                                 title: '提示',
