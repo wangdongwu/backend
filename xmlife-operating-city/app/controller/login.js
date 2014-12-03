@@ -109,9 +109,9 @@ Ext.define('XMLifeOperating.controller.login', {
             Ext.Ajax.defaultHeaders = {
                 'auth-token': sessionId
             };
-/*            self.getNavigationStore().setRootNode({
-                expanded: true
-            });*/
+            /*            self.getNavigationStore().setRootNode({
+                            expanded: true
+                        });*/
             self.detectAccount();
         };
     },
@@ -167,9 +167,9 @@ Ext.define('XMLifeOperating.controller.login', {
                         /*设置用户名字*/
                         self.getCurrentUsername().setText(username);
                         /*加载tree*/
-/*                        self.getNavigationStore().setRootNode({
-                            expanded: true
-                        });*/
+                        /*                        self.getNavigationStore().setRootNode({
+                                                    expanded: true
+                                                });*/
                         self.detectAccount();
 
                         view.hide();
@@ -204,12 +204,14 @@ Ext.define('XMLifeOperating.controller.login', {
         });
     },
     detectAccount: function() {
+
         var me = this;
         var store = me.getNavigationStore();
         var shopCityStore = me.getSupportedCityStore();
         var success = function(response) {
             var obj = eval('(' + response.responseText + ')');
             var type = obj.adminType;
+            me.getAdminAdminShopTypeStore().load();
             if (type == 'City') { //中心长账号登陆
                 store.setProxy(new XMLifeOperating.generic.BaseProxy('module/getUserModulesTree'));
                 XMLifeOperating.generic.Global.current_operating = obj.areaId;
@@ -218,7 +220,6 @@ Ext.define('XMLifeOperating.controller.login', {
                 });
             } else if (type == 'Global') { //高级权限账号登陆
                 store.setProxy(new XMLifeOperating.generic.BaseProxy('module/getPlatModulesTree'));
-                /*me.getCmbGlobalCenter().show();*/
                 store.getProxy().extraParams = {
                     type: 'City'
                 };
@@ -234,7 +235,6 @@ Ext.define('XMLifeOperating.controller.login', {
                     buttons: Ext.Msg.OK
                 });
             }
-            me.getAdminAdminShopTypeStore().load();
         }
         var failure = function(response) {
             Ext.MessageBox.show({

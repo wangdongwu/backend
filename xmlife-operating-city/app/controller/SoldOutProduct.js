@@ -545,15 +545,7 @@ Ext.define('XMLifeOperating.controller.SoldOutProduct', {
                 waitTitle: '提示',
                 success: function(form, action) {
                     var resid = action.response.responseText;
-                    if (resid.length != 26) {
-                        Ext.MessageBox.show({
-                            title: '无法上传图片',
-                            msg: 'Error: <br />' + resid,
-                            icon: Ext.Msg.ERROR,
-                            buttons: Ext.Msg.OK
-                        });
-                        return;
-                    }
+                    win.close();
                     store.loadPage(1);
                 },
                 failure: function(form, action) {

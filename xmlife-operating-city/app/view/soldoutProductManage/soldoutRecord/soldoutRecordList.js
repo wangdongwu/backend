@@ -10,6 +10,7 @@ Ext.define('XMLifeOperating.view.soldoutProductManage.soldoutRecord.soldoutRecor
     forceFit: true,
     initComponent: function() {
         var me = this;
+        var pros=['商品缺货','图片错误','价格错误','规格错误','商品名错误','条形码错误'];
         var store = Ext.create('Ext.data.Store', {
             fields: ['value', 'name', 'itemId', 'disabled'],
             data: [{
@@ -76,31 +77,13 @@ Ext.define('XMLifeOperating.view.soldoutProductManage.soldoutRecord.soldoutRecor
                 renderer: function(value) {
                     var me = this;
                     var bina = value.toString(2);
-                    var str = '';
-                    switch (bina) {
-                        case '1':
-                            str = '商品缺货';
-                            break;
-                        case '10':
-                            str = '图片错误';
-                            break;
-                        case '100':
-                            str = '价格错误';
-                            break;
-                        case '1000':
-                            str = '规格错误';
-                            break;
-                        case '10000':
-                            str = '商品名错误';
-                            break;
-                        case '100000':
-                            str = '条形码错误';
-                            break;
-                        default:
-                            str = '未知错误';
-                            break;
+                    var str = [];
+                    for (var i = 0, len = bina.length; i < len; i++) {
+                        if(bina.charAt(i)==1){
+                            str.push(pros[i])
+                        }
                     }
-                    return str;
+                    return str.join('<br/>');
                 }
             }, {
                 header: '操作时间',
