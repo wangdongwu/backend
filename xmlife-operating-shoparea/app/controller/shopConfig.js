@@ -1,7 +1,7 @@
 Ext.define('XMLifeOperating.controller.shopConfig', {
   extend: 'Ext.app.Controller',
-  models: ['ShopArea', 'ShopConfig', 'shopModules', 'ShopModulesItem'],
-  stores: ['ModuleNameComplete','ShopArea', 'HomePageShop', 'ShopConfig', 'ShopCopyVersion', 'shopModules', 'ShopCopyModule', 'ShopModulesItem', 'ShopUrlType',
+  models: ['Shop','ShopArea', 'ShopConfig', 'shopModules', 'ShopModulesItem'],
+  stores: ['Shop','ModuleNameComplete','ShopArea', 'HomePageShop', 'ShopConfig', 'ShopCopyVersion', 'shopModules', 'ShopCopyModule', 'ShopModulesItem', 'ShopUrlType',
     'HomePageShop', 'HomePageCategory', 'HomePageLeafCategory', 'HomePageProduct', 'HomePageFunction'
   ],
   views: [
@@ -259,8 +259,14 @@ Ext.define('XMLifeOperating.controller.shopConfig', {
   getInitData: function () {
     var panel = this.getShopConfigManage(),
       shopList = panel.down('#shopList'),
-      shopStore = this.getHomePageShopStore();
+      shopStore = this.getHomePageShopStore(),
+      shop = this.getShopStore();
     shopList.setValue('');
+    shop.load({
+      params: {
+        areaId: this.areaId
+      }
+    })
     shopStore.load({
       params: {
         areaId: this.areaId
