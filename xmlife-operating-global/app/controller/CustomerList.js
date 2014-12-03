@@ -224,6 +224,7 @@ Ext.define('XMLifeOperating.controller.CustomerList', {
             }
         });
         consumePayCount = 1;
+        consumePayMark = '';
     },
 
     onCouponListId: function(view, rowIndex, colIndex, column, e) {

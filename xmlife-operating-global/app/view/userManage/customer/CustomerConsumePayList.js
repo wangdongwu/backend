@@ -1,4 +1,4 @@
-var consumePayCount = 1;
+var consumePayCount = 1,consumePayMark = '';
 Ext.define('XMLifeOperating.view.userManage.customer.CustomerConsumePayList', {
     extend: 'Ext.grid.Panel',
     id: 'customerConsumePayList',
@@ -69,6 +69,9 @@ Ext.define('XMLifeOperating.view.userManage.customer.CustomerConsumePayList', {
                 text: '上一页',
                 handler: function() {
                     var toolbar = Ext.getCmp('paging');
+                    if(consumePayMark == 'next'){
+                        consumePayCount--;
+                    }
                     consumePayCount--;
                     var start = consumePayCount * 25;
                     toolbar.store.reload({
@@ -79,6 +82,7 @@ Ext.define('XMLifeOperating.view.userManage.customer.CustomerConsumePayList', {
                     if (consumePayCount == 0) {
                         consumePayCount = 1;
                     }
+                    consumePayMark = 'prev';
                 }
             }, {
                 text: '下一页',
@@ -88,12 +92,16 @@ Ext.define('XMLifeOperating.view.userManage.customer.CustomerConsumePayList', {
                     if (pageSize < 25) {
                         return;
                     }
+                    if(consumePayMark == 'prev'){
+                        consumePayCount++;
+                    }
                     var start = consumePayCount * 25;
                     consumePayCount++;
                     toolbar.store.reload({
                         start: start,
                         limit: 25
                     });
+                    consumePayMark = 'next';
                 }
             }
             /*, {
