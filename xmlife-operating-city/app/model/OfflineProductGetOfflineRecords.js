@@ -9,6 +9,7 @@ Ext.define('XMLifeOperating.model.OfflineProductGetOfflineRecords', {
 		'shopper',
 		'skuId',
 		'skuName',
+		'stockEnable',
 		'template',
 		'time',
 		'shopType',

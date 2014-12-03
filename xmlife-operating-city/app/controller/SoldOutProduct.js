@@ -203,6 +203,8 @@ Ext.define('XMLifeOperating.controller.SoldOutProduct', {
             default:
                 break;
         }
+
+        me.disableUnAuthorityCmp(record.get('shopType'));
         var stockEnable = record.get('stockEnable');
         var stockCmp = win.down('#editstock');
         if (!stockEnable) { //库存关闭
@@ -210,7 +212,6 @@ Ext.define('XMLifeOperating.controller.SoldOutProduct', {
                 stockCmp.setDisabled(true);
             }
         }
-        me.disableUnAuthorityCmp(record.get('shopType'));
         win.down('form').getForm().setValues(values);
         win.show();
     },
