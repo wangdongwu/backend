@@ -127,7 +127,8 @@ Ext.define('XMLifeOperating.controller.SoldOutProduct', {
             keyType = null,
             startTimePicker = recordList.down('[name="startTime"]'),
             endTimePicker = recordList.down('[name="endTime"]');
-        if (keyWords.length == 11 && isNaN(keyWords)) {
+
+        if (keyWords.length == 11 && !isNaN(keyWords)) {
             keyType = 1
         } else {
             keyType = 0;
@@ -187,6 +188,7 @@ Ext.define('XMLifeOperating.controller.SoldOutProduct', {
         values.facePrice = (Math.abs(productData.fprice / 100));
         values.purchasePrice = (Math.abs(productData.pprice / 100));
         values.discountPrice = (Math.abs(productData.dprice / 100));
+        values.limitType = productData.limitType;
         values.dayLimitCount = '';
         values.dayTodayLimitCount = '';
         values.totalLimitCount = '';
@@ -218,6 +220,7 @@ Ext.define('XMLifeOperating.controller.SoldOutProduct', {
     editProductTemplate: function(win, record) {
         var me = this,
             editWin = win,
+            form = win.down('form').getForm(),
             templateData = record.get('template'),
             values = {};
         values.barCode = templateData.barCode;
@@ -236,7 +239,8 @@ Ext.define('XMLifeOperating.controller.SoldOutProduct', {
         for (var i = 1, len = values.name.length; i <= len; i++) {
             values['name' + i] = values.name[i - 1];
         }
-        win.down('form').getForm().setValues(values);
+        form.reset();
+        form.setValues(values);
         win.show();
     },
     productStatusChange: function(e, row) {

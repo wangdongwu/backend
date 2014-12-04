@@ -80,7 +80,7 @@ Ext.define('XMLifeOperating.view.soldoutProductManage.soldoutRecord.soldoutRecor
                     var str = [];
                     for (var i = 0, len = bina.length; i < len; i++) {
                         if (bina.charAt(i) == 1) {
-                            str.push(pros[i])
+                            str.push(pros[len-i-1]);
                         }
                     }
                     return str.join('<br/>');
