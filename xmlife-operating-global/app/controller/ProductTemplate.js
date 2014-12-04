@@ -344,6 +344,10 @@ Ext.define('XMLifeOperating.controller.ProductTemplate', {
                                 buttons: Ext.Msg.OK
                             });
                             return;
+                        } else if (resid == 1) {
+                            Ext.Msg.alert('提示', '修改商品模板成功！');
+                            editWindow.close();
+                            store.loadPage(1);
                         }
                         windowEl.unmask();
                     }
@@ -411,6 +415,10 @@ Ext.define('XMLifeOperating.controller.ProductTemplate', {
                                 buttons: Ext.Msg.OK
                             });
                             return;
+                        }else if (resid == 1) {
+                            Ext.Msg.alert('提示', '添加商品模板成功！');
+                            editWindow.close();
+                            store.loadPage(1);
                         }
                         windowEl.unmask();
                     }

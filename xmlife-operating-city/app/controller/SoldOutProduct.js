@@ -551,7 +551,6 @@ Ext.define('XMLifeOperating.controller.SoldOutProduct', {
                 },
                 failure: function(form, action) {
                     var resid = action.response.responseText;
-                    win.close();
                     if (resid == -99) {
                         Ext.MessageBox.show({
                             title: '提示',
@@ -568,6 +567,10 @@ Ext.define('XMLifeOperating.controller.SoldOutProduct', {
                             buttons: Ext.Msg.OK
                         });
                         return;
+                    } else if (resid == 1) {
+                        Ext.Msg.alert('提示', '修改商品模板成功！');
+                        win.close();
+                        store.loadPage(1);
                     }
                 }
             });
