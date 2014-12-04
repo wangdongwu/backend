@@ -160,16 +160,16 @@ Ext.define('XMLifeOperating.controller.BatchOperation', {
       form.submit({
         waitMsg: '正在上传您的文件......',
         success: function (form, action) {
-          this.customMethod(form, action);
           if (cb) {
             cb();
           }
+          this.customMethod(form, action);
         },
         failure: function (form, action) {
-          this.customMethod(form, action);
           if (cb) {
             cb();
           }
+          this.customMethod(form, action);
         },
         customMethod: function (form, action) {
           var data = JSON.parse(action.response.responseText);
