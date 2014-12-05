@@ -20,6 +20,7 @@ bootstrap.js
 bootstrap.css
 bootstrap.json
 ext/
+touch/
 sass/
 build/
 build.xml
