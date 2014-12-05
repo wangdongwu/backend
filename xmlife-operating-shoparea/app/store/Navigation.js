@@ -8,6 +8,19 @@ Ext.define('XMLifeOperating.store.Navigation', {
     root: {
     	expanded: true,
     	children: [
+    		// {
+		    //     "id": "shopSetConfigList",
+		    //     "text": "店铺集合配置",
+		    //     "platFormName": "Area",
+		    //     "platFormType": 2,
+		    //     "leaf": true,
+		    //     "isAuth": false,
+		    //     "notShow": false,
+		    //     "children": [],
+		    //     "uniqueName": "shopSetConfigList",
+		    //     "inheritLevel": 0,
+		    //     "auth": false
+		    // },
 		    // {
 		    //     "id": "shoplist",
 		    //     "text": "店铺管理",

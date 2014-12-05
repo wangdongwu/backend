@@ -52,7 +52,8 @@ Ext.define('XMLifeOperating.Application', {
         'DealWaitAssignDelivererList',
         'DealWaitAssignShopperList',
         'shopConfig',
-        'DamagedProductApplyList'
+        'DamagedProductApplyList',
+        'ShopSetConfig'
     ],
 
     stores: [
