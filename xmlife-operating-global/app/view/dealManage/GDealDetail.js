@@ -9,7 +9,7 @@ Ext.define('XMLifeOperating.view.dealManage.GDealDetail', {
     ],
     closeAction: 'hide',
     modal: true,
-    width: 700,
+    width: 750,
     resizable: false,
     layout: 'fit',
 
@@ -20,6 +20,7 @@ Ext.define('XMLifeOperating.view.dealManage.GDealDetail', {
             layout: 'anchor',
             bodyPadding: '10 15 20 15',
             border: false,
+            buttonAlign: 'center',
             defaults: {
                 margin: 0,
                 padding: 0,
@@ -176,13 +177,23 @@ Ext.define('XMLifeOperating.view.dealManage.GDealDetail', {
                             renderer: function(value) {
                                 return value / 100;
                             }
+                        }, {
+                            text: '操作',
+                            itemId: 'sellRefund',
+                            align: 'center',
+                            renderer: function(value) {
+                                return '<a href="javascript:;">售后退货</a>';
+                            }
                         }
                     ]
                 }
             ],
             buttons: [{
+                text: '全部售后退货',
+                itemId: 'refundAll'
+            }, {
                 text: '知道了',
-                labelAlign: 'center',
+                style: 'margin-left: 30px',
                 handler: function() {
                     this.up('window').close();
                 }

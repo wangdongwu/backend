@@ -73,13 +73,71 @@ Ext.define('XMLifeOperating.controller.GDealList', {
                 select: function(combo) {
                     var dealList = me.getGDealList();
                     me.rendenGDealList(dealList, 'center');
-                },
+                }
             },
-
             '#dealDetail': {
                 click: me.onDealDetail
             },
+            // 售后退货
+            'gDealDetail #sellRefund': {
+                click: function(view, rowIndex, colIndex, column, e) {
+                    var record = view.getRecord(view.findTargetByEvent(e)),
+                        buyNum = record.get('num');
 
+                    Ext.MessageBox.prompt('售后退货', '商品名称：'+ record.get('name') +' <br />输入数量：',
+                        function(result, value) {
+                            if (result == 'ok') {
+                                if (isNaN(value)) {
+                                    Ext.Msg.alert('错误提示', '你输入的格式有误！');
+                                    return;
+                                } else if (Number(value) > buyNum) {
+                                    Ext.Msg.alert('错误提示', '退款数量必须小于当前商品的购买总数！');
+                                    return;
+                                }
+                                sendPutRequest('deal/setProductNum', {
+                                    dealId: record.get('dealBackendId'),
+                                    productIdList: [record.get('productId')],
+                                    productNumList: [value]
+                                },
+                                '售后退货', '售后退货成功', '售后退货失败',
+                                function(response) {
+                                    me.getDealItemsStore().load();
+                                });
+                            }
+                        },
+                        this, false, buyNum
+                    );
+                }
+            },
+            // 全部售后退货
+            'gDealDetail #refundAll': {
+                click: function() {
+                    Ext.MessageBox.confirm('全部售后退货', '确定要退掉此订单的全部商品吗？',
+                        function(result) {
+                            if (result == 'yes') {
+                                var store = me.getDealItemsStore(),
+                                    records = store.data.items,
+                                    productIdList = [],
+                                    productNumList = [];
+
+                                for(var i=0, n=records.length; i<n; i++) {
+                                    productIdList.push(records[i].get('productId'));
+                                    productNumList.push(records[i].get('num'));
+                                }
+                                sendPutRequest('deal/setProductNum', {
+                                    dealId: store.getAt(0).get('dealBackendId'),
+                                    productIdList: productIdList,
+                                    productNumList: productNumList
+                                },
+                                '全部售后退货', '全部售后退货成功', '全部售后退货失败',
+                                function(response) {
+                                    me.getDealItemsStore().load();
+                                });
+                            }
+                        }
+                    );
+                }
+            },
             '#customerDetail': {
                 click: me.onCustomerDetail
             },
@@ -87,7 +145,6 @@ Ext.define('XMLifeOperating.controller.GDealList', {
             '#toproblemdeal': {
                 click: me.onToProblemDeal
             },
-
             'gDealList #showReturnProductBtn': {
                 click: function() {
                     var dealId = arguments[5].get('id'),
@@ -208,10 +265,10 @@ Ext.define('XMLifeOperating.controller.GDealList', {
         }); 
 
         var store = this.getDealItemsStore();
+        store.getProxy().extraParams = {
+            deal: record.get('dealBackendId') || record.get('dealId'),
+        };
         store.load({
-            params: {
-                deal: record.get('dealBackendId') || record.get('dealId')
-            },
             callback: function(records) {
                 var model = win.down('#dealDetails').getSelectionModel();
                 model.deselectAll();
@@ -284,7 +341,8 @@ Ext.define('XMLifeOperating.controller.GDealList', {
                                 });
                             }
 
-                        });
+                        }
+                    );
                 }
             }
         );
