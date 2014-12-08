@@ -306,15 +306,14 @@ Ext.define('XMLifeOperating.controller.DealList', {
         var win = this.getDealCustomerDetail();
         store.on('load', function(store, records, successful, eOpts) {
             store.data.items[0].data['dtoAddress'] = dealDetail.getData()['dtoAddress'];
-
             win.down('form').loadRecord(store.data.items[0]);
-            win.show();
         });
         store.load({
             params: {
                 uid: dealDetail.get('customId'),
             },
         });
+        win.show();
     },
 
     onToProblemDeal: function(view, rowIndex, colIndex, column, e) {
