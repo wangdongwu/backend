@@ -11,7 +11,7 @@
 */
 
 Ext.application({
-    name: 'XmlifeSeller',
+    name: 'XMLifeSeller',
 
     requires: [
         'Ext.MessageBox'
@@ -44,7 +44,7 @@ Ext.application({
         Ext.fly('appLoadingIndicator').destroy();
 
         // Initialize the main view
-        Ext.Viewport.add(Ext.create('XmlifeSeller.view.Main'));
+        Ext.Viewport.add(Ext.create('XMLifeSeller.view.Main'));
     },
 
     onUpdated: function() {

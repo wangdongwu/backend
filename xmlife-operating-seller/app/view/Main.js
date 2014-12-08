@@ -1,4 +1,4 @@
-Ext.define('XmlifeSeller.view.Main', {
+Ext.define('XMLifeSeller.view.Main', {
     extend: 'Ext.tab.Panel',
     xtype: 'main',
     requires: [
