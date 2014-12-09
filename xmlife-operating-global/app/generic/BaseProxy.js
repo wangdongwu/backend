@@ -3,27 +3,27 @@ Ext.define('XMLifeOperating.generic.BaseProxy', {
     extend: 'Ext.data.proxy.Rest',
     reader: 'json',
 
-    constructor: function(resourceURL,root) {
-        if(!resourceURL || resourceURL.length < 1) {
+    constructor: function(resourceURL, root) {
+        if (!resourceURL || resourceURL.length < 1) {
             alert("bad resourceURL");
         }
-        if(resourceURL == 'auth'){
+        if (resourceURL == 'auth') {
             this.url = "http://192.168.5.190:9999/rest/";
-        }else{
+        } else {
             this.url = XMLifeOperating.generic.Global.URL.biz + resourceURL;
         }
         var sessionId = localStorage.getItem('sessionId');
-        if(sessionId){
+        if (sessionId) {
             this.headers = {
-                'auth-token' : sessionId
-            };  
+                'auth-token': sessionId
+            };
         }
-        if(root){
-          this.reader = {
-            type : 'json',
-            root : root,
-            totalProperty : 'total'
-          }
+        if (root) {
+            this.reader = {
+                type: 'json',
+                root: root,
+                totalProperty: 'total'
+            }
         }
         this.callParent(arguments);
     },
@@ -43,7 +43,7 @@ Ext.define('XMLifeOperating.generic.BaseProxy', {
                     title = errorObj.title;
                     msg = errorObj.msg;
                 }
-            } catch(err) {
+            } catch (err) {
                 msg = Ext.String.format('Fail to handle exception message:<br />{0}<br /><br />URL: {1}', err.message, proxy.url);
                 title = 'Unexpected Return';
             }
@@ -56,79 +56,79 @@ Ext.define('XMLifeOperating.generic.BaseProxy', {
             }).toBack();
 
             //if(responseText == '-3'){
-              ErrorMessage.on('hide',function(){
-              localStorage.removeItem('sessionId');
-              localStorage.removeItem('username');
-              window.location.reload();
-            });  
+            ErrorMessage.on('hide', function() {
+                localStorage.removeItem('sessionId');
+                localStorage.removeItem('username');
+                window.location.reload();
+            });
             //}
-            
+
 
         }
     }
 });
 
 //Ext.Ajax.cors = true;
-function requestException(response){
-  var responseText = response.responseText,
-      errorObj = {};
-  if(response.status == 401){
-      localStorage.removeItem('sessionId');
-      localStorage.removeItem('username');
-      Ext.Msg.alert('提示', '用户名或者密码错误');
-      return false;
+function requestException(response) {
+    var responseText = response.responseText,
+        errorObj = {};
+    if (response.status == 401) {
+        localStorage.removeItem('sessionId');
+        localStorage.removeItem('username');
+        Ext.Msg.alert('提示', '用户名或者密码错误');
+        return false;
     }
-    if(response.status == 403){
-      localStorage.removeItem('sessionId');
-      localStorage.removeItem('username');
-      Ext.Msg.alert('提示', 'session失效或者没有登录');
-      return false;
+    if (response.status == 403) {
+        localStorage.removeItem('sessionId');
+        localStorage.removeItem('username');
+        Ext.Msg.alert('提示', 'session失效或者没有登录');
+        return false;
     }
-    if(response.status == 405){
-      Ext.Msg.alert('提示', '访问了一个不应该被访问的路径');
-      return false;
+    if (response.status == 405) {
+        Ext.Msg.alert('提示', '访问了一个不应该被访问的路径');
+        return false;
     }
-    if(response.status == 0){
-      Ext.Msg.alert('提示', '数据接口有问题....请找服务器端确认');
-      return false;
+    if (response.status == 0) {
+        Ext.Msg.alert('提示', '数据接口有问题....请找服务器端确认');
+        return false;
     }
     switch (responseText) {
         case '-2':
-             title = '提示';
-             msg = '参数出错';
-          break;
+            title = '提示';
+            msg = '参数出错';
+            break;
         case '-3':
-          title = '请重新登录';
-          msg = '您还没有登录或已登录过期请重新登录';
-          break;
+            title = '请重新登录';
+            msg = '您还没有登录或已登录过期请重新登录';
+            break;
         case '-4':
             title = '提示';
             msg = '数据库端出错';
-          break;
+            break;
         case '-6':
             title = '提示';
             msg = '你没有权限做当前操作，请去申请相应的权限';
-          break;
-      }
-  errorObj.title = title;
-  errorObj.msg = msg;
-  return errorObj;
+            break;
+    }
+    errorObj.title = title;
+    errorObj.msg = msg;
+    return errorObj;
 }
 
 var sendRequest = function(url, params, title, successMsg, errorMsg, success, failure) {
-    if(!url || url.length < 1) {
+    if (!url || url.length < 1) {
         alert("bad url");
     }
     var newUrl;
-    if(url == 'auth'){
+    if (url == 'auth') {
         newUrl = "http://192.168.5.190:9999/rest/";
-    }else{
+    } else {
         newUrl = XMLifeOperating.generic.Global.URL.biz + url;
     }
     Ext.Ajax.request({
         url: newUrl,
         params: params,
-        success: function(response){
+        success: function(response) {
             Ext.MessageBox.show({
                 title: title,
                 msg: successMsg,
@@ -139,11 +139,11 @@ var sendRequest = function(url, params, title, successMsg, errorMsg, success, fa
                 success(response);
             }
         },
-        failure: function(response,opts) {
+        failure: function(response, opts) {
             var errorObj = requestException(response);
-            if(response.status)
-              var error = Ext.decode(response.responseText);
-              //var msg = Ext.String.format('{0}<br />Error Code: {1}<br />Message: {2}', errorMsg, error.code, error.message)
+            if (response.status)
+                var error = Ext.decode(response.responseText);
+            //var msg = Ext.String.format('{0}<br />Error Code: {1}<br />Message: {2}', errorMsg, error.code, error.message)
             Ext.MessageBox.show({
                 title: errorObj.title,
                 msg: errorObj.msg,
@@ -153,25 +153,25 @@ var sendRequest = function(url, params, title, successMsg, errorMsg, success, fa
             if (failure) {
                 failure(response);
             }
-        }              
-    });    
+        }
+    });
 }
 
 var sendGetRequest = function(url, params, title, successMsg, errorMsg, success, failure) {
-    if(!url || url.length < 1) {
+    if (!url || url.length < 1) {
         alert("bad url");
     }
     var newUrl;
-    if(url == 'auth'){
+    if (url == 'auth') {
         newUrl = "http://192.168.5.190:9999/rest/auth";
-    }else{
+    } else {
         newUrl = XMLifeOperating.generic.Global.URL.biz + url;
     }
     Ext.Ajax.request({
         url: newUrl,
         params: params,
         method: 'GET',
-        success: function(response){
+        success: function(response) {
             /*Ext.MessageBox.show({
                 title: title,
                 msg: successMsg,
@@ -183,11 +183,11 @@ var sendGetRequest = function(url, params, title, successMsg, errorMsg, success,
                 success(response);
             }
         },
-        failure: function(response,opts) {
+        failure: function(response, opts) {
             var errorObj = requestException(response);
-            if(response.status)
-              var error = Ext.decode(response.responseText);
-              //var msg = Ext.String.format('{0}<br />Error Code: {1}<br />Message: {2}', errorMsg, error.code, error.message)
+            if (response.status)
+                var error = Ext.decode(response.responseText);
+            //var msg = Ext.String.format('{0}<br />Error Code: {1}<br />Message: {2}', errorMsg, error.code, error.message)
             Ext.MessageBox.show({
                 title: errorObj.title,
                 msg: errorObj.msg,
@@ -197,25 +197,25 @@ var sendGetRequest = function(url, params, title, successMsg, errorMsg, success,
             if (failure) {
                 failure(response);
             }
-        }              
-    });    
+        }
+    });
 }
 
 var sendPutRequest = function(url, params, title, successMsg, errorMsg, success, failure) {
-    if(!url || url.length < 1) {
+    if (!url || url.length < 1) {
         alert("bad url");
     }
     var newUrl;
-    if(url == 'auth'){
+    if (url == 'auth') {
         newUrl = "http://192.168.5.190:9999/rest/auth";
-    }else{
+    } else {
         newUrl = XMLifeOperating.generic.Global.URL.biz + url;
     }
     Ext.Ajax.request({
         url: newUrl,
         params: params,
         method: 'PUT',
-        success: function(response){
+        success: function(response) {
             /*Ext.MessageBox.show({
                 title: title,
                 msg: successMsg,
@@ -227,11 +227,11 @@ var sendPutRequest = function(url, params, title, successMsg, errorMsg, success,
                 success(response);
             }
         },
-        failure: function(response,opts) {
+        failure: function(response, opts) {
             var errorObj = requestException(response);
-            if(response.status)
-              var error = Ext.decode(response.responseText);
-              //var msg = Ext.String.format('{0}<br />Error Code: {1}<br />Message: {2}', errorMsg, error.code, error.message)
+            if (response.status)
+                var error = Ext.decode(response.responseText);
+            //var msg = Ext.String.format('{0}<br />Error Code: {1}<br />Message: {2}', errorMsg, error.code, error.message)
             Ext.MessageBox.show({
                 title: errorObj.title,
                 msg: errorObj.msg,
@@ -241,6 +241,43 @@ var sendPutRequest = function(url, params, title, successMsg, errorMsg, success,
             if (failure) {
                 failure(response);
             }
-        }              
-    });    
+        }
+    });
+}
+
+var sendDeleteRequest = function(url, params, title, successMsg, errorMsg, success, failure) {
+    if (!url || url.length < 1) {
+        alert("bad url");
+    }
+    var newUrl;
+    if (url == 'auth') {
+        newUrl = "http://192.168.5.190:9999/rest/auth";
+    } else {
+        newUrl = XMLifeOperating.generic.Global.URL.biz + url;
+    }
+    
+    Ext.Ajax.request({
+        url: newUrl,
+        params: params,
+        method: 'DELETE',
+        success: function(response) {
+            if (success) {
+                success(response);
+            }
+        },
+        failure: function(response, opts) {
+            var errorObj = requestException(response);
+            if (response.status)
+                var error = Ext.decode(response.responseText);
+            Ext.MessageBox.show({
+                title: errorObj.title,
+                msg: errorObj.msg,
+                icon: Ext.Msg.ERROR,
+                buttons: Ext.Msg.OK
+            });
+            if (failure) {
+                failure(response);
+            }
+        }
+    });
 }

@@ -62,16 +62,50 @@ Ext.define('XMLifeOperating.controller.ProductTemplate', {
                     var tabpanel = me.getProductTemplateList().down('tabpanel');
                     var callback = function(records, response, isSuccessed) {
                         var len = records ? records.length : 0;
-                        if (len) {
-                            for (var i = 0; i < len; i++) {
+                        var tabs = tabpanel.items;
+
+                        if (!len) {
+                            return
+                        }
+
+                        for (var i = 0; i < len; i++) {
+                            var id = records[i].get('id');
+
+                            if (tabs.findIndex('id', id) === -1) {
                                 tabpanel.add({
                                     title: records[i].get('name'),
-                                    id: records[i].get('id')
+                                    id: id,
+                                    closable: true,
+                                    listeners: {
+                                        beforeclose: function(tab, e) {
+                                            var categoryId = tab.id;
+                                            var success = function() {
+                                                var tabpanel = tab.getRefOwner();
+                                                if (tabpanel) {
+                                                    tabpanel.fireEvent('removeTab', tabpanel, tab)
+                                                }
+                                            }
+                                            var failure = function() {
+                                                Ext.MessageBox.show({
+                                                    title: '提示',
+                                                    msg: '删除分类失败',
+                                                    icon: Ext.Msg.ERROR,
+                                                    buttons: Ext.Msg.OK
+                                                });
+                                            }
+                                            sendDeleteRequest('producttemplate/deleteCategory', {
+                                                categoryId: categoryId
+                                            }, '删除分类', '删除分类成功', '删除分类失败', success, failure);
+                                            return false;
+                                        }
+                                    }
                                 });
                             }
-                            tabpanel.setActiveTab(0);
                         }
+
+                        tabpanel.setActiveTab(0);
                     };
+
                     rootStore.load({
                         callback: callback
                     });
@@ -89,6 +123,22 @@ Ext.define('XMLifeOperating.controller.ProductTemplate', {
                             parentId: rootId
                         }
                     });
+                },
+                removeTab: function(tabpanel, tab) {
+                    var me = this;
+                    var rootStore = me.getProductTemplateRootsStore();
+                    var subStore = me.getProductTemplateSubsStore();
+                    var tempStore = me.getProductTemplateGetByCategoryIdStore();
+
+                    //删除tab视图、数据
+                    tabpanel.remove(tab);
+                    rootStore.removeAt(rootStore.findExact('id', tab.id));
+
+                    //无tab时删除tree store数据
+                    if (tabpanel.items.length === 0 && rootStore.data.items.length === 0) {
+                        subStore.getRootNode().removeAll();
+                        tempStore.removeAll();
+                    }
                 }
             },
             'productTemplateList #batchModifi': {
@@ -229,7 +279,6 @@ Ext.define('XMLifeOperating.controller.ProductTemplate', {
                 }
             }
         });
-
     },
     switchView: function(nth) {
         Ext.getCmp('productTemplateContent').getLayout().setActiveItem(nth);
