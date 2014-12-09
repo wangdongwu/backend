@@ -126,7 +126,10 @@ Ext.define('XMLifeOperating.controller.BatchOperation', {
   updateSimple: function (button, url) {
     var form = button.up('form').getForm(),
       path = button.up("fieldcontainer").down("filefield").getValue(),
-      logArea = button.up('form').down('#resultLog');
+      logArea = button.up('form').down('#resultLog'),
+      arr = path.split('\\'),
+      filename = arr[arr.length-1].split('.')[0];
+      button.up('form').down('textfield[name="filename"]').setValue(filename);
 
     form.url = XMLifeOperating.generic.Global.URL.biz + url;
     this.submitForm(form, logArea, path);
