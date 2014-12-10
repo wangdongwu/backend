@@ -51,6 +51,9 @@ Ext.define('XMLifeOperating.view.templateManage.productTemplate.ProductTemplateL
             store: 'ProductTemplateGetByCategoryId',
             layout: 'fit',
             forceFit: true,
+            defaults: {
+                align: 'center'
+            },
             columns: [{
                 xtype: 'rownumberer'
             }, {
@@ -77,13 +80,19 @@ Ext.define('XMLifeOperating.view.templateManage.productTemplate.ProductTemplateL
                 dataIndex: 'rank',
                 width: 65,
                 sortable: true,
-                align: 'center'
             }, {
                 text: 'rank2',
                 dataIndex: 'rank2',
                 width: 65,
                 sortable: true,
-                align: 'center'
+            }, {
+                text: '价格区间',
+                dataIndex: 'minPrice',
+                width: 100,
+                sortable: true,
+                renderer:function(value,cell,record,rowIndex,colIndex,store){
+                    return value/100+'-'+record.get('maxPrice')/100;
+                }
             }, {
                 xtype: 'actioncolumn',
                 width: 24,
