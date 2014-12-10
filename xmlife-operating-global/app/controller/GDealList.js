@@ -94,6 +94,8 @@ Ext.define('XMLifeOperating.controller.GDealList', {
                                     Ext.Msg.alert('错误提示', '退款数量必须小于当前商品的购买总数！');
                                     return;
                                 }
+
+                                value = buyNum - value;
                                 sendPutRequest('deal/setProductNum', {
                                     dealId: record.get('dealBackendId'),
                                     productIdList: [record.get('productId')],
@@ -122,8 +124,10 @@ Ext.define('XMLifeOperating.controller.GDealList', {
 
                                 for(var i=0, n=records.length; i<n; i++) {
                                     productIdList.push(records[i].get('productId'));
-                                    productNumList.push(records[i].get('num'));
+                                    //productNumList.push(records[i].get('num'));
+                                    productNumList.push(0);
                                 }
+
                                 sendPutRequest('deal/setProductNum', {
                                     dealId: store.getAt(0).get('dealBackendId'),
                                     productIdList: productIdList,
@@ -247,7 +251,8 @@ Ext.define('XMLifeOperating.controller.GDealList', {
     onDealDetail: function(view, rowIndex, colIndex, column, e) {
         var record = view.getRecord(view.findTargetByEvent(e)),
             win = this.getGDealDetail(),
-            form = win.down('form').getForm();          
+            form = win.down('form').getForm(),   
+            status = record.get('status');     
         // 单独获取详情的接口
         Ext.Ajax.request({
             method: 'GET',
@@ -275,6 +280,14 @@ Ext.define('XMLifeOperating.controller.GDealList', {
                 for (var i = 0; i < records.length; i++) {
                     var index = store.indexOfId(records[i].get('id'));
                     model.select(index, true);
+                }
+
+                if(status != 4){
+                    win.down('#sellRefund').hide();
+                    win.down('#refundAll').hide();
+                }else{
+                    win.down('#sellRefund').show();
+                    win.down('#refundAll').show();
                 }
             }
         });
