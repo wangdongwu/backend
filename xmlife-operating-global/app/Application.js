@@ -46,7 +46,8 @@ Ext.define('XMLifeOperating.Application', {
         'BatchOperation',
         'Coupon',
         'CardGroup',
-        'CouponSend'
+        'CouponSend',
+        'DataExport'
         ],
 
     stores: [
@@ -73,7 +74,8 @@ Ext.define('XMLifeOperating.Application', {
         'CouponSendRuleShopping',
         'CouponSendRuleUrl',
         'CouponSendRuleRegister',
-        'CouponSend'
+        'CouponSend',
+        'AdminGetInfo'
         ],
 
     launch: function() {

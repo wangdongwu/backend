@@ -293,7 +293,7 @@ Ext.define('XMLifeOperating.controller.ProductTemplate', {
             }
             form.submit({
                 params: {
-                    'sessionId': sessionId
+                    sessionId: sessionId
                 },
                 waitMsg: '正在上传您的文件......',
                 success: function(form, action) {
