@@ -118,6 +118,7 @@ Ext.define('XMLifeOperating.controller.ProductTemplate', {
                     var tree = me.getProductTemplateList().down('#productTemplateTree');
                     var categoryStore = me.getProductTemplateSubsStore();
 
+
                     categoryStore.load({
                         params: {
                             parentId: rootId
@@ -414,6 +415,7 @@ Ext.define('XMLifeOperating.controller.ProductTemplate', {
                             editWindow.close();
                             store.loadPage(1);
                         }
+                        store.loadPage(1);
                         windowEl.unmask();
                     }
                 });
@@ -434,7 +436,23 @@ Ext.define('XMLifeOperating.controller.ProductTemplate', {
                 var sessionId = localStorage.getItem('sessionId') || '';
 
                 if (treeSelected.length == 1) {
-                    var categoryId = treeSelected.items[0].get('id');
+
+                    if (treeSelected.items[0].get('leaf') !== false) {
+
+                        var categoryId = treeSelected.items[0].get('id');
+
+                    } else {
+
+                        Ext.MessageBox.show({
+                            title: '提示',
+                            msg: '请选择一个叶子分类',
+                            icon: Ext.Msg.ERROR,
+                            buttons: Ext.Msg.OK
+                        });
+                        windowEl.unmask();
+                        return;
+                    }
+
                 } else {
                     Ext.MessageBox.show({
                         title: '提示',
@@ -445,12 +463,13 @@ Ext.define('XMLifeOperating.controller.ProductTemplate', {
                     windowEl.unmask();
                     return;
                 }
+
                 form.submit({
                     url: XMLifeOperating.generic.Global.URL.biz + 'producttemplate?sessionId=' + sessionId,
                     params: {
                         categoryId: categoryId,
                         sessionId: sessionId,
-                        name: names.join('\n')
+                        name: names.join('\r')
                     },
                     waitMsg: '正在提交数据',
                     waitTitle: '提示',
@@ -479,12 +498,14 @@ Ext.define('XMLifeOperating.controller.ProductTemplate', {
                                 icon: Ext.Msg.ERROR,
                                 buttons: Ext.Msg.OK
                             });
+                            windowEl.unmask();
                             return;
                         } else if (resid == 1) {
                             Ext.Msg.alert('提示', '添加商品模板成功！');
                             editWindow.close();
                             store.loadPage(1);
                         }
+                        store.loadPage(1);
                         windowEl.unmask();
                     }
                 });
