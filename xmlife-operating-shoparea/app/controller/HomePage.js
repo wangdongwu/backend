@@ -11,8 +11,9 @@ Ext.define('XMLifeOperating.controller.HomePage', {
     ],
 
     stores: [
-        'HomePage', 'HomePageModuleList', 'HomePageModuleCopy', 'HomePageModuleDetail', 'HomePagePreview',
-        'HomePageUrlType', 'HomePageShop', 'HomePageCategory', 'HomePageLeafCategory', 'HomePageProduct', 'HomePageFunction'
+        'HomePage', 'HomePageModuleList', 'HomePageModuleCopy', 'HomePageModuleDetail',
+        'HomePageModuleRenter', 'HomePagePreview', 'HomePageUrlType', 'HomePageShop', 
+        'HomePageCategory', 'HomePageLeafCategory', 'HomePageProduct', 'HomePageFunction'
     ],
 
     models: ['HomePage'],
@@ -48,6 +49,7 @@ Ext.define('XMLifeOperating.controller.HomePage', {
         this.layoutId = '';
         this.moduleId = '';
         this.moduleType = '';
+        this.isRenter = false;
 
         this.control({
             // 加载版本列表，并自动选择
@@ -268,61 +270,7 @@ Ext.define('XMLifeOperating.controller.HomePage', {
                     });
                 }
             },
-            // 大积木选择, 展示详情
-            'homePage #moduleList': {
-                selectionchange: function(model, selected) {
-                    if (selected.length === 0) return;
-
-                    //保存当前大积木全局属性
-                    var record = selected[0].data;
-                    this.moduleId = record.id;
-                    this.moduleType = record.type;
-                    //共享全局变量，供小积木列表删除按钮状态判断用
-                    XMLifeOperating.generic.Global.isBanner = this.moduleType == 'TYPE0' ? true : false;
-
-                    //只当banner才需要新建
-                    this.getHomePage().down('#addModuleItem').setDisabled(!XMLifeOperating.generic.Global.isBanner);
-
-                    var store = this.getHomePageModuleDetailStore();
-                    store.getProxy().extraParams = {
-                        moduleId: this.moduleId
-                    };
-                    store.load();
-                },
-                edit: function(editor, e) {
-                    var record = e.record;
-
-                    sendPutRequest('homepage/updateModule', {
-                        moduleId: record.get('id'),
-                        name: record.get('name')
-                    }, '修改名称', '修改名称成功', '修改名称失败', function() {
-                        var store = me.getHomePageModuleListStore().load();
-                        store.load();
-                    });
-                }
-            },
-            // 大积木排序
-            'homePage #moduleList dataview': {
-                beforedrop: function(node, data, dropRec, dropPosition) {
-                    if (dropRec.index === 0 || data.records[0].type == 'TYPE0') return false;
-                },
-                drop: function(node, data, dropRec, dropPosition) {
-                    var store = this.getHomePageModuleListStore();
-                    var moduleIds = [];
-                    for (var i = 0, n = store.totalCount; i < n; i++) {
-                        var record = store.getAt(i);
-                        record.set('order', i);
-                        moduleIds.push(record.get('id'));
-                    }
-                    sendPutRequest('homepage/setOrder', {
-                        layoutId: this.layoutId,
-                        moduleIds: moduleIds
-                    }, '大积木排序', '大积木排序成功', '大积木排序失败', function() {
-                        store.load();
-                    });
-                }
-            },
-            // 添加大积木
+            // 新建大积木
             'homePage #addModule': {
                 click: function() {
                     var win = this.getModuleAdd();
@@ -432,53 +380,228 @@ Ext.define('XMLifeOperating.controller.HomePage', {
                     );
                 }
             },
-            // 新建小积木（banner）
+            // 大积木排序
+            'homePage #moduleList dataview': {
+                beforedrop: function(node, data, dropRec, dropPosition) {
+                    if (dropRec.index === 0 || data.records[0].type == 'TYPE0') return false;
+                },
+                drop: function(node, data, dropRec, dropPosition) {
+                    var store = this.getHomePageModuleListStore();
+                    var moduleIds = [];
+                    for (var i = 0, n = store.totalCount; i < n; i++) {
+                        var record = store.getAt(i);
+                        record.set('order', i);
+                        moduleIds.push(record.get('id'));
+                    }
+                    sendPutRequest('homepage/setOrder', {
+                        layoutId: this.layoutId,
+                        moduleIds: moduleIds
+                    }, '大积木排序', '大积木排序成功', '大积木排序失败', function() {
+                        store.load();
+                    });
+                }
+            },
+            // 大积木选择, 展示详情
+            'homePage #moduleList': {
+                selectionchange: function(model, selected) {
+                    if (selected.length === 0) return;
+
+                    // 保存当前大积木全局属性
+                    var record = selected[0].data;
+                    this.moduleId = record.id;
+                    this.moduleType = record.type;
+                    // 共享全局变量，供小积木列表删除按钮状态判断用
+                    XMLifeOperating.generic.Global.isBanner = this.moduleType == 'TYPE0' ? true : false;
+
+                    var win = this.getHomePage();
+                    // 只当banner才需要新建
+                    win.down('#addModuleItem').setDisabled(!XMLifeOperating.generic.Global.isBanner);
+
+                    // 若当前处理子级列表，模拟点击返回
+                    if (this.isRenter) {
+                        this.isRenter = false;
+                        win.down('#returnModuleItem').el.dom.click();
+                    }
+
+                    var store = this.getHomePageModuleDetailStore();
+                    store.getProxy().extraParams = {
+                        moduleId: this.moduleId
+                    };
+                    store.load();
+
+                    // banner栏不显示租客
+                    if (this.moduleType == 'TYPE0') {
+                        win.down('#renterView').hide();
+                    } else {
+                        win.down('#renterView').show();
+                    }
+                    
+                },
+                edit: function(editor, e) {
+                    var record = e.record;
+                    sendPutRequest('homepage/updateModule', {
+                        moduleId: record.get('id'),
+                        name: record.get('name')
+                    }, '修改名称', '修改名称成功', '修改名称失败', function() {
+                        var store = me.getHomePageModuleListStore().load();
+                        store.load();
+                    });
+                }
+            },
+            // 返回小积木列表
+            'homePage #returnModuleItem': {
+                click: function() {
+                    var win = this.getHomePage(),
+                        store = this.getHomePageModuleDetailStore();
+
+                    win.down('#moduleDetail').bindStore(store);
+                    win.down('#moduleDetail').setTitle('小积木列表');
+                    win.down('#renterTime').hide();
+                    win.down('#renterView').show();
+                    win.down('#returnModuleItem').hide();
+                    win.down('#addModuleItem').setText('新建小积木').setDisabled(!XMLifeOperating.generic.Global.isBanner);
+                }
+            },
+            // 显示小积木租客列表
+            'homePage #renterView': {
+                click: function(view, column, rowIndex, colIndex, e) {
+                    var win = this.getHomePage(),
+                        record = view.getRecord(view.findTargetByEvent(e)),
+                        store = this.getHomePageModuleRenterStore();
+
+                    store.getProxy().extraParams = {
+                        moduleId: this.moduleId,
+                        index: rowIndex
+                    };
+                    store.load();
+
+                    // 设置当前是否为租客
+                    this.isRenter = true;
+                    this.renterParentIndex = record.get('index');   
+
+
+                    win.down('#moduleDetail').bindStore(store);
+                    win.down('#moduleDetail').setTitle(this.renterParentIndex + '号小积木-租客列表');
+                    win.down('#renterTime').show();
+                    win.down('#renterView').hide();
+                    win.down('#returnModuleItem').show();
+                    win.down('#addModuleItem').setText('新建租客').setDisabled(false);
+                }
+            },
+            // 新建小积木(现只有banner用)/租客
             'homePage #addModuleItem': {
                 click: function(button, e) {
-                    var store = this.getHomePageModuleDetailStore();
+                    var win = this.getModuleDetailEdit(),
+                        store = this.getHomePageModuleDetailStore();
                     if (store.totalCount >= 6) {
                         Ext.Msg.alert('信息提示', 'banner最多只能建6个！');
                         return;
                     }
-                    var win = this.getModuleDetailEdit();
-                    win.show();
+
+                    // 若是租客，需手动合成租赁位置combo store
+                    if (this.isRenter) {
+                        var records = store.data.items,
+                            data = [];
+                        for (var i in records) {
+                            data.push({
+                                name: records[i].get('index') + '号小积木',
+                                index: records[i].get('index')
+                            })
+                        }
+
+                        var renterIndexStore = Ext.create('Ext.data.Store', {
+                            fields: ['name', 'index'],
+                            data: data
+                        });
+                        win.down('combo[name=index]').bindStore(renterIndexStore).setValue(this.renterParentIndex);
+                    }
+
+                    // 显示两行租客表单选项
+                    win.down('#renterTime').setVisible(this.isRenter);
+                    win.down('datefield[name=startTime]').setDisabled(!this.isRenter);
+                    win.down('datefield[name=endTime]').setDisabled(!this.isRenter);
+                    win.down('combo[name=index]').setDisabled(!this.isRenter);
+                    
                     //显示图片大小提示
-                    var size = this.getItemSize(this.moduleType, 0);
+                    var index = this.isRenter ? this.renterParentIndex : 0;
+                    var size = this.getItemSize(this.moduleType, index);
                     win.down('#picSizeTip').setText('（提示：尺寸' + size + '，大小100K以内）');
+
+                    win.show();
                 }
             },
-            // 编辑、删除小积木
+            // 编辑、删除小积木/租客
             'homePage #editModuleItem': {
                 click: function(view, item, rowIndex, colIndex, e) {
                     var record = view.getRecord(view.findTargetByEvent(e)),
                         targetClass = e.target.getAttribute('class');
+
                     // 编辑
                     if (targetClass.indexOf('action-edit') >= 0) {
                         var win = this.getModuleDetailEdit(),
                             form = win.down('form').getForm();
+
+                        // 若是租客，需手动合成租赁位置combo store
+                        if (this.isRenter) {
+                            var records = this.getHomePageModuleDetailStore().data.items,
+                                data = [];
+                            for (var i in records) {
+                                data.push({
+                                    name: records[i].get('index') + '号小积木',
+                                    index: records[i].get('index')
+                                })
+                            }
+                            var renterIndexStore = Ext.create('Ext.data.Store', {
+                                fields: ['name', 'index'],
+                                data: data
+                            });
+                            win.down('combo[name=index]').bindStore(renterIndexStore);
+                        }
+
+                        // 显示两行租客表单选项
+                        win.down('#renterTime').setVisible(this.isRenter);
+                        win.down('datefield[name=startTime]').setDisabled(!this.isRenter);
+                        win.down('datefield[name=endTime]').setDisabled(!this.isRenter);
+                        win.down('combo[name=index]').setDisabled(!this.isRenter);
+
                         form.loadRecord(record);
                         //初始化选择及下拉状态
                         var combo = win.down('combo[name=urlType]');
                         combo.fireEvent('select', combo, 'isInit');
                         //显示图片大小提示
-                        var size = this.getItemSize(this.moduleType, rowIndex);
+                        var index = this.isRenter ? this.renterParentIndex : rowIndex;
+                        var size = this.getItemSize(this.moduleType, index);
                         win.down('#picSizeTip').setText('（提示：尺寸' + size + '，大小100K以内）');
                         win.show();
 
-                        // 删除
+                    // 删除
                     } else if (targetClass.indexOf('action-del') >= 0) {
                         Ext.MessageBox.confirm('确认删除',
-                            Ext.String.format("确定删除小积木 '{0}' 吗？", record.get('name')),
+                            Ext.String.format("您确定要删除 '{0}' 吗？", record.get('name')),
                             function(result) {
                                 if (result == 'yes') {
-                                    sendDeleteRequest('homepage/deleteModuleItem', {
-                                            moduleId: me.moduleId,
-                                            index: record.get('index')
-                                        },
-                                        '删除小积木', '小积木删除成功', '小积木删除失败',
-                                        function(response) {
-                                            me.getHomePageModuleDetailStore().load();
-                                        });
+                                    if (me.isRenter) {
+                                        sendDeleteRequest('homepage/deleteItemRenter', {
+                                                renterId: record.get('renterId')
+                                            },
+                                            '删除租客', '租客删除成功', '租客删除失败',
+                                            function(response) {
+                                                me.getHomePageModuleRenterStore().load();
+                                            }
+                                        );
+
+                                    } else {
+                                        sendDeleteRequest('homepage/deleteModuleItem', {
+                                                moduleId: me.moduleId,
+                                                index: record.get('index')
+                                            },
+                                            '删除小积木', '小积木删除成功', '小积木删除失败',
+                                            function(response) {
+                                                me.getHomePageModuleDetailStore().load();
+                                            }
+                                        );
+                                    }
+                                    
                                 }
                             }
                         );
@@ -585,6 +708,19 @@ Ext.define('XMLifeOperating.controller.HomePage', {
                     }
                 }
             },
+            // 定时时间处理
+            'moduleDetailEdit datefield': {
+                select: function(elem) {
+                    var value = elem.getValue(),
+                        selDate = Ext.Date.format(value, 'Y-m-d'),
+                        curDate = Ext.Date.format(new Date(), 'Y-m-d');
+                    // 如果选择是当天，推迟
+                    if (selDate == curDate) {
+                        value = Ext.Date.add(new Date(), Ext.Date.MINUTE, 30);
+                        elem.setValue(value);
+                    }
+                }
+            },
             // 上传图片
             'moduleDetailEdit filefield[name="moduleUploadfile"]': {
                 change: function(uploadfile) {
@@ -621,18 +757,36 @@ Ext.define('XMLifeOperating.controller.HomePage', {
                             return;
                         }
 
-                        //新建时无index
+                        // 小积木/租客 (编辑、保存)
                         if (record) {
-                            values.index = record.index;
-                            sendPutRequest('homepage/updateModuleItem', values, '属性编辑', '属性编辑成功', '属性编辑失败', function() {
-                                me.getHomePageModuleDetailStore().load();
-                                win.close();
-                            });
+                            if (this.isRenter) {
+                                values.renterId = record.get('renterId');
+                                sendPutRequest('homepage/updateItemRenter', values, '修改提示', '修改成功！', '修改失败！', function() {
+                                    me.getHomePageModuleRenterStore().load();
+                                    win.close();
+                                });
+
+                            } else {
+                                // 编辑时要传index，新建时无
+                                values.index = record.index;
+                                sendPutRequest('homepage/updateModuleItem', values, '修改提示', '修改成功！', '修改失败！', function() {
+                                    me.getHomePageModuleDetailStore().load();
+                                    win.close();
+                                });
+                            }
                         } else {
-                            sendRequest('homepage/createModuleItem', values, '属性编辑', '属性编辑成功', '属性编辑失败', function() {
-                                me.getHomePageModuleDetailStore().load();
-                                win.close();
-                            });
+                            if (this.isRenter) {
+                                sendRequest('homepage/createItemRenter', values, '新建提示', '新建成功！', '新建失败！', function() {
+                                    me.getHomePageModuleRenterStore().load();
+                                    win.close();
+                                });
+
+                            } else {
+                                sendRequest('homepage/createModuleItem', values, '新建提示', '新建成功！', '新建失败！', function() {
+                                    me.getHomePageModuleDetailStore().load();
+                                    win.close();
+                                });
+                            }
                         }
                     }
                 }
@@ -679,6 +833,11 @@ Ext.define('XMLifeOperating.controller.HomePage', {
             });
         }
         if (target == 'all' || target == 'detail') {
+            // 当停留在二级页面租客时，清空
+            if (this.isRenter) {
+                this.isRenter = false;
+                this.getHomePage().down('#returnModuleItem').el.dom.click();
+            }
             this.getHomePageModuleDetailStore().load({
                 params: {
                     moduleId: ''

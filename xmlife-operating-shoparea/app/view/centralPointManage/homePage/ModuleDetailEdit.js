@@ -19,62 +19,61 @@ Ext.define('XMLifeOperating.view.centralPointManage.homePage.ModuleDetailEdit', 
             margin: '8 0 0 0'
         },
         items: [{
-
-          xtype : 'combo',
-          name : 'name',
-          labelWidth: 60,
-          labelAlign: 'right',
-          queryMode : 'local',
-          hideTrigger : true,
-          typeAhead : true,
-          store : 'ModuleNameComplete',
-          fieldLabel : '名称',
-          displayField: 'name',
-          valueField: 'name',
-          minChars: 1,
-          tpl: Ext.create('Ext.XTemplate',
-              '<tpl for=".">',
-                          '<div class="x-boundlist-item" style="color:green;text-align:left">{name}</div>',
-              '</tpl>'
-          ),
-          listeners: {
-                buffer  : 50,
-                focus   : function (component) {
+            xtype: 'combo',
+            name: 'name',
+            labelWidth: 60,
+            labelAlign: 'right',
+            queryMode: 'local',
+            hideTrigger: true,
+            typeAhead: true,
+            store: 'ModuleNameComplete',
+            fieldLabel: '名称',
+            displayField: 'name',
+            valueField: 'name',
+            minChars: 1,
+            tpl: Ext.create('Ext.XTemplate',
+                '<tpl for=".">',
+                '<div class="x-boundlist-item" style="color:green;text-align:left">{name}</div>',
+                '</tpl>'
+            ),
+            listeners: {
+                buffer: 50,
+                focus: function(component) {
                     this.expand();
                 },
-                removed : function (component) {
+                removed: function(component) {
                     this.store.clearFilter(true);
                 }
-            }            
+            }
         }, {
             xtype: 'label',
             text: '（提示: 多个titles之间用;号隔开）',
             width: '100%',
             style: 'padding-left:58px;color:#999;text-align:left;'
         }, {
-            xtype : 'combo',
-          name : 'titles',
-          labelWidth: 60,
-          labelAlign: 'right',
-          queryMode : 'local',
-          hideTrigger : true,
-          typeAhead : true,
-          store : 'ModuleNameComplete',
-          fieldLabel : 'titles',
-          displayField: 'name',
-          valueField: 'name',
-          minChars: 1,
-          tpl: Ext.create('Ext.XTemplate',
-              '<tpl for=".">',
-                          '<div class="x-boundlist-item" style="color:green;text-align:left">{name}</div>',
-              '</tpl>'
-          ),
-          listeners: {
-                buffer  : 50,
-                focus   : function (component) {
+            xtype: 'combo',
+            name: 'titles',
+            labelWidth: 60,
+            labelAlign: 'right',
+            queryMode: 'local',
+            hideTrigger: true,
+            typeAhead: true,
+            store: 'ModuleNameComplete',
+            fieldLabel: 'titles',
+            displayField: 'name',
+            valueField: 'name',
+            minChars: 1,
+            tpl: Ext.create('Ext.XTemplate',
+                '<tpl for=".">',
+                '<div class="x-boundlist-item" style="color:green;text-align:left">{name}</div>',
+                '</tpl>'
+            ),
+            listeners: {
+                buffer: 50,
+                focus: function(component) {
                     this.expand();
                 },
-                removed : function (component) {
+                removed: function(component) {
                     this.store.clearFilter(true);
                 }
             }
@@ -101,7 +100,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.homePage.ModuleDetailEdit', 
             defaults: {
                 margin: '0 2 0 0'
             },
-            items:[{
+            items: [{
                 xtype: 'combo',
                 name: 'shopId',
                 fieldLabel: '选择',
@@ -159,6 +158,54 @@ Ext.define('XMLifeOperating.view.centralPointManage.homePage.ModuleDetailEdit', 
             labelAlign: 'right',
             hidden: true
         }, {
+            xtype: 'fieldset',
+            layout: 'column',
+            itemId: 'renterTime',
+            padding: 0,
+            border: false,
+            hidden: true,
+            items: [{
+                xtype: 'datefield',
+                name: 'startTime',
+                fieldLabel: '租赁期限',
+                labelAlign: 'right',
+                labelWidth: 60,
+                width: 215,
+                format: 'Y-m-d H:i:s',
+                minValue: new Date(),
+                editable: true,
+                disabled: true,
+                emptyText: '开始于...',
+                allowBlank: false
+            }, {
+                xtype: 'label',
+                text: '至',
+                width: '5%'
+            }, {
+                xtype: 'datefield',
+                name: 'endTime',
+                width: 155,
+                format: 'Y-m-d H:i:s',
+                minValue: new Date(),
+                editable: true,
+                disabled: true,
+                emptyText: '结束于...',
+                allowBlank: false
+            }]
+        }, {
+            xtype: 'combo',
+            name: 'index',
+            fieldLabel: '租赁位置',
+            labelWidth: 60,
+            labelAlign: 'right',
+            queryMode: 'local',
+            displayField: 'name',
+            valueField: 'index',
+            emptyText: '请选择位置',
+            hidden: true,
+            disabled: true,
+            allowBlank: false
+        }, {
             xtype: 'label',
             itemId: 'picSizeTip',
             width: '100%',
@@ -168,11 +215,11 @@ Ext.define('XMLifeOperating.view.centralPointManage.homePage.ModuleDetailEdit', 
             layout: 'column',
             padding: 0,
             border: false,
-            items:[{
+            items: [{
                 xtype: 'textfield',
                 name: 'image',
                 fieldLabel: '图片',
-                itemId:'imageHash',
+                itemId: 'imageHash',
                 labelWidth: 60,
                 labelAlign: 'right',
                 width: 329,
@@ -181,8 +228,8 @@ Ext.define('XMLifeOperating.view.centralPointManage.homePage.ModuleDetailEdit', 
             }, {
                 xtype: 'form',
                 border: false,
-                itemId:'adf',
-                items:[{
+                itemId: 'adf',
+                items: [{
                     xtype: 'filefield',
                     name: 'moduleUploadfile',
                     buttonOnly: true,

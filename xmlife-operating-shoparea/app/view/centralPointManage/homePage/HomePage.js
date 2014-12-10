@@ -179,27 +179,29 @@ Ext.define('XMLifeOperating.view.centralPointManage.homePage.HomePage', {
     {
       xtype: 'grid',
       itemId: 'moduleDetail',
-      title: '大积木详情',
+      title: '小积木列表',
       store: 'HomePageModuleDetail',
-      columnWidth: 0.4,
+      columnWidth: 0.43,
       height: document.body.clientHeight-68,
       forceFit: true,
+      tbar: [{
+            xtype: 'button',
+            text: '返回上级',
+            itemId: 'returnModuleItem',
+            hidden: true
+      }],
       bbar: ['->',{
             xtype: 'button',
             text: '新建小积木',
             itemId: 'addModuleItem',
             disabled: true
-      }, {
-            xtype: 'button',
-            text: '刷新预览',
-            itemId: 'previewPage'
       }],
       columns: [
         {
-              text: '序号',
-              dataIndex: 'index',
-              width: '8%',
-              align: 'center'
+            text: '序号',
+            dataIndex: 'index',
+            width: '7%',
+            align: 'center'
         }, {
             text: '图片',
             dataIndex: 'image',
@@ -211,28 +213,51 @@ Ext.define('XMLifeOperating.view.centralPointManage.homePage.HomePage', {
         }, {
             text: '名称',
             dataIndex: 'name',
-            width: '15%',
+            width: '14%',
             align: 'left',
         }, {
             text: 'titles',
             dataIndex: 'titles',
-            width: '24%',
+            width: '22%',
             align: 'left'
         }, {
             text: 'url',
             dataIndex: 'url',
-            width: '24%',
+            width: '20%',
             align: 'left'
+        }, {
+            text: '租赁期限',
+            itemId: 'renterTime',
+            dataIndex: 'startTime',
+            width: '9%',
+            align: 'center',
+            hidden: true,
+            renderer: function(value, meta, record) {
+              if (value) {
+                var startTime = Ext.Date.format(new Date(value), 'm-d H:i'),
+                    endTime = Ext.Date.format(new Date( record.get('endTime') ), 'm-d H:i');
+                return '<span style="display: inline-block; margin-left: -3px;">'+ startTime + '<br />' + endTime + '</span>';
+              }
+            }
+        }, {
+            text: '租客',
+            dataIndex: 'url',
+            itemId: 'renterView',
+            width: '9%',
+            align: 'center',
+            renderer: function() {
+              return '<a href="javascript:;">查看</a>';
+            }
         }, {
             xtype: 'actioncolumn',
             itemId: 'editModuleItem',
             text: '操作',
-            width: '11%',
+            width: '10%',
             align: 'center',
-            renderer: function(){
+            renderer: function(value, meta, record, rowIndex, colIndex, store, view){
               var str1 = '<img src="resources/images/edit.png" class="x-action-col-icon action-edit" style="margin-left:5px;" />',
                   str2 = '<img src="resources/images/delete.png" class="x-action-col-icon action-del" style="margin-left:5px;" />';
-              return XMLifeOperating.generic.Global.isBanner ? str1+str2 : str1;
+              return XMLifeOperating.generic.Global.isBanner || record.get('renterId') ? str1 + str2 : str1;
             }
         }
       ],
@@ -249,9 +274,17 @@ Ext.define('XMLifeOperating.view.centralPointManage.homePage.HomePage', {
       xtype: 'panel',
       itemId: 'homePreview',
       title: '效果预览',
-      columnWidth: 0.3,
+      columnWidth: 0.27,
       height: document.body.clientHeight-68,
       autoScroll: true,
+      bbar: [
+        '->',
+        {
+          xtype: 'button',
+          text: '刷新预览',
+          itemId: 'previewPage'
+        }
+      ],
       items: [{
           xtype: 'dataview',
           itemId: 'dataview',
