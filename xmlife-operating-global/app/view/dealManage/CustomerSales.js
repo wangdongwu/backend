@@ -29,7 +29,7 @@ Ext.define('XMLifeOperating.view.dealManage.CustomerSales', {
                 width: 500
             },
             items: [{
-                xtype: 'container',
+                xtype: 'fieldcontainer',
                 layout: 'column',
                 items: [{
                     xtype: 'radio',
@@ -43,7 +43,7 @@ Ext.define('XMLifeOperating.view.dealManage.CustomerSales', {
                             var arrive = beginTime.nextSibling();
                             var endTime = arrive.nextSibling();
                             var customer = customerFile.previousSibling();
-
+                            
                             if (newValue == true) {
                                 city.setDisabled(false);
                                 register.setDisabled(false);
@@ -166,26 +166,22 @@ Ext.define('XMLifeOperating.view.dealManage.CustomerSales', {
                     disabled: true,
                     labelWidth: 78
                 }, {
-                    xtype: 'form',
-                    border: false,
-                    items: [{
-                        xtype: 'filefield',
-                        name: 'file',
-                        allowBlank: false,
-                        blankText: '请上传文件',
-                        disabled: true,
-                        itemId: 'file',
-                        width: 375,
-                        style: 'margin-left:20px',
-                        id: 'customerFile',
-                        buttonText: '上传文件',
-                        listeners: {
-                            change: function(value) {
-                                var file = value.fileInputEl.dom.files[0].name;
-                                this.inputEl.dom.value = file;
-                            }
+                    xtype: 'filefield',
+                    name: 'file',
+                    allowBlank: false,
+                    blankText: '请上传文件',
+                    disabled: true,
+                    itemId: 'file',
+                    width: 375,
+                    style: 'margin-left:20px',
+                    id: 'customerFile',
+                    buttonText: '上传文件',
+                    listeners: {
+                        change: function(value) {
+                            var file = value.fileInputEl.dom.files[0].name;
+                            this.inputEl.dom.value = file;
                         }
-                    }]
+                    }
                 }]
             }, {
                 xtype: 'button',

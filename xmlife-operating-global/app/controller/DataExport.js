@@ -124,8 +124,9 @@ Ext.define('XMLifeOperating.controller.DataExport', {
     // 订单清单导出小单或大单
     exportDealSales: function(button) {
         var win = button.up("panel"),
+            cityCode = win.down("#city").getValue(),
             shopArea = win.down("#areaId").getValue(),
-            shopId = win.down("#shopId").getValue(),
+            shopBannerId = win.down("#shopId").getValue(),
             beginTime = win.down("datefield[name='beginTime']").getValue(),
             endTime = win.down("datefield[name='endTime']").getValue(),
             isBigDeal = button.isBigDeal,
@@ -135,9 +136,10 @@ Ext.define('XMLifeOperating.controller.DataExport', {
             shopArea = "";
         };
 
-        var url = XMLifeOperating.generic.Global.URL.biz + 'deal/exportAllDeal' +
-            '?ShopArea=' + shopArea +
-            '&shopId=' + shopId +
+        var url = XMLifeOperating.generic.Global.URL.biz + 'dataExport/exportAllDeal' +
+            '?cityCode=' + cityCode +
+            '&ShopArea=' + shopArea +
+            '&shopBannerId=' + shopBannerId +
             '&beginTime=' + this.formatDate(beginTime, 0) +
             '&endTime=' + this.formatDate(endTime, 1) +
             '&isBigDeal=' + isBigDeal +
