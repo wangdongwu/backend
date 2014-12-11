@@ -22,14 +22,14 @@ Ext.define('XMLifeOperating.view.dealManage.CustomerSales', {
             bodyPadding: 5
         },
         items: [{
-            xtype: 'fieldcontainer',
+            xtype: 'container',
             defaultType: 'textfield',
             border: 0,
             defaults: {
                 width: 500
             },
             items: [{
-                xtype: 'fieldcontainer',
+                xtype: 'container',
                 layout: 'column',
                 items: [{
                     xtype: 'radio',

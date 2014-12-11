@@ -19,7 +19,7 @@ Ext.define('XMLifeOperating.view.dealManage.RechargeableCardSales', {
         edit: false,
         border: 0,
         items: [{
-            xtype: 'fieldcontainer',
+            xtype: 'container',
             defaultType: 'textfield',
             border: 0,
             defaults: {

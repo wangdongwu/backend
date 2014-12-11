@@ -22,7 +22,7 @@ Ext.define('XMLifeOperating.view.dealManage.AccountSales', {
             bodyPadding: 5
         },
         items: [{
-            xtype: 'fieldcontainer',
+            xtype: 'container',
             defaultType: 'textfield',
             border: 0,
             defaults: {
