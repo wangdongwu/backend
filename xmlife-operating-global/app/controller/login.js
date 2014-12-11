@@ -74,7 +74,6 @@ Ext.define('XMLifeOperating.controller.login', {
                     loginBt.setText('确定');
                     self.edit = true;
                     loginView.show();
-
                 }
             },
             'headerToolbar #btnSignOut': {
@@ -142,7 +141,7 @@ Ext.define('XMLifeOperating.controller.login', {
                     if (response.responseText == 1) {
                         self.getLogin().hide();
                         Ext.Msg.alert('成功', '成功更新' + username + '账户');
-
+                        self.getUserInfor();
                     } else {
                         Ext.Msg.alert('失败', '更新' + username + '账户时失败');
                     }
@@ -172,6 +171,7 @@ Ext.define('XMLifeOperating.controller.login', {
                         self.getNavigationStore().setRootNode({
                             expanded: true
                         });
+                        self.getUserInfor();
                         view.hide();
                     }
                 },
@@ -216,14 +216,5 @@ Ext.define('XMLifeOperating.controller.login', {
         store.load({
             callback: callback
         });
-
-        /*sendGetRequest('admin/getInfo', null, '', '', '', function(response) {
-            if (response.status == 200) {
-                var data = Ext.decode(response.responseText);
-                XMLifeOperating.generic.Global.currentAdminInfor = data;
-                self.application.fireEvent('admin/getInfo', data);
-            }
-            self.getAdminAdminShopTypeStore().load();
-        });*/
     }
 });
