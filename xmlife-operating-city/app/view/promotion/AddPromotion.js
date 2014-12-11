@@ -54,7 +54,6 @@ Ext.define('XMLifeOperating.view.promotion.AddPromotion', {
 				fieldLabel: '活动显示',
 				labelAlign: 'left',
 				labelWidth: 70,
-				minValue: new Date(),
 				name: 'displayDate',
 				editable: true,
 				emptyText: '请选择开始展示时间',
@@ -74,7 +73,6 @@ Ext.define('XMLifeOperating.view.promotion.AddPromotion', {
 				emptyText: '请选活动开始时间',
 				labelWidth: 70,
 				name: 'startDate',
-				minValue: new Date(),
 				listeners: {
 					change: function () {
 						var form = this.up('form'),
