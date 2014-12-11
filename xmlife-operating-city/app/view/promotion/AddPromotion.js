@@ -51,7 +51,7 @@ Ext.define('XMLifeOperating.view.promotion.AddPromotion', {
 				labelAlign: 'left'
 			},
 			items: [{
-				fieldLabel: '显示时间',
+				fieldLabel: '活动显示',
 				labelAlign: 'left',
 				labelWidth: 70,
 				minValue: new Date(),
@@ -69,7 +69,7 @@ Ext.define('XMLifeOperating.view.promotion.AddPromotion', {
 					}
 				}
 			}, {
-				fieldLabel: '开始时间',
+				fieldLabel: '活动开始',
 				editable: true,
 				emptyText: '请选活动开始时间',
 				labelWidth: 70,
@@ -86,7 +86,7 @@ Ext.define('XMLifeOperating.view.promotion.AddPromotion', {
 					}
 				}
 			}, {
-				fieldLabel: '结束时间',
+				fieldLabel: '活动结束',
 				minValue: new Date(),
 				editable: true,
 				emptyText: '请选择结束时间',
@@ -139,8 +139,10 @@ Ext.define('XMLifeOperating.view.promotion.AddPromotion', {
 					this.updateLayout();
 				}
 			}
-
-		}, {
+		},{
+      border : 0,
+      html : '<hr>'
+    }, {
 			xtype: 'container',
 			layout: 'column',
 			height: 28,
@@ -151,7 +153,7 @@ Ext.define('XMLifeOperating.view.promotion.AddPromotion', {
 			items: [{
 				xtype: 'checkbox',
 				inputValue: true,
-				fieldLabel: '是否需要banner',
+				boxLabel: '是否需要banner',
 				name: 'isHaveHomeBanner',
 				listeners: {
 					change: function (p, v) {
@@ -216,6 +218,45 @@ Ext.define('XMLifeOperating.view.promotion.AddPromotion', {
 				}]
 			}]
 		}, {
+      xtype: 'checkbox',
+      inputValue: true,
+      labelWidth: 140,
+      boxLabel: '需要商品详情页活动链接',
+      name: 'showOnProductDetail',
+      listeners: {
+        change: function (p, v) {
+          var next = this.next(),
+            textList = next.query('textfield');
+          if (v) {
+            next.show();
+          } else {
+            next.hide();
+            Ext.each(textList, function (textList) {
+              textList.setValue('');
+            });
+          }
+          this.up('window').center();
+        }
+      }
+    },{
+      xtype: 'container',
+      hidden: true,
+      items: [{
+        xtype: 'textfield',
+        name: 'globalUserDailyNum',
+        labelWidth: 140,
+        fieldLabel: '全场每人每日限购'
+      }, {
+        xtype: 'textfield',
+        name: 'globalUserActiveNum',
+        labelWidth: 140,
+        fieldLabel: '全场每人活动期限购'
+      }]
+    },
+    {
+      html : '<hr>',
+      border : 0
+    },{
 			xtype: 'container',
 			layout: 'column',
 			items: [{
@@ -260,82 +301,84 @@ Ext.define('XMLifeOperating.view.promotion.AddPromotion', {
 						name: 'topBannerSize'
 					}]
 				}]
-			}, {
-				xtype: 'checkbox',
-				inputValue: true,
-				fieldLabel: '是/否活动页底部宣传图',
-				name: 'isHaveBottomBanner',
-				labelWidth: 150,
-				labelAlign: 'right',
-				listeners: {
-					change: function (p, v) {
-						var next = this.next(),
-							nextChilds = next.getRefItems();
-						if (v) {
-							next.show();
-						} else {
-							Ext.each(nextChilds, function (el) {
-								el.setValue && el.setValue('');
-							});
-
-							next.hide();
-						}
-					}
-				}
-			}, {
-				xtype: 'container',
-				hidden: true,
-				layout: 'column',
-				border: 0,
-				defaults: {
-					labelWidth: 120
-				},
-				items: [{
-					xtype: 'textfield',
-					name: 'bottomBanner',
-					style: {
-						marginRight: '3px'
-					},
-					fieldLabel: '活动页底部宣传图',
-					itemId: 'bannerBottom',
-					width: 230
-				}, {
-					xtype: 'form',
-					border: false,
-					items: [{
-						xtype: 'filefield',
-						name: 'moduleUploadfile',
-						buttonOnly: true,
-						buttonText: '选择图片',
-						hideLabel: true,
-						listeners: {
-							change: function () {
-								var self = this,
-									wins = this.up('window'),
-									form = this.ownerCt,
-									textfield = this.up('container').down('#bannerBottom');
-
-								wins.getImageDimension(this.fileInputEl.dom.files[0], function (v) {
-									self.next().setValue(v);
-									alert(self.next().getValue());
-								});
-								uploadImage(form, textfield)
-							}
-						}
-					}, {
-						xtype: 'hidden',
-						name: 'bottomBannerSize'
-					}]
-				}]
 			}]
 		}, {
+      xtype : 'container',
+      items : [{
+        xtype: 'checkbox',
+        inputValue: true,
+        boxLabel: '是/否活动页底部宣传图',
+        name: 'isHaveBottomBanner',
+        labelWidth: 150,
+        listeners: {
+          change: function (p, v) {
+            var next = this.next(),
+              nextChilds = next.getRefItems();
+            if (v) {
+              next.show();
+            } else {
+              Ext.each(nextChilds, function (el) {
+                el.setValue && el.setValue('');
+              });
+
+              next.hide();
+            }
+          }
+        }
+      }, {
+        xtype: 'container',
+        hidden: true,
+        layout: 'column',
+        border: 0,
+        defaults: {
+          labelWidth: 120
+        },
+        items: [{
+          xtype: 'textfield',
+          name: 'bottomBanner',
+          style: {
+            marginRight: '3px'
+          },
+          fieldLabel: '活动页底部宣传图',
+          itemId: 'bannerBottom',
+          width: 230
+        }, {
+          xtype: 'form',
+          border: false,
+          items: [{
+            xtype: 'filefield',
+            name: 'moduleUploadfile',
+            buttonOnly: true,
+            buttonText: '选择图片',
+            hideLabel: true,
+            listeners: {
+              change: function () {
+                var self = this,
+                  wins = this.up('window'),
+                  form = this.ownerCt,
+                  textfield = this.up('container').down('#bannerBottom');
+
+                wins.getImageDimension(this.fileInputEl.dom.files[0], function (v) {
+                  self.next().setValue(v);
+                  alert(self.next().getValue());
+                });
+                uploadImage(form, textfield)
+              }
+            }
+          }, {
+            xtype: 'hidden',
+            name: 'bottomBannerSize'
+          }]
+        }]
+      }]
+    },{
 			xtype: 'container',
 			layout: 'hbox',
 			items: [{
 				xtype: 'checkbox',
 				inputValue: true,
 				labelWidth: 120,
-				fieldLabel: '是否需要店铺连接',
+				boxLabel: '是否需要店铺连接',
 				name: 'showShopLink',
 				listeners: {
 					change: function (p, v) {
@@ -357,49 +400,7 @@ Ext.define('XMLifeOperating.view.promotion.AddPromotion', {
 				}
 			}]
 		}, {
-			html: '<hr/>',
-			border: 0
-		}, {
-			xtype: 'checkbox',
-			inputValue: true,
-			labelWidth: 140,
-			fieldLabel: '需要商品详情页活动链接',
-			name: 'showOnProductDetail',
-			listeners: {
-				change: function (p, v) {
-					var next = this.next(),
-						textList = next.query('textfield');
-					if (v) {
-						next.show();
-					} else {
-						next.hide();
-						Ext.each(textList, function (textList) {
-							textList.setValue('');
-						});
-					}
-					this.up('window').center();
-				}
-			}
-		}, {
 			xtype: 'container',
-			hidden: true,
-			items: [{
-				xtype: 'textfield',
-				name: 'globalUserDailyNum',
-				labelWidth: 140,
-				fieldLabel: '全场每人每日限购'
-			}, {
-				xtype: 'textfield',
-				name: 'globalUserActiveNum',
-				labelWidth: 140,
-				fieldLabel: '全场每人活动期限购'
-			}]
-		}, {
-			html: '<hr/>',
-			border: 0
-		}, {
-			xtype: 'container',
-			layout: 'hbox',
 			defaults: {
 				style: {
 					marginRight: '5px'
@@ -410,12 +411,12 @@ Ext.define('XMLifeOperating.view.promotion.AddPromotion', {
 				inputValue: true,
 				labelWidth: 60,
 				name: 'showShortName',
-				fieldLabel: '显示电梯'
+				boxLabel: '显示电梯'
 			}, {
 				xtype: 'checkbox',
 				inputValue: true,
 				name: 'showName',
-				fieldLabel: '显示商品组名称'
+				boxLabel: '显示商品组名称'
 			}]
 		}]
 	}],
