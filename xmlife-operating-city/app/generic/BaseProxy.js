@@ -32,6 +32,7 @@ Ext.define('XMLifeOperating.generic.BaseProxy', {
         exception: function(proxy, response, options) {
             var title = response.statusText,
                 responseText = response.responseText,
+                errorObj = {},
                 msg;
             try {
                 var error = (responseText && responseText.length > 1) ? Ext.decode(responseText) : null;
@@ -56,11 +57,13 @@ Ext.define('XMLifeOperating.generic.BaseProxy', {
             }).toBack();
 
             //if(responseText == '-3'){
-              ErrorMessage.on('hide',function(){
+
+              /*ErrorMessage.on('hide',function(){
               localStorage.removeItem('sessionId');
               localStorage.removeItem('username');
               window.location.reload();
-            });  
+            });*/  
+
             //}
             
 
@@ -71,7 +74,9 @@ Ext.define('XMLifeOperating.generic.BaseProxy', {
 //Ext.Ajax.cors = true;
 function requestException(response){
   var responseText = response.responseText,
-      errorObj = {};
+      errorObj = {},
+      title = '',
+      msg = '';
   if(response.status == 401){
       localStorage.removeItem('sessionId');
       localStorage.removeItem('username');
@@ -110,12 +115,15 @@ function requestException(response){
             msg = '你没有权限做当前操作，请去申请相应的权限';
           break;
       }
-  errorObj.title = title;
-  errorObj.msg = msg;
+  if(title){
+    errorObj.title = title;
+  }
+  if(msg){
+    errorObj.msg = msg;
+  }
   return errorObj;
 }
-
-var sendRequest = function(url, params, title, successMsg, errorMsg, success, failure) {
+window.sendRequest = function(url, params, title, successMsg, errorMsg, success, failure) {
     if(!url || url.length < 1) {
         alert("bad url");
     }
@@ -139,17 +147,16 @@ var sendRequest = function(url, params, title, successMsg, errorMsg, success, fa
                 success(response);
             }
         },
-        failure: function(response,opts) {
-            var errorObj = requestException(response);
-            if(response.status)
-              var error = Ext.decode(response.responseText);
-              //var msg = Ext.String.format('{0}<br />Error Code: {1}<br />Message: {2}', errorMsg, error.code, error.message)
+        failure: function(response,opts) {   
+            var error = Ext.decode(response.responseText);
+            var msg = Ext.String.format('{0}<br />Error Code: {1}<br />Message: {2}', errorMsg, error.code, error.message)
             Ext.MessageBox.show({
-                title: errorObj.title,
-                msg: errorObj.msg,
+                title: title,
+                msg: msg,
                 icon: Ext.Msg.ERROR,
                 buttons: Ext.Msg.OK
             });
+
             if (failure) {
                 failure(response);
             }
@@ -157,7 +164,26 @@ var sendRequest = function(url, params, title, successMsg, errorMsg, success, fa
     });    
 }
 
-var sendGetRequest = function(url, params, title, successMsg, errorMsg, success, failure) {
+window.sendGetRequest = function(url, params, title, successMsg, errorMsg, success, failure) {
+    var method = 'GET';
+    requestAction(url, params, method, title, successMsg, errorMsg, success, failure);
+}
+window.sendPostRequest = function(url, params, title, successMsg, errorMsg, success, failure) {
+    var method = 'POST';
+    requestAction(url, params, method, title, successMsg, errorMsg, success, failure);
+}
+
+window.sendPutRequest = function(url, params, title, successMsg, errorMsg, success, failure) {
+    var method = 'PUT';
+    requestAction(url, params, method, title, successMsg, errorMsg, success, failure);
+}
+
+window.sendDeleteRequest = function(url, params, title, successMsg, errorMsg, success, failure) {
+    var method = 'DELETE';
+    requestAction(url, params, method, title, successMsg, errorMsg, success, failure);
+}
+
+var requestAction = function(url, params, method, title, successMsg, errorMsg, success, failure) {
     if(!url || url.length < 1) {
         alert("bad url");
     }
@@ -170,7 +196,7 @@ var sendGetRequest = function(url, params, title, successMsg, errorMsg, success,
     Ext.Ajax.request({
         url: newUrl,
         params: params,
-        method: 'GET',
+        method: method,
         success: function(response){
             /*Ext.MessageBox.show({
                 title: title,
@@ -185,53 +211,6 @@ var sendGetRequest = function(url, params, title, successMsg, errorMsg, success,
         },
         failure: function(response,opts) {
             var errorObj = requestException(response);
-            if(response.status)
-              var error = Ext.decode(response.responseText);
-              //var msg = Ext.String.format('{0}<br />Error Code: {1}<br />Message: {2}', errorMsg, error.code, error.message)
-            Ext.MessageBox.show({
-                title: errorObj.title,
-                msg: errorObj.msg,
-                icon: Ext.Msg.ERROR,
-                buttons: Ext.Msg.OK
-            });
-            if (failure) {
-                failure(response);
-            }
-        }              
-    });    
-}
-
-var sendPutRequest = function(url, params, title, successMsg, errorMsg, success, failure) {
-    if(!url || url.length < 1) {
-        alert("bad url");
-    }
-    var newUrl;
-    if(url == 'auth'){
-        newUrl = "http://192.168.5.190:9999/rest/auth";
-    }else{
-        newUrl = XMLifeOperating.generic.Global.URL.biz + url;
-    }
-    Ext.Ajax.request({
-        url: newUrl,
-        params: params,
-        method: 'PUT',
-        success: function(response){
-            /*Ext.MessageBox.show({
-                title: title,
-                msg: successMsg,
-                icon: Ext.Msg.INFO,
-                buttons: Ext.Msg.OK
-            });*/
-
-            if (success) {
-                success(response);
-            }
-        },
-        failure: function(response,opts) {
-            var errorObj = requestException(response);
-            if(response.status)
-              var error = Ext.decode(response.responseText);
-              //var msg = Ext.String.format('{0}<br />Error Code: {1}<br />Message: {2}', errorMsg, error.code, error.message)
             Ext.MessageBox.show({
                 title: errorObj.title,
                 msg: errorObj.msg,

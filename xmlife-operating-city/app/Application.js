@@ -30,7 +30,8 @@ Ext.define('XMLifeOperating.Application', {
         'Freight',
         'WaitForAudit',
         'DamagedProduct',
-        'SoldOutProduct'
+        'SoldOutProduct',
+        'PromotionManage'
     ],
 
     stores: [
