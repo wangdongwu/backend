@@ -37,11 +37,32 @@ Ext.define('XMLifeOperating.view.dealManage.CustomerSales', {
                     listeners: {
                         change: function(radio, newValue, oldValue, e) {
                             var customerFile = Ext.getCmp('customerFile');
+                            var city = radio.nextSibling();
+                            var register = city.nextSibling();
+                            var beginTime = register.nextSibling();
+                            var arrive = beginTime.nextSibling();
+                            var endTime = arrive.nextSibling();
+                            var customer = customerFile.previousSibling();
+
                             if (newValue == true) {
+                                city.setDisabled(false);
+                                register.setDisabled(false);
+                                beginTime.setDisabled(false);
+                                arrive.setDisabled(false);
+                                endTime.setDisabled(false);
+                                customer.setDisabled(true);
+                                customerFile.setDisabled(true);
                                 customerFile.inputEl.dom.value = '';
                                 customerFile.allowBlank = true;
                             } else {
                                 customerFile.allowBlank = false;
+                                city.setDisabled(true);
+                                register.setDisabled(true);
+                                beginTime.setDisabled(true);
+                                arrive.setDisabled(true);
+                                endTime.setDisabled(true);
+                                customer.setDisabled(false);
+                                customerFile.setDisabled(false);
                             }
                         }
                     }
@@ -52,6 +73,7 @@ Ext.define('XMLifeOperating.view.dealManage.CustomerSales', {
                     name: 'cityCode',
                     itemId: 'city',
                     allowBlank: false,
+                    disabled: true,
                     blankText: '请选择城市',
                     width: 480,
                     editable: false,
@@ -73,10 +95,12 @@ Ext.define('XMLifeOperating.view.dealManage.CustomerSales', {
                 }, {
                     xtype: 'displayfield',
                     value: '注册时间:',
+                    disabled: true,
                     style: 'margin-left:15px',
                 }, {
                     xtype: 'datefield',
                     name: 'beginTime',
+                    disabled: true,
                     style: 'margin-left: 50px',
                     width: 180,
                     emptyText: '开始时间',
@@ -107,11 +131,13 @@ Ext.define('XMLifeOperating.view.dealManage.CustomerSales', {
                 }, {
                     xtype: 'displayfield',
                     value: '到',
+                    disabled: true,
                     style: 'margin-left:2px'
                 }, {
                     xtype: 'datefield',
                     name: 'endTime',
                     width: 180,
+                    disabled: true,
                     emptyText: '结束时间',
                     maxValue: (function() {
                         var date = new Date();
@@ -137,6 +163,7 @@ Ext.define('XMLifeOperating.view.dealManage.CustomerSales', {
                 }, {
                     xtype: 'displayfield',
                     fieldLabel: '指定用户',
+                    disabled: true,
                     labelWidth: 78
                 }, {
                     xtype: 'form',
@@ -146,6 +173,7 @@ Ext.define('XMLifeOperating.view.dealManage.CustomerSales', {
                         name: 'file',
                         allowBlank: false,
                         blankText: '请上传文件',
+                        disabled: true,
                         itemId: 'file',
                         width: 375,
                         style: 'margin-left:20px',

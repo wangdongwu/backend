@@ -7,7 +7,19 @@ Ext.define('XMLifeOperating.store.Navigation', {
     autoLoad: false,
     root: {
     	expanded: true,
-    	children: [
+    	children: [/*{
+    			"id": "DataExport",
+		        "text": "订单中心",
+		        "platFormName": "Global",
+		        "platFormType": 0,
+		        "leaf": true,
+		        "isAuth": false,
+		        "notShow": false,
+		        "children": [],
+		        "uniqueName": "DataExport",
+		        "inheritLevel": 0,
+		        "auth": false
+    	}*/
 		    // {
 		    //     "id": "supportedCityList",
 		    //     "text": "开放城市管理",

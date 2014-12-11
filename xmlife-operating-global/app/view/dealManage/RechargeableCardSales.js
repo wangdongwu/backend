@@ -64,33 +64,51 @@ Ext.define('XMLifeOperating.view.dealManage.RechargeableCardSales', {
                     style: 'margin-left:30px',
                     listeners: {
                         change: function(radio, newValue, oldValue, e) {
+                            var cardNumber = radio.nextSibling();
+                            var file = cardNumber.nextSibling();
+                            var batchId = Ext.getCmp('batchId');
+                            var beginTime = batchId.nextSibling();
+                            var arrive = beginTime.nextSibling().nextSibling();
+                            var endTime = arrive.nextSibling();
+
                             if (newValue == true) {
-                                Ext.getCmp('batchId').setValue('');
+                                batchId.setValue('');
+                                cardNumber.setDisabled(false);
+                                file.setDisabled(false);
+                                batchId.setDisabled(true);
+                                beginTime.setDisabled(true);
+                                arrive.setDisabled(true);
+                                endTime.setDisabled(true);
+                            }else {
+                                cardNumber.setDisabled(true);
+                                file.setDisabled(true);
+                                batchId.setDisabled(false);
+                                beginTime.setDisabled(false);
+                                arrive.setDisabled(false);
+                                endTime.setDisabled(false);
                             }
                         }
                     }
                 }, {
                     xtype: 'displayfield',
                     fieldLabel: '指定卡号',
+                    disabled: true,
                     labelWidth: 78
                 }, {
-                    xtype: 'form',
-                    border: false,
-                    items: [{
-                        xtype: 'filefield',
-                        itemId: 'file',
-                        name: 'file',
-                        id: 'rechargeableCardFile',
-                        width: 280,
-                        hideLabel: true,
-                        buttonText: '上传文件',
-                        listeners: {
-                            change: function(value) {
-                                var file = value.fileInputEl.dom.files[0].name;
-                                this.inputEl.dom.value = file;
-                            }
+                    xtype: 'filefield',
+                    itemId: 'file',
+                    name: 'file',
+                    disabled: true,
+                    id: 'rechargeableCardFile',
+                    width: 280,
+                    hideLabel: true,
+                    buttonText: '上传文件',
+                    listeners: {
+                        change: function(value) {
+                            var file = value.fileInputEl.dom.files[0].name;
+                            this.inputEl.dom.value = file;
                         }
-                    }]
+                    }
                 }]
             }, {
                 xtype: 'container',
@@ -114,6 +132,7 @@ Ext.define('XMLifeOperating.view.dealManage.RechargeableCardSales', {
                     fieldLabel: '指定批次和时间',
                     itemId: 'batchId',
                     id: 'batchId',
+                    disabled: true,
                     labelWidth: 80,
                     width: 365,
                     allowBlank: true,
@@ -134,6 +153,7 @@ Ext.define('XMLifeOperating.view.dealManage.RechargeableCardSales', {
                     name: 'startTime',
                     style: 'margin-left: 125px',
                     width: 133,
+                    disabled: true,
                     emptyText: '开始时间',
                     maxValue: (function() {
                         var date = new Date();
@@ -158,10 +178,10 @@ Ext.define('XMLifeOperating.view.dealManage.RechargeableCardSales', {
                                 end.setMaxValue(end.maxValue);
                             } else {
                                 end.setMaxValue(start);
-                            }                      
+                            }
                         }
                     }
-                },{
+                }, {
                     xtype: 'textfield',
                     name: 'start',
                     fieldLabel: '开始时间毫秒数',
@@ -169,10 +189,12 @@ Ext.define('XMLifeOperating.view.dealManage.RechargeableCardSales', {
                 }, {
                     xtype: 'displayfield',
                     value: '到',
+                    disabled: true,
                     style: 'margin-left:2px'
                 }, {
                     xtype: 'datefield',
                     name: 'endTime',
+                    disabled: true,
                     width: 132,
                     emptyText: '结束时间',
                     maxValue: (function() {
@@ -189,11 +211,11 @@ Ext.define('XMLifeOperating.view.dealManage.RechargeableCardSales', {
                     listeners: {
                         change: function(datefield, newValue, oldValue) {
                             var end = datefield.nextSibling();
-                            if(datefield.value == null){
+                            if (datefield.value == null) {
                                 end.setValue('');
-                            }else{
+                            } else {
                                 end.setValue(datefield.value.getTime() + 86400000);
-                            }                           
+                            }
                         }
                     }
                 }, {
