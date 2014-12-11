@@ -19,7 +19,7 @@ Ext.define('XMLifeOperating.view.templateManage.shopBannerTemplate.ShopBannerTem
             xtype: 'rownumberer'
         }, 
         {
-            text: '商品名称',
+            text: '店铺名称',
             dataIndex: 'name',
             width: 100,
             sortable: false,

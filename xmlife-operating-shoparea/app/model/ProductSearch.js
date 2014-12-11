@@ -26,6 +26,7 @@ Ext.define('XMLifeOperating.model.ProductSearch', {
 		'skuId',
 		'rank',
 		'rank2',
+		'stock',
 		'dayTodayLimitCount',
 		'totalTodayLimitCount'
 	],
