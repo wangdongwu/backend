@@ -76,7 +76,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopEdit', {
                 minLength: 2,
                 minLengthText: '商品名称最小长度为2',
                 maxLength: 10,
-                maxLengthText: '商品名称最大长度为10',
+                maxLengthText: '商品名称最大长度为10'
             }, {
                 xtype: 'textfield',
                 name: 'lng',
@@ -89,7 +89,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopEdit', {
                 minLength: 2,
                 minLengthText: '商品名称最小长度为2',
                 maxLength: 10,
-                maxLengthText: '商品名称最大长度为10',
+                maxLengthText: '商品名称最大长度为10'
             }, {
                 xtype: 'textfield',
                 name: 'lat',
@@ -102,7 +102,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopEdit', {
                 minLength: 2,
                 minLengthText: '商品名称最小长度为2',
                 maxLength: 10,
-                maxLengthText: '商品名称最大长度为10',
+                maxLengthText: '商品名称最大长度为10'
             }, {
                 xtype: 'timefield',
                 name: 'openTimeText',
@@ -181,6 +181,26 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopEdit', {
                 }, {
                     boxLabel: '否',
                     name: 'needAuditPrice',
+                    inputValue: 'false'
+                }]
+            },{
+                xtype: 'radiogroup',
+                fieldLabel: '是否显示购买过的商品',
+                labelWidth: 160,
+                defaults: {
+                    flex: 1
+                },
+                allowBlank: false,
+                labelAlign: 'right',
+                afterLabelTextTpl: required,
+                layout: 'hbox',
+                items: [{
+                    boxLabel: '是',
+                    name: 'needUserCollection',
+                    inputValue: 'true'
+                }, {
+                    boxLabel: '否',
+                    name: 'needUserCollection',
                     inputValue: 'false'
                 }]
             }],

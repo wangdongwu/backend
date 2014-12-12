@@ -29,6 +29,7 @@ Ext.define('XMLifeOperating.model.Shop', {
 		'autoOnline',
 		'showAllProducts',
 		'needAuditPrice',
+		'needUserCollection',
 		'storeLimitEnable',
 		'type'
 	],

@@ -10,7 +10,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopAdd', {
     closeAction: 'hide',
     modal: true,
     width: 450,
-    height: 650,
+    height: 600,
     resizable: false,
     layout: 'fit',
     bodyStyle: 'text-align:center;border-style: none;',
@@ -171,6 +171,27 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopAdd', {
                 allowBlank: false,
                 afterLabelTextTpl: required
             }, {
+                xtype: 'radiogroup',
+                fieldLabel: '是否显示购买过的商品',
+                labelWidth: 160,
+                defaults: {
+                    flex: 1
+                },
+                allowBlank: false,
+                labelAlign: 'right',
+                afterLabelTextTpl: required,
+                layout: 'hbox',
+                items: [{
+                    boxLabel: '是',
+                    name: 'needUserCollection',
+                    inputValue: 'true'                   
+                }, {
+                    boxLabel: '否',
+                    name: 'needUserCollection',
+                    inputValue: 'false',
+                    checked: true
+                }]
+            }, {
                 xtype: 'fieldset',
                 layout: 'column',
                 border: false,
@@ -179,11 +200,11 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopAdd', {
                     xtype: 'checkbox',
                     itemId: 'copyShopCheckbox',
                     name: 'copyShopCheckbox',
-                    handler:function(cmp,value){
-                        if(value){
+                    handler: function(cmp, value) {
+                        if (value) {
                             cmp.nextSibling().setDisabled(false);
-                        }else{
-                             cmp.nextSibling().setDisabled(true);
+                        } else {
+                            cmp.nextSibling().setDisabled(true);
                         }
                     }
                 }, {
@@ -191,7 +212,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopAdd', {
                     name: 'copyShop',
                     fieldLabel: '复制店铺',
                     labelWidth: 90,
-                    disabled:true,
+                    disabled: true,
                     /*                        editable: false,*/
                     width: 390,
                     /*                        displayField: 'name',
