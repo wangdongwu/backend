@@ -27,7 +27,7 @@ Ext.define('XMLifeOperating.view.dealManage.DamagedAddSalesDefeat', {
             border: 0,
             defaults: {
                 labelWidth: 80,
-                width: 600
+                width: 630
             },
             items: [{
                 xtype: 'combo',
@@ -37,6 +37,7 @@ Ext.define('XMLifeOperating.view.dealManage.DamagedAddSalesDefeat', {
                 itemId: 'city',
                 allowBlank: false,
                 blankText: '请选择城市',
+                width: 600,
                 editable: false,
                 triggerAction: 'all',
                 displayField: 'name',
@@ -77,6 +78,7 @@ Ext.define('XMLifeOperating.view.dealManage.DamagedAddSalesDefeat', {
                 itemId: 'areaId',
                 allowBlank: false,
                 blankText: '请选择商圈',
+                width: 600,
                 editable: false,
                 triggerAction: 'all',
                 displayField: 'name',
@@ -102,6 +104,7 @@ Ext.define('XMLifeOperating.view.dealManage.DamagedAddSalesDefeat', {
                 itemId: 'shopId',
                 allowBlank: false,
                 blankText: '请选择商店',
+                width: 600,
                 editable: false,
                 triggerAction: 'all',
                 displayField: 'name',
@@ -115,7 +118,7 @@ Ext.define('XMLifeOperating.view.dealManage.DamagedAddSalesDefeat', {
                 }, {
                     xtype: 'datefield',
                     name: 'beginTime',
-                    style: 'margin-left: 32px',
+                    style: 'margin-left: 30px',
                     width: 250,
                     emptyText: '开始时间',
                     minValue: (function() {

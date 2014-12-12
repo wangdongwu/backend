@@ -27,7 +27,7 @@ Ext.define('XMLifeOperating.view.dealManage.DealSales', {
             border: 0,
             defaults: {
                 labelWidth: 80,
-                width: 600
+                width: 630
             },
             items: [{
                 xtype: 'combo',
@@ -37,6 +37,7 @@ Ext.define('XMLifeOperating.view.dealManage.DealSales', {
                 itemId: 'city',
                 allowBlank: false,
                 blankText: '请选择城市',
+                width: 600,
                 editable: false,
                 triggerAction: 'all',
                 queryMode: 'local',
@@ -77,6 +78,7 @@ Ext.define('XMLifeOperating.view.dealManage.DealSales', {
                 itemId: 'areaId',
                 allowBlank: true,
                 editable: false,
+                width: 600,
                 triggerAction: 'all',
                 displayField: 'name',
                 valueField: 'id',
@@ -101,6 +103,7 @@ Ext.define('XMLifeOperating.view.dealManage.DealSales', {
                 itemId: 'shopId',
                 allowBlank: true,
                 editable: false,
+                width: 600,
                 triggerAction: 'all',
                 displayField: 'name',
                 valueField: 'id'
@@ -113,7 +116,7 @@ Ext.define('XMLifeOperating.view.dealManage.DealSales', {
                 }, {
                     xtype: 'datefield',
                     name: 'beginTime',
-                    style: 'margin-left: 32px',
+                    style: 'margin-left: 30px',
                     width: 250,
                     emptyText: '开始时间',
                     minValue: (function() {

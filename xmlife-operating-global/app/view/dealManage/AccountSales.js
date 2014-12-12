@@ -27,7 +27,7 @@ Ext.define('XMLifeOperating.view.dealManage.AccountSales', {
             border: 0,
             defaults: {
                 labelWidth: 80,
-                width: 600
+                width: 630
             },
             items: [{
                 xtype: 'combo',
@@ -38,6 +38,7 @@ Ext.define('XMLifeOperating.view.dealManage.AccountSales', {
                 allowBlank: false,
                 blankText: '请选择城市',
                 editable: false,
+                width: 600,
                 triggerAction: 'all',
                 displayField: 'name',
                 queryMode: 'local',
@@ -76,6 +77,7 @@ Ext.define('XMLifeOperating.view.dealManage.AccountSales', {
                 name: 'areaId',
                 itemId: 'areaId',
                 allowBlank: false,
+                width: 600,
                 blankText: '请选择商圈',
                 editable: false,
                 triggerAction: 'all',
@@ -101,6 +103,7 @@ Ext.define('XMLifeOperating.view.dealManage.AccountSales', {
                 name: 'shopId',
                 itemId: 'shopId',
                 allowBlank: false,
+                width: 600,
                 blankText: '请选择商店',
                 editable: false,
                 triggerAction: 'all',
@@ -115,7 +118,7 @@ Ext.define('XMLifeOperating.view.dealManage.AccountSales', {
                 }, {
                     xtype: 'datefield',
                     name: 'beginTime',
-                    style: 'margin-left: 32px',
+                    style: 'margin-left: 30px',
                     width: 250,
                     emptyText: '开始时间',
                     minValue: (function() {
@@ -143,7 +146,7 @@ Ext.define('XMLifeOperating.view.dealManage.AccountSales', {
                             end.setValue('');
                             if (start > end.maxValue) {
                                 end.setMaxValue(end.maxValue);
-                            }else{
+                            } else {
                                 end.setMaxValue(start);
                             }
                         }
