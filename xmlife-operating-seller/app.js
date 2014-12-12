@@ -18,7 +18,15 @@ Ext.application({
     ],
 
     views: [
-        'Main'
+        'Main', 'Header', 'Nav', 'currentOrder.DealedOrder', 'currentOrder.UnDealedOrder'
+    ],
+
+    models: [
+        'Nav', 'UnDealedOrder'
+    ],
+
+    stores: [
+        'Nav', 'UnDealedOrder'
     ],
 
     icon: {
