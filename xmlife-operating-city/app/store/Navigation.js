@@ -8,8 +8,9 @@ Ext.define('XMLifeOperating.store.Navigation', {
     model: 'XMLifeOperating.model.Navigation',
     autoLoad: false,
     root: {
-        expanded: false
-    },
+        expanded: true,
+        children:[]
+    }
     /*    root: {
             text: 'Root',
             expanded: true,

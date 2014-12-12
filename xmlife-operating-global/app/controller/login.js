@@ -110,8 +110,17 @@ Ext.define('XMLifeOperating.controller.login', {
             Ext.Ajax.defaultHeaders = {
                 'auth-token': sessionId
             };
-            self.getNavigationStore().setRootNode({
-                expanded: true
+            self.getNavigationStore().load({
+                callback: function(records, e) {
+                    var errorMsg = e.response.getAllResponseHeaders()['errormsg'];
+                    if (errorMsg) {
+                        Ext.MessageBox.show({
+                            title: '提示',
+                            msg: '账号权限未更新：' + errorMsg,
+                            buttons: Ext.Msg.OK
+                        });
+                    }
+                }
             });
             this.getUserInfor();
         };
@@ -168,8 +177,17 @@ Ext.define('XMLifeOperating.controller.login', {
                         /*设置用户名字*/
                         self.getCurrentUsername().setText(username);
                         /*加载tree*/
-                        self.getNavigationStore().setRootNode({
-                            expanded: true
+                        self.getNavigationStore().load({
+                            callback: function(records, e) {
+                                var errorMsg = e.response.getAllResponseHeaders()['errormsg'];
+                                if (errorMsg) {
+                                    Ext.MessageBox.show({
+                                        title: '提示',
+                                        msg: '账号权限未更新：' + errorMsg,
+                                        buttons: Ext.Msg.OK
+                                    });
+                                }
+                            }
                         });
                         self.getUserInfor();
                         view.hide();

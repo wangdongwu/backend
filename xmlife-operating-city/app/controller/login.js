@@ -215,18 +215,37 @@ Ext.define('XMLifeOperating.controller.login', {
             if (type == 'City') { //中心长账号登陆
                 store.setProxy(new XMLifeOperating.generic.BaseProxy('module/getUserModulesTree'));
                 XMLifeOperating.generic.Global.current_operating = obj.areaId;
-                store.setRootNode({
-                    expanded: true
+                store.load({
+                    callback: function(records, e) {
+                        var errorMsg = e.response.getAllResponseHeaders()['errormsg'];
+                        if (errorMsg) {
+                            Ext.MessageBox.show({
+                                title: '提示',
+                                msg: '账号权限未更新：' + errorMsg,
+                                buttons: Ext.Msg.OK
+                            });
+                        }
+                    }
                 });
             } else if (type == 'Global') { //高级权限账号登陆
                 store.setProxy(new XMLifeOperating.generic.BaseProxy('module/getPlatModulesTree'));
                 store.getProxy().extraParams = {
                     type: 'City'
                 };
-                store.setRootNode({
-                    expanded: true
+                store.load({
+                    callback: function(records, e) {
+                        var errorMsg = e.response.getAllResponseHeaders()['errormsg'];
+                        if (errorMsg) {
+                            Ext.MessageBox.show({
+                                title: '提示',
+                                msg: '账号权限未更新：' + errorMsg,
+                                buttons: Ext.Msg.OK
+                            });
+                        }
+                    }
                 });
                 me.loadCity(obj.cities, obj.cityIds);
+                //ShopSupportedCity没有赋值URL，需要获取服务端接口？
                 shopCityStore.load();
             } else {
                 Ext.MessageBox.show({
