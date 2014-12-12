@@ -140,12 +140,17 @@ Ext.define('XMLifeOperating.view.dealManage.DamagedAddSalesDefeat', {
                     format: 'Y-m-d',
                     listeners: {
                         change: function(datefield, newValue, oldValue) {
+                             var endDate = function(){
+                                var date = new Date();
+                                date.setDate(date.getDate()-1);
+                                return date;
+                            }();
                             var end = datefield.nextSibling().nextSibling();
                             var start = Ext.Date.add(newValue, Ext.Date.DAY, 31);
                             end.setMinValue(newValue);
                             end.setValue('');
                             if (start > end.maxValue) {
-                                end.setMaxValue(end.maxValue);
+                                end.setMaxValue(endDate);
                             } else {
                                 end.setMaxValue(start);
                             }
