@@ -18,15 +18,15 @@ Ext.application({
     ],
 
     views: [
-        'Main', 'Header', 'Nav', 'currentOrder.DealedOrder', 'currentOrder.UnDealedOrder','financeSettle.historySettleBill'
+        'Header', 'Nav', 'currentOrder.DealedOrder', 'currentOrder.UnDealedOrder', /*'financeSettle.historySettleBill',*/ 'HistoryOrders'
     ],
 
     models: [
-        'Nav', 'UnDealedOrder'
+        'Nav', 'UnDealedOrder', 'HistoryOrders', 'HistoryPromotions', 'HistoryReturns'
     ],
 
     stores: [
-        'Nav', 'UnDealedOrder'
+        'Nav', 'UnDealedOrder', 'HistoryOrders', 'HistoryPromotions', 'HistoryReturns'
     ],
 
     profiles: ['Phone', 'Tablet'],

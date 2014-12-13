@@ -12,7 +12,7 @@ Ext.define("XMLifeOperating.base.Global", {
             PRICE: /^([0-9]{1}\d*)(\.(\d){1,2})?$/,
             URL: /^http:\/\/([\w-]+\.)+[\w-]+(\/[\w- .\/?%&=]*)?$/,
             NUMBER: /^[0-9]*$/,
-            PICTURE: /^.*?\.(jpg|jpeg|bmp|png)$/,
+            PICTURE: /^.*?\.(jpg|jpeg|bmp|png)$/
         },
 
         static_image_prefix: '/admin',
