@@ -45,11 +45,16 @@ Ext.define('XMLifeOperating.view.couponManage.coupon.CouponShopEditSearch', {
                     columns: [{
                         text: '店铺名',
                         dataIndex: 'name',
+                        width:200,
                         renderer: function(value,grid) {
                             
                             value = grid.record.get('cityName')+'-'+value;
                             return value;
                         }
+                    }, {
+                        text: 'shopId',
+                        dataIndex: 'id',
+                        width:200
                     }],
                 }
 
