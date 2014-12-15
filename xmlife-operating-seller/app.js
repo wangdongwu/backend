@@ -18,7 +18,7 @@ Ext.application({
     ],
 
     views: [
-        'Main', 'Header', 'Nav', 'currentOrder.DealedOrder', 'currentOrder.UnDealedOrder'
+        'Header', 'Nav', 'currentOrder.DealedOrder', 'currentOrder.UnDealedOrder'
     ],
 
     models: [
@@ -28,6 +28,8 @@ Ext.application({
     stores: [
         'Nav', 'UnDealedOrder'
     ],
+
+    profiles: ['Phone', 'Tablet'],
 
     icon: {
         '57': 'resources/icons/Icon.png',
@@ -49,10 +51,10 @@ Ext.application({
 
     launch: function() {
         // Destroy the #appLoadingIndicator element
-        Ext.fly('appLoadingIndicator').destroy();
+        //Ext.fly('appLoadingIndicator').destroy();
 
         // Initialize the main view
-        Ext.Viewport.add(Ext.create('XMLifeSeller.view.Main'));
+        //Ext.Viewport.add(Ext.create('XMLifeSeller.view.Main'));
     },
 
     onUpdated: function() {

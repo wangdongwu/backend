@@ -1,4 +1,4 @@
-Ext.define('XMLifeSeller.view.Main', {
+Ext.define('XMLifeSeller.view.tablet.Main', {
     extend: 'Ext.Container',
     xtype: 'main',
     config: {
@@ -9,7 +9,18 @@ Ext.define('XMLifeSeller.view.Main', {
         }, {
             xtype: 'nav',
             docked: 'left',
-            width: '20%'
+            width: '20%',
+            listeners: {
+                leafitemtap: function(nestedList, list, index, target, record) {
+                   var xtype = record.get('xtype');
+                    if (xtype) {
+                        Ext.getCmp('content').removeAll(false);
+                        Ext.getCmp('content').add({
+                            xtype: xtype
+                        });
+                    }
+                }
+            }
         }, {
             xtype: 'panel',
             id: 'content',

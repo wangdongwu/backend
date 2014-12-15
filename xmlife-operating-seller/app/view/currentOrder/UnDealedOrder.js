@@ -26,6 +26,7 @@ Ext.define('XMLifeSeller.view.currentOrder.UnDealedOrder', {
                 html: '<div style="line-height:40px;font-size:14px;font-weight:bold;"><span style="display:inline-block;padding-left:25px;width:25%">商铺名称</span><span style="display:inline-block;width:25%">期望送达时间</span><span style="display:inline-block;width:20%">订单号</span><span style="display:inline-block;width:15%">销售价格</span><span style="display:inline-block;width:15%">状态</span></div>'
             }, {
                 xtype: 'list',
+                indexBar: true,
                 store: 'UnDealedOrder',
                 itemTpl: '<div><span style="display:inline-block;padding-left:10px;width:25%">{shopName}</span><span style="display:inline-block;width:25%">{deliverTime}</span><span style="display:inline-block;width:20%">{orderNo}</span><span style="display:inline-block;width:15%">{price}</span><span style="display:inline-block;width:15%">{status}</span></div>'
             }]
