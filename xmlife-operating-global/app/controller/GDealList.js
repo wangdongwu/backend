@@ -84,7 +84,7 @@ Ext.define('XMLifeOperating.controller.GDealList', {
                     var record = view.getRecord(view.findTargetByEvent(e)),
                         buyNum = record.get('num');
 
-                    Ext.MessageBox.prompt('售后退货', '商品名称：'+ record.get('name') +' <br />输入数量：',
+                    Ext.MessageBox.prompt('售后退货', '商品名称：' + record.get('name') + ' <br />输入数量：',
                         function(result, value) {
                             if (result == 'ok') {
                                 if (isNaN(value)) {
@@ -97,14 +97,14 @@ Ext.define('XMLifeOperating.controller.GDealList', {
 
                                 value = buyNum - value;
                                 sendPutRequest('deal/setProductNum', {
-                                    dealId: record.get('dealBackendId'),
-                                    productIdList: [record.get('productId')],
-                                    productNumList: [value]
-                                },
-                                '售后退货', '售后退货成功', '售后退货失败',
-                                function(response) {
-                                    me.getDealItemsStore().load();
-                                });
+                                        dealId: record.get('dealBackendId'),
+                                        productIdList: [record.get('productId')],
+                                        productNumList: [value]
+                                    },
+                                    '售后退货', '售后退货成功', '售后退货失败',
+                                    function(response) {
+                                        me.getDealItemsStore().load();
+                                    });
                             }
                         },
                         this, false, buyNum
@@ -122,21 +122,21 @@ Ext.define('XMLifeOperating.controller.GDealList', {
                                     productIdList = [],
                                     productNumList = [];
 
-                                for(var i=0, n=records.length; i<n; i++) {
+                                for (var i = 0, n = records.length; i < n; i++) {
                                     productIdList.push(records[i].get('productId'));
                                     //productNumList.push(records[i].get('num'));
                                     productNumList.push(0);
                                 }
 
                                 sendPutRequest('deal/setProductNum', {
-                                    dealId: store.getAt(0).get('dealBackendId'),
-                                    productIdList: productIdList,
-                                    productNumList: productNumList
-                                },
-                                '全部售后退货', '全部售后退货成功', '全部售后退货失败',
-                                function(response) {
-                                    me.getDealItemsStore().load();
-                                });
+                                        dealId: store.getAt(0).get('dealBackendId'),
+                                        productIdList: productIdList,
+                                        productNumList: productNumList
+                                    },
+                                    '全部售后退货', '全部售后退货成功', '全部售后退货失败',
+                                    function(response) {
+                                        me.getDealItemsStore().load();
+                                    });
                             }
                         }
                     );
@@ -251,8 +251,8 @@ Ext.define('XMLifeOperating.controller.GDealList', {
     onDealDetail: function(view, rowIndex, colIndex, column, e) {
         var record = view.getRecord(view.findTargetByEvent(e)),
             win = this.getGDealDetail(),
-            form = win.down('form').getForm(),   
-            status = record.get('status');     
+            form = win.down('form').getForm(),
+            status = record.get('status');
         // 单独获取详情的接口
         Ext.Ajax.request({
             method: 'GET',
@@ -260,14 +260,14 @@ Ext.define('XMLifeOperating.controller.GDealList', {
             params: {},
             success: function(response) {
                 if (response.status == 200 && response.statusText == 'OK') {
-                  var data = Ext.decode(response.responseText);
-                  form.setValues(data); 
+                    var data = Ext.decode(response.responseText);
+                    form.setValues(data);
                 }
             },
             failure: function() {
                 Ext.Msg.alert('获取订单详情失败！');
             }
-        }); 
+        });
 
         var store = this.getDealItemsStore();
         store.getProxy().extraParams = {
@@ -282,10 +282,10 @@ Ext.define('XMLifeOperating.controller.GDealList', {
                     model.select(index, true);
                 }
 
-                if(status != 4){
+                if (status != 4) {
                     win.down('#sellRefund').hide();
                     win.down('#refundAll').hide();
-                }else{
+                } else {
                     win.down('#sellRefund').show();
                     win.down('#refundAll').show();
                 }
@@ -302,7 +302,6 @@ Ext.define('XMLifeOperating.controller.GDealList', {
         var win = this.getGDealCustomerDetail();
         store.on('load', function(store, records, successful, eOpts) {
             store.data.items[0].data['dtoAddress'] = dealDetail.getData()['dtoAddress'];
-
             win.down('form').loadRecord(store.data.items[0]);
             win.show();
         });
@@ -311,7 +310,6 @@ Ext.define('XMLifeOperating.controller.GDealList', {
         };
         store.loadPage(1);
     },
-
     onToProblemDeal: function(view, rowIndex, colIndex, column, e) {
         var dealitem = view.getRecord(view.findTargetByEvent(e));
         var dealBackendId = dealitem.get('dealBackendId');
@@ -319,13 +317,12 @@ Ext.define('XMLifeOperating.controller.GDealList', {
         var me = this;
 
         Ext.MessageBox.confirm(
-            '确认删除',
+            '确认操作',
             Ext.String.format("确定要将<h5>'{0}'</h5>的订单转为问题订单吗？", '订单号为：' + dealitem.get('shortId') + ' 顾客为：' + dealitem.get('customerName')),
             function(result) {
                 if (result == 'yes') {
                     sendPutRequest(url, {}, '转为问题订单', '转为问题订单成功', '转为问题订单失败',
                         function(response) {
-                            // alert(response);
                             if (response.responseText != 0) {
                                 Ext.MessageBox.show({
                                     title: '订单操作',
@@ -345,15 +342,14 @@ Ext.define('XMLifeOperating.controller.GDealList', {
                                     shopArea: Ext.getCmp('gDealList').down('#shopAread').getValue(),
                                     assignShopper: true
                                 }
-                                sstore.loadPage(1, {
+                                /*sstore.loadPage(1, {
                                     params: {
                                         start: 0,
                                         limit: 25,
                                         page: 1
                                     }
-                                });
+                                });*/
                             }
-
                         }
                     );
                 }
