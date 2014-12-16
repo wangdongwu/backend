@@ -39,6 +39,7 @@ Ext.define('XMLifeSeller.store.Nav', {
                     	text: '结算进程表',
                     	leaf: true
                     }, {
+                        xtype:'historySettleBill',
                     	text: '历史结算账单',
                     	leaf: true
                     }, {

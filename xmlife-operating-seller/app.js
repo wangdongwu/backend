@@ -18,7 +18,7 @@ Ext.application({
     ],
 
     views: [
-        'Header', 'Nav', 'currentOrder.DealedOrder', 'currentOrder.UnDealedOrder'
+        'Main', 'Header', 'Nav', 'currentOrder.DealedOrder', 'currentOrder.UnDealedOrder','financeSettle.historySettleBill'
     ],
 
     models: [
