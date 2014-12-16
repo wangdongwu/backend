@@ -182,7 +182,8 @@ Ext.define('XMLifeOperating.controller.DataExport', {
         if (isChecked == true) {
             // 按日期导出
             var url = XMLifeOperating.generic.Global.URL.biz + 'dataExport/customerDataExportByDate' +
-                '?beginTime=' + this.formatDate(beginTime, 0) +
+                '?cityCode=' + city +
+                '&beginTime=' + this.formatDate(beginTime, 0) +
                 '&endTime=' + this.formatDate(endTime, 1) +
                 '&sessionId=' + sessionId;
             window.open(url, '_blank');
