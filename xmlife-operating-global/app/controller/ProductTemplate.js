@@ -105,7 +105,8 @@ Ext.define('XMLifeOperating.controller.ProductTemplate', {
 
                         tabpanel.setActiveTab(0);
                     };
-
+                    //清空原tab列表
+                    tabpanel.removeAll();
                     rootStore.load({
                         callback: callback
                     });
