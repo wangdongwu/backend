@@ -138,7 +138,7 @@ Ext.define('XMLifeOperating.controller.DataExport', {
 
         var url = XMLifeOperating.generic.Global.URL.biz + 'dataExport/exportAllDeal' +
             '?cityCode=' + cityCode +
-            '&ShopArea=' + shopArea +
+            '&shopArea=' + shopArea +
             '&shopBannerId=' + shopBannerId +
             '&beginTime=' + this.formatDate(beginTime, 0) +
             '&endTime=' + this.formatDate(endTime, 1) +
