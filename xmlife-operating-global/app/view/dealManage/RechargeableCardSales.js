@@ -79,7 +79,7 @@ Ext.define('XMLifeOperating.view.dealManage.RechargeableCardSales', {
                                 beginTime.setDisabled(true);
                                 arrive.setDisabled(true);
                                 endTime.setDisabled(true);
-                            }else {
+                            } else {
                                 cardNumber.setDisabled(true);
                                 file.setDisabled(true);
                                 batchId.setDisabled(false);
@@ -121,8 +121,17 @@ Ext.define('XMLifeOperating.view.dealManage.RechargeableCardSales', {
                     style: 'margin-left:27px',
                     listeners: {
                         change: function(radio, newValue, oldValue, e) {
+                            var batchId = radio.nextSibling();
+                            var startTime = batchId.nextSibling();
+                            var arrive = startTime.nextSibling().nextSibling();
+                            var endTime = arrive.nextSibling();
+
                             if (newValue == true) {
                                 Ext.getCmp('rechargeableCardFile').inputEl.dom.value = '';
+                                batchId.setDisabled(false);
+                                startTime.setDisabled(false);
+                                arrive.setDisabled(false);
+                                endTime.setDisabled(false);
                             }
                         }
                     }
@@ -168,9 +177,9 @@ Ext.define('XMLifeOperating.view.dealManage.RechargeableCardSales', {
                     format: 'Y-m-d',
                     listeners: {
                         change: function(datefield, newValue, oldValue) {
-                             var endDate = function(){
+                            var endDate = function() {
                                 var date = new Date();
-                                date.setDate(date.getDate()-1);
+                                date.setDate(date.getDate() - 1);
                                 return date;
                             }();
                             var end = datefield.nextSibling().nextSibling().nextSibling();

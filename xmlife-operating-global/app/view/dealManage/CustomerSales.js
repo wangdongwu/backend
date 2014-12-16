@@ -43,7 +43,7 @@ Ext.define('XMLifeOperating.view.dealManage.CustomerSales', {
                             var arrive = beginTime.nextSibling();
                             var endTime = arrive.nextSibling();
                             var customer = customerFile.previousSibling();
-                            
+
                             if (newValue == true) {
                                 city.setDisabled(false);
                                 register.setDisabled(false);
@@ -117,9 +117,9 @@ Ext.define('XMLifeOperating.view.dealManage.CustomerSales', {
                     format: 'Y-m-d',
                     listeners: {
                         change: function(datefield, newValue, oldValue) {
-                             var endDate = function(){
+                            var endDate = function() {
                                 var date = new Date();
-                                date.setDate(date.getDate()-1);
+                                date.setDate(date.getDate() - 1);
                                 return date;
                             }();
                             var end = datefield.nextSibling().nextSibling();
@@ -164,7 +164,18 @@ Ext.define('XMLifeOperating.view.dealManage.CustomerSales', {
                 border: false,
                 items: [{
                     xtype: 'radio',
-                    name: 'rangeType'
+                    name: 'rangeType',
+                    listeners: {
+                        change: function(radio, newValue, oldValue, e) {
+                            var customer = radio.nextSibling();
+                            var customerFile = customer.nextSibling();
+
+                            if (newValue == true) {
+                                customer.setDisabled(false);
+                                customerFile.setDisabled(false);
+                            }
+                        }
+                    }
                 }, {
                     xtype: 'displayfield',
                     fieldLabel: '指定用户',

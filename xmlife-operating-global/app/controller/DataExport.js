@@ -96,7 +96,6 @@ Ext.define('XMLifeOperating.controller.DataExport', {
             '&beginTime=' + this.formatDate(beginTime, 0) +
             '&endTime=' + this.formatDate(endTime, 1);
         window.open(url, '_blank');
-
     },
     // 导出用户退货清单
     exportReturn: function(button) {
