@@ -130,20 +130,50 @@ Ext.define('XMLifeOperating.view.centralPointManage.homePage.HomePage', {
           }, {
               text: '列表',
               dataIndex: 'name',
-              width: '58%',
+              width: '56%',
               align: 'left',
               editor: {
                 xtype: 'textfield'
               }
           }, {
-              text: '类型',
-              dataIndex: 'type',
-              width: '18%',
+              text: '分割线',
+              dataIndex: 'needLine',
+              width: '20%',
               align: 'center',
               editor: {
-                xtype: 'textfield'
+                xtype: 'combo',
+                queryMode: 'local',
+                displayField: 'name',
+                valueField: 'value',
+                store: {
+                  fields: ['name', 'value'],
+                  data: [{
+                    name: '有',
+                    value: true
+                  }, {
+                    name: '无',
+                    value: false
+                  }]
+                }
+              },
+              renderer: function(value, meta, record) {
+                if (record.get('type') == 'TYPE14') {
+                  return value ? '有' : '无';
+                }
+              },
+              listeners: {
+                dblclick: function(view, meta, rowIndex, colIndex, e, record) {
+                  if (record.get('type') != 'TYPE14' && colIndex == 2) {
+                    return false;
+                  }
+                }
               }
-          }, {
+          }/*, {
+              text: '类型',
+              dataIndex: 'type',
+              width: '15%',
+              align: 'center'
+          }*/, {
               xtype: 'actioncolumn',
               itemId: 'delModule',
               text: '操作',

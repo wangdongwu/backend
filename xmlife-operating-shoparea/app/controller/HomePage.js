@@ -13,7 +13,8 @@ Ext.define('XMLifeOperating.controller.HomePage', {
     stores: [
         'HomePage', 'HomePageModuleList', 'HomePageModuleCopy', 'HomePageModuleDetail',
         'HomePageModuleRenter', 'HomePagePreview', 'HomePageUrlType', 'HomePageShop', 
-        'HomePageCategory', 'HomePageLeafCategory', 'HomePageProduct', 'HomePageFunction'
+        'HomePageCategory', 'HomePageLeafCategory', 'HomePageProduct', 'HomePageFunction',
+        'HomePageShopSet', 'HomePagePromotion'
     ],
 
     models: ['HomePage'],
@@ -130,7 +131,7 @@ Ext.define('XMLifeOperating.controller.HomePage', {
             },
             // 设置默认版本
             'homePage #setDefault': {
-                click: function(view, rowIndex, colIndex, column, e) {
+                dblclick: function(view, rowIndex, colIndex, column, e) {
                     var record = view.getRecord(view.findTargetByEvent(e));
                     if (record.get('default')) {
                         return;
@@ -401,7 +402,7 @@ Ext.define('XMLifeOperating.controller.HomePage', {
                     });
                 }
             },
-            // 大积木选择, 展示详情
+            // 大积木选择展示详情、编辑（名称/分割线）
             'homePage #moduleList': {
                 selectionchange: function(model, selected) {
                     if (selected.length === 0) return;
@@ -439,13 +440,26 @@ Ext.define('XMLifeOperating.controller.HomePage', {
                 },
                 edit: function(editor, e) {
                     var record = e.record;
-                    sendPutRequest('homepage/updateModule', {
-                        moduleId: record.get('id'),
-                        name: record.get('name')
-                    }, '修改名称', '修改名称成功', '修改名称失败', function() {
-                        var store = me.getHomePageModuleListStore().load();
-                        store.load();
-                    });
+                    // 编辑大积木名称
+                    if (e.field == 'name') {
+                        sendPutRequest('homepage/updateModule', {
+                            moduleId: record.get('id'),
+                            name: record.get('name')
+                        }, '修改名称', '修改名称成功', '修改名称失败', function() {
+                            me.getHomePageModuleListStore().load();
+                        });
+
+                    // 编辑分割线
+                    } else if (e.field == 'needLine'){
+                        if (record.get('type') != 'TYPE14') return;
+
+                        var url  = record.get('needLine') ? 'homepage/showLine' : 'homepage/hiddenLine';
+                        sendPutRequest(url, {
+                            moduleId: record.get('id')
+                        }, '修改名称', '修改名称成功', '修改名称失败', function() {
+                            me.getHomePageModuleListStore().load();
+                        });
+                    }            
                 }
             },
             // 返回小积木列表
@@ -477,8 +491,7 @@ Ext.define('XMLifeOperating.controller.HomePage', {
 
                     // 设置当前是否为租客
                     this.isRenter = true;
-                    this.renterParentIndex = record.get('index');   
-
+                    this.renterParentIndex = record.get('index'); 
 
                     win.down('#moduleDetail').bindStore(store);
                     win.down('#moduleDetail').setTitle(this.renterParentIndex + '号小积木-租客列表');
@@ -618,11 +631,11 @@ Ext.define('XMLifeOperating.controller.HomePage', {
                     this.urlType = urlType;
 
                     if (urlType == 'SHOP' || urlType == 'CATEGORY' || urlType == 'SKU') {
-                        var store = me.getHomePageShopStore();
-                        store.getProxy().extraParams = {
-                            areaId: this.areaId
-                        };
-                        store.load();
+                        this.getHomePageShopStore().load({
+                            params: {
+                                areaId: this.areaId
+                            }
+                        });
 
                         // 编辑时，依次触发回填
                         if (record && record.get('shopId')) {
@@ -639,9 +652,30 @@ Ext.define('XMLifeOperating.controller.HomePage', {
                             win.down('#urlTextField').setValue('');
                         }
                         win.down('combo[name=fid]').setVisible(false);
+                        win.down('combo[name=shopSetId]').setVisible(false);
+                        win.down('combo[name=promoId]').setVisible(false);
                         win.down('combo[name=shopId]').setVisible(true);
                         win.down('combo[name=cid]').setVisible(urlType == 'CATEGORY' || urlType == 'SKU');
                         win.down('combo[name=pid]').setVisible(urlType == 'SKU');
+
+                    } else if (urlType == 'SHOPSET') {
+                        this.getHomePageShopSetStore().load({
+                            params: {
+                                areaId: this.areaId
+                            }
+                        });
+                        // 只在初始化时赋值，url类型切换时不用
+                        if (record && record.get('url') && flag == 'isInit') {
+                            win.down('combo[name=shopSetId]').setValue(record.get('url'));
+                            win.down('#urlTextField').setValue('');
+                        }
+
+                        win.down('combo[name=shopSetId]').setVisible(true);
+                        // 隐藏除此之外的combo
+                        var otherCombos = win.query('#comboFieldset combo[name!=shopSetId]');
+                        Ext.each(otherCombos, function(elem, i) {
+                            elem.setVisible(false);
+                        });
 
                     } else if (urlType == 'FUNCTION') {
                         // 只在初始化时赋值，url类型切换时不用
@@ -653,6 +687,25 @@ Ext.define('XMLifeOperating.controller.HomePage', {
                         win.down('combo[name=fid]').setVisible(true);
                         // 隐藏除功能之外的combo
                         var otherCombos = win.query('#comboFieldset combo[name!=fid]');
+                        Ext.each(otherCombos, function(elem, i) {
+                            elem.setVisible(false);
+                        });
+
+                    } else if (urlType == 'PROMOTION') {
+                        this.getHomePagePromotionStore().load({
+                            params: {
+                                areaId: this.areaId
+                            }
+                        });
+                        // 只在初始化时赋值，url类型切换时不用
+                        if (record && record.get('url') && flag == 'isInit') {
+                            win.down('combo[name=promoId]').setValue(record.get('url'));
+                            win.down('#urlTextField').setValue('');
+                        }
+
+                        win.down('combo[name=promoId]').setVisible(true);
+                        // 隐藏除功能之外的combo
+                        var otherCombos = win.query('#comboFieldset combo[name!=promoId]');
                         Ext.each(otherCombos, function(elem, i) {
                             elem.setVisible(false);
                         });
@@ -743,15 +796,27 @@ Ext.define('XMLifeOperating.controller.HomePage', {
                         values.moduleId = this.moduleId;
 
                         // 其它几种类型都置于url中传给后端
-                        if (this.urlType == 'SHOP') {
-                            values.url = values.shopId;
-                        } else if (this.urlType == 'CATEGORY') {
-                            values.url = values.cid;
-                        } else if (this.urlType == 'SKU') {
-                            values.url = values.pid;
-                        } else if (this.urlType == 'FUNCTION') {
-                            values.url = values.fid;
+                        switch (this.urlType) {
+                            case 'SHOPSET':
+                                values.url = values.shopSetId;
+                                break;
+                            case 'SHOP':
+                                values.url = values.shopId;
+                                break;
+                            case 'CATEGORY':
+                                values.url = values.cid;
+                                break;
+                            case 'SKU':
+                                values.url = values.pid;
+                                break;
+                            case 'FUNCTION':
+                                values.url = values.fid;
+                                break;
+                            case 'PROMOTION':
+                                values.url = values.promoId;
+                                break;
                         }
+
                         if (this.urlType != 'HTML' && !values.url) {
                             Ext.Msg.alert('验证信息', 'url下拉有一项未选择，请选择完整。');
                             return;
@@ -860,9 +925,18 @@ Ext.define('XMLifeOperating.controller.HomePage', {
             'TYPE4': ['480x228', '240x228'],
             'TYPE5': ['240x228', '480x228'],
             'TYPE6': ['676x180'],
-            'TYPE7': ['326x180', '326x180']
+            'TYPE7': ['326x180', '326x180'],
+            'TYPE10': ['240x96', '240x96', '240x96'],
+            'TYPE11': ['100x144', '100x144', '100x144', '100x144', '100x144'],
+            'TYPE12': ['388x360', '360x168', '168x168', '168x168'],
+            'TYPE13': ['无'],
+            'TYPE14': ['336x168', '336x168', '无', '无', '无', '无', '无', '无'],
+            'TYPE15': ['360x144', '360x144']
         };
-        return sizes[type][index];
+
+        if (type && sizes[type]) {
+            return sizes[type][index];
+        }
     },
     // 渲染预览首页
     renderHomePage: function(records) {
@@ -972,6 +1046,64 @@ Ext.define('XMLifeOperating.controller.HomePage', {
 
                 case 'TYPE9':
                     html += '<p style="margin:0;">&nbsp;</p>';
+                    break;
+
+                case 'TYPE10':
+                    str = '<ul class="x-clear" style="' + wrapCss + (i > 1 ? borderT : '') + '">';
+                    for (j = 0, m = items.length; j < m; j++) {
+                        str += '<li style="float:left;position:relative;width:' + (j === 0 ? '33%' : '33%') + ';border:1px solid #fff;' + (j === 0 || j == 1 ? borderR : '') + '">' + (items[j].url ? '<a href="' + items[j].url + '" target="_blank">' : '') + '<img src="' + res_url + items[j].image + '" width="100%" />' + (items[j].url ? '</a>' : '') + '</li>';
+                    }
+                    str += '</ul>';
+                    html += str;
+                    break;
+
+                case 'TYPE11':
+                    str = '<ul class="x-clear" style="' + wrapCss + (i > 1 ? borderT : '') + '">';
+                    for (j = 0, m = items.length; j < m; j++) {
+                        str += '<li style="float:left;position:relative;width:20%;border:1px solid #fff;' + (j === 0 || j == 1 ? borderR : '') + '">' + (items[j].url ? '<a href="' + items[j].url + '" target="_blank">' : '') + '<img src="' + res_url + items[j].image + '" width="100%" />' + (items[j].url ? '</a>' : '') + '</li>';
+                    }
+                    str += '</ul>';
+                    html += str;
+                    break;
+
+                case 'TYPE12':
+                    str = '<ul class="x-clear" style="' + wrapCss + (i > 1 ? borderT : '') + '">';
+                    for (j = 0, m = items.length; j < m; j++) {
+                        titles = j === 0 ? '<div style="position:absolute;top:0;left:20px;"><p style="font-size:14px;color:green;">' + items[j].titles[0] + '</p><p style="margin-left:-10px;font-size:10px;-webkit-transform:scale(0.8);color:#999;">' + items[j].titles[1] + '</p><p style="font-size:12px;color:#F86125;">' + items[j].titles[2] + '</p></div>' : '';
+                        str += '<li style="float:left;position:relative;width:' + (j === 0 ? '50%' : (j === 1 ? '50%' : '25%')) + ';border:1px solid #fff;' + (j === 1 ? borderB : '') + '">' + titles + (items[j].url ? '<a href="' + items[j].url + '" target="_blank">' : '') + '<img src="' + res_url + items[j].image + '" width="100%" />' + (items[j].url ? '</a>' : '') + '</li>';
+                    }
+                    str += '</ul>';
+                    html += str;
+                    break;
+
+                case 'TYPE13':
+                    str = '<ul class="x-clear" style="' + wrapCss + (i > 1 ? borderT : '') + '">';
+                    for (j = 0, m = items.length; j < m; j++) {
+                        titles = j === 0 ? '<div style="position:absolute;top:0;left:20px;"><p style="font-size:14px;color:green;">' + items[j].titles[0] + '<span style="float:right;font-size:12px;color:#F86125;">'+ (items[j].url ? '<a href="' + items[j].url + '" target="_blank">' : '') + items[j].titles[1] +  (items[j].url ? '</a>' : '') + '</span></p></div>' : '';
+                        str += '<li style="float:left;position:relative;width:100%;">' + titles  + '</li>';
+                    }
+                    str += '</ul>';
+                    html += str;
+                    break;
+
+                case 'TYPE14':
+                    str = '<ul class="x-clear" style="' + wrapCss + (i > 1 ? borderT : '') + '">';
+                    for (j = 0, m = items.length; j < m; j++) {
+                        titles = j === 0 ? '<div style="position:absolute;top:0;left:20px;"><p style="font-size:14px;color:green;">' + items[j].titles[0] + '</p><p style="margin-left:-10px;font-size:10px;-webkit-transform:scale(0.8);color:#999;">' + items[j].titles[1] + '</p><p style="font-size:12px;color:#F86125;">' + items[j].titles[2] + '</p></div>' : '';
+                        str += '<li style="float:left;position:relative;width:' + (j === 0 ? '50%' : '50%') + ';border:1px solid #fff;' + (j === 1 ? borderB : '') + '">' + titles + (items[j].url ? '<a href="' + items[j].url + '" target="_blank">' : '') + '<img src="' + res_url + items[j].image + '" width="100%" />' + (items[j].url ? '</a>' : '') + '</li>';
+                    }
+                    str += '</ul>';
+                    html += str;
+                    break;
+
+                case 'TYPE15':
+                    str = '<ul class="x-clear" style="' + wrapCss + '">';
+                    for (j = 0, m = items.length; j < m; j++) {
+                        //titles = j==0? '<div style="position:absolute;top:0;left:20px;"><p style="font-size:14px;color:green;">'+ items[j].titles[0]+'</p><p style="font-size:10px;-webkit-transform:scale(0.8);color:#999;">'+ items[j].titles[1]+'</p><p style="font-size:12px;color:#F86125;">'+ items[j].titles[2]+'</p></div>' : '';
+                        str += '<li style="float:left;position:relative;width:' + (j === 0 ? '49%' : '49%') + ';border:1px solid #fff;' + (j === 0 ? 'margin-right:2%;' : '') + '">' + (items[j].url ? '<a href="' + items[j].url + '" target="_blank">' : '') + '<img src="' + res_url + items[j].image + '" width="100%" />' + (items[j].url ? '</a>' : '') + '</li>';
+                    }
+                    str += '</ul>';
+                    html += str;
                     break;
 
                 default:

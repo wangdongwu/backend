@@ -1,8 +1,10 @@
 Ext.define('XMLifeOperating.model.HomePage', {
     extend: 'Ext.data.Model',
     fields: [
-    	'areaId', 'status', 'id', 'layoutId', 'renterId', 'order', 'index', 'version', 'enable',
-    	'type', 'items', 'name', 'image', 'urlType', 'url', 'shopId', 'cid', 'pid', 'default',
+    	'areaId', 'status', 'id', 'layoutId', 'renterId', 'order', 'index', 
+        'version', 'enable', 'type', 'items', 'name', 'image', 'urlType', 
+        'url', 'shopId', 'cid', 'pid', 'default', 'needLine',
+
     	{name: 'titles', convert: function(v,r) {
     			if (typeof(v) == 'object' && v.length >0) {
     				return v.join(';');

@@ -6,14 +6,12 @@ Ext.define('XMLifeOperating.view.centralPointManage.homePage.ModuleAdd', {
         'Ext.form.field.Text'
     ],
     title: '新建大积木',
-    width: 650,
+    width: 750,
     buttonAlign: 'center',
-    autoScroll: false,
-
     items: [{
         xtype: 'form',
         layout: 'vbox',
-        bodyPadding: 15,
+        bodyPadding: '15 0 10 15',
         style: 'line-height:30px;',
         items: [{
             xtype: 'radiogroup',
@@ -21,11 +19,13 @@ Ext.define('XMLifeOperating.view.centralPointManage.homePage.ModuleAdd', {
             labelWidth: 70,
             allowBlank: false,
             width: '100%',
+            height: 420,
             defaults: {
                 style: 'margin:25px 35px 0 0',
             },
             columns: 2,
             vertical: true,
+            autoScroll: true,
             items: [{
                 boxLabel: '类型1：<img src="resources/images/type/1.jpg" height="75" style="float:right; margin-top:-30px;" />',
                 name: 'type',
@@ -56,9 +56,37 @@ Ext.define('XMLifeOperating.view.centralPointManage.homePage.ModuleAdd', {
                 name: 'type',
                 inputValue: 'TYPE7'
             }, {
-                boxLabel: '类型8：<img src="resources/images/type/8.jpg" width="132" height="10" />',
+                boxLabel: '类型8：<img src="resources/images/type/8.jpg" width="145" height="10" />',
                 name: 'type',
                 inputValue: 'TYPE8'
+            }, {
+                boxLabel: '类型9：<img src="resources/images/type/9.jpg" width="145" height="10" />',
+                name: 'type',
+                inputValue: 'TYPE9'
+            }, {
+                boxLabel: '类型10：<img src="resources/images/type/10.jpg" width="200" style="float:right; margin-top:-6px;" />',
+                name: 'type',
+                inputValue: 'TYPE10'
+            }, {
+                boxLabel: '类型11：<img src="resources/images/type/11.jpg" height="35" style="float:right; margin-top:-10px;" />',
+                name: 'type',
+                inputValue: 'TYPE11'
+            }, {
+                boxLabel: '类型12：<img src="resources/images/type/12.jpg" height="70" style="float:right; margin-top:-20px;" />',
+                name: 'type',
+                inputValue: 'TYPE12'
+            }, {
+                boxLabel: '类型13：<img src="resources/images/type/13.jpg" width="180" style="float:right; margin-top:-5px;"  />',
+                name: 'type',
+                inputValue: 'TYPE13'
+            }, {
+                boxLabel: '类型14：<img src="resources/images/type/14.jpg" height="70" style="float:right; margin-top:-20px;" />',
+                name: 'type',
+                inputValue: 'TYPE14'
+            }, {
+                boxLabel: '类型15：<img src="resources/images/type/15.jpg" height="35" style="float:right; margin-top:-10px;" />',
+                name: 'type',
+                inputValue: 'TYPE15'
             }]
         },
         // {
