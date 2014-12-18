@@ -85,7 +85,7 @@ Ext.define('XMLifeOperating.controller.ShopSetConfig', {
                 click: me.onSave
             },
 
-            'shopSetConfigList #seeShopSetConfigSon': {
+            'shopSetConfigList #seeShopSetConfigSon,shopSetConfigList #seeShopSetConfigSonLookOver': {
                 click: me.onSeeShopSetConfigSon
             },
 
@@ -132,7 +132,7 @@ Ext.define('XMLifeOperating.controller.ShopSetConfig', {
         });
         Ext.QuickTips.init();
     },
-    showShopSetConfigList: function(grid){
+    showShopSetConfigList: function(){
         var me = this,
             grid = me.getShopSetConfigList(),
             store = grid.store;
@@ -154,7 +154,7 @@ Ext.define('XMLifeOperating.controller.ShopSetConfig', {
             me.getGainOpenShopsId().bindStore(store, false);
             store.getProxy().extraParams = {
                 areaId: me.areaId
-            }
+            };
             store.load();
         }else{
             var win = this.getShopSetConfigEdit();
@@ -246,7 +246,7 @@ Ext.define('XMLifeOperating.controller.ShopSetConfig', {
         store.removeAll();
         store.getProxy().extraParams = {
             shopSetId: record.get('id')
-        }
+        };
         store.loadPage(1);
         content.add(tab);
         this.shopSetId = record.get('id');
@@ -270,7 +270,7 @@ Ext.define('XMLifeOperating.controller.ShopSetConfig', {
         me.getGainOpenShopsId().bindStore(store, false);
         store.getProxy().extraParams = {
             areaId: me.areaId
-        }
+        };
         store.load();
         win.down('form').loadRecord(record);
         win.show();
