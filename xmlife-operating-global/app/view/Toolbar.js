@@ -95,7 +95,13 @@ Ext.define('XMLifeOperating.view.Toolbar', {
                 url: './version.json',
                 success: function(response, opts) {
                     var obj = Ext.decode(response.responseText);
-                    view.down('#versionNum').setValue(obj.buildNumber);
+                    var version;
+                    if(obj.version){
+                        version = obj.version;
+                    } else {
+                        version = obj.buildNumber;
+                    }
+                    view.down('#versionNum').setValue(version);
 
                 },
                 failure: function(response, opts) {

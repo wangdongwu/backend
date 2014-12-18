@@ -140,13 +140,13 @@ Ext.define('XMLifeOperating.controller.Coupon', {
                     var store = self.getCouponList().store;
                     store.getProxy().extraParams = {
                         status: comboValue
-                    }
+                    };
                     store.loadPage(1);
                 }
             },
             'couponList #add': {
                 click: function() {
-                    self.onCouponEditStep1()
+                    self.onCouponEditStep1();
                     categoryShopNameStoreArray = [];
                     productSkuPidsStoreArray = [];
                     gainShopStoreArray = [];
@@ -188,7 +188,7 @@ Ext.define('XMLifeOperating.controller.Coupon', {
             },
             'couponGoodsShelfEditSearch #searchGoodsShelfSure-btn': {
                 click: function() {
-                    self.onSearchGoodsShelfSure(categoryShopNameStoreArray)
+                    self.onSearchGoodsShelfSure(categoryShopNameStoreArray);
                 }
             },
             //搜索模板
@@ -200,7 +200,7 @@ Ext.define('XMLifeOperating.controller.Coupon', {
             },
             'couponSkuEditSearch #searchSkuSure-btn': {
                 click: function() {
-                    self.onSearchSkuSure(productSkuPidsStoreArray)
+                    self.onSearchSkuSure(productSkuPidsStoreArray);
                 }
             },
             //确认
@@ -244,7 +244,7 @@ Ext.define('XMLifeOperating.controller.Coupon', {
         var store = self.getCouponList().store;
         store.getProxy().extraParams = {
             status: comboValue
-        }
+        };
         store.loadPage(1);
     },
     onCouponEditStep1: function(categoryShopNameStoreArray) {
@@ -381,7 +381,7 @@ Ext.define('XMLifeOperating.controller.Coupon', {
         var bindingType = winStep2.down('[name=bindingType]');
 
         var cityIsChosen = self.onIsChosen('gainNewCityIds', '请选择城市');
-        if (cityIsChosen == true) {
+        if (cityIsChosen === true) {
             return;
         }
         if (couponTypeId != 3) {
@@ -392,27 +392,27 @@ Ext.define('XMLifeOperating.controller.Coupon', {
         switch (bindingType.getValue()) {
             case 1:
                 var isChosen = self.onIsChosen('gainShopId', '请选择店铺');
-                if (isChosen == true) {
+                if (isChosen === true) {
                     return;
                 }
                 break;
             case 2:
                 var isChosen = self.onIsChosen('gainShopId', '请选择店铺');
-                if (isChosen == true) {
+                if (isChosen === true) {
                     return;
                 }
                 var isChosen = self.onIsChosen('gainGoodsShelfId', '请选择货架');
-                if (isChosen == true) {
+                if (isChosen === true) {
                     return;
                 }
                 break;
             case 3:
                 var isChosen = self.onIsChosen('gainShopId', '请选择店铺');
-                if (isChosen == true) {
+                if (isChosen === true) {
                     return;
                 }
                 var isChosen = self.onIsChosen('gainTemplatesSkuId', '请选择sku');
-                if (isChosen == true) {
+                if (isChosen === true) {
                     return;
                 }
                 break;
@@ -1023,11 +1023,14 @@ Ext.define('XMLifeOperating.controller.Coupon', {
                 //初始化打勾
                 var model = Ext.ComponentQuery.query('#gainNewCityIdsEdit')[0].getSelectionModel();
                 model.deselectAll();
+                model.setLocked(false);
 
                 for (var j = 0; j < citiesArray.length; j++) {
                     var index = store.indexOfId(citiesArray[j]);
                     model.select(index, true);
                 }
+
+                model.setLocked(true);
             }
         });
         win.down('#editShopBtn').setVisible(false);
@@ -1069,11 +1072,14 @@ Ext.define('XMLifeOperating.controller.Coupon', {
                         //初始化打勾
                         var model = Ext.ComponentQuery.query('#gainShopIdEdit')[0].getSelectionModel();
                         model.deselectAll();
+                        model.setLocked(false);
 
                         for (var j = 0; j < shopsArray.length; j++) {
                             var index = store1.indexOfId(shopsArray[j].shopId);
                             model.select(index, true);
                         }
+
+                        model.setLocked(true);
                     }
                 });
                 break;
@@ -1097,14 +1103,16 @@ Ext.define('XMLifeOperating.controller.Coupon', {
                         //初始化打勾
                         var model = Ext.ComponentQuery.query('#gainShopIdEdit')[0].getSelectionModel();
                         model.deselectAll();
-                        //store1.data.items[index].get('cityName')   
+                        model.setLocked(false);
+
                         for (var j = 0; j < categoriesArray.length; j++) {
                             var index = store1.indexOfId(categoriesArray[j].shopId);
                             model.select(index, true);
                             categoriesArray[j].cityName = store1.data.items[index].get('cityName');
                             categoriesArray[j].shopName = store1.data.items[index].get('name');
                         }
-                        //console.log(categoriesArray);    
+
+                        model.setLocked(true);
                     }
                 });
                 var categoryShopNameStore = Ext.create('XMLifeOperating.store.CategoryShopName', {
@@ -1114,12 +1122,16 @@ Ext.define('XMLifeOperating.controller.Coupon', {
                 self.getGainGoodsShelfIdEdit().bindStore(categoryShopNameStore, false);
                 var modelGoodsShelf = Ext.ComponentQuery.query('#gainGoodsShelfIdEdit')[0].getSelectionModel();
                 modelGoodsShelf.deselectAll();
+                modelGoodsShelf.setLocked(false);
+
                 var cateArray = categoriesArray;
                 for (var i = 0; i < cateArray.length; i++) {
                     categoryShopNameStore.insert(0, cateArray[i]);
                     var index = categoryShopNameStore.indexOfId(cateArray[i].id);
                     modelGoodsShelf.select(index, true);
                 }
+
+                modelGoodsShelf.setLocked(true);
                 break;
             case 3:
                 gainShopIdEdit.setVisible(true);
@@ -1141,6 +1153,7 @@ Ext.define('XMLifeOperating.controller.Coupon', {
                         //初始化打勾
                         var model = Ext.ComponentQuery.query('#gainShopIdEdit')[0].getSelectionModel();
                         model.deselectAll();
+                        model.setLocked(false);
 
                         for (var j = 0; j < productsArray.length; j++) {
                             var index = store1.indexOfId(productsArray[j].shopId);
@@ -1149,6 +1162,8 @@ Ext.define('XMLifeOperating.controller.Coupon', {
                             productsArray[j].shopName = store1.data.items[index].get('name');
                             productsArray[j].pname = productsArray[j].names[0] + ' ' + productsArray[j].names[1];
                         }
+
+                        model.setLocked(true);
                     }
                 });
 
@@ -1160,11 +1175,15 @@ Ext.define('XMLifeOperating.controller.Coupon', {
                 self.getGainTemplatesSkuIdEdit().bindStore(productSkuPidsStore, false);
                 var modelProductSkuPids = Ext.ComponentQuery.query('#gainTemplatesSkuIdEdit')[0].getSelectionModel();
                 modelProductSkuPids.deselectAll();
+                modelProductSkuPids.setLocked(false);
+
                 for (var i = 0; i < productsArray.length; i++) {
                     productSkuPidsStore.insert(0, productsArray[i]);
                     var index = productSkuPidsStore.indexOfId(productsArray[i].id);
                     modelProductSkuPids.select(index, true);
                 }
+
+                modelProductSkuPids.setLocked(true);
                 break;
         }
     },
@@ -1176,8 +1195,8 @@ Ext.define('XMLifeOperating.controller.Coupon', {
             couponCost_dz = grid.down('#couponCost_dz'), //打_折/减_元
             couponCost_z = grid.down('#couponCost_z'), //折/元
             maxDiscountTextId = grid.down('#maxDiscountTextId'), //最多优惠
-            maxDiscount = grid.down('[name=maxDiscount]'); //最多优惠_
-        gainShopIdEdit = grid.down('#gainShopIdEdit'),
+            maxDiscount = grid.down('[name=maxDiscount]'), //最多优惠_
+            gainShopIdEdit = grid.down('#gainShopIdEdit'),
             gainGoodsShelfIdEdit = grid.down('#gainGoodsShelfIdEdit'),
             gainTemplatesSkuIdEdit = grid.down('#gainTemplatesSkuIdEdit');
         switch (type) {
