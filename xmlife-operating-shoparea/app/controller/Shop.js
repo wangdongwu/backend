@@ -485,7 +485,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
                             }
                         });
                     } else {
-                        Ext.Msg.alert('Invalid Data', 'Please correct form errors');
+                        Ext.Msg.alert('提示', '无效数据，请更正！');
                     }
                 }
             },
@@ -578,7 +578,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
                         }
                         sendPutRequest('shop/update', requestparams, '编辑模板', '成功编辑模板', '编辑模板失败', modifySuccessCallback, modifyFailureCallback);
                     } else {
-                        Ext.Msg.alert('Invalid Data', 'Please correct form errors');
+                        Ext.Msg.alert('提示', '无效数据，请更正！');
                     }
                 }
             },
@@ -1052,7 +1052,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
                             });
                         }
                     } else {
-                        Ext.Msg.alert('Invalid Data', 'Please correct form errors');
+                        Ext.Msg.alert('提示', '无效数据，请更正！');
                     }
                 }
             },
@@ -1237,7 +1237,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
                             });
                         }
                     } else {
-                        Ext.Msg.alert('Invalid Data', 'Please correct form errors');
+                        Ext.Msg.alert('提示', '无效数据，请更正！');
                     }
                 }
             },
@@ -1738,8 +1738,8 @@ Ext.define('XMLifeOperating.controller.Shop', {
                         var discountPrice = me.priceTransform(shelvesGoods.get('discountPrice'));
                         var purchasePrice = me.priceTransform(shelvesGoods.get('purchasePrice'));
                         if (discountPrice != "") {
-                            if (discountPrice >= facePrice) {
-                                Ext.Msg.alert('Invalid Data', '折扣价不能大于等于原价');
+                            if (discountPrice > facePrice) {
+                                Ext.Msg.alert('提示', '折扣价不能大于原价');
                                 return;
                             };
                         }
@@ -1809,7 +1809,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
                             }
                         });
                     } else {
-                        Ext.Msg.alert('Invalid Data', 'Please correct form errors');
+                        Ext.Msg.alert('提示', '无效数据，请更正！');
                     }
                 }
             },
@@ -2146,7 +2146,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
             };
             sendPutRequest('shop/updatebanners', data, '添加Banner模板', '添加Banner模板成功', '添加Banner模板失败', success, failure);
         } else {
-            Ext.Msg.alert('Invalid Data', 'Please correct form errors');
+            Ext.Msg.alert('提示', '无效数据，请更正！');
         }
     },
     changePriceRecordList: function(grid) {
@@ -2278,8 +2278,8 @@ Ext.define('XMLifeOperating.controller.Shop', {
         }
         if (discountPrice != "") {
             data.discountPrice = discountPrice;
-            if (discountPrice >= facePrice) {
-                Ext.Msg.alert('Invalid Data', '折扣价不能大于等于原价');
+            if (discountPrice > facePrice) {
+                Ext.Msg.alert('提示', '折扣价不能大于原价');
                 return;
             }
         }
