@@ -346,6 +346,7 @@ Ext.define('XMLifeOperating.controller.ProductTemplate', {
         var editWindow = this.getEditWindow(),
             windowEl = editWindow.getEl(),
             form = editWindow.down('form').getForm(),
+            fileInput = editWindow.down('filefield'),
             productTemplate = form.getRecord(),
             me = this;
 
@@ -389,10 +390,14 @@ Ext.define('XMLifeOperating.controller.ProductTemplate', {
                         store.loadPage(1);
                         editWindow.close();
                         windowEl.unmask();
+                        fileInput.fileInputEl.set({
+                            multiple: 'multiple'
+                        });
                     },
                     failure: function(form, action) {
                         var resid = action.response.responseText;
                         editWindow.close();
+
                         if (resid == -99) {
                             Ext.MessageBox.show({
                                 title: '提示',
@@ -418,6 +423,9 @@ Ext.define('XMLifeOperating.controller.ProductTemplate', {
                         }
                         store.loadPage(1);
                         windowEl.unmask();
+                        fileInput.fileInputEl.set({
+                            multiple: 'multiple'
+                        });
                     }
                 });
 
@@ -479,6 +487,9 @@ Ext.define('XMLifeOperating.controller.ProductTemplate', {
                         store.loadPage(1);
                         editWindow.close();
                         windowEl.unmask();
+                        fileInput.fileInputEl.set({
+                            multiple: 'multiple'
+                        });
                     },
                     failure: function(form, action) {
                         var resid = action.response.responseText;
@@ -508,6 +519,9 @@ Ext.define('XMLifeOperating.controller.ProductTemplate', {
                         }
                         store.loadPage(1);
                         windowEl.unmask();
+                        fileInput.fileInputEl.set({
+                            multiple: 'multiple'
+                        });
                     }
                 });
             }
