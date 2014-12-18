@@ -64,7 +64,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.homePage.ModuleAdd', {
                 name: 'type',
                 inputValue: 'TYPE9'
             }, {
-                boxLabel: '类型10：<img src="resources/images/type/10.jpg" width="200" style="float:right; margin-top:-6px;" />',
+                boxLabel: '类型10：<img src="resources/images/type/10.jpg" height="26" style="float:right; margin-top:-6px;" />',
                 name: 'type',
                 inputValue: 'TYPE10'
             }, {
@@ -76,7 +76,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.homePage.ModuleAdd', {
                 name: 'type',
                 inputValue: 'TYPE12'
             }, {
-                boxLabel: '类型13：<img src="resources/images/type/13.jpg" width="180" style="float:right; margin-top:-5px;"  />',
+                boxLabel: '类型13：<img src="resources/images/type/13.jpg" height="25" style="float:right; margin-top:-5px;"  />',
                 name: 'type',
                 inputValue: 'TYPE13'
             }, {

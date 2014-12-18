@@ -468,8 +468,11 @@ Ext.define('XMLifeOperating.controller.HomePage', {
                     var win = this.getHomePage(),
                         store = this.getHomePageModuleDetailStore();
 
+                    this.isRenter = false;
+
                     win.down('#moduleDetail').bindStore(store);
                     win.down('#moduleDetail').setTitle('小积木列表');
+                    // 隐藏切换column项
                     win.down('#renterTime').hide();
                     win.down('#renterView').show();
                     win.down('#returnModuleItem').hide();
@@ -949,7 +952,7 @@ Ext.define('XMLifeOperating.controller.HomePage', {
             borderR = 'border-right:1px solid #eee;',
             borderB = 'border-bottom:1px solid #eee;',
             borderL = 'border-left:1px solid #eee;',
-            wrapCss = 'padding:0;font-family:\'Microsoft Yahei\';line-height:9px;';
+            wrapCss = 'width:100%;padding:0;font-family:\'Microsoft Yahei\';line-height:9px;';
 
         for (var i = 0, n = records.length; i < n; i++) {
             var data = records[i].data,
@@ -1060,7 +1063,7 @@ Ext.define('XMLifeOperating.controller.HomePage', {
                 case 'TYPE11':
                     str = '<ul class="x-clear" style="' + wrapCss + (i > 1 ? borderT : '') + '">';
                     for (j = 0, m = items.length; j < m; j++) {
-                        str += '<li style="float:left;position:relative;width:20%;border:1px solid #fff;' + (j === 0 || j == 1 ? borderR : '') + '">' + (items[j].url ? '<a href="' + items[j].url + '" target="_blank">' : '') + '<img src="' + res_url + items[j].image + '" width="100%" />' + (items[j].url ? '</a>' : '') + '</li>';
+                        str += '<li style="float:left;position:relative;padding:5px;width:20%;border:1px solid #fff;">' + (items[j].url ? '<a href="' + items[j].url + '" target="_blank">' : '') + '<img src="' + res_url + items[j].image + '" width="100%" />' + (items[j].url ? '</a>' : '') + '</li>';
                     }
                     str += '</ul>';
                     html += str;
@@ -1077,9 +1080,9 @@ Ext.define('XMLifeOperating.controller.HomePage', {
                     break;
 
                 case 'TYPE13':
-                    str = '<ul class="x-clear" style="' + wrapCss + (i > 1 ? borderT : '') + '">';
+                    str = '<ul class="x-clear" style="' + wrapCss + (i > 1 ? borderT + borderB : '') + '">';
                     for (j = 0, m = items.length; j < m; j++) {
-                        titles = j === 0 ? '<div style="position:absolute;top:0;left:20px;"><p style="font-size:14px;color:green;">' + items[j].titles[0] + '<span style="float:right;font-size:12px;color:#F86125;">'+ (items[j].url ? '<a href="' + items[j].url + '" target="_blank">' : '') + items[j].titles[1] +  (items[j].url ? '</a>' : '') + '</span></p></div>' : '';
+                        titles = j === 0 ? '<div style="height:35px;padding-left:10px;"><p style="text-align:left;line-height:35px;font-size:12px;font-weight:bold;color:#6FAB38;">' + items[j].titles[0] + '<span style="float:right;font-size:10px;font-weight:normal;-webkit-transform:scale(0.8);color:#F86125;">'+ (items[j].url ? '<a href="' + items[j].url + '" target="_blank">' : '') + items[j].titles[1] +  (items[j].url ? '</a>' : '') + '</span></p></div>' : '';
                         str += '<li style="float:left;position:relative;width:100%;">' + titles  + '</li>';
                     }
                     str += '</ul>';
