@@ -248,7 +248,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.homePage.ModuleDetailEdit', 
                 labelWidth: 60,
                 labelAlign: 'right',
                 width: 329,
-                allowBlank: false,
+                allowBlank: true,
                 //readOnly: true,
             }, {
                 xtype: 'form',
