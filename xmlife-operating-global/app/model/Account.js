@@ -23,6 +23,7 @@ Ext.define('XMLifeOperating.model.Account', {
       'areaId',
       'shopAreaName',
       'shopId',
+      'limitIp',
       'shopName'
     ]
 });
