@@ -397,7 +397,9 @@ Ext.define('XMLifeOperating.controller.ProductTemplate', {
                     failure: function(form, action) {
                         var resid = action.response.responseText;
                         editWindow.close();
-
+                        fileInput.fileInputEl.set({
+                            multiple: 'multiple'
+                        });
                         if (resid == -99) {
                             Ext.MessageBox.show({
                                 title: '提示',
@@ -423,9 +425,6 @@ Ext.define('XMLifeOperating.controller.ProductTemplate', {
                         }
                         store.loadPage(1);
                         windowEl.unmask();
-                        fileInput.fileInputEl.set({
-                            multiple: 'multiple'
-                        });
                     }
                 });
 
@@ -494,6 +493,9 @@ Ext.define('XMLifeOperating.controller.ProductTemplate', {
                     failure: function(form, action) {
                         var resid = action.response.responseText;
                         editWindow.close();
+                        fileInput.fileInputEl.set({
+                            multiple: 'multiple'
+                        });
                         if (resid == -99) {
                             Ext.MessageBox.show({
                                 title: '提示',
@@ -519,9 +521,6 @@ Ext.define('XMLifeOperating.controller.ProductTemplate', {
                         }
                         store.loadPage(1);
                         windowEl.unmask();
-                        fileInput.fileInputEl.set({
-                            multiple: 'multiple'
-                        });
                     }
                 });
             }
