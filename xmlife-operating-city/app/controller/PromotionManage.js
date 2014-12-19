@@ -107,7 +107,12 @@ Ext.define('XMLifeOperating.controller.PromotionManage', {
         form.submit({
             url: XMLifeOperating.generic.Global.URL.biz + url,
             success: function (form, active) {
-              debugger;
+              if (active.response.responseText) {
+                    self.loadPromotionStore()
+                    wins.hide();
+                } else {
+                    Ext.Msg.alert('失败', '添加活动失败');
+                }
             },
             failure: function (form, active) {
                 if (active.response.responseText) {
