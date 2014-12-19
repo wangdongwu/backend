@@ -64,7 +64,12 @@ Ext.define('XMLifeOperating.view.authorityManage.addGlobalAccount', {
 					}
 				},
 				name: 'pwd'
-			}]
+			},{
+        xtype : 'checkbox',
+        boxLabel : '是否限制IP',
+        inputValue: true,
+        name : 'limitIp'
+      }]
 		}, {
 			xtype: 'tabpanel',
 			plain: true,
