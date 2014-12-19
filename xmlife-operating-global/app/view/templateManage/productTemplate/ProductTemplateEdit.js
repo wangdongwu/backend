@@ -198,8 +198,8 @@ Ext.define('XMLifeOperating.view.templateManage.productTemplate.ProductTemplateE
             minLengthText: '商品描述最小长度为2',
             validator: function(str) {
                 var len = getStrLength(str);
-                if (len > 400) {
-                    return '商品名称最大长度为200';
+                if (len > 1000) {
+                    return '商品名称最大长度为500';
                 } else {
                     return true;
                 }
