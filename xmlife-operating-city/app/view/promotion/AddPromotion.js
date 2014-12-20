@@ -358,7 +358,6 @@ Ext.define('XMLifeOperating.view.promotion.AddPromotion', {
 
                 wins.getImageDimension(this.fileInputEl.dom.files[0], function (v) {
                   self.next().setValue(v);
-                  alert(self.next().getValue());
                 });
                 uploadImage(form, textfield)
               }
