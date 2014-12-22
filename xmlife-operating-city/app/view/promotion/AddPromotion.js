@@ -205,18 +205,19 @@ Ext.define('XMLifeOperating.view.promotion.AddPromotion', {
 									textfield = this.up('container').down('#homeBanner');
 
 								wins.getImageDimension(this.fileInputEl.dom.files[0], function (v) {
-									self.next().setValue(v);
+									wins.down('#homeBannerSize').setValue(v);
 								});
 								uploadImage(form, textfield)
 							}
 						}
-					}, {
-						xtype: 'hidden',
-						name: 'homeBannerSize'
 					}]
 				}]
 			}]
-		}, {
+		},{
+            xtype: 'hidden',
+            name: 'homeBannerSize',
+            itemId : 'homeBannerSize'
+          } ,{
       xtype: 'checkbox',
       inputValue: true,
       labelWidth: 140,
@@ -291,18 +292,19 @@ Ext.define('XMLifeOperating.view.promotion.AddPromotion', {
 									textfield = self.up('container').down('#banner');
 
 								wins.getImageDimension(this.fileInputEl.dom.files[0], function (v) {
-									self.next().setValue(v);
+									wins.down('#topBannerSize').setValue(v);
 								});
 								uploadImage(form, textfield)
 							}
 						}
-					}, {
-						xtype: 'hidden',
-						name: 'topBannerSize'
 					}]
 				}]
 			}]
 		}, {
+            xtype: 'hidden',
+            name: 'topBannerSize',
+            itemId : 'topBannerSize'
+          },{
       xtype : 'container',
       items : [{
         xtype: 'checkbox',
@@ -359,18 +361,19 @@ Ext.define('XMLifeOperating.view.promotion.AddPromotion', {
                   textfield = this.up('container').down('#bannerBottom');
 
                 wins.getImageDimension(this.fileInputEl.dom.files[0], function (v) {
-                  self.next().setValue(v);
+                  wins.down('#bottomBannerSize').setValue(v);
                 });
                 uploadImage(form, textfield)
               }
             }
-          }, {
-            xtype: 'hidden',
-            name: 'bottomBannerSize'
           }]
         }]
       }]
     },{
+            xtype: 'hidden',
+            name: 'bottomBannerSize',
+            itemId : 'bottomBannerSize'
+          },{
 			xtype: 'container',
 			layout: 'hbox',
 			items: [{

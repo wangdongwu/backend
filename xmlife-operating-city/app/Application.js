@@ -132,9 +132,6 @@ var uploadImage = function(form, textfield) {
 
     form.submit({
         url: XMLifeOperating.generic.Global.URL.upload + '?sessionId=' + sessionId,
-        params: {
-            'sessionId': sessionId
-        },
         success: function(form, action) {
 
             var resid = action.response.responseText;
