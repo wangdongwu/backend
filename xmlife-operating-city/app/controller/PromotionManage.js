@@ -126,12 +126,10 @@ Ext.define('XMLifeOperating.controller.PromotionManage', {
         this.isPromotionEdit = true;
 
         //把图片的详细属性添加到model中
-        if(bannerObj.home && bannerObj.home[0]){
-          bannerObj.home && bannerObj.home[0].imageId && model.set('isHaveHomeBanner', true) && model.set('homeBannerSize', bannerObj.home[0].width + '*' + bannerObj.home[0].height) && model.set('homeBanner', bannerObj.home[0].imageId);
-          bannerObj.home && bannerObj.home[0].imageId && bannerObj.home[0].order && model.set('homeBannerPosition', bannerObj.home[0].order);
-          bannerObj.top && bannerObj.top[0].imageId && model.set('topBanner', bannerObj.top[0].imageId) && model.set('topBannerSize', bannerObj.top[0].width + '*' + bannerObj.top[0].height);
-          bannerObj.bottom && bannerObj.bottom[0].imageId && model.set('isHaveBottomBanner', true) && model.set('bottomBannerSize', bannerObj.bottom[0].width + '*' + bannerObj.bottom[0].height) && model.set('bottomBanner', bannerObj.bottom[0].imageId);  
-        }
+          bannerObj.home && bannerObj.home[0] && bannerObj.home[0].imageId && model.set('isHaveHomeBanner', true) && model.set('homeBannerSize', bannerObj.home[0].width + '*' + bannerObj.home[0].height) && model.set('homeBanner', bannerObj.home[0].imageId);
+          bannerObj.home && bannerObj.home[0] && bannerObj.home[0].imageId && bannerObj.home[0].order && model.set('homeBannerPosition', bannerObj.home[0].order);
+          bannerObj.top && bannerObj.top[0] && bannerObj.top[0].imageId && model.set('topBanner', bannerObj.top[0].imageId) && model.set('topBannerSize', bannerObj.top[0].width + '*' + bannerObj.top[0].height);
+          bannerObj.bottom && bannerObj.bottom && bannerObj.bottom[0].imageId && model.set('isHaveBottomBanner', true) && model.set('bottomBannerSize', bannerObj.bottom[0].width + '*' + bannerObj.bottom[0].height) && model.set('bottomBanner', bannerObj.bottom[0].imageId);  
         
         form.loadRecord(model);
         wins.show();
