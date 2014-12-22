@@ -492,13 +492,14 @@ Ext.define('XMLifeOperating.controller.Shop', {
             // shopedit事件
             'shopedit #modifyShopStoreInfo': {
                 click: function(button) {
-                    var editWindow;
+                    var editWindow = this.getShopEdit();
                     var itemId = button.getItemId();
-                    editWindow = this.getShopEdit();
+                    var shopBannerTemplateStore = this.getShopBannerTemplateStore();
                     var windowEl = editWindow.getEl(),
                         form = editWindow.down('#shopeditform').getForm(),
                         shopStore = form.getRecord(),
-                        me = this;
+                        combo = editWindow.down('combo[name="shopBannerTemplateId"]');
+                    me = this;
                     var jStng, wString;
                     if (form.isValid()) {
                         form.updateRecord(shopStore);
@@ -532,11 +533,19 @@ Ext.define('XMLifeOperating.controller.Shop', {
                         windowEl.mask('saving');
                         shopStore.set('city', XMLifeOperating.generic.Global.currentCity);
                         var areaIds = [shopStore.get('areas')[0].areaId];
-                        var templateId = this.getShopBannerTemplateStore().data.items.length ? this.getShopBannerTemplateStore().findRecord('id', shopStore.get('shopBannerTemplateId')).getId() : null;
                         var autoOnline = (shopStore.get('autoOnline') == 'false') ? false : true;
                         var showAllProducts = (shopStore.get('showAllProducts') == 'false') ? false : true;
                         var needAuditPrice = (shopStore.get('needAuditPrice') == 'false') ? false : true;
                         var needUserCollection = (shopStore.get('needUserCollection') == 'false') ? false : true;
+                        var templateId = null;
+                        if (shopBannerTemplateStore.data.items.length) {
+                            //combo加载，用户选择下拉框。
+                            if (shopStore.get('shopBannerTemplateId') !== shopStore.get('templateName')) {
+                               templateId = shopBannerTemplateStore.findRecord('id', shopStore.get('shopBannerTemplateId')).getId()
+                            }
+
+                        }
+
                         shopStore.set('areaIds', areaIds);
                         shopStore.set('beCopyedShopId', '123');
                         shopStore.set('autoOnline', autoOnline);

@@ -61,6 +61,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopEdit', {
                 afterLabelTextTpl: required,
                 editable: false,
                 store: 'ShopBannerTemplate',
+                queryMode:'remote',
                 displayField: 'name',
                 valueField: 'id',
                 emptyText: "请选择模板"
