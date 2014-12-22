@@ -15,7 +15,7 @@ Ext.define('XMLifeOperating.view.authorityManage.addGlobalAccount', {
 	alias: 'widget.addGlobalAccount',
 	title: '创建管理员账号',
 	width: 450,
-	closeAction: 'destroy',
+	closeAction: 'hide',
 	modal: true,
 	layout: 'fit',
 	resizable: false,
