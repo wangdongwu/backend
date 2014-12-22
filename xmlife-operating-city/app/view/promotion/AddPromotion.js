@@ -202,7 +202,7 @@ Ext.define('XMLifeOperating.view.promotion.AddPromotion', {
 								var self = this,
 									wins = this.up('window'),
 									form = this.ownerCt,
-									textfield = this.up('container').down('#homeBanner');
+									textfield = wins.down('#homeBanner');
 
 								wins.getImageDimension(this.fileInputEl.dom.files[0], function (v) {
 									wins.down('#homeBannerSize').setValue(v);
@@ -289,7 +289,7 @@ Ext.define('XMLifeOperating.view.promotion.AddPromotion', {
 								var self = this,
 									wins = self.up('window'),
 									form = self.ownerCt,
-									textfield = self.up('container').down('#banner');
+									textfield = wins.down('#banner');
 
 								wins.getImageDimension(this.fileInputEl.dom.files[0], function (v) {
 									wins.down('#topBannerSize').setValue(v);
@@ -358,7 +358,7 @@ Ext.define('XMLifeOperating.view.promotion.AddPromotion', {
                 var self = this,
                   wins = this.up('window'),
                   form = this.ownerCt,
-                  textfield = this.up('container').down('#bannerBottom');
+                  textfield = wins.down('#bannerBottom');
 
                 wins.getImageDimension(this.fileInputEl.dom.files[0], function (v) {
                   wins.down('#bottomBannerSize').setValue(v);
