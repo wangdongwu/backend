@@ -116,6 +116,7 @@ Ext.define('XMLifeOperating.view.promotion.AddPromotion', {
 		}, {
 			xtype: 'combo',
 			name: 'areaIds',
+      itemId : 'areaIdsCombo',
 			fieldLabel: '活动商圈',
 			store: 'ShopArea',
 			emptyText: '选择商圈-可多选',
@@ -124,19 +125,7 @@ Ext.define('XMLifeOperating.view.promotion.AddPromotion', {
 			multiSelect: true,
 			autoScroll: true,
 			displayField: 'name',
-			valueField: 'id',
-			listeners: {
-				change: function () {
-					var vlen = this.getDisplayValue().length - this.getValue().length + 1,
-						qlen = this.getValue().length,
-						newLen = vlen * 13 + qlen * 8;
-
-					if (newLen > 300) {
-						this.setWidth(newLen);
-					}
-					this.updateLayout();
-				}
-			}
+			valueField: 'id'
 		},{
       border : 0,
       html : '<hr>'
@@ -176,6 +165,7 @@ Ext.define('XMLifeOperating.view.promotion.AddPromotion', {
 					labelAlign: 'right',
 					width: 100,
 					labelWidth: 50,
+          minValue : 0,
 					fieldLabel: '位置',
 					name: 'homeBannerPosition'
 				}, {
