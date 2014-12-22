@@ -1726,7 +1726,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
                         // 店铺id赋值
                         shopId = this.shopId;
                         // 限购类型赋值
-                        limitType = form.getValues()['limitType'];
+   /*                     limitType = form.getValues()['limitType'];
                         if (limitType == 1) {
                             limitCount = form.getValues()['dayLimitCount'];
                             productLimitCount = form.getValues()['dayTodayLimitCount'];
@@ -1741,7 +1741,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
                         }
                         if (limitCount == 0 || limitCount == null || limitCount == '') {
                             limitType = 0;
-                        }
+                        }*/
                         // 价格判断
                         var facePrice = me.priceTransform(shelvesGoods.get('facePrice'));
                         var discountPrice = me.priceTransform(shelvesGoods.get('discountPrice'));
@@ -1783,9 +1783,9 @@ Ext.define('XMLifeOperating.controller.Shop', {
                         shelvesGoods.set('facePrice', facePrice);
                         shelvesGoods.set('purchasePrice', purchasePrice);
                         shelvesGoods.set('discountPrice', discountPrice);
-                        shelvesGoods.set('limitType', limitType);
+/*                        shelvesGoods.set('limitType', limitType);
                         shelvesGoods.set('limitCount', limitCount);
-                        shelvesGoods.set('productLimitCount', productLimitCount);
+                        shelvesGoods.set('productLimitCount', productLimitCount);*/
                         shelvesGoods.set('productTemplateId', selectRecords[0].raw.id);
                         // 开始保存
                         windowEl.mask('saving');

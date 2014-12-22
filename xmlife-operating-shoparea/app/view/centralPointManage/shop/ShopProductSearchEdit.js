@@ -86,6 +86,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopProductSearchEdit',
                 border: false,
                 padding: 0,
                 itemId: 'editlimit',
+                hidden:true,
                 items: [{
                     xtype: 'fieldset',
                     layout: 'column',

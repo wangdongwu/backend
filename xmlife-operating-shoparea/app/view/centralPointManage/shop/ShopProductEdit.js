@@ -87,6 +87,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopProductEdit', {
                 border: false,
                 padding: 0,
                 itemId: 'editlimit',
+                hidden:true,
                 items: [{
                     xtype: 'fieldset',
                     layout: 'column',
@@ -152,7 +153,6 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopProductEdit', {
                             }
                         }
                     }]
-
                 }, {
                     layout: 'column',
                     xtype: 'fieldset',

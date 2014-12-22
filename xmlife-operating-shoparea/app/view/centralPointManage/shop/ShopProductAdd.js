@@ -120,6 +120,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopProductAdd', {
                     border: false,
                     padding: 0,
                     itemId: 'limitTypeFieldset',
+                    hidden:true,
                     items: [{
                         layout: 'column',
                         xtype: 'fieldset',
