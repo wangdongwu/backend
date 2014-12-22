@@ -13,7 +13,6 @@ Ext.define('XMLifeOperating.view.couponManage.coupon.CouponEditShop', {
     closeAction: 'hide',
     modal: true,
     width: 450,
-    height: 650,
     resizable: false,
     layout: 'fit',
     title: '修改优惠券-修改店铺',

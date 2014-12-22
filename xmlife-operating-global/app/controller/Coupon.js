@@ -1050,10 +1050,10 @@ Ext.define('XMLifeOperating.controller.Coupon', {
         switch (bindingType) {
             case 1:
                 //判断能否有修改shop权限
-                var username = localStorage.getItem('username');
-                if (records.get('createrName') == username) {
+                // var username = localStorage.getItem('username');
+                // if (records.get('createrName') == username) {
                     win.down('#editShopBtn').setVisible(true);
-                }
+                // }
                 gainShopIdEdit.setVisible(true);
                 gainGoodsShelfIdEdit.setVisible(false);
                 gainTemplatesSkuIdEdit.setVisible(false);
@@ -1280,10 +1280,10 @@ Ext.define('XMLifeOperating.controller.Coupon', {
             createrName = coupon.get('createrName'),
             editShopWin = self.getCouponEditShop();
 
-        if (bindingType != 1 || username != createrName) {
-            Ext.Msg.alert('提示', '你没有权限修改商店！');
-            return;
-        }
+        // if (bindingType != 1 || username != createrName) {
+        //     Ext.Msg.alert('提示', '你没有权限修改商店！');
+        //     return;
+        // }
         editShopWin.down('#bindTypeId').setValue(1);
         editShopWin.down('#keywordShopEditShop').setValue('');
 
@@ -1405,10 +1405,39 @@ Ext.define('XMLifeOperating.controller.Coupon', {
             shops: shops
         };
 
-        sendRequest('coupon/modify/binding/shop', params, '修改优惠券店铺', '成功修改优惠券店铺', '修改优惠券店铺失败', function() {
+        /*sendRequest('coupon/modify/binding/shop', params, '修改优惠券店铺', '成功修改优惠券店铺', '修改优惠券店铺失败', function(response) {
+            alert(111);
+            debugger;
             couponEditWin.close();
             editShopWin.close();
             self.rendenCouponList(self.getCouponList());
+        },function(response){
+            alert(22);
+            debugger;
+        });*/
+
+        Ext.Ajax.request({
+            url: XMLifeOperating.generic.Global.URL.biz + 'coupon/modify/binding/shop',
+            params: params,
+            method: 'POST',
+            success: function(response) {
+                Ext.Msg.alert('修改优惠券店铺', '成功修改优惠券店铺');
+                couponEditWin.close();
+                editShopWin.close();
+                self.rendenCouponList(self.getCouponList());
+            },
+            failure: function(response, opts) {
+                if(response.status == 400){
+                    Ext.MessageBox.show({
+                        title: '提示错误',
+                        msg: '你没有权限修改商店！',
+                        icon: Ext.Msg.ERROR,
+                        buttons: Ext.Msg.OK
+                    });
+                    couponEditWin.close();
+                    editShopWin.close();
+                }
+            }
         });
     },
 
