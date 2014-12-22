@@ -193,6 +193,7 @@ Ext.define('XMLifeOperating.view.promotion.AddPromotion', {
 					border: false,
 					items: [{
 						xtype: 'filefield',
+            name : 'file',
 						buttonOnly: true,
 						buttonText: '选择图片',
 						hideLabel: true,
@@ -278,6 +279,7 @@ Ext.define('XMLifeOperating.view.promotion.AddPromotion', {
 					border: false,
 					items: [{
 						xtype: 'filefield',
+            name : 'file',
 						buttonOnly: true,
 						buttonText: '选择图片',
 						hideLabel: true,
@@ -345,7 +347,7 @@ Ext.define('XMLifeOperating.view.promotion.AddPromotion', {
           border: false,
           items: [{
             xtype: 'filefield',
-            name: 'moduleUploadfile',
+            name : 'file',
             buttonOnly: true,
             buttonText: '选择图片',
             hideLabel: true,
