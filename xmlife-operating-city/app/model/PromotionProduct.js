@@ -51,5 +51,23 @@ Ext.define('XMLifeOperating.model.PromotionProduct', {
       }
 			return (v / 100).toFixed(2);
 		}
-	}, 'limitPerCityOneDay', 'limitPerPersonOneDay', 'limitPerPersonInPromotion', 'areaId', 'shopId']
+	}, {name : 'limitPerCityOneDay',convert:function(v){
+    if(v == 2147483647 ){
+      return '';
+    }else{
+      return v;
+    }
+  }}, {name : 'limitPerPersonOneDay',convert:function(v){
+    if(v == 2147483647 ){
+      return '';
+    }else{
+      return v;
+    } 
+  }}, {name : 'limitPerPersonInPromotion',convert:function(v){
+    if(v == 2147483647 ){
+      return '';
+    }else{
+      return v;
+    }
+  }}, 'areaId', 'shopId']
 });
