@@ -47,7 +47,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.homePage.HomePage', {
               text: '角色',
               dataIndex: 'default',
               itemId: 'setDefault',
-              width: '13%',
+              width: '11%',
               align: 'center',
               renderer: function(value) {
                 return value ? '默认' : '-';
@@ -57,7 +57,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.homePage.HomePage', {
               text: '定时',
               itemId: 'editTime',
               dataIndex: 'startTime',
-              width: '22%',
+              width: '21%',
               align: 'center',
               renderer: function(value, meta, record) {
                 if (value) {
@@ -70,7 +70,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.homePage.HomePage', {
               text: '通用',
               itemId: 'setEnable',
               dataIndex: 'status',
-              width: '19%',
+              width: '18%',
               align: 'center',
               renderer: function(value, meta, record, rowIndex, colIndex, store, view){
                 return value ? (value == 2 ? '<input type="button" value="取消定时" style="margin-left: -4px; padding: 3px 2px 5px;" />' : '<span style="color:green;">启用</span>') : '<input type="button" value="启用" style="margin-left: -3px;" />';
@@ -84,10 +84,10 @@ Ext.define('XMLifeOperating.view.centralPointManage.homePage.HomePage', {
               text: 'APP Store',
               dataIndex: 'transitional',
               itemId: 'setTransitional',
-              width: '14%',
+              width: '15%',
               align: 'center',
               renderer: function(value) {
-                return value ? '<span style="color:green;">启用</span>' : '-';
+                return value ? '<span style="color:green;">启用中</span>' : '<input type="button" value="启用" style="margin-left: -3px;" />';
               }
           }, {
               xtype: 'actioncolumn',
@@ -95,7 +95,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.homePage.HomePage', {
               text: '操作',
               tooltip: '删除',
               icon: 'resources/images/delete.png',
-              width: '10%',
+              width: '9%',
               align: 'center',
               renderer: function(value, meta, record, rowIndex, colIndex, store, view) {
                 if (record.get('status') == 1) meta.style = 'display: none;';
