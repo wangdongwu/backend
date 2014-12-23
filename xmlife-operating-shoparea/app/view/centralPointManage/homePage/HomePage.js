@@ -8,7 +8,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.homePage.HomePage', {
   initComponent: function() {
     this.items = [{
       xtype: 'panel',
-      columnWidth: 0.3,
+      columnWidth: 0.34,
       border: 0,
       items: [{
         xtype: 'grid',
@@ -38,7 +38,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.homePage.HomePage', {
           }, {
               text: '版本列表',
               dataIndex: 'version',
-              width: '30%',
+              width: '25%',
               align: 'left',
               editor: {
                 xtype: 'textfield'
@@ -47,7 +47,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.homePage.HomePage', {
               text: '角色',
               dataIndex: 'default',
               itemId: 'setDefault',
-              width: '14%',
+              width: '13%',
               align: 'center',
               renderer: function(value) {
                 return value ? '默认' : '-';
@@ -63,22 +63,31 @@ Ext.define('XMLifeOperating.view.centralPointManage.homePage.HomePage', {
                 if (value) {
                   var startTime = Ext.Date.format(new Date(value), 'm-d H:i'),
                       endTime = Ext.Date.format(new Date( record.get('endTime') ), 'm-d H:i');
-                  return '<span style="display: inline-block; margin-left: -3px;">'+ startTime + '<br />' + endTime + '</span>';
+                  return '<span style="display: inline-block; margin-left: -4px;">'+ startTime + '<br />' + endTime + '</span>';
                 }
               }
           }, {
-              text: '选择',
+              text: '通用',
               itemId: 'setEnable',
               dataIndex: 'status',
               width: '19%',
               align: 'center',
               renderer: function(value, meta, record, rowIndex, colIndex, store, view){
-                return value ? (value == 2 ? '<input type="button" value="取消定时" style="margin-left: -4px; padding: 3px 2px 5px;" />' : '<span style="color:green;">启用中</span>') : '<input type="button" value="启用" style="margin-left: -3px;" />';
+                return value ? (value == 2 ? '<input type="button" value="取消定时" style="margin-left: -4px; padding: 3px 2px 5px;" />' : '<span style="color:green;">启用</span>') : '<input type="button" value="启用" style="margin-left: -3px;" />';
               },
               listeners: {
                 click: function(view, meta, rowIndex, colIndex, e, record) {
                   if(record.get('status') == 1) return false;
                 }
+              }
+          }, {
+              text: 'APP Store',
+              dataIndex: 'transitional',
+              itemId: 'setTransitional',
+              width: '14%',
+              align: 'center',
+              renderer: function(value) {
+                return value ? '<span style="color:green;">启用</span>' : '-';
               }
           }, {
               xtype: 'actioncolumn',
@@ -211,7 +220,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.homePage.HomePage', {
       itemId: 'moduleDetail',
       title: '小积木列表',
       store: 'HomePageModuleDetail',
-      columnWidth: 0.43,
+      columnWidth: 0.4,
       height: document.body.clientHeight-68,
       forceFit: true,
       tbar: [{
@@ -305,7 +314,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.homePage.HomePage', {
       xtype: 'panel',
       itemId: 'homePreview',
       title: '效果预览',
-      columnWidth: 0.27,
+      columnWidth: 0.26,
       height: document.body.clientHeight-68,
       autoScroll: true,
       bbar: [

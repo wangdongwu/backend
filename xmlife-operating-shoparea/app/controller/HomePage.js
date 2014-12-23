@@ -142,7 +142,29 @@ Ext.define('XMLifeOperating.controller.HomePage', {
                                     sendPutRequest('homepage/setDefault', {
                                         areaId: me.areaId,
                                         layoutId: record.get('id')
-                                    }, '设置默认版本', '默认版本成功', '默认版本失败', function() {
+                                    }, '设置默认版本', '默认版本设置成功', '默认版本设置失败', function() {
+                                        me.getHomePageStore().load();
+                                    });
+                                }
+                            }
+                        );
+                    }
+                }
+            },
+            // 设置APP Store版本
+            'homePage #setTransitional': {
+                dblclick: function(view, rowIndex, colIndex, column, e) {
+                    var record = view.getRecord(view.findTargetByEvent(e));
+                    if (record.get('transitional')) {
+                        return;
+                    } else {
+                        Ext.MessageBox.confirm('APP Store专用版设置', "确定设置该版本为APP Store专用版吗？",
+                            function(result) {
+                                if (result == 'yes') {
+                                    sendPutRequest('homepage/setTransitional', {
+                                        areaId: me.areaId,
+                                        layoutId: record.get('id')
+                                    }, '设置APP Store专用版', 'APP Store专用版设置成功', 'APP Store专用版设置失败', function() {
                                         me.getHomePageStore().load();
                                     });
                                 }
@@ -952,7 +974,7 @@ Ext.define('XMLifeOperating.controller.HomePage', {
             borderR = 'border-right:1px solid #eee;',
             borderB = 'border-bottom:1px solid #eee;',
             borderL = 'border-left:1px solid #eee;',
-            wrapCss = 'width:100%;padding:0;font-family:\'Microsoft Yahei\';line-height:9px;';
+            wrapCss = 'width:100%;padding:0;list-style:none;font-family:\'Microsoft Yahei\';font-size:12px;line-height:9px;';
 
         for (var i = 0, n = records.length; i < n; i++) {
             var data = records[i].data,
@@ -976,7 +998,7 @@ Ext.define('XMLifeOperating.controller.HomePage', {
                 case 'TYPE1':
                     str = '<ul class="x-clear" style="' + wrapCss + (i > 1 ? borderT : '') + '">';
                     for (j = 0, m = items.length; j < m; j++) {
-                        titles = j === 0 ? '<div style="position:absolute;top:0;left:20px;"><p style="font-size:14px;color:green;">' + items[j].titles[0] + '</p><p style="margin-left:-10px;font-size:10px;-webkit-transform:scale(0.8);color:#999;">' + items[j].titles[1] + '</p><p style="font-size:12px;color:#F86125;">' + items[j].titles[2] + '</p></div>' : '';
+                        titles = j === 0 ? '<div style="position:absolute;top:0;left:20px;"><p style="font-size:14px;color:green;">' + items[j].titles[0] + '</p><p style="margin-left:-10px;font-size:10px;-webkit-transform:scale(0.8);color:#999;">' + items[j].titles[1] + '</p><p style="color:#F86125;">' + items[j].titles[2] + '</p></div>' : '';
                         str += '<li style="float:left;position:relative;width:' + (j === 0 ? '50%' : '25%') + ';border:1px solid #fff;' + (j == 1 ? borderR + borderB : '') + (j == 2 ? borderB : '') + (j == 3 ? borderR : '') + '">' + titles + (items[j].url ? '<a href="' + items[j].url + '" target="_blank">' : '') + '<img src="' + res_url + items[j].image + '" width="100%" />' + (items[j].url ? '</a>' : '') + '</li>';
                     }
                     str += '</ul>';
@@ -986,7 +1008,7 @@ Ext.define('XMLifeOperating.controller.HomePage', {
                 case 'TYPE2':
                     str = '<ul class="x-clear" style="' + wrapCss + (i > 1 ? borderT : '') + '">';
                     for (j = 0, m = items.length; j < m; j++) {
-                        titles = j === 0 ? '<div style="position:absolute;top:0;left:20px;"><p style="font-size:14px;color:green;">' + items[j].titles[0] + '</p><p style="margin-left:-10px;font-size:10px;-webkit-transform:scale(0.8);color:#999;">' + items[j].titles[1] + '</p><p style="font-size:12px;color:#F86125;">' + items[j].titles[2] + '</p></div>' : '';
+                        titles = j === 0 ? '<div style="position:absolute;top:0;left:20px;"><p style="font-size:14px;color:green;">' + items[j].titles[0] + '</p><p style="margin-left:-10px;font-size:10px;-webkit-transform:scale(0.8);color:#999;">' + items[j].titles[1] + '</p><p style="color:#F86125;">' + items[j].titles[2] + '</p></div>' : '';
                         str += '<li style="float:left;position:relative;width:' + (j === 0 ? '50%' : '50%') + ';border:1px solid #fff;' + (j === 1 ? borderB : '') + '">' + titles + (items[j].url ? '<a href="' + items[j].url + '" target="_blank">' : '') + '<img src="' + res_url + items[j].image + '" width="100%" />' + (items[j].url ? '</a>' : '') + '</li>';
                     }
                     str += '</ul>';
@@ -996,7 +1018,7 @@ Ext.define('XMLifeOperating.controller.HomePage', {
                 case 'TYPE3':
                     str = '<ul class="x-clear" style="' + wrapCss + (i > 1 ? borderT : '') + '">';
                     for (j = 0, m = items.length; j < m; j++) {
-                        //titles = j==0? '<div style="position:absolute;top:0;left:20px;"><p style="font-size:14px;color:green;">'+ items[j].titles[0]+'</p><p style="font-size:10px;-webkit-transform:scale(0.8);color:#999;">'+ items[j].titles[1]+'</p><p style="font-size:12px;color:#F86125;">'+ items[j].titles[2]+'</p></div>' : '';
+                        //titles = j==0? '<div style="position:absolute;top:0;left:20px;"><p style="font-size:14px;color:green;">'+ items[j].titles[0]+'</p><p style="font-size:10px;-webkit-transform:scale(0.8);color:#999;">'+ items[j].titles[1]+'</p><p style="color:#F86125;">'+ items[j].titles[2]+'</p></div>' : '';
                         str += '<li style="float:left;position:relative;width:' + (j === 0 ? '33%' : '33%') + ';border:1px solid #fff;' + (j === 0 || j == 1 ? borderR : '') + '">' + (items[j].url ? '<a href="' + items[j].url + '" target="_blank">' : '') + '<img src="' + res_url + items[j].image + '" width="100%" />' + (items[j].url ? '</a>' : '') + '</li>';
                     }
                     str += '</ul>';
@@ -1006,7 +1028,7 @@ Ext.define('XMLifeOperating.controller.HomePage', {
                 case 'TYPE4':
                     str = '<ul class="x-clear" style="' + wrapCss + (i > 1 ? borderT : '') + '">';
                     for (j = 0, m = items.length; j < m; j++) {
-                        //titles = j==0? '<div style="position:absolute;top:0;left:20px;"><p style="font-size:14px;color:green;">'+ items[j].titles[0]+'</p><p style="font-size:10px;-webkit-transform:scale(0.8);color:#999;">'+ items[j].titles[1]+'</p><p style="font-size:12px;color:#F86125;">'+ items[j].titles[2]+'</p></div>' : '';
+                        //titles = j==0? '<div style="position:absolute;top:0;left:20px;"><p style="font-size:14px;color:green;">'+ items[j].titles[0]+'</p><p style="font-size:10px;-webkit-transform:scale(0.8);color:#999;">'+ items[j].titles[1]+'</p><p style="color:#F86125;">'+ items[j].titles[2]+'</p></div>' : '';
                         str += '<li style="float:left;position:relative;width:' + (j === 0 ? '66%' : '33%') + ';border:1px solid #fff;' + (j === 0 ? borderR : '') + '">' + (items[j].url ? '<a href="' + items[j].url + '" target="_blank">' : '') + '<img src="' + res_url + items[j].image + '" width="100%" />' + (items[j].url ? '</a>' : '') + '</li>';
                     }
                     str += '</ul>';
@@ -1016,7 +1038,7 @@ Ext.define('XMLifeOperating.controller.HomePage', {
                 case 'TYPE5':
                     str = '<ul class="x-clear" style="' + wrapCss + (i > 1 ? borderT : '') + '">';
                     for (j = 0, m = items.length; j < m; j++) {
-                        //titles = j==0? '<div style="position:absolute;top:0;left:20px;"><p style="font-size:14px;color:green;">'+ items[j].titles[0]+'</p><p style="font-size:10px;-webkit-transform:scale(0.8);color:#999;">'+ items[j].titles[1]+'</p><p style="font-size:12px;color:#F86125;">'+ items[j].titles[2]+'</p></div>' : '';
+                        //titles = j==0? '<div style="position:absolute;top:0;left:20px;"><p style="font-size:14px;color:green;">'+ items[j].titles[0]+'</p><p style="font-size:10px;-webkit-transform:scale(0.8);color:#999;">'+ items[j].titles[1]+'</p><p style="color:#F86125;">'+ items[j].titles[2]+'</p></div>' : '';
                         str += '<li style="float:left;position:relative;width:' + (j === 0 ? '33%' : '66%') + ';border:1px solid #fff;' + (j === 0 ? borderR : '') + '">' + (items[j].url ? '<a href="' + items[j].url + '" target="_blank">' : '') + '<img src="' + res_url + items[j].image + '" width="100%" />' + (items[j].url ? '</a>' : '') + '</li>';
                     }
                     str += '</ul>';
@@ -1026,7 +1048,7 @@ Ext.define('XMLifeOperating.controller.HomePage', {
                 case 'TYPE6':
                     str = '<ul class="x-clear" style="' + wrapCss + (i > 1 ? borderT : '') + '">';
                     for (j = 0, m = items.length; j < m; j++) {
-                        //var titles = j==0? '<div style="position:absolute;top:0;left:20px;"><p style="font-size:14px;color:green;">'+ items[j].titles[0]+'</p><p style="font-size:10px;-webkit-transform:scale(0.8);color:#999;">'+ items[j].titles[1]+'</p><p style="font-size:12px;color:#F86125;">'+ items[j].titles[2]+'</p></div>' : '';
+                        //var titles = j==0? '<div style="position:absolute;top:0;left:20px;"><p style="font-size:14px;color:green;">'+ items[j].titles[0]+'</p><p style="font-size:10px;-webkit-transform:scale(0.8);color:#999;">'+ items[j].titles[1]+'</p><p style="color:#F86125;">'+ items[j].titles[2]+'</p></div>' : '';
                         str += '<li style="float:left;position:relative;width:' + (j === 0 ? '100%' : '100%') + ';border:1px solid #fff;' + (j === 0 ? borderR : '') + '">' + (items[j].url ? '<a href="' + items[j].url + '" target="_blank">' : '') + '<img src="' + res_url + items[j].image + '" width="100%" />' + (items[j].url ? '</a>' : '') + '</li>';
                     }
                     str += '</ul>';
@@ -1036,7 +1058,7 @@ Ext.define('XMLifeOperating.controller.HomePage', {
                 case 'TYPE7':
                     str = '<ul class="x-clear" style="' + wrapCss + '">';
                     for (j = 0, m = items.length; j < m; j++) {
-                        //titles = j==0? '<div style="position:absolute;top:0;left:20px;"><p style="font-size:14px;color:green;">'+ items[j].titles[0]+'</p><p style="font-size:10px;-webkit-transform:scale(0.8);color:#999;">'+ items[j].titles[1]+'</p><p style="font-size:12px;color:#F86125;">'+ items[j].titles[2]+'</p></div>' : '';
+                        //titles = j==0? '<div style="position:absolute;top:0;left:20px;"><p style="font-size:14px;color:green;">'+ items[j].titles[0]+'</p><p style="font-size:10px;-webkit-transform:scale(0.8);color:#999;">'+ items[j].titles[1]+'</p><p style="color:#F86125;">'+ items[j].titles[2]+'</p></div>' : '';
                         str += '<li style="float:left;position:relative;width:' + (j === 0 ? '49%' : '49%') + ';border:1px solid #fff;' + (j === 0 ? 'margin-right:2%;' : '') + '">' + (items[j].url ? '<a href="' + items[j].url + '" target="_blank">' : '') + '<img src="' + res_url + items[j].image + '" width="100%" />' + (items[j].url ? '</a>' : '') + '</li>';
                     }
                     str += '</ul>';
@@ -1044,15 +1066,15 @@ Ext.define('XMLifeOperating.controller.HomePage', {
                     break;
 
                 case 'TYPE8':
-                    html += '<p style="margin:0;' + (i > 1 ? borderT : '') + '">&nbsp;</p>';
+                    html += '<p style="margin:0;height:40px;"></p>';
                     break;
 
                 case 'TYPE9':
-                    html += '<p style="margin:0;">&nbsp;</p>';
+                    html += '<p style="margin:0;height:20px;"></p>';
                     break;
 
                 case 'TYPE10':
-                    str = '<ul class="x-clear" style="' + wrapCss + (i > 1 ? borderT : '') + '">';
+                    str = '<ul class="x-clear" style="' + wrapCss + (i > 1 ? borderT : '') + borderB + '">';
                     for (j = 0, m = items.length; j < m; j++) {
                         str += '<li style="float:left;position:relative;width:' + (j === 0 ? '33%' : '33%') + ';border:1px solid #fff;' + (j === 0 || j == 1 ? borderR : '') + '">' + (items[j].url ? '<a href="' + items[j].url + '" target="_blank">' : '') + '<img src="' + res_url + items[j].image + '" width="100%" />' + (items[j].url ? '</a>' : '') + '</li>';
                     }
@@ -1061,7 +1083,7 @@ Ext.define('XMLifeOperating.controller.HomePage', {
                     break;
 
                 case 'TYPE11':
-                    str = '<ul class="x-clear" style="' + wrapCss + (i > 1 ? borderT : '') + '">';
+                    str = '<ul class="x-clear" style="' + wrapCss + borderT + borderB + '">';
                     for (j = 0, m = items.length; j < m; j++) {
                         str += '<li style="float:left;position:relative;padding:5px;width:20%;border:1px solid #fff;">' + (items[j].url ? '<a href="' + items[j].url + '" target="_blank">' : '') + '<img src="' + res_url + items[j].image + '" width="100%" />' + (items[j].url ? '</a>' : '') + '</li>';
                     }
@@ -1070,10 +1092,12 @@ Ext.define('XMLifeOperating.controller.HomePage', {
                     break;
 
                 case 'TYPE12':
-                    str = '<ul class="x-clear" style="' + wrapCss + (i > 1 ? borderT : '') + '">';
+                    str = '<ul class="x-clear" style="' + wrapCss + '">';
                     for (j = 0, m = items.length; j < m; j++) {
-                        titles = j === 0 ? '<div style="position:absolute;top:0;left:20px;"><p style="font-size:14px;color:green;">' + items[j].titles[0] + '</p><p style="margin-left:-10px;font-size:10px;-webkit-transform:scale(0.8);color:#999;">' + items[j].titles[1] + '</p><p style="font-size:12px;color:#F86125;">' + items[j].titles[2] + '</p></div>' : '';
-                        str += '<li style="float:left;position:relative;width:' + (j === 0 ? '50%' : (j === 1 ? '50%' : '25%')) + ';border:1px solid #fff;' + (j === 1 ? borderB : '') + '">' + titles + (items[j].url ? '<a href="' + items[j].url + '" target="_blank">' : '') + '<img src="' + res_url + items[j].image + '" width="100%" />' + (items[j].url ? '</a>' : '') + '</li>';
+                        if (items[j].titles.length > 0) {
+                            titles = j === 0 ? '<div style="position:absolute;top:20px;left:20px;"><p style="color:#F86125;">' + items[j].titles[0] + '</p><p style="margin-left:-10px;font-size:10px;-webkit-transform:scale(0.7);color:#999;">' + (items[j].titles[1] ? items[j].titles[1] : '') + '</p></div>' : '';
+                        }
+                        str += '<li style="float:left;position:relative;margin:1.5%;width:' + (j === 0 ? '47%' : (j === 1 ? '47%' : '22%')) + ';border:1px solid #eee;text-align:center;' + (j === 1 ? borderB : '') + '">' + titles + (items[j].url ? '<a href="' + items[j].url + '" target="_blank">' : '') + '<img src="' + res_url + items[j].image + '" width="' + (j === 0 ? '81%' : '100%') + '" />' + (items[j].url ? '</a>' : '') + '</li>';
                     }
                     str += '</ul>';
                     html += str;
@@ -1082,7 +1106,9 @@ Ext.define('XMLifeOperating.controller.HomePage', {
                 case 'TYPE13':
                     str = '<ul class="x-clear" style="' + wrapCss + (i > 1 ? borderT + borderB : '') + '">';
                     for (j = 0, m = items.length; j < m; j++) {
-                        titles = j === 0 ? '<div style="height:35px;padding-left:10px;"><p style="text-align:left;line-height:35px;font-size:12px;font-weight:bold;color:#6FAB38;">' + items[j].titles[0] + '<span style="float:right;font-size:10px;font-weight:normal;-webkit-transform:scale(0.8);color:#F86125;">'+ (items[j].url ? '<a href="' + items[j].url + '" target="_blank">' : '') + items[j].titles[1] +  (items[j].url ? '</a>' : '') + '</span></p></div>' : '';
+                        if (items[j].titles.length > 0) {
+                            titles = j === 0 ? '<div style="height:35px;padding-left:10px;"><p style="text-align:left;line-height:35px;font-weight:bold;color:#6FAB38;">' + items[j].titles[0] + '<span style="float:right;margin-right:5px;font-size:10px;font-weight:normal;-webkit-transform:scale(0.8);color:#F86125;">'+ (items[j].url ? '<a href="' + items[j].url + '" target="_blank" style="color:#F86125;">' : '') + (items[j].titles[1] ? items[j].titles[1] : '') +  (items[j].url ? '</a>' : '') + '</span></p></div>' : '';
+                        }
                         str += '<li style="float:left;position:relative;width:100%;">' + titles  + '</li>';
                     }
                     str += '</ul>';
@@ -1095,7 +1121,7 @@ Ext.define('XMLifeOperating.controller.HomePage', {
                         if (j == 0 || j == 2) {
                             str += (j === 0 ? '<li style="float:left;position:relative;padding:10px 10px 0 10px;width:50%;border:1px solid #fff;">' : '') + (items[j].url ? '<a href="' + items[j].url + '" target="_blank">' : '') + '<img src="' + res_url + items[j].image + '" width="100%" />' + (items[j].url ? '</a>' : '') + (j === 2 ? '</li>' : '');
                         } else if (j >= 3) {
-                            str += (j === 3 ? '<li style="float:left;position:relative;width:50%;list-style:none;border:1px solid #fff;font-size:12px;color:#999;">' : '') + '<span style="display:inline-block;margin:10% 3% 0 0;padding:4%;border:1px solid #eee;">'+ items[j].titles[0] +'</span>' + (j === 8 ? '</li>' : '');
+                            str += (j === 3 ? '<li style="float:left;position:relative;width:50%;border:1px solid #fff;color:#999;">' : '') + '<span style="display:inline-block;margin:10% 3% 0 0;padding:6% 4%;border:1px solid #eee;font-size:80%;font-weight:normal;">'+ items[j].titles[0] +'</span>' + (j === 8 ? '</li>' : '');
                         }
                     }
                     str += '</ul>';
@@ -1103,10 +1129,9 @@ Ext.define('XMLifeOperating.controller.HomePage', {
                     break;
 
                 case 'TYPE15':
-                    str = '<ul class="x-clear" style="' + wrapCss + '">';
+                    str = '<ul class="x-clear" style="' + wrapCss + borderT + borderB + '">';
                     for (j = 0, m = items.length; j < m; j++) {
-                        //titles = j==0? '<div style="position:absolute;top:0;left:20px;"><p style="font-size:14px;color:green;">'+ items[j].titles[0]+'</p><p style="font-size:10px;-webkit-transform:scale(0.8);color:#999;">'+ items[j].titles[1]+'</p><p style="font-size:12px;color:#F86125;">'+ items[j].titles[2]+'</p></div>' : '';
-                        str += '<li style="float:left;position:relative;width:' + (j === 0 ? '49%' : '49%') + ';border:1px solid #fff;' + (j === 0 ? 'margin-right:2%;' : '') + '">' + (items[j].url ? '<a href="' + items[j].url + '" target="_blank">' : '') + '<img src="' + res_url + items[j].image + '" width="100%" />' + (items[j].url ? '</a>' : '') + '</li>';
+                        str += '<li style="float:left;position:relative;border:1px solid #fff;width:' + (j === 0 ? '49%;margin-right:2%;' + borderR : '49%;') + '">' + (items[j].url ? '<a href="' + items[j].url + '" target="_blank">' : '') + '<img src="' + res_url + items[j].image + '" width="100%" />' + (items[j].url ? '</a>' : '') + '</li>';
                     }
                     str += '</ul>';
                     html += str;
