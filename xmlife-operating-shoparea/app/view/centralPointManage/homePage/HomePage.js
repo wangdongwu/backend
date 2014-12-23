@@ -73,7 +73,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.homePage.HomePage', {
               width: '18%',
               align: 'center',
               renderer: function(value, meta, record, rowIndex, colIndex, store, view){
-                return value ? (value == 2 ? '<input type="button" value="取消定时" style="margin-left: -4px; padding: 3px 2px 5px;" />' : '<span style="color:green;">启用</span>') : '<input type="button" value="启用" style="margin-left: -3px;" />';
+                return value ? (value == 2 ? '<input type="button" value="取消定时" style="margin-left: -4px; padding: 3px 2px 5px;" />' : '<span style="color:green;">启用中</span>') : '<input type="button" value="启用" style="margin-left: -3px;" />';
               },
               listeners: {
                 click: function(view, meta, rowIndex, colIndex, e, record) {
