@@ -4,7 +4,7 @@ Ext.define('XMLifeOperating.model.PromotionProduct', {
 	fields: ['promotionProductId', 'productTemplateId','skuId', 'areaName', 'productId', 'promotionProductName', {
 		name: 'status',
 		convert: function (v) {
-      if(!v){
+      if(!Ext.isDefined(v) || Ext.isEmpty(v)){
         return '';
       }
 			var str = '';
