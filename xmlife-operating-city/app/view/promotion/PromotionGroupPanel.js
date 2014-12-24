@@ -20,7 +20,7 @@ Ext.define('XMLifeOperating.view.promotion.PromotionGroupPanel', {
 		bodyStyle: 'background:transparent;border:0',
 		layout: 'hbox',
 		defaults: {
-			labelWidth: 50
+			labelWidth: 60
 		},
 		items: [{
 			xtype: 'combo',
@@ -37,17 +37,16 @@ Ext.define('XMLifeOperating.view.promotion.PromotionGroupPanel', {
 			width: 300,
 			fieldLabel: '文件路径',
 			emptyText: '从svn中选择上传',
-			labelWidth: 50,
 			allowBlank: false,
 			buttonText: '选择excel文件'
 		}, {
 			xtype: 'button',
 			itemId: 'addPromotionBtn',
 			text: '上传/修改'
-		}]
-	}, {
-		xtype: 'button',
-		text: '刷新商品'
+		},{
+    bodyStyle: 'background:transparent;border:0;line-height:22px;margin-left:5px',
+    html : '<span style="color:red"> 正在进行中的活动，上传excel前请先将活动【取消激活】</span>'
+  }]
 	}],
 	defaults: {
 		height: '100%'
