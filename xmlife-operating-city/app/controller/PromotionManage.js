@@ -227,23 +227,28 @@ Ext.define('XMLifeOperating.controller.PromotionManage', {
 	uploadPromotion: function (button) {
 		var self = this,
 			form = button.up('form'),
-			sessionId = localStorage.getItem('sessionId') || '';
-
-		form.submit({
-			url: XMLifeOperating.generic.Global.URL.biz + 'promotion/group/add?sessionId=' + sessionId,
-			success: function (form, action) {
-				var res = action.response.responseText;
-				if (res) {
-					self.loadPromotionGroupData();
-				}
-			},
-			failure: function (form, action) {
-				var res = action.response.responseText;
-				if (res) {
-					self.loadPromotionGroupData();
-				}
-			}
-		});
+			sessionId = localStorage.getItem('sessionId') || '',
+      promotionName = this.promotionStore.getById(form.getValues().promotionId).get('name');
+      
+     Ext.MessageBox.confirm('提示','你确认上传商品到-<span style="font-weight:bold;color:green">'+promotionName+'</span>-活动吗?',function(result){
+      if(result == 'yes'){
+        form.submit({
+          url: XMLifeOperating.generic.Global.URL.biz + 'promotion/group/add?sessionId=' + sessionId,
+          success: function (form, action) {
+            var res = action.response.responseText;
+            if (res) {
+              self.loadPromotionGroupData();
+            }
+          },
+          failure: function (form, action) {
+            var res = action.response.responseText;
+            if (res) {
+              self.loadPromotionGroupData();
+            }
+          }
+        });
+      }
+     });
 	},
 	savePromotionGroup: function (editor, e) {
 		var self = this,
