@@ -1,10 +1,11 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html>
 
 <head>
     <meta charset="UTF-8">
     <title>XMLifeOperating</title>
-    <script type="text/javascript" src="resources/raven.min.js"></script>
+    <script src="resources/url_config.js"></script>
+    <script src="resources/raven.min.js"></script>
     <!-- <x-compile> -->
     <!-- <x-bootstrap> -->
     <link rel="stylesheet" href="bootstrap.css">
@@ -13,8 +14,8 @@
     <!-- </x-bootstrap> -->
     <script src="app.js"></script>
     <script>
-    Raven.config('http://5be3cc9fd68445749e04a22f07edb8a0@115.28.83.225/sentry/5', {}).install();
-    window.onerror = Raven.process;
+        Raven.config('http://5be3cc9fd68445749e04a22f07edb8a0@115.28.83.225/sentry/5', {}).install();
+        window.onerror = Raven.process;
     </script>
     <!-- </x-compile> -->
 </head>
