@@ -45,7 +45,7 @@ Ext.define('XMLifeOperating.view.promotion.PromotionGroupPanel', {
 			text: '上传/修改'
 		},{
     bodyStyle: 'background:transparent;border:0;line-height:22px;margin-left:5px',
-    html : '<span style="color:red"> 正在进行中的活动，上传excel前请先将活动【取消激活】</span>'
+    html : '<span style="color:red"> 注:正在进行中的活动，上传excel前请先将活动【取消激活】</span>'
   }]
 	}],
 	defaults: {
