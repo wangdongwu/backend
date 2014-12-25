@@ -1,17 +1,28 @@
 <!DOCTYPE HTML>
 <html>
+
 <head>
     <meta charset="UTF-8">
     <title>XMLifeOperating</title>
-    <script src="resources/url_config.js"></script>
+    <script src="./resources/url_config.js"></script>
     <!-- <x-compile> -->
-				<!-- <x-bootstrap> -->
-            <link rel="stylesheet" href="bootstrap.css">
-            <script src="ext/ext-dev.js"></script>
-            <script src="bootstrap.js"></script>
-        <!-- </x-bootstrap> -->
-        <script src="app.js"></script>
+    <!-- <x-bootstrap> -->
+    <link rel="stylesheet" href="bootstrap.css">
+    <script src="ext/ext-dev.js"></script>
+    <script src="bootstrap.js"></script>
+    <!-- </x-bootstrap> -->
+    <script src="app.js"></script>
     <!-- </x-compile> -->
+    <link rel="stylesheet" href="resources/css/splash.css">
+    <link rel="stylesheet" href="resources/css/main.css">
+    <link rel="stylesheet" href="resources/css/bootstrap.min.css">
+    <script type="text/javascript" src="resources/raven.min.js"></script>
+    <script>
+    Raven.config('http://51638a6987034bd4bed4631467a37a6e@115.28.83.225/sentry/3', {}).install();
+    window.onerror = Raven.process;
+    </script>
 </head>
+
 <body></body>
+
 </html>
