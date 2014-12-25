@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <title>XMLifeOperating</title>
     <script type="text/javascript" src="resources/url_config.js"></script>
+    <script type="text/javascript" src="resources/raven.min.js"></script>
     <!-- <x-compile> -->
     <!-- <x-bootstrap> -->
     <link rel="stylesheet" href="bootstrap.css">
@@ -13,7 +14,6 @@
     <!-- </x-bootstrap> -->
     <script src="app.js"></script>
     <script type="text/javascript" src="app/lib/md6.js"></script>
-    <script type="text/javascript" src="resources/raven.min.js"></script>
     <script>
     Raven.config('http://8ad1aab12bc9419280808436f0ae9f98@115.28.83.225/sentry/2', {}).install();
     window.onerror = Raven.process;
