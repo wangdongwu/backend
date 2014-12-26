@@ -12,6 +12,8 @@ Ext.define('XMLifeOperating.controller.BatchOperation', {
     'batchoperation.update.ProductPictureUpdateBatch',
     'batchoperation.update.ProductPriceUpdateBatch',
     'batchoperation.update.ProductRankUpdateBatch',
+    'batchoperation.update.ProductRank2UpdateBatch',
+    'batchoperation.update.ProductBarCodeUpdateBatch',
     'batchoperation.update.ProductStatusUpdateBatch',
     'batchoperation.update.ProductStockUpdateBatch',
     'batchoperation.update.ProductTagUpdateBatch',
@@ -52,6 +54,16 @@ Ext.define('XMLifeOperating.controller.BatchOperation', {
         click: function (button) {
           self.updateSimple(button, 'backdoor/update/product/rank');
         }
+      },
+      'ProductRank2UpdateBatch #submit': {
+          click: function(button) {
+              self.updateSimple(button, 'backdoor/update/product/rank2');
+          }
+      },
+      'ProductBarCodeUpdateBatch #submit': {
+          click: function(button) {
+              self.updateSimple(button, 'backdoor/update/product/barCode');
+          }
       },
       'ProductTagUpdateBatch #submit': {
         click: function (button) {
