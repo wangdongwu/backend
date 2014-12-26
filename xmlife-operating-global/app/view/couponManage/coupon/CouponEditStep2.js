@@ -13,8 +13,7 @@ Ext.define('XMLifeOperating.view.couponManage.coupon.CouponEditStep2', {
     closeAction: 'hide',
     modal: true,
     width: 450,
-    height: 650,
-    resizable: false,
+    resizable: true,
     layout: 'fit',
     title:'创建优惠券step2',
     initComponent: function() {
@@ -55,7 +54,7 @@ Ext.define('XMLifeOperating.view.couponManage.coupon.CouponEditStep2', {
                     fieldLabel: '城市',
                     xtype: 'gridpanel',
                     itemId: 'gainNewCityIds',
-                    height: 100,
+                    maxHeight: 500,
                     selModel: Ext.create('Ext.selection.CheckboxModel', {
                         mode: 'MULTI'
                     }),
@@ -101,10 +100,10 @@ Ext.define('XMLifeOperating.view.couponManage.coupon.CouponEditStep2', {
                     fieldLabel: '店铺',
                     xtype: 'gridpanel',
                     itemId: 'gainShopId',
-                    height: 100,
                     selModel: Ext.create('Ext.selection.CheckboxModel', {
                         mode: 'MULTI'
                     }),
+                    maxHeight: 100,
                     columns: [{
                                 xtype: 'rownumberer'
                             },{
@@ -150,7 +149,7 @@ Ext.define('XMLifeOperating.view.couponManage.coupon.CouponEditStep2', {
                     fieldLabel: '货架',
                     xtype: 'gridpanel',
                     itemId: 'gainGoodsShelfId',
-                    height: 100,
+                    maxHeight: 150,
                     selModel: Ext.create('Ext.selection.CheckboxModel', {
                         mode: 'MULTI'
                     }),
@@ -193,7 +192,7 @@ Ext.define('XMLifeOperating.view.couponManage.coupon.CouponEditStep2', {
                     fieldLabel: 'sku',
                     xtype: 'gridpanel',
                     itemId: 'gainTemplatesSkuId',
-                    height: 100,
+                    maxHeight: 150,
                     selModel: Ext.create('Ext.selection.CheckboxModel', {
                         mode: 'MULTI'
                     }),

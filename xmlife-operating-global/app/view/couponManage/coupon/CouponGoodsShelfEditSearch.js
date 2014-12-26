@@ -13,7 +13,6 @@ Ext.define('XMLifeOperating.view.couponManage.coupon.CouponGoodsShelfEditSearch'
     closeAction: 'hide',
     modal: true,
     width: 450,
-    height: 450,
     resizable: false,
     layout: 'fit',
     title:'搜索货架',
@@ -23,9 +22,6 @@ Ext.define('XMLifeOperating.view.couponManage.coupon.CouponGoodsShelfEditSearch'
             layout: 'anchor',
             bodyPadding: 10,
             border: false,
-            /*defaults:{
-                anchor: '100%'
-            },*/
             items: [
                 
                 {
@@ -38,7 +34,7 @@ Ext.define('XMLifeOperating.view.couponManage.coupon.CouponGoodsShelfEditSearch'
                     fieldLabel: '货架list',
                     xtype: 'gridpanel',
                     itemId: 'searchGoodsShelfList',
-                    height: 150,
+                    height: 350,
                     selModel: Ext.create('Ext.selection.CheckboxModel', {
                         mode: 'MULTI'
                     }),

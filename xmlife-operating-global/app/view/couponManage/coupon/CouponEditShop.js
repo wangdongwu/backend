@@ -104,7 +104,7 @@ Ext.define('XMLifeOperating.view.couponManage.coupon.CouponEditShop', {
                 fieldLabel: '店铺',
                 xtype: 'gridpanel',
                 itemId: 'gainShopIdEditShop',
-                height: 100,
+                height: 300,
                 selModel: Ext.create('Ext.selection.CheckboxModel', {
                     mode: 'MULTI'
                 }),

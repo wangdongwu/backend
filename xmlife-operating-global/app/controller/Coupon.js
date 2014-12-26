@@ -441,10 +441,12 @@ Ext.define('XMLifeOperating.controller.Coupon', {
         return false;
     },
     onBindType: function(combo) {
-        var self = this;
-        var bindType = combo.getValue();
-        var winStep2 = self.getCouponEditStep2();
-        var choiceCityId = winStep2.down('#choiceCityId'),
+        var self = this,
+            bindType = combo.getValue(),
+            winStep2 = self.getCouponEditStep2(),
+            gainNewCityIds = winStep2.down('#gainNewCityIds'),
+            choiceCityId = winStep2.down('#choiceCityId'),
+
             choiceShopTextId = winStep2.down('#choiceShopTextId'), //选择店铺
             searchShopTextId = winStep2.down('#searchShopTextId'), //搜索店铺
             gainShopId = winStep2.down('#gainShopId'), //店铺列表
@@ -459,6 +461,9 @@ Ext.define('XMLifeOperating.controller.Coupon', {
 
         switch (bindType) {
             case 1: //商店
+                gainShopId.maxHeight = 300;
+                gainNewCityIds.maxHeight = 100;
+
                 choiceCityId.setVisible(true);
 
                 choiceShopTextId.setVisible(true);
@@ -472,9 +477,12 @@ Ext.define('XMLifeOperating.controller.Coupon', {
                 choiceTemplatesTextId.setVisible(false);
                 searchTemplatesfTextId.setVisible(false);
                 gainTemplatesSkuId.setVisible(false);
-
+                
                 break;
             case 2: //货架
+                gainShopId.maxHeight = 150;
+                gainNewCityIds.maxHeight = 100;
+
                 choiceCityId.setVisible(true);
 
                 choiceShopTextId.setVisible(true);
@@ -488,8 +496,12 @@ Ext.define('XMLifeOperating.controller.Coupon', {
                 choiceTemplatesTextId.setVisible(false);
                 searchTemplatesfTextId.setVisible(false);
                 gainTemplatesSkuId.setVisible(false);
+                
                 break;
             case 3: //sku
+                gainShopId.maxHeight = 150;
+                gainNewCityIds.maxHeight = 100;
+
                 choiceCityId.setVisible(true);
 
                 choiceShopTextId.setVisible(true);
@@ -503,8 +515,12 @@ Ext.define('XMLifeOperating.controller.Coupon', {
                 choiceTemplatesTextId.setVisible(true);
                 searchTemplatesfTextId.setVisible(true);
                 gainTemplatesSkuId.setVisible(true);
+                
                 break;
             default:
+                gainShopId.maxHeight = 150;
+                gainNewCityIds.maxHeight = 500;
+
                 choiceCityId.setVisible(false);
 
                 choiceShopTextId.setVisible(false);
@@ -518,6 +534,7 @@ Ext.define('XMLifeOperating.controller.Coupon', {
                 choiceTemplatesTextId.setVisible(false);
                 searchTemplatesfTextId.setVisible(false);
                 gainTemplatesSkuId.setVisible(false);
+ 
                 break;
         }
     },

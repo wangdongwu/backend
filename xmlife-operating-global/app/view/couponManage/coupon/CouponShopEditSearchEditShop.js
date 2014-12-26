@@ -13,7 +13,6 @@ Ext.define('XMLifeOperating.view.couponManage.coupon.CouponShopEditSearchEditSho
     closeAction: 'hide',
     modal: true,
     width: 450,
-    height: 450,
     resizable: false,
     layout: 'fit',
     title: '搜索店铺',
@@ -33,7 +32,7 @@ Ext.define('XMLifeOperating.view.couponManage.coupon.CouponShopEditSearchEditSho
                     fieldLabel: '店铺list',
                     xtype: 'gridpanel',
                     itemId: 'searchShopListEditShop',
-                    height: 150,
+                    height: 350,
                     selModel: Ext.create('Ext.selection.CheckboxModel', {
                         mode: 'MULTI'
                     }),

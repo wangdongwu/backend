@@ -13,7 +13,6 @@ Ext.define('XMLifeOperating.view.couponManage.coupon.CouponEditStep1', {
     closeAction: 'hide',
     modal: true,
     width: 480,
-    height: 550,
     resizable: false,
     layout: 'fit',
     title: '创建优惠券step1',
