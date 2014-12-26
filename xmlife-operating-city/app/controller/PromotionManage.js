@@ -39,11 +39,11 @@ Ext.define('XMLifeOperating.controller.PromotionManage', {
 			self.getPromotionGroup().updateLayout();
 		});
 
-		self.shopAreaStore.load();
-		self.promotionStore.load();
 		self.control({
 			'PromotionManage': {
 				added: function () {
+          self.shopAreaStore.load();
+          self.promotionStore.load();
 					self.loadPromotionStore();
 				}
 			},
