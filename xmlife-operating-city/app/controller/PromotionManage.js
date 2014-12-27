@@ -113,7 +113,7 @@ Ext.define('XMLifeOperating.controller.PromotionManage', {
         sendPostRequest(url, data, '', '', '', function(response) {
             if (response.responseText) {
                 self.loadPromotionStore()
-                wins.hide();
+                wins.close();
             } else {
                 Ext.Msg.alert('失败', '添加活动失败');
             }
