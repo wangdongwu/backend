@@ -198,24 +198,17 @@ Ext.define('XMLifeOperating.controller.PromotionManage', {
             }
         });
     },
-    /**
-     * [autoSelectPromotion 自动选中以一个活动]
-     * @param  {[type]} combo [当前选择组件]
-     * @return {[type]}       [null]
-     */
-    autoSelectPromotion: function(combo) {
-        combo.setValue(this.promotionStore.getAt(0).get('id'));
-    },
     showDetailProduct: function() {
         var self = this,
             model = arguments[3],
             groupId = model.get('groupId');
-        self.sromotionGroupProductStore.load({
-            params: {
+        
+        self.sromotionGroupProductStore.getProxy().extraParams={
                 promotionId: self.currentPromotionId,
                 groupId: groupId
-            }
-        });
+            };
+        self.sromotionGroupProductStore.load();
+
         return false;
     },
     /**
@@ -272,59 +265,6 @@ Ext.define('XMLifeOperating.controller.PromotionManage', {
     autoSelectPromotion: function(combo) {
         var firstPromotion = this.promotionStore.getAt(0);
         firstPromotion && combo.setValue(firstPromotion.get('id'));
-    },
-    showDetailProduct: function() {
-        var self = this,
-            model = arguments[3],
-            groupId = model.get('groupId');
-        self.sromotionGroupProductStore.load({
-            params: {
-                promotionId: self.currentPromotionId,
-                groupId: groupId
-            }
-        });
-        return false;
-    },
-    /**
-     * [loadPromotionGroupData 加载活动组store]
-     * @param  {[type]} combo         [当前选择组件]
-     * @param  {[type]} promotionId [选中的promotionId]
-     * @return {[type]}             [null]
-     */
-    loadPromotionGroupData: function(combo, promotionId) {
-        this.sromotionGroupProductStore.loadData([]);
-        this.currentPromotionId = promotionId || this.currentPromotionId;
-        this.sromotionGroupStore.load({
-            params: {
-                promotionId: this.currentPromotionId
-            }
-        });
-    },
-    /**
-     * [uploadPromotion 提交上传活动组的excel文件]
-     * @param  {[type]} button [description]
-     * @return {[type]}        [description]
-     */
-    uploadPromotion: function(button) {
-        var self = this,
-            form = button.up('form'),
-            sessionId = localStorage.getItem('sessionId') || '';
-
-        form.submit({
-            url: XMLifeOperating.generic.Global.URL.biz + 'promotion/group/add?sessionId=' + sessionId,
-            success: function(form, action) {
-                var res = action.response.responseText;
-                if (res) {
-                    self.loadPromotionGroupData();
-                }
-            },
-            failure: function(form, action) {
-                var res = action.response.responseText;
-                if (res) {
-                    self.loadPromotionGroupData();
-                }
-            }
-        });
     },
     savePromotionGroup: function(editor, e) {
         var self = this,
