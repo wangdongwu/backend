@@ -82,6 +82,7 @@ Ext.define('XMLifeOperating.view.promotion.PromotionManage', {
 		}, {
 			header: '激活',
 			dataIndex: 'activeStatus',
+      width : 65,
 			itemId: 'activeBt',
 			renderer: function (v) {
 				if (v == 1) {

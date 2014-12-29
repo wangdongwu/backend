@@ -149,6 +149,8 @@ Ext.define('XMLifeOperating.controller.PromotionManage', {
             promotionId = model.get('promotionId');
         if (status == 1) {
             //激活
+        Ext.MessageBox.confirm('提示', '你确定要激活改活动吗?',function(result){
+          if(result == 'yes'){
             sendPostRequest('promotion/activate', {
                 promotionId: promotionId
             }, '', '', '', function(response) {
@@ -163,22 +165,28 @@ Ext.define('XMLifeOperating.controller.PromotionManage', {
                     Ext.Msg.alert('失败', response.responseText);
                 };
             });
+          }
+        });
+            
         } else {
             //取消激活
-            sendPostRequest('promotion/deactivate', {
+            Ext.MessageBox.confirm('提示', '你确定要取消激活改活动吗?',function(result){
+              sendPostRequest('promotion/deactivate', {
                 promotionId: promotionId
-            }, '', '', '', function(response) {
-                if (response.responseText == 'success') {
-                    Ext.Msg.alert('成功', '取消激活成功');
-                    self.loadPromotionStore();
-                } else {
-                    Ext.Msg.alert('失败', '取消激活失败');
-                }
-            }, function(response) {
-                if (response.status == 500) {
-                    Ext.Msg.alert('失败', response.responseText);
-                };
+              }, '', '', '', function(response) {
+                  if (response.responseText == 'success') {
+                      Ext.Msg.alert('成功', '取消激活成功');
+                      self.loadPromotionStore();
+                  } else {
+                      Ext.Msg.alert('失败', '取消激活失败');
+                  }
+              }, function(response) {
+                  if (response.status == 500) {
+                      Ext.Msg.alert('失败', response.responseText);
+                  };
+              });
             });
+            
         }
 
     },
