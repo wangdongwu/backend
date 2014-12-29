@@ -99,7 +99,8 @@ Ext.define('XMLifeOperating.controller.GDealList', {
                                 sendPutRequest('deal/setProductNum', {
                                         dealId: record.get('dealBackendId'),
                                         productIdList: [record.get('productId')],
-                                        productNumList: [value]
+                                        productNumList: [value],
+                                        promotionIdList: [record.get('promotionId')]
                                     },
                                     '售后退货', '售后退货成功', '售后退货失败',
                                     function(response) {
@@ -120,18 +121,21 @@ Ext.define('XMLifeOperating.controller.GDealList', {
                                 var store = me.getDealItemsStore(),
                                     records = store.data.items,
                                     productIdList = [],
-                                    productNumList = [];
+                                    productNumList = [],
+                                    promotionIdList = [];
 
                                 for (var i = 0, n = records.length; i < n; i++) {
                                     productIdList.push(records[i].get('productId'));
                                     //productNumList.push(records[i].get('num'));
                                     productNumList.push(0);
+                                    promotionIdList.push(records[i].get('promotionId'));
                                 }
-
+                                
                                 sendPutRequest('deal/setProductNum', {
                                         dealId: store.getAt(0).get('dealBackendId'),
                                         productIdList: productIdList,
-                                        productNumList: productNumList
+                                        productNumList: productNumList,
+                                        promotionIdList: promotionIdList
                                     },
                                     '全部售后退货', '全部售后退货成功', '全部售后退货失败',
                                     function(response) {
