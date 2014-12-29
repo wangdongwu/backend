@@ -11,12 +11,6 @@ Ext.define('XMLifeOperating.view.promotion.PromotionProduct', {
 	titleAlign: 'left',
 	forceFit: true,
 	store: 'PromotionProduct',
-  bbar: [{
-      xtype: 'pagingtoolbar',
-      itemId: 'pagetool',
-      store: 'PromotionProduct',
-      displayInfo: true
-  }],
   features: [{ftype:'grouping',groupHeaderTpl: '{columnName}: {name} ({rows.length} {[values.rows.length > 1 ? "个商圈有该产品" : ""]})'}],
 	columns: [{
 		xtype: 'rownumberer'
