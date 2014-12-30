@@ -154,10 +154,11 @@ Ext.define('XMLifeOperating.controller.GDealList', {
                 click: me.onToProblemDeal
             },
             'gDealList #showReturnProductBtn': {
-                click: function() {
-                    var dealId = arguments[5].get('id'),
+                click: function(view, rowIndex, colIndex, column, e) {
+                    var record = view.getRecord(view.findTargetByEvent(e)),
+                        dealId = record.get('id'),
                         itemStore = me.getDealItemsStore(),
-                        status = arguments[5].get('status');
+                        status = record.get('status');
 
                     if(status != 4){
                         return;

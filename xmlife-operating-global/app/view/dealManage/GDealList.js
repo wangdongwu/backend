@@ -299,10 +299,7 @@ Ext.define('XMLifeOperating.view.dealManage.GDealList', {
             sortable: false,
             align: 'center',
             renderer: function(value, metadata, model, rowIndex, colIndex, store) {
-                if(model.get('status') != 4){
-                    return Ext.String.format('--', value, value);
-                }
-                return Ext.String.format('<button>退货</button>', value, value);
+                return model.get('status') != 4 ? '--' : '<button>退货</button>';
             }
         }
     ],
