@@ -156,7 +156,12 @@ Ext.define('XMLifeOperating.controller.GDealList', {
             'gDealList #showReturnProductBtn': {
                 click: function() {
                     var dealId = arguments[5].get('id'),
-                        itemStore = me.getDealItemsStore();
+                        itemStore = me.getDealItemsStore(),
+                        status = arguments[5].get('status');
+
+                    if(status != 4){
+                        return;
+                    }
 
                     me.getReturnProductForm().down('#DealItemsNumber').setValue("");
                     me.getReturnProductForm().down('#DealItems').setValue("");
@@ -179,29 +184,26 @@ Ext.define('XMLifeOperating.controller.GDealList', {
                 click: function(button) {
                     var form = button.up('form').getForm(),
                         number = button.up('form').down('#DealItemsNumber').getValue();
-                    console.log(form.getValues());
+
                     var data = me._returnProductItem.data;
                     if (number > data.num) {
                         button.up('window').close();
-                        Ext.Msg.alert("退货数量大于购买数量");
+                        Ext.Msg.alert('提示','退货数量大于购买数量');
                         return false;
                     }
+
                     var params = {
                         dealId: data.dealBackendId,
                         productIdList: [data.productId],
-                        productNumList: [data.num - parseInt(number)]
-                    }
-                    Ext.Ajax.request({
-                        method: 'PUT',
-                        url: XMLifeOperating.generic.Global.URL.biz + 'deal/setProductNum',
-                        params: params,
-                        success: function() {
+                        productNumList: [data.num - parseInt(number)],
+                        promotionIdList: [data.promotionId]
+                    };
+                    sendPutRequest('deal/setProductNum', params,
+                        '售后退货', '售后退货成功', '售后退货失败',
+                        function(response) {
+                            Ext.Msg.alert('提示','售后退货成功');
                             button.up("window").close();
-                        },
-                        failure: function() {
-                            Ext.Msg.alert("退货失败");
-                        }
-                    })
+                        });
                 }
             }
         });
