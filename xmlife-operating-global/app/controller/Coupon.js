@@ -11,7 +11,8 @@ Ext.define('XMLifeOperating.controller.Coupon', {
         'couponManage.coupon.CouponSkuEditSearch',
         'couponManage.coupon.CouponEdit',
         'couponManage.coupon.CouponEditShop',
-        'couponManage.coupon.CouponShopEditSearchEditShop'
+        'couponManage.coupon.CouponShopEditSearchEditShop',
+        'couponManage.coupon.CouponCheckIssueWin'
     ],
     stores: ['Coupon'],
     models: ['Coupon'],
@@ -121,6 +122,11 @@ Ext.define('XMLifeOperating.controller.Coupon', {
         selector: 'couponShopEditSearchEditShop',
         xtype: 'couponShopEditSearchEditShop',
         autoCreate: true
+    }, {
+        ref: 'couponCheckIssueWin',
+        selector: 'couponCheckIssueWin',
+        xtype: 'couponCheckIssueWin',
+        autoCreate: true
     }],
 
     init: function() {
@@ -228,6 +234,10 @@ Ext.define('XMLifeOperating.controller.Coupon', {
             },
             'couponShopEditSearchEditShop #searchShopSure-btn': {
                 click: self.onSearchShopSureEditShop
+            },
+            //查看
+            'couponList #checkIssueId': {
+                click: self.onCheckIssueId
             }
         });
     },
@@ -1508,8 +1518,8 @@ Ext.define('XMLifeOperating.controller.Coupon', {
 
     onSearchShopSureEditShop: function() {
 
-        var self = this;
-        editShopWin = self.getCouponEditShop(),
+        var self = this,
+            editShopWin = self.getCouponEditShop(),
             selectModelCitys = editShopWin.down('#gainNewCityIdsEditShop').getSelectionModel(),
             selectRecordsCitys = selectModelCitys.getSelection(),
             cities = '';
@@ -1565,5 +1575,28 @@ Ext.define('XMLifeOperating.controller.Coupon', {
         });
 
         editShopSearchWin.close();
+    },
+
+    onCheckIssueId: function(grid, column, rowIndex, colIndex, e) {
+        var self = this,
+            win = self.getCouponCheckIssueWin(),
+            record = grid.getStore().getAt(rowIndex),
+            form = win.down('form').getForm();
+            
+        var success = function(task, operation) {
+            var responseText = Ext.decode(task.responseText);
+
+            record.set('sendNum',responseText.sendNum);
+            record.set('usedNum',responseText.usedNum);
+
+            win.down('form').loadRecord(record);
+            win.show();
+        };
+
+        var failure = function(task, operation) {
+            Ext.Msg.alert('提示', '获取发放列表失败');
+        };
+
+        sendGetRequest('coupon/use/condition', {id:record.get('id')}, '获取发放列表', '发放列表成功', '发放列表失败', success, failure);
     }
 });

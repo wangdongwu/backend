@@ -30,7 +30,9 @@ Ext.define('XMLifeOperating.model.Coupon', {
     'cities',
     'categories',
     'bindingType',
-    'useRuleId'
+    'useRuleId',
+    'sendNum',
+    'usedNum'
     ],
     proxy: new XMLifeOperating.generic.BaseProxy('Shopper')
 });
