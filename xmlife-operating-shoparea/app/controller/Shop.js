@@ -16,6 +16,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
         'centralPointManage.shop.ShopSecondShelfAdd',
         'centralPointManage.shop.ShopProductAdd',
         'centralPointManage.shop.ShopProductEdit',
+        'centralPointManage.shop.ShopProductStatusEdit',
         'centralPointManage.shop.ShopBuyer',
         'centralPointManage.shop.ShopProductSoldOut',
         'centralPointManage.shop.ShopProductOffLine',
@@ -148,6 +149,11 @@ Ext.define('XMLifeOperating.controller.Shop', {
         ref: 'shopProductEdit',
         selector: 'shopproductedit',
         xtype: 'shopproductedit',
+        autoCreate: true
+    }, {
+        ref: 'shopProductStatusEdit',
+        selector: 'shopProductStatusEdit',
+        xtype: 'shopProductStatusEdit',
         autoCreate: true
     }, {
         ref: 'shopBuyer',
@@ -541,7 +547,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
                         if (shopBannerTemplateStore.data.items.length) {
                             //combo加载，用户选择下拉框。
                             if (shopStore.get('shopBannerTemplateId') !== shopStore.get('templateName')) {
-                               templateId = shopBannerTemplateStore.findRecord('id', shopStore.get('shopBannerTemplateId')).getId()
+                                templateId = shopBannerTemplateStore.findRecord('id', shopStore.get('shopBannerTemplateId')).getId()
                             }
 
                         }
@@ -1254,95 +1260,101 @@ Ext.define('XMLifeOperating.controller.Shop', {
              * soldout、offline、online、abandon查看事件
              */
             'shopProductSoldOut': {
-                validateedit: function(e, row) {
-                    var me = this;
-                    me.productStatusValidate(e, row, me.showProductSoldOutList);
-                },
+
                 added: function() {
                     var me = this;
                     me.disableUnAuthorityCmp(me.shopId, me.getShopProductSoldOut());
                 }
             },
-            'shopProductOffLine': {
-                validateedit: function(e, row) {
+            'shopProductSoldOut #putawayOrOut': {
+                click: function(grid, cell, rowIndex, colIndex, e, record, row) {
                     var me = this;
-                    me.productStatusValidate(e, row, me.showProductOffLineList);
-                },
+                    var win = me.getShopProductStatusEdit();
+                    var form = win.down('form').getForm();
+                    form.reset();
+                    form.setValues({
+                        id: record.get('id'),
+                        status: 3
+                    });
+                    win.show();
+                }
+            },
+            'shopProductOffLine': {
                 added: function() {
                     var me = this;
                     me.disableUnAuthorityCmp(me.shopId, me.getShopProductOffLine());
                 }
             },
-            'shopProductOnline': {
-                validateedit: function(e, row) {
+            'shopProductOffLine #putawayOrOut': {
+                click: function(grid, cell, rowIndex, colIndex, e, record, row) {
                     var me = this;
-                    me.productStatusValidate(e, row, me.showProductOnlineList);
-                },
+                    var win = me.getShopProductStatusEdit();
+                    var form = win.down('form').getForm();
+                    form.reset();
+                    form.setValues({
+                        id: record.get('id'),
+                        status: 1
+                    });
+                    win.show();
+                }
+            },
+            'shopProductOnline': {
+
                 added: function() {
                     var me = this;
                     me.disableUnAuthorityCmp(me.shopId, me.getShopProductOnline());
                 }
             },
-            'shopProductAbandoned': {
-                validateedit: function(e, row) {
+            'shopProductOnline #putawayOrOut': {
+                click: function(grid, cell, rowIndex, colIndex, e, record, row) {
                     var me = this;
-                    me.productStatusValidate(e, row, me.showProductAbandonedList);
-                },
+                    var win = me.getShopProductStatusEdit();
+                    var form = win.down('form').getForm();
+                    form.reset();
+                    form.setValues({
+                        id: record.get('id'),
+                        status: 0
+                    });
+                    win.show();
+                }
+            },
+
+            'shopProductAbandoned': {
                 added: function() {
                     var me = this;
                     me.disableUnAuthorityCmp(me.shopId, me.getShopProductAbandoned());
                 }
             },
-            'shopProductSearch': {
-                validateedit: function(e, row) {
+            'shopProductAbandoned #putawayOrOut': {
+                click: function(grid, cell, rowIndex, colIndex, e, record, row) {
                     var me = this;
-                    var rec = row.record;
-                    var value = row.value;
-                    var field = e.context.field;
-                    if (field == 'status') {
-                        var url = ['product'],
-                            status = value,
-                            id = rec.get('id');
-                        var success = function(reponse) {
-                            Ext.MessageBox.show({
-                                title: '提示',
-                                msg: '改变商品状态成功',
-                                buttons: Ext.Msg.OK
-                            });
-                            return true;
-                        }
-                        var failure = function() {
-                            Ext.MessageBox.show({
-                                title: '提示',
-                                msg: '改变商品状态失败',
-                                icon: Ext.Msg.ERROR,
-                                buttons: Ext.Msg.OK
-                            });
-                        }
-                        switch (status) {
-                            case 0: //上架
-                                url.push('/online');
-                                break;
-                            case 1: //雪藏
-                                url.push('/offline');
-                                break;
-                            case 2: //废弃
-                                url.push('/remove');
-                                break;
-                            case 3: //下架
-                                url.push('/soldout');
-                                break;
-                        }
-                        sendPutRequest(url.join(''), {
-                            productId: id,
-                        }, '改变商品状态', '改变商品状态成功', '改变商品状态失败', success, failure);
-                    } else {
-                        return false;
-                    }
-                },
+                    var win = me.getShopProductStatusEdit();
+                    var form = win.down('form').getForm();
+                    form.reset();
+                    form.setValues({
+                        id: record.get('id'),
+                        status: 2
+                    });
+                    win.show();
+                }
+            },
+            'shopProductSearch': {
                 added: function() {
                     var me = this;
                     me.disableUnAuthorityCmp(me.shopId, me.getShopProductSearch(), me.getShopProductSearchEdit());
+                }
+            },
+            'shopProductSearch #putawayOrOut': {
+                click: function(grid, cell, rowIndex, colIndex, e, record, row) {
+                    var me = this;
+                    var win = me.getShopProductStatusEdit();
+                    var form = win.down('form').getForm();
+                    form.reset();
+                    form.setValues({
+                        id: record.get('id'),
+                        status: 2
+                    });
+                    win.show();
                 }
             },
             'shopProductSearch #openModifyShelvesGoodsWin': {
@@ -1525,56 +1537,22 @@ Ext.define('XMLifeOperating.controller.Shop', {
              * product事件
              */
             'shopproduct': {
-                validateedit: function(e, row) {
-                    var me = this;
-                    var rec = row.record;
-                    var value = row.value;
-                    var field = e.context.field;
-                    if (field == 'status') {
-                        var url = ['product'],
-                            status = value,
-                            id = rec.get('id');
-                        var success = function(reponse) {
-                            Ext.MessageBox.show({
-                                title: '提示',
-                                msg: '改变商品状态成功',
-                                buttons: Ext.Msg.OK
-                            });
-                            return true;
-                        }
-                        var failure = function() {
-                            Ext.MessageBox.show({
-                                title: '提示',
-                                msg: '改变商品状态失败',
-                                icon: Ext.Msg.ERROR,
-                                buttons: Ext.Msg.OK
-                            });
-                        }
-                        switch (status) {
-                            case 0: //上架
-                                url.push('/online');
-                                break;
-                            case 1: //雪藏
-                                url.push('/offline');
-                                break;
-                            case 2: //废弃
-                                url.push('/remove');
-                                break;
-                            case 3: //下架
-                                url.push('/soldout');
-                                break;
-                        }
-                        sendPutRequest(url.join(''), {
-                            productId: id,
-                        }, '改变商品状态', '改变商品状态成功', '改变商品状态失败', success, failure);
-
-                    } else {
-                        return false;
-                    }
-                },
                 added: function() {
                     var me = this;
                     me.disableUnAuthorityCmp(me.shopId, me.getShopProductList(), me.getShopProductEdit());
+                }
+            },
+            'shopproduct #putawayOrOut': {
+                click: function(grid, cell, rowIndex, colIndex, e, record, row) {
+                    var me = this;
+                    var win = me.getShopProductStatusEdit();
+                    var form = win.down('form').getForm();
+                    form.reset();
+                    form.setValues({
+                        id: record.get('id'),
+                        status: record.get('status')
+                    });
+                    win.show();
                 }
             },
             'shopproduct #setProductTop': {
@@ -1726,22 +1704,6 @@ Ext.define('XMLifeOperating.controller.Shop', {
                         // 店铺id赋值
                         shopId = this.shopId;
                         // 限购类型赋值
-   /*                     limitType = form.getValues()['limitType'];
-                        if (limitType == 1) {
-                            limitCount = form.getValues()['dayLimitCount'];
-                            productLimitCount = form.getValues()['dayTodayLimitCount'];
-
-                        } else if (limitType == 2) {
-                            limitCount = form.getValues()['totalLimitCount'];
-                            productLimitCount = form.getValues()['totalTodayLimitCount'];
-                        } else {
-                            limitType = 0;
-                            limitCount = 0;
-                            productLimitCount = 0;
-                        }
-                        if (limitCount == 0 || limitCount == null || limitCount == '') {
-                            limitType = 0;
-                        }*/
                         // 价格判断
                         var facePrice = me.priceTransform(shelvesGoods.get('facePrice'));
                         var discountPrice = me.priceTransform(shelvesGoods.get('discountPrice'));
@@ -1783,9 +1745,6 @@ Ext.define('XMLifeOperating.controller.Shop', {
                         shelvesGoods.set('facePrice', facePrice);
                         shelvesGoods.set('purchasePrice', purchasePrice);
                         shelvesGoods.set('discountPrice', discountPrice);
-/*                        shelvesGoods.set('limitType', limitType);
-                        shelvesGoods.set('limitCount', limitCount);
-                        shelvesGoods.set('productLimitCount', productLimitCount);*/
                         shelvesGoods.set('productTemplateId', selectRecords[0].raw.id);
                         // 开始保存
                         windowEl.mask('saving');
@@ -1863,6 +1822,12 @@ Ext.define('XMLifeOperating.controller.Shop', {
                     } else {
                         Ext.Msg.alert('无效数据', '请更正表单数据！');
                     }
+                }
+            },
+            'shopProductStatusEdit #saveStatusChange': {
+                click: function(button, e) {
+                    var me = this;
+                    me.productStatusValidate(button, e);
                 }
             }
         });
@@ -2225,10 +2190,10 @@ Ext.define('XMLifeOperating.controller.Shop', {
                 } else if (listview.down(itemId)) {
                     listview.down(itemId).setDisabled(false);
                 } else {
-                    var editor = listview.down('#putawayOrOut').editor;
-                    if (editor.findRecord('itemId', properName)) {
-                        editor.findRecord('itemId', properName).set('disabled', false);
-                    }
+                    /*                    var editor = listview.down('#putawayOrOut').editor;
+                                        if (editor.findRecord('itemId', properName)) {
+                                            editor.findRecord('itemId', properName).set('disabled', false);
+                                        }*/
                 }
             }
         }
@@ -2429,28 +2394,58 @@ Ext.define('XMLifeOperating.controller.Shop', {
         };
         return false
     },
-    productStatusValidate: function(e, row, fn) {
+    productStatusValidate: function(button, e) {
+
         var me = this;
-        var rec = row.record;
-        var value = row.value;
-        var field = e.context.field;
-        var store = e.grid.getStore();
-        var shopId = me.shopId;
-        if (field === 'status') {
-            var url = ['product'],
-                status = value,
-                id = rec.get('id');
-            var success = function(reponse) {
-                fn.call(me, shopId);
-                Ext.MessageBox.show({
-                    title: '提示',
-                    msg: '改变商品状态成功',
-                    buttons: Ext.Msg.OK
-                });
-                return true;
+        var win = me.getShopProductStatusEdit();
+        var form = button.up('form');
+
+        if (form.isValid()) {
+            var values = form.getValues();
+            var shopId = me.shopId;
+            var tabIdArr = me.tabIdStr.split('_');
+            var panelKind = tabIdArr[0];
+            var panelId = tabIdArr[1];
+            var status = values.status;
+            var id = values.id;
+            var url = ['product'];
+            var reason = values.stchangereason ? (function(reasons) { //二进制转换为十进制
+                var sum = 0;
+                for (var i = 0, len = reasons.length; i < len; i++) {
+                    sum += reasons[i];
+                }
+                return parseInt(sum, 2);
+            }(values.stchangereason)) : undefined;
+            var fn = function(env, kind, id, shopId) {
+                switch (kind) {
+                    case 'tab4':
+                        //商品
+                        env.showProductList(panelId);
+                        break;
+                    case 'tab5':
+                        env.showProductSoldOutOrOffLineList(shopId, panelId);
+                        break;
+                    case 'tab6':
+                        env.showProductSearchList(shopId);
+                        break;
+                    default:
+                        break;
+                }
             }
+
+            var success = (function(env, kind, id, shopId) {
+                return function() {
+                    fn(env, kind, id, shopId);
+                    Ext.MessageBox.show({
+                        title: '提示',
+                        msg: '改变商品状态成功',
+                        buttons: Ext.Msg.OK
+                    });
+                    win.close();
+                    return true;
+                }
+            }(me, panelKind, panelId, shopId));
             var failure = function() {
-                fn.call(me, shopId);
                 Ext.MessageBox.show({
                     title: '提示',
                     msg: '改变商品状态失败',
@@ -2459,6 +2454,14 @@ Ext.define('XMLifeOperating.controller.Shop', {
                 });
                 return false;
             }
+
+            var data = {
+                productId: id
+            }
+            if (reason) {
+                data.reason = reason;
+            }
+
             switch (status) {
                 case 0: //上架
                     url.push('/online');
@@ -2476,11 +2479,9 @@ Ext.define('XMLifeOperating.controller.Shop', {
                     return;
                     break;
             }
-            sendPutRequest(url.join(''), {
-                productId: id,
-            }, '改变商品状态', '改变商品状态成功', '改变商品状态失败', success, failure);
+            sendPutRequest(url.join(''), data, '改变商品状态', '改变商品状态成功', '改变商品状态失败', success, failure);
         } else {
-            return false;
+            Ext.Msg.alert('提示', '请勾选修改原因！');
         }
     }
 });

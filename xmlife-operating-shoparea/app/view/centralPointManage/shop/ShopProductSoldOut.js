@@ -7,58 +7,6 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopProductSoldOut', {
     store: 'ShopCategories',
     initComponent: function() {
         var me = this;
-        var store = Ext.create('Ext.data.Store', {
-            fields: ['value', 'name', 'itemId', 'disabled'],
-            data: [{
-                'value': 0,
-                'name': '上架',
-                'itemId': 'onCarriage',
-                'disabled': false
-            }, {
-                'value': 1,
-                'name': '雪藏',
-                'itemId': 'frozen',
-                'disabled': false
-            }, {
-                'value': 2,
-                'name': '废弃',
-                'itemId': 'waste',
-                'disabled': false
-            }, {
-                'value': 3,
-                'name': '下架',
-                'itemId': 'underCarriage',
-                'disabled': false
-            }]
-        });
-        var combo = Ext.create('Ext.form.ComboBox', {
-            displayField: 'name',
-            valueField: 'value',
-            triggerAction: 'all',
-            autoScroll: true,
-            editable: false,
-            queryMode: 'local',
-            tpl: Ext.create(
-                'Ext.XTemplate', '<ul class="x-list-plain">',
-                '<tpl for=".">',
-                '<li class="x-boundlist-item"',
-                '<tpl if="disabled == true">',
-                'style="color:lightgray;background-color:whitesmoke;"',
-                '</tpl>',
-                '>{name}</li>',
-                '</tpl>',
-                '</ul>'),
-            store: store,
-            listeners: {
-                beforeselect: function(combo, record, index) {
-                    if (record.get('disabled')) {
-                        return false
-                    } else {
-                        return true
-                    }
-                }
-            }
-        });
         Ext.applyIf(me, {
             columns: [{
                 xtype: 'rownumberer'
@@ -87,28 +35,12 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopProductSoldOut', {
                 width: 90,
                 dataIndex: 'status',
                 itemId: 'putawayOrOut',
+                menuDisabled: true,
                 sortable: true,
                 align: 'center',
-                editor: combo,
-                renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
-                    if (view.getRefOwner().ownerCt.tab.active) {
-                        var me = this,
-                            column = me.down('#putawayOrOut'),
-                            editor = me.down('#putawayOrOut').getEditor(),
-                            store = editor.getStore(),
-                            value = value || 3,
-                            returnStr = '';
-                        var comboRecordIndex = store.find(editor.valueField, value),
-                            comboReocrd = store.getAt(comboRecordIndex);
-                        if (record === null) {
-                            returnStr = value;
-                        } else {
-                            returnStr = comboReocrd.get(editor.displayField);
-                        }
-                        return returnStr;
-                    } else {
-                        return '';
-                    }
+                style: 'cursor:pointer',
+                renderer: function() {
+                    return '<a href="javascript:void(0)">' + '下架' + '</a>'
                 }
             }],
             bbar: [{

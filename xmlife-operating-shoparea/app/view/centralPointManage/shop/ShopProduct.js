@@ -8,56 +8,6 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopProduct', {
     columnLines: true,
     initComponent: function() {
             var me = this;
-            var store = Ext.create('Ext.data.Store', {
-                fields: ['value', 'name', 'itemId', 'disabled'],
-                data: [{
-                    'value': 0,
-                    'name': '上架',
-                    'itemId': 'onCarriage',
-                    'disabled': false
-                }, {
-                    'value': 1,
-                    'name': '雪藏',
-                    'itemId': 'frozen',
-                    'disabled': false
-                }, {
-                    'value': 2,
-                    'name': '废弃',
-                    'itemId': 'waste',
-                    'disabled': false
-                }, {
-                    'value': 3,
-                    'name': '下架',
-                    'itemId': 'underCarriage',
-                    'disabled': false
-                }]
-            });
-            var combo = Ext.create('Ext.form.ComboBox', {
-                displayField: 'name',
-                valueField: 'value',
-                triggerAction: 'all',
-                autoScroll: true,
-                editable: false,
-                queryMode: 'local',
-                tpl: Ext.create('Ext.XTemplate', '<ul class="x-list-plain">',
-                    '<tpl for=".">',
-                    '<li class="x-boundlist-item"',
-                    '<tpl if="disabled == true">',
-                    'style="color:lightgray;background-color:whitesmoke;"',
-                    '</tpl>',
-                    '>{name}</li>',
-                    '</tpl>', '</ul>'),
-                store: store,
-                listeners: {
-                    beforeselect: function(combo, record, index) {
-                        if (record.get('disabled')) {
-                            return false
-                        } else {
-                            return true
-                        }
-                    }
-                }
-            });
             Ext.applyIf(me, {
                 columns: [{
                     xtype: 'rownumberer'
@@ -170,21 +120,27 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopProduct', {
                     sortable: true,
                     itemId: 'putawayOrOut',
                     align: 'center',
-                    editor: combo,
-                    renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
-                        var me = this,
-                            column = me.down('#putawayOrOut'),
-                            editor = me.down('#putawayOrOut').getEditor(),
-                            store = editor.getStore(),
-                            returnStr = '';
-                        var comboRecordIndex = store.find(editor.valueField, value),
-                            comboReocrd = store.getAt(comboRecordIndex);
-                        if (record == null) {
-                            returnStr = value;
-                        } else {
-                            returnStr = comboReocrd.get(editor.displayField);
+                    renderer: function(value) {
+                        var str = '';
+                        switch (value) {
+                            case 0:
+                                str = '上架';
+                                break;
+                            case 1:
+                                str = '雪藏';
+                                break;
+
+                            case 2:
+                                str = '废弃';
+                                break;
+
+                            case 3:
+                                str = '下架';
+                                break;
+                            default:
+                                break;
                         }
-                        return returnStr;
+                        return '<a href="javascript:void(0)">'+str+'</a>'
                     }
                 }, {
                     text: '编辑',
@@ -234,11 +190,4 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopProduct', {
             });
             me.callParent(arguments);
         }
-        /*bbar: [{
-            xtype: 'pagingtoolbar',
-            itemId: 'pagetool',
-            store: 'Product',
-            displayInfo: true,
-            style: 'border:none'
-        }],*/
 });
