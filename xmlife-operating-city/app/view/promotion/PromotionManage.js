@@ -35,12 +35,14 @@ Ext.define('XMLifeOperating.view.promotion.PromotionManage', {
 				name: '即将开始'
 			}, {
 				status: 3,
-				name: '进行中'
+				name: '即将开始'
 			}, {
 				status: 4,
-				name: '已过期'
-			}]
-
+				name: '进行中'
+			},{
+        status : 5,
+        name : '已经结束'
+      }]
 		})
 	}, {
 		xtype: 'textfield',
