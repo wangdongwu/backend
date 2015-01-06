@@ -2168,7 +2168,8 @@ Ext.define('XMLifeOperating.controller.Shop', {
             currentShopType = currentShop.get('type'),
             userInfo = adminShopTypeStore.getAt(0).getData(), //获取第一位
             listview = listview || me.getShopProductList(),
-            editview = editview || me.getShopProductEdit();
+            editview = editview || me.getShopProductEdit(),
+            statusview = statusview || me.getShopProductStatusEdit();
 
         for (var properName in userInfo) {
             var properArray = userInfo[properName];
@@ -2179,7 +2180,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
                 } else if (listview.down(itemId)) { //在ProductList中的操作
                     listview.down(itemId).setDisabled(true);
                 } else { //状态下拉框禁用
-                    var editor = listview.down('#putawayOrOut').editor;
+                    var editor = statusview.down('#status');
                     if (editor.findRecord('itemId', properName)) {
                         editor.findRecord('itemId', properName).set('disabled', true);
                     }
@@ -2190,10 +2191,10 @@ Ext.define('XMLifeOperating.controller.Shop', {
                 } else if (listview.down(itemId)) {
                     listview.down(itemId).setDisabled(false);
                 } else {
-                    /*                    var editor = listview.down('#putawayOrOut').editor;
-                                        if (editor.findRecord('itemId', properName)) {
-                                            editor.findRecord('itemId', properName).set('disabled', false);
-                                        }*/
+                    var editor = statusview.down('#status');
+                    if (editor.findRecord('itemId', properName)) {
+                        editor.findRecord('itemId', properName).set('disabled', false);
+                    }
                 }
             }
         }
@@ -2411,12 +2412,19 @@ Ext.define('XMLifeOperating.controller.Shop', {
             var url = ['product'];
             var reason = values.stchangereason ? (function(reasons) { //二进制转换为十进制
                 var sum = 0;
-                for (var i = 0, len = reasons.length; i < len; i++) {
-                    sum += reasons[i];
+                var len = reasons.length;
+                if (len) {
+                    for (var i = 0; i < len; i++) {
+                        sum += reasons[i];
+                    }
+                } else {
+                    sum += reasons;
                 }
+
                 return parseInt(sum, 2);
+
             }(values.stchangereason)) : undefined;
-            var fn = function(env, kind, id, shopId) {
+            var fn = function(env, kind, panelId, shopId) {
                 switch (kind) {
                     case 'tab4':
                         //商品
@@ -2433,9 +2441,9 @@ Ext.define('XMLifeOperating.controller.Shop', {
                 }
             }
 
-            var success = (function(env, kind, id, shopId) {
+            var success = (function(env, kind, panelId, shopId) {
                 return function() {
-                    fn(env, kind, id, shopId);
+                    fn(env, kind, panelId, shopId);
                     Ext.MessageBox.show({
                         title: '提示',
                         msg: '改变商品状态成功',
