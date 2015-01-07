@@ -12,12 +12,12 @@ Ext.define('XMLifeOperating.controller.HomePage', {
 
     stores: [
         'HomePage', 'HomePageModuleList', 'HomePageModuleCopy', 'HomePageModuleDetail',
-        'HomePageModuleRenter', 'HomePagePreview', 'HomePageUrlType', 'HomePageShop', 
+        'HomePageModuleRenter', 'HomePagePreview', 'HomePageUrlType', 'HomePageShop',
         'HomePageCategory', 'HomePageLeafCategory', 'HomePageProduct', 'HomePageFunction',
         'HomePageShopSet', 'HomePagePromotion'
     ],
 
-    models: ['HomePage'],
+    models: ['HomePage', 'HomePageProduct'],
 
     refs: [{
         ref: 'homePage',
@@ -458,7 +458,7 @@ Ext.define('XMLifeOperating.controller.HomePage', {
                     } else {
                         win.down('#renterView').show();
                     }
-                    
+
                 },
                 edit: function(editor, e) {
                     var record = e.record;
@@ -481,7 +481,7 @@ Ext.define('XMLifeOperating.controller.HomePage', {
                         }, '修改名称', '修改名称成功', '修改名称失败', function() {
                             me.getHomePageModuleListStore().load();
                         });
-                    }            
+                    }
                 }
             },
             // 返回小积木列表
@@ -516,7 +516,7 @@ Ext.define('XMLifeOperating.controller.HomePage', {
 
                     // 设置当前是否为租客
                     this.isRenter = true;
-                    this.renterParentIndex = record.get('index'); 
+                    this.renterParentIndex = record.get('index');
 
                     win.down('#moduleDetail').bindStore(store);
                     win.down('#moduleDetail').setTitle(this.renterParentIndex + '号小积木-租客列表');
@@ -559,7 +559,7 @@ Ext.define('XMLifeOperating.controller.HomePage', {
                     win.down('datefield[name=startTime]').setDisabled(!this.isRenter);
                     win.down('datefield[name=endTime]').setDisabled(!this.isRenter);
                     win.down('combo[name=index]').setDisabled(!this.isRenter);
-                    
+
                     //显示图片大小提示
                     var index = this.isRenter ? this.renterParentIndex : 0;
                     var size = this.getItemSize(this.moduleType, index);
@@ -639,7 +639,7 @@ Ext.define('XMLifeOperating.controller.HomePage', {
                                             }
                                         );
                                     }
-                                    
+
                                 }
                             }
                         );
@@ -781,6 +781,15 @@ Ext.define('XMLifeOperating.controller.HomePage', {
                             params: {
                                 categoryId: cid
                             }
+                        });
+                        // 过滤掉已下架/已删除的商品
+                        store.on('load', function () {
+                          this.filter([
+                            function (item) {
+                              var status = item.get('status');
+                              return status == 0 || status == 3;
+                            }
+                          ]);
                         });
                         if (flag != 'isInit') win.down('combo[name=pid]').setValue('');
                     }

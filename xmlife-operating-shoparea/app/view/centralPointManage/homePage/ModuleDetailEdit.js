@@ -111,6 +111,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.homePage.ModuleDetailEdit', 
                 displayField: 'name',
                 valueField: 'id',
                 emptyText: '请选择店铺集合',
+                matchFieldWidth: false,
                 width: 185,
                 hidden: true
             }, {
@@ -124,6 +125,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.homePage.ModuleDetailEdit', 
                 displayField: 'name',
                 valueField: 'id',
                 emptyText: '请选择商铺',
+                matchFieldWidth: false,
                 width: 165,
                 hidden: true
             }, {
@@ -134,6 +136,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.homePage.ModuleDetailEdit', 
                 displayField: 'name',
                 valueField: 'id',
                 emptyText: '请选择货架',
+                matchFieldWidth: false,
                 width: 110,
                 hidden: true
             }, {
@@ -144,6 +147,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.homePage.ModuleDetailEdit', 
                 displayField: 'name',
                 valueField: 'id',
                 emptyText: '请选择SKU',
+                matchFieldWidth: false,
                 width: 110,
                 hidden: true
             }, {
@@ -157,6 +161,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.homePage.ModuleDetailEdit', 
                 displayField: 'name',
                 valueField: 'value',
                 emptyText: '请选择功能页面',
+                matchFieldWidth: false,
                 width: 185,
                 hidden: true
             }, {
@@ -170,6 +175,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.homePage.ModuleDetailEdit', 
                 displayField: 'name',
                 valueField: 'promotionId',
                 emptyText: '请选择限购活动',
+                matchFieldWidth: false,
                 width: 185,
                 hidden: true
             }]

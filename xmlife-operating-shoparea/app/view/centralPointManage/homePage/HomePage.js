@@ -50,8 +50,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.homePage.HomePage', {
               width: '11%',
               align: 'center',
               renderer: function(value) {
-                return value ? '默认' : '-';
-                //return value ? '默认' : '<input type="button" value="设置" style="margin-left: -4px;" />';
+                return value ? '<span style="color:green;">默认</span>' : '-';
               }
           }, {
               text: '定时',
