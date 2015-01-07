@@ -37,7 +37,7 @@ Ext.define('XMLifeOperating.model.Promotion', {
                     str = '未激活';
                     break;
                 case 2:
-                    str = '未激活';
+                    str = '激活未展示';
                     break;
                 case 3:
                     str = '即将开始';

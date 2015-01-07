@@ -32,7 +32,7 @@ Ext.define('XMLifeOperating.view.promotion.PromotionManage', {
 				name: '未激活'
 			}, {
 				status: 2,
-				name: '未激活'
+				name: '激活未展示'
 			}, {
 				status: 3,
 				name: '即将开始'
