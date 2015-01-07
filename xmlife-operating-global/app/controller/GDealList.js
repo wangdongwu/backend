@@ -78,13 +78,13 @@ Ext.define('XMLifeOperating.controller.GDealList', {
             '#dealDetail': {
                 click: me.onDealDetail
             },
-            // 售后退货
+            // 申请售后退货
             'gDealDetail #sellRefund': {
                 click: function(view, rowIndex, colIndex, column, e) {
                     var record = view.getRecord(view.findTargetByEvent(e)),
                         buyNum = record.get('num');
 
-                    Ext.MessageBox.prompt('售后退货', '商品名称：' + record.get('name') + ' <br />输入数量：',
+                    Ext.MessageBox.prompt('申请售后退货', '商品名称：' + record.get('name') + ' <br />输入数量：',
                         function(result, value) {
                             if (result == 'ok') {
                                 if (isNaN(value)) {
@@ -102,7 +102,7 @@ Ext.define('XMLifeOperating.controller.GDealList', {
                                         productNumList: [value],
                                         promotionIdList: [record.get('promotionId')]
                                     },
-                                    '售后退货', '售后退货成功', '售后退货失败',
+                                    '申请售后退货', '申请售后退货成功', '申请售后退货失败',
                                     function(response) {
                                         me.getDealItemsStore().load();
                                     });
@@ -112,10 +112,10 @@ Ext.define('XMLifeOperating.controller.GDealList', {
                     );
                 }
             },
-            // 全部售后退货
+            // 全部申请售后退货
             'gDealDetail #refundAll': {
                 click: function() {
-                    Ext.MessageBox.confirm('全部售后退货', '确定要退掉此订单的全部商品吗？',
+                    Ext.MessageBox.confirm('全部申请售后退货', '确定要退掉此订单的全部商品吗？',
                         function(result) {
                             if (result == 'yes') {
                                 var store = me.getDealItemsStore(),
@@ -137,7 +137,7 @@ Ext.define('XMLifeOperating.controller.GDealList', {
                                         productNumList: productNumList,
                                         promotionIdList: promotionIdList
                                     },
-                                    '全部售后退货', '全部售后退货成功', '全部售后退货失败',
+                                    '全部申请售后退货', '全部申请售后退货成功', '全部申请售后退货失败',
                                     function(response) {
                                         me.getDealItemsStore().load();
                                     });
