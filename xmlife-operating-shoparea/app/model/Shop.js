@@ -6,7 +6,7 @@ Ext.define('XMLifeOperating.model.Shop', {
 		'name',
 		'templateId',
 		'templateName',
-		'desc',
+		// 'desc', // 疑似不再使用，各界面未见对应的域
 		'openTime',
 		'closeTime',
 		'openTimeText',
@@ -26,6 +26,11 @@ Ext.define('XMLifeOperating.model.Shop', {
 		'status',
 		'areas',
 		'beCopyedShopId',
+		'initShippingFee',
+		'minPrice',
+		'minOrderForFreeShipping',
+		'minDistance',
+		'shippingFeePerKM',
 		'autoOnline',
 		'showAllProducts',
 		'needAuditPrice',
@@ -35,5 +40,5 @@ Ext.define('XMLifeOperating.model.Shop', {
 		'managerCount'
 	],
 	idProperty: 'id',
-	proxy: dataProxy,
+	proxy: dataProxy
 });

@@ -19,16 +19,16 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopEdit', {
             fields: ['value', 'name'],
             data: [{
                 'value': 0,
-                'name':'系统默认展示'
+                'name': '系统默认展示'
             }, {
                 'value': 1,
-                'name':'一级分类合并展示'
+                'name': '一级分类合并展示'
             }, {
                 'value': 2,
-                'name':'二级分类合并展示'
+                'name': '二级分类合并展示'
             }, {
                 'value': 3,
-                'name':'三级分类合并展示'
+                'name': '三级分类合并展示'
             }]
         });
         this.items = [{
@@ -37,7 +37,8 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopEdit', {
             bodyPadding: 10,
             frame: true,
             defaults: {
-                anchor: '100%'
+                anchor: '100%',
+                labelAlign: 'right'
             },
             itemId: 'shopeditform',
             items: [{
@@ -47,10 +48,8 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopEdit', {
                 flex: 1,
                 labelWidth: 90,
                 allowBlank: false,
-                labelAlign: 'right',
                 afterLabelTextTpl: required,
                 validator: function(value) {
-                    var value = value;
                     var length = 0;
                     for (var i = 0, len = value.length; i < len; i++) {
                         var chart = value.charCodeAt(i);
@@ -61,9 +60,9 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopEdit', {
                         }
                     }
                     if (length > 24) {
-                        return '店铺主名称最大长度为12个汉字或24个字母'
+                        return '店铺主名称最大长度为12个汉字或24个字母';
                     } else {
-                        return true
+                        return true;
                     }
                 }
             }, {
@@ -74,7 +73,6 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopEdit', {
                 flex: 1,
                 allowBlank: false,
                 labelWidth: 90,
-                labelAlign: 'right',
                 afterLabelTextTpl: required,
                 editable: false,
                 store: 'ShopBannerTemplate',
@@ -89,7 +87,6 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopEdit', {
                 flex: 1,
                 labelWidth: 90,
                 allowBlank: false,
-                labelAlign: 'right',
                 afterLabelTextTpl: required,
                 minLength: 2,
                 minLengthText: '商品名称最小长度为2',
@@ -102,7 +99,6 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopEdit', {
                 labelWidth: 90,
                 flex: 1,
                 allowBlank: false,
-                labelAlign: 'right',
                 afterLabelTextTpl: required,
                 minLength: 2,
                 minLengthText: '商品名称最小长度为2',
@@ -115,7 +111,6 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopEdit', {
                 flex: 1,
                 labelWidth: 90,
                 allowBlank: false,
-                labelAlign: 'right',
                 afterLabelTextTpl: required,
                 minLength: 2,
                 minLengthText: '商品名称最小长度为2',
@@ -129,7 +124,6 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopEdit', {
                 flex: 1,
                 format: 'H:i',
                 allowBlank: false,
-                labelAlign: 'right',
                 afterLabelTextTpl: required
             }, {
                 xtype: 'timefield',
@@ -139,9 +133,8 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopEdit', {
                 flex: 1,
                 format: 'H:i',
                 allowBlank: false,
-                labelAlign: 'right',
                 afterLabelTextTpl: required
-            },  {
+            }, {
                 xtype: 'combo',
                 itemId: 'showway',
                 fieldLabel: '分类展示方式',
@@ -149,10 +142,49 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopEdit', {
                 labelAlign: 'right',
                 afterLabelTextTpl: required,
                 store: showstore,
-                queryMode:'local',
+                queryMode: 'local',
                 valueField: 'value',
                 displayField: 'name',
                 allowBlank: false
+            }, {
+                xtype: 'numberfield',
+                name: 'initShippingFee',
+                fieldLabel: '起送费',
+                labelWidth: 90,
+                minValue: 0,
+                allowDecimals: false,
+                emptyText: '不填则以城市设置为准'
+            }, {
+                xtype: 'numberfield',
+                name: 'minPrice',
+                fieldLabel: '起送金额',
+                labelWidth: 90,
+                minValue: 0,
+                allowDecimals: false,
+                emptyText: '不填则以城市设置为准'
+            }, {
+                xtype: 'numberfield',
+                name: 'minOrderForFreeShipping',
+                fieldLabel: '免起送费金额',
+                labelWidth: 90,
+                minValue: 0,
+                allowDecimals: false,
+                emptyText: '不填则以城市设置为准'
+            }, {
+                xtype: 'numberfield',
+                name: 'minDistance',
+                fieldLabel: '起送费距离',
+                labelWidth: 90,
+                minValue: 1,
+                allowDecimals: false,
+                emptyText: '不填则以城市设置为准'
+            }, {
+                xtype: 'numberfield',
+                name: 'shippingFeePerKM',
+                fieldLabel: '远程费用',
+                labelWidth: 90,
+                minValue: 0.01,
+                emptyText: '元/公里；不填则以城市设置为准'
             }, {
                 xtype: 'radiogroup',
                 fieldLabel: '商品是否每日自动上架',
@@ -161,7 +193,6 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopEdit', {
                     flex: 1
                 },
                 allowBlank: false,
-                labelAlign: 'right',
                 afterLabelTextTpl: required,
                 layout: 'hbox',
                 items: [{
@@ -173,7 +204,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopEdit', {
                     name: 'autoOnline',
                     inputValue: 'false'
                 }]
-            },{
+            }, {
                 xtype: 'radiogroup',
                 fieldLabel: '改价是否审核',
                 labelWidth: 160,
@@ -181,7 +212,6 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopEdit', {
                     flex: 1
                 },
                 allowBlank: false,
-                labelAlign: 'right',
                 afterLabelTextTpl: required,
                 layout: 'hbox',
                 items: [{
@@ -201,7 +231,6 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopEdit', {
                     flex: 1
                 },
                 allowBlank: false,
-                labelAlign: 'right',
                 afterLabelTextTpl: required,
                 layout: 'hbox',
                 items: [{
@@ -225,7 +254,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopEdit', {
                     Ext.ComponentQuery.query('shopedit')[0].close();
                 }
             }]
-        }]
+        }];
         this.callParent(arguments);
     }
 });

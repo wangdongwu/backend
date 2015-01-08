@@ -168,7 +168,7 @@ Ext.define('XMLifeOperating.controller.SupportedCityList', {
                     });
                     windowEl.unmask();
                 }
-            })
+            });
         } else {
             Ext.Msg.alert('Invalid Data', 'Please correct form errors');
         }
@@ -183,15 +183,15 @@ Ext.define('XMLifeOperating.controller.SupportedCityList', {
 
         var cityCode = addWindow.down('combo[name=ccity]').getValue();
         // var status = addWindow.down('combo[name=cstatue]').getValue();
-        var shipfee = addWindow.down('textfield[name=logisticsPrice]').getValue();
-        var deductd = addWindow.down('textfield[name=deductdPrice]').getValue();
+        var initShippingFee = addWindow.down('textfield[name=logisticsPrice]').getValue();
+        var minOrderForFreeShipping = addWindow.down('textfield[name=deductdPrice]').getValue();
         var name = this.selectedRecord.get('name');
         var ajaxParamas = {
             code: cityCode,
             name: name,
-            shipfee: shipfee,
-            deductd: deductd
-        }
+            initShippingFee: initShippingFee,
+            minOrderForFreeShipping: minOrderForFreeShipping
+        };
         var me = this;
         if(form.isValid()) {
             windowEl.mask('saving');
@@ -200,7 +200,7 @@ Ext.define('XMLifeOperating.controller.SupportedCityList', {
                 windowEl.unmask();
                 addWindow.close();
                 me.getSupportedCityStore().load();
-            }
+            };
             var failure = function(responseText) {
                 var error = operation.getError(),
                 msg = Ext.isObject(error) ? error.status + ' ' + error.statusText : error;
@@ -212,7 +212,7 @@ Ext.define('XMLifeOperating.controller.SupportedCityList', {
                     buttons: Ext.Msg.OK
                 });
                 windowEl.unmask();
-            }
+            };
         sendRequest('supportedcity', ajaxParamas, '添加城市', '添加城市成功', '添加城市失败', success, failure);
 
         } else {

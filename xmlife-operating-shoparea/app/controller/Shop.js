@@ -223,7 +223,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
                     var cClass = this.getShopModel();
                     var shop = new cClass();
                     var win = this.getShopAdd();
-                    win.down('#shopeditform').getForm().reset()
+                    win.down('#shopeditform').getForm().reset();
                     win.down('#shopeditform').loadRecord(shop);
                     win.show();
                 }
@@ -400,6 +400,14 @@ Ext.define('XMLifeOperating.controller.Shop', {
                     var showAllProducts = (this.record.get('showAllProducts') == true || this.record.get('showAllProducts') == 'true') ? 'true' : 'false';
                     var needAuditPrice = (this.record.get('needAuditPrice') == true || this.record.get('needAuditPrice') == 'true') ? 'true' : 'false';
                     var needUserCollection = (this.record.get('needUserCollection') == true || this.record.get('needUserCollection') == 'true') ? 'true' : 'false';
+
+                    Ext.Array.each(['initShippingFee', 'minPrice', 'minOrderForFreeShipping', 'minDistance', 'shippingFeePerKM'], function(field) {
+                        var value = this.record.get(field);
+                        if (Ext.isNumeric(value)) {
+                            this.record.set(field, value / 100);
+                        }
+                    }, this);
+
                     this.record.set('openTimeText', openTime);
                     this.record.set('closeTimeText', closeTime);
                     this.record.set('autoOnline', autoOnline);
@@ -506,10 +514,19 @@ Ext.define('XMLifeOperating.controller.Shop', {
                         var areaIds = [this.areaId];
                         var autoOnline = (shopStore.get('autoOnline') == 'false') ? false : true;
                         shopStore.set('areaIds', areaIds);
+
+
                         shopStore.set('autoOnline', autoOnline);
                         shopStore.set('openTime', (shopStore.get('openTime').getHours() * 60 + shopStore.get('openTime').getMinutes()));
                         shopStore.set('closeTime', (shopStore.get('closeTime').getHours() * 60 + shopStore.get('closeTime').getMinutes()));
 
+                        Ext.Array.each(['initShippingFee', 'minPrice', 'minOrderForFreeShipping', 'minDistance', 'shippingFeePerKM'], function(field) {
+                            var value = shopStore.get(field);
+                            if (Ext.isNumeric(value)) {
+                                value = me.priceTransform(value);
+                                shopStore.set(field, value);
+                            }
+                        });
                         shopStore.save({
                             success: function(task, operation) {
                                 windowEl.unmask();
@@ -561,7 +578,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
                             }
                         } else {
                             alert('经纬度格式错误');
-                            return
+                            return;
                         }
                         // 开始结束时间点检验
                         var openTime = shopStore.get('openTimeText').getHours() * 60 + shopStore.get('openTimeText').getMinutes();
@@ -582,12 +599,12 @@ Ext.define('XMLifeOperating.controller.Shop', {
                         var needAuditPrice = (shopStore.get('needAuditPrice') == 'false') ? false : true;
                         var needUserCollection = (shopStore.get('needUserCollection') == 'false') ? false : true;
                         var templateId = null;
+
                         if (shopBannerTemplateStore.data.items.length) {
                             //combo加载，用户选择下拉框。
                             if (shopStore.get('shopBannerTemplateId') !== shopStore.get('templateName')) {
                                 templateId = shopBannerTemplateStore.findRecord('id', shopStore.get('shopBannerTemplateId')).getId()
                             }
-
                         }
 
                         shopStore.set('areaIds', areaIds);
@@ -610,9 +627,18 @@ Ext.define('XMLifeOperating.controller.Shop', {
                             autoOnline: shopStore.get('autoOnline'),
                             showAllProducts: showAllProducts,
                             needAuditPrice: needAuditPrice,
-                            needUserCollection: needUserCollection,
-                            desc: shopStore.get('desc')
+                            needUserCollection: needUserCollection
                         };
+
+                        Ext.Array.each(['initShippingFee', 'minPrice', 'minOrderForFreeShipping', 'minDistance', 'shippingFeePerKM'], function(field) {
+                            var value = shopStore.get(field);
+                            if (Ext.isNumeric(value)) {
+                                value = me.priceTransform(value);
+                                shopStore.set(field, value);
+                                requestparams[field] = value;
+                            }
+                        });
+
                         var modifySuccessCallback = function(response) {
                             windowEl.unmask();
                             editWindow.close();
@@ -628,7 +654,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
                                 buttons: Ext.Msg.OK
                             });
                             windowEl.unmask();
-                        }
+                        };
                         sendPutRequest('shop/update', requestparams, '编辑模板', '成功编辑模板', '编辑模板失败', modifySuccessCallback, modifyFailureCallback);
                     } else {
                         Ext.Msg.alert('提示', '无效数据，请更正！');

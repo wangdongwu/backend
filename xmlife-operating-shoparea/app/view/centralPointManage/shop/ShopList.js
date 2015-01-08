@@ -89,8 +89,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopList', {
             width: 80,
             sortable: true,
             align: 'center'
-        },
-        {
+        }, {
             text: '入驻掌柜',
             dataIndex: 'managerCount',
             itemId: 'managerCountId',
@@ -209,5 +208,5 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopList', {
         }
     },
     forceFit: true,
-    columnLines: true,
+    columnLines: true
 });

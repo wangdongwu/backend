@@ -35,7 +35,6 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopAdd', {
                 labelAlign: 'right',
                 allowBlank: false,
                 validator: function(value) {
-                    var value = value;
                     var length = 0;
                     for (var i = 0, len = value.length; i < len; i++) {
                         var chart = value.charCodeAt(i);
@@ -46,9 +45,9 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopAdd', {
                         }
                     }
                     if (length > 24) {
-                        return '店铺主名称最大长度为12个汉字或24个字母'
+                        return '店铺主名称最大长度为12个汉字或24个字母';
                     } else {
-                        return true
+                        return true;
                     }
                 }
             }, {
@@ -109,6 +108,45 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopAdd', {
                 allowBlank: false,
                 labelAlign: 'right',
                 afterLabelTextTpl: required
+            }, {
+                xtype: 'numberfield',
+                name: 'initShippingFee',
+                fieldLabel: '起送费',
+                labelWidth: 90,
+                minValue: 0,
+                allowDecimals: false,
+                emptyText: '不填则以城市设置为准'
+            }, {
+                xtype: 'numberfield',
+                name: 'minPrice',
+                fieldLabel: '起送金额',
+                labelWidth: 90,
+                minValue: 0,
+                allowDecimals: false,
+                emptyText: '不填则以城市设置为准'
+            }, {
+                xtype: 'numberfield',
+                name: 'minOrderForFreeShipping',
+                fieldLabel: '免起送费金额',
+                labelWidth: 90,
+                minValue: 0,
+                allowDecimals: false,
+                emptyText: '不填则以城市设置为准'
+            }, {
+                xtype: 'numberfield',
+                name: 'minDistance',
+                fieldLabel: '起送费距离',
+                labelWidth: 90,
+                minValue: 1,
+                allowDecimals: false,
+                emptyText: '不填则以城市设置为准'
+            }, {
+                xtype: 'numberfield',
+                name: 'shippingFeePerKM',
+                fieldLabel: '远程费用',
+                labelWidth: 90,
+                minValue: 0.01,
+                emptyText: '元/公里；不填则以城市设置为准'
             }, {
                 xtype: 'radiogroup',
                 fieldLabel: '商品是否每日自动上架',
@@ -184,7 +222,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopAdd', {
                 items: [{
                     boxLabel: '是',
                     name: 'needUserCollection',
-                    inputValue: 'true'                   
+                    inputValue: 'true'
                 }, {
                     boxLabel: '否',
                     name: 'needUserCollection',

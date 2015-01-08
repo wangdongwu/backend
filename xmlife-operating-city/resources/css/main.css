@@ -221,3 +221,8 @@ body.dragging{background-color:#888fa3;}
 .x-tip-body span {
     width: auto !important;
 }
+/* 试图和.x-item-disabled .x-form-item-label样式保持一致 */
+.x-form-item-label-diabled {
+    filter: alpha(opacity=30);
+    opacity: .3
+}

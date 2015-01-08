@@ -41,11 +41,11 @@ Ext.define('XMLifeOperating.view.cityManage.SupportedCityList', {
         }, 
         {
             header: '运费',
-            dataIndex: 'shipfee'
+            dataIndex: 'initShippingFee'
         }, 
         {
             header: '满免运费',
-            dataIndex: 'deductd'
+            dataIndex: 'minOrderForFreeShipping'
         }, 
         {
             header: '状态',
