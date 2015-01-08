@@ -75,7 +75,10 @@ Ext.define('XMLifeOperating.Application', {
         'CouponSendRuleUrl',
         'CouponSendRuleRegister',
         'CouponSend',
-        'AdminGetInfo'
+        'AdminGetInfo',
+        'ReturnGoodsAuditList',
+        'ReturnGoodsApplyList',
+        'DealReturnCheckStatus'
         ],
 
     launch: function() {

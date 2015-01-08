@@ -13,7 +13,24 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopEdit', {
     buttonAlign: 'center',
     autoScroll: false,
     initComponent: function() {
+
         var required = '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>';
+        var showstore = Ext.create('Ext.data.Store', {
+            fields: ['value', 'name'],
+            data: [{
+                'value': 0,
+                'name':'系统默认展示'
+            }, {
+                'value': 1,
+                'name':'一级分类合并展示'
+            }, {
+                'value': 2,
+                'name':'二级分类合并展示'
+            }, {
+                'value': 3,
+                'name':'三级分类合并展示'
+            }]
+        });
         this.items = [{
             xtype: 'form',
             layout: 'anchor',
@@ -61,7 +78,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopEdit', {
                 afterLabelTextTpl: required,
                 editable: false,
                 store: 'ShopBannerTemplate',
-                queryMode:'remote',
+                queryMode: 'remote',
                 displayField: 'name',
                 valueField: 'id',
                 emptyText: "请选择模板"
@@ -124,6 +141,18 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopEdit', {
                 allowBlank: false,
                 labelAlign: 'right',
                 afterLabelTextTpl: required
+            },  {
+                xtype: 'combo',
+                itemId: 'showway',
+                fieldLabel: '分类展示方式',
+                labelWidth: 90,
+                labelAlign: 'right',
+                afterLabelTextTpl: required,
+                store: showstore,
+                queryMode:'local',
+                valueField: 'value',
+                displayField: 'name',
+                allowBlank: false
             }, {
                 xtype: 'radiogroup',
                 fieldLabel: '商品是否每日自动上架',
@@ -144,27 +173,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopEdit', {
                     name: 'autoOnline',
                     inputValue: 'false'
                 }]
-            }, {
-                xtype: 'radiogroup',
-                fieldLabel: '首页展示所有商品',
-                labelWidth: 160,
-                defaults: {
-                    flex: 1
-                },
-                allowBlank: false,
-                labelAlign: 'right',
-                afterLabelTextTpl: required,
-                layout: 'hbox',
-                items: [{
-                    boxLabel: '是',
-                    name: 'showAllProducts',
-                    inputValue: 'true'
-                }, {
-                    boxLabel: '否',
-                    name: 'showAllProducts',
-                    inputValue: 'false'
-                }],
-            }, {
+            },{
                 xtype: 'radiogroup',
                 fieldLabel: '改价是否审核',
                 labelWidth: 160,
@@ -184,7 +193,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopEdit', {
                     name: 'needAuditPrice',
                     inputValue: 'false'
                 }]
-            },{
+            }, {
                 xtype: 'radiogroup',
                 fieldLabel: '是否显示购买过的商品',
                 labelWidth: 160,
