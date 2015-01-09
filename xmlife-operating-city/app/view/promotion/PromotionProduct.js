@@ -27,7 +27,7 @@ Ext.define('XMLifeOperating.view.promotion.PromotionProduct', {
 		text: '所在店铺',
 		dataIndex: 'shopName'
 	}, {
-		text: '当前售价',
+		text: '进价',
 		dataIndex: 'currentPrice'
 	}, {
 		text: '供应商补贴/份',
