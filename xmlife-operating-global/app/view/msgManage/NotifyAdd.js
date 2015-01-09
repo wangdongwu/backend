@@ -2,15 +2,8 @@ Ext.define('XMLifeOperating.view.msgManage.NotifyAdd', {
     extend: 'Ext.window.Window',
     xtype: 'notifyAdd',
     title: '新增/修改系统消息',
-    requires: [
-        'Ext.form.Panel',
-        'Ext.form.field.Text',
-        'Ext.form.field.Hidden'
-    ],
-    closeAction: 'hide',
-    modal: false,
+    modal: true,
     width: 450,
-    height: 450,
     resizable: false,
     layout: 'fit',
 
@@ -123,5 +116,4 @@ Ext.define('XMLifeOperating.view.msgManage.NotifyAdd', {
 
         this.callParent(arguments);
     }
-
 });

@@ -4,6 +4,7 @@ Ext.define('XMLifeOperating.controller.Message', {
     views: [
         'msgManage.NotifyList',
         'msgManage.NotifyAdd',
+        'msgManage.ViewReceipt',
         'msgManage.SmsList',
         'msgManage.SmsAdd'
     ],
@@ -21,6 +22,11 @@ Ext.define('XMLifeOperating.controller.Message', {
         ref: 'notifyAdd',
         selector: 'notifyAdd',
         xtype: 'notifyAdd',
+        autoCreate: true
+    }, {
+        ref: 'viewReceipt',
+        selector: 'viewReceipt',
+        xtype: 'viewReceipt',
         autoCreate: true
     }, {
         ref: 'smsList',
@@ -72,22 +78,26 @@ Ext.define('XMLifeOperating.controller.Message', {
                 }
             },
             'notifyList #editBtn': {
-                click: function(view, rowIndex, colIndex, column, e) {
+                click: function(view, item, rowIndex, colIndex, e, record) {
                     //排除没有编辑图标的
                     if (e.target.getAttribute('class') != "x-action-col-icon") return;
-                    me.onEdit({
-                        view: view,
-                        e: e
-                    }, 'getNotifyAdd');
+                    me.onEdit({view: view, e: e}, 'getNotifyAdd');
+                }
+            },
+            'notifyList #viewReceipt': {
+                click: function(view, item, rowIndex, colIndex, e, record) {
+                    var record = record,
+                        win =  this.getViewReceipt(),
+                        form = win.down('form').getForm();
+
+                    form.loadRecord(record);
+                    win.show();
                 }
             },
             'smsList #editBtn': {
-                click: function(view, rowIndex, colIndex, column, e) {
+                click: function(view, item, rowIndex, colIndex, e, record) {
                     if (e.target.getAttribute('class') != "x-action-col-icon") return;
-                    me.onEdit({
-                        view: view,
-                        e: e
-                    }, 'getSmsAdd');
+                    me.onEdit({view: view, e: e}, 'getSmsAdd');
                 }
             },
             'notifyAdd #startTime': {

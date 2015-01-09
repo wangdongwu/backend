@@ -77,6 +77,14 @@ Ext.define('XMLifeOperating.view.msgManage.NotifyList', {
             renderer: function(value) {
                 return value == 0 ? '<img src="resources/images/edit.png" class="x-action-col-icon" />' : '';
             }
+        }, {
+            text: '操作',
+            itemId: 'viewReceipt',
+            width: 120,
+            align: 'center',
+            renderer: function() {
+                return '<a href="javascript:;">查看回执</a>';
+            }
         }
     ]
     
