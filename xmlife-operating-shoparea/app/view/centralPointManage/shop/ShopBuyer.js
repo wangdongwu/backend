@@ -110,13 +110,13 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopBuyer', {
                 }]
             }],
             buttons: [{
-                text: 'Save',
+                text: '确认',
                 itemId: 'save-bindShopWithShopper'
             }, {
-                text: 'Cancel',
+                text: '取消',
                 handler: function() {
                     //关闭窗口
-                    Ext.ComponentQuery.query('shopbuyer')[0].close();
+                   this.up('shopbuyer').close();
                 }
             }]
         }]

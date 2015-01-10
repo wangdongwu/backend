@@ -5,8 +5,8 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopList', {
     title: '店铺管理',
     store: 'Shop',
     itemId: 'shoplist',
-    titleAlign:'center',
-/*    iconCls: 'icon-grid',*/
+    titleAlign: 'center',
+    /*    iconCls: 'icon-grid',*/
     bbar: [{
         xtype: 'pagingtoolbar',
         itemId: 'pagetool',
@@ -17,7 +17,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopList', {
     tbar: [{
             xtype: 'button',
             text: '添加店铺',
-/*            iconCls: 'icon-add',*/
+            /*            iconCls: 'icon-add',*/
             itemId: 'add'
         }, {
             xtype: 'combobox',
@@ -53,8 +53,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopList', {
             width: 100,
             sortable: true,
             align: 'center'
-        },
-        {
+        }, {
             text: '店铺名',
             dataIndex: 'name',
             width: 100,
@@ -90,7 +89,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopList', {
             width: 80,
             sortable: true,
             align: 'center'
-        }, 
+        },
         /*{
             header: "Banner配置",
             width: 90,
@@ -102,14 +101,27 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopList', {
                 var seeBtn = '<a href="javascript:void(0)">查看</a>';
                 return seeBtn;
             }
-        },*/ 
+        },*/
         {
-            text: '入住买手',
+            text: '入驻掌柜',
+            dataIndex: 'managerCount',
+            itemId: 'managerCountId',
+            width: 80,
+            sortable: true,
+            align: 'center',
+            renderer: function(value) {
+                return '<a href="javascript:void(0)">' + value + '</a>';
+            }
+        }, {
+            text: '入驻买手',
             dataIndex: 'shopperCount',
             itemId: 'shopperCountId',
             width: 80,
             sortable: true,
-            align: 'center'
+            align: 'center',
+            renderer: function(value) {
+                return '<a href="javascript:void(0)">' + value + '</a>';
+            }
         }, {
             header: "货架",
             width: 90,
@@ -139,7 +151,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopList', {
             sortable: true,
             align: 'center',
             renderer: function(value) {
-            return (value == true || value == 'true') ? '是' : '否'
+                return (value == true || value == 'true') ? '是' : '否'
             }
         }, {
             text: '价格审核',
@@ -156,9 +168,9 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopList', {
             width: 80,
             sortable: true,
             align: 'center',
-            itemId:'storeLimitEnableBtn',
-            renderer:function(value){
-                return value?'<input type="button" value="关闭"/>' :'<input type="button" value="开启"/>' 
+            itemId: 'storeLimitEnableBtn',
+            renderer: function(value) {
+                return value ? '<input type="button" value="关闭"/>' : '<input type="button" value="开启"/>'
             }
         }, {
             header: '店铺操作',

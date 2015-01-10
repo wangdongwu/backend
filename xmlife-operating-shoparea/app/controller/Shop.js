@@ -18,6 +18,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
         'centralPointManage.shop.ShopProductEdit',
         'centralPointManage.shop.ShopProductStatusEdit',
         'centralPointManage.shop.ShopBuyer',
+        'centralPointManage.shop.ShopManager',
         'centralPointManage.shop.ShopProductSoldOut',
         'centralPointManage.shop.ShopProductOffLine',
         'centralPointManage.shop.ShopProductOnline',
@@ -159,6 +160,11 @@ Ext.define('XMLifeOperating.controller.Shop', {
         ref: 'shopBuyer',
         selector: 'shopbuyer',
         xtype: 'shopbuyer',
+        autoCreate: true
+    }, {
+        ref: 'shopManager',
+        selector: 'shopManager',
+        xtype: 'shopManager',
         autoCreate: true
     }, {
         ref: 'keywordProductTemplate',
@@ -313,6 +319,35 @@ Ext.define('XMLifeOperating.controller.Shop', {
                             me.showShopList();
                         });
                     });
+                }
+            },
+            'shoplist #managerCountId': {
+                // 弹出入驻掌柜
+                click: function(grid, rowIndex, colIndex) {
+                    var record = grid.getStore().getAt(colIndex);
+                    var win = this.getShopManager();
+                    win.down('form').loadRecord(record);
+                    win.show();
+/*                    var store = this.getShopperStore();
+                    var storeCount = store.getCount();
+                    store.removeAll();
+                    store.getProxy().extraParams = {
+                        shopId: record.get('id')
+                    }*/
+/*                    store.load({
+                        callback: function(records) {
+                            if ((records.length == 1) && (records[0].get('uid') == '')) {
+                                store.remove(store.getAt(0));
+                            }
+                            // 初始化打勾
+                            var model = Ext.ComponentQuery.query('#bindShopWithShopper')[0].getSelectionModel();
+                            model.deselectAll();
+                            for (var i = 0; i < records.length; i++) {
+                                var index = store.indexOfId(records[i].get('id'));
+                                model.select(index, true);
+                            }
+                        }
+                    });*/
                 }
             },
             'shoplist #shopperCountId': {
