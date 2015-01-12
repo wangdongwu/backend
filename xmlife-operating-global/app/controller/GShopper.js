@@ -177,16 +177,6 @@ Ext.define('XMLifeOperating.controller.GShopper', {
             'gShopperEdit #save-shopper-edit-btn': {
                 click: me.saveEditWindow
             },
-            /*'gShopperEdit filefield[name="shopperUploadfile"]': {
-                change: function(uploadfile) {
-              
-                    var form = uploadfile.ownerCt;
-
-                    var hash = uploadfile.previousNode().previousNode();
-
-                    uploadImage(form, hash);
-                }
-            },*/
             'gShopperEdit filefield[name="gShopperUploadfile"]': {
                 change: function(uploadfile) {
                     var form = uploadfile.ownerCt;
@@ -263,7 +253,6 @@ Ext.define('XMLifeOperating.controller.GShopper', {
                         dealShopperHistoryStroe.loadPage(1);
 
                         this.dayType = str;
-
                     }
                 }
             },
@@ -314,8 +303,6 @@ Ext.define('XMLifeOperating.controller.GShopper', {
                     var shopperId = this.shopperId;
 
                     if (newV == true) {
-
-
                         var itemId = record.itemId,
                             str;
                         switch (itemId) {
@@ -347,7 +334,6 @@ Ext.define('XMLifeOperating.controller.GShopper', {
                         ShopperWorkTimeStore.loadPage(1);
 
                         this.dayType = str;
-
                     }
                 }
             },
@@ -380,7 +366,7 @@ Ext.define('XMLifeOperating.controller.GShopper', {
                     activeTab = this.getGDealShopperHistoryList();
                 }
             },
-            ///返回历史订单
+            //返回历史订单
             'gDealItemsListShopper #dealShopperHistoryListReturn': {
                 click: function() {
                     var content = this.getContentPanel(),
@@ -505,17 +491,8 @@ Ext.define('XMLifeOperating.controller.GShopper', {
         var shopper = view.getRecord(view.findTargetByEvent(e));
         var win = this.getEditWindow();
         var record = shopper;
-        var leftOnlineTime = Math.floor(record.get('onlineTime') / 60) < 10 ? '0' + Math.floor(record.get('onlineTime') / 60) : Math.floor(record.get('onlineTime') / 60);
-        var rightOnlineTime = record.get('onlineTime') % 60 < 10 ? '0' + record.get('onlineTime') % 60 : record.get('onlineTime') % 60;
-        var leftOfflineTime = Math.floor(record.get('offlineTime') / 60) < 10 ? '0' + Math.floor(record.get('offlineTime') / 60) : Math.floor(record.get('offlineTime') / 60);
-        var rightOfflineTime = record.get('offlineTime') % 60 < 10 ? '0' + record.get('offlineTime') % 60 : record.get('offlineTime') % 60;
-        var onlineTime = leftOnlineTime + ':' + rightOnlineTime;
-        var offlineTime = leftOfflineTime + ':' + rightOfflineTime;
-        // record.set('onlineTime', onlineTime);
-        // record.set('offlineTime', offlineTime);
+        win.down('#shopperPhone').setDisabled(true);
         win.down('form').loadRecord(record);
-        win.down('[name=onlineTime]').setValue(onlineTime);
-        win.down('[name=offlineTime]').setValue(offlineTime);
         win.down('[name=pwd]').setValue('');
         win.show();
     },
@@ -524,27 +501,22 @@ Ext.define('XMLifeOperating.controller.GShopper', {
             windowEl = editWindow.getEl(),
             form = editWindow.down('form').getForm(),
             shopper = form.getRecord(),
-            me = this;
-        if (form.isValid()) {
+            me = this,
+            url = '';
 
+        if (form.isValid()) {
             windowEl.mask('saving');
             form.updateRecord(shopper);
 
-
-            shopper.set('onlineTime', (shopper.get('onlineTime').getHours() * 60 + shopper.get('onlineTime').getMinutes()));
-            shopper.set('offlineTime', (shopper.get('offlineTime').getHours() * 60 + shopper.get('offlineTime').getMinutes()));
             var pwd = editWindow.down('[name=pwd]').getValue();
             pwd = pwd.replace(/(^\s+)|(\s+$)/g,"");
             if(pwd!=''){
                 shopper.set('pwd', hex_md5(pwd));
             }
 
-            
-
-
             if (shopper.get('id') != null && shopper.get('id') != '' && shopper.get('id') != undefined) {
-
-                var url = 'shopper/' + shopper.get('uid')
+                windowEl.unmask();
+                url = 'shopper/' + shopper.get('uid');
                 sendPutRequest(url, {
                     name: shopper.get('name'),
                     pwd: shopper.get('pwd'),
@@ -552,30 +524,17 @@ Ext.define('XMLifeOperating.controller.GShopper', {
                     gender: shopper.get('gender'),
                     idcard: shopper.get('idcard'),
                     phone: shopper.get('phone'),
-                    onlineTime: shopper.get('onlineTime'),
-                    offlineTime: shopper.get('offlineTime'),
-                    avatar: shopper.get('avatar'),
+                    avatar: shopper.get('avatar')
                 }, '编辑模板', '成功编辑模板', '编辑模板失败', function() {
-                    windowEl.unmask();
                     editWindow.close();
-                    /*var shopStoreAreaId = me.shopStoreAreaId;
-                    var sstore = me.getShopStoreStore();
-                    sstore.load({
-                        params: {
-                            city: XMLifeOperating.generic.Global.currentCity,
-                            areaId: shopStoreAreaId
-                        }
-                    });*/
-                    //me.fireEvent('refreshView');
                 });
                 return;
-            }
-
-            shopper.save({
-                success: function(task, operation) {
-                    var error = operation.getError();
+            }else{
+                windowEl.unmask();
+                url = 'shopper'
+                var success = function(task, operation) {
                     var errorStr = '';
-                    switch (operation.response.responseText) {
+                    switch (task.responseText) {
                         case '1':
                             errorStr = '创建成功';
                             break;
@@ -589,17 +548,16 @@ Ext.define('XMLifeOperating.controller.GShopper', {
                             errorStr = '手机号码格式错误';
                             break;
                     }
-                    if (operation.response.responseText < 0) {
+                    if (task.responseText < 0) {
                         Ext.MessageBox.show({
-                            title: 'Edit Task Failed',
+                            title: '编辑/添加任务失败',
                             msg: errorStr,
                             icon: Ext.Msg.ERROR,
                             buttons: Ext.Msg.OK
                         });
-                        windowEl.unmask();
                         return;
                     }
-                    windowEl.unmask();
+
                     editWindow.close();
                     var keyWords = shopper.get('phone');
                     var store = me.getShopperStore();
@@ -608,26 +566,32 @@ Ext.define('XMLifeOperating.controller.GShopper', {
                     };
                     store.loadPage(1);
                     me.getGShopperList().down('#searchBuyerKeyWords').setValue(keyWords);
-                },
-                failure: function(task, operation) {
-
+                };
+                var failure = function(task, operation) {
                     var error = operation.getError(),
                         msg = Ext.isObject(error) ? error.status + ' ' + error.statusText : error;
 
                     Ext.MessageBox.show({
-                        title: 'Edit Task Failed',
+                        title: '编辑/添加任务失败',
                         msg: msg,
                         icon: Ext.Msg.ERROR,
                         buttons: Ext.Msg.OK
                     });
                     windowEl.unmask();
-                }
-            })
+                };
+
+                sendRequest(url, {
+                        name: shopper.get('name'),
+                        pwd: shopper.get('pwd'),
+                        title: shopper.get('title'),
+                        gender: shopper.get('gender'),
+                        idcard: shopper.get('idcard'),
+                        phone: shopper.get('phone'),
+                        avatar: shopper.get('avatar')
+                    }, '添加模板', '成功添加模板', '添加模板失败', success, failure);
+            }
         } else {
-            Ext.Msg.alert('Invalid Data', 'Please correct form errors');
+            Ext.Msg.alert('无效数据', '请提交正确的表格数据！');
         }
-    },
-
-
-
+    }
 });

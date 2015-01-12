@@ -95,7 +95,7 @@ var requestAction = function(method, args) {
     if (url) {
         url = XMLifeOperating.generic.Global.URL.biz + url;
     } else {
-        Ext.msg.alert('提示', '缺少请求url路径！');
+        Ext.MessageBox.alert('提示', '缺少请求url路径！');
         return;
     }
 
@@ -114,7 +114,7 @@ var requestAction = function(method, args) {
                 });
             }
             if (response.responseText == '-2') {
-                Ext.Msg.alert('错误提示', '参数出错!');
+                Ext.MessageBox.alert('错误提示', '参数出错!');
             } else if (success) {
                 success(response);
             }

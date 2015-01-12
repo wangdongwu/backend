@@ -15,179 +15,109 @@ Ext.define('XMLifeOperating.view.staffManage.shopper.GShopperEdit', {
     layout: 'fit',
 
     initComponent: function() {
-        var  genderStore= Ext.create('Ext.data.Store', {
-            fields: ['value','gender'],
-            data : [
-                {"value": 0, "gender": '男'},
-                {"value": 1, "gender": '女'}
-            ],
+        var genderStore = Ext.create('Ext.data.Store', {
+            fields: ['value', 'gender'],
+            data: [{
+                "value": 0,
+                "gender": '男'
+            }, {
+                "value": 1,
+                "gender": '女'
+            }],
         });
         this.items = [{
             xtype: 'form',
             layout: 'anchor',
             bodyPadding: 10,
             border: false,
-            defaults:{
+            defaults: {
                 anchor: '100%'
             },
-            items: [
-                {
+            items: [{
                     xtype: 'textfield',
                     name: 'name',
                     fieldLabel: '姓名',
                     labelWidth: 90,
-                    allowBlank:false,
-                    
-                },
-                {
+                    allowBlank: false
+                }, {
                     xtype: 'textfield',
                     name: 'title',
                     fieldLabel: '职称',
                     labelWidth: 90,
-                    allowBlank:false,
+                    allowBlank: false,
                     minLength: 2,
-                    minLengthText:'职称最小长度为2',
+                    minLengthText: '职称最小长度为2',
                     maxLength: 10,
-                    maxLengthText:'职称最大长度为10',
-                },
-                {
-                    fieldLabel : '性别',
+                    maxLengthText: '职称最大长度为10'
+                }, {
+                    fieldLabel: '性别',
                     labelWidth: 90,
-                    store : genderStore,
-                    name : 'gender',
-                    allowBlank : false,
-                    xtype : 'combo',
-                    editable : false,
-                    queryMode : 'local',
-                    triggerAction : 'all',
+                    store: genderStore,
+                    name: 'gender',
+                    allowBlank: false,
+                    xtype: 'combo',
+                    editable: false,
+                    queryMode: 'local',
+                    triggerAction: 'all',
                     displayField: 'gender',
                     valueField: 'value',
-                    allowBlank:false                  
-                },
-                /*{
+                    allowBlank: false
+                }, {
                     xtype: 'fieldset',
                     layout: 'column',
                     padding: 0,
                     border: false,
-                    items:[
-                        {
-                            xtype: 'textfield',
-                            name: 'avatar',
-                            fieldLabel: '上传图片',
-                            itemId:'buyerAvater',
-                            labelWidth: 90,
-                            
-                            readOnly: false,
-                        },
-                        {
-                            xtype: 'form',
-                            border: false,
-                            itemId:'adf',
-                            margin: '0 30 0 0',
-                            items:[
-                                {
-                                    xtype: 'filefield',
-                                    name: 'shopperUploadfile',
-                                    buttonOnly: true,
-                                    hideLabel: true,
-                                },
-                            ]
-                        },
-                    ]
-                },*/
-                {
-                    xtype: 'fieldset',
-                    layout: 'column',
-                    padding: 0,
-                    border: false,
-                    items:[
-                        {
-                            xtype: 'textfield',
-                            name: 'avatar',
-                            fieldLabel: '上传图片',
-                            itemId:'buyerAvater',
-                            labelWidth: 90,
-                            
-                            readOnly: false,
-                        },
-                        {
-                            xtype: 'form',
-                            border: false,
-                            itemId:'adf',
-                            margin: '0 30 0 0',
-                            items:[
-                                {
-                                    xtype: 'filefield',
-                                    name: 'gShopperUploadfile',
-                                    buttonOnly: true,
-                                    hideLabel: true,
-                                },
-                            ]
-                        },
-                    ]
-                },
-                {
+                    items: [{
+                        xtype: 'textfield',
+                        name: 'avatar',
+                        fieldLabel: '上传图片',
+                        itemId: 'buyerAvater',
+                        labelWidth: 90,
+                        readOnly: false
+                    }, {
+                        xtype: 'form',
+                        border: false,
+                        itemId: 'adf',
+                        margin: '0 30 0 0',
+                        items: [{
+                            xtype: 'filefield',
+                            name: 'gShopperUploadfile',
+                            buttonOnly: true,
+                            hideLabel: true
+                        }]
+                    }]
+                }, {
                     xtype: 'textfield',
                     name: 'idcard',
                     fieldLabel: '身份证',
                     labelWidth: 90,
-                    allowBlank:false,
-                    
-                },
-                {
+                    allowBlank: false
+                }, {
                     xtype: 'textfield',
                     name: 'phone',
                     fieldLabel: '电话',
-                    itemId:'shopperPhone',
+                    itemId: 'shopperPhone',
                     labelWidth: 90,
-                    allowBlank:false,
+                    allowBlank: false,
                     regex: XMLifeOperating.generic.Global.VALIDATION_CONSTANTS.PHONE,
-                    regexText: '请输入正确的手机号码',
-                   
-                },
-                {
+                    regexText: '请输入正确的手机号码'
+                }, {
                     xtype: 'textfield',
                     name: 'pwd',
                     fieldLabel: '密码',
-                    labelWidth: 90,
-                    // allowBlank:false,
-                   
-                },
-                {
-                    xtype: 'timefield',
-                    name: 'onlineTime',
-                    fieldLabel: '开始时间',
-                    labelWidth: 90,
-                    format:'H:i',
-                    allowBlank:false,
-                    
-                    
-                },
-                {
-                    xtype: 'timefield',
-                    name: 'offlineTime',
-                    fieldLabel: '结束时间',
-                    labelWidth: 90,
-                    format:'H:i',
-                    allowBlank:false,
-
-                },
-                
+                    labelWidth: 90
+                }
             ],
             buttons: [{
                 text: '保存',
                 itemId: 'save-shopper-edit-btn'
-            },{
+            }, {
                 text: '取消',
-                handler:function(){
+                handler: function() {
                     this.up('window').close();
                 }
             }]
         }]
-
         this.callParent(arguments);
-
     }
-
-        
 });
