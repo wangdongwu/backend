@@ -23,7 +23,11 @@ Ext.define('XMLifeOperating.controller.login', {
         var self = this;
         var sessionId = localStorage.getItem('sessionId'),
             username = localStorage.getItem('username');
-
+            var navigationStore = self.getNavigationStore();
+                  /*navigationStore.on('load',function(){
+                    this.getRootNode().appendChild({text:'员工考核',id : 'ShopperCheckList',leaf: true});
+                    
+                  });*/
         this.control({
             'login': {
                 show: function(panel) {

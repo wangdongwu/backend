@@ -46,8 +46,9 @@ Ext.define('XMLifeOperating.Application', {
         'CardGroup',
         'CouponSend',
         'DataExport',
-        'Manager'
-    ],
+        'Manager',
+        'ShopperCheck'
+        ],
 
     stores: [
         'Shop',

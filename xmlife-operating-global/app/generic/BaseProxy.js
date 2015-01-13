@@ -3,14 +3,16 @@ Ext.define('XMLifeOperating.generic.BaseProxy', {
     extend: 'Ext.data.proxy.Rest',
     reader: 'json',
 
-    constructor: function(resourceURL, root) {
+    constructor: function(resourceURL, root , report) {
         if (!resourceURL || resourceURL.length < 1) {
             Ext.msg.alert('提示', '缺少请求url路径！');
             return;
         } else {
             this.url = XMLifeOperating.generic.Global.URL.biz + resourceURL;
         }
-
+        if(report == 'report'){
+          this.url = XMLifeOperating.generic.Global.URL.report + resourceURL; 
+        }
         var sessionId = localStorage.getItem('sessionId');
         if (sessionId) {
             this.headers = {
@@ -89,11 +91,16 @@ var requestAction = function(method, args) {
         successMsg = args[3],
         errorMsg = args[4],
         success = args[5],
-        failure = args[6];
+        failure = args[6],
+        report = args[7];
 
     // url处理
     if (url) {
-        url = XMLifeOperating.generic.Global.URL.biz + url;
+        if(report == 'report'){
+          url = XMLifeOperating.generic.Global.URL.report + url;
+        }else{
+          url = XMLifeOperating.generic.Global.URL.biz + url;
+        }
     } else {
         Ext.MessageBox.alert('提示', '缺少请求url路径！');
         return;
