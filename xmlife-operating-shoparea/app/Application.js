@@ -53,7 +53,8 @@ Ext.define('XMLifeOperating.Application', {
         'DealWaitAssignShopperList',
         'shopConfig',
         'DamagedProductApplyList',
-        'ShopSetConfig'
+        'ShopSetConfig',
+        'Manager'
     ],
 
     stores: [
@@ -85,7 +86,8 @@ Ext.define('XMLifeOperating.Application', {
         'ShopTopShops',
         'ShopAreaBanner',
         'ShopperWorkTime',
-        'ShopBannerTemplate'
+        'ShopBannerTemplate',
+        //'Manager'
     ],
 
     launch: function() {
@@ -115,7 +117,6 @@ Ext.define('XMLifeOperating.Application', {
         task.delay(100);
     }
 });
-
 
 var uploadBlobImage = function(blobImage) {
     var reader = new FileReader();

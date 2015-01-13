@@ -47,7 +47,8 @@ Ext.define('XMLifeOperating.Application', {
         'Coupon',
         'CardGroup',
         'CouponSend',
-        'DataExport'
+        'DataExport',
+        'Manager'
         ],
 
     stores: [
@@ -78,7 +79,8 @@ Ext.define('XMLifeOperating.Application', {
         'AdminGetInfo',
         'ReturnGoodsAuditList',
         'ReturnGoodsApplyList',
-        'DealReturnCheckStatus'
+        'DealReturnCheckStatus',
+        'Manager'
         ],
 
     launch: function() {
