@@ -114,7 +114,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopList', {
             }
         }, {
             text: '入驻买手',
-            dataIndex: 'shopperCount',
+            dataIndex: 'superShopperCount',
             itemId: 'shopperCountId',
             width: 80,
             sortable: true,

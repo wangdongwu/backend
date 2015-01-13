@@ -17,7 +17,7 @@ Ext.define('XMLifeOperating.view.dealManage.GDealReturnAuditList', {
     tbar: [
         '查询范围', {
             xtype: 'datefield',
-            itemId:'startTime',
+            itemId: 'startTime',
             name: 'beginTime',
             emptyText: '开始时间',
             minValue: (function() {
@@ -40,7 +40,7 @@ Ext.define('XMLifeOperating.view.dealManage.GDealReturnAuditList', {
         },
         '到', {
             xtype: 'datefield',
-            itemId:'endTime',
+            itemId: 'endTime',
             name: 'endTime',
             emptyText: '结束时间',
             minValue: (function() {
@@ -104,7 +104,7 @@ Ext.define('XMLifeOperating.view.dealManage.GDealReturnAuditList', {
              regexText: '请输入正确的手机号'*/
         }, {
             xtype: 'button',
-            name:'audit',
+            name: 'audit',
             itemId: 'getReturnSearch',
             text: '搜索'
         }
@@ -146,6 +146,7 @@ Ext.define('XMLifeOperating.view.dealManage.GDealReturnAuditList', {
     }, {
         text: ' 状态',
         itemId: 'status',
+        name: 'audit',
         menuDisabled: true,
         sortable: false,
         align: 'center',
@@ -153,7 +154,7 @@ Ext.define('XMLifeOperating.view.dealManage.GDealReturnAuditList', {
             var str = '';
             switch (value) {
                 case 0:
-                    str = '<input text="通过" id="pass" /><input text="拒绝" id ="refuse"/>'
+                    str = '<input text="通过" name="pass"  /><input text="拒绝" name="refuse"/>'
                     break;
                 case 1:
                     str = '已通过'

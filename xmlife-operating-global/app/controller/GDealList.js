@@ -7,7 +7,8 @@ Ext.define('XMLifeOperating.controller.GDealList', {
         'dealManage.GDealCustomerDetail',
         'dealManage.ReturnProductForm',
         'dealManage.GDealReturnAuditList',
-        'dealManage.GDealReturnCheckList'
+        'dealManage.GDealReturnCheckList',
+        'dealManage.GDealReturnComfirm'
     ],
 
     stores: ['Deal', 'ShopArea', 'DealStatus', 'Customer', 'DealItems', 'ReturnGoodsAuditList', 'ReturnGoodsApplyList'],
@@ -51,6 +52,11 @@ Ext.define('XMLifeOperating.controller.GDealList', {
         ref: 'gDealReturnAuditList',
         selector: 'gDealReturnAuditList',
         xtype: 'gDealReturnAuditList',
+        autoCreate: true
+    }, {
+        ref: 'gDealReturnComfirm',
+        selector: 'gDealReturnComfirm',
+        xtype: 'gDealReturnComfirm',
         autoCreate: true
     }],
 
@@ -127,35 +133,114 @@ Ext.define('XMLifeOperating.controller.GDealList', {
             // 全部申请售后退货
             'gDealDetail #refundAll': {
                 click: function() {
-                    Ext.MessageBox.confirm('全部申请售后退货', '确定要退掉此订单的全部商品吗？',
-                        function(result) {
-                            if (result == 'yes') {
-                                var store = me.getDealItemsStore(),
-                                    records = store.data.items,
-                                    productIdList = [],
-                                    productNumList = [],
-                                    promotionIdList = [];
+                    var me = this;
+                    var win = me.getGDealReturnComfirm();
+                    //数据传递给returnconfirm页面
+                    win.show();
+                    /*                    Ext.MessageBox.confirm('全部申请售后退货', '确定要退掉此订单的全部商品吗？',
+                                            function(result) {
+                                                if (result == 'yes') {
+                                                    var store = me.getDealItemsStore(),
+                                                        records = store.data.items,
+                                                        productIdList = [],
+                                                        productNumList = [],
+                                                        promotionIdList = [];
 
-                                for (var i = 0, n = records.length; i < n; i++) {
-                                    productIdList.push(records[i].get('productId'));
-                                    //productNumList.push(records[i].get('num'));
-                                    productNumList.push(0);
-                                    promotionIdList.push(records[i].get('promotionId'));
-                                }
+                                                    for (var i = 0, n = records.length; i < n; i++) {
+                                                        productIdList.push(records[i].get('productId'));
+                                                        //productNumList.push(records[i].get('num'));
+                                                        productNumList.push(0);
+                                                        promotionIdList.push(records[i].get('promotionId'));
+                                                    }
 
-                                sendPutRequest('deal/setProductNum', {
-                                        dealId: store.getAt(0).get('dealBackendId'),
-                                        productIdList: productIdList,
-                                        productNumList: productNumList,
-                                        promotionIdList: promotionIdList
-                                    },
-                                    '全部申请售后退货', '全部申请售后退货成功', '全部申请售后退货失败',
-                                    function(response) {
-                                        me.getDealItemsStore().load();
-                                    });
-                            }
+                                                    sendPutRequest('deal/setProductNum', {
+                                                            dealId: store.getAt(0).get('dealBackendId'),
+                                                            productIdList: productIdList,
+                                                            productNumList: productNumList,
+                                                            promotionIdList: promotionIdList
+                                                        },
+                                                        '全部申请售后退货', '全部申请售后退货成功', '全部申请售后退货失败',
+                                                        function(response) {
+                                                            me.getDealItemsStore().load();
+                                                        });
+                                                }
+                                            }
+                                        );*/
+                }
+            },
+            'gDealReturnComfirm #comfirmreturn': {
+                click: function(button, e) {
+                    var me = this;
+                    var form = button.up('form');
+                    var grid = form.down('grid');
+                    var store = grid.getStore();
+                    var items = store.data.items;
+                    var dealId = form.down('#dealreturnid').getValue();
+                    var productIds = [],
+                        numbers = [];
+                    var success = function(request) {
+                        var code = request.responseText;
+                        var str;
+                        switch (code) {
+                            case 1:
+                                str = '申请订单退货成功！';
+                                break;
+                            case 0:
+                                str = '订单退货校验失败:' + code;
+                                break;
+                            case -1:
+                                str = '退货数量不能大于现有数量:' + code;
+                                break;
+                            case -2:
+                                str = '不符合条件的订单:' + code;
+                                break;
+                            case -3:
+                                str = '订单已存在申请中的退货:' + code;
+                                break;
                         }
-                    );
+                        Ext.Msg.alert('提示', str);
+                    }
+                    var failure = function(request) {
+                        Ext.MessageBox.show({
+                            title: '提示',
+                            msg: '退货请求失败！',
+                            icon: Ext.Msg.ERROR,
+                            buttons: Ext.Msg.OK
+                        });
+                    }
+                    
+                    for (var i = 0, len = items.length; i < len; i++) {
+                        //退货商品数量判断
+                        var allcount = items[i].get('allcount');
+                        var returncount = items[i].get('returncount');
+                        if (returncount == '') {
+                            Ext.MessageBox.show({
+                                title: '提示',
+                                msg: '退货数量必须填写！',
+                                icon: Ext.Msg.ERROR,
+                                buttons: Ext.Msg.OK
+                            });
+                            return;
+                        } else if (returncount > allcount) {
+                            Ext.MessageBox.show({
+                                title: '提示',
+                                msg: '退货数量不能大于现有数量',
+                                icon: Ext.Msg.ERROR,
+                                buttons: Ext.Msg.OK
+                            });
+                            return;
+                        } else {
+                            productIds.push(items[i].get('id'));
+                            numbers.push(returncount)
+                        }
+                    }
+
+                    sendRequest('returnGoods/apply', {
+                        dealId: dealId,
+                        productIds: productIds,
+                        numbers: numbers
+                    }, '申请订单退货', '申请订单退货成功', '申请订单退货失败', success, failure);
+
                 }
             },
             '#customerDetail': {
@@ -236,10 +321,22 @@ Ext.define('XMLifeOperating.controller.GDealList', {
             },
             'gDealReturnAuditList #getReturnSearch': {
                 click: me.getReturnSearch
+            },
+            'gDealReturnCheckList #status': {
+                click: me.returnStatusAction
+
+            },
+            'gDealReturnAuditList #status': {
+                click: me.returnStatusAction
 
             }
 
         });
+    },
+    returnStatusAction: function(grid, rowIndex, colIndex, record, row, e) {
+
+
+
     },
     returnListShow: function(grid) {
         var me = this;

@@ -140,6 +140,7 @@ Ext.define('XMLifeOperating.view.dealManage.GDealReturnCheckList', {
     }, {
         text: ' 状态',
         itemId: 'status',
+        name:'check',
         menuDisabled: true,
         sortable: false,
         align: 'center',
