@@ -518,7 +518,7 @@ Ext.define('XMLifeOperating.controller.GShopper', {
                 windowEl.unmask();
                 //url = 'superShopper/' + shopper.get('uid');
                 url = 'superShopper/updateSuperShopper';
-                sendRequest(url, {
+                sendPutRequest(url, {
                     superShopper:shopper.get('uid'),
                     name: shopper.get('name'),
                     pwd: shopper.get('pwd'),
