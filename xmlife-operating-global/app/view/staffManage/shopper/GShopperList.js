@@ -1,7 +1,7 @@
 Ext.define('XMLifeOperating.view.staffManage.shopper.GShopperList', {
     extend: 'Ext.grid.Panel',
     xtype: 'gShopperList',
-    store: 'Shopper',
+    store: 'SuperShopper',
     id: 'gShopperList',
     title: '买手管理',
     titleAlign: 'left',
@@ -10,7 +10,7 @@ Ext.define('XMLifeOperating.view.staffManage.shopper.GShopperList', {
     dockedItems: [{
         xtype: 'pagingtoolbar',
         itemId: 'pagetoll',
-        store: 'Shopper',
+        store: 'SuperShopper',
         dock: 'bottom',
         displayInfo: true
     }],

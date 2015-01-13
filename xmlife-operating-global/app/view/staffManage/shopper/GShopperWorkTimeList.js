@@ -5,12 +5,12 @@ Ext.define('XMLifeOperating.view.staffManage.shopper.GShopperWorkTimeList', {
     title: '买手考勤管理',
     columnLines: true,
     closable: true,
-    store: 'ShopperWorkTime',
+    store: 'getSuperShopperWorkTimeStore',
     dockedItems : [
       {
       xtype : 'pagingtoolbar',
       itemId : 'pagetoll',
-      store : 'ShopperWorkTime',
+      store : 'getSuperShopperWorkTimeStore',
       dock : 'bottom',
       displayInfo : true/*,
       items : ['->'],   

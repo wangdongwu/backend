@@ -19,7 +19,7 @@ Ext.define('XMLifeOperating.view.refundManage.alipayRefund.AlipayRefundList', {
     dockedItems: [{
         xtype: 'pagingtoolbar',
         itemId: 'pagetoll',
-        store: 'Shopper',
+        store: 'AlipayRefund',
         dock: 'bottom',
         displayInfo: true
     }],

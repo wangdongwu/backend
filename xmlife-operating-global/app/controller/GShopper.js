@@ -8,14 +8,14 @@ Ext.define('XMLifeOperating.controller.GShopper', {
         'staffManage.shopper.GDealItemsListShopper'
     ],
 
-    stores: ['Shopper',
+    stores: ['SuperShopper',
         'DealShopperHistory',
-        'ShopperWorkTime',
+        'SuperShopperWorkTime',
         'DealItems'
     ],
-    models: ['Shopper',
+    models: ['SuperShopper',
         'DealShopperHistory',
-        'ShopperWorkTime',
+        'SuperShopperWorkTime',
         'DealItems'
     ],
     refs: [{
@@ -87,7 +87,7 @@ Ext.define('XMLifeOperating.controller.GShopper', {
                     } else if (activeSearch == '查看接单买手') {
                         isActive = false;
                     }
-                    var store = this.getShopperStore();
+                    var store = this.getSuperShopperStore();
                     store.getProxy().extraParams = {
                         city: XMLifeOperating.generic.Global.currentCity,
                         area: combo.getValue(),
@@ -105,7 +105,7 @@ Ext.define('XMLifeOperating.controller.GShopper', {
                     } else if (activeSearch == '查看接单买手') {
                         isActive = false;
                     }
-                    var store = this.getShopperStore();
+                    var store = this.getSuperShopperStore();
                     store.getProxy().extraParams = {
                         city: XMLifeOperating.generic.Global.currentCity,
                         area: combo.getValue(),
@@ -130,7 +130,7 @@ Ext.define('XMLifeOperating.controller.GShopper', {
                         isActive = true;
                         isUnbind = true;
                     }
-                    var store = me.getShopperStore();
+                    var store = me.getSuperShopperStore();
                     store.getProxy().extraParams = {
                         area: me.getShopArea().getValue(),
                         isActive: isActive
@@ -156,7 +156,7 @@ Ext.define('XMLifeOperating.controller.GShopper', {
                         isUnbind = true;
                         Ext.getCmp('gShopperList').down('#shopArea').setValue('');
                     }
-                    var store = this.getShopperStore();
+                    var store = this.getSuperShopperStore();
                     store.getProxy().extraParams = {
                         unbind: isUnbind
                     };
@@ -274,7 +274,7 @@ Ext.define('XMLifeOperating.controller.GShopper', {
                 click: function(view, column, rowIndex, colIndex, e) {
                     var shopper = view.getRecord(view.findTargetByEvent(e)),
                         shopperId = shopper.get('uid'),
-                        ShopperWorkTimeStore = this.getShopperWorkTimeStore();
+                        ShopperWorkTimeStore = this.getSuperShopperWorkTimeStore();
 
                     ShopperWorkTimeStore.getProxy().extraParams = {
                         shopper: shopperId,
@@ -325,7 +325,7 @@ Ext.define('XMLifeOperating.controller.GShopper', {
                                 str = 6;
                                 break;
                         }
-                        var ShopperWorkTimeStore = this.getShopperWorkTimeStore();
+                        var ShopperWorkTimeStore = this.getSuperShopperWorkTimeStore();
 
                         ShopperWorkTimeStore.getProxy().extraParams = {
                             shopper: shopperId,
@@ -402,7 +402,7 @@ Ext.define('XMLifeOperating.controller.GShopper', {
                             isActive: isActive
                         }, '操作恢复或暂停买手接单', '成功操作买手接单', '操作买手接单失败', function() {
 
-                            var store = me.getShopperStore();
+                            var store = me.getSuperShopperStore();
                             var activeBindText = Ext.getCmp('gShopperList').down('#activeBind').getText();
                             var params = '';
                             var searchBuyerKeyWords = me.getGShopperList().down('#searchBuyerKeyWords').getValue();
@@ -443,7 +443,7 @@ Ext.define('XMLifeOperating.controller.GShopper', {
     searchShopper: function() {
         var me = this,
             keyWords = me.getGShopperList().down('#searchBuyerKeyWords').getValue(),
-            store = this.getShopperStore(),
+            store = this.getSuperShopperStore(),
             view = this.getGShopperList();
         var activeBindText = Ext.getCmp('gShopperList').down('#activeBind').getText();
         var isUnbind = null;
@@ -480,7 +480,7 @@ Ext.define('XMLifeOperating.controller.GShopper', {
         });*/
     },
     onAdd: function() {
-        var cClass = this.getShopperModel();
+        var cClass = this.getSuperShopperModel();
         var shopper = new cClass();
         var win = this.getEditWindow();
         win.down('form').loadRecord(shopper);
@@ -562,7 +562,7 @@ Ext.define('XMLifeOperating.controller.GShopper', {
 
                     editWindow.close();
                     var keyWords = shopper.get('phone');
-                    var store = me.getShopperStore();
+                    var store = me.getSuperShopperStore();
                     store.getProxy().extraParams = {
                         nameOrPhone: keyWords
                     };

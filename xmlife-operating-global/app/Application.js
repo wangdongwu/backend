@@ -54,7 +54,7 @@ Ext.define('XMLifeOperating.Application', {
         'Province',
         'AllCities',
         'SupportedCity',
-        'Shopper',
+        'SuperShopper',
         'CardBatch',
         'CardTemplate',
         // 'Deliverer',
