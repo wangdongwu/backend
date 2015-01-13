@@ -17,9 +17,7 @@ Ext.define('XMLifeOperating.Application', {
         'Ext.layout.container.Card'
     ],
 
-    views: [
-        // TODO: add views here
-    ],
+    views: [],
 
     controllers: [
         'Navigation',
