@@ -392,7 +392,7 @@ Ext.define('XMLifeOperating.controller.GShopper', {
                         str = '确认要恢复买手接单';
                         isActive = true;
                     }
-                    url = 'shopper/enable';
+                    url = 'superShopper/enable';
                     Ext.MessageBox.confirm("选择框", str, function(str) {
                         if (str == 'no') {
                             return;
@@ -516,7 +516,7 @@ Ext.define('XMLifeOperating.controller.GShopper', {
 
             if (shopper.get('id') != null && shopper.get('id') != '' && shopper.get('id') != undefined) {
                 windowEl.unmask();
-                url = 'shopper/' + shopper.get('uid');
+                url = 'superShopper/' + shopper.get('uid');
                 sendPutRequest(url, {
                     name: shopper.get('name'),
                     pwd: shopper.get('pwd'),
