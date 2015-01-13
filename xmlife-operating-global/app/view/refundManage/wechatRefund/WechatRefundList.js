@@ -220,9 +220,6 @@ Ext.define('XMLifeOperating.view.refundManage.wechatRefund.WechatRefundList', {
         store: 'WechatRefund',
         dock: 'bottom',
         displayInfo: true
-            /*,
-                    items : ['->'],   
-                    prependButtons: true*/
     }, {
         xtype: 'toolbar',
         dock: 'bottom',
@@ -277,7 +274,8 @@ Ext.define('XMLifeOperating.view.refundManage.wechatRefund.WechatRefundList', {
         sortable: false,
         align: 'left',
         renderer: function(value) {
-            return value / 100;
+            var str = value / 100;
+            return str >= 100 ? '<span style="color:red;">'+ str +'</span>' : str;
         }
     }, {
         text: '处理状态',

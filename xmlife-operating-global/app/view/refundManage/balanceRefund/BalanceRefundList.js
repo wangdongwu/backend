@@ -217,9 +217,6 @@ Ext.define('XMLifeOperating.view.refundManage.balanceRefund.BalanceRefundList', 
         store: 'BalanceRefund',
         dock: 'bottom',
         displayInfo: true
-            /*,
-                    items : ['->'],   
-                    prependButtons: true*/
     }, {
         xtype: 'toolbar',
         dock: 'bottom',
@@ -274,7 +271,8 @@ Ext.define('XMLifeOperating.view.refundManage.balanceRefund.BalanceRefundList', 
             sortable: false,
             align: 'left',
             renderer: function(value) {
-                return value / 100;
+                var str = value / 100;
+                return str >= 100 ? '<span style="color:red;">'+ str +'</span>' : str;
             }
         }, {
             text: '处理状态',

@@ -22,9 +22,6 @@ Ext.define('XMLifeOperating.view.refundManage.alipayRefund.AlipayRefundList', {
         store: 'Shopper',
         dock: 'bottom',
         displayInfo: true
-            /*,
-                      items : ['->'],   
-                      prependButtons: true*/
     }],
     tbar: [
         '查询范围', {
@@ -64,7 +61,6 @@ Ext.define('XMLifeOperating.view.refundManage.alipayRefund.AlipayRefundList', {
             style: {
                 border: '1px solid #99bce8'
             }
-
         }, {
             xtype: 'button',
             name: 'oldMonth',
@@ -83,7 +79,6 @@ Ext.define('XMLifeOperating.view.refundManage.alipayRefund.AlipayRefundList', {
             width: 120,
             margin: '0 5 0 5',
             valueField: 'value',
-
             store: Ext.create('Ext.data.Store', {
                 fields: ['value', 'type'],
                 data: [{
@@ -230,10 +225,9 @@ Ext.define('XMLifeOperating.view.refundManage.alipayRefund.AlipayRefundList', {
         itemId: 'pagetoll',
         store: 'AlipayRefund',
         dock: 'bottom',
-        displayInfo: true
-            /*,
-                    items : ['->'],   
-                    prependButtons: true*/
+        displayInfo: true,
+        /*items : ['->'],   
+        prependButtons: true*/
     }, {
         xtype: 'toolbar',
         dock: 'bottom',
@@ -261,10 +255,10 @@ Ext.define('XMLifeOperating.view.refundManage.alipayRefund.AlipayRefundList', {
         },
         items: [{
             text: '说明：退款成功1：微信退款已经确认成功;',
-            xtype: 'label',
+            xtype: 'label'
         }, {
             text: '退款成功2：微信退款处理中，但最终能成功',
-            xtype: 'label',
+            xtype: 'label'
         }]
     }],
     columns: [{
@@ -274,7 +268,7 @@ Ext.define('XMLifeOperating.view.refundManage.alipayRefund.AlipayRefundList', {
         dataIndex: 'createTime',
         width: 100,
         sortable: false,
-        align: 'left',
+        align: 'left'
     }, {
         text: '我方处理时间',
         dataIndex: 'auditTime',
@@ -288,7 +282,8 @@ Ext.define('XMLifeOperating.view.refundManage.alipayRefund.AlipayRefundList', {
         sortable: false,
         align: 'left',
         renderer: function(value) {
-            return value / 100;
+            var str = value / 100;
+            return str >= 100 ? '<span style="color:red;">'+ str +'</span>' : str;
         }
     }, {
         text: '处理状态',
@@ -351,5 +346,4 @@ Ext.define('XMLifeOperating.view.refundManage.alipayRefund.AlipayRefundList', {
             dragText: 'Drag and drop to reorder'
         }
     }
-
 });
