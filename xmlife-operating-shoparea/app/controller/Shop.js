@@ -40,7 +40,8 @@ Ext.define('XMLifeOperating.controller.Shop', {
         'CategoryLeafCategorys',
         'ChangePriceRecordMyRecords',
         'ProductStatus',
-        'AdminAdminShopType'
+        'AdminAdminShopType',
+        'Manager'
     ],
     models: [
         'Shop',
@@ -55,7 +56,8 @@ Ext.define('XMLifeOperating.controller.Shop', {
         'CategoryLeafCategorys',
         'ChangePriceRecord',
         'ProductStatus',
-        'AdminAdminShopType'
+        'AdminAdminShopType',
+        'Manager'
     ],
     /*
       @param selector  widget.XX
@@ -328,26 +330,27 @@ Ext.define('XMLifeOperating.controller.Shop', {
                     var win = this.getShopManager();
                     win.down('form').loadRecord(record);
                     win.show();
-/*                    var store = this.getShopperStore();
+
+                    var store = this.getManagerStore();
                     var storeCount = store.getCount();
                     store.removeAll();
-                    store.getProxy().extraParams = {
-                        shopId: record.get('id')
-                    }*/
-/*                    store.load({
+                    store.load({
+                        params: {
+                            shopId: record.get('id')
+                        },
                         callback: function(records) {
                             if ((records.length == 1) && (records[0].get('uid') == '')) {
                                 store.remove(store.getAt(0));
                             }
                             // 初始化打勾
-                            var model = Ext.ComponentQuery.query('#bindShopWithShopper')[0].getSelectionModel();
+                            var model = Ext.ComponentQuery.query('#bindShopWithManager')[0].getSelectionModel();
                             model.deselectAll();
                             for (var i = 0; i < records.length; i++) {
                                 var index = store.indexOfId(records[i].get('id'));
                                 model.select(index, true);
                             }
                         }
-                    });*/
+                    });
                 }
             },
             'shoplist #shopperCountId': {
@@ -1523,6 +1526,58 @@ Ext.define('XMLifeOperating.controller.Shop', {
                 }
             },
             /*
+             *shopManager事件
+             */
+            'shopManager #reseachManager': {
+                click: function(button, e) {
+                    var me = this;
+                    var store = me.getShopManager().down('#searchManagerIds').getStore();
+                    var keyWords = button.previousSibling().getValue();
+                    if (keyWords == '') {
+                        Ext.Msg.alert('提示', '请输入搜索关键字！');
+                    } else {
+                        store.load({
+                            params: {
+                                nameOrPhone: keyWords,
+                                isActive: true
+                            }
+                        });
+                    }
+                }
+            },
+            'shopManager #save-bindShopWithManager': {
+                click: function(button, e) {
+                    var me = this;
+                    var editWindow = this.getShopManager(),
+                        form = editWindow.down('form').getForm(),
+                        shopRecord = form.getRecord();
+                    var selectModel = editWindow.down('#searchManagerIds').getSelectionModel();
+                    var selectRecords = selectModel.getSelection();
+                    var managerIds = [];
+                    selectRecords.forEach(function(item) {
+                        if (item.get("id") != null) {
+                            managerIds.push(item.get("uid"));
+                        }
+                    });
+                    var oldSelectModel = editWindow.down('#bindShopWithManager').getSelectionModel();
+                    var oldSelectRecords = oldSelectModel.getSelection();
+                    oldSelectRecords.forEach(function(item) {
+                        if (item.get("uid") != '') {
+                            managerIds.push(item.get("uid"));
+                        }
+                    });
+                    var shopId = shopRecord.get('id');
+                    var store = this.getShopStore();
+                    sendPutRequest('manager/bindToShop', {
+                        shopId: shopId,
+                        managerIds: managerIds
+                    }, '掌柜绑定店铺', '成功绑定掌柜', '绑定掌柜失败', function() {
+                        editWindow.close();
+                        me.showShopList();
+                    });
+                }
+            },
+            /*
              *shopbuyer事件
              */
             'shopbuyer #reseachBuyer': {
@@ -1559,9 +1614,9 @@ Ext.define('XMLifeOperating.controller.Shop', {
                     });
                     var shopId = buyerStore.get('id');
                     var store = this.getShopStore();
-                    sendPutRequest('shopper/bindToShop', {
+                    sendPutRequest('superShopper/bindToShop', {
                         shopId: shopId,
-                        shopperIds: shopperIds
+                        superShopperIds: shopperIds
                     }, '买手绑定店铺', '成功绑定买手', '绑定买手失败', function() {
                         editWindow.close();
                         me.showShopList();

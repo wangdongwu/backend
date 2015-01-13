@@ -531,7 +531,7 @@ Ext.define('XMLifeOperating.controller.GShopper', {
                 return;
             }else{
                 windowEl.unmask();
-                url = 'shopper'
+                url = 'manager'
                 var success = function(task, operation) {
                     var errorStr = '';
                     switch (task.responseText) {

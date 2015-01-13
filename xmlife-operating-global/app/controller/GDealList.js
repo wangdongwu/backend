@@ -433,6 +433,8 @@ Ext.define('XMLifeOperating.controller.GDealList', {
                 page: 1
             }
         });
+        var win = this.getGDealReturnComfirm();
+        win.show();
     },
     dealSearch: function() {
         var me = this,

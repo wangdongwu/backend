@@ -90,18 +90,6 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopList', {
             sortable: true,
             align: 'center'
         },
-        /*{
-            header: "Banner配置",
-            width: 90,
-            itemId: 'seeBannerBtn',
-            menuDisabled: true,
-            sortable: true,
-            align: 'center',
-            renderer: function(value, metadata, model, rowIndex, colIndex, store) {
-                var seeBtn = '<a href="javascript:void(0)">查看</a>';
-                return seeBtn;
-            }
-        },*/
         {
             text: '入驻掌柜',
             dataIndex: 'managerCount',

@@ -21,7 +21,7 @@ Ext.define('XMLifeOperating.model.Shop', {
 		'time',
 		'areaIds',
 		'shopBannerTemplateId',
-		'shopperCount',
+		'superShopperCount',
 		'shopId',
 		'status',
 		'areas',

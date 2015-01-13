@@ -44,7 +44,6 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopManager', {
                 border: false,
                 padding: 0,
                 items: [
-
                     {
                         layout: 'column',
                         xtype: 'fieldset',
@@ -55,24 +54,24 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopManager', {
                             fieldLabel: '掌柜名字',
                             labelWidth: 90,
                             labelAlign: 'left',
-                            name: 'keywordBuyer',
-                            itemId: 'keywordBuyer',
+                            name: 'keywordManager',
+                            itemId: 'keywordManager',
                         }, {
                             xtype: 'button',
                             text: '搜索',
-                            itemId: 'reseachBuyer'
+                            itemId: 'reseachManager'
                         }]
 
                     }
                 ]
             }, {
                 name: 'searchManagerIds',
-                //store: Ext.create('XMLifeOperating.store.Manager'),
+                store: Ext.create('XMLifeOperating.store.Manager'),
                 allowBlank: false,
                 mode: 'remote',
                 fieldLabel: '搜索结果',
                 xtype: 'gridpanel',
-                itemId: 'searchManagerId',
+                itemId: 'searchManagerIds',
                 height: 150,
                 selModel: Ext.create('Ext.selection.CheckboxModel', {
                     mode: "SIMPLE"
@@ -88,10 +87,10 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopManager', {
                     dataIndex: 'phone'
                 }]
             }, {
-                name: 'shopperIds',
-                //store: 'Manager',
+                name: 'managerIds',
+                store: 'Manager',
                 mode: 'remote',
-                fieldLabel: '买手',
+                fieldLabel: '掌柜',
                 xtype: 'gridpanel',
                 itemId: 'bindShopWithManager',
                 height: 150,
