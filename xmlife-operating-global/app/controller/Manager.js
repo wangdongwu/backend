@@ -11,10 +11,12 @@ Ext.define('XMLifeOperating.controller.Manager', {
         'Manager',
         'ManagerWorkTime',
     ],
+
     models: [
         'Manager',
         'ManagerWorkTime',
     ],
+
     refs: [{
         ref: 'managerList',
         selector: 'managerList',
@@ -282,12 +284,10 @@ Ext.define('XMLifeOperating.controller.Manager', {
             },
             'managerWorkTimeList #managerReturn': {
                 click: function() {
-                    var content = this.getContentPanel(),
-                        newTab = this.getManagerList();
-                    content.remove(content.activeTab, true);
-                    content.add(newTab);
-                    content.setActiveTab(newTab);
-                    activeTab = newTab;
+                    var tab = me.getManagerList();
+                    var content = this.getContentPanel();
+                    content.removeAll(false);
+                    content.add(tab);
                 }
             },
         });
@@ -348,11 +348,12 @@ Ext.define('XMLifeOperating.controller.Manager', {
     },
     // 编辑
     onEdit: function(view, rowIndex, colIndex, column, e) {
-        var shopper = view.getRecord(view.findTargetByEvent(e));
+        var manager = view.getRecord(view.findTargetByEvent(e));
         var win = this.getEditWindow();
-        var record = shopper;
+        var record = manager;
         win.down('#managerPhone').setDisabled(true);
         win.down('form').loadRecord(record);
+        win.down('[name=pwd]').setValue('');
         win.show();
     },
     saveEditWindow: function() {
@@ -368,12 +369,14 @@ Ext.define('XMLifeOperating.controller.Manager', {
             manager.set('pwd', hex_md5(manager.get('pwd')));
 
             if (manager.get('id') != null && manager.get('id') != '') {
-                var url = 'manager/' + manager.get('uid')
+                var url = 'manager/updateManager';
                 sendPutRequest(url, {
+                    managerId: manager.get('uid'),
                     name: manager.get('name'),
                     pwd: manager.get('pwd'),
                     title: manager.get('title'),
                     gender: manager.get('gender'),
+                    phone: manager.get('phone'),
                     idcard: manager.get('idcard'),
                     avatar: manager.get('avatar'),
                 }, '编辑模板', '成功编辑模板', '编辑模板失败', function(operation) {
@@ -381,13 +384,12 @@ Ext.define('XMLifeOperating.controller.Manager', {
                     editWindow.close();
                 });
                 return;
-            }
-
-            manager.save({
-                success: function(task, operation) {
-                    var error = operation.getError();
+            } else {
+                windowEl.unmask();
+                url = 'manager';
+                var success = function(task, operation) {
                     var errorStr = '';
-                    switch (operation.response.responseText) {
+                    switch (task.responseText) {
                         case '1':
                             errorStr = '创建成功';
                             break;
@@ -401,33 +403,40 @@ Ext.define('XMLifeOperating.controller.Manager', {
                             errorStr = '手机号码格式错误';
                             break;
                     }
-                    if (operation.response.responseText < 0) {
+                    if (task.responseText < 0) {
                         Ext.MessageBox.show({
-                            title: '失败',
+                            title: '添加失败',
                             msg: errorStr,
                             icon: Ext.Msg.ERROR,
                             buttons: Ext.Msg.OK
                         });
-                        windowEl.unmask();
                         return;
                     }
-                    windowEl.unmask();
                     editWindow.close();
-                    me.fireEvent('refreshView');
-                },
-                failure: function(task, operation) {
+                };
+                var failure = function(task, operation) {
                     var error = operation.getError(),
                         msg = Ext.isObject(error) ? error.status + ' ' + error.statusText : error;
 
                     Ext.MessageBox.show({
-                        title: '失败',
+                        title: '添加失败',
                         msg: msg,
                         icon: Ext.Msg.ERROR,
                         buttons: Ext.Msg.OK
                     });
                     windowEl.unmask();
-                }
-            })
+                };
+
+                sendRequest(url, {
+                    name: manager.get('name'),
+                    pwd: manager.get('pwd'),
+                    title: manager.get('title'),
+                    gender: manager.get('gender'),
+                    idcard: manager.get('idcard'),
+                    phone: manager.get('phone'),
+                    avatar: manager.get('avatar')
+                }, '添加模板', '成功添加模板', '添加模板失败', success, failure);
+            }
         } else {
             Ext.Msg.alert('无效数据', '请提交正确的表格数据!');
         }

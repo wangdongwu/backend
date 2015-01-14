@@ -8,8 +8,7 @@ Ext.define('XMLifeOperating.view.staffManage.manager.ManagerList', {
     tbar: [{
             xtype: 'button',
             text: '添加掌柜',
-            itemId: 'add',
-            hidden: (XMLifeOperating.generic.Global.operating_type == 'center')
+            itemId: 'add'
         }, {
             xtype: 'combobox',
             name: 'area',
@@ -18,8 +17,7 @@ Ext.define('XMLifeOperating.view.staffManage.manager.ManagerList', {
             emptyText: '请选择商圈',
             editable: false,
             displayField: 'name',
-            valueField: 'id',
-            hidden: (XMLifeOperating.generic.Global.operating_type == 'center')
+            valueField: 'id'
         }, {
             xtype: 'button',
             itemId: 'activeSearch',

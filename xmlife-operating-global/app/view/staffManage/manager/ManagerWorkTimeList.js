@@ -14,8 +14,7 @@ Ext.define('XMLifeOperating.view.staffManage.manager.ManagerWorkTimeList', {
         itemId: 'pagetoll',
         store: 'ManagerWorkTime',
         dock: 'bottom',
-        displayInfo: true,
-        style: 'border:none'
+        displayInfo: true
     }],
     tbar: [{
         xtype: 'button',

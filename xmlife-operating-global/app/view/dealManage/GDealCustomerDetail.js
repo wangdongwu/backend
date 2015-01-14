@@ -1,7 +1,7 @@
 Ext.define('XMLifeOperating.view.dealManage.GDealCustomerDetail', {
     extend: 'Ext.window.Window',
     xtype: 'gDealCustomerDetail',
-    
+
     requires: [
         'Ext.form.Panel',
         'Ext.form.field.Text',
@@ -17,52 +17,41 @@ Ext.define('XMLifeOperating.view.dealManage.GDealCustomerDetail', {
     initComponent: function() {
         this.items = [{
             xtype: 'form',
-            title:'顾客详情',
+            title: '顾客详情',
             layout: 'anchor',
             bodyPadding: 5,
             border: false,
-            defaults:{
+            defaults: {
                 anchor: '100%'
             },
-            items: [
-                {
-                    xtype: 'displayfield',
-                    name: 'name',
-                    fieldLabel: '姓名:',
-                    allowBlank:false,
-                    labelAlign:'left'
-                },
-                {
-                    xtype: 'displayfield',
-                    name: 'phone',
-                    fieldLabel: '电话:',
-                    allowBlank:false,
-                    labelAlign:'left'
-                },
-                {
-                    xtype: 'displayfield',
-                    name: 'dtoAddress',
-                    fieldLabel: '地址',
-                    allowBlank:false,
-                    labelAlign:'left'
-                },
-            ],
-            buttons: [
-                {
-                    text: '知道了',
-                    labelAlign:'center',
-                    handler:function(){
-                        //关闭窗口
-                        Ext.ComponentQuery.query('gDealCustomerDetail')[0].close();
-                    }
+            items: [{
+                xtype: 'displayfield',
+                name: 'name',
+                fieldLabel: '姓名:',
+                allowBlank: false,
+                labelAlign: 'left'
+            }, {
+                xtype: 'displayfield',
+                name: 'phone',
+                fieldLabel: '电话:',
+                allowBlank: false,
+                labelAlign: 'left'
+            }, {
+                xtype: 'displayfield',
+                name: 'dtoAddress',
+                fieldLabel: '地址',
+                allowBlank: false,
+                labelAlign: 'left'
+            }, ],
+            buttons: [{
+                text: '知道了',
+                labelAlign: 'center',
+                handler: function() {
+                    //关闭窗口
+                    Ext.ComponentQuery.query('gDealCustomerDetail')[0].close();
                 }
-            ]
+            }]
         }]
-
         this.callParent(arguments);
-
     }
-
-        
 });
-

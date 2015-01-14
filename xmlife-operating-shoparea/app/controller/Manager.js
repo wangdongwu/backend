@@ -13,11 +13,13 @@ Ext.define('XMLifeOperating.controller.Manager', {
         'ManagerWorkTime',
         //'Maintain'
     ],
+
     models: [
         'Manager',
         'ManagerWorkTime',
         //'Maintain'
     ],
+    
     refs: [{
         ref: 'managerList',
         selector: 'managerList',
@@ -78,6 +80,14 @@ Ext.define('XMLifeOperating.controller.Manager', {
                     var form = uploadfile.ownerCt;
                     var hash = uploadfile.previousNode().previousNode();
                     uploadImage(form, hash);
+                }
+            },
+            'managerWorkTimeList #managerReturn':{
+                click: function() {
+                    var tab = me.getManagerList();
+                    var content = this.getContentPanel();
+                    content.removeAll(false);
+                    content.add(tab);
                 }
             },
             // 考勤管理按时间过滤
@@ -283,6 +293,7 @@ Ext.define('XMLifeOperating.controller.Manager', {
         var record = manager;
         win.down('#managerPhone').setDisabled(true);
         win.down('form').loadRecord(record);
+        win.down('[name=pwd]').setValue('');
         win.show();
     },
     saveEditWindow: function() {
@@ -295,13 +306,20 @@ Ext.define('XMLifeOperating.controller.Manager', {
         if (form.isValid()) {
             windowEl.mask('saving');
             form.updateRecord(manager);
-            manager.set('pwd', hex_md5(manager.get('pwd')));
+
+            var pwd = editWindow.down('[name=pwd]').getValue();
+            pwd = pwd.replace(/(^\s+)|(\s+$)/g,"");
+            if(pwd!=''){
+                manager.set('pwd', hex_md5(pwd));
+            }
 
             if (manager.get('id') != null && manager.get('id') != '') {
-                var url = 'manager/' + manager.get('uid')
+                var url = 'manager/updateManager';
                 sendPutRequest(url, {
+                    manager:manager.get('uid'),
                     name: manager.get('name'),
                     pwd: manager.get('pwd'),
+                    phone: manager.get('phone'),
                     title: manager.get('title'),
                     gender: manager.get('gender'),
                     idcard: manager.get('idcard'),
