@@ -514,8 +514,6 @@ Ext.define('XMLifeOperating.controller.Shop', {
                         var areaIds = [this.areaId];
                         var autoOnline = (shopStore.get('autoOnline') == 'false') ? false : true;
                         shopStore.set('areaIds', areaIds);
-
-
                         shopStore.set('autoOnline', autoOnline);
                         shopStore.set('openTime', (shopStore.get('openTime').getHours() * 60 + shopStore.get('openTime').getMinutes()));
                         shopStore.set('closeTime', (shopStore.get('closeTime').getHours() * 60 + shopStore.get('closeTime').getMinutes()));
@@ -613,6 +611,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
                         shopStore.set('openTime', openTime);
                         shopStore.set('closeTime', closeTime);
 
+
                         var requestparams = {
                             id: shopStore.get('id'),
                             name: shopStore.get('name'),
@@ -627,7 +626,8 @@ Ext.define('XMLifeOperating.controller.Shop', {
                             autoOnline: shopStore.get('autoOnline'),
                             showAllProducts: showAllProducts,
                             needAuditPrice: needAuditPrice,
-                            needUserCollection: needUserCollection
+                            needUserCollection: needUserCollection,
+                            mergeType: shopStore.get('mergeType')
                         };
 
                         Ext.Array.each(['initShippingFee', 'minPrice', 'minOrderForFreeShipping', 'minDistance', 'shippingFeePerKM'], function(field) {

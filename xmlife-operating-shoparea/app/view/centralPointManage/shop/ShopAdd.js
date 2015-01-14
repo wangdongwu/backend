@@ -16,6 +16,22 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopAdd', {
     bodyStyle: 'text-align:center;border-style: none;',
     initComponent: function() {
         var required = '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>';
+        var showstore = Ext.create('Ext.data.Store', {
+            fields: ['value', 'name'],
+            data: [{
+                'value': 0,
+                'name': '系统默认展示'
+            }, {
+                'value': 1,
+                'name': '一级分类合并展示'
+            }, {
+                'value': 2,
+                'name': '二级分类合并展示'
+            }, {
+                'value': 3,
+                'name': '三级分类合并展示'
+            }]
+        });
         this.items = [{
             xtype: 'form',
             layout: 'anchor',
@@ -72,7 +88,8 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopAdd', {
                 labelWidth: 90,
                 labelAlign: 'right',
                 allowBlank: false,
-                afterLabelTextTpl: required
+                afterLabelTextTpl: required,
+                emptyText: '请选择结束时间'
 
             }, {
                 xtype: 'textfield',
@@ -81,7 +98,8 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopAdd', {
                 labelWidth: 90,
                 allowBlank: false,
                 labelAlign: 'right',
-                afterLabelTextTpl: required
+                afterLabelTextTpl: required,
+                emptyText: '请输入经度'
             }, {
                 xtype: 'textfield',
                 name: 'lat',
@@ -89,7 +107,8 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopAdd', {
                 labelWidth: 90,
                 allowBlank: false,
                 labelAlign: 'right',
-                afterLabelTextTpl: required
+                afterLabelTextTpl: required,
+                emptyText: '请输入纬度'
             }, {
                 xtype: 'timefield',
                 name: 'openTime',
@@ -98,7 +117,8 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopAdd', {
                 format: 'H:i',
                 allowBlank: false,
                 labelAlign: 'right',
-                afterLabelTextTpl: required
+                afterLabelTextTpl: required,
+                emptyText: '请选择开始时间'
             }, {
                 xtype: 'timefield',
                 name: 'closeTime',
@@ -107,7 +127,22 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopAdd', {
                 format: 'H:i',
                 allowBlank: false,
                 labelAlign: 'right',
-                afterLabelTextTpl: required
+                afterLabelTextTpl: required,
+                emptyText: '请选择结束时间'
+            }, {
+                xtype: 'combo',
+                itemId: 'showway',
+                name: 'mergeType',
+                fieldLabel: '分类展示方式',
+                labelWidth: 90,
+                labelAlign: 'right',
+                afterLabelTextTpl: required,
+                store: showstore,
+                queryMode: 'local',
+                valueField: 'value',
+                displayField: 'name',
+                allowBlank: false,
+                emptyText: "请选择分类展示方式"
             }, {
                 xtype: 'numberfield',
                 name: 'initShippingFee',

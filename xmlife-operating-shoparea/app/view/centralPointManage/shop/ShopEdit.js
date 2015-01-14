@@ -137,6 +137,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopEdit', {
             }, {
                 xtype: 'combo',
                 itemId: 'showway',
+                name:'mergeType',
                 fieldLabel: '分类展示方式',
                 labelWidth: 90,
                 labelAlign: 'right',

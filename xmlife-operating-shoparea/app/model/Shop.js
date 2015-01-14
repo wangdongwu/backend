@@ -37,7 +37,8 @@ Ext.define('XMLifeOperating.model.Shop', {
 		'needUserCollection',
 		'storeLimitEnable',
 		'type',
-		'managerCount'
+		'managerCount',
+		'mergeType'
 	],
 	idProperty: 'id',
 	proxy: dataProxy
