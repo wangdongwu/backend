@@ -81,11 +81,11 @@ Ext.define('XMLifeOperating.Application', {
         'RealTime',
         'ResidentalDistrict',
         'Shop',
-        'Shopper',
+        'SuperShopper',
         'ShopArea',
         'ShopTopShops',
         'ShopAreaBanner',
-        'ShopperWorkTime',
+        'SuperShopperWorkTime',
         'ShopBannerTemplate',
         //'Manager'
     ],

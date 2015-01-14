@@ -67,7 +67,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopBuyer', {
                 ]
             }, {
                 name: 'searchCourierIds',
-                store: Ext.create('XMLifeOperating.store.Shopper'),
+                store: Ext.create('XMLifeOperating.store.SuperShopper'),
                 allowBlank: false,
                 mode: 'remote',
                 fieldLabel: '买手',
@@ -89,7 +89,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopBuyer', {
                 }]
             }, {
                 name: 'shopperIds',
-                store: 'Shopper',
+                store: 'SuperShopper',
                 mode: 'remote',
                 fieldLabel: '买手',
                 xtype: 'gridpanel',

@@ -3,7 +3,7 @@ Ext.define('XMLifeOperating.view.staffManage.shopper.ShopperList', {
     closable: false,
     xtype: 'shopperList',
     title: '买手管理',
-    store: 'Shopper',
+    store: 'SuperShopper',
     id: 'shopperList',
     tbar: [{
             xtype: 'button',
@@ -59,7 +59,7 @@ Ext.define('XMLifeOperating.view.staffManage.shopper.ShopperList', {
     bbar: [{
         xtype: 'pagingtoolbar',
         itemId: 'pagetool',
-        store: 'Shopper',
+        store: 'SuperShopper',
         displayInfo: true,
         style: 'border:none'
     }],

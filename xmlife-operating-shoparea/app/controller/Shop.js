@@ -29,7 +29,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
     ],
     stores: [
         'Shop',
-        'Shopper',
+        'SuperShopper',
         'ShopBannerTemplate',
         'ShopCategories',
         'CategoryRoots',
@@ -45,7 +45,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
     ],
     models: [
         'Shop',
-        'Shopper',
+        'SuperShopper',
         'ShopBannerTemplate',
         'ShopCategories',
         'CategoryRoots',
@@ -360,7 +360,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
                     var win = this.getShopBuyer();
                     win.down('form').loadRecord(record);
                     win.show();
-                    var store = this.getShopperStore();
+                    var store = this.getSuperShopperStore();
                     var storeCount = store.getCount();
                     store.removeAll();
                     store.getProxy().extraParams = {

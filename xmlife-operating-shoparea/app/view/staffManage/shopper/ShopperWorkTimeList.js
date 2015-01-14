@@ -10,17 +10,14 @@ Ext.define('XMLifeOperating.view.staffManage.shopper.ShopperWorkTimeList', {
 
     title: '考勤管理',
 
-    store: 'ShopperWorkTime',
+    store: 'SuperShopperWorkTime',
     dockedItems: [{
         xtype: 'pagingtoolbar',
         itemId: 'pagetoll',
-        store: 'ShopperWorkTime',
+        store: 'SuperShopperWorkTime',
         dock: 'bottom',
         displayInfo: true,
         style:'border:none'
-        /*,
-      items : ['->'],   
-      prependButtons: true*/
     }],
     tbar: [{
         xtype: 'button',
@@ -56,7 +53,7 @@ Ext.define('XMLifeOperating.view.staffManage.shopper.ShopperWorkTimeList', {
             boxLabel: '上月',
             name: 'dayType',
             itemId: 'dayType6',
-             inputValue:6
+            inputValue:6
         }]
     }, ],
     columns: [{

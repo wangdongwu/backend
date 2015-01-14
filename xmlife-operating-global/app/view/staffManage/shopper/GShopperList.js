@@ -52,7 +52,7 @@ Ext.define('XMLifeOperating.view.staffManage.shopper.GShopperList', {
                 }
             }
         },
-        '->', , {
+        '->',{
             xtype: 'textfield',
             name: 'searchbuyer',
             itemId: 'searchBuyerKeyWords',
@@ -77,7 +77,7 @@ Ext.define('XMLifeOperating.view.staffManage.shopper.GShopperList', {
         dataIndex: 'name',
         width: 80,
         sortable: false,
-        align: 'left',
+        align: 'left'
     }, {
         text: '职称',
         dataIndex: 'title',
@@ -89,7 +89,7 @@ Ext.define('XMLifeOperating.view.staffManage.shopper.GShopperList', {
         dataIndex: 'phone',
         width: 105,
         sortable: false,
-        align: 'left',
+        align: 'left'
     }, {
         text: '绑定店铺',
         dataIndex: 'shopNames',
@@ -106,22 +106,7 @@ Ext.define('XMLifeOperating.view.staffManage.shopper.GShopperList', {
             }
             return htmlStr;
         }
-    },/* {
-        text: '所属中心',
-        dataIndex: 'areaNames',
-        width: 100,
-        sortable: false,
-        align: 'left',
-        renderer: function(value) {
-            var htmlStr = '';
-            if (value != null) {
-                value.forEach(function(item, index, value) {
-                    htmlStr += item + "<br />";
-                });
-            }
-            return htmlStr;
-        }
-    }, */{
+    }, {
         text: '订单数',
         dataIndex: 'deals',
         width: 55,

@@ -10,7 +10,7 @@ Ext.define('XMLifeOperating.controller.DealProblemDealsList', {
         'DealProblemDeals',
         'ShopArea',
         'DealTasks',
-        'Shopper',
+        'SuperShopper',
         'Deliverer',
         'DealItems'
     ],
@@ -18,7 +18,7 @@ Ext.define('XMLifeOperating.controller.DealProblemDealsList', {
         'DealProblemDeals',
         'ShopArea',
         'DealTasks',
-        'Shopper',
+        'SuperShopper',
         'Deliverer',
         'DealItems'
     ],
@@ -245,7 +245,7 @@ Ext.define('XMLifeOperating.controller.DealProblemDealsList', {
         win.down('form').loadRecord(reapportion);
         win.show();
 
-        var store = this.getShopperStore();
+        var store = this.getSuperShopperStore();
         store.getProxy().extraParams = {};
 
         store.load({

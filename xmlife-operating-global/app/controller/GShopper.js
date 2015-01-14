@@ -76,16 +76,19 @@ Ext.define('XMLifeOperating.controller.GShopper', {
                     content.setActiveTab(activeTab);
                 }
             },
+
             'gShopperList #shopArea': {
                 render: function(combo) {
-
-                    var activeSearch = Ext.getCmp('gShopperList').down('#activeSearch').getText();
+                    var view = me.getGShopperList(),
+                        activeSearch = view.down('#activeSearch').getText(),
+                        store = me.getSuperShopperStore();
+                    
                     if (activeSearch == '查看停单买手') {
                         isActive = true;
                     } else if (activeSearch == '查看接单买手') {
                         isActive = false;
                     }
-                    var store = this.getSuperShopperStore();
+
                     store.getProxy().extraParams = {
                         city: XMLifeOperating.generic.Global.currentCity,
                         area: combo.getValue(),
@@ -93,17 +96,22 @@ Ext.define('XMLifeOperating.controller.GShopper', {
                     };
                     store.loadPage(1);
                     store.on('load', function() {
-                        Ext.getCmp('gShopperList').down('#activeBind').setText('查看未绑定的买手');
-                    })
+                        view.down('#searchBuyerKeyWords').setValue('');
+                        view.down('#activeBind').setText('查看未绑定的买手');
+                    });
                 },
                 select: function(combo) {
-                    var activeSearch = Ext.getCmp('gShopperList').down('#activeSearch').getText();
+                    var view = me.getGShopperList(),
+                        activeSearch = view.down('#activeSearch').getText(),
+                        store = me.getSuperShopperStore();
+
+                    view.down('#searchBuyerKeyWords').setValue('');
                     if (activeSearch == '查看停单买手') {
                         isActive = true;
                     } else if (activeSearch == '查看接单买手') {
                         isActive = false;
                     }
-                    var store = this.getSuperShopperStore();
+
                     store.getProxy().extraParams = {
                         city: XMLifeOperating.generic.Global.currentCity,
                         area: combo.getValue(),
@@ -111,8 +119,9 @@ Ext.define('XMLifeOperating.controller.GShopper', {
                     };
                     store.loadPage(1);
                     store.on('load', function() {
-                        Ext.getCmp('gShopperList').down('#activeBind').setText('查看未绑定的买手');
-                    })
+                        view.down('#searchBuyerKeyWords').setValue('');
+                        view.down('#activeBind').setText('查看未绑定的买手');
+                    });
                 },
             },
             //查看中心下暂停或接单买手
@@ -265,15 +274,16 @@ Ext.define('XMLifeOperating.controller.GShopper', {
             //考勤管理
             'gShopperList #shopperWorkTimeId': {
                 click: function(view, column, rowIndex, colIndex, e) {
+                    
                     var shopper = view.getRecord(view.findTargetByEvent(e)),
                         shopperId = shopper.get('uid'),
-                        ShopperWorkTimeStore = this.getSuperShopperWorkTimeStore();
+                        shopperWorkTimeStore = this.getSuperShopperWorkTimeStore();
 
-                    ShopperWorkTimeStore.getProxy().extraParams = {
-                        shopper: shopperId,
+                    shopperWorkTimeStore.getProxy().extraParams = {
+                        superShopperId: shopperId,
                         dayType: 3
                     }
-                    ShopperWorkTimeStore.loadPage(1);
+                    shopperWorkTimeStore.loadPage(1);
 
                     var content = this.getContentPanel(),
                         newTab = this.getGShopperWorkTimeList();
@@ -321,7 +331,7 @@ Ext.define('XMLifeOperating.controller.GShopper', {
                         var ShopperWorkTimeStore = this.getSuperShopperWorkTimeStore();
 
                         ShopperWorkTimeStore.getProxy().extraParams = {
-                            shopper: shopperId,
+                            superShopperId: shopperId,
                             dayType: str
                         }
                         ShopperWorkTimeStore.loadPage(1);
@@ -373,11 +383,13 @@ Ext.define('XMLifeOperating.controller.GShopper', {
             },
             'gShopperList #closeOrOpenOrder': {
                 click: function(grid, column, rowIndex) {
-                    var record = grid.getStore().getAt(rowIndex);
-                    var shopper = record.get('uid');
-                    var isActive = record.get('isActive');
-                    var url = '';
-                    var str = '确认要此操作吗？';
+                    var record = grid.getStore().getAt(rowIndex),
+                        shopperUid = record.get('uid'),
+                        isActive = record.get('isActive'),
+                        url = '',
+                        str = '确认要此操作吗？',
+                        view = me.getGShopperList();
+
                     if (isActive == true) {
                         str = '确认要暂停买手接单吗？';
                         isActive = false;
@@ -391,20 +403,20 @@ Ext.define('XMLifeOperating.controller.GShopper', {
                             return;
                         }
                         sendPutRequest(url, {
-                            shopper: shopper,
+                            superShopperId: shopperUid,
                             isActive: isActive
                         }, '操作恢复或暂停买手接单', '成功操作买手接单', '操作买手接单失败', function() {
 
-                            var store = me.getSuperShopperStore();
-                            var activeBindText = Ext.getCmp('gShopperList').down('#activeBind').getText();
-                            var params = '';
-                            var searchBuyerKeyWords = me.getGShopperList().down('#searchBuyerKeyWords').getValue();
+                            var store = me.getSuperShopperStore(),
+                                activeBindText = view.down('#activeBind').getText(),
+                                searchBuyerKeyWords = view.down('#searchBuyerKeyWords').getValue();
+                            
                             if (activeBindText == '查看已绑定的买手' || searchBuyerKeyWords != '') {
                                 record.set('isActive', isActive);
                                 return;
                             } else {
 
-                                var activeSearch = Ext.getCmp('gShopperList').down('#activeSearch').getText();
+                                var activeSearch = view.down('#activeSearch').getText();
                                 if (activeSearch == '查看停单买手') {
                                     isActive = true;
                                 } else if (activeSearch == '查看接单买手') {
@@ -417,7 +429,7 @@ Ext.define('XMLifeOperating.controller.GShopper', {
                                 };
                                 store.loadPage(1);
                                 store.on('load', function() {
-                                    Ext.getCmp('gShopperList').down('#activeBind').setText('查看未绑定的买手');
+                                    view.down('#activeBind').setText('查看未绑定的买手');
                                 });
                             }
                         });
@@ -432,19 +444,14 @@ Ext.define('XMLifeOperating.controller.GShopper', {
     },
     searchShopper: function() {
         var me = this,
-            keyWords = me.getGShopperList().down('#searchBuyerKeyWords').getValue(),
-            store = this.getSuperShopperStore(),
-            view = this.getGShopperList();
-        var activeBindText = Ext.getCmp('gShopperList').down('#activeBind').getText();
-        var isUnbind = null;
-        if (activeBindText == '查看已绑定的买手') {
-            isUnbind = true;
-        } else if (activeBindText == '查看未绑定的买手') {
-            isUnbind = '';
-        }
+            view = me.getGShopperList(),
+            keyWords = Ext.util.Format.trim(view.down('#searchBuyerKeyWords').getValue()),
+            store = me.getSuperShopperStore(),
+            activeBindText = view.down('#activeBind').getText();
+
         if (keyWords == '') {
             store.getProxy().extraParams = {
-                unbind: isUnbind
+                unbind: ''
             };
             store.loadPage(1);
         } else {
@@ -452,10 +459,12 @@ Ext.define('XMLifeOperating.controller.GShopper', {
                 nameOrPhone: keyWords
             };
             store.loadPage(1);
-            store.on('load', function() {
-                Ext.getCmp('gShopperList').down('#activeBind').setText('查看未绑定的买手');
-            });
         }
+
+        store.on('load', function() {
+            view.down('#activeBind').setText('查看未绑定的买手');
+            view.down('#searchBuyerKeyWords').setValue(keyWords);
+        });
     },
     onShow: function() {
         /*var store = this.getShopperStore();
@@ -492,7 +501,8 @@ Ext.define('XMLifeOperating.controller.GShopper', {
             form = editWindow.down('form').getForm(),
             shopper = form.getRecord(),
             me = this,
-            url = '';
+            url = '',
+            view = me.getGShopperList();
 
         if (form.isValid()) {
             windowEl.mask('saving');
@@ -506,10 +516,9 @@ Ext.define('XMLifeOperating.controller.GShopper', {
 
             if (shopper.get('id') != null && shopper.get('id') != '' && shopper.get('id') != undefined) {
                 windowEl.unmask();
-                //url = 'superShopper/' + shopper.get('uid');
-                url = 'superShopper/updateSuperShopper';
+                url = 'superShopper/updateSuperShopper' ;
                 sendPutRequest(url, {
-                    superShopper: shopper.get('uid'),
+                    superShopperId: shopper.get('uid'),
                     name: shopper.get('name'),
                     pwd: shopper.get('pwd'),
                     title: shopper.get('title'),
@@ -523,7 +532,7 @@ Ext.define('XMLifeOperating.controller.GShopper', {
                 return;
             } else {
                 windowEl.unmask();
-                url = 'manager'
+                url = 'superShopper'
                 var success = function(task, operation) {
                     var errorStr = '';
                     switch (task.responseText) {
@@ -557,7 +566,10 @@ Ext.define('XMLifeOperating.controller.GShopper', {
                         nameOrPhone: keyWords
                     };
                     store.loadPage(1);
-                    me.getGShopperList().down('#searchBuyerKeyWords').setValue(keyWords);
+                    store.on('load', function() {
+                        view.down('#searchBuyerKeyWords').setValue(keyWords);
+                        view.down('#activeBind').setText('查看未绑定的买手');
+                    });
                 };
                 var failure = function(task, operation) {
                     var error = operation.getError(),
@@ -580,7 +592,7 @@ Ext.define('XMLifeOperating.controller.GShopper', {
                     idcard: shopper.get('idcard'),
                     phone: shopper.get('phone'),
                     avatar: shopper.get('avatar')
-                }, '添加模板', '成功添加模板', '添加模板失败', success, failure);
+                }, '添加买手', '成功添加买手', '添加买手失败', success, failure);
             }
         } else {
             Ext.Msg.alert('无效数据', '请提交正确的表格数据！');
