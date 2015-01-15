@@ -9,7 +9,8 @@ Ext.define('XMLifeOperating.view.staffManage.manager.EditManager', {
     closeAction: 'hide',
     modal: true,
     width: 450,
-    height: 400,
+    maxHeight: 500,
+    autoScroll: true,
     resizable: false,
     layout: 'fit',
 
