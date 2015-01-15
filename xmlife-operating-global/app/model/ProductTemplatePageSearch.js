@@ -1,5 +1,41 @@
+Ext.data.Types.WEIGHT = {
+    type: 'Weight',
+    convert: function(v, data) {
+        return (v / 1000).toFixed(3);
+    },
+    sortType: Ext.data.SortTypes.asFloat
+};
+
 Ext.define('XMLifeOperating.model.ProductTemplatePageSearch', {
     extend: 'Ext.data.Model',
-    fields: ['id','rank','rank2', 'name', 'picture', 'unit','unitname','canPartiallyReturn','desc','tag','name1','name2','name3','names','skuId','barCode'],
-    proxy: new XMLifeOperating.generic.BaseProxy('producttemplate/pageSearch','result'),
+    fields: ['id',
+        'rank',
+        'rank2',
+        'name',
+        'picture',
+        'unit',
+        'unitname',
+        'canPartiallyReturn',
+        'desc',
+        'tag',
+        'name1',
+        'name2',
+        'name3',
+        'names',
+        'skuId',
+        'barCode',
+        'pkgSkuId',
+        'pkgCount',
+        'returnEnable', {
+            name: 'weight',
+            mapping: 'weight',
+            type: Ext.data.Types.WEIGHT
+        }, {
+            name: 'extraServiceCharge',
+            convert: function(v) {
+                return (v / 10).toFixed(1);
+            }
+        }
+    ],
+    proxy: new XMLifeOperating.generic.BaseProxy('producttemplate/pageSearch', 'result'),
 });

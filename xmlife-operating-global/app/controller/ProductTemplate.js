@@ -1,7 +1,8 @@
 Ext.define('XMLifeOperating.controller.ProductTemplate', {
     extend: 'Ext.app.Controller',
 
-    views: ['templateManage.productTemplate.ProductTemplateList',
+    views: [
+        'templateManage.productTemplate.ProductTemplateList',
         'templateManage.productTemplate.ProductTemplateEdit',
         'templateManage.productTemplate.batchModifiWindow',
         'templateManage.productTemplate.batchAddWindow'
@@ -53,7 +54,7 @@ Ext.define('XMLifeOperating.controller.ProductTemplate', {
 
     init: function() {
         var me = this;
-
+        //创建新的数据类型
         this.control({
             'productTemplateList': {
                 show: function() {
@@ -161,6 +162,7 @@ Ext.define('XMLifeOperating.controller.ProductTemplate', {
                     win.down('#barCodeId').setDisabled(false);
                     win.down('#skuIdId').setDisabled(false);
                     win.down('form').loadRecord(productTemplate);
+                    win.down('form').getForm().reset();
                     win.show();
                 }
             },
@@ -345,7 +347,8 @@ Ext.define('XMLifeOperating.controller.ProductTemplate', {
     saveEditWindow: function() {
         var editWindow = this.getEditWindow(),
             windowEl = editWindow.getEl(),
-            form = editWindow.down('form').getForm(),
+            view = editWindow.down('form'),
+            form = view.getForm(),
             fileInput = editWindow.down('filefield'),
             productTemplate = form.getRecord(),
             me = this;
@@ -375,6 +378,11 @@ Ext.define('XMLifeOperating.controller.ProductTemplate', {
                 var rank = productTemplate.get('rank');
                 var rank2 = productTemplate.get('rank2');
                 var sessionId = localStorage.getItem('sessionId') || '';
+                var pkgSkuId = productTemplate.get('pkgSkuId');
+                var pkgCount = productTemplate.get('pkgCount');
+                var returnEnable = productTemplate.get('returnEnable');
+                var weight = productTemplate.get('weight');
+                var extraServiceCharge = productTemplate.get('extraServiceCharge');
 
                 form.submit({
                     url: XMLifeOperating.generic.Global.URL.biz + 'producttemplate/update?sessionId=' + sessionId,
@@ -442,15 +450,16 @@ Ext.define('XMLifeOperating.controller.ProductTemplate', {
                 var rank = productTemplate.get('rank');
                 var rank2 = productTemplate.get('rank2');
                 var sessionId = localStorage.getItem('sessionId') || '';
+                var pkgSkuId = productTemplate.get('pkgSkuId');
+                var pkgCount = productTemplate.get('pkgCount');
+                var returnEnable = productTemplate.get('returnEnable');
+                var weight = productTemplate.get('weight');
+                var extraServiceCharge = productTemplate.get('extraServiceCharge');
 
                 if (treeSelected.length == 1) {
-
                     if (treeSelected.items[0].get('leaf') !== false) {
-
                         var categoryId = treeSelected.items[0].get('id');
-
                     } else {
-
                         Ext.MessageBox.show({
                             title: '提示',
                             msg: '请选择一个叶子分类',
@@ -460,7 +469,6 @@ Ext.define('XMLifeOperating.controller.ProductTemplate', {
                         windowEl.unmask();
                         return;
                     }
-
                 } else {
                     Ext.MessageBox.show({
                         title: '提示',
