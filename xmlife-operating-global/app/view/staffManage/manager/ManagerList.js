@@ -115,7 +115,7 @@ Ext.define('XMLifeOperating.view.staffManage.manager.ManagerList', {
     }, {
         header: "编辑",
         xtype: 'actioncolumn',
-        width: 24,
+        width: 60,
         icon: 'resources/images/edit.png',
         tooltip: 'Edit',
         menuDisabled: true,

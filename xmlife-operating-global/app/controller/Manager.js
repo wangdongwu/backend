@@ -366,9 +366,14 @@ Ext.define('XMLifeOperating.controller.Manager', {
         if (form.isValid()) {
             windowEl.mask('saving');
             form.updateRecord(manager);
-            manager.set('pwd', hex_md5(manager.get('pwd')));
+            var pwd = editWindow.down('[name=pwd]').getValue();
+            pwd = pwd.replace(/(^\s+)|(\s+$)/g, "");
+            if (pwd != '') {
+                manager.set('pwd', hex_md5(pwd));
+            }
 
             if (manager.get('id') != null && manager.get('id') != '') {
+                // 编辑修改
                 var url = 'manager/updateManager';
                 sendPutRequest(url, {
                     managerId: manager.get('uid'),
@@ -385,6 +390,7 @@ Ext.define('XMLifeOperating.controller.Manager', {
                 });
                 return;
             } else {
+                // 添加
                 windowEl.unmask();
                 url = 'manager';
                 var success = function(task, operation) {
