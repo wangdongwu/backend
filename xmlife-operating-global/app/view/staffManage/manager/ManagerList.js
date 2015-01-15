@@ -74,7 +74,7 @@ Ext.define('XMLifeOperating.view.staffManage.manager.ManagerList', {
         dataIndex: 'name',
         width: 80,
         sortable: true,
-        align: 'center',
+        align: 'center'
     }, {
         text: '职称',
         dataIndex: 'title',
@@ -86,7 +86,7 @@ Ext.define('XMLifeOperating.view.staffManage.manager.ManagerList', {
         dataIndex: 'phone',
         width: 90,
         sortable: true,
-        align: 'center',
+        align: 'center'
     }, {
         text: '绑定店铺',
         dataIndex: 'shopNames',
@@ -113,14 +113,14 @@ Ext.define('XMLifeOperating.view.staffManage.manager.ManagerList', {
             return '<a href="javascript:;">查看</a>';
         }
     }, {
+        header: "编辑",
         xtype: 'actioncolumn',
         width: 24,
         icon: 'resources/images/edit.png',
         tooltip: 'Edit',
         menuDisabled: true,
         sortable: true,
-        itemId: 'editManagerId',
-        hidden: (XMLifeOperating.generic.Global.operating_type == 'center')
+        itemId: 'editManagerId'
     }, {
         header: "操作",
         width: 90,

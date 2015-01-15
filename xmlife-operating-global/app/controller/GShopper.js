@@ -19,40 +19,38 @@ Ext.define('XMLifeOperating.controller.GShopper', {
         'DealItems'
     ],
     refs: [{
-            ref: 'gShopperList',
-            selector: 'gShopperList',
-            xtype: 'gShopperList',
-            autoCreate: true
-        }, {
-            ref: 'shopArea',
-            selector: '#shopArea',
-        }, {
-            ref: 'editWindow',
-            selector: 'gShopperEdit',
-            xtype: 'gShopperEdit',
-            autoCreate: true
-        }, {
-            ref: 'gDealShopperHistoryList',
-            selector: 'gDealShopperHistoryList',
-            xtype: 'gDealShopperHistoryList',
-            autoCreate: true
-        }, {
-            ref: 'contentPanel',
-            selector: '#contentPanel',
-            xtype: 'panel'
-        }, {
-            ref: 'gShopperWorkTimeList',
-            selector: 'gShopperWorkTimeList',
-            xtype: 'gShopperWorkTimeList',
-            autoCreate: true
-        },
-        {
-            ref: 'gDealItemsListShopper',
-            selector: 'gDealItemsListShopper',
-            xtype: 'gDealItemsListShopper',
-            autoCreate: true
-        }
-    ],
+        ref: 'gShopperList',
+        selector: 'gShopperList',
+        xtype: 'gShopperList',
+        autoCreate: true
+    }, {
+        ref: 'shopArea',
+        selector: '#shopArea',
+    }, {
+        ref: 'editWindow',
+        selector: 'gShopperEdit',
+        xtype: 'gShopperEdit',
+        autoCreate: true
+    }, {
+        ref: 'gDealShopperHistoryList',
+        selector: 'gDealShopperHistoryList',
+        xtype: 'gDealShopperHistoryList',
+        autoCreate: true
+    }, {
+        ref: 'contentPanel',
+        selector: '#contentPanel',
+        xtype: 'panel'
+    }, {
+        ref: 'gShopperWorkTimeList',
+        selector: 'gShopperWorkTimeList',
+        xtype: 'gShopperWorkTimeList',
+        autoCreate: true
+    }, {
+        ref: 'gDealItemsListShopper',
+        selector: 'gDealItemsListShopper',
+        xtype: 'gDealItemsListShopper',
+        autoCreate: true
+    }],
     init: function() {
         var me = this,
             isActive = true,
@@ -66,7 +64,7 @@ Ext.define('XMLifeOperating.controller.GShopper', {
                 setActive: function() {
                     var content = this.getContentPanel(),
                         isExist = false;
-                        
+
                     Ext.each(content.items.items, function(item) {
                         if (activeTab.id === item.id) {
                             isExist = true;
@@ -141,7 +139,6 @@ Ext.define('XMLifeOperating.controller.GShopper', {
                         Ext.getCmp('gShopperList').down('#activeBind').setText('查看未绑定的买手');
                         me.getGShopperList().down('#searchBuyerKeyWords').setValue('');
                     });
-
                 }
             },
             //查看绑定
@@ -180,9 +177,7 @@ Ext.define('XMLifeOperating.controller.GShopper', {
             'gShopperEdit filefield[name="gShopperUploadfile"]': {
                 change: function(uploadfile) {
                     var form = uploadfile.ownerCt;
-
                     var hash = uploadfile.previousNode().previousNode();
-
                     uploadImage(form, hash);
                 }
             },
@@ -200,12 +195,11 @@ Ext.define('XMLifeOperating.controller.GShopper', {
 
                     var content = this.getContentPanel(),
                         newTab = this.getGDealShopperHistoryList();
-                    
+
                     content.remove(content.activeTab, false);
                     content.add(newTab);
                     content.setActiveTab(newTab);
                     activeTab = newTab;
-
                     this.shopperId = shopperId;
                 }
             },
@@ -268,7 +262,6 @@ Ext.define('XMLifeOperating.controller.GShopper', {
                     activeTab = newTab;
                 }
             },
-
             //考勤管理
             'gShopperList #shopperWorkTimeId': {
                 click: function(view, column, rowIndex, colIndex, e) {
@@ -427,8 +420,6 @@ Ext.define('XMLifeOperating.controller.GShopper', {
                                     Ext.getCmp('gShopperList').down('#activeBind').setText('查看未绑定的买手');
                                 });
                             }
-
-
                         });
                     });
                 }
@@ -437,7 +428,6 @@ Ext.define('XMLifeOperating.controller.GShopper', {
             'gShopperList #searchButton': {
                 click: me.searchShopper
             }
-
         });
     },
     searchShopper: function() {
@@ -509,8 +499,8 @@ Ext.define('XMLifeOperating.controller.GShopper', {
             form.updateRecord(shopper);
 
             var pwd = editWindow.down('[name=pwd]').getValue();
-            pwd = pwd.replace(/(^\s+)|(\s+$)/g,"");
-            if(pwd!=''){
+            pwd = pwd.replace(/(^\s+)|(\s+$)/g, "");
+            if (pwd != '') {
                 shopper.set('pwd', hex_md5(pwd));
             }
 
@@ -519,7 +509,7 @@ Ext.define('XMLifeOperating.controller.GShopper', {
                 //url = 'superShopper/' + shopper.get('uid');
                 url = 'superShopper/updateSuperShopper';
                 sendPutRequest(url, {
-                    superShopper:shopper.get('uid'),
+                    superShopper: shopper.get('uid'),
                     name: shopper.get('name'),
                     pwd: shopper.get('pwd'),
                     title: shopper.get('title'),
@@ -531,7 +521,7 @@ Ext.define('XMLifeOperating.controller.GShopper', {
                     editWindow.close();
                 });
                 return;
-            }else{
+            } else {
                 windowEl.unmask();
                 url = 'manager'
                 var success = function(task, operation) {
@@ -583,14 +573,14 @@ Ext.define('XMLifeOperating.controller.GShopper', {
                 };
 
                 sendRequest(url, {
-                        name: shopper.get('name'),
-                        pwd: shopper.get('pwd'),
-                        title: shopper.get('title'),
-                        gender: shopper.get('gender'),
-                        idcard: shopper.get('idcard'),
-                        phone: shopper.get('phone'),
-                        avatar: shopper.get('avatar')
-                    }, '添加模板', '成功添加模板', '添加模板失败', success, failure);
+                    name: shopper.get('name'),
+                    pwd: shopper.get('pwd'),
+                    title: shopper.get('title'),
+                    gender: shopper.get('gender'),
+                    idcard: shopper.get('idcard'),
+                    phone: shopper.get('phone'),
+                    avatar: shopper.get('avatar')
+                }, '添加模板', '成功添加模板', '添加模板失败', success, failure);
             }
         } else {
             Ext.Msg.alert('无效数据', '请提交正确的表格数据！');

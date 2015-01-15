@@ -60,7 +60,7 @@ Ext.define('XMLifeOperating.view.staffManage.manager.ManagerList', {
         dataIndex: 'name',
         width: 80,
         sortable: true,
-        align: 'center',
+        align: 'center'
     }, {
         text: '职称',
         dataIndex: 'title',
@@ -72,7 +72,7 @@ Ext.define('XMLifeOperating.view.staffManage.manager.ManagerList', {
         dataIndex: 'phone',
         width: 90,
         sortable: true,
-        align: 'center',
+        align: 'center'
     }, {
         text: '绑定店铺',
         dataIndex: 'shopNames',
@@ -98,17 +98,8 @@ Ext.define('XMLifeOperating.view.staffManage.manager.ManagerList', {
         renderer: function(value, metadata, model, rowIndex, colIndex, store) {
             return '<a href="javascript:;">查看</a>';
         }
-    }, {
-        header: "维护记录",
-        width: 90,
-        itemId: 'maintain',
-        menuDisabled: true,
-        sortable: true,
-        align: 'center',
-        renderer: function(value, metadata, model, rowIndex, colIndex, store) {
-            return '<a href="javascript:;">查看</a>';
-        }
-    }, {
+    },{
+        header: "编辑",
         xtype: 'actioncolumn',
         width: 30,
         icon: 'resources/images/edit.png',

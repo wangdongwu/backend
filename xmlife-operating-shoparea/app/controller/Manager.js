@@ -4,20 +4,17 @@ Ext.define('XMLifeOperating.controller.Manager', {
     views: [
         'staffManage.manager.ManagerList',
         'staffManage.manager.EditManager',
-        'staffManage.manager.ManagerWorkTimeList',
-        'staffManage.manager.Maintain'
+        'staffManage.manager.ManagerWorkTimeList'
     ],
 
     stores: [
         'Manager',
-        'ManagerWorkTime',
-        //'Maintain'
+        'ManagerWorkTime'
     ],
 
     models: [
         'Manager',
-        'ManagerWorkTime',
-        //'Maintain'
+        'ManagerWorkTime'
     ],
     
     refs: [{
@@ -41,11 +38,6 @@ Ext.define('XMLifeOperating.controller.Manager', {
         ref: 'managerWorkTimeList',
         selector: 'managerWorkTimeList',
         xtype: 'managerWorkTimeList',
-        autoCreate: true
-    }, {
-        ref: 'maintain',
-        selector: 'maintain',
-        xtype: 'maintain',
         autoCreate: true
     }],
     init: function() {
@@ -351,7 +343,7 @@ Ext.define('XMLifeOperating.controller.Manager', {
                     }
                     if (operation.response.responseText < 0) {
                         Ext.MessageBox.show({
-                            title: '编辑任务失败',
+                            title: '编辑失败',
                             msg: errorStr,
                             icon: Ext.Msg.ERROR,
                             buttons: Ext.Msg.OK
@@ -368,7 +360,7 @@ Ext.define('XMLifeOperating.controller.Manager', {
                         msg = Ext.isObject(error) ? error.status + ' ' + error.statusText : error;
 
                     Ext.MessageBox.show({
-                        title: '编辑任务失败',
+                        title: '编辑失败',
                         msg: msg,
                         icon: Ext.Msg.ERROR,
                         buttons: Ext.Msg.OK
