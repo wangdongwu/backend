@@ -196,7 +196,7 @@ Ext.define('XMLifeOperating.view.damagedGoodsManage.DamagedGoodsList', {
         itemId: 'acceptBtn',
         renderer: function(v) {
             if (v == 0) {
-                return '<button>通过</button>'
+                return '<button>通过</button>';
             }
         }
     }, {
@@ -208,7 +208,7 @@ Ext.define('XMLifeOperating.view.damagedGoodsManage.DamagedGoodsList', {
         itemId: 'goodsLostBtn',
         renderer: function(v) {
             if (v == 0) {
-                return '<button>商品丢失</button>'
+                return '<button>商品丢失</button>';
             }
         }
     }],

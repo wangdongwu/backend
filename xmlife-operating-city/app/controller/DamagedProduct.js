@@ -93,8 +93,8 @@ Ext.define('XMLifeOperating.controller.DamagedProduct', {
                 click: function() {
                     var id = arguments[5].get("id");
                     self.auditProduct({
-                        'ids': [id],
-                        'pass': true
+                        ids: [id],
+                        pass: true
                     });
                 }
             },
@@ -191,8 +191,7 @@ Ext.define('XMLifeOperating.controller.DamagedProduct', {
                 
         } else {
             Ext.Msg.alert('无效数据', '请提交正确的表格数据！');
-        }
-        
+        }        
     },
 
     onCDealDetail: function(view, rowIndex, colIndex, column, e) {
