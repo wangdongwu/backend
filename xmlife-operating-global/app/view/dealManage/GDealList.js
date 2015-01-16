@@ -124,7 +124,7 @@ Ext.define('XMLifeOperating.view.dealManage.GDealList', {
             sortable: false,
             itemId: 'dealDetail',
             renderer: function(value, metadata, model, rowIndex, colIndex, store) {
-                return '<a style="color:#248bca;">' + value + '</a>'
+                return '<a href="javascript:;">' + value + '</a>';
             }
         }, {
             text: '线路',
@@ -180,7 +180,7 @@ Ext.define('XMLifeOperating.view.dealManage.GDealList', {
             sortable: false,
             itemId: 'customerDetail',
             renderer: function(value, metadata, model, rowIndex, colIndex, store) {
-                return '<a style="color:#248bca;">' + value + '</a>'
+                return '<a href="javascript:;">' + value + '</a>';
             }
         }, {
             text: '顾客电话',
@@ -290,7 +290,7 @@ Ext.define('XMLifeOperating.view.dealManage.GDealList', {
             sortable: false,
             align: 'center',
             renderer: function(value, metadata, model, rowIndex, colIndex, store) {
-                return Ext.String.format('<a>转为问题订单</a>', value, value);
+                return '<a href="javascript:;">转为问题订单</a>';
             }
         }, {
             text: '操作',

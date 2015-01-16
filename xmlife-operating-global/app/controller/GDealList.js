@@ -503,8 +503,9 @@ Ext.define('XMLifeOperating.controller.GDealList', {
         store.on('load', function(store, records, successful, eOpts) {
             store.data.items[0].data['dtoAddress'] = dealDetail.getData()['dtoAddress'];
             win.down('form').loadRecord(store.data.items[0]);
-            win.show();
+            
         });
+        win.show();
         store.getProxy().extraParams = {
             uid: dealDetail.get('customId'),
         };
