@@ -63,7 +63,7 @@ Ext.define('XMLifeOperating.controller.Manager', {
             },
             'managerList #shopArea': {
                 render: function(combo) {
-                    var activeSearch = Ext.getCmp('managerList').down('#activeSearch').getText();
+                    var activeSearch = Ext.getCmp('gManagerList').down('#activeSearch').getText();
                     if (activeSearch == '查看停单掌柜') {
                         isActive = true;
                     } else if (activeSearch == '查看接单掌柜') {
@@ -77,11 +77,11 @@ Ext.define('XMLifeOperating.controller.Manager', {
                     };
                     store.loadPage(1);
                     store.on('load', function() {
-                        Ext.getCmp('managerList').down('#activeBind').setText('查看未绑定的掌柜');
+                        Ext.getCmp('gManagerList').down('#activeBind').setText('查看未绑定的掌柜');
                     })
                 },
                 select: function(combo) {
-                    var activeSearch = Ext.getCmp('managerList').down('#activeSearch').getText();
+                    var activeSearch = Ext.getCmp('gManagerList').down('#activeSearch').getText();
                     if (activeSearch == '查看停单掌柜') {
                         isActive = true;
                     } else if (activeSearch == '查看接单掌柜') {
@@ -95,14 +95,14 @@ Ext.define('XMLifeOperating.controller.Manager', {
                     };
                     store.loadPage(1);
                     store.on('load', function() {
-                        Ext.getCmp('managerList').down('#activeBind').setText('查看未绑定的掌柜');
+                        Ext.getCmp('gManagerList').down('#activeBind').setText('查看未绑定的掌柜');
                     })
                 },
             },
             // 查看中心下暂停或接单掌柜
             'managerList #activeSearch': {
                 click: function() {
-                    var activeSearch = Ext.getCmp('managerList').down('#activeSearch').getText();
+                    var activeSearch = Ext.getCmp('gManagerList').down('#activeSearch').getText();
                     if (activeSearch == '查看停单掌柜') {
                         activeSearch = '查看接单掌柜';
                         isActive = false;
@@ -119,8 +119,8 @@ Ext.define('XMLifeOperating.controller.Manager', {
                     };
                     store.loadPage(1);
                     store.on('load', function() {
-                        Ext.getCmp('managerList').down('#activeSearch').setText(activeSearch);
-                        Ext.getCmp('managerList').down('#activeBind').setText('查看未绑定的掌柜');
+                        Ext.getCmp('gManagerList').down('#activeSearch').setText(activeSearch);
+                        Ext.getCmp('gManagerList').down('#activeBind').setText('查看未绑定的掌柜');
                         me.getManagerList().down('#searchBuyerKeyWords').setValue('');
                     });
                 }
@@ -128,7 +128,7 @@ Ext.define('XMLifeOperating.controller.Manager', {
             // 查看绑定
             'managerList #activeBind': {
                 click: function(grid) {
-                    var activeBindText = Ext.getCmp('managerList').down('#activeBind').getText();
+                    var activeBindText = Ext.getCmp('gManagerList').down('#activeBind').getText();
 
                     if (activeBindText == '查看已绑定的掌柜') {
                         isUnbind = '';
@@ -270,7 +270,7 @@ Ext.define('XMLifeOperating.controller.Manager', {
                         }, '操作恢复或暂停掌柜接单', '成功操作掌柜接单', '操作掌柜接单失败', function() {
                             //3种情况 手机查询  未绑定查询 中心停单掌柜查询
                             var store = me.getManagerStore();
-                            var activeBindText = Ext.getCmp('managerList').down('#activeBind').getText();
+                            var activeBindText = Ext.getCmp('gManagerList').down('#activeBind').getText();
                             var params = '';
                             var searchBuyerKeyWords = me.getManagerList().down('#searchBuyerKeyWords').getValue();
                             if (activeBindText == '查看已绑定的掌柜' || searchBuyerKeyWords != '') {
@@ -298,7 +298,7 @@ Ext.define('XMLifeOperating.controller.Manager', {
             store = me.getManagerStore(),
             view = me.getManagerList(),
             area = me.areaId,
-            activeBindText = Ext.getCmp('managerList').down('#activeBind').getText(),
+            activeBindText = Ext.getCmp('gManagerList').down('#activeBind').getText(),
             isUnbind = null;
         if (activeBindText == '查看已绑定的掌柜') {
             isUnbind = true;
@@ -325,7 +325,7 @@ Ext.define('XMLifeOperating.controller.Manager', {
                 area: area
             };
             store.on('load', function() {
-                Ext.getCmp('managerList').down('#activeBind').setText('查看未绑定的掌柜');
+                Ext.getCmp('gManagerList').down('#activeBind').setText('查看未绑定的掌柜');
                 me.getManagerList().down('#searchBuyerKeyWords').setValue(keyWords);
             });
             store.loadPage(1, {

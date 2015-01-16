@@ -3,35 +3,33 @@ Ext.define('XMLifeOperating.view.userManage.feedback.GFeedbackList', {
     id: 'gFeedbackList',
     xtype: 'gFeedbackList',
     title: '用户反馈管理',
-    titleAlign : 'left',
-    closable : true,
-    forceFit :true,
-    
+    titleAlign: 'left',
+    closable: true,
+    forceFit: true,
+
     store: 'Feedback',
-    dockedItems : [
-        {
-          xtype : 'pagingtoolbar',
-          itemId : 'pagetoll',
-          store : 'Feedback',
-          dock : 'bottom',
-          displayInfo : true/*,
-          items : ['->'],   
-          prependButtons: true*/
-        }
-    ],
-    tbar: [
-        { 
+    dockedItems: [{
+        xtype: 'pagingtoolbar',
+        itemId: 'pagetoll',
+        store: 'Feedback',
+        dock: 'bottom',
+        displayInfo: true
+            /*,
+                      items : ['->'],   
+                      prependButtons: true*/
+    }],
+    tbar: [{
             xtype: 'fieldcontainer',
-            fieldLabel : '按时间过滤',
+            fieldLabel: '按时间过滤',
             defaultType: 'radiofield',
             defaults: {
                 flex: 1,
-                margin : '0 5'
+                margin: '0 5'
             },
             layout: 'hbox',
             items: [{
                 xtype: 'radiogroup',
-                itemId:'gFeedbackRadios',
+                itemId: 'gFeedbackRadios',
                 items: [{
                     boxLabel: '今天',
                     name: 'dayType',
@@ -68,79 +66,67 @@ Ext.define('XMLifeOperating.view.userManage.feedback.GFeedbackList', {
                     itemId: 'dayType6',
                     inputValue: '6'
                 }]
-            }],
+            }]
         },
-        '->',
-        {
+        '->', {
             labelWidth: 40,
-            xtype:'combo',
-            itemId:'feedbackStatus',
-            store:'FeedbackStatus',
-            value:'未标记',
+            xtype: 'combo',
+            itemId: 'feedbackStatus',
+            store: 'FeedbackStatus',
+            value: '未标记',
             editable: false,
-            queryMode:'local',
-            displayField:'name',
-            valueField:'value',
-            emptyText:'全部'
+            queryMode: 'local',
+            displayField: 'name',
+            valueField: 'value',
+            emptyText: '全部'
         }
     ],
-    
-    columns: [
-        {
+
+    columns: [{
             xtype: 'rownumberer'
-        }, 
-        {
+        }, {
             dataIndex: 'created',
             text: '时间',
             width: 100,
-            format:'Y-M-D',
+            format: 'Y-M-D',
             sortable: false,
-            align:'center', 
-            renderer: function (v) {
+            align: 'center',
+            renderer: function(v) {
                 var date = new Date(v);
                 return date.getFullYear() + "." + (date.getMonth() + 1) + "." + date.getDate()
-            }         
-        },
-        {
+            }
+        }, {
             text: '用户',
             dataIndex: 'name',
             width: 100,
-            sortable: false,
-             
-        },
-        {
+            sortable: false
+        }, {
             text: '注册号码',
             dataIndex: 'phone',
             width: 100,
-            sortable: false,
-             
-        },
-        {
+            sortable: false
+        }, {
             text: '反馈意见',
             dataIndex: 'content',
             width: 100,
-            sortable: false,
-             
-        },
-        {
-            header:"",
+            sortable: false
+        }, {
+            header: "",
             width: 100,
             dataIndex: 'mark',
             itemId: 'mark',
             menuDisabled: true,
             sortable: false,
-             
-            renderer : function(value) { 
-                var str='';
-               if(value==true){
-                    str='<input type="button" value="取消标记" statusValue="offline" class="markStatus" />';
-                }else{
-                    str='<input type="button" value="标记" statusValue="online" class="markStatus" />';
+            renderer: function(value) {
+                var str = '';
+                if (value == true) {
+                    str = '<input type="button" value="取消标记" statusValue="offline" class="markStatus" />';
+                } else {
+                    str = '<input type="button" value="标记" statusValue="online" class="markStatus" />';
                 }
                 return str;
             }
-        }, 
-        
+        }
     ],
     viewConfig: {
         plugins: {

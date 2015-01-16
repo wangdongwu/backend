@@ -123,10 +123,16 @@ Ext.define('XMLifeOperating.controller.GFeedbackList', {
     },
     rendenFeedbackList: function(grid, mark, dayType) {
         var store = grid.store;
-        store.getProxy().extraParams = {
-            dayType: dayType,
-            mark: mark
-        };
+        if (mark === null) {
+            store.getProxy().extraParams = {
+                dayType: dayType
+            };
+        } else {
+            store.getProxy().extraParams = {
+                dayType: dayType,
+                mark: mark
+            };
+        }
         store.loadPage(1);
         this.dayType = dayType;
     }

@@ -4,7 +4,7 @@ Ext.define('XMLifeOperating.view.staffManage.manager.ManagerList', {
     xtype: 'managerList',
     title: '掌柜管理',
     store: 'Manager',
-    id: 'managerList',
+    id: 'gManagerList',
     tbar: [{
             xtype: 'button',
             text: '添加掌柜',
