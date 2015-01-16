@@ -153,6 +153,9 @@ function requestException(response) {
         localStorage.removeItem('username');
         error = {title: '提示', msg: 'session失效或者没有登录!'};
 
+    } else if (status == 404) {
+        error = {title: '提示', msg: '请求方法找不到(404错误)，请找服务端确认!'};
+
     } else if (status == 405) {
         error = {title: '提示', msg: '访问了一个不应该被访问的路径!'};
 

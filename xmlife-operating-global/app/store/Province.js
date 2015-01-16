@@ -1,7 +1,6 @@
 Ext.define('XMLifeOperating.store.Province', {
     extend: 'Ext.data.Store',
     fields: ['code', 'name'],
-
     data: [
         {"code": 110000, "name": "\u5317\u4eac\u5e02"},
         {"code": 120000, "name": "\u5929\u6d25\u5e02"},

@@ -20,5 +20,5 @@ Ext.define('XMLifeOperating.model.Manager', {
         'activeTaskNum',
         'isActive'
     ],
-    proxy: new XMLifeOperating.generic.BaseProxy('manager'),
+    proxy: new XMLifeOperating.generic.BaseProxy('manager')
 });

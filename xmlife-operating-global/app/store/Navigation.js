@@ -6,21 +6,7 @@ Ext.define('XMLifeOperating.store.Navigation', {
     autoSync: false,
     autoLoad: false,
     root: {
-    	expanded: true,
-    	children: [
-    	// {
-    	// 		"id": "managerList",
-		   //      "text": "掌柜",
-		   //      "platFormName": "Global",
-		   //      "platFormType": 0,
-		   //      "leaf": true,
-		   //      "isAuth": false,
-		   //      "notShow": false,
-		   //      "children": [],
-		   //      "uniqueName": "managerList",
-		   //      "inheritLevel": 0,
-		   //      "auth": false
-    	// },
-		]
+        expanded: true,
+        children: []
     }
 });

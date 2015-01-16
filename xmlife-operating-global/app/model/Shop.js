@@ -1,6 +1,9 @@
 Ext.define('XMLifeOperating.model.Shop', {
     extend: 'Ext.data.Model',
-    fields: ['id', 'name', 'templateId', 'templateName','desc','openTime','closeTime','lng','lat','url','city','areaNames','banners','address','time','areaIds','shopBannerTemplateId','shopperCount','shopId','status','areas','cityName'],
-    // idProperty:'shopId',
+    fields: [
+        'id', 'name', 'templateId', 'templateName', 'desc', 'openTime', 'closeTime',
+        'lng', 'lat', 'url', 'city', 'areaNames', 'banners', 'address', 'time', 'areaIds',
+        'shopBannerTemplateId', 'shopperCount', 'shopId', 'status', 'areas', 'cityName'
+    ],
     proxy: new XMLifeOperating.generic.BaseProxy('shop')
 });

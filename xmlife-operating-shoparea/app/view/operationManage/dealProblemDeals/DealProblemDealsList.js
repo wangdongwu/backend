@@ -47,23 +47,21 @@ Ext.define('XMLifeOperating.view.operationManage.dealProblemDeals.DealProblemDea
         }, {
             text: '日期',
             dataIndex: 'created',
-            width: 70,
+            width: 75,
             sortable: true,
             align: 'center',
             renderer: function(value) {
-                var newTime = new Date(value);
-                newDate = newTime.getFullYear() + '.' + (newTime.getMonth() + 1) + '.' + newTime.getDate();
-                return newDate;
+                return Ext.Date.format(new Date(value), 'Y.m.d');
             }
         }, {
             text: '订单号',
             dataIndex: 'shortId',
-            width: 50,
+            width: 65,
             sortable: true,
             itemId: 'dealDetail',
             align: 'center',
             renderer: function(value) {
-                return '<a style="cursor:pointer;">' + value + '</a>';
+                return '<a href="javascript:;">' + value + '</a>';
             }
         },
 
@@ -72,7 +70,7 @@ Ext.define('XMLifeOperating.view.operationManage.dealProblemDeals.DealProblemDea
             dataIndex: 'districtName',
             width: 80,
             sortable: true,
-            align: 'center',
+            align: 'center'
         }, {
             text: '订单状态',
             dataIndex: 'status',
@@ -160,21 +158,20 @@ Ext.define('XMLifeOperating.view.operationManage.dealProblemDeals.DealProblemDea
             align: 'center',
             renderer: function(value, metadata, model, rowIndex, colIndex, store) {
                 var shopperNames = model.get('shopperNames');
-                var mark=0;
-                for(var j=0;j<shopperNames.length;j++){
-                    if(shopperNames[j]!=null){
-                        mark=1;
+                var mark = 0;
+                for (var j = 0; j < shopperNames.length; j++) {
+                    if (shopperNames[j] != null) {
+                        mark = 1;
                         break;
                     }
                 }
-                if(mark==0){
+                if (mark == 0) {
                     return '重新分配';
                 }
 
-                return Ext.String.format('<a>重新分配</a>', value, value);
+                return Ext.String.format('<a href="javascript:;">重新分配</a>', value, value);
             }
-        },
-        {
+        }, {
             text: '处理次数',
             dataIndex: 'resolveNum',
             width: 40,
@@ -219,19 +216,19 @@ Ext.define('XMLifeOperating.view.operationManage.dealProblemDeals.DealProblemDea
         {
             text: '分配买手',
             dataIndex: 'shopperNames',
-            width: 60,
+            width: 65,
             sortable: true,
             align: 'center',
-            itemId:'autoAllocation',
+            itemId: 'autoAllocation',
             renderer: function(value) {
-                var mark=0;
-                for(var j=0;j<value.length;j++){
-                    if(value[j]!=null){
-                        mark=1;
+                var mark = 0;
+                for (var j = 0; j < value.length; j++) {
+                    if (value[j] != null) {
+                        mark = 1;
                         break;
                     }
                 }
-                if(mark==0){
+                if (mark == 0) {
                     return '<a href="javascript:void(0)">自动分配</a>';
                 }
                 var str = '';
@@ -285,7 +282,7 @@ Ext.define('XMLifeOperating.view.operationManage.dealProblemDeals.DealProblemDea
         }, {
             text: '剩余时间',
             dataIndex: 'remainTime',
-            width: 65,
+            width: 75,
             sortable: true,
             align: 'center',
             renderer: function(value, da, record) {
@@ -390,7 +387,5 @@ Ext.define('XMLifeOperating.view.operationManage.dealProblemDeals.DealProblemDea
             combo.fireEvent('select', combo);
         }
     },
-    columnLines: true,
-
-
+    columnLines: true
 });

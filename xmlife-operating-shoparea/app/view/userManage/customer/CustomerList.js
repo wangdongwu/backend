@@ -2,9 +2,7 @@ Ext.define('XMLifeOperating.view.userManage.customer.CustomerList', {
     extend: 'Ext.grid.Panel',
     closable: false,
     xtype: 'customerList',
-
     title: '用户信息管理',
-
     store: 'Customer',
     id: 'customerList',
     dockedItems: [{
@@ -32,15 +30,15 @@ Ext.define('XMLifeOperating.view.userManage.customer.CustomerList', {
                 itemId: 'keywordc',
                 fieldLabel: '手机号码',
                 regex: XMLifeOperating.generic.Global.VALIDATION_CONSTANTS.PHONE,
-                regexText: '请输入正确的手机号',
+                regexText: '请输入正确的手机号'
             }, {
                 xtype: 'button',
                 itemId: 'customerSearch',
-                text: '搜索',
+                text: '搜索'
             }, {
                 xtype: 'button',
                 itemId: 'customerTitle',
-                text: '查看封号用户',
+                text: '查看封号用户'
             }
         ]
     }],
@@ -88,7 +86,7 @@ Ext.define('XMLifeOperating.view.userManage.customer.CustomerList', {
         menuDisabled: true,
         align: 'center',
         renderer: function(value, metadata, model, rowIndex, colIndex, store) {
-            return '<a class="showAddressDetail">查看收货地址</a>';
+            return '<a href="javascript:;" class="showAddressDetail">查看收货地址</a>';
         }
     }, {
         text: '历史订单',
@@ -97,7 +95,7 @@ Ext.define('XMLifeOperating.view.userManage.customer.CustomerList', {
         align: 'center',
         menuDisabled: true,
         renderer: function(value, metadata, model, rowIndex, colIndex, store) {
-            return '<a class="showDealList">查看历史订单</a>';
+            return '<a href="javascript:;" class="showDealList">查看历史订单</a>';
         }
     }],
     viewConfig: {
@@ -120,7 +118,5 @@ Ext.define('XMLifeOperating.view.userManage.customer.CustomerList', {
             combo.fireEvent('select', combo);
         }
     },
-    columnLines: true,
-
-
+    columnLines: true
 });

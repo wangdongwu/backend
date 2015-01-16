@@ -4,10 +4,10 @@ Ext.define('XMLifeOperating.store.ProductTemplateSubs', {
     defaultRootId: '',
     autoSync: false,
     autoLoad: false,
-    clearOnLoad:true,
+    clearOnLoad: true,
     nodeParam: 'parentId',
     proxy: {
-    	type:'ajax',
-    	url:XMLifeOperating.generic.Global.URL.biz+'producttemplate/subs'
+        type: 'ajax',
+        url: XMLifeOperating.generic.Global.URL.biz + 'producttemplate/subs'
     }
 });

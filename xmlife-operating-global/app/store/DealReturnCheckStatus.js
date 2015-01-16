@@ -1,7 +1,6 @@
 Ext.define('XMLifeOperating.store.DealReturnCheckStatus', {
     extend: 'Ext.data.Store',
     fields: ['name', 'value'],
-
     data: [{
         'name': '审核通过',
         'value': 1
@@ -15,7 +14,7 @@ Ext.define('XMLifeOperating.store.DealReturnCheckStatus', {
         'name': '全部',
         'value': 3
     }],
-    idProperty:'value',
+    idProperty: 'value',
     proxy: {
         type: 'memory',
         reader: {
@@ -23,5 +22,4 @@ Ext.define('XMLifeOperating.store.DealReturnCheckStatus', {
             root: 'items'
         }
     }
-
 });

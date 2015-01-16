@@ -1,141 +1,99 @@
-/**
- * wangdongwu
- * @class XMLifeOperating.model.OnlineCard
- * @extends extendsClass
- * Description 
- */
 Ext.define('XMLifeOperating.model.OnlineCard', {
     extend: 'Ext.data.Model',
-    fields : [
-      {
-        name:'amount',
-        convert : function(v){
-          return (v/100).toFixed(2);
+    fields: [{
+        name: 'amount',
+        convert: function(v) {
+            return (v / 100).toFixed(2);
         }
-      },{
-        name:'batchName'
-      },
-      {
-        name:'bizType'
-      },
-      {
-        name:'create',
-        convert : function(v){ 
-          var format = Ext.util.Format.dateRenderer('Y-m-d H:i:s');
-           return format(new Date(v))
-         }
-      },
-      {
-        name:'creator'
-      },
-      {
-        name:'desc'
-      },
-      {
-        name:'endTime',
-        dateFormat : 'Y-m-d H:i:s',
-        convert : function(v){ 
-          var format = Ext.util.Format.dateRenderer('Y-m-d H:i:s');
-           return format(new Date(v))
-         }
-      },
-      {
-        name:'id'
-      },
-      {
-        name:'name'
-      },{
-        name:'batchName'
-      },
-      {
-        name:'newAccount',
-        convert : function(v){
-          return v ? '是' : '否';
+    }, {
+        name: 'batchName'
+    }, {
+        name: 'bizType'
+    }, {
+        name: 'create',
+        convert: function(v) {
+            var format = Ext.util.Format.dateRenderer('Y-m-d H:i:s');
+            return format(new Date(v));
         }
-      },
-      {
-        name:'order'
-      },
-      {
-        name:'rule'
-      },
-      {
-        name:'simpleDesc'
-      },
-      {
-        name:'soldPrice',
-        convert : function(v){
-          return (v/100).toFixed(2);
+    }, {
+        name: 'creator'
+    }, {
+        name: 'desc'
+    }, {
+        name: 'endTime',
+        dateFormat: 'Y-m-d H:i:s',
+        convert: function(v) {
+            var format = Ext.util.Format.dateRenderer('Y-m-d H:i:s');
+            return format(new Date(v));
         }
-      },
-      {
-        name:'startTime',
-        convert : function(v){
-         var format = Ext.util.Format.dateRenderer('Y-m-d H:i:s');
-          return format(new Date(v))
+    }, {
+        name: 'id'
+    }, {
+        name: 'name'
+    }, {
+        name: 'batchName'
+    }, {
+        name: 'newAccount',
+        convert: function(v) {
+            return v ? '是' : '否';
         }
-      },
-      {
-        name:'status',
-        convert : function(v){
-/*          var str;
-          if(v == 0){
-            str = '已下架'
-          }
-          if(v == 1){
-            str = '已上架'
-          }
-          if(v == 4){
-            str = '已强制下架'
-          }
-          return str;*/
-          return v
+    }, {
+        name: 'order'
+    }, {
+        name: 'rule'
+    }, {
+        name: 'simpleDesc'
+    }, {
+        name: 'soldPrice',
+        convert: function(v) {
+            return (v / 100).toFixed(2);
         }
-      },
-      {
-        name:'tid'
-      },
-      {
-        name : 'tname'
-      },
-      {
-        name:'total'
-      },
-      {
-        name:'type',
-        convert : function(v){
-          var str = '';
-          if(v == 0){
-            str = '普通卡'
-          };
-          if(v == 2){
-            str = '返现卡'
-          }
-          return str;
+    }, {
+        name: 'startTime',
+        convert: function(v) {
+            var format = Ext.util.Format.dateRenderer('Y-m-d H:i:s');
+            return format(new Date(v));
         }
-      },
-      {
-        name:'updated'
-      },
-      {
-        name:'updater'
-      },
-      {
-        name : 'displayEndTime',
-        convert : function(v){
-         var format = Ext.util.Format.dateRenderer('Y-m-d H:i:s');
-          return format(new Date(v))
+    }, {
+        name: 'status',
+        convert: function(v) {
+            return v;
         }
-      },
-      {
-        name : 'displayStartTime',
-        convert : function(v){
-         var format = Ext.util.Format.dateRenderer('Y-m-d H:i:s');
-          return format(new Date(v))
+    }, {
+        name: 'tid'
+    }, {
+        name: 'tname'
+    }, {
+        name: 'total'
+    }, {
+        name: 'type',
+        convert: function(v) {
+            var str = '';
+            if (v == 0) {
+                str = '普通卡'
+            };
+            if (v == 2) {
+                str = '返现卡'
+            }
+            return str;
         }
-      },
-      {
-        name : 'displayFlag'
-      }
- ]
+    }, {
+        name: 'updated'
+    }, {
+        name: 'updater'
+    }, {
+        name: 'displayEndTime',
+        convert: function(v) {
+            var format = Ext.util.Format.dateRenderer('Y-m-d H:i:s');
+            return format(new Date(v));
+        }
+    }, {
+        name: 'displayStartTime',
+        convert: function(v) {
+            var format = Ext.util.Format.dateRenderer('Y-m-d H:i:s');
+            return format(new Date(v));
+        }
+    }, {
+        name: 'displayFlag'
+    }]
 });

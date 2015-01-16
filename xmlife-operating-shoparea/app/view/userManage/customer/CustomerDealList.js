@@ -29,7 +29,7 @@ Ext.define('XMLifeOperating.view.userManage.customer.CustomerDealList', {
         align: 'center',
         itemId: 'dealDetail',
         renderer: function(value, metadata, model, rowIndex, colIndex, store) {
-            return '<a>' + value + '</a>'
+            return '<a href="javascript:;">' + value + '</a>';
         }
     }, {
         text: '下单时间',
@@ -57,7 +57,7 @@ Ext.define('XMLifeOperating.view.userManage.customer.CustomerDealList', {
         align: 'center',
         renderer: function(value) {
             var newTime = new Date(value);
-            newTime = (newTime.getMonth()+1)+'-'+newTime.getDate() +' '+ newTime.getHours() + ':' + newTime.getMinutes();
+            newTime = (newTime.getMonth() + 1) + '-' + newTime.getDate() + ' ' + newTime.getHours() + ':' + newTime.getMinutes();
             return newTime;
         }
     }, {
@@ -104,7 +104,7 @@ Ext.define('XMLifeOperating.view.userManage.customer.CustomerDealList', {
         align: 'center',
         itemId: 'dealDetail',
         renderer: function() {
-            return '<a>查看</a>'
+            return '<a href="javascript:;">查看</a>';
         }
     }, {
         text: '订单价格',
@@ -136,40 +136,40 @@ Ext.define('XMLifeOperating.view.userManage.customer.CustomerDealList', {
         renderer: function(value) {
             switch (value) {
                 case 1:
-                    return '正在备货-'+value;
+                    return '正在备货-' + value;
                     break;
                 case 31:
-                    return '分配买手失败-'+value;
+                    return '分配买手失败-' + value;
                     break;
                 case 2:
-                  return '已出货-'+value;
-                  break;
+                    return '已出货-' + value;
+                    break;
                 case 32:
-                    return '分配快递员失败-'+value;
+                    return '分配快递员失败-' + value;
                     break;
                 case 3:
-                    return '配送中-'+value;
+                    return '配送中-' + value;
                     break;
                 case 4:
-                    return '完成配送-'+value;
+                    return '完成配送-' + value;
                     break;
                 case 7:
-                    return '订单取消-'+value;
+                    return '订单取消-' + value;
                     break;
                 case 6:
-                    return '全部退货-'+value;
+                    return '全部退货-' + value;
                     break;
                 case 20:
-                    return '等待分配买手-'+value;
+                    return '等待分配买手-' + value;
                     break;
                 case 21:
-                    return '货到中心-'+value;
+                    return '货到中心-' + value;
                     break;
                 case 22:
-                    return '等待快递员取货-'+value;
+                    return '等待快递员取货-' + value;
                     break;
                 default:
-                    return '未知-'+value;
+                    return '未知-' + value;
             }
         }
     }]

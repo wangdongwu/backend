@@ -1,46 +1,29 @@
 Ext.define('XMLifeOperating.model.Deal', {
     extend: 'Ext.data.Model',
     fields: [
-    'created',
-    'customId',
-    'dtoAddress',
-    'dealBackendId',
-    'zoneName',
-    'status',
-    'customerName',
-    'customerPhone',
-    'shopAreaName',
-    'shopperNames',
-    'shopNames',
-    'delivererName',
-    'deliverTime',
-    'remainTime',
-    'taskDone',
-    'beginDeliverTime',
-    'completeTime',
-    'actualDealPrice',
-    'dealPrice',
-    'contactsName',
-    'contactsPhone',
-    'shortId'],
-    proxy: new XMLifeOperating.generic.BaseProxy('deal')
+        'created',         // 下单时间
+        'customId',
+        'dtoAddress',
+        'dealBackendId',   // 订单号
+        'zoneName',        // 线路
+        'status',          // 订单状态
+        'customerName',    // 顾客
+        'customerPhone',   // 顾客电话
+        'shopAreaName',    // 中心点
+        'shopperNames',    // 可用买手(数组)
+        'superShopperName',// 分配买手
+        'shopNames',       // 购买店铺
+        'delivererName',   // 分配配送员
+        'assignSuperShopperTime', // 接单时间
+        'deliverTime',     // 期望送达时间
+        'remainTime',      // 剩余时间
+        'taskDone',        // 完成购买时间(数组)
+        'beginDeliverTime',// 出货时间
+        'completeTime',    // 送达时间
+        'actualDealPrice', // 总计
+        'dealPrice',
+        'contactsName',
+        'contactsPhone',
+        'shortId'
+    ]
 });
- 
-
-// 日期：created
-// 订单号：dealBackendId
-// 线路:zoneName
-// 订单状态：status
-// 顾客:customerName
-// 顾客电话:customerPhone
-// 中心点:shopAreaName
-// 分配买手:shopperNames(数组)
-// 购买店铺：shopNames（数组）
-// 分配配送员：delivererName
-// 下单时间：created
-// 期望送达时间:deliverTime
-// 剩余时间:remainTime
-// 完成购买时间:taskDone(数组)
-// 出货时间:beginDeliverTime
-// 送达时间：completeTime
-// 总计：actualDealPrice

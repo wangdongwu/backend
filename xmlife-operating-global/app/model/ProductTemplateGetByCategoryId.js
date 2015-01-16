@@ -39,5 +39,5 @@ Ext.define('XMLifeOperating.model.ProductTemplateGetByCategoryId', {
             }
         }
     ],
-    proxy: new XMLifeOperating.generic.BaseProxy('producttemplate/getByCategoryId', 'result'),
+    proxy: new XMLifeOperating.generic.BaseProxy('producttemplate/getByCategoryId', 'result')
 });
