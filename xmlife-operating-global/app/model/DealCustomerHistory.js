@@ -12,7 +12,6 @@ Ext.define('XMLifeOperating.model.DealCustomerHistory', {
         'shopAreaName',
         'shopperNames',
         'shopNames',
-        'delivererName',
         'deliverTime',
         'remainTime',
         'taskDone',
@@ -23,6 +22,5 @@ Ext.define('XMLifeOperating.model.DealCustomerHistory', {
         'contactsName',
         'contactsPhone',
         'shortId'
-    ],
-    proxy: new XMLifeOperating.generic.BaseProxy('deal/customerHistory')
+    ]
 });

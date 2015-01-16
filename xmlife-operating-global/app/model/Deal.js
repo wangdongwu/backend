@@ -13,7 +13,6 @@ Ext.define('XMLifeOperating.model.Deal', {
         'shopperNames',    // 可用买手(数组)
         'superShopperName',// 分配买手
         'shopNames',       // 购买店铺
-        'delivererName',   // 分配配送员
         'assignSuperShopperTime', // 接单时间
         'deliverTime',     // 期望送达时间
         'remainTime',      // 剩余时间

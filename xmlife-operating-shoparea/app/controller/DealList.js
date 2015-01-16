@@ -1,5 +1,13 @@
 Ext.define('XMLifeOperating.controller.DealList', {
     extend: 'Ext.app.Controller',
+    statics: {
+        // 指定store读取一页时的参数
+        PARAM_1PAGE: {
+            start: 0,
+            limit: 25,
+            page: 1
+        }
+    },
 
     views: ['dealManage.DealList', 'dealManage.DealDetail', 'dealManage.DealCustomerDetail'],
 
@@ -7,19 +15,11 @@ Ext.define('XMLifeOperating.controller.DealList', {
 
     models: ['Deal', 'ShopArea', 'Customer', 'DealItems'],
 
+    // 注意到这个control引用的component也有可能定义在commonDealList里。
     refs: [{
         ref: 'dealList',
         selector: 'dealList',
         xtype: 'dealList'
-    }, {
-        ref: 'shopArea',
-        selector: '#shopArea',
-    }, {
-        ref: 'keyword',
-        selector: '#keyword',
-    }, {
-        ref: 'statusSearch',
-        selector: '#statusSearch',
     }, {
         ref: 'dealCustomerDetail',
         selector: 'dealCustomerDetail',
@@ -31,7 +31,7 @@ Ext.define('XMLifeOperating.controller.DealList', {
         xtype: 'dealDetail',
         autoCreate: true
     }],
-    
+
     init: function() {
         var me = this;
         this.control({
@@ -39,76 +39,25 @@ Ext.define('XMLifeOperating.controller.DealList', {
                 select: function(combo) {
                     var sstore = this.getDealStore();
                     me.dateReset();
-                    sstore.getProxy().url = XMLifeOperating.generic.Global.URL.biz + 'deal';
                     sstore.getProxy().extraParams = {
                         shopArea: combo.getValue(),
                         beginTime: me.beginTime,
                         endTime: me.endTime
-                    }
+                    };
                     sstore.loadPage(1, {
-                        params: {
-                            start: 0,
-                            limit: 25,
-                            page: 1
-                        }
+                        params: me.self.PARAM_1PAGE
                     });
                     this.areaId = combo.getValue();
                 }
             },
             'dealList #productInvoice': {
-                click: function() {
-                    var me = this;
-                    var dealList = me.getDealList();
-                    var beginTime = dealList.down('[name=beginTime]').rawValue;
-                    var endTime = dealList.down('[name=endTime]').rawValue;
-
-                    Ext.MessageBox.confirm('提示', '确认导出商品对货单？', function(btn) {
-                        if (btn == 'yes') {
-                            var sessionId = localStorage.getItem('sessionId');
-                            var username = localStorage.getItem('username');
-                            var url = XMLifeOperating.generic.Global.URL.biz + 'deal/exportProductStatistic?' + 'shopArea=' + me.areaId + '&dayType=1' + '&sessionId=' + sessionId + '&username=' + username + '&beginTime=' + beginTime + '&endTime=' + endTime;
-                            window.open(url, '商品对货单', '', '_blank');
-                        } else {
-                            return;
-                        }
-                    });
-                }
+                click: Ext.pass(me.showExportPopup, ['deal/exportProductStatistic', '商品对货单'])
             },
             'dealList #paymentInvoice': {
-                click: function() {
-                    var me = this;
-                    var dealList = me.getDealList();
-                    var beginTime = dealList.down('[name=beginTime]').rawValue;
-                    var endTime = dealList.down('[name=endTime]').rawValue;
-                    Ext.MessageBox.confirm('提示', '确认导出支付对账单？', function(btn) {
-                        if (btn == 'yes') {
-                            var sessionId = localStorage.getItem('sessionId');
-                            var username = localStorage.getItem('username');
-                            var url = XMLifeOperating.generic.Global.URL.biz + 'deal/exportDealCashflow?' + 'shopArea=' + me.areaId + '&dayType=1' + '&sessionId=' + sessionId + '&username=' + username + '&beginTime=' + beginTime + '&endTime=' + endTime;
-                            window.open(url, '支付对账单', '', '_blank');
-                        } else {
-                            return;
-                        }
-                    });
-                }
+                click: Ext.pass(me.showExportPopup, ['deal/exportDealCashflow', '支付对账单'])
             },
             'dealList #deallistInvoice': {
-                click: function() {
-                    var me = this;
-                    var dealList = me.getDealList();
-                    var beginTime = dealList.down('[name=beginTime]').rawValue;
-                    var endTime = dealList.down('[name=endTime]').rawValue;
-                    Ext.MessageBox.confirm('提示', '确认导出订单？', function(btn) {
-                        if (btn == 'yes') {
-                            var sessionId = localStorage.getItem('sessionId');
-                            var username = localStorage.getItem('username');
-                            var url = XMLifeOperating.generic.Global.URL.biz + 'deal/exportDeal?' + 'shopArea=' + me.areaId + '&dayType=1' + '&sessionId=' + sessionId + '&username=' + username + '&beginTime=' + beginTime + '&endTime=' + endTime;
-                            window.open(url, '订单', '', '_blank');
-                        } else {
-                            return;
-                        }
-                    });
-                }
+                click: Ext.pass(me.showExportPopup, ['deal/exportDeal', '订单'])
             },
             'dealList #getDealListByDate': {
                 click: function() {
@@ -121,16 +70,11 @@ Ext.define('XMLifeOperating.controller.DealList', {
                         shopArea: this.areaId,
                         beginTime: beginTime,
                         endTime: endTime
-                    }
+                    };
                     sstore.loadPage(1, {
-                        params: {
-                            start: 0,
-                            limit: 25,
-                            page: 1
-                        }
+                        params: me.self.PARAM_1PAGE
                     });
                 }
-
             },
             'dealList #dealSearch': {
                 click: me.dealSearch
@@ -146,15 +90,10 @@ Ext.define('XMLifeOperating.controller.DealList', {
                         status: combo.getValue(),
                         beginTime: beginTime,
                         endTime: endTime
-                    }
+                    };
                     sstore.loadPage(1, {
-                        params: {
-                            start: 0,
-                            limit: 25,
-                            page: 1
-                        }
+                        params: me.self.PARAM_1PAGE
                     });
-
                 },
             },
             'dealList #dealDetail': {
@@ -175,60 +114,70 @@ Ext.define('XMLifeOperating.controller.DealList', {
             }
         });
     },
-    dateReset: function() {
+    showExportPopup: function(urlPath, itemName) {
+        var me = this,
+            msg = '确认导出' + itemName + '？';
 
-        var me = this;
-        var dealList = me.getDealList();
+        Ext.MessageBox.confirm('提示', msg, function(btn) {
+            if (btn !== 'yes') {
+                return;
+            }
+
+            var dealList = me.getDealList(),
+                queryObj = {
+                    'shopArea': me.areaId,
+                    'dayType': 1,
+                    'sessionId': localStorage.getItem('sessionId'),
+                    'username': localStorage.getItem('username'),
+                    'beginTime': dealList.down('[name=beginTime]').rawValue,
+                    'endTime': dealList.down('[name=endTime]').rawValue
+                },
+                url = XMLifeOperating.generic.Global.URL.biz + urlPath + '?' + Ext.Object.toQueryString(queryObj);
+
+            window.open(url, itemName, '', '_blank');
+        });
+    },
+    dateReset: function() {
+        var dealList = this.getDealList();
         var beginTimeCmp = dealList.down('[name=beginTime]');
         var endTimeCmp = dealList.down('[name=endTime]');
         beginTimeCmp.reset();
         endTimeCmp.reset();
         this.beginTime = beginTimeCmp.rawValue;
         this.endTime = endTimeCmp.rawValue;
-
-    },
-    dateString: function(date) {
-        var date = date || {};
-        return date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
     },
     onRefresh: function(view, e, eOpts) {
         var me = this;
-        if (!view.isDisabled()) {
-            //发送刷新请求
-            var sstore = this.getDealStore();
-            me.dateReset(); //日期号码重置
-            sstore.getProxy().extraParams = {
-                shopArea: this.areaId,
-                endTime: me.endTime,
-                beginTime: me.beginTime
-            };
-            sstore.loadPage(1, {
-                params: {
-                    start: 0,
-                    limit: 25,
-                    page: 1
-                }
-            });
-            //禁用按钮并进入倒计时
-            var count = function(t) {
-                var time = 5 - t;
-                view.setText(time + 's');
-            }
-            view.setDisabled(true);
-            for (var i = 0; i < 5; i++) {
-                (function(t) {
-                    setTimeout(function() {
-                        count(t)
-                    }, t * 1000);
-                }(i))
-            }
-            setTimeout(function() {
-                view.setDisabled(false);
-                view.setText('刷新');
-            }, 5000);
-        } else {
-            return
+        if (view.isDisabled()) {
+            return;
         }
+        //发送刷新请求
+        var sstore = me.getDealStore();
+        me.dateReset(); //日期号码重置
+        sstore.getProxy().extraParams = {
+            shopArea: me.areaId,
+            endTime: me.endTime,
+            beginTime: me.beginTime
+        };
+        sstore.loadPage(1, {
+            params: me.self.PARAM_1PAGE
+        });
+
+        var countDownFn = function(sec) {
+            if (sec > 0) {
+                view.setText(sec + 's');
+                countTimer = setTimeout(function() {
+                    countDownFn(sec - 1);
+                }, 1000);
+            } else {
+                view.enable();
+                view.setText('刷新');
+            }
+        };
+
+        //禁用按钮并进入倒计时
+        view.disable();
+        countDownFn(5);
     },
     dealSearch: function() {
         var me = this,
@@ -242,14 +191,8 @@ Ext.define('XMLifeOperating.controller.DealList', {
                     shopArea: shopAreaId
                 };
                 store.loadPage(1, {
-                    params: {
-                        start: 0,
-                        limit: 25,
-                        page: 1
-                    }
+                    params: me.self.PARAM_1PAGE
                 });
-            } else {
-                return;
             }
         } else {
             store.load({
@@ -260,7 +203,6 @@ Ext.define('XMLifeOperating.controller.DealList', {
             });
         }
     },
-
     onDealDetail: function(view, rowIndex, colIndex, column, e) {
         var record = view.getRecord(view.findTargetByEvent(e)),
             win = this.getDealDetail(),
@@ -332,7 +274,6 @@ Ext.define('XMLifeOperating.controller.DealList', {
                 if (result == 'yes') {
                     sendPutRequest(url, {}, '转为问题订单', '转为问题订单成功', '转为问题订单失败',
                         function(response) {
-                            // alert(response);
                             if (response.responseText != 0) {
                                 Ext.MessageBox.show({
                                     title: '订单操作',
@@ -350,13 +291,9 @@ Ext.define('XMLifeOperating.controller.DealList', {
                                 var sstore = me.getDealStore();
                                 sstore.getProxy().extraParams = {
                                     shopArea: me.areaId
-                                }
+                                };
                                 sstore.loadPage(1, {
-                                    params: {
-                                        start: 0,
-                                        limit: 25,
-                                        page: 1
-                                    }
+                                    params: me.self.PARAM_1PAGE
                                 });
                             }
 
@@ -367,9 +304,6 @@ Ext.define('XMLifeOperating.controller.DealList', {
     },
     onCancalDeal: function(view, rowIndex, colIndex, column, e) {
         var dealitem = view.getRecord(view.findTargetByEvent(e));
-        //var dealBackendId = dealitem.get('dealBackendId');
-        //var url = 'deal/transToProblem/' + dealBackendId;
-        // deal/cancelDeal PUT参数{dealId}
         var dealBackendId = dealitem.get('dealBackendId');
         var url = 'deal/cancelDeal';
         var me = this;
@@ -403,20 +337,14 @@ Ext.define('XMLifeOperating.controller.DealList', {
                                 var sstore = me.getDealStore();
                                 sstore.getProxy().extraParams = {
                                     shopArea: me.areaId
-                                }
+                                };
                                 sstore.loadPage(1, {
-                                    params: {
-                                        start: 0,
-                                        limit: 25,
-                                        page: 1
-                                    }
+                                    params: me.self.PARAM_1PAGE
                                 });
                             }
-
                         });
                 }
             }
         );
     }
-
 });

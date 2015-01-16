@@ -7,20 +7,11 @@ Ext.define('XMLifeOperating.controller.CustomerList', {
         'userManage.customer.CustomerCouponList'
     ],
 
-    stores: ['Customer', 'ShopArea', 'Address', 'Deal', 'DealCustomerHistory', 'CustomerUserCashflow', 'CustomerUserCoupon'],
+    stores: ['Customer', 'ShopArea', 'Address', 'DealCustomerHistory', 'CustomerUserCashflow', 'CustomerUserCoupon'],
 
-    models: ['Customer', 'ShopArea', 'Address', 'Deal', 'DealCustomerHistory', 'CustomerUserCashflow', 'CustomerUserCoupon'],
+    models: ['Customer', 'ShopArea', 'Address', 'DealCustomerHistory', 'CustomerUserCashflow', 'CustomerUserCoupon'],
 
     refs: [{
-        ref: 'shopAreac',
-        selector: '#shopAreac'
-    }, {
-        ref: 'keywordc',
-        selector: '#keywordc'
-    }, {
-        ref: 'customerTitle',
-        selector: '#customerTitle'
-    }, {
         ref: 'customerAddress',
         selector: 'customerAddress',
         xtype: 'customerAddress',
@@ -38,7 +29,6 @@ Ext.define('XMLifeOperating.controller.CustomerList', {
     }, {
         ref: 'contentPanel',
         selector: '#contentPanel',
-        xtype: 'panel'
     }, {
         ref: 'customerCouponList',
         selector: 'customerCouponList',
@@ -58,9 +48,9 @@ Ext.define('XMLifeOperating.controller.CustomerList', {
             'CustomerList': {
                 added: me.onShow
             },
-            '#shopAreac': {
+            'CustomerList #shopAreac': {
                 select: function(combo) {
-                    var store = this.getCustomerStore();
+                    var store = me.getCustomerStore();
                     me.shopArea = combo.getValue();
                     store.getProxy().extraParams = {
                         shopArea: me.shopArea
@@ -69,16 +59,18 @@ Ext.define('XMLifeOperating.controller.CustomerList', {
                 },
             },
 
-            '#customerSearch': {
+            'CustomerList #customerSearch': {
                 click: function() {
-                    var type = this.getCustomerList().down('#statusUidOrMobile').getValue(),
-                        store = this.getCustomerStore(),
+                    var customerList = me.getCustomerList(),
+                        keyword = customerList.down('#keywordc').getValue(),
+                        type = customerList.down('#statusUidOrMobile').getValue(),
+                        store = me.getCustomerStore(),
                         params = {
-                            uid: me.getKeywordc().getValue()
+                            uid: keyword
                         };
                     if (type == 'mobile') {
                         params = {
-                            nameOrPhone: me.getKeywordc().getValue()
+                            nameOrPhone: keyword
                         };
                     }
                     store.getProxy().extraParams = params;
@@ -86,18 +78,18 @@ Ext.define('XMLifeOperating.controller.CustomerList', {
                 }
             },
 
-            '#returnCustomerList': {
+            'CustomerCouponList #returnCustomerList': {
                 click: function() {
                     var tab = me.getCustomerList();
-                    var content = this.getContentPanel();
+                    var content = me.getContentPanel();
                     content.removeAll(false);
                     content.add(tab);
                 }
             },
 
-            '#customerTitle': {
+            'CustomerList #customerTitle': {
                 click: function() {
-                    var store = this.getCustomerStore();
+                    var store = me.getCustomerStore();
                     store.getProxy().extraParams = {
                         enable: false
                     };
@@ -105,11 +97,11 @@ Ext.define('XMLifeOperating.controller.CustomerList', {
                 }
             },
 
-            '#addressCustomer': {
+            'CustomerList #addressCustomer': {
                 click: me.onAddressCustomer
             },
 
-            '#orderHistory': {
+            'CustomerList #orderHistory': {
                 click: me.onOrderHistory
             },
 
@@ -123,6 +115,14 @@ Ext.define('XMLifeOperating.controller.CustomerList', {
 
             'CustomerList #couponListId': {
                 click: me.onCouponListId
+            },
+
+            'CustomerDealList #dealDetail': {
+                click: function() {
+                    // 这里引用了另一个control的方法
+                    var ctrlGDealList = this.getController('GDealList');
+                    ctrlGDealList.onDealDetail.apply(ctrlGDealList, arguments);
+                }
             }
         });
     },
@@ -131,11 +131,11 @@ Ext.define('XMLifeOperating.controller.CustomerList', {
         store.removeAll();
     },
     onAddressCustomer: function(view, rowIndex, colIndex, column, e) {
-        var self = this,
+        var me = this,
             customerDetail = view.getRecord(view.findTargetByEvent(e)),
             uid = customerDetail.get('uid'),
-            store = self.getAddressStore(),
-            win = self.getCustomerAddress();
+            store = me.getAddressStore(),
+            win = me.getCustomerAddress();
         store.on('load', function(store, addressList) {
             win.show();
         });
@@ -147,12 +147,12 @@ Ext.define('XMLifeOperating.controller.CustomerList', {
     },
 
     onOrderHistory: function(view, rowIndex, colIndex, column, e) {
-        var self = this,
+        var me = this,
             customerDetail = view.getRecord(view.findTargetByEvent(e)),
             uid = customerDetail.get('uid'),
-            store = self.getDealCustomerHistoryStore(),
-            win = self.getCustomerDealList(),
-            content = self.getContentPanel(),
+            store = me.getDealCustomerHistoryStore(),
+            win = me.getCustomerDealList(),
+            content = me.getContentPanel(),
             oldProxyUrl = store.getProxy().url;
 
         win.setTitle('用户详细信息—' + customerDetail.get('phone'));
@@ -176,28 +176,23 @@ Ext.define('XMLifeOperating.controller.CustomerList', {
     onOperationc: function(view, rowIndex, colIndex, column, e) {
         var customerDetail = view.getRecord(view.findTargetByEvent(e)),
             uid = customerDetail.get('uid'),
-            enable = customerDetail.get('enable'),
+            currentEnabled = customerDetail.get('enable'),
             me = this,
             url = 'customer/enable/' + uid,
-            str = '确认要此操作吗？';
-        if (enable == true) {
-            str = '确认要封号吗？';
-            enable = false;
-        } else {
-            str = '确认要解封?';
-            enable = true;
-        }
-        Ext.MessageBox.confirm("选择框", str, function(str) {
-            if (str != 'yes') {
+            str = currentEnabled ? '确认要封号吗？' : '确认要解封?';
+
+        Ext.MessageBox.confirm("选择框", str, function(btnId) {
+            if (btnId != 'yes') {
                 return;
             }
             sendPutRequest(url, {
-                enable: enable
+                enable: !currentEnabled
             }, '操作封号或解封', '成功操作用户', '操作用户失败', function() {
-                var store = me.getCustomerStore();
+                var customerList = me.getCustomerList(),
+                    store = me.getCustomerStore();
                 store.getProxy().extraParams = {
-                    shopArea: Ext.getCmp('CustomerList').down('#shopAreac').getValue(),
-                    nameOrPhone: me.getKeywordc().getValue()
+                    shopArea: customerList.down('#shopAreac').getValue(),
+                    nameOrPhone: customerList.down('#keywordc').getValue()
                 };
                 store.loadPage(1);
             });
@@ -205,12 +200,12 @@ Ext.define('XMLifeOperating.controller.CustomerList', {
     },
 
     onConsumePayListId: function(view, rowIndex, colIndex, column, e) {
-        var self = this,
+        var me = this,
             customerDetail = view.getRecord(view.findTargetByEvent(e)),
             uid = customerDetail.get('uid'),
-            store = self.getCustomerUserCashflowStore(),
-            win = self.getCustomerConsumePayList(),
-            content = self.getContentPanel(),
+            store = me.getCustomerUserCashflowStore(),
+            win = me.getCustomerConsumePayList(),
+            content = me.getContentPanel(),
             oldProxyUrl = store.getProxy().url;
         win.setTitle('充值和消费—' + customerDetail.get('phone'));
         if (!content.items.get(win.getId())) {
@@ -220,24 +215,25 @@ Ext.define('XMLifeOperating.controller.CustomerList', {
         store.getProxy().url = XMLifeOperating.generic.Global.URL.biz + 'customer/user/cashflow';
         store.on('load', function() {
             store.getProxy().url = oldProxyUrl;
-        })
+        });
 
         store.load({
             params: {
                 uid: uid
             }
         });
+        // 这两个是CustomerConsumePayList的全局变量，下次优化的时候至少改成view的statics。
         consumePayCount = 1;
         consumePayMark = '';
     },
 
     onCouponListId: function(view, rowIndex, colIndex, column, e) {
-        var self = this,
+        var me = this,
             customerDetail = view.getRecord(view.findTargetByEvent(e)),
             uid = customerDetail.get('uid'),
-            store = self.getCustomerUserCouponStore(),
-            win = self.getCustomerCouponList(),
-            content = self.getContentPanel(),
+            store = me.getCustomerUserCouponStore(),
+            win = me.getCustomerCouponList(),
+            content = me.getContentPanel(),
             oldProxyUrl = store.getProxy().url;
         win.setTitle('优惠券—' + customerDetail.get('phone'));
         if (!content.items.get(win.getId())) {
@@ -247,7 +243,7 @@ Ext.define('XMLifeOperating.controller.CustomerList', {
         store.getProxy().url = XMLifeOperating.generic.Global.URL.biz + 'customer/user/coupon';
         store.on('load', function() {
             store.getProxy().url = oldProxyUrl;
-        })
+        });
         store.load({
             params: {
                 uid: uid

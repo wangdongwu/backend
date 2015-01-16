@@ -1,8 +1,32 @@
-var dataProxy = new XMLifeOperating.generic.BaseProxy('deal/problemDeals');
 Ext.define('XMLifeOperating.model.DealProblemDeals', {
     extend: 'Ext.data.Model',
-    fields: ['id', 'actualDealPrice','created','taskId','districtName','zoneId','dealId','dealBackendId','zoneName','dtoAddress','status','problem','customerName','customerPhone','shopAreaName','shopperNames','shopNames','delivererName','created','deliverTime','remainTime','taskDone','beginDeliverTime','shortId','contactsName','contactsPhone','problemMark','resolveNum'],
-    proxy: dataProxy
+    fields: [
+        'id',
+        'created',
+        'taskId',
+        'dealBackendId',
+        'zoneName',
+        'dtoAddress',
+        'status',
+        'problem',
+        'customerName',
+        'customerPhone',
+        'shopAreaName',
+        'shopperNames',
+        'superShopperName',
+        'shopNames',
+        'delivererName',
+        'created',
+        'deliverTime',
+        'remainTime',
+        'assignSuperShopperTime',
+        'taskDone',
+        'beginDeliverTime',
+        'completeTime',
+        'shortId',
+        'contactsName',
+        'contactsPhone',
+        'customId'
+    ],
+    proxy: new XMLifeOperating.generic.BaseProxy('deal/problemDeals')
 });
- 
-

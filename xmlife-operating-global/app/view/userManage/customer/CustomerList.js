@@ -7,7 +7,6 @@ Ext.define('XMLifeOperating.view.userManage.customer.CustomerList', {
     closable: true,
     forceFit: true,
     store: 'Customer',
-    id: 'CustomerList',
     dockedItems: [{
         xtype: 'pagingtoolbar',
         itemId: 'pagetoll',
@@ -117,7 +116,7 @@ Ext.define('XMLifeOperating.view.userManage.customer.CustomerList', {
             return value / 100;
         }
     }, {
-        text: '收获地址',
+        text: '收货地址',
         itemId: 'addressCustomer',
         width: 60,
         align: 'center',
@@ -160,15 +159,10 @@ Ext.define('XMLifeOperating.view.userManage.customer.CustomerList', {
         align: 'center',
         menuDisabled: true,
         sortable: false,
-        align: 'center',
         renderer: function(value) {
-            var str = '';
-            if (value == true) {
-                str += '<input type="button" value="封号" statusValue="open" /><br/>';
-            } else {
-                str += '<input type="button" value="解封" statusValue="close"  /><br/>';
-            }
-            return str;
+            var inputVal = value ? '封号' : '解封',
+                statusVal = value ? 'open' : 'close';
+            return '<input type="button" value="' + inputVal + '" statusValue="' + statusVal + '"  /><br/>';
         }
     }],
     viewConfig: {

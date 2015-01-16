@@ -27,7 +27,7 @@ Ext.define('XMLifeOperating.Application', {
         'RechargeableCardTemplate',
         // 'GDeliverer',
         'ProductTemplate',
-        'ShopBannerTemplate',     
+        'ShopBannerTemplate',
         //'Refund',    
         'CustomerList',
         'GDealList',
@@ -47,7 +47,7 @@ Ext.define('XMLifeOperating.Application', {
         'CouponSend',
         'DataExport',
         'Manager'
-        ],
+    ],
 
     stores: [
         'Shop',
@@ -57,7 +57,6 @@ Ext.define('XMLifeOperating.Application', {
         'SuperShopper',
         'CardBatch',
         'CardTemplate',
-        // 'Deliverer',
         'ProductTemplatePageSearch',
         'ShopBannerTemplate',
         'Deal',
@@ -75,36 +74,34 @@ Ext.define('XMLifeOperating.Application', {
         'CouponSendRuleRegister',
         'CouponSend',
         'AdminGetInfo',
-        'ReturnGoodsAuditList',
-        'ReturnGoodsApplyList',
         'DealReturnCheckStatus',
         'Manager'
-        ],
+    ],
 
     launch: function() {
 
         // Setup a task to fadeOut the splashscreen
         // 
         var sessionId = localStorage.getItem('sessionId');
-        if(sessionId){
+        if (sessionId) {
             Ext.Ajax.defaultHeaders = {
-                'auth-token' : sessionId
-            };  
+                'auth-token': sessionId
+            };
         }
-        
-      var splashscreen = Ext.getBody().mask('<div style="text-align:center;width:300px;">正在加载小美后台应用...<br/>请稍等</div>', 'splashscreen');
+
+        var splashscreen = Ext.getBody().mask('<div style="text-align:center;width:300px;">正在加载小美后台应用...<br/>请稍等</div>', 'splashscreen');
 
         var task = new Ext.util.DelayedTask(function() {
             // Fade out the body mask
-            
+
             splashscreen.fadeOut({
                 duration: 1000,
-                remove:true
+                remove: true
             });
             // Fade out the icon and message
             splashscreen.next().fadeOut({
                 duration: 1000,
-                remove:true,
+                remove: true,
                 listeners: {
                     afteranimate: function() {
                         // Set the body as unmasked after the animation
@@ -115,17 +112,23 @@ Ext.define('XMLifeOperating.Application', {
         });
         // Run the fade 100 milliseconds after launch.
         task.delay(100);
+
+        // 修改全局MessageBox按钮标签
+        Ext.MessageBox.buttonText = {
+            yes: '确认',
+            no: '取消'
+        };
     }
 });
 
 
-var uploadBlobImage = function(blobImage){
+var uploadBlobImage = function(blobImage) {
     var reader = new FileReader();
     reader.readAsDataURL(blobImage);
 
-    reader.onload = function (imgsrc) {
+    reader.onload = function(imgsrc) {
         var form = new FormData();
-        form.append("data",blobImage);
+        form.append("data", blobImage);
         var xhr = new XMLHttpRequest();
         xhr.timeout = 30 * 1000;
         xhr.open("POST", XMLifeOperating.generic.Global.URL.upload, true);
@@ -165,14 +168,16 @@ var uploadBlobImage = function(blobImage){
         };
         xhr.send(form);
     };
-}
+};
 var uploadImage = function(form, textfield) {
 
     var sessionId = localStorage.getItem('sessionId') || '';
-        
+
     form.submit({
-        url : XMLifeOperating.generic.Global.URL.upload+'?sessionId='+sessionId,
-        params: {'sessionId':sessionId},
+        url: XMLifeOperating.generic.Global.URL.upload + '?sessionId=' + sessionId,
+        params: {
+            'sessionId': sessionId
+        },
         success: function(form, action) {
 
             var resid = action.response.responseText;
@@ -206,9 +211,9 @@ var uploadImage = function(form, textfield) {
             textfield.setValue(action.response.responseText);
         }
     });
-}
-var getStrLength =  function(str){
-  //返回字符串长度 
-   var c = str.match(/[^ -~]/g);  
-   return str.length + (c ? c.length : 0);  
-}
+};
+var getStrLength = function(str) {
+    //返回字符串长度 
+    var c = str.match(/[^ -~]/g);
+    return str.length + (c ? c.length : 0);
+};

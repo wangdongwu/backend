@@ -5,28 +5,14 @@ Ext.define('XMLifeOperating.controller.DealWaitAssignShopperList', {
         'operationManage.dealWaitAssignShopper.DWSDealDetail'
     ],
 
-    stores: ['DealWaitAssignShopper', 'ShopArea', 'DealStatus', 'Customer', 'DealItems'],
+    stores: ['DealWaitAssignShopper', 'DealItems'],
 
-    models: ['DealWaitAssignShopper', 'ShopArea', 'Customer', 'DealItems'],
+    models: ['DealWaitAssignShopper', 'DealItems'],
 
+    // 注意到这个control引用的component也有可能定义在commonDealList里。
     refs: [{
         ref: 'dealWaitAssignShopperList',
-        selector: 'dealwaitassignshopperlist',
-        xtype: 'dealwaitassignshopperlist'
-    }, {
-        ref: 'shopArea',
-        selector: '#shopArea'
-    }, {
-        ref: 'keyword',
-        selector: '#keyword'
-    }, {
-        ref: 'statusSearch',
-        selector: '#statusSearch'
-    }, {
-        ref: 'dealCustomerDetail',
-        selector: 'dealCustomerDetail',
-        xtype: 'dealCustomerDetail',
-        autoCreate: true
+        selector: 'dealwaitassignshopperlist'
     }, {
         ref: 'dWSDealDetail',
         selector: 'dWSDealDetail',
@@ -42,7 +28,7 @@ Ext.define('XMLifeOperating.controller.DealWaitAssignShopperList', {
                     var sstore = this.getDealWaitAssignShopperStore();
                     sstore.getProxy().extraParams = {
                         shopArea: combo.getValue()
-                    }
+                    };
                     sstore.loadPage(1, {
                         params: {
                             start: 0,
@@ -56,30 +42,14 @@ Ext.define('XMLifeOperating.controller.DealWaitAssignShopperList', {
             'dealwaitassignshopperlist #dealSearch': {
                 click: me.onWaitAssignShopperSearch
             },
-            'dealwaitassignshopperlist #statusSearch': {
-                select: function(combo) {
-                    var sstore = this.getDealWaitAssignShopperStore();
-                    sstore.getProxy().extraParams = {
-                        shopArea: Ext.getCmp('dealWaitAssignShopperList').down('#shopArea').getValue(),
-                        status: combo.getValue()
-                    }
-                    sstore.loadPage(1, {
-                        params: {
-                            start: 0,
-                            limit: 25,
-                            page: 1
-                        }
-                    });
-                }
-            },
             'dealwaitassignshopperlist #dealDetail': {
                 click: me.onDealDetail
             },
             'dealwaitassignshopperlist #customerDetail': {
-                click: me.onCustomerDetail
-            },
-            'dealwaitassignshopperlist #toproblemdeal': {
-                click: me.onToProblemDeal
+                click: function() {
+                    var controllerDealList = this.getController('DealList');
+                    controllerDealList.onCustomerDetail.apply(controllerDealList, arguments);
+                }
             },
             'dealwaitassignshopperlist #oneKeyDistribute': {
                 click: me.onOneKeyDistribute
@@ -90,48 +60,46 @@ Ext.define('XMLifeOperating.controller.DealWaitAssignShopperList', {
         });
     },
     onRefresh: function(view, e, eOpts) {
-        var me = this;
-        if (!view.isDisabled()) {
-            //发送刷新请求
-            var sstore = this.getDealWaitAssignShopperStore();
-            sstore.getProxy().extraParams = {
-                shopArea: this.areaId
-            }
-            sstore.loadPage(1, {
-                params: {
-                    start: 0,
-                    limit: 25,
-                    page: 1
-                }
-            });
-            //禁用按钮并进入倒计时
-            var count = function(t) {
-                var time = 5 - t;
-                view.setText(time + 's');
-            }
-            view.setDisabled(true);
-            for (var i = 0; i < 5; i++) {
-                (function(t) {
-                    setTimeout(function() {
-                        count(t)
-                    }, t * 1000);
-                }(i))
-            }
-            setTimeout(function() {
-                view.setDisabled(false);
-                view.setText('刷新');
-            }, 5000);
-        } else {
-            return
+        if (view.isDisabled()) {
+            return;
         }
+        //发送刷新请求
+        var sstore = this.getDealWaitAssignShopperStore();
+
+        sstore.getProxy().extraParams = {
+            shopArea: this.areaId
+        };
+        sstore.loadPage(1, {
+            params: {
+                start: 0,
+                limit: 25,
+                page: 1
+            }
+        });
+
+        var countDownFn = function(sec) {
+            if (sec > 0) {
+                view.setText(sec + 's');
+                countTimer = setTimeout(function() {
+                    countDownFn(sec - 1);
+                }, 1000);
+            } else {
+                view.enable();
+                view.setText('刷新');
+            }
+        };
+
+        //禁用按钮并进入倒计时
+        view.disable();
+        countDownFn(5);
     },
     onWaitAssignShopperSearch: function() {
         var me = this,
-            keyWords = me.getDealWaitAssignShopperList().down('#keyword').getValue(),
-            store = this.getDealWaitAssignShopperStore(),
-            view = this.getDealWaitAssignShopperList();
-        var shopAreaId = Ext.getCmp('dealWaitAssignShopperList').down('#shopArea').getValue();
-        if (keyWords == '') {
+            view = this.getDealWaitAssignShopperList(),
+            keyWords = view.down('#keyword').getValue(),
+            shopAreaId = view.down('#shopArea').getValue(),
+            store = this.getDealWaitAssignShopperStore();
+        if (Ext.isEmpty(keyWords)) {
             if (shopAreaId) {
                 store.getProxy().extraParams = {
                     shopArea: shopAreaId
@@ -155,7 +123,6 @@ Ext.define('XMLifeOperating.controller.DealWaitAssignShopperList', {
             });
         }
     },
-
     onDealDetail: function(view, rowIndex, colIndex, column, e) {
         var record = view.getRecord(view.findTargetByEvent(e)),
             win = this.getDWSDealDetail(),
@@ -175,7 +142,7 @@ Ext.define('XMLifeOperating.controller.DealWaitAssignShopperList', {
                 Ext.Msg.alert('获取订单详情失败！');
             }
         });
-        
+
         var store = this.getDealItemsStore();
         store.load({
             params: {
@@ -193,63 +160,14 @@ Ext.define('XMLifeOperating.controller.DealWaitAssignShopperList', {
 
         win.show();
     },
-
-    onCustomerDetail: function(view, rowIndex, colIndex, column, e) {
-        var dealDetail = view.getRecord(view.findTargetByEvent(e));
-        var store = this.getCustomerStore();
-
-        var win = this.getDealCustomerDetail();
-        store.on('load', function(store, records, successful, eOpts) {
-            store.data.items[0].data['dtoAddress'] = dealDetail.getData()['dtoAddress'];
-
-            win.down('form').loadRecord(store.data.items[0]);
-            win.show();
-        });
-        store.load({
-            params: {
-                uid: dealDetail.get('customId'),
-            },
-        });
-    },
-
-    onToProblemDeal: function(view, rowIndex, colIndex, column, e) {
-        var dealitem = view.getRecord(view.findTargetByEvent(e));
-        var dealBackendId = dealitem.get('dealBackendId');
-        var url = 'deal/transToProblem/' + dealBackendId;
-        var me = this;
-        Ext.MessageBox.confirm(
-            '确认删除',
-            Ext.String.format("确定要将<h5>'{0}'</h5>的订单转为问题订单吗？", '订单号为：' + dealitem.get('shortId') + ' 顾客为：' + dealitem.get('customerName')),
-            function(result) {
-                if (result == 'yes') {
-                    sendPutRequest(url, {}, '转为问题订单', '转为问题订单成功', '转为问题订单失败', function() {
-                        var sstore = me.getDealWaitAssignShopperStore();
-                        sstore.getProxy().extraParams = {
-                            shopArea: me.areaId
-                        }
-                        sstore.loadPage(1, {
-                            params: {
-                                start: 0,
-                                limit: 25,
-                                page: 1
-                            }
-                        });
-                    });
-                }
-            }
-        );
-    },
     onOneKeyDistribute: function() {
         var me = this;
         var areaId = me.areaId;
-        var data = {
-            shopArea: null
-        }
         var success = function() {
             var sstore = me.getDealWaitAssignShopperStore();
             sstore.getProxy().extraParams = {
                 shopArea: areaId
-            }
+            };
             sstore.loadPage(1, {
                 params: {
                     start: 0,
@@ -258,16 +176,14 @@ Ext.define('XMLifeOperating.controller.DealWaitAssignShopperList', {
                 }
             });
         };
-        var failure = function(message) {
+        var failure = function(response) {
             Ext.MessageBox.show({
-                title: '无法上传图片',
-                msg: 'Error: <br />' + message,
+                title: '一键分配失败',
+                msg: '服务器返回了错误:<br />' + (response.responseText || response.statusText),
                 icon: Ext.Msg.ERROR,
                 buttons: Ext.Msg.OK
             });
         };
-        data.shopArea = areaId;
-        sendPutRequest('deal/oneKeyAssignShopper', data, '一键分配', '一键分配成功', '一键分配失败', success, failure);
+        sendPutRequest('deal/oneKeyAssignShopper', {shopArea: areaId}, '一键分配', '一键分配成功', '一键分配失败', success, failure);
     }
-
 });

@@ -1,3 +1,5 @@
+// 这个view在SD合并后已经不被任何地方引用了（MJS-1882, 2015.01.17)
+// 对应的store和model，ReturnGoodsAuditList，只在这个view中引用。
 Ext.define('XMLifeOperating.view.dealManage.GDealReturnAuditList', {
     extend: 'Ext.grid.Panel',
     id: 'gDealReturnAuditList',

@@ -115,6 +115,12 @@ Ext.define('XMLifeOperating.Application', {
         });
         // Run the fade 100 milliseconds after launch.
         task.delay(100);
+
+        // 修改全局MessageBox按钮标签
+        Ext.MessageBox.buttonText = {
+            yes: '确认',
+            no: '取消'
+        };
     }
 });
 
@@ -164,7 +170,7 @@ var uploadBlobImage = function(blobImage) {
         };
         xhr.send(form);
     };
-}
+};
 var uploadImage = function(form, textfield) {
 
     form.submit({
@@ -202,4 +208,4 @@ var uploadImage = function(form, textfield) {
             textfield.setValue(action.response.responseText);
         }
     });
-}
+};

@@ -8,7 +8,6 @@ Ext.define('XMLifeOperating.controller.DealProblemDealsList', {
     ],
     stores: [
         'DealProblemDeals',
-        'ShopArea',
         'DealTasks',
         'SuperShopper',
         'Deliverer',
@@ -16,7 +15,6 @@ Ext.define('XMLifeOperating.controller.DealProblemDealsList', {
     ],
     models: [
         'DealProblemDeals',
-        'ShopArea',
         'DealTasks',
         'SuperShopper',
         'Deliverer',
@@ -24,12 +22,7 @@ Ext.define('XMLifeOperating.controller.DealProblemDealsList', {
     ],
     refs: [{
         ref: 'dealProblemDealsList',
-        selector: 'dealProblemDealsList',
-        xtype: 'dealProblemDealsList',
-        autoCreate: true
-    }, {
-        ref: 'shopArea',
-        selector: '#shopArea',
+        selector: 'dealProblemDealsList'
     }, {
         ref: 'reapportion',
         selector: 'reapportion',
@@ -71,10 +64,8 @@ Ext.define('XMLifeOperating.controller.DealProblemDealsList', {
             'dealProblemDealsList #update': {
                 click: function() {
 
-                    var me = this;
-                    var store = this.getDealProblemDealsStore()
-
-                    var shopAreaId = Ext.getCmp('dealProblemDealsList').down('#shopArea').getValue();
+                    var store = this.getDealProblemDealsStore();
+                    var shopAreaId = this.up('dealProblemDealsList').down('#shopArea').getValue();
 
                     if (shopAreaId) {
                         store.load({
@@ -114,108 +105,53 @@ Ext.define('XMLifeOperating.controller.DealProblemDealsList', {
             'dealProblemDealsList #dealSearch': {
                 click: me.onProblemDealsSearch
             },
-            'dealProblemDealsList #autoAllocation': {
-                click: me.onAutoAllocation
+            'dealProblemDealsList #customerDetail': {
+                click: function() {
+                    var controllerDealList = this.getController('DealList');
+                    controllerDealList.onCustomerDetail.apply(controllerDealList, arguments);
+                }
             }
         });
     },
-    onAutoAllocation: function(view, rowIndex, colIndex, column, e) {
-        var record = view.getRecord(view.findTargetByEvent(e));
-        var shopperNamesLen = record.get('shopperNames');
-        var me = this;
-        var mark = 0;
-        for (var j = 0; j < shopperNamesLen.length; j++) {
-            if (shopperNamesLen[j] != null) {
-                mark = 1;
-                break;
-            }
-        }
-        if (mark == 1) {
+    onRefresh: function(view) {
+        if (view.isDisabled()) {
             return;
         }
+        //发送刷新请求
+        var sstore = this.getDealProblemDealsStore();
 
-        Ext.MessageBox.confirm(
-            '确认删除',
-            Ext.String.format("确定要对该'{0}'订单自动分配买手吗？", record.get('shortId')),
-            function(result) {
-                if (result == 'yes') {
-                    sendPutRequest('deal/assignShopper', {
-                        dealId: record.get('dealBackendId')
-                    }, '分单', '分单成功', '分单失败', function(response) {
-
-                        if (response.responseText == -2) {
-                            Ext.MessageBox.show({
-                                title: '订单自动分配',
-                                msg: '有买手未上班，无法自动分配',
-                                icon: Ext.Msg.ERROR,
-                                buttons: Ext.Msg.OK
-                            });
-                        } else if (response.responseText == 1) {
-                            Ext.MessageBox.show({
-                                title: '',
-                                msg: '该订单自动分配成功',
-                                icon: Ext.Msg.INFO,
-                                buttons: Ext.Msg.OK
-                            });
-
-                            var sstore = me.getDealProblemDealsStore();
-                            sstore.load({
-                                params: {
-                                    areaId: me.areaId
-                                }
-                            });
-                        }
-                    });
-                }
+        sstore.load({
+            params: {
+                areaId: this.areaId
             }
-        );
-    },
-    onRefresh: function(view, e, eOpts) {
-        var me = this;
-        if (!view.isDisabled()) {
-            //发送刷新请求
-            var sstore = this.getDealProblemDealsStore();
+        });
 
-            sstore.load({
-                params: {
-                    areaId: this.areaId
-                }
-            });
-            //禁用按钮并进入倒计时
-            var count = function(t) {
-                var time = 5 - t;
-                view.setText(time + 's');
-            }
-            view.setDisabled(true);
-            for (var i = 0; i < 5; i++) {
-                (function(t) {
-                    setTimeout(function() {
-                        count(t)
-                    }, t * 1000);
-                }(i))
-            }
-            setTimeout(function() {
-                view.setDisabled(false);
+        var countDownFn = function(sec) {
+            if (sec > 0) {
+                view.setText(sec + 's');
+                countTimer = setTimeout(function() {
+                    countDownFn(sec - 1);
+                }, 1000);
+            } else {
+                view.enable();
                 view.setText('刷新');
-            }, 5000);
-        } else {
-            return
-        }
+            }
+        };
+
+        //禁用按钮并进入倒计时
+        view.disable();
+        countDownFn(5);
     },
     onReapportion: function(view, rowIndex, colIndex, column, e) {
         var reapportion = view.getRecord(view.findTargetByEvent(e));
         var win = this.getReapportion();
-        var shopperNamesLen = reapportion.get('shopperNames');
-        var mark = 0;
-        for (var j = 0; j < shopperNamesLen.length; j++) {
-            if (shopperNamesLen[j] != null) {
-                mark = 1;
-                break;
-            }
-        }
-        if (mark == 0) {
+        var anyAvailableShopper = Ext.Array.some(reapportion.get('shopperNames'), function(name) {
+            return name !== null;
+        });
+        if (!anyAvailableShopper) {
             return;
         }
+
         win.down('form').loadRecord(reapportion);
         win.show();
         var store = this.getDealTasksStore();
@@ -316,12 +252,11 @@ Ext.define('XMLifeOperating.controller.DealProblemDealsList', {
                 }
             }
         );
-
     },
 
     onReapportionDeliverer: function(view, rowIndex, colIndex, column, e) {
         var me = this;
-        var reapportionDeliverer = Ext.ComponentQuery.query('#dealForm')[0].getRecord();
+        var reapportionDeliverer = view.up('#dealForm').getRecord();
         var win = this.getReapportionDealTasksDeliverer();
         win.down('form').loadRecord(reapportionDeliverer);
         win.show();
@@ -329,7 +264,6 @@ Ext.define('XMLifeOperating.controller.DealProblemDealsList', {
 
         store.load({
             params: {
-                // deliveryZone: reapportionDeliverer.get('zoneId'),
                 area: me.getDealProblemDealsList().down('#shopArea').getValue(),
                 isForAssign: true
             },
@@ -427,14 +361,14 @@ Ext.define('XMLifeOperating.controller.DealProblemDealsList', {
                             } else {
                                 Ext.MessageBox.show({
                                     title: '订单操作',
-                                    msg: '该订单被成功取消',
+                                    msg: '该订单被成功取消',                                    
                                     icon: Ext.Msg.INFO,
                                     buttons: Ext.Msg.OK
                                 });
                                 var sstore = me.getDealProblemDealsStore();
                                 sstore.getProxy().extraParams = {
                                     areaId: me.areaId
-                                }
+                                };
                                 sstore.loadPage(1, {
                                     params: {
                                         start: 0,
@@ -467,7 +401,7 @@ Ext.define('XMLifeOperating.controller.DealProblemDealsList', {
                 Ext.Msg.alert('获取订单详情失败！');
             }
         });
-        
+
         var store = this.getDealItemsStore();
         store.load({
             params: {
@@ -485,12 +419,12 @@ Ext.define('XMLifeOperating.controller.DealProblemDealsList', {
 
         win.show();
     },
-    onProblemDealsSearch: function(view, e, eOpts) {
-        var me = this,
-            keyWords = me.getDealProblemDealsList().down('#keyword').getValue(),
+    onProblemDealsSearch: function(view) {
+        var list = view.up('dealProblemDealsList'),
+            keyWords = list.down('#keyword').getValue(),
             store = this.getDealProblemDealsStore(),
-            view = this.getDealProblemDealsList();
-        var shopAreaId = Ext.getCmp('dealProblemDealsList').down('#shopArea').getValue();
+            shopAreaId = list.down('#shopArea').getValue();
+
         if (keyWords == '') {
             if (shopAreaId) {
                 store.getProxy().extraParams = {
@@ -514,6 +448,5 @@ Ext.define('XMLifeOperating.controller.DealProblemDealsList', {
                 }
             });
         }
-
     }
 });
