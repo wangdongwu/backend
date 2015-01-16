@@ -118,34 +118,31 @@ Ext.define('XMLifeOperating.view.dealManage.GDealReturnAuditList', {
     columns: [{
         xtype: 'rownumberer'
     }, {
-        text: '日期',
-        dataIndex: 'created',
-        sortable: true,
+        text: '长单号',
+        dataIndex: 'dealId',
+        sortable: false,
+        align: 'center',
+        renderer: function(value, metadata, model, rowIndex, colIndex, store) {
+            return  value 
+        }
+    }, {
+        text: '商品件数',
+        dataIndex: 'num',
+        align: 'center'
+    }, {
+        text: '提交时间',
+        dataIndex: 'createTime',
+        sortable: false,
+        align: 'center',
         renderer: function(value) {
             var newTime = new Date(value);
             newDate = newTime.getFullYear() + '.' + (newTime.getMonth() + 1) + '.' + newTime.getDate();
             return newDate;
         }
     }, {
-        text: '长单号',
-        dataIndex: 'longId',
-        sortable: false,
-        itemId: 'dealDetail',
-        renderer: function(value, metadata, model, rowIndex, colIndex, store) {
-            return '<a style="color:#248bca;">' + value + '</a>'
-        }
-    }, {
-        text: '提交时间',
-        dataIndex: 'created',
-        sortable: false,
-        renderer: function(value) {
-            var newTime = new Date(value);
-            newTime = newTime.getHours() + ':' + newTime.getMinutes();
-            return newTime;
-        }
-    }, {
         text: ' 状态',
         itemId: 'status',
+        dataIndex:'status',
         name: 'audit',
         menuDisabled: true,
         sortable: false,
@@ -154,7 +151,7 @@ Ext.define('XMLifeOperating.view.dealManage.GDealReturnAuditList', {
             var str = '';
             switch (value) {
                 case 0:
-                    str = '<input text="通过" name="pass"  /><input text="拒绝" name="refuse"/>'
+                    str = '<button name="pass" >通过</button><button name="refuse">拒绝</button>'
                     break;
                 case 1:
                     str = '已通过'
@@ -162,16 +159,13 @@ Ext.define('XMLifeOperating.view.dealManage.GDealReturnAuditList', {
                 case 2:
                     str = '已拒绝'
                     break;
+                case -1:
+                    str = '已取消'
+                    break;
             }
             return str;
         }
     }],
-    viewConfig: {
-        plugins: {
-            ptype: 'gridviewdragdrop',
-            dragText: 'Drag and drop to reorder'
-        }
-    },
     listeners: {
         onShowView: function(view, viewName) {
             if (XMLifeOperating.generic.Global.operating_type != 'center') {

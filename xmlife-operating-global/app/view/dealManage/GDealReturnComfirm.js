@@ -14,12 +14,7 @@ Ext.define('XMLifeOperating.view.dealManage.GDealReturnComfirm', {
     layout: 'fit',
     initComponent: function() {
         var store = Ext.create('Ext.data.Store', {
-            fields: ['id', 'name', 'allcount', 'returncount'],
-            data: [{
-                'id': 1289124129,
-                'name': '123',
-                'allcount': 12
-            }]
+            fields: ['id', 'name', 'allcount', 'returncount']
         });
         this.items = [{
             xtype: 'form',
@@ -34,13 +29,14 @@ Ext.define('XMLifeOperating.view.dealManage.GDealReturnComfirm', {
                 labelPad: 15,
             },
             items: [{
-                xtype:'textfield',
-                name:'dealid',
-                itemId:'dealreturnid',
-                editable:false,
-                hidden:true
-            },{
+                xtype: 'textfield',
+                name: 'dealid',
+                itemId: 'dealreturnid',
+                editable: false,
+                hidden: true
+            }, {
                 xtype: 'grid',
+                itemId: 'returnGoodsGrid',
                 store: store,
                 forceFit: true,
                 border: false,
@@ -56,7 +52,7 @@ Ext.define('XMLifeOperating.view.dealManage.GDealReturnComfirm', {
 
                 }, {
                     text: '现有数量',
-                    dataIndex: 'allcount',
+                    dataIndex: 'orderNum',
                     align: 'center'
                 }, {
                     text: '退货数量',

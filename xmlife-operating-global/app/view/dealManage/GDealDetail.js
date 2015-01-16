@@ -140,6 +140,11 @@ Ext.define('XMLifeOperating.view.dealManage.GDealDetail', {
                 itemId: 'dealDetails',
                 store: 'DealItems',
                 forceFit: true,
+                selModel: Ext.create('Ext.selection.CheckboxModel', {
+                    mode: 'MULTI',
+                    allowDeselect: true,
+                    enableKeyNav: false
+                }),
                 columns: [{
                     xtype: 'rownumberer'
                 }, {
@@ -201,18 +206,10 @@ Ext.define('XMLifeOperating.view.dealManage.GDealDetail', {
                     renderer: function(value) {
                         return value / 100;
                     }
-                }, {
-                    text: '操作',
-                    itemId: 'sellRefund',
-                    align: 'center',
-                    width:120,
-                    renderer: function(value) {
-                        return '<a href="javascript:;">申请售后退货</a>';
-                    }
                 }]
             }],
             buttons: [{
-                text: '全部申请售后退货',
+                text: '申请售后退货',
                 itemId: 'refundAll'
             }, {
                 text: '知道了',
