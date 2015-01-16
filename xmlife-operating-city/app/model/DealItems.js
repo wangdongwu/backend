@@ -1,8 +1,19 @@
 Ext.define('XMLifeOperating.model.DealItems', {
     extend: 'Ext.data.Model',
     fields: [
-        'dealBackendId', 'unit', 'name', 'shopName', 'orderNum', 'cancelNum', 'returnNum', 'num',
-        'price', 'cancelPrice', 'returnPrice', 'dealPrice', 'pprice', 'fprice', 'actualItemPrice', 'couponPrice', 'productId','promotionId'
-    ],
-    proxy: new XMLifeOperating.generic.BaseProxy('deal/items')
+        'name', 'price', 'promotionId', 'orderNum', 'cancelNum',
+        {name: 'cancelType', convert: function(v,r) {
+                var str = '';
+                if (v == 0) {
+                    str = '';
+                } else if (v == 1) {
+                    str = '用户主动要求';
+                } else if (v == 2) {
+                    str = '缺货';
+                }
+                return str;
+    		}
+    	},
+        'returnNum', 'returnNote', 'num', 'actualItemPrice', 'couponPrice'
+    ]
 });
