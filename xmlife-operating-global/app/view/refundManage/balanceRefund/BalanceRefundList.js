@@ -251,7 +251,8 @@ Ext.define('XMLifeOperating.view.refundManage.balanceRefund.BalanceRefundList', 
         }]
     }],
     columns: [{
-            xtype: 'rownumberer'
+            xtype: 'rownumberer',
+            width: 30
         }, {
             text: '用户上报时间',
             dataIndex: 'createTime',
@@ -261,13 +262,13 @@ Ext.define('XMLifeOperating.view.refundManage.balanceRefund.BalanceRefundList', 
         }, {
             text: '我方处理时间',
             dataIndex: 'auditTime',
-            width: 60,
+            width: 100,
             sortable: false,
             align: 'left'
         }, {
             text: '退款金额',
             dataIndex: 'amount',
-            width: 100,
+            width: 50,
             sortable: false,
             align: 'left',
             renderer: function(value) {
@@ -277,7 +278,7 @@ Ext.define('XMLifeOperating.view.refundManage.balanceRefund.BalanceRefundList', 
         }, {
             text: '处理状态',
             dataIndex: 'status',
-            width: 100,
+            width: 50,
             sortable: false,
             align: 'left',
             renderer: function(v) {
@@ -298,7 +299,7 @@ Ext.define('XMLifeOperating.view.refundManage.balanceRefund.BalanceRefundList', 
             align: 'left',
             itemId: 'dealDetailRefund',
             renderer: function(v) {
-                return '<a href="javascript:void(0)" style="text-decoration:none;">' + v + '</a>';
+                return '<a href="javascript:void(0)">' + v + '</a>';
             }
         }, {
             text: '用户昵称',

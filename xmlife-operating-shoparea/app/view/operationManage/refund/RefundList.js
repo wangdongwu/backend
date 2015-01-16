@@ -6,7 +6,6 @@ Ext.define('XMLifeOperating.view.operationManage.refund.RefundList', {
     autoScroll: true,
     store: 'Refund',
     title: '退款列表',
-    // titleAlign : 'left',
     closable: false,
     forceFit: true,
     selModel: Ext.create('Ext.selection.CheckboxModel'),
@@ -40,7 +39,6 @@ Ext.define('XMLifeOperating.view.operationManage.refund.RefundList', {
             style: {
                 border: '1px solid #99bce8'
             }
-
         }, {
             xtype: 'button',
             name: 'yesterday',
@@ -160,25 +158,25 @@ Ext.define('XMLifeOperating.view.operationManage.refund.RefundList', {
         store: 'Refund',
         dock: 'bottom',
         displayInfo: true
-            /*,
-                    items : ['->'],   
-                    prependButtons: true*/
     }],
     columns: [{
-        xtype: 'rownumberer'
+        xtype: 'rownumberer',
+        width: 30
     }, {
         header: '日期',
-        dataIndex: 'createTime'
+        dataIndex: 'createTime',
+        width: 130
     }, {
         header: '订单编号',
         dataIndex: 'shortId',
         itemId: 'dealDetailRefund',
         renderer: function(v) {
-            return '<a href="javascript:void(0)" style="text-decoration:none;">' + v + '</a>';
+            return '<a href="javascript:void(0)">' + v + '</a>';
         }
     }, {
         header: '订单状态',
         dataIndex: 'status',
+        width: 70,
         renderer: function(v) {
             var data = {
                 '0': '待处理',
@@ -195,7 +193,8 @@ Ext.define('XMLifeOperating.view.operationManage.refund.RefundList', {
         dataIndex: 'userPhone'
     }, {
         header: '总退款次数',
-        dataIndex: 'refundCount'
+        dataIndex: 'refundCount',
+        width: 60
     }, {
         header: '订单金额',
         dataIndex: 'dealPrice',
@@ -221,7 +220,7 @@ Ext.define('XMLifeOperating.view.operationManage.refund.RefundList', {
         }
     }, {
         header: '我方处理时间',
-        width: 80,
+        width: 150,
         align: 'center',
         dataIndex: 'auditTime',
         renderer: function(v) {
@@ -231,8 +230,5 @@ Ext.define('XMLifeOperating.view.operationManage.refund.RefundList', {
             return v;
         }
     }],
-
     columnLines: true,
-
-
 });
