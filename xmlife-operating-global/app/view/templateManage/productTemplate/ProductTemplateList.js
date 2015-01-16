@@ -55,7 +55,9 @@ Ext.define('XMLifeOperating.view.templateManage.productTemplate.ProductTemplateL
                 align: 'center'
             },
             columns: [{
-                xtype: 'rownumberer'
+                xtype: 'rownumberer',
+                width: 50,
+                align: 'center'
             }, {
                 text: 'ID',
                 dataIndex: 'id',

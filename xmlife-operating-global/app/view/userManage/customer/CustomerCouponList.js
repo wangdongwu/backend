@@ -19,18 +19,20 @@ Ext.define('XMLifeOperating.view.userManage.customer.CustomerCouponList', {
     layout: 'fit',
     closable: true,
     columns: [{
-            xtype: 'rownumberer'
-    },{
+        xtype: 'rownumberer',
+        width: 50,
+        align: 'center'
+    }, {
         text: '类型',
         dataIndex: 'type',
         width: 80,
         sortable: false,
         renderer: function(v) {
             var data = {
-                    '1' : '满减券',
-                    '2' : '打折券',
-                    '3' : '免运费券'
-                };             
+                '1': '满减券',
+                '2': '打折券',
+                '3': '免运费券'
+            };
             return data[v];
         }
     }, {

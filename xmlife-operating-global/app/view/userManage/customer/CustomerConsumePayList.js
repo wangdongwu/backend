@@ -20,7 +20,9 @@ Ext.define('XMLifeOperating.view.userManage.customer.CustomerConsumePayList', {
     layout: 'fit',
     closable: true,
     columns: [{
-        xtype: 'rownumberer'
+        xtype: 'rownumberer',
+        width: 50,
+        align: 'center'
     }, {
         text: '日期',
         dataIndex: 'date',

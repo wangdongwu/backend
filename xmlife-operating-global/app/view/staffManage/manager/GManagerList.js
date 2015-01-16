@@ -62,7 +62,9 @@ Ext.define('XMLifeOperating.view.staffManage.manager.GManagerList', {
         style: 'border:none'
     }],
     columns: [{
-        xtype: 'rownumberer'
+        xtype: 'rownumberer',
+        width: 50,
+        align: 'center'
     }, {
         text: 'uid',
         dataIndex: 'uid',

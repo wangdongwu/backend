@@ -71,7 +71,9 @@ Ext.define('XMLifeOperating.view.userManage.customer.CustomerList', {
         ]
     }],
     columns: [{
-            xtype: 'rownumberer'
+            xtype: 'rownumberer',
+            width: 50,
+            align: 'center'
         }, {
             text: '用户昵称',
             dataIndex: 'name',

@@ -83,7 +83,9 @@ Ext.define('XMLifeOperating.view.userManage.feedback.GFeedbackList', {
     ],
 
     columns: [{
-            xtype: 'rownumberer'
+            xtype: 'rownumberer',
+            width: 50,
+            align: 'center'
         }, {
             dataIndex: 'created',
             text: '时间',

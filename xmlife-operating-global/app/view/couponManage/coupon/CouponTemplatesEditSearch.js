@@ -39,7 +39,9 @@ Ext.define('XMLifeOperating.view.couponManage.coupon.CouponTemplatesEditSearch',
                         mode: 'MULTI'
                     }),
                     columns:[{
-                                xtype: 'rownumberer'
+                                xtype: 'rownumberer',
+                                width: 50,
+                                align: 'center'
                             },{
                                 text: '商品模板',
                                 dataIndex: 'name',

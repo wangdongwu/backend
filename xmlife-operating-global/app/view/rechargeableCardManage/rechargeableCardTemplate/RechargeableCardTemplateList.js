@@ -17,7 +17,9 @@ Ext.define('XMLifeOperating.view.rechargeableCardManage.rechargeableCardTemplate
         itemId: 'addReturnTemplate'
     }, ],
     columns: [{
-            xtype: 'rownumberer'
+            xtype: 'rownumberer',
+            width: 50,
+            align: 'center'
         }, {
             text: '编号',
             dataIndex: 'id',

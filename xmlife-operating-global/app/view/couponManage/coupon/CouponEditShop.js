@@ -63,7 +63,9 @@ Ext.define('XMLifeOperating.view.couponManage.coupon.CouponEditShop', {
                     mode: 'MULTI'
                 }),
                 columns: [{
-                    xtype: 'rownumberer'
+                    xtype: 'rownumberer',
+                    width: 50,
+                    align: 'center'
                 }, {
                     text: 'code',
                     dataIndex: 'code'
@@ -109,7 +111,9 @@ Ext.define('XMLifeOperating.view.couponManage.coupon.CouponEditShop', {
                     mode: 'MULTI'
                 }),
                 columns: [{
-                    xtype: 'rownumberer'
+                    xtype: 'rownumberer',
+                    width: 50,
+                    align: 'center'
                 }, {
                     text: '店铺名',
                     dataIndex: 'name',

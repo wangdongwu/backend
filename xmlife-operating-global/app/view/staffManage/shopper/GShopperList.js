@@ -65,7 +65,9 @@ Ext.define('XMLifeOperating.view.staffManage.shopper.GShopperList', {
         }
     ],
     columns: [{
-        xtype: 'rownumberer'
+        xtype: 'rownumberer',
+        width: 50,
+        align: 'center'
     }, {
         text: 'uid',
         dataIndex: 'uid',

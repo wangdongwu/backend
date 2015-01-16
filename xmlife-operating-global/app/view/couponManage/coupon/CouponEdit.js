@@ -36,9 +36,6 @@ Ext.define('XMLifeOperating.view.couponManage.coupon.CouponEdit', {
             layout: 'anchor',
             bodyPadding: 10,
             border: false,
-            /*defaults:{
-                anchor: '100%'
-            },*/
             items: [{
                     xtype: 'textfield',
                     name: 'name',
@@ -332,7 +329,9 @@ Ext.define('XMLifeOperating.view.couponManage.coupon.CouponEdit', {
                         mode: 'MULTI'
                     }),
                     columns: [{
-                        xtype: 'rownumberer'
+                        xtype: 'rownumberer',
+                        width: 50,
+                        align: 'center'
                     }, {
                         text: 'code',
                         dataIndex: 'code'
@@ -350,20 +349,21 @@ Ext.define('XMLifeOperating.view.couponManage.coupon.CouponEdit', {
                         mode: 'MULTI'
                     }),
                     columns: [{
-                        xtype: 'rownumberer'
+                        xtype: 'rownumberer',
+                        width: 50,
+                        align: 'center'
                     }, {
                         text: '店铺名',
                         dataIndex: 'name',
                         width: 200,
                         renderer: function(value, grid) {
-
                             value = grid.record.get('cityName') + '-' + value;
                             return value;
                         }
                     }, {
                         text: 'shopId',
                         dataIndex: 'id',
-                        width: 100,
+                        width: 100
                     }],
                 }, {
                     name: '',

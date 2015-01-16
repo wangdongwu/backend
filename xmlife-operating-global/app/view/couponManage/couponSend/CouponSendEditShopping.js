@@ -113,7 +113,9 @@ Ext.define('XMLifeOperating.view.couponManage.couponSend.CouponSendEditShopping'
                 }),
                 columns: [{
                     xtype: 'rownumberer',
-                    itemId: 'rownumbererId'
+                    itemId: 'rownumbererId',
+                    width: 50,
+                    align: 'center'
                 }, {
                     text: '店铺名',
                     dataIndex: 'name',

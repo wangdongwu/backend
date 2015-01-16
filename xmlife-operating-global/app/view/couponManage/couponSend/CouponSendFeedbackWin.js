@@ -75,7 +75,9 @@ Ext.define('XMLifeOperating.view.couponManage.couponSend.CouponSendFeedbackWin',
                     mode: 'MULTI'
                 }),*/
                 columns: [{
-                    xtype: 'rownumberer'
+                    xtype: 'rownumberer',
+                    width: 50,
+                    align: 'center'
                 },{
                     text: 'uid',
                     dataIndex: 'uid'

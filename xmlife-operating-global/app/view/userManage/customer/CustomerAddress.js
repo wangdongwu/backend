@@ -14,34 +14,27 @@ Ext.define('XMLifeOperating.view.userManage.customer.CustomerAddress', {
     layout: 'fit',
     initComponent: function() {
         this.items = [{
-            xtype : 'grid',
-            store : 'Address',
+            xtype: 'grid',
+            store: 'Address',
             layout: 'fit',
             forceFit: true,
-                columns: [
-                {
-                    xtype: 'rownumberer'
-                }, 
-                    {
-                        text: '属性',
-                        renderer : function(a,b,c,row){
-                            return row == 0 ? ' 默认地址' : '其他地址';
-                        }
-                    },
-                     {
-                        text: '收货地址',
-                        dataIndex: 'addressDetail',
-                        renderer : function(value){
-                            return value ? value : '暂时还没有地址';
-                        }
-                    }
-                ]
+            columns: [{
+                xtype: 'rownumberer',
+                width: 50,
+                align: 'center'
+            }, {
+                text: '属性',
+                renderer: function(a, b, c, row) {
+                    return row == 0 ? ' 默认地址' : '其他地址';
+                }
+            }, {
+                text: '收货地址',
+                dataIndex: 'addressDetail',
+                renderer: function(value) {
+                    return value ? value : '暂时还没有地址';
+                }
+            }]
         }]
-
         this.callParent(arguments);
-
     }
-
-        
 });
-

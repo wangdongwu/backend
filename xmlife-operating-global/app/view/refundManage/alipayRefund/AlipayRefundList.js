@@ -263,7 +263,8 @@ Ext.define('XMLifeOperating.view.refundManage.alipayRefund.AlipayRefundList', {
     }],
     columns: [{
         xtype: 'rownumberer',
-        width:30
+        width: 50,
+        align: 'center'
     }, {
         text: '用户上报时间',
         dataIndex: 'createTime',

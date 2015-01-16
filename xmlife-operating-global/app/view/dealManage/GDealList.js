@@ -108,7 +108,9 @@ Ext.define('XMLifeOperating.view.dealManage.GDealList', {
         }
     ],
     columns: [{
-            xtype: 'rownumberer'
+            xtype: 'rownumberer',
+            width: 50,
+            align: 'center'
         }, {
             text: '日期',
             dataIndex: 'created',

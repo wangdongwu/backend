@@ -46,7 +46,9 @@ Ext.define('XMLifeOperating.view.dealManage.GDealReturnComfirm', {
                 border: false,
                 columnLines: true,
                 columns: [{
-                    xtype: 'rownumberer'
+                    xtype: 'rownumberer',
+                    width: 50,
+                    align: 'center'
                 }, {
                     text: '商品名称',
                     dataIndex: 'name',

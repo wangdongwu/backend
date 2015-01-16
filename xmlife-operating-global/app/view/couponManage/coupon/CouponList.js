@@ -38,7 +38,9 @@ Ext.define('XMLifeOperating.view.couponManage.coupon.CouponList', {
         })
     }],
     columns: [{
-        xtype: 'rownumberer'
+        xtype: 'rownumberer',
+        width: 50,
+        align: 'center'
     }, {
         text: '编号',
         dataIndex: 'id',
