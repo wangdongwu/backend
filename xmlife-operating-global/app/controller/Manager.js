@@ -2,29 +2,29 @@ Ext.define('XMLifeOperating.controller.Manager', {
     extend: 'Ext.app.Controller',
 
     views: [
-        'staffManage.manager.ManagerList',
+        'staffManage.manager.GManagerList',
         'staffManage.manager.EditManager',
         'staffManage.manager.ManagerWorkTimeList'
     ],
 
     stores: [
         'Manager',
-        'ManagerWorkTime',
+        'ManagerWorkTime'
     ],
 
     models: [
         'Manager',
-        'ManagerWorkTime',
+        'ManagerWorkTime'
     ],
 
     refs: [{
-        ref: 'managerList',
-        selector: 'managerList',
-        xtype: 'managerList',
+        ref: 'gManagerList',
+        selector: 'gManagerList',
+        xtype: 'gManagerList',
         autoCreate: true
     }, {
         ref: 'shopArea',
-        selector: '#shopArea',
+        selector: '#shopArea'
     }, {
         ref: 'editWindow',
         selector: 'editManager',
@@ -46,22 +46,22 @@ Ext.define('XMLifeOperating.controller.Manager', {
             isUnbind = true;
 
         me.control({
-            'managerList': {
+            'gManagerList': {
                 added: me.onShow
             },
-            'managerList #add': {
+            'gManagerList #add': {
                 click: me.onAdd
             },
-            'managerList #editManagerId': {
+            'gManagerList #editManagerId': {
                 click: me.onEdit
             },
-            'managerList #searchButton': {
+            'gManagerList #searchButton': {
                 click: me.searchManager
             },
             'editManager #save-manager-edit-btn': {
                 click: me.saveEditWindow
             },
-            'managerList #shopArea': {
+            'gManagerList #shopArea': {
                 render: function(combo) {
                     var activeSearch = Ext.getCmp('gManagerList').down('#activeSearch').getText();
                     if (activeSearch == '查看停单掌柜') {
@@ -100,7 +100,7 @@ Ext.define('XMLifeOperating.controller.Manager', {
                 },
             },
             // 查看中心下暂停或接单掌柜
-            'managerList #activeSearch': {
+            'gManagerList #activeSearch': {
                 click: function() {
                     var activeSearch = Ext.getCmp('gManagerList').down('#activeSearch').getText();
                     if (activeSearch == '查看停单掌柜') {
@@ -121,12 +121,12 @@ Ext.define('XMLifeOperating.controller.Manager', {
                     store.on('load', function() {
                         Ext.getCmp('gManagerList').down('#activeSearch').setText(activeSearch);
                         Ext.getCmp('gManagerList').down('#activeBind').setText('查看未绑定的掌柜');
-                        me.getManagerList().down('#searchBuyerKeyWords').setValue('');
+                        me.getGManagerList().down('#searchBuyerKeyWords').setValue('');
                     });
                 }
             },
             // 查看绑定
-            'managerList #activeBind': {
+            'gManagerList #activeBind': {
                 click: function(grid) {
                     var activeBindText = Ext.getCmp('gManagerList').down('#activeBind').getText();
 
@@ -142,8 +142,8 @@ Ext.define('XMLifeOperating.controller.Manager', {
                         unbind: isUnbind
                     };
                     lstore.on('load', function() {
-                        me.getManagerList().down('#searchBuyerKeyWords').setValue('');
-                        me.getManagerList().down('#activeBind').setText(activeBindText);
+                        me.getGManagerList().down('#searchBuyerKeyWords').setValue('');
+                        me.getGManagerList().down('#activeBind').setText(activeBindText);
                     });
                     lstore.loadPage(1, {
                         params: {
@@ -162,7 +162,7 @@ Ext.define('XMLifeOperating.controller.Manager', {
                 }
             },
             // 考勤管理
-            'managerList #managerWorkTimeId': {
+            'gManagerList #managerWorkTimeId': {
                 click: function(view, column, rowIndex, colIndex, e) {
                     var tab = this.getManagerWorkTimeList();
                     var content = this.getContentPanel();
@@ -245,7 +245,7 @@ Ext.define('XMLifeOperating.controller.Manager', {
                 }
             },
             // 操作
-            'managerList #closeOrOpenOrder': {
+            'gManagerList #closeOrOpenOrder': {
                 click: function(grid, column, rowIndex) {
                     var record = grid.getStore().getAt(rowIndex);
                     var manager = record.get('uid');
@@ -294,9 +294,9 @@ Ext.define('XMLifeOperating.controller.Manager', {
     },
     searchManager: function() {
         var me = this,
-            keyWords = me.getManagerList().down('#searchBuyerKeyWords').getValue(),
-            store = me.getManagerStore(),
-            view = me.getManagerList(),
+            view = me.getGManagerList(),
+            keyWords = view.down('#searchBuyerKeyWords').getValue(),
+            store = me.getManagerStore(),           
             area = me.areaId,
             activeBindText = Ext.getCmp('gManagerList').down('#activeBind').getText(),
             isUnbind = null;
@@ -310,7 +310,7 @@ Ext.define('XMLifeOperating.controller.Manager', {
                 unbind: isUnbind
             };
             store.on('load', function() {
-                me.getManagerList().down('#searchBuyerKeyWords').setValue(keyWords);
+                view.down('#searchBuyerKeyWords').setValue(keyWords);
             });
             store.loadPage(1, {
                 params: {
@@ -326,7 +326,7 @@ Ext.define('XMLifeOperating.controller.Manager', {
             };
             store.on('load', function() {
                 Ext.getCmp('gManagerList').down('#activeBind').setText('查看未绑定的掌柜');
-                me.getManagerList().down('#searchBuyerKeyWords').setValue(keyWords);
+                view.down('#searchBuyerKeyWords').setValue(keyWords);
             });
             store.loadPage(1, {
                 params: {
