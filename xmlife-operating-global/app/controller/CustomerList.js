@@ -13,13 +13,13 @@ Ext.define('XMLifeOperating.controller.CustomerList', {
 
     refs: [{
         ref: 'shopAreac',
-        selector: '#shopAreac',
+        selector: '#shopAreac'
     }, {
         ref: 'keywordc',
-        selector: '#keywordc',
+        selector: '#keywordc'
     }, {
         ref: 'customerTitle',
-        selector: '#customerTitle',
+        selector: '#customerTitle'
     }, {
         ref: 'customerAddress',
         selector: 'customerAddress',
@@ -55,7 +55,9 @@ Ext.define('XMLifeOperating.controller.CustomerList', {
 
         var me = this;
         this.control({
-
+            'CustomerList': {
+                added: me.onShow
+            },
             '#shopAreac': {
                 select: function(combo) {
                     var store = this.getCustomerStore();
@@ -122,10 +124,12 @@ Ext.define('XMLifeOperating.controller.CustomerList', {
             'CustomerList #couponListId': {
                 click: me.onCouponListId
             }
-
         });
     },
-
+    onShow: function() {
+        var store = this.getCustomerStore();
+        store.removeAll();
+    },
     onAddressCustomer: function(view, rowIndex, colIndex, column, e) {
         var self = this,
             customerDetail = view.getRecord(view.findTargetByEvent(e)),
@@ -250,5 +254,4 @@ Ext.define('XMLifeOperating.controller.CustomerList', {
             }
         });
     },
-
 });
