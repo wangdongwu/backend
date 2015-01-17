@@ -11,7 +11,9 @@ Ext.define('XMLifeOperating.view.promotion.PromotionGroup', {
 	titleAlign: 'left',
 	forceFit: true,
 	columns: [{
-		xtype: 'rownumberer'
+		xtype: 'rownumberer',
+		width: 50,
+        align: 'center'
 	}, {
 		text: '长命名',
 		dataIndex: 'name',

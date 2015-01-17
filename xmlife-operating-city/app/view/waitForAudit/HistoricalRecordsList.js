@@ -99,7 +99,9 @@ Ext.define('XMLifeOperating.view.waitForAudit.HistoricalRecordsList', {
                     prependButtons: true*/
     }],
     columns: [{
-        xtype: 'rownumberer'
+        xtype: 'rownumberer',
+        width: 50,
+        align: 'center'
     }, {
         header: '编码',
         dataIndex: 'skuId'

@@ -88,7 +88,9 @@ Ext.define('XMLifeOperating.view.damagedGoodsManage.DamagedGoodsList', {
         }
     ],
     columns: [{
-        xtype: 'rownumberer'
+        xtype: 'rownumberer',
+        width: 50,
+        align: 'center'
     }, {
         text: '商圈',
         dataIndex: 'areaName',

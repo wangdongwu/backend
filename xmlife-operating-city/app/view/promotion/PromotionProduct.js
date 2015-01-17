@@ -13,7 +13,9 @@ Ext.define('XMLifeOperating.view.promotion.PromotionProduct', {
 	store: 'PromotionProduct',
   features: [{ftype:'grouping',groupHeaderTpl: '{columnName}: {name} ({rows.length} {[values.rows.length > 1 ? "个商圈有该产品" : ""]})'}],
 	columns: [{
-		xtype: 'rownumberer'
+		xtype: 'rownumberer',
+		width: 50,
+        align: 'center'
 	},{
 		text: '商圈',
 		dataIndex: 'areaName'
