@@ -78,7 +78,9 @@ Ext.define('XMLifeOperating.view.userManage.feedback.FeedbackList', {
     ],
 
     columns: [{
-            xtype: 'rownumberer'
+            xtype: 'rownumberer',
+            width: 50,
+            align: 'center'
         }, {
             dataIndex: 'created',
             text: '时间',
@@ -86,28 +88,27 @@ Ext.define('XMLifeOperating.view.userManage.feedback.FeedbackList', {
             format: 'Y-M-D',
             sortable: true,
             align: 'center',
-            renderer: function (v) {
-                var date = new Date(v);
-                return date.getFullYear() + "." + (date.getMonth() + 1) + "." + date.getDate()
+            renderer: function (value) {
+                return Ext.util.Format.date(new Date(value), "Y.m.d");
             }   
         }, {
             text: '用户',
             dataIndex: 'name',
             width: 100,
             sortable: true,
-            align: 'center',
+            align: 'center'
         }, {
             text: '注册号码',
             dataIndex: 'phone',
             width: 90,
             sortable: true,
-            align: 'center',
+            align: 'center'
         }, {
             text: '反馈意见',
             dataIndex: 'content',
             width: 140,
             sortable: true,
-            align: 'center',
+            align: 'center'
         }, {
             header: "标记",
             width: 100,
@@ -125,8 +126,7 @@ Ext.define('XMLifeOperating.view.userManage.feedback.FeedbackList', {
                 }
                 return str;
             }
-        },
-
+        }
     ],
     viewConfig: {
         plugins: {
@@ -134,7 +134,5 @@ Ext.define('XMLifeOperating.view.userManage.feedback.FeedbackList', {
             dragText: 'Drag and drop to reorder'
         }
     },
-    columnLines: true,
-
-
+    columnLines: true
 });

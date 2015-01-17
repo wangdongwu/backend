@@ -5,7 +5,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.shopTopShops.ShopTopShopsLis
     id: 'shopTopShopsList',
     title: '首页配置',
     store: 'ShopTopShops',
-    
+
     tbar: [
         /*{
             xtype: 'button',
@@ -14,66 +14,60 @@ Ext.define('XMLifeOperating.view.centralPointManage.shopTopShops.ShopTopShopsLis
             hidden:(XMLifeOperating.generic.Global.operating_type == 'center')
         }*/
         {
-            xtype:'combobox',
-            name:'shopArea',
-            itemId:'shopArea',
-            store:'ShopArea',
-            emptyText:'请选择中心',
-            margin:10,
+            xtype: 'combobox',
+            name: 'shopArea',
+            itemId: 'shopArea',
+            store: 'ShopArea',
+            emptyText: '请选择中心',
+            margin: 10,
             editable: false,
-            displayField:'name',
-            valueField:'id',
-            hidden:(XMLifeOperating.generic.Global.operating_type == 'center')
-        },
-        {
+            displayField: 'name',
+            valueField: 'id',
+            hidden: (XMLifeOperating.generic.Global.operating_type == 'center')
+        }, {
             xtype: 'button',
             text: '添加展示店铺',
-            itemId: 'topshopsAdd',
-        },
-        {
+            itemId: 'topshopsAdd'
+        }, {
             xtype: 'button',
             text: '首页图片配置',
-            itemId: 'seeBannerBtn',
-        },
-        {
+            itemId: 'seeBannerBtn'
+        }, {
             xtype: 'button',
             text: '优质店铺配置',
-            itemId: 'seeShopShopGroupBtn',
-        },
-    ], 
-    columns: [
-        {
-            xtype: 'rownumberer'
-        }, 
-        {
+            itemId: 'seeShopShopGroupBtn'
+        }
+    ],
+    columns: [{
+            xtype: 'rownumberer',
+            width: 50,
+            align: 'center'
+        }, {
             text: '编号',
             dataIndex: 'id',
             width: 150,
             sortable: true,
             align: 'left'
-        },
-        {
+        }, {
             text: '展示店铺',
             dataIndex: 'shopName',
             width: 90,
             sortable: true,
-            align: 'left',
-        },
-        {
+            align: 'left'
+        }, {
             text: '展示店铺分类',
             dataIndex: 'names',
             width: 100,
             sortable: true,
             align: 'left',
-            renderer:function(value){
-                var str='';
-                for(var i=0;i<value.length;i++){
-                    str += value[i]+'<br />';
+            renderer: function(value) {
+                var str = '';
+                for (var i = 0; i < value.length; i++) {
+                    str += value[i] + '<br />';
                 }
                 return str;
             }
-        },
-        {
+        }, {
             xtype: 'actioncolumn',
             text: '操作',
             width: 40,
@@ -82,22 +76,8 @@ Ext.define('XMLifeOperating.view.centralPointManage.shopTopShops.ShopTopShopsLis
             menuDisabled: true,
             sortable: true,
             itemId: 'deleteShopTopShopsId',
-            align:'center'
-            // hidden:(XMLifeOperating.generic.Global.operating_type == 'center')
-        },
-        /*{
-            header:"首页配置",
-            width: 70,
-            itemId: 'seeBannerBtn',
-            menuDisabled: true,
-            sortable: false,
-            align: 'center',
-            renderer : function(value, metadata, model, rowIndex, colIndex, store) { 
-
-                var seeBtn = '<a>配置</a>';
-                return seeBtn; 
-            } 
-        }*/
+            align: 'center'
+        }
     ],
     viewConfig: {
         plugins: {
@@ -106,11 +86,11 @@ Ext.define('XMLifeOperating.view.centralPointManage.shopTopShops.ShopTopShopsLis
         }
     },
     listeners: {
-        onShowView: function(view, viewName) {          
-            if(XMLifeOperating.generic.Global.operating_type != 'center') {
+        onShowView: function(view, viewName) {
+            if (XMLifeOperating.generic.Global.operating_type != 'center') {
                 return;
             }
-            if(XMLifeOperating.generic.Global.current_operating == -1) {
+            if (XMLifeOperating.generic.Global.current_operating == -1) {
                 alert('请先在右上角选择中心');
                 return;
             }
@@ -119,8 +99,5 @@ Ext.define('XMLifeOperating.view.centralPointManage.shopTopShops.ShopTopShopsLis
             combo.fireEvent('select', combo);
         }
     },
-    columnLines: true,
-    
-    
-
+    columnLines: true
 });

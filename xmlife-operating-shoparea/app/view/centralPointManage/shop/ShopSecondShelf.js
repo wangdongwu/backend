@@ -7,7 +7,9 @@
      store: 'CategorySubs',
      itemId: 'ShelvesNextList',
      columns: [{
-         xtype: 'rownumberer'
+         xtype: 'rownumberer',
+         width: 50,
+         align: 'center'
      }, {
          text: 'id',
          dataIndex: 'id'
@@ -22,11 +24,7 @@
          dataIndex: 'leaf',
          align: 'center',
          renderer: function(value, metadata, model, rowIndex, colIndex, store) {
-             if (value) {
-                 return '无';
-             }
-             return '有';
-
+             return value ? '无' : '有';
          }
      }, {
          text: '编辑',
@@ -36,16 +34,16 @@
          tooltip: 'Edit',
          menuDisabled: true,
          sortable: true,
-         itemId: 'openModifySecondShelvesWin',
-     },{
-            xtype: 'actioncolumn',
-            text: '操作',
-            width: 40,
-            icon: 'resources/images/delete.png',
-            tooltip: 'Delete',
-            itemId: 'delete',
-            tdCls: 'user-td',
-    } ,{
+         itemId: 'openModifySecondShelvesWin'
+     }, {
+         xtype: 'actioncolumn',
+         text: '操作',
+         width: 40,
+         icon: 'resources/images/delete.png',
+         tooltip: 'Delete',
+         itemId: 'delete',
+         tdCls: 'user-td'
+     }, {
          text: '状态',
          dataIndex: 'status',
          itemId: 'showOrHide',

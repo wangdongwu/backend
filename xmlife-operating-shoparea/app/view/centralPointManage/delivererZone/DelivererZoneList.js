@@ -1,72 +1,58 @@
 Ext.define('XMLifeOperating.view.centralPointManage.delivererZone.DelivererZoneList', {
     extend: 'Ext.grid.Panel',
-    closable : false,
+    closable: false,
     xtype: 'delivererZoneList',
     title: '线路管理',
     store: 'DelivererZone',
-    id:'delivererZoneList',
-    tbar: [
-        {
-            xtype: 'button',
-            text: '添加线路',
-            itemId: 'add'
-        },
-        {
-            xtype:'combobox',
-            name:'shopArea',
-            itemId:'shopArea',
-            store:'ShopArea',
-            emptyText:'请选择中心',
-            margin:10,
-            editable: false,
-            displayField:'name',
-            valueField:'id',
-            hidden:(XMLifeOperating.generic.Global.operating_type == 'center')
-        },
-    ], 
-    columns: [
-        {
-            xtype: 'rownumberer'
-        }, 
-        {
+    id: 'delivererZoneList',
+    tbar: [{
+        xtype: 'button',
+        text: '添加线路',
+        itemId: 'add'
+    }, {
+        xtype: 'combobox',
+        name: 'shopArea',
+        itemId: 'shopArea',
+        store: 'ShopArea',
+        emptyText: '请选择中心',
+        margin: 10,
+        editable: false,
+        displayField: 'name',
+        valueField: 'id',
+        hidden: (XMLifeOperating.generic.Global.operating_type == 'center')
+    }],
+    columns: [{
+            xtype: 'rownumberer',
+            width: 50,
+            align: 'center'
+        }, {
             text: 'ID',
             dataIndex: 'id',
             width: 50,
             sortable: true,
             align: 'left'
-        },
-        {
+        }, {
             text: '线路名称',
             dataIndex: 'name',
             width: 100,
             sortable: true,
             align: 'left',
-            itemId:'lineName'
-        },
-        /*{
-            text: '中心点',
-            dataIndex: 'shopAreaName',
-            width: 60,
-            sortable: false,
-            align: 'left'
-        },*/
-        {
+            itemId: 'lineName'
+        }, {
             text: '小区数',
             dataIndex: 'districts',
             width: 60,
             sortable: true,
             align: 'left',
-            itemId:'bindCommunity'
-        },
-        {
+            itemId: 'bindCommunity'
+        }, {
             text: '配送员',
             dataIndex: 'deliverers',
             width: 60,
             sortable: true,
             align: 'left',
-            itemId:'bindCourier'
-        },
-        {
+            itemId: 'bindCourier'
+        }, {
             xtype: 'actioncolumn',
             text: '操作',
             width: 40,
@@ -74,10 +60,8 @@ Ext.define('XMLifeOperating.view.centralPointManage.delivererZone.DelivererZoneL
             tooltip: 'Delete',
             menuDisabled: true,
             sortable: true,
-            itemId: 'deleteLineId',
-            // hidden:(XMLifeOperating.generic.Global.operating_type == 'center')
+            itemId: 'deleteLineId'
         }
-      
     ],
     viewConfig: {
         plugins: {
@@ -86,11 +70,11 @@ Ext.define('XMLifeOperating.view.centralPointManage.delivererZone.DelivererZoneL
         }
     },
     listeners: {
-        onShowView: function(view, viewName) {          
-            if(XMLifeOperating.generic.Global.operating_type != 'center') {
+        onShowView: function(view, viewName) {
+            if (XMLifeOperating.generic.Global.operating_type != 'center') {
                 return;
             }
-            if(XMLifeOperating.generic.Global.current_operating == -1) {
+            if (XMLifeOperating.generic.Global.current_operating == -1) {
                 alert('请先在右上角选择中心');
                 return;
             }
@@ -99,7 +83,5 @@ Ext.define('XMLifeOperating.view.centralPointManage.delivererZone.DelivererZoneL
             combo.fireEvent('select', combo);
         }
     },
-    columnLines: true,
-    
-    
+    columnLines: true
 });

@@ -76,7 +76,9 @@ Ext.define('XMLifeOperating.view.centralPointManage.delivererZone.ResidentalDist
                         checkOnly:true
                     }),
                     columns: [{
-                        xtype: 'rownumberer'
+                        xtype: 'rownumberer',
+                        width: 50,
+                        align: 'center'
                     }, {
                         text: 'id',
                         dataIndex: 'id'
@@ -84,13 +86,6 @@ Ext.define('XMLifeOperating.view.centralPointManage.delivererZone.ResidentalDist
                         text: '小区名称',
                         dataIndex: 'name'
                     }]
-                    // ,
-                    // bbar: [{
-                    //     xtype: 'pagingtoolbar',
-                    //     itemId: 'pagetool_search',
-                    //     displayInfo: true,
-                    //     style: 'border:none'
-                    // }]
                 }, {
                     name: 'oldCommunityIds',
                     fieldLabel: '已绑定小区',
@@ -103,7 +98,9 @@ Ext.define('XMLifeOperating.view.centralPointManage.delivererZone.ResidentalDist
                     }),
                     columns: [{
                         xtype: 'rownumberer',
-                        resizable:true
+                        resizable:true,
+                        width: 50,
+                        align: 'center'
                     }, {
                         text: 'id',
                         dataIndex: 'id'
@@ -111,15 +108,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.delivererZone.ResidentalDist
                         text: '已绑定小区名称',
                         dataIndex: 'name'
                     }]
-                    // ,
-                    // bbar: [{
-                    //     xtype: 'pagingtoolbar',
-                    //     itemId: 'pagetool_has',
-                    //     displayInfo: true,
-                    //     style: 'border:none'
-                    // }]
                 }
-
             ],
             buttons: [{
                 text: 'Save',
@@ -132,10 +121,6 @@ Ext.define('XMLifeOperating.view.centralPointManage.delivererZone.ResidentalDist
                 }
             }]
         }]
-
         this.callParent(arguments);
-
     }
-
-
 });

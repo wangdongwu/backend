@@ -64,7 +64,9 @@ Ext.define('XMLifeOperating.view.staffManage.shopper.ShopperList', {
         style: 'border:none'
     }],
     columns: [{
-            xtype: 'rownumberer'
+            xtype: 'rownumberer',
+            width: 50,
+            align: 'center'
         }, {
             text: 'uid',
             dataIndex: 'uid',
@@ -147,7 +149,7 @@ Ext.define('XMLifeOperating.view.staffManage.shopper.ShopperList', {
                 }
                 return str;
             }
-        },
+        }
     ],
     viewConfig: {
         plugins: {

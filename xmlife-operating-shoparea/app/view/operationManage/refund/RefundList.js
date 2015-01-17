@@ -161,7 +161,8 @@ Ext.define('XMLifeOperating.view.operationManage.refund.RefundList', {
     }],
     columns: [{
         xtype: 'rownumberer',
-        width: 30
+        width: 50,
+        align: 'center'
     }, {
         header: '日期',
         dataIndex: 'createTime',
@@ -171,7 +172,7 @@ Ext.define('XMLifeOperating.view.operationManage.refund.RefundList', {
         dataIndex: 'shortId',
         itemId: 'dealDetailRefund',
         renderer: function(v) {
-            return '<a href="javascript:void(0)">' + v + '</a>';
+            return '<a href="javascript:;">' + v + '</a>';
         }
     }, {
         header: '订单状态',
@@ -230,5 +231,5 @@ Ext.define('XMLifeOperating.view.operationManage.refund.RefundList', {
             return v;
         }
     }],
-    columnLines: true,
+    columnLines: true
 });

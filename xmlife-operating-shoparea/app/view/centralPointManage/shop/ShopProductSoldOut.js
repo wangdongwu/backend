@@ -9,7 +9,9 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopProductSoldOut', {
         var me = this;
         Ext.applyIf(me, {
             columns: [{
-                xtype: 'rownumberer'
+                xtype: 'rownumberer',
+                width: 50,
+                align: 'center'
             }, {
                 text: '商品ID',
                 dataIndex: 'id',
@@ -40,7 +42,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopProductSoldOut', {
                 align: 'center',
                 style: 'cursor:pointer',
                 renderer: function() {
-                    return '<a href="javascript:void(0)">' + '下架' + '</a>'
+                    return '<a href="javascript:;">' + '下架' + '</a>';
                 }
             }],
             bbar: [{

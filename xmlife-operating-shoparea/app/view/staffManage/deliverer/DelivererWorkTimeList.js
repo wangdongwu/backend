@@ -5,125 +5,110 @@
  */
 Ext.define('XMLifeOperating.view.staffManage.deliverer.DelivererWorkTimeList', {
     extend: 'Ext.grid.Panel',
-    closable : false,
+    closable: false,
     xtype: 'delivererWorkTimeList',
 
     title: '考勤管理',
     store: 'DelivererWorkTime',
-    dockedItems : [
-      {
-      xtype : 'pagingtoolbar',
-      itemId : 'pagetoll',
-      store : 'DelivererWorkTime',
-      dock : 'bottom',
-      displayInfo : true/*,
-      items : ['->'],   
-      prependButtons: true*/
-    }
-    ],
-   tbar: [
-        {
-            xtype: 'button',
-            text: '返回',
-            itemId: 'delivererReturn'
+    dockedItems: [{
+        xtype: 'pagingtoolbar',
+        itemId: 'pagetoll',
+        store: 'DelivererWorkTime',
+        dock: 'bottom',
+        displayInfo: true
+            /*,
+                  items : ['->'],   
+                  prependButtons: true*/
+    }],
+    tbar: [{
+        xtype: 'button',
+        text: '返回',
+        itemId: 'delivererReturn'
+    }, {
+        xtype: 'radiogroup',
+        fieldLabel: '按时间过滤',
+        defaultType: 'radiofield',
+        itemId: 'delivererworktimeradios',
+        defaults: {
+            flex: 1,
+            margin: '0 5 0 5'
         },
-        { 
-            xtype: 'radiogroup',
-            fieldLabel : '按时间过滤',
-            defaultType: 'radiofield',
-            itemId:'delivererworktimeradios',
-            defaults: {
-                flex: 1,
-                margin : '0 5 0 5'
-            },
-            layout: 'hbox',
-            items : [
-                {
-                    boxLabel:'本周',
-                    name : 'dayType',
-                    checked: true,
-                    itemId: 'dayType3',
-                    inputValue:3
-                },
-                {
-                    boxLabel:'上周',
-                    name : 'dayType',
-                    itemId: 'dayType4',
-                    inputValue:4
-                },
-                {
-                    boxLabel:'本月',
-                    name : 'dayType',
-                    itemId: 'dayType5',
-                    inputValue:5
-                },
-                {
-                    boxLabel:'上月',
-                    name : 'dayType',
-                    itemId: 'dayType6',
-                    inputValue:6
-                }
-            ]
-        },
-    ],
+        layout: 'hbox',
+        items: [{
+            boxLabel: '本周',
+            name: 'dayType',
+            checked: true,
+            itemId: 'dayType3',
+            inputValue: 3
+        }, {
+            boxLabel: '上周',
+            name: 'dayType',
+            itemId: 'dayType4',
+            inputValue: 4
+        }, {
+            boxLabel: '本月',
+            name: 'dayType',
+            itemId: 'dayType5',
+            inputValue: 5
+        }, {
+            boxLabel: '上月',
+            name: 'dayType',
+            itemId: 'dayType6',
+            inputValue: 6
+        }]
+    }, ],
 
-    columns: [
-        {
-            xtype: 'rownumberer'
-        }, 
-        {
+    columns: [{
+            xtype: 'rownumberer',
+            width: 50,
+            align: 'center'
+        }, {
             text: '日期',
             dataIndex: 'created',
             sortable: true,
             width: 100,
-            renderer:function(value){
-               var newTime = new Date(value);
-               newTime = newTime.getFullYear()+'-'+(newTime.getMonth()+1)+'-'+newTime.getDate();
-               return newTime;
-            } 
-        },
-        {
+            renderer: function(value) {
+                var newTime = new Date(value);
+                newTime = newTime.getFullYear() + '-' + (newTime.getMonth() + 1) + '-' + newTime.getDate();
+                return newTime;
+            }
+        }, {
             text: '上班时间',
             dataIndex: 'onlineTime',
-            format:'H:i',
+            format: 'H:i',
             sortable: true,
             width: 100,
-            renderer:function(value){
-               var time = Math.floor(value/60) +':'+ (value%60);
-               return time;
+            renderer: function(value) {
+                var time = Math.floor(value / 60) + ':' + (value % 60);
+                return time;
             }
-        },
-        {
+        }, {
             text: '下班时间',
             dataIndex: 'offlineTime',
-            format:'H:i',
+            format: 'H:i',
             sortable: true,
             width: 100,
-            renderer:function(value){
-               var time = Math.floor(value/60) +':'+ (value%60);
-               return time;
+            renderer: function(value) {
+                var time = Math.floor(value / 60) + ':' + (value % 60);
+                return time;
             }
-        },
-        {
+        }, {
             text: '本次工时',
             dataIndex: 'workTime',
-            
+
             sortable: true,
             width: 100,
-            renderer:function(value){
-               var time = Math.floor(value/60) +'时'+ (value%60) +'分';
-               return time;
+            renderer: function(value) {
+                var time = Math.floor(value / 60) + '时' + (value % 60) + '分';
+                return time;
             }
-        },
-        {
+        }, {
             text: '完成订单数',
             dataIndex: 'deals',
-            
+
             sortable: true,
             width: 100
-        },
-       
-        
+        }
     ],
     viewConfig: {
         plugins: {
@@ -134,5 +119,4 @@ Ext.define('XMLifeOperating.view.staffManage.deliverer.DelivererWorkTimeList', {
     columnLines: true,
     frame: true,
     iconCls: 'icon-grid'
-    
 });

@@ -6,7 +6,6 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopList', {
     store: 'Shop',
     itemId: 'shoplist',
     titleAlign: 'center',
-    /*    iconCls: 'icon-grid',*/
     bbar: [{
         xtype: 'pagingtoolbar',
         itemId: 'pagetool',
@@ -17,7 +16,6 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopList', {
     tbar: [{
             xtype: 'button',
             text: '添加店铺',
-            /*            iconCls: 'icon-add',*/
             itemId: 'add'
         }, {
             xtype: 'combobox',
@@ -46,7 +44,9 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopList', {
         }*/
     ],
     columns: [{
-        xtype: 'rownumberer'
+        xtype: 'rownumberer',
+        width: 50,
+        align: 'center'
     }, {
         text: 'shopId',
         dataIndex: 'id',
@@ -97,7 +97,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopList', {
         sortable: true,
         align: 'center',
         renderer: function(value) {
-            return '<a href="javascript:void(0)">' + value + '</a>';
+            return '<a href="javascript:;">' + value + '</a>';
         }
     }, {
         text: '入驻买手',
@@ -107,7 +107,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopList', {
         sortable: true,
         align: 'center',
         renderer: function(value) {
-            return '<a href="javascript:void(0)">' + value + '</a>';
+            return '<a href="javascript:;">' + value + '</a>';
         }
     }, {
         header: "货架",
@@ -117,7 +117,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopList', {
         sortable: true,
         align: 'center',
         renderer: function(value, metadata, model, rowIndex, colIndex, store) {
-            var seeBtn = '<a href="javascript:void(0)">查看</a>';
+            var seeBtn = '<a href="javascript:;">查看</a>';
             return seeBtn;
         }
     }, {
@@ -128,7 +128,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopList', {
         sortable: true,
         align: 'center',
         renderer: function(value, metadata, model, rowIndex, colIndex, store) {
-            var seeBtn = '<a href="javascript:void(0)">查看</a>';
+            var seeBtn = '<a href="javascript:;">查看</a>';
             return seeBtn;
         }
     }, {

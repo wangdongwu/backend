@@ -14,7 +14,9 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopShelf', {
         align: 'center',
         itemId: 'rowIndex',
         id: 'rowIndex',
-        tdCls: 'user-td'
+        tdCls: 'user-td',
+        width: 50,
+        align: 'center'
     }, {
         text: '货架名称',
         dataIndex: 'name',
@@ -28,10 +30,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopShelf', {
         width: 110,
         tdCls: 'user-td',
         renderer: function(value, metadata, model, rowIndex, colIndex, store) {
-            if (value) {
-                return '无';
-            }
-            return '有';
+            return value ? '无' : '有';
         }
     }, {
         text: '货架图片（横）',
@@ -120,15 +119,15 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopShelf', {
         items: [{
             icon: 'resources/images/edit.png'
         }]
-    },{
-            xtype: 'actioncolumn',
-            text: '操作',
-            width: 40,
-            icon: 'resources/images/delete.png',
-            tooltip: 'Delete',
-            itemId: 'delete',
-            tdCls: 'user-td',
-    } ,{
+    }, {
+        xtype: 'actioncolumn',
+        text: '操作',
+        width: 40,
+        icon: 'resources/images/delete.png',
+        tooltip: 'Delete',
+        itemId: 'delete',
+        tdCls: 'user-td'
+    }, {
         text: '状态',
         dataIndex: 'status',
         itemId: 'showOrHide',
@@ -200,7 +199,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopShelf', {
         }, {
             xtype: 'button',
             itemId: 'productSearch',
-            text: '搜索',
+            text: '搜索'
         }]
     }, {
         xtype: 'toolbar',

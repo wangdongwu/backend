@@ -35,7 +35,9 @@ Ext.define('XMLifeOperating.view.centralPointManage.shopSetConfig.ShopSetConfigS
     }],
 
     columns: [{
-        xtype: 'rownumberer'
+        xtype: 'rownumberer',
+        width: 50,
+        align: 'center'
     }, {
         text: '店铺链接',
         dataIndex: 'name',

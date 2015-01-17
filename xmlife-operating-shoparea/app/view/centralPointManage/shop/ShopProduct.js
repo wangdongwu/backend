@@ -10,11 +10,13 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopProduct', {
             var me = this;
             Ext.applyIf(me, {
                 columns: [{
-                    xtype: 'rownumberer'
+                    xtype: 'rownumberer',
+                    width: 50,
+                    align: 'center'
                 }, {
                     text: '编码',
                     dataIndex: 'skuId',
-                    sortable: true,
+                    sortable: true
                 }, {
                     text: 'id',
                     dataIndex: 'id'
@@ -22,19 +24,19 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopProduct', {
                     text: '商品名称',
                     dataIndex: 'name',
                     sortable: true,
-                    align: 'center',
+                    align: 'center'
                 }, {
                     text: '所属店铺',
                     dataIndex: 'shopname',
                     width: 60,
                     sortable: true,
-                    align: 'center',
+                    align: 'center'
                 }, {
                     text: '单位',
                     dataIndex: 'unitname',
                     width: 60,
                     sortable: true,
-                    align: 'center',
+                    align: 'center'
                 }, {
                     text: '进价',
                     dataIndex: 'pprice',
@@ -140,7 +142,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopProduct', {
                             default:
                                 break;
                         }
-                        return '<a href="javascript:void(0)">'+str+'</a>'
+                        return '<a href="javascript:;">'+str+'</a>';
                     }
                 }, {
                     text: '编辑',
@@ -151,17 +153,17 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopProduct', {
                     align: 'center',
                     menuDisabled: true,
                     sortable: true,
-                    itemId: 'openModifyShelvesGoodsWin',
+                    itemId: 'openModifyShelvesGoodsWin'
                 }, {
                     text: '排序',
                     dataIndex: 'rank',
                     sortable: true,
-                    align: 'center',
+                    align: 'center'
                 }, {
                     text: '首页排序值',
                     dataIndex: 'rank2',
                     sortable: true,
-                    align: 'center',
+                    align: 'center'
                 }, {
                     text: '置顶',
                     dataIndex: 'top',
@@ -171,10 +173,10 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopProduct', {
                     renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
                         var me = this;
                         if (value) {
-                            return '<input type="button" value="取消置顶"/>'
+                            return '<input type="button" value="取消置顶"/>';
 
                         } else {
-                            return '<input type="button"  value="置顶"/>'
+                            return '<input type="button"  value="置顶"/>';
                         }
                     }
                 }],

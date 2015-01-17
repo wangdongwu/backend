@@ -141,7 +141,9 @@ Ext.define('XMLifeOperating.view.dealManage.DealDetail', {
                 store: 'DealItems',
                 forceFit: true,
                 columns: [{
-                    xtype: 'rownumberer'
+                    xtype: 'rownumberer',
+                    width: 50,
+                    align: 'center'
                 }, {
                     text: '商品名',
                     width: '25%',

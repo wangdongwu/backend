@@ -57,7 +57,9 @@ Ext.define('XMLifeOperating.view.staffManage.shopper.ShopperWorkTimeList', {
         }]
     }, ],
     columns: [{
-            xtype: 'rownumberer'
+            xtype: 'rownumberer',
+            width: 50,
+            align: 'center'
         }, {
             text: '日期',
             dataIndex: 'created',
@@ -65,9 +67,7 @@ Ext.define('XMLifeOperating.view.staffManage.shopper.ShopperWorkTimeList', {
             width: 100,
             format: 'Y-m-d',
             renderer: function(value) {
-                var newTime = new Date(value);
-                newTime = newTime.getFullYear() + '-' + (newTime.getMonth() + 1) + '-' + newTime.getDate();
-                return newTime;
+                return Ext.util.Format.date(new Date(value), "Y-m-d");
             }
         }, {
             text: '上班时间',
@@ -152,5 +152,4 @@ Ext.define('XMLifeOperating.view.staffManage.shopper.ShopperWorkTimeList', {
     columnLines: true,
     frame: true,
     iconCls: 'icon-grid'
-
 });

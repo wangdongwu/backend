@@ -80,10 +80,12 @@ Ext.define('XMLifeOperating.view.staffManage.deliverer.DelivererList', {
         itemId: 'pagetool',
         store: 'Deliverer',
         displayInfo: true,
-        style:'border:none'
+        style: 'border:none'
     }],
     columns: [{
-            xtype: 'rownumberer'
+            xtype: 'rownumberer',
+            width: 50,
+            align: 'center'
         }, {
             text: 'ID',
             dataIndex: 'uid',
@@ -222,7 +224,7 @@ Ext.define('XMLifeOperating.view.staffManage.deliverer.DelivererList', {
                 }
                 return str;
             }
-        },
+        }
     ],
     viewConfig: {
         plugins: {
@@ -244,7 +246,5 @@ Ext.define('XMLifeOperating.view.staffManage.deliverer.DelivererList', {
             combo.fireEvent('select', combo);
         }
     },
-    columnLines: true,
-
-
+    columnLines: true
 });

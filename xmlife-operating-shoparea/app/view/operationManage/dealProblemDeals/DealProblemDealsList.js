@@ -34,16 +34,16 @@ Ext.define('XMLifeOperating.view.operationManage.dealProblemDeals.DealProblemDea
             name: 'keyword',
             itemId: 'keyword',
             fieldLabel: '手机/订单号'
-
         }, {
             xtype: 'button',
             itemId: 'dealSearch',
             text: '搜索'
         }
-
     ],
     columns: [{
-            xtype: 'rownumberer'
+            xtype: 'rownumberer',
+            width: 50,
+            align: 'center'
         }, {
             text: '日期',
             dataIndex: 'created',
@@ -63,9 +63,7 @@ Ext.define('XMLifeOperating.view.operationManage.dealProblemDeals.DealProblemDea
             renderer: function(value) {
                 return '<a href="javascript:;">' + value + '</a>';
             }
-        },
-
-        {
+        }, {
             text: '小区/写字楼',
             dataIndex: 'districtName',
             width: 80,
@@ -256,7 +254,7 @@ Ext.define('XMLifeOperating.view.operationManage.dealProblemDeals.DealProblemDea
             dataIndex: 'delivererName',
             width: 50,
             sortable: true,
-            align: 'center',
+            align: 'center'
         }, {
             text: '下单时间',
             dataIndex: 'created',
@@ -364,8 +362,7 @@ Ext.define('XMLifeOperating.view.operationManage.dealProblemDeals.DealProblemDea
                 }
                 return Ext.String.format('<a href="javascript:void(0)">取消订单</a>', value, value);
             }
-        },
-
+        }
     ],
     viewConfig: {
         plugins: {
