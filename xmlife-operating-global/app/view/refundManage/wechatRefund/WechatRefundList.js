@@ -260,13 +260,13 @@ Ext.define('XMLifeOperating.view.refundManage.wechatRefund.WechatRefundList', {
     }, {
         text: '用户上报时间',
         dataIndex: 'createTime',
-        width: 100,
+        width: 90,
         sortable: false,
         align: 'left',
     }, {
         text: '我方处理时间',
         dataIndex: 'auditTime',
-        width: 100,
+        width: 90,
         sortable: false,
         align: 'left'
     }, {
@@ -340,7 +340,7 @@ Ext.define('XMLifeOperating.view.refundManage.wechatRefund.WechatRefundList', {
     }, {
         text: '三方反馈时间',
         dataIndex: 'onThirdFeedBack',
-        width: 150,
+        width: 90,
         sortable: false,
         align: 'left'
     }],
@@ -350,5 +350,4 @@ Ext.define('XMLifeOperating.view.refundManage.wechatRefund.WechatRefundList', {
             dragText: 'Drag and drop to reorder'
         }
     }
-
 });
