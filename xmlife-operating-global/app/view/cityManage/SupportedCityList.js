@@ -59,9 +59,9 @@ Ext.define('XMLifeOperating.view.cityManage.SupportedCityList', {
         sortable: false,
         renderer: function(value) {
             if (value == 1) {
-                return '<a href="javascript:;">暂时关闭</a>';
+                return '<a class="close-city-bnt" href="javascript:;">暂时关闭</a>';
             } else {
-                return '<a href="javascript:;">上线</a>';
+                return '<a class="open-city-bnt" href="javascript:;">上线</a>';
             }
         }
     }]
