@@ -329,6 +329,10 @@ Ext.define('XMLifeOperating.controller.Shop', {
                     var record = grid.getStore().getAt(colIndex);
                     var win = this.getShopManager();
                     win.down('form').loadRecord(record);
+
+                    win.down('[name=keywordManager]').setValue('');
+                    win.down('#searchManagerIds').store.removeAll();
+
                     win.show();
 
                     var store = this.getManagerStore();
@@ -357,8 +361,12 @@ Ext.define('XMLifeOperating.controller.Shop', {
                 // 弹出入住买手window
                 click: function(grid, rowIndex, colIndex) {
                     var record = grid.getStore().getAt(colIndex);
-                    var win = this.getShopBuyer();
+                    var win = this.getShopBuyer(); 
                     win.down('form').loadRecord(record);
+
+                    win.down('[name=keywordBuyer]').setValue('');
+                    win.down('#searchBuyerId').store.removeAll();
+
                     win.show();
                     var store = this.getSuperShopperStore();
                     var storeCount = store.getCount();
