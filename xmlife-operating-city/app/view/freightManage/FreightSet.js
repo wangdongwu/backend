@@ -4,7 +4,7 @@ Ext.define('XMLifeOperating.view.freightManage.FreightSet', {
     id: 'freightSet',
     closeAction: 'hide',
     model: true,
-    width: 420,
+    width: 440,
     height: 270,
     resizable: false,
     layout: 'fit',
@@ -29,8 +29,8 @@ Ext.define('XMLifeOperating.view.freightManage.FreightSet', {
                 xtype: 'numberfield',
                 minValue: 0,
                 allowDecimals: false,
-                width: 150,
-                labelWidth: 80,
+                width: 180,
+                labelWidth: 110,
                 labelAlign: 'right'
             }, config);
         }
@@ -72,7 +72,7 @@ Ext.define('XMLifeOperating.view.freightManage.FreightSet', {
                 items: [placeholderCfg, getFormCompConfig({
                     itemId: 'initShippingFee',
                     name: 'initShippingFee',
-                    fieldLabel: '起送费',
+                    fieldLabel: '基本配送费',
                     afterLabelTextTpl: requiredSymTpl,
                     value: 0,
                     allowBlank: false
@@ -100,7 +100,7 @@ Ext.define('XMLifeOperating.view.freightManage.FreightSet', {
                 }, getFormCompConfig({
                     itemId: 'minOrderForFreeShipping',
                     name: 'minOrderForFreeShipping',
-                    fieldLabel: '免起送费金额',
+                    fieldLabel: '满免金额',
                     disabled: true
                 }), getTailLabelConfig('元（仅免起送费）', true)]
             }, {        // 第五行，container > 复选框 ＋ 输入框 ＋ 尾标签
@@ -118,7 +118,7 @@ Ext.define('XMLifeOperating.view.freightManage.FreightSet', {
                 }, getFormCompConfig({
                     itemId: 'minDistance',
                     name: 'minDistance',
-                    fieldLabel: '起送费距离',
+                    fieldLabel: '配送距离',
                     minValue: 1,
                     disabled: true
                 }), getTailLabelConfig('公里', true)]
@@ -128,7 +128,7 @@ Ext.define('XMLifeOperating.view.freightManage.FreightSet', {
                 items: [placeholderCfg, getFormCompConfig({
                     itemId: 'shippingFeePerKM',
                     name: 'shippingFeePerKM',
-                    fieldLabel: '远程费用',
+                    fieldLabel: '超配送距离追加费',
                     allowDecimals: true,
                     disabled: true,
                     minValue: 0.01

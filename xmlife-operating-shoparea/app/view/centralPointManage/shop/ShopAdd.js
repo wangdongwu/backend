@@ -1,12 +1,6 @@
 Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopAdd', {
     extend: 'Ext.window.Window',
     xtype: 'shopadd',
-    requires: [
-        'Ext.form.Panel',
-        'Ext.form.field.Text',
-        'Ext.form.field.Hidden',
-        'Ext.selection.CheckboxModel'
-    ],
     closeAction: 'hide',
     modal: true,
     width: 450,
@@ -39,7 +33,9 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopAdd', {
             border: false,
             frame: true,
             defaults: {
-                anchor: '100%'
+                anchor: '100%',
+                labelAlign: 'right',
+                labelWidth: 110
             },
             itemId: 'shopeditform',
             items: [{
@@ -47,7 +43,6 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopAdd', {
                 name: 'name',
                 afterLabelTextTpl: required,
                 fieldLabel: '店铺主名称',
-                labelWidth: 90,
                 labelAlign: 'right',
                 allowBlank: false,
                 validator: function(value) {
@@ -73,7 +68,6 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopAdd', {
                 allowBlank: false,
                 afterLabelTextTpl: required,
                 blankText: '请选择模板',
-                labelWidth: 90,
                 labelAlign: 'right',
                 editable: false,
                 mode: 'local',
@@ -85,7 +79,6 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopAdd', {
                 xtype: 'textfield',
                 name: 'address',
                 fieldLabel: '地址',
-                labelWidth: 90,
                 labelAlign: 'right',
                 allowBlank: false,
                 afterLabelTextTpl: required,
@@ -95,7 +88,6 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopAdd', {
                 xtype: 'textfield',
                 name: 'lng',
                 fieldLabel: '经度',
-                labelWidth: 90,
                 allowBlank: false,
                 labelAlign: 'right',
                 afterLabelTextTpl: required,
@@ -104,7 +96,6 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopAdd', {
                 xtype: 'textfield',
                 name: 'lat',
                 fieldLabel: '纬度',
-                labelWidth: 90,
                 allowBlank: false,
                 labelAlign: 'right',
                 afterLabelTextTpl: required,
@@ -113,7 +104,6 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopAdd', {
                 xtype: 'timefield',
                 name: 'openTime',
                 fieldLabel: '开始时间',
-                labelWidth: 90,
                 format: 'H:i',
                 allowBlank: false,
                 labelAlign: 'right',
@@ -123,7 +113,6 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopAdd', {
                 xtype: 'timefield',
                 name: 'closeTime',
                 fieldLabel: '结束时间',
-                labelWidth: 90,
                 format: 'H:i',
                 allowBlank: false,
                 labelAlign: 'right',
@@ -134,7 +123,6 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopAdd', {
                 itemId: 'showway',
                 name: 'mergeType',
                 fieldLabel: '分类展示方式',
-                labelWidth: 90,
                 labelAlign: 'right',
                 afterLabelTextTpl: required,
                 store: showstore,
@@ -146,8 +134,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopAdd', {
             }, {
                 xtype: 'numberfield',
                 name: 'initShippingFee',
-                fieldLabel: '起送费',
-                labelWidth: 90,
+                fieldLabel: '基本配送费',
                 minValue: 0,
                 allowDecimals: false,
                 emptyText: '不填则以城市设置为准'
@@ -155,31 +142,27 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopAdd', {
                 xtype: 'numberfield',
                 name: 'minPrice',
                 fieldLabel: '起送金额',
-                labelWidth: 90,
                 minValue: 0,
                 allowDecimals: false,
                 emptyText: '不填则以城市设置为准'
             }, {
                 xtype: 'numberfield',
                 name: 'minOrderForFreeShipping',
-                fieldLabel: '免起送费金额',
-                labelWidth: 90,
+                fieldLabel: '满免金额',
                 minValue: 0,
                 allowDecimals: false,
                 emptyText: '不填则以城市设置为准'
             }, {
                 xtype: 'numberfield',
                 name: 'minDistance',
-                fieldLabel: '起送费距离',
-                labelWidth: 90,
+                fieldLabel: '配送距离',
                 minValue: 1,
                 allowDecimals: false,
                 emptyText: '不填则以城市设置为准'
             }, {
                 xtype: 'numberfield',
                 name: 'shippingFeePerKM',
-                fieldLabel: '远程费用',
-                labelWidth: 90,
+                fieldLabel: '超配送距离追加费',
                 minValue: 0.01,
                 emptyText: '元/公里；不填则以城市设置为准'
             }, {
@@ -274,11 +257,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopAdd', {
                     itemId: 'copyShopCheckbox',
                     name: 'copyShopCheckbox',
                     handler: function(cmp, value) {
-                        if (value) {
-                            cmp.nextSibling().setDisabled(false);
-                        } else {
-                            cmp.nextSibling().setDisabled(true);
-                        }
+                        cmp.nextSibling().setDisabled(!value);
                     }
                 }, {
                     xtype: 'textfield',
@@ -286,10 +265,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopAdd', {
                     fieldLabel: '复制店铺',
                     labelWidth: 90,
                     disabled: true,
-                    /*                        editable: false,*/
                     width: 390,
-                    /*                        displayField: 'name',
-                        valueField: 'id',*/
                     emptyText: '请输入店铺ID'
                 }]
             }],
@@ -303,11 +279,8 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopAdd', {
                     Ext.ComponentQuery.query('shopadd')[0].close();
                 }
             }]
-        }]
+        }];
 
         this.callParent(arguments);
-
     }
-
-
 });

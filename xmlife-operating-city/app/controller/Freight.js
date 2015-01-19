@@ -28,20 +28,20 @@ Ext.define('XMLifeOperating.controller.Freight', {
                 show: me.renderFreightList,
                 onShowView: me.renderFreightList
             },
-            '#setFreight': {
+            'freightList #setFreight': {
                 click: me.showSetFreight
             },
             'freightSet textfield': {
                 enable: Ext.pass(me.propagateCtrlDisabledToTailLabel, [false]),
                 disable: Ext.pass(me.propagateCtrlDisabledToTailLabel, [true])
             },
-            '#initShippingFee': {
+            'freightSet #initShippingFee': {
                 change: me.onInitShippingFeeChanged
             },
-            '#minPrice': {
+            'freightSet #minPrice': {
                 change: me.onMinPriceChanged
             },
-            '#submitId': {
+            'freightSet #submitId': {
                 click: me.submitData
             }
         });
@@ -108,12 +108,12 @@ Ext.define('XMLifeOperating.controller.Freight', {
                 }
             });
 
-            // 提交value＝0用以表示该域被disabled了
+            // 提交value＝-1用以表示该域被disabled了
             if (subData.minDistanceEnabled !== 'on') {
-                ajaxData.minDistance = 0;
+                ajaxData.minDistance = -1;
             }
             if (subData.minOrderForFreeShippingEnabled !== 'on') {
-                ajaxData.minOrderForFreeShipping = 0;
+                ajaxData.minOrderForFreeShipping = -1;
             }
 
             ajaxData.code = XMLifeOperating.generic.Global.currentCity;
