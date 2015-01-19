@@ -88,7 +88,7 @@ Ext.define('XMLifeOperating.controller.DataExport', {
         if (areaId == 'all') {
             areaId = "";
         };
-        var url = XMLifeOperating.generic.Global.URL.biz + 'dataExport/exportPurchase' +
+        var url = XMLifeOperating.generic.Global.URL.report + 'dataExport/exportPurchase' +
             '?sessionId=' + sessionId +
             '&city=' + city +
             '&areaId=' + areaId +
@@ -111,7 +111,7 @@ Ext.define('XMLifeOperating.controller.DataExport', {
             areaId = "";
         };
 
-        var url = XMLifeOperating.generic.Global.URL.biz + 'dataExport/exportReturn' +
+        var url = XMLifeOperating.generic.Global.URL.report + 'dataExport/exportReturn' +
             '?sessionId=' + sessionId +
             '&city=' + city +
             '&areaId=' + areaId +
@@ -135,7 +135,7 @@ Ext.define('XMLifeOperating.controller.DataExport', {
             shopArea = "";
         };
 
-        var url = XMLifeOperating.generic.Global.URL.biz + 'dataExport/exportAllDeal' +
+        var url = XMLifeOperating.generic.Global.URL.report + 'dataExport/exportAllDeal' +
             '?cityCode=' + cityCode +
             '&shopArea=' + shopArea +
             '&shopBannerId=' + shopBannerId +
@@ -159,7 +159,7 @@ Ext.define('XMLifeOperating.controller.DataExport', {
             areaId = "";
         };
 
-        var url = XMLifeOperating.generic.Global.URL.biz + 'dataExport/exportDamage' +
+        var url = XMLifeOperating.generic.Global.URL.report + 'dataExport/exportDamage' +
             '?sessionId=' + sessionId +
             '&city=' + city +
             '&areaId=' + areaId +
@@ -180,7 +180,7 @@ Ext.define('XMLifeOperating.controller.DataExport', {
 
         if (isChecked == true) {
             // 按日期导出
-            var url = XMLifeOperating.generic.Global.URL.biz + 'dataExport/customerDataExportByDate' +
+            var url = XMLifeOperating.generic.Global.URL.report + 'dataExport/customerDataExportByDate' +
                 '?cityCode=' + city +
                 '&beginTime=' + this.formatDate(beginTime, 0) +
                 '&endTime=' + this.formatDate(endTime, 1) +
@@ -188,7 +188,7 @@ Ext.define('XMLifeOperating.controller.DataExport', {
             window.open(url, '_blank');
         } else {
             // 按用户ID导出用户清单
-            var url = XMLifeOperating.generic.Global.URL.biz + 'dataExport/customerDataExportByUserId' +
+            var url = XMLifeOperating.generic.Global.URL.report + 'dataExport/customerDataExportByUserId' +
                 '?sessionId=' + sessionId;
 
             win.getForm().submit({
@@ -228,7 +228,7 @@ Ext.define('XMLifeOperating.controller.DataExport', {
         }
         if (rangeType == 2) {
             // 指定时间和批次
-            var url = XMLifeOperating.generic.Global.URL.biz + 'dataExport/charge' +
+            var url = XMLifeOperating.generic.Global.URL.report + 'dataExport/charge' +
                 '?bizType=' + bizType +
                 '&start=' + this.formatDate(start, 0) +
                 '&end=' + this.formatDate(end, 1) +
@@ -255,7 +255,7 @@ Ext.define('XMLifeOperating.controller.DataExport', {
             })
         } else {
             // 指定卡号
-            var url = XMLifeOperating.generic.Global.URL.biz + 'dataExport/charge' +
+            var url = XMLifeOperating.generic.Global.URL.report + 'dataExport/charge' +
                 '?sessionId=' + sessionId;
 
             win.getForm().submit({
