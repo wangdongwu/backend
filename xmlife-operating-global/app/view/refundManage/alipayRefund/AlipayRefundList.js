@@ -285,7 +285,7 @@ Ext.define('XMLifeOperating.view.refundManage.alipayRefund.AlipayRefundList', {
         align: 'left',
         renderer: function(value) {
             var str = value / 100;
-            return str >= 100 ? '<span style="color:red;">'+ str +'</span>' : str;
+            return str > 100 ? '<span style="color:red;">'+ str +'</span>' : str;
         }
     }, {
         text: '处理状态',
