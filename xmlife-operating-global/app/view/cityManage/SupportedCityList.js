@@ -57,22 +57,12 @@ Ext.define('XMLifeOperating.view.cityManage.SupportedCityList', {
         itemId: 'status',
         menuDisabled: true,
         sortable: false,
-
         renderer: function(value) {
-            /*<a class="edit-ship-price">设置运费</a> | */
             if (value == 1) {
-                return '<a class="close-city-bnt">暂时关闭</a>';
+                return '<a href="javascript:;">暂时关闭</a>';
             } else {
-                return '<a class="open-city-bnt">上线</a>';
+                return '<a href="javascript:;">上线</a>';
             }
         }
-    }, {
-        id: 'editCity',
-        xtype: 'actioncolumn',
-        width: 24,
-        icon: 'resources/images/edit.png',
-        tooltip: 'Edit',
-        menuDisabled: true,
-        sortable: false
     }]
 });
