@@ -32,25 +32,27 @@ Ext.define('XMLifeOperating.view.userManage.customer.CustomerList', {
                 valueField: 'id',
                 hidden: (XMLifeOperating.generic.Global.operating_type == 'center')
             },
-            '->', 
-            {
-                xtype : 'combo',
-                name : 'status',
-                itemId : 'statusUidOrMobile',
+            '->', {
+                xtype: 'combo',
+                name: 'status',
+                itemId: 'statusUidOrMobile',
                 queryMode: 'local',
-                triggerAction : 'all',
-                emptyText : 'uid',
+                triggerAction: 'all',
+                emptyText: 'uid',
                 editable: false,
                 displayField: 'type',
-                width : 120,
-                margin : '0 5 0 5',
+                width: 120,
+                margin: '0 5 0 5',
                 valueField: 'value',
-                store : Ext.create('Ext.data.Store', {
-                    fields: ['value','type'],
-                    data : [
-                        {"value": 'uid', "type": 'uid'},
-                        {"value": 'mobile', "type": '手机号码'},
-                    ],
+                store: Ext.create('Ext.data.Store', {
+                    fields: ['value', 'type'],
+                    data: [{
+                        "value": 'uid',
+                        "type": 'uid'
+                    }, {
+                        "value": 'mobile',
+                        "type": '手机号码'
+                    }, ],
                 })
             }, {
                 xtype: 'textfield',
@@ -71,110 +73,106 @@ Ext.define('XMLifeOperating.view.userManage.customer.CustomerList', {
         ]
     }],
     columns: [{
-            xtype: 'rownumberer',
-            width: 50,
-            align: 'center'
-        }, {
-            text: '用户昵称',
-            dataIndex: 'name',
-            width: 100
-        }, {
-            text: 'UID',
-            dataIndex: 'uid',
-            width: 100
-        }, {
-            text: '手机号',
-            dataIndex: 'phone',
-            width: 100
-        }, {
-            text: '日期',
-            dataIndex: 'created',
-            width: 80,
-            sortable: true,
-            renderer: function(value) {
-                var newTime = new Date(value);
-                newDate = newTime.getFullYear() + '.' + (newTime.getMonth() + 1) + '.' + newTime.getDate();
-                return newDate;
-            }
-        }, {
-            text: '最后登录日期',
-            dataIndex: 'lastLogin',
-            width: 80,
-            sortable: true,
-            renderer: function(value) {
-                var newTime = new Date(value);
-                newDate = newTime.getFullYear() + '.' + (newTime.getMonth() + 1) + '.' + newTime.getDate();
-                return newDate;
-            }
-        }, {
-            text: '余额',
-            dataIndex: 'balance',
-            width: 60,
-            align: 'center',
-            renderer: function(value) {
-                return value/100;
-            }
-        }, {
-            text: '收获地址',
-            itemId: 'addressCustomer',
-            width: 60,
-            align: 'center',
-            menuDisabled: true,
-            renderer: function(value, metadata, model, rowIndex, colIndex, store) {
-                return '<a href="javascript:;">查看</a>';
-            }
-        }, {
-            text: '历史订单',
-            itemId: 'orderHistory',
-            width: 60,
-            align: 'center',
-            menuDisabled: true,
-            renderer: function(value, metadata, model, rowIndex, colIndex, store) {
-                return '<a href="javascript:;">查看</a>';
-            }
-        }, {
-            text: '充值和消费',
-            width: 60,
-            align: 'center',
-            itemId: 'consumePayListId',
-            menuDisabled: true,
-            renderer: function(value, metadata, model, rowIndex, colIndex, store) {
-                return '<a href="javascript:;">查看</a>';
-            }
-        }, {
-            text: '优惠券',
-            width: 60,
-            align: 'center',
-            itemId: 'couponListId',
-            menuDisabled: true,
-            renderer: function(value, metadata, model, rowIndex, colIndex, store) {
-                return '<a href="javascript:;">查看</a>';
-            }
-        }, {
-            header: "操作",
-            dataIndex: 'enable',
-            itemId: 'operationc',
-            width: 40,
-            align: 'center',
-            menuDisabled: true,
-            sortable: false,
-            align: 'center',
-            renderer: function(value) {
-                var str = '';
-                if (value == true) {
-                    str += '<input type="button" value="封号" statusValue="open" /><br/>';
-                } else {
-                    str += '<input type="button" value="解封" statusValue="close"  /><br/>';
-                }
-                return str;
-            }
+        xtype: 'rownumberer',
+        width: 50,
+        align: 'center'
+    }, {
+        text: '用户昵称',
+        dataIndex: 'name',
+        width: 100
+    }, {
+        text: 'UID',
+        dataIndex: 'uid',
+        width: 100
+    }, {
+        text: '手机号',
+        dataIndex: 'phone',
+        width: 100
+    }, {
+        text: '日期',
+        dataIndex: 'created',
+        width: 80,
+        sortable: true,
+        renderer: function(value) {
+            var newTime = new Date(value);
+            newDate = newTime.getFullYear() + '.' + (newTime.getMonth() + 1) + '.' + newTime.getDate();
+            return newDate;
         }
-    ],
+    }, {
+        text: '最后登录日期',
+        dataIndex: 'lastLogin',
+        width: 80,
+        sortable: true,
+        renderer: function(value) {
+            var newTime = new Date(value);
+            newDate = newTime.getFullYear() + '.' + (newTime.getMonth() + 1) + '.' + newTime.getDate();
+            return newDate;
+        }
+    }, {
+        text: '余额',
+        dataIndex: 'balance',
+        width: 60,
+        align: 'center',
+        renderer: function(value) {
+            return value / 100;
+        }
+    }, {
+        text: '收获地址',
+        itemId: 'addressCustomer',
+        width: 60,
+        align: 'center',
+        menuDisabled: true,
+        renderer: function(value, metadata, model, rowIndex, colIndex, store) {
+            return '<a href="javascript:;">查看</a>';
+        }
+    }, {
+        text: '历史订单',
+        itemId: 'orderHistory',
+        width: 60,
+        align: 'center',
+        menuDisabled: true,
+        renderer: function(value, metadata, model, rowIndex, colIndex, store) {
+            return '<a href="javascript:;">查看</a>';
+        }
+    }, {
+        text: '充值和消费',
+        width: 60,
+        align: 'center',
+        itemId: 'consumePayListId',
+        menuDisabled: true,
+        renderer: function(value, metadata, model, rowIndex, colIndex, store) {
+            return '<a href="javascript:;">查看</a>';
+        }
+    }, {
+        text: '优惠券',
+        width: 60,
+        align: 'center',
+        itemId: 'couponListId',
+        menuDisabled: true,
+        renderer: function(value, metadata, model, rowIndex, colIndex, store) {
+            return '<a href="javascript:;">查看</a>';
+        }
+    }, {
+        header: "操作",
+        dataIndex: 'enable',
+        itemId: 'operationc',
+        width: 40,
+        align: 'center',
+        menuDisabled: true,
+        sortable: false,
+        align: 'center',
+        renderer: function(value) {
+            var str = '';
+            if (value == true) {
+                str += '<input type="button" value="封号" statusValue="open" /><br/>';
+            } else {
+                str += '<input type="button" value="解封" statusValue="close"  /><br/>';
+            }
+            return str;
+        }
+    }],
     viewConfig: {
-        plugins: {
-            ptype: 'gridviewdragdrop',
-            dragText: 'Drag and drop to reorder'
-        }
+        enableTextSelection: true
     },
     listeners: {
         onShowView: function(view, viewName) {
@@ -189,6 +187,5 @@ Ext.define('XMLifeOperating.view.userManage.customer.CustomerList', {
             combo.setValue(XMLifeOperating.generic.Global.current_operating);
             combo.fireEvent('select', combo);
         }
-    },
-
+    }
 });

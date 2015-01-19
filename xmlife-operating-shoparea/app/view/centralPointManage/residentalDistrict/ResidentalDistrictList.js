@@ -145,10 +145,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.residentalDistrict.Residenta
         itemId: 'editCommunity'
     }],
     viewConfig: {
-        plugins: {
-            ptype: 'gridviewdragdrop',
-            dragText: 'Drag and drop to reorder'
-        }
+        enableTextSelection: true
     },
     listeners: {
         onShowView: function(view, viewName) {
