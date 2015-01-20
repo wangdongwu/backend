@@ -16,7 +16,7 @@ Ext.define('XMLifeOperating.controller.Manager', {
         'Manager',
         'ManagerWorkTime'
     ],
-    
+
     refs: [{
         ref: 'managerList',
         selector: 'managerList',
@@ -74,13 +74,37 @@ Ext.define('XMLifeOperating.controller.Manager', {
                     uploadImage(form, hash);
                 }
             },
-            'managerWorkTimeList #managerReturn':{
+            'managerWorkTimeList #managerReturn': {
                 click: function() {
                     var tab = me.getManagerList();
                     var content = this.getContentPanel();
                     content.removeAll(false);
                     content.add(tab);
                 }
+            },
+            //查看中心下暂停或接单掌柜
+            'managerList #shopArea': {
+                render: function(combo) {},
+                select: function(combo) {
+                    var view = me.getManagerList();
+                    var store = me.getManagerStore();
+                    store.getProxy().extraParams = {
+                        city: XMLifeOperating.generic.Global.currentCity,
+                        area: combo.getValue()
+                    };
+                    store.on('load', function() {
+                        view.down('#activeBind').setText('查看未绑定的掌柜');
+                        view.down('#searchBuyerKeyWords').setValue('');
+                    });
+                    store.loadPage(1, {
+                        params: {
+                            start: 0,
+                            limit: 25,
+                            page: 1
+                        }
+                    });
+                    this.areaId = combo.getValue();
+                },
             },
             // 考勤管理按时间过滤
             'managerWorkTimeList radio[name="dayType"]': {
@@ -214,6 +238,7 @@ Ext.define('XMLifeOperating.controller.Manager', {
         } else if (activeBindText == '查看未绑定的掌柜') {
             isUnbind = true;
             activeBindText = '查看已绑定的掌柜';
+            Ext.getCmp('managerList').down('#shopArea').setValue('');
         }
         var lstore = this.getManagerStore();
         lstore.getProxy().extraParams = {
@@ -300,15 +325,15 @@ Ext.define('XMLifeOperating.controller.Manager', {
             form.updateRecord(manager);
 
             var pwd = editWindow.down('[name=pwd]').getValue();
-            pwd = pwd.replace(/(^\s+)|(\s+$)/g,"");
-            if(pwd!=''){
+            pwd = pwd.replace(/(^\s+)|(\s+$)/g, "");
+            if (pwd != '') {
                 manager.set('pwd', hex_md5(pwd));
             }
 
             if (manager.get('id') != null && manager.get('id') != '') {
                 var url = 'manager/updateManager';
                 sendPutRequest(url, {
-                    manager:manager.get('uid'),
+                    manager: manager.get('uid'),
                     name: manager.get('name'),
                     pwd: manager.get('pwd'),
                     phone: manager.get('phone'),

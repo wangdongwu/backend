@@ -61,6 +61,14 @@ Ext.define('XMLifeOperating.controller.Manager', {
             'editManager #save-manager-edit-btn': {
                 click: me.saveEditWindow
             },
+            'managerWorkTimeList #managerReturn': {
+                click: function() {
+                    var tab = me.getGManagerList();
+                    var content = me.getContentPanel();
+                    content.removeAll(false);
+                    content.add(tab);
+                }
+            },
             'gManagerList #shopArea': {
                 render: function(combo) {
                     var activeSearch = Ext.getCmp('gManagerList').down('#activeSearch').getText();
@@ -106,7 +114,7 @@ Ext.define('XMLifeOperating.controller.Manager', {
                     if (activeSearch == '查看停单掌柜') {
                         activeSearch = '查看接单掌柜';
                         isActive = false;
-                        isUnbind = '';
+                        isUnbind = false;
                     } else if (activeSearch == '查看接单掌柜') {
                         activeSearch = '查看停单掌柜';
                         isActive = true;
@@ -115,7 +123,8 @@ Ext.define('XMLifeOperating.controller.Manager', {
                     var store = me.getManagerStore();
                     store.getProxy().extraParams = {
                         area: me.getShopArea().getValue(),
-                        isActive: isActive
+                        isActive: isActive,
+                        unbind: isUnbind
                     };
                     store.loadPage(1);
                     store.on('load', function() {
@@ -129,28 +138,24 @@ Ext.define('XMLifeOperating.controller.Manager', {
             'gManagerList #activeBind': {
                 click: function(grid) {
                     var activeBindText = Ext.getCmp('gManagerList').down('#activeBind').getText();
-
+                    var me = this;
                     if (activeBindText == '查看已绑定的掌柜') {
-                        isUnbind = '';
+                        isUnbind = false;
                         activeBindText = '查看未绑定的掌柜';
                     } else if (activeBindText == '查看未绑定的掌柜') {
                         isUnbind = true;
                         activeBindText = '查看已绑定的掌柜';
+                        Ext.getCmp('gManagerList').down('#shopArea').setValue('');
                     }
-                    var lstore = this.getManagerStore();
+                    var lstore = me.getManagerStore();
                     lstore.getProxy().extraParams = {
                         unbind: isUnbind
                     };
+                    lstore.loadPage(1);
                     lstore.on('load', function() {
-                        me.getGManagerList().down('#searchBuyerKeyWords').setValue('');
-                        me.getGManagerList().down('#activeBind').setText(activeBindText);
-                    });
-                    lstore.loadPage(1, {
-                        params: {
-                            start: 0,
-                            limit: 25,
-                            page: 1
-                        }
+                        Ext.getCmp('gManagerList').down('#searchBuyerKeyWords').setValue('');
+                        Ext.getCmp('gManagerList').down('#activeSearch').setText('查看停单掌柜');
+                        Ext.getCmp('gManagerList').down('#activeBind').setText(activeBindText);
                     });
                 }
             },
@@ -272,7 +277,7 @@ Ext.define('XMLifeOperating.controller.Manager', {
                             var store = me.getManagerStore();
                             var activeBindText = Ext.getCmp('gManagerList').down('#activeBind').getText();
                             var params = '';
-                            var searchBuyerKeyWords = me.getManagerList().down('#searchBuyerKeyWords').getValue();
+                            var searchBuyerKeyWords = me.getGManagerList().down('#searchBuyerKeyWords').getValue();
                             if (activeBindText == '查看已绑定的掌柜' || searchBuyerKeyWords != '') {
                                 record.set('isActive', isActive);
                                 return;
@@ -282,21 +287,13 @@ Ext.define('XMLifeOperating.controller.Manager', {
                     });
                 }
             },
-            'managerWorkTimeList #managerReturn': {
-                click: function() {
-                    var tab = me.getManagerList();
-                    var content = this.getContentPanel();
-                    content.removeAll(false);
-                    content.add(tab);
-                }
-            },
         });
     },
     searchManager: function() {
         var me = this,
             view = me.getGManagerList(),
             keyWords = view.down('#searchBuyerKeyWords').getValue(),
-            store = me.getManagerStore(),           
+            store = me.getManagerStore(),
             area = me.areaId,
             activeBindText = Ext.getCmp('gManagerList').down('#activeBind').getText(),
             isUnbind = null;

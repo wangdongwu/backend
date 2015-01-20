@@ -140,26 +140,5 @@ Ext.define('XMLifeOperating.view.staffManage.manager.GManagerList', {
             }
             return str;
         }
-    }],
-    viewConfig: {
-        plugins: {
-            ptype: 'gridviewdragdrop',
-            dragText: 'Drag and drop to reorder'
-        }
-    },
-    listeners: {
-        onShowView: function(view, viewName) {
-            if (XMLifeOperating.generic.Global.operating_type != 'center') {
-                return;
-            }
-            if (XMLifeOperating.generic.Global.current_operating == -1) {
-                alert('请先在右上角选择中心');
-                return;
-            }
-            var combo = view.down('#shopArea');
-            combo.setValue(XMLifeOperating.generic.Global.current_operating);
-            combo.fireEvent('select', combo);
-        }
-    },
-    columnLines: true,
+    }]
 });
