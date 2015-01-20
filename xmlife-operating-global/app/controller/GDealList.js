@@ -6,12 +6,14 @@ Ext.define('XMLifeOperating.controller.GDealList', {
         'dealManage.GDealDetail',
         'dealManage.GDealCustomerDetail',
         'dealManage.ReturnProductForm',
+        'dealManage.GDealReturnAuditList',
+        'dealManage.GDealReturnCheckList',
         'dealManage.GDealReturnComfirm'
     ],
 
-    stores: ['Deal', 'ShopArea', 'DealStatus', 'Customer', 'DealItems'],
+    stores: ['Deal', 'ShopArea', 'DealStatus', 'Customer', 'DealItems', 'ReturnGoodsAuditList', 'ReturnGoodsApplyList'],
 
-    models: ['Deal', 'ShopArea', 'Customer', 'DealItems'],
+    models: ['Deal', 'ShopArea', 'Customer', 'DealItems', 'ReturnGoodsAuditList', 'ReturnGoodsApplyList'],
 
     refs: [{
         ref: 'gDealList',
@@ -31,6 +33,16 @@ Ext.define('XMLifeOperating.controller.GDealList', {
         ref: 'ReturnProductForm',
         selector: 'ReturnProductForm',
         xtype: 'ReturnProductForm',
+        autoCreate: true
+    }, {
+        ref: 'gDealReturnCheckList',
+        selector: 'gDealReturnCheckList',
+        xtype: 'gDealReturnCheckList',
+        autoCreate: true
+    }, {
+        ref: 'gDealReturnAuditList',
+        selector: 'gDealReturnAuditList',
+        xtype: 'gDealReturnAuditList',
         autoCreate: true
     }, {
         ref: 'gDealReturnComfirm',
@@ -310,8 +322,173 @@ Ext.define('XMLifeOperating.controller.GDealList', {
                             button.up("window").close();
                         });
                 }
+            },
+            'gDealReturnCheckList': {
+                show: me.returnListShow
+            },
+            'gDealReturnAuditList': {
+                show: me.returnListShow
+            },
+            'gDealReturnCheckList #rstatus': {
+                change: me.returnStatusComboChange
+            },
+            'gDealReturnAuditList #rstatus': {
+                change: me.returnStatusComboChange
+            },
+            'gDealReturnCheckList #getReturnSearch': {
+                click: me.getReturnSearch
+            },
+            'gDealReturnAuditList #getReturnSearch': {
+                click: me.getReturnSearch
+            },
+            'gDealReturnCheckList #status': {
+                click: me.returnStatusAction
+            },
+            'gDealReturnAuditList #status': {
+                click: me.returnStatusAction
             }
         });
+    },
+    //单个退货申请操作方法
+    returnStatusAction: function(grid, cell, rowIndex, colIndex, e, record, row) {
+        var me = this;
+        var target = e.target;
+        var store = null;
+
+        if (e.target.tagName == 'BUTTON') { //是按钮
+            var type = target.getAttribute('name');
+            var data = {};
+            var str = '';
+            switch (type) {
+                case 'cancel':
+                    str = 'cancel';
+                    data.id = record.get('id');
+                    store = me.getReturnGoodsApplyListStore();
+                    break;
+                case 'pass':
+                    str = 'audit';
+                    data.ids = record.get('id');
+                    data.pass = true;
+                    store = me.getReturnGoodsAuditListStore();
+                    break;
+                case 'refuse':
+                    str = 'audit';
+                    data.ids = record.get('id');
+                    data.pass = false;
+                    store = me.getReturnGoodsAuditListStore();
+                    break;
+            }
+            var success = function(response) {
+                var code = response.responseText;
+                var str;
+                switch (parseInt(code)) {
+                    case 1:
+                        str = '操作成功';
+                        break;
+                    case 0:
+                        str = '操作失败' + code;
+                        break;
+                    case -1:
+                        str = '已通过审核，不能进行操作' + code;
+                        break;
+                }
+                //成功后，加载上次参数状态的Store
+                store.loadPage(1);
+                Ext.Msg.alert('提示', str);
+            };
+            var failure = function(response) {
+                var code = response.responseText;
+                var str;
+                switch (parseInt(code)) {
+                    case 1:
+                        str = '申请订单退货成功！';
+                        break;
+                    case 0:
+                        str = '订单退货校验失败:' + code;
+                        break;
+                    case -1:
+                        str = '退货数量不能大于现有数量:' + code;
+                        break;
+                    case -2:
+                        str = '不符合条件的订单:' + code;
+                        break;
+                    case -3:
+                        str = '订单已存在申请中的退货:' + code;
+                        break;
+                }
+                Ext.MessageBox.show({
+                    title: '提示',
+                    msg: '退货请求失败:' + str,
+                    icon: Ext.Msg.ERROR,
+                    buttons: Ext.Msg.OK
+                });
+            };
+            sendPutRequest('returnGoods/' + str, data, '退货审核操作', '退货审核操作成功', '退货审核操失败 ', success, failure);
+        }
+    },
+    returnListShow: function(grid) {
+        var stcombo = grid.down('#rstatus');
+
+        if (!stcombo.getValue()) {
+            stcombo.select(3); //3：全部
+        }
+    },
+    returnStatusComboChange: function(combo, newValue, oldValue, e) {
+
+        var me = this;
+        var startdate, enddate, name, panel, store;
+        name = combo.getName();
+        if (name == 'check') {
+            panel = me.getGDealReturnCheckList();
+            store = me.getReturnGoodsApplyListStore();
+
+        } else if (name == 'audit') {
+            panel = me.getGDealReturnAuditList();
+            store = me.getReturnGoodsAuditListStore();
+        }
+        startdate = panel.down('#startTime');
+        enddate = panel.down('#endTime');
+
+        store.getProxy().extraParams = {
+            status: newValue,
+            startTime: startdate.getRawValue(),
+            endTime: enddate.getRawValue(),
+            cityId: XMLifeOperating.generic.Global.currentCity
+        };
+        store.loadPage(1);
+
+    },
+    getReturnSearch: function(button, e) {
+        var me = this;
+        var startdate, enddate, name, panel, store, dealId, combo;
+        name = button['name'];
+        if (name == 'check') {
+            panel = me.getGDealReturnCheckList();
+            store = me.getReturnGoodsApplyListStore();
+        } else if (name == 'audit') {
+            panel = me.getGDealReturnAuditList();
+            store = me.getReturnGoodsAuditListStore();
+        }
+        startdate = panel.down('#startTime');
+        enddate = panel.down('#endTime');
+        dealId = panel.down('#keyword');
+        combo = panel.down('#rstatus');
+
+
+        if (dealId.getValue() !== '') {
+
+            store.getProxy().extraParams = {
+                status: combo.getValue(),
+                startTime: startdate.getRawValue(),
+                endTime: enddate.getRawValue(),
+                cityId: XMLifeOperating.generic.Global.currentCity,
+                dealId: dealId.getValue()
+            };
+            store.loadPage(1);
+
+        } else {
+            Ext.Msg.alert('提示', '搜索时请输入长单号！');
+        }
     },
     rendenGDealList: function(grid, type) {
         var beginTime = grid.down('[name=beginTime]').rawValue;
