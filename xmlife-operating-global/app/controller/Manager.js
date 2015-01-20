@@ -72,12 +72,8 @@ Ext.define('XMLifeOperating.controller.Manager', {
             'gManagerList #shopArea': {
                 render: function(combo) {
                     var view = me.getGManagerList(),
-                        activeSearch = view.down('#activeSearch').getText(),
-                        areaId = combo.getValue();
-                    if(areaId === null){
-                        areaId = 2;
-                        combo.setValue('华商区域');
-                    }
+                        activeSearch = view.down('#activeSearch').getText();
+                        
                     if (activeSearch == '查看停单掌柜') {
                         isActive = true;
                     } else if (activeSearch == '查看接单掌柜') {
@@ -86,7 +82,7 @@ Ext.define('XMLifeOperating.controller.Manager', {
                     var store = me.getManagerStore();
                     store.getProxy().extraParams = {
                         city: XMLifeOperating.generic.Global.currentCity,
-                        area: areaId,
+                        area: combo.getValue(),
                         isActive: isActive
                     };
                     store.loadPage(1);
@@ -96,12 +92,7 @@ Ext.define('XMLifeOperating.controller.Manager', {
                 },
                 select: function(combo) {
                     var view = me.getGManagerList(),
-                        activeSearch = view.down('#activeSearch').getText(),
-                        areaId = combo.getValue();
-                    if(areaId === null){
-                        areaId = 2;
-                        combo.setValue('华商区域');
-                    }
+                        activeSearch = view.down('#activeSearch').getText();
 
                     if (activeSearch == '查看停单掌柜') {
                         isActive = true;
@@ -111,7 +102,7 @@ Ext.define('XMLifeOperating.controller.Manager', {
                     var store = this.getManagerStore();
                     store.getProxy().extraParams = {
                         city: XMLifeOperating.generic.Global.currentCity,
-                        area: areaId,
+                        area: combo.getValue(),
                         isActive: isActive
                     };
                     store.loadPage(1);

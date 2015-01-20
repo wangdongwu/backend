@@ -1,19 +1,22 @@
 Ext.define('XMLifeOperating.controller.GShopper', {
     extend: 'Ext.app.Controller',
 
-    views: ['staffManage.shopper.GShopperList',
+    views: [
+        'staffManage.shopper.GShopperList',
         'staffManage.shopper.GShopperEdit',
         'staffManage.shopper.GDealShopperHistoryList',
         'staffManage.shopper.GShopperWorkTimeList',
         'staffManage.shopper.GDealItemsListShopper'
     ],
 
-    stores: ['SuperShopper',
+    stores: [
+        'SuperShopper',
         'DealShopperHistory',
         'SuperShopperWorkTime',
         'DealItems'
     ],
-    models: ['SuperShopper',
+    models: [
+        'SuperShopper',
         'DealShopperHistory',
         'SuperShopperWorkTime',
         'DealItems'
@@ -81,13 +84,8 @@ Ext.define('XMLifeOperating.controller.GShopper', {
                 render: function(combo) {
                     var view = me.getGShopperList(),
                         activeSearch = view.down('#activeSearch').getText(),
-                        store = me.getSuperShopperStore(),
-                        areaId = combo.getValue();
-                    if(areaId === null){
-                        areaId = 2;
-                        combo.setValue('华商区域');
-                    }
-                    
+                        store = me.getSuperShopperStore();                      
+
                     if (activeSearch == '查看停单买手') {
                         isActive = true;
                     } else if (activeSearch == '查看接单买手') {
@@ -96,7 +94,7 @@ Ext.define('XMLifeOperating.controller.GShopper', {
 
                     store.getProxy().extraParams = {
                         city: XMLifeOperating.generic.Global.currentCity,
-                        area: areaId,
+                        area: combo.getValue(),
                         isActive: isActive
                     };
                     store.loadPage(1);
@@ -108,15 +106,9 @@ Ext.define('XMLifeOperating.controller.GShopper', {
                 select: function(combo) {
                     var view = me.getGShopperList(),
                         activeSearch = view.down('#activeSearch').getText(),
-                        store = me.getSuperShopperStore(),
-                        areaId = combo.getValue();
+                        store = me.getSuperShopperStore();
 
                     view.down('#searchBuyerKeyWords').setValue('');
-
-                    if(areaId === null){
-                        areaId = 2;
-                        combo.setValue('华商区域');
-                    }
                     if (activeSearch == '查看停单买手') {
                         isActive = true;
                     } else if (activeSearch == '查看接单买手') {
@@ -287,7 +279,7 @@ Ext.define('XMLifeOperating.controller.GShopper', {
             //考勤管理
             'gShopperList #shopperWorkTimeId': {
                 click: function(view, column, rowIndex, colIndex, e) {
-                    
+
                     var shopper = view.getRecord(view.findTargetByEvent(e)),
                         shopperId = shopper.get('uid'),
                         shopperWorkTimeStore = this.getSuperShopperWorkTimeStore();
@@ -423,7 +415,7 @@ Ext.define('XMLifeOperating.controller.GShopper', {
                             var store = me.getSuperShopperStore(),
                                 activeBindText = view.down('#activeBind').getText(),
                                 searchBuyerKeyWords = view.down('#searchBuyerKeyWords').getValue();
-                            
+
                             if (activeBindText == '查看已绑定的买手' || searchBuyerKeyWords != '') {
                                 record.set('isActive', isActive);
                                 return;
@@ -529,7 +521,7 @@ Ext.define('XMLifeOperating.controller.GShopper', {
 
             if (shopper.get('id') != null && shopper.get('id') != '' && shopper.get('id') != undefined) {
                 windowEl.unmask();
-                url = 'superShopper/updateSuperShopper' ;
+                url = 'superShopper/updateSuperShopper';
                 sendPutRequest(url, {
                     superShopperId: shopper.get('uid'),
                     name: shopper.get('name'),
