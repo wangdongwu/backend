@@ -566,21 +566,13 @@ Ext.define('XMLifeOperating.controller.GDealList', {
             callback: function(records) {
                 var model = win.down('#dealDetails').getSelectionModel();
                 model.deselectAll();
-                for (var i = 0; i < records.length; i++) {
-                    var index = store.indexOfId(records[i].get('id'));
-                    model.select(index, true);
+                if (status != 4) {
+                    win.down('#refundAll').hide();
+                    win.down('#dealDetails').getSelectionModel().setLocked(true);
+                } else {
+                    win.down('#refundAll').show();
+                    win.down('#dealDetails').getSelectionModel().setLocked(false);
                 }
-
-                // if (status != 4) {
-                //    win.down('#sellRefund').hide();
-                //   win.down('#refundAll').hide();
-                //win.down('#dealDetails').getSelectionModel().setLocked(true);
-                //  } else {
-
-                win.down('#dealDetails').getSelectionModel().deselectAll();
-                //win.down('#sellRefund').show();
-                win.down('#refundAll').show();
-                // }
             }
         });
 
