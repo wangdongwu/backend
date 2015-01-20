@@ -72,21 +72,15 @@ Ext.define('XMLifeOperating.view.authorityManage.GlobalAccountManage', {
         {
             text: '创建者',
             dataIndex: 'creater'
+
+        }, {
+            text: '所有者',
+            dataIndex: 'owner'
         }, {
             text: '修改',
             align: 'center',
             itemId: 'edit',
             renderer: function() {
-                /*var id = Ext.id();
-                 Ext.defer(function() {
-                    Ext.widget('button', {
-                       renderTo: id,
-                       text: '修改',
-                       scale: 'small'
-                       
-                    });
-                 }, 50);
-                 return Ext.String.format('<div id="{0}"></div>', id);*/
                 return '<a href="javascript:;">修改</a>';
             }
         }, {
