@@ -143,7 +143,15 @@ Ext.define('XMLifeOperating.view.dealManage.GDealDetail', {
                 selModel: Ext.create('Ext.selection.CheckboxModel', {
                     mode: 'MULTI',
                     allowDeselect: true,
-                    enableKeyNav: false
+                    enableKeyNav: false,
+                    listeners: {
+                        beforeselect:function(cm, record, index, eOpts) {
+                            if(record.get('num') == 0){
+                                 Ext.Msg.alert('提示', '该商品可退货数量为0，无法选择!');
+                                 return false;
+                            }
+                        }
+                    }
                 }),
                 columns: [{
                     xtype: 'rownumberer'

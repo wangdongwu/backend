@@ -61,7 +61,7 @@ Ext.define('XMLifeOperating.view.dealManage.GDealReturnAuditList', {
             })(),
             format: 'Y-m-d',
             width: 100
-        }, {
+        }, /*{
             xtype: 'combobox',
             name: 'shopAread',
             itemId: 'shopAread',
@@ -75,7 +75,7 @@ Ext.define('XMLifeOperating.view.dealManage.GDealReturnAuditList', {
             displayField: 'name',
             valueField: 'id',
             hidden: (XMLifeOperating.generic.Global.operating_type == 'center')
-        }, {
+        }, */{
             xtype: 'combobox',
             name: 'audit',
             itemId: 'rstatus',

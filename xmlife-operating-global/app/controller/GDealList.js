@@ -187,14 +187,13 @@ Ext.define('XMLifeOperating.controller.GDealList', {
                         //请求的参数在extraparams中已定义
                         store.load({
                             callback: function(records) {
-                                var model = win.down('#dealDetails').getSelectionModel();
-                                model.deselectAll();
-                                for (var i = 0; i < records.length; i++) {
+                                var detail = me.getGDealDetail().down('#dealDetails');
+                                var model = detail.getSelectionModel();
+                                for (var i = 0, len = records.length; i < len; i++) {
                                     var index = store.indexOfId(records[i].get('id'));
                                     model.select(index, true);
                                 }
-                                win.down('#dealDetails').getSelectionModel().deselectAll();
-                                win.down('#refundAll').show();
+                                detail.getSelectionModel().deselectAll();
                             }
                         });
                     };
@@ -224,7 +223,6 @@ Ext.define('XMLifeOperating.controller.GDealList', {
                         win.close();
                         refresh(me);
                     };
-
                     var failure = function(request) {
                         var code = request.responseText;
                         var str;
@@ -254,7 +252,6 @@ Ext.define('XMLifeOperating.controller.GDealList', {
                             buttons: Ext.Msg.OK
                         });
                     };
-
                     sendRequest('returnGoods/apply', {
                         dealId: dealId,
                         productIds: productIds,
@@ -429,8 +426,11 @@ Ext.define('XMLifeOperating.controller.GDealList', {
     returnListShow: function(grid) {
         var stcombo = grid.down('#rstatus');
 
+
         if (!stcombo.getValue()) {
             stcombo.select(3); //3：全部
+        } else {
+            grid.getStore().loadPage(1)
         }
     },
     returnStatusComboChange: function(combo, newValue, oldValue, e) {
@@ -446,6 +446,7 @@ Ext.define('XMLifeOperating.controller.GDealList', {
             panel = me.getGDealReturnAuditList();
             store = me.getReturnGoodsAuditListStore();
         }
+
         startdate = panel.down('#startTime');
         enddate = panel.down('#endTime');
 

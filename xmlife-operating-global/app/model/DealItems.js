@@ -1,6 +1,6 @@
 Ext.define('XMLifeOperating.model.DealItems', {
     extend: 'Ext.data.Model',
-    fields: [
+    fields: ['productId',
         'name', 'price', 'promotionId', 'orderNum', 'cancelNum',
         {name: 'cancelType', convert: function(v,r) {
                 var str = '';
@@ -14,6 +14,6 @@ Ext.define('XMLifeOperating.model.DealItems', {
                 return str;
     		}
     	},
-        'returnNum', 'returnNote', 'num', 'actualItemPrice', 'couponPrice'
+        'returnNum', 'returnNote', 'num', 'actualItemPrice', 'couponPrice','dealBackendId'
     ]
 });
