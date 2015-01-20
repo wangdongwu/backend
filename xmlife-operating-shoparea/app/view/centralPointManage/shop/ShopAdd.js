@@ -274,9 +274,9 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopAdd', {
                 itemId: 'save-shopStore-edit-btn'
             }, {
                 text: 'Cancel',
-                handler: function() {
+                handler: function(cmp) {
                     //关闭窗口
-                    Ext.ComponentQuery.query('shopadd')[0].close();
+                    cmp.up('window').close();
                 }
             }]
         }];

@@ -22,14 +22,14 @@ Ext.define('XMLifeOperating.view.freightManage.FreightList', {
     width: 60,
     dataIndex: 'minOrderForFreeShipping',
     renderer: function(value) {
-      return (value > 0) ? value : '';
+      return value > 0 ? value : '';
     }
   }, {
     header: '配送距离',
     width: 60,
     dataIndex: 'minDistance',
     renderer: function(value) {
-      return (value > 0) ? value : '';
+      return value > 0 ? value : '';
     }
   }, {
     header: '超配送距离追加费',
@@ -45,7 +45,7 @@ Ext.define('XMLifeOperating.view.freightManage.FreightList', {
     menuDisabled: true,
     align: 'center',
     renderer: function(value, metadata, model, rowIndex, colIndex, store) {
-      return '<a class="showAddressDetail">编辑</a>';
+      return '<a class="showAddressDetail" href="javascript:;">编辑</a>';
     }
   }]
 });
