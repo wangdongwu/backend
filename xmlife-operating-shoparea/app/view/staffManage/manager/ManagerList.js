@@ -1,6 +1,6 @@
 Ext.define('XMLifeOperating.view.staffManage.manager.ManagerList', {
     extend: 'Ext.grid.Panel',
-    closable: false,
+    closable: true,
     xtype: 'managerList',
     title: '掌柜管理',
     store: 'Manager',
