@@ -19,7 +19,7 @@ Ext.define('XMLifeOperating.view.staffManage.shopper.GShopperList', {
             text: '添加买手',
             itemId: 'add',
             hidden: (XMLifeOperating.generic.Global.operating_type == 'center')
-        }, {
+        }, '-', {
             xtype: 'combobox',
             name: 'area',
             itemId: 'shopArea',
@@ -40,7 +40,7 @@ Ext.define('XMLifeOperating.view.staffManage.shopper.GShopperList', {
                     this.setText('查看停单买手');
                 }
             }
-        }, {
+        }, '-', {
             xtype: 'button',
             itemId: 'activeBind',
             text: '查看未绑定的买手',
@@ -52,7 +52,7 @@ Ext.define('XMLifeOperating.view.staffManage.shopper.GShopperList', {
                 }
             }
         },
-        '->',{
+        '->', {
             xtype: 'textfield',
             name: 'searchbuyer',
             itemId: 'searchBuyerKeyWords',
@@ -110,7 +110,7 @@ Ext.define('XMLifeOperating.view.staffManage.shopper.GShopperList', {
         }
     }, {
         text: '订单数',
-        dataIndex: 'deals',
+        dataIndex: 'totalDeals',
         width: 55,
         sortable: false,
         align: 'center'

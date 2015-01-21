@@ -27,7 +27,7 @@ Ext.define('XMLifeOperating.view.staffManage.manager.ManagerList', {
             name: 'searchbutton',
             itemId: 'searchButton',
             text: '搜索'
-        }, {
+        }, '-', {
             xtype: 'button',
             itemId: 'activeBind',
             text: '查看未绑定的掌柜',
@@ -100,7 +100,7 @@ Ext.define('XMLifeOperating.view.staffManage.manager.ManagerList', {
         renderer: function(value, metadata, model, rowIndex, colIndex, store) {
             return '<a href="javascript:;">查看</a>';
         }
-    },{
+    }, {
         header: "编辑",
         xtype: 'actioncolumn',
         width: 60,

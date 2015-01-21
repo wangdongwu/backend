@@ -32,7 +32,7 @@ Ext.define('XMLifeOperating.view.staffManage.shopper.ShopperList', {
             name: 'searchbutton',
             itemId: 'searchButton',
             text: '搜索'
-        }, {
+        }, '-', {
             xtype: 'button',
             itemId: 'activeSearch',
             text: '查看停单买手',
@@ -43,7 +43,7 @@ Ext.define('XMLifeOperating.view.staffManage.shopper.ShopperList', {
                     this.setText('查看停单买手');
                 }
             }
-        }, {
+        }, '-', {
             xtype: 'button',
             itemId: 'activeBind',
             text: '查看未绑定的买手',
@@ -64,93 +64,92 @@ Ext.define('XMLifeOperating.view.staffManage.shopper.ShopperList', {
         style: 'border:none'
     }],
     columns: [{
-            xtype: 'rownumberer',
-            width: 50,
-            align: 'center'
-        }, {
-            text: 'uid',
-            dataIndex: 'uid',
-            width: 60,
-            sortable: true,
-            align: 'center'
-        }, {
-            text: '姓名',
-            dataIndex: 'name',
-            width: 80,
-            sortable: true,
-            align: 'center'
-        }, {
-            text: '职称',
-            dataIndex: 'title',
-            width: 80,
-            sortable: true,
-            align: 'center'
-        }, {
-            text: '电话',
-            dataIndex: 'phone',
-            width: 90,
-            sortable: true,
-            align: 'center'
-        }, {
-            text: '绑定店铺',
-            dataIndex: 'shopNames',
-            width: 100,
-            sortable: true,
-            align: 'center',
-            renderer: function(value) {
-                var htmlStr = '';
-                if (value != null) {
+        xtype: 'rownumberer',
+        width: 50,
+        align: 'center'
+    }, {
+        text: 'uid',
+        dataIndex: 'uid',
+        width: 60,
+        sortable: true,
+        align: 'center'
+    }, {
+        text: '姓名',
+        dataIndex: 'name',
+        width: 80,
+        sortable: true,
+        align: 'center'
+    }, {
+        text: '职称',
+        dataIndex: 'title',
+        width: 80,
+        sortable: true,
+        align: 'center'
+    }, {
+        text: '电话',
+        dataIndex: 'phone',
+        width: 90,
+        sortable: true,
+        align: 'center'
+    }, {
+        text: '绑定店铺',
+        dataIndex: 'shopNames',
+        width: 100,
+        sortable: true,
+        align: 'center',
+        renderer: function(value) {
+            var htmlStr = '';
+            if (value != null) {
 
-                    value.forEach(function(item, index, value) {
-                        htmlStr += item + "<br />";
-                    });
-                }
-                return htmlStr;
+                value.forEach(function(item, index, value) {
+                    htmlStr += item + "<br />";
+                });
             }
-        }, {
-            text: '订单数',
-            dataIndex: 'deals',
-            width: 50,
-            sortable: true,
-            align: 'center'
-        }, {
-            xtype: 'actioncolumn',
-            width: 24,
-            icon: 'resources/images/edit.png',
-            tooltip: 'Edit',
-            menuDisabled: true,
-            sortable: true,
-            itemId: 'editShopperId',
-            hidden: (XMLifeOperating.generic.Global.operating_type == 'center')
-        }, {
-            header: "考勤管理",
-            width: 90,
-            itemId: 'shopperWorkTimeId',
-            menuDisabled: true,
-            sortable: true,
-            align: 'center',
-            renderer: function(value, metadata, model, rowIndex, colIndex, store) {
-                return '<a href="javascript:;">查看</a>';
-            }
-        }, {
-            header: "操作",
-            width: 90,
-            dataIndex: 'isActive',
-            itemId: 'closeOrOpenOrder',
-            menuDisabled: true,
-            sortable: true,
-            align: 'center',
-            renderer: function(value) {
-                var str = '';
-                if (value == true) {
-                    str += '<input type="button" value="关闭" statusValue="open" /><br/>';
-                } else {
-                    str += '<input type="button" value="开启" statusValue="close"  /><br/>';
-                }
-                return str;
-            }
+            return htmlStr;
         }
-    ],
+    }, {
+        text: '订单数',
+        dataIndex: 'totalDeals',
+        width: 50,
+        sortable: true,
+        align: 'center'
+    }, {
+        xtype: 'actioncolumn',
+        width: 24,
+        icon: 'resources/images/edit.png',
+        tooltip: 'Edit',
+        menuDisabled: true,
+        sortable: true,
+        itemId: 'editShopperId',
+        hidden: (XMLifeOperating.generic.Global.operating_type == 'center')
+    }, {
+        header: "考勤管理",
+        width: 90,
+        itemId: 'shopperWorkTimeId',
+        menuDisabled: true,
+        sortable: true,
+        align: 'center',
+        renderer: function(value, metadata, model, rowIndex, colIndex, store) {
+            return '<a href="javascript:;">查看</a>';
+        }
+    }, {
+        header: "操作",
+        width: 90,
+        dataIndex: 'isActive',
+        itemId: 'closeOrOpenOrder',
+        menuDisabled: true,
+        sortable: true,
+        align: 'center',
+        renderer: function(value) {
+            var str = '';
+            if (value == true) {
+                str += '<input type="button" value="关闭" statusValue="open" /><br/>';
+            } else {
+                str += '<input type="button" value="开启" statusValue="close"  /><br/>';
+            }
+            return str;
+        }
+    }],
     viewConfig: {
         plugins: {
             ptype: 'gridviewdragdrop',

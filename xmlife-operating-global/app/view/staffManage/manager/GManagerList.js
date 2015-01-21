@@ -9,7 +9,7 @@ Ext.define('XMLifeOperating.view.staffManage.manager.GManagerList', {
             xtype: 'button',
             text: '添加掌柜',
             itemId: 'add'
-        }, {
+        }, '-', {
             xtype: 'combobox',
             name: 'area',
             itemId: 'shopArea',
@@ -29,7 +29,7 @@ Ext.define('XMLifeOperating.view.staffManage.manager.GManagerList', {
                     this.setText('查看停单掌柜');
                 }
             }
-        }, {
+        }, '-', {
             xtype: 'button',
             itemId: 'activeBind',
             text: '查看未绑定的掌柜',
