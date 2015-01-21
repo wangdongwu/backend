@@ -1,5 +1,13 @@
 Ext.define('XMLifeOperating.controller.DealWaitAssignShopperList', {
     extend: 'Ext.app.Controller',
+    statics: {
+        // 指定store读取一页时的参数
+        PARAM_1PAGE: {
+            start: 0,
+            limit: 25,
+            page: 1
+        }
+    },
 
     views: ['operationManage.dealWaitAssignShopper.DealWaitAssignShopperList',
         'operationManage.dealWaitAssignShopper.DWSDealDetail'
@@ -30,11 +38,7 @@ Ext.define('XMLifeOperating.controller.DealWaitAssignShopperList', {
                         shopArea: combo.getValue()
                     };
                     sstore.loadPage(1, {
-                        params: {
-                            start: 0,
-                            limit: 25,
-                            page: 1
-                        }
+                        params: me.self.PARAM_1PAGE
                     });
                     this.areaId = combo.getValue();
                 }
@@ -70,11 +74,7 @@ Ext.define('XMLifeOperating.controller.DealWaitAssignShopperList', {
             shopArea: this.areaId
         };
         sstore.loadPage(1, {
-            params: {
-                start: 0,
-                limit: 25,
-                page: 1
-            }
+            params: this.self.PARAM_1PAGE
         });
 
         var countDownFn = function(sec) {
@@ -105,11 +105,7 @@ Ext.define('XMLifeOperating.controller.DealWaitAssignShopperList', {
                     shopArea: shopAreaId
                 };
                 store.loadPage(1, {
-                    params: {
-                        start: 0,
-                        limit: 25,
-                        page: 1
-                    }
+                    params: me.self.PARAM_1PAGE
                 });
             } else {
                 return;
@@ -169,11 +165,7 @@ Ext.define('XMLifeOperating.controller.DealWaitAssignShopperList', {
                 shopArea: areaId
             };
             sstore.loadPage(1, {
-                params: {
-                    start: 0,
-                    limit: 25,
-                    page: 1
-                }
+                params: me.self.PARAM_1PAGE
             });
         };
         var failure = function(response) {
@@ -184,6 +176,8 @@ Ext.define('XMLifeOperating.controller.DealWaitAssignShopperList', {
                 buttons: Ext.Msg.OK
             });
         };
-        sendPutRequest('deal/oneKeyAssignShopper', {shopArea: areaId}, '一键分配', '一键分配成功', '一键分配失败', success, failure);
+        sendPutRequest('deal/oneKeyAssignSuperShopper', {
+            shopArea: areaId
+        }, '一键分配', '一键分配成功', '一键分配失败', success, failure);
     }
 });

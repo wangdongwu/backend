@@ -140,7 +140,7 @@ Ext.define('XMLifeOperating.view.dealManage.DealList', {
         menuDisabled: true,
         renderer: function(value, metadata, model) {
             var status = model.get('status');
-            return (status != 20 && status != 31) ? '取消' : '<a href="javascript:;">取消</a>';
+            return (status != 20 && status != 31) ? '取消订单' : '<a href="javascript:;">取消订单</a>';
         }
     });
 

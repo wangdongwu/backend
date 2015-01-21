@@ -49,6 +49,8 @@ Ext.define('XMLifeOperating.view.general.CommonDealList', {
                         return '货到中心-' + value;
                     case 22:
                         return '等待快递员取货-' + value;
+                    case 23:
+                        return '分配买手中－' + value;
                     default:
                         return '未知-' + value;
                 }
@@ -71,11 +73,7 @@ Ext.define('XMLifeOperating.view.general.CommonDealList', {
             dataIndex: 'superShopperName'
         }, {
             text: '购买店铺',
-            dataIndex: 'shopNames',
-            renderer: function(value) {
-                var arr = value.length ? Ext.toArray(value) : [];
-                return arr.join('<br />');
-            }
+            dataIndex: 'shopName'
         }, {
             text: '下单时间',
             dataIndex: 'created',
@@ -118,19 +116,15 @@ Ext.define('XMLifeOperating.view.general.CommonDealList', {
             }
         }, {
             text: '接单时间',
-            dataIndex: 'assignSuperShopperTime',
+            dataIndex: 'assignShopperTime',
             renderer: function(value) {
                 return Ext.Date.format(new Date(value), 'H:i');
             }
         }, {
             text: '完成购买时间',
-            dataIndex: 'taskDone',
+            dataIndex: 'buyDone',
             renderer: function(value) {
-                var arr = Ext.Array.from(value);
-                arr = Ext.Array.map(arr, function(v) {
-                    return Ext.Date.format(new Date(v), 'H:i');
-                });
-                return arr.join('<br />');
+                return Ext.Date.format(new Date(value), 'H:i');
             }
         }, {
             text: '送达时间',

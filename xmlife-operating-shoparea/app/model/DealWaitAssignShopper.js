@@ -7,13 +7,12 @@ Ext.define('XMLifeOperating.model.DealWaitAssignShopper', {
         'created', // 其余的被同名view使用
         'status',
         'shopAreaName',
-        'shopperNames',
         'superShopperName',
-        'shopNames',
+        'shopName',
         'deliverTime',
         'remainTime',
-        'assignSuperShopperTime',
-        'taskDone',
+        'assignShopperTime',
+        'buyDone',
         'completeTime',
         'contactsPhone',
         'contactsName'

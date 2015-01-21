@@ -88,13 +88,9 @@ Ext.define('XMLifeOperating.view.operationManage.dealProblemDeals.DealProblemDea
         text: '',
         itemId: 'reapportion',
         menuDisabled: true,
-        renderer: function(value, metadata, model, rowIndex, colIndex, store) {
-            var shopperNames = model.get('shopperNames');
-            var anyAvailableShopper = Ext.Array.some(model.get('shopperNames'), function(name) {
-                return name !== null;
-            });
-
-            return anyAvailableShopper ? '<a href="javascript:;">重新分配</a>' : '重新分配';
+        renderer: function(value, metadata, model) {
+            var str = model.get('superShopperName') ? '重新分配' : '自动分配';
+            return '<a href="javascript:;">' + str + '</a>';
         }
     }, {
         text: '',
@@ -102,7 +98,7 @@ Ext.define('XMLifeOperating.view.operationManage.dealProblemDeals.DealProblemDea
         menuDisabled: true,
         renderer: function(value, metadata, model) {
             var status = model.get('status');
-            return (status != 20 && status != 31) ? '取消' : '<a href="javascript:;">取消</a>';
+            return (status != 20 && status != 31) ? '取消订单' : '<a href="javascript:;">取消订单</a>';
         }
     });
 
