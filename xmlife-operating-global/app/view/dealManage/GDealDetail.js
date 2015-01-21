@@ -142,11 +142,7 @@ Ext.define('XMLifeOperating.view.dealManage.GDealDetail', {
                 forceFit: true,
                 selModel: Ext.create('Ext.selection.CheckboxModel', {
                     mode: 'MULTI',
-<<<<<<< HEAD
                     checkOnly:true,
-=======
-                    checkOnly: true,
->>>>>>> 订单管理申请退货选择行，勾选框会自动选择
                     allowDeselect: true,
                     enableKeyNav: false,
                     listeners: {
