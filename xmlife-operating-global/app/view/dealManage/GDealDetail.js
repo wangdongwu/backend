@@ -142,13 +142,14 @@ Ext.define('XMLifeOperating.view.dealManage.GDealDetail', {
                 forceFit: true,
                 selModel: Ext.create('Ext.selection.CheckboxModel', {
                     mode: 'MULTI',
+                    checkOnly:true,
                     allowDeselect: true,
                     enableKeyNav: false,
                     listeners: {
-                        beforeselect:function(cm, record, index, eOpts) {
-                            if(record.get('num') == 0){
-                                 Ext.Msg.alert('提示', '该商品可退货数量为0，无法选择!');
-                                 return false;
+                        beforeselect: function(cm, record, index, eOpts) {
+                            if (record.get('num') == 0) {
+                                Ext.Msg.alert('提示', '该商品可退货数量为0，无法选择!');
+                                return false;
                             }
                         }
                     }
@@ -214,7 +215,15 @@ Ext.define('XMLifeOperating.view.dealManage.GDealDetail', {
                     renderer: function(value) {
                         return value / 100;
                     }
-                }]
+                }],
+                listeners: {
+                    cellclick: function(grid, td, columnIndex, record, tr, rowIndex, event) {
+                        var me = this;
+                        var selection = grid.getSelectionModel();
+                        selection.isSelected(record) ? selection.deselect(record) : selection.select(record,true);
+                    }
+
+                }
             }],
             buttons: [{
                 text: '申请售后退货',
