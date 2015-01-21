@@ -142,7 +142,11 @@ Ext.define('XMLifeOperating.view.dealManage.GDealDetail', {
                 forceFit: true,
                 selModel: Ext.create('Ext.selection.CheckboxModel', {
                     mode: 'MULTI',
+<<<<<<< HEAD
                     checkOnly:true,
+=======
+                    checkOnly: true,
+>>>>>>> 订单管理申请退货选择行，勾选框会自动选择
                     allowDeselect: true,
                     enableKeyNav: false,
                     listeners: {
@@ -220,7 +224,11 @@ Ext.define('XMLifeOperating.view.dealManage.GDealDetail', {
                     cellclick: function(grid, td, columnIndex, record, tr, rowIndex, event) {
                         var me = this;
                         var selection = grid.getSelectionModel();
-                        selection.isSelected(record) ? selection.deselect(record) : selection.select(record,true);
+                        if (columnIndex == 0) {
+                            return
+                        } else {
+                            selection.isSelected(record) ? selection.deselect(record) : selection.select(record, true);
+                        }
                     }
 
                 }
