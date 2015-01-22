@@ -87,7 +87,7 @@ Ext.define('XMLifeOperating.Application', {
         'ShopAreaBanner',
         'SuperShopperWorkTime',
         'ShopBannerTemplate',
-        //'Manager'
+        'Manager'
     ],
 
     launch: function() {

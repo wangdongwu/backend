@@ -146,7 +146,7 @@ Ext.define('XMLifeOperating.view.dealManage.AccountSales', {
                                 return date;
                             }();
                             var end = datefield.nextSibling().nextSibling();
-                            var start = Ext.Date.add(newValue, Ext.Date.DAY, 31);
+                            var start = Ext.Date.add(newValue, Ext.Date.DAY, 30);
                             end.setMinValue(newValue);
                             end.setValue('');
                             if (start > end.maxValue) {

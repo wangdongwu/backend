@@ -183,7 +183,7 @@ Ext.define('XMLifeOperating.view.dealManage.RechargeableCardSales', {
                                 return date;
                             }();
                             var end = datefield.nextSibling().nextSibling().nextSibling();
-                            var start = Ext.Date.add(newValue, Ext.Date.DAY, 31);
+                            var start = Ext.Date.add(newValue, Ext.Date.DAY, 30);
                             var begin = datefield.nextSibling();
                             begin.setValue(datefield.value.getTime());
                             end.setMinValue(newValue);

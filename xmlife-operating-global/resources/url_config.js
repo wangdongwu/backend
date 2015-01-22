@@ -9,8 +9,8 @@ window.URLMap = {
     // biz: 'http://192.168.7.155:1550/', //lc
     // biz: 'http://dev.xiaomei.com/backend/',
     //biz: 'http://test.xiaomei.com:1550/',
-    biz: 'http://dev.xiaomei.com:1550/',
+    biz: 'https://dev.xiaomei.com/bs/',
     res: 'http://dev.xiaomei.com/res/image/id-',
-    report: 'http://dev.xiaomei.com:1506/',
-    upload: 'http://dev.xiaomei.com/res/upload'
+    report: 'https://dev.xiaomei.com/report/',
+    upload: 'https://dev.xiaomei.com/res/upload'
 };
