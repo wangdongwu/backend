@@ -10,16 +10,15 @@ Ext.define('XMLifeOperating.controller.GDeliverer', {
     stores: ['Deliverer',
         'ShopArea',
         'DealDelivererHistory',
-        'DelivererWorkTime',
-        'DealItems'
+        'DelivererWorkTime'
     ],
 
     models: ['Deliverer',
         'ShopArea',
         'DealDelivererHistory',
-        'DelivererWorkTime',
-        'DealItems'
+        'DelivererWorkTime'
     ],
+
     refs: [{
             ref: 'gDelivererList',
             selector: 'gDelivererList',
@@ -32,7 +31,7 @@ Ext.define('XMLifeOperating.controller.GDeliverer', {
             autoCreate: true
         }, {
             ref: 'shopArea',
-            selector: '#shopArea',
+            selector: '#shopArea'
         }, {
             ref: 'gDealDelivererHistoryList',
             selector: 'gDealDelivererHistoryList',
@@ -54,6 +53,7 @@ Ext.define('XMLifeOperating.controller.GDeliverer', {
             xtype: 'panel'
         }
     ],
+    
     init: function() {
         var me = this,
             isActive = true,

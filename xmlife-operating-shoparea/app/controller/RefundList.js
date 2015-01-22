@@ -1,22 +1,16 @@
 Ext.define('XMLifeOperating.controller.RefundList', {
     extend: 'Ext.app.Controller',
 
-    views: ['operationManage.refund.RefundList',
-            'operationManage.refund.DealDetailRefund'],
+    views: ['operationManage.refund.RefundList'],
 
-    stores: ['Refund','DealItems'],
+    stores: ['Refund'],
 
-    models: ['Refund','DealItems'],
+    models: ['Refund'],
 
     refs: [{
         ref: 'RefundList',
         selector: 'RefundList',
         xtype: 'RefundList',
-        autoCreate: true
-    }, {
-        ref: 'dealDetailRefund',
-        selector: 'dealDetailRefund',
-        xtype: 'dealDetailRefund',
         autoCreate: true
     }],
 
@@ -160,7 +154,11 @@ Ext.define('XMLifeOperating.controller.RefundList', {
                 }
             },
             'RefundList #dealDetailRefund': {
-                click: self.onDealDetailRefund
+                click: function() {
+                    // 这里引用了订单管理的control方法
+                    var ctrlDealList = this.getController('DealList');
+                    ctrlDealList.onDealDetail.apply(ctrlDealList, arguments);
+                }
             },
         });
     },
@@ -259,43 +257,5 @@ Ext.define('XMLifeOperating.controller.RefundList', {
     onCleanSearch:function(){
         this.getRefundList().down('[name=mobileSearch]').setValue('');
         this.getRefundList().down('[name=refundTypeSearch]').setValue('');
-    },
-
-    onDealDetailRefund: function(view, rowIndex, colIndex, column, e) {
-        var record = view.getRecord(view.findTargetByEvent(e)),
-            win = this.getDealDetailRefund(),
-            form = win.down('form').getForm();
-        // 单独获取详情的接口
-        Ext.Ajax.request({
-            method: 'GET',
-            url: XMLifeOperating.generic.Global.URL.biz + 'deal/' + record.get('dealBackendId'),
-            params: {},
-            success: function(response) {
-                if (response.status == 200 && response.statusText == 'OK') {
-                    var data = Ext.decode(response.responseText);
-                    form.setValues(data);
-                }
-            },
-            failure: function() {
-                Ext.Msg.alert('获取订单详情失败！');
-            }
-        });
-
-        var store = this.getDealItemsStore();
-        store.load({
-            params: {
-                deal: record.get('dealBackendId'),
-            },
-            callback: function(records) {
-                var model = win.down('#dealDetails').getSelectionModel();
-                model.deselectAll();
-                for (var i = 0; i < records.length; i++) {
-                    var index = store.indexOfId(records[i].get('id'));
-                    model.select(index, true);
-                }
-            }
-        });
-
-        win.show();
     }
 });

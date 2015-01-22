@@ -119,7 +119,7 @@ Ext.define('XMLifeOperating.controller.CustomerList', {
 
             'CustomerDealList #dealDetail': {
                 click: function() {
-                    // 这里引用了另一个control的方法
+                    // 这里引用了订单管理的control方法
                     var ctrlGDealList = this.getController('GDealList');
                     ctrlGDealList.onDealDetail.apply(ctrlGDealList, arguments);
                 }

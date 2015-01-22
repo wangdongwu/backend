@@ -16,6 +16,10 @@ Ext.define('XMLifeOperating.controller.GDealList', {
     models: ['Deal', 'ShopArea', 'Customer', 'DealItems', 'ReturnGoodsAuditList', 'ReturnGoodsApplyList'],
 
     refs: [{
+        ref: 'contentPanel',
+        selector: '#contentPanel',
+        xtype: 'panel'
+    }, {
         ref: 'gDealList',
         selector: 'gDealList',
         xtype: 'gDealList'
@@ -532,15 +536,17 @@ Ext.define('XMLifeOperating.controller.GDealList', {
         view.down('#shopAread').setValue('');
         view.down('#statusSearch').setValue('');
         store.getProxy().extraParams = {
-            phoneOrDealId: keyWords,
+            phoneOrDealId: keyWords
         };
         store.loadPage(1);
     },
 
-    onDealDetail: function(view, rowIndex, colIndex, column, e) {
+    onDealDetail: function(view, item, rowIndex, colIndex, e) {
         var record = view.getRecord(view.findTargetByEvent(e)),
             win = this.getGDealDetail(),
             form = win.down('form').getForm(),
+            grid = win.down('#dealDetails'),
+            localPage = this.getContentPanel().getActiveTab().xtype,
             status = record.get('status');
         // 单独获取详情的接口
         Ext.Ajax.request({
@@ -566,12 +572,14 @@ Ext.define('XMLifeOperating.controller.GDealList', {
             callback: function(records) {
                 var model = win.down('#dealDetails').getSelectionModel();
                 model.deselectAll();
-                if (status != 4) {
-                    win.down('#refundAll').hide();
-                    win.down('#dealDetails').getSelectionModel().setLocked(true);
-                } else {
+
+                // 仅订单管理页且为完成状态才会显示退货操作
+                if (localPage == 'gDealList' && status == 4) {
                     win.down('#refundAll').show();
-                    win.down('#dealDetails').getSelectionModel().setLocked(false);
+                    grid.headerCt.items.getAt(0).show();
+                } else {
+                    win.down('#refundAll').hide();
+                    grid.headerCt.items.getAt(0).hide();
                 }
             }
         });

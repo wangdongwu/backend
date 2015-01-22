@@ -300,7 +300,7 @@ Ext.define('XMLifeOperating.view.refundManage.balanceRefund.BalanceRefundList', 
             align: 'left',
             itemId: 'dealDetailRefund',
             renderer: function(v) {
-                return '<a href="javascript:void(0)">' + v + '</a>';
+                return '<a href="javascript:;">' + v + '</a>';
             }
         }, {
             text: '用户昵称',

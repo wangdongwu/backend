@@ -314,7 +314,7 @@ Ext.define('XMLifeOperating.view.refundManage.wechatRefund.WechatRefundList', {
         align: 'left',
         itemId: 'dealDetailRefund',
         renderer: function(v) {
-            return '<a href="javascript:void(0)" >' + v + '</a>';
+            return '<a href="javascript:;" >' + v + '</a>';
         }
     }, {
         text: '用户昵称',

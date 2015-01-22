@@ -1,22 +1,20 @@
 Ext.define('XMLifeOperating.controller.DealWaitAssignDelivererList', {
     extend: 'Ext.app.Controller',
 
-    views: ['operationManage.dealWaitAssignDeliverer.DealWaitAssignDelivererList',
-        'operationManage.dealWaitAssignDeliverer.DWDealDetail',
+    views: [
+        'operationManage.dealWaitAssignDeliverer.DealWaitAssignDelivererList',
         'operationManage.dealWaitAssignDeliverer.DealWaitReapportionDeliverer'
     ],
 
     stores: [
         'DealWaitAssignDeliverer',
         'ShopArea',
-        'DealItems',
         'Deliverer'
     ],
 
     models: [
         'DealWaitAssignDeliverer',
         'ShopArea',
-        'DealItems',
         'Deliverer'
     ],
 
@@ -28,11 +26,6 @@ Ext.define('XMLifeOperating.controller.DealWaitAssignDelivererList', {
     }, {
         ref: 'shopArea',
         selector: '#shopArea'
-    }, {
-        ref: 'dWDealDetail',
-        selector: 'dWDealDetail',
-        xtype: 'dWDealDetail',
-        autoCreate: true
     }, {
         ref: 'dealWaitReapportionDeliverer',
         selector: 'dealWaitReapportionDeliverer',
@@ -60,7 +53,6 @@ Ext.define('XMLifeOperating.controller.DealWaitAssignDelivererList', {
                 click: function() {
                     var me = this;
                     var store = this.getDealWaitAssignDelivererStore()
-
                     var shopAreaId = Ext.getCmp('dealWaitAssignDelivererList').down('#shopArea').getValue();
 
                     if (shopAreaId) {
@@ -85,7 +77,11 @@ Ext.define('XMLifeOperating.controller.DealWaitAssignDelivererList', {
             },
 
             'dealWaitAssignDelivererList #dealDetail': {
-                click: me.onDealDetail
+                click: function() {
+                    // 这里引用了订单管理的control方法
+                    var ctrlDealList = this.getController('DealList');
+                    ctrlDealList.onDealDetail.apply(ctrlDealList, arguments);
+                }
             },
             'dealWaitAssignDelivererList #dealSearch': {
                 click: me.onWaitAssignDelivererSearch
@@ -126,44 +122,6 @@ Ext.define('XMLifeOperating.controller.DealWaitAssignDelivererList', {
         } else {
             return
         }
-    },
-
-    onDealDetail: function(view, rowIndex, colIndex, column, e) {
-        var record = view.getRecord(view.findTargetByEvent(e)),
-            win = this.getDWDealDetail(),
-            form = win.down('form').getForm();
-        // 单独获取详情的接口
-        Ext.Ajax.request({
-            method: 'GET',
-            url: XMLifeOperating.generic.Global.URL.biz + 'deal/' + record.get('dealBackendId'),
-            params: {},
-            success: function(response) {
-                if (response.status == 200 && response.statusText == 'OK') {
-                    var data = Ext.decode(response.responseText);
-                    form.setValues(data);
-                }
-            },
-            failure: function() {
-                Ext.Msg.alert('获取订单详情失败！');
-            }
-        });
-        
-        var store = this.getDealItemsStore();
-        store.load({
-            params: {
-                deal: record.get('dealBackendId')
-            },
-            callback: function(records) {
-                var model = win.down('#dealDetails').getSelectionModel();
-                model.deselectAll();
-                for (var i = 0; i < records.length; i++) {
-                    var index = store.indexOfId(records[i].get('id'));
-                    model.select(index, true);
-                }
-            }
-        });
-
-        win.show();
     },
 
     onReapportionDeliverer: function(view, rowIndex, colIndex, column, e) {

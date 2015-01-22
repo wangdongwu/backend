@@ -1,12 +1,15 @@
 Ext.define('XMLifeOperating.controller.DamagedProduct', {
     extend: 'Ext.app.Controller',
+
     views: [
         'damagedGoodsManage.DamagedGoodsList',
         'damagedGoodsManage.DamagedGoodsLostWin',
         'damagedGoodsManage.CDealDetail'
     ],
     stores: ['DamagedProduct', 'ShopArea', 'DealItems'],
+
     models: ['DamagedProduct', 'DealItems'],
+
     refs: [{
         ref: 'damagedGoodsList',
         selector: 'damagedGoodsList',
@@ -23,9 +26,11 @@ Ext.define('XMLifeOperating.controller.DamagedProduct', {
         xtype: 'cDealDetail',
         autoCreate: true
     }],
+
     init: function() {
         var self = this;
         self.queryParams = {};
+
         self.control({
             'damagedGoodsList #shopArea': {
                 click: function() {
@@ -126,7 +131,7 @@ Ext.define('XMLifeOperating.controller.DamagedProduct', {
     },
     auditProduct: function(params) {
         var self = this;
-        sendPutRequest('damagedProductApply/auditPass', params, '残损审核', '成功通过残损审核', '残损审核失败', function(){
+        sendPutRequest('damagedProductApply/auditPass', params, '残损审核', '成功通过残损审核', '残损审核失败', function() {
             self.reloadProductList();
         });
     },
@@ -136,12 +141,12 @@ Ext.define('XMLifeOperating.controller.DamagedProduct', {
         productStore.getProxy().extraParams = this.queryParams;
         productStore.load();
     },
-    
+
     formatDate: function(date) {
         return date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
     },
 
-    onGoodsLostBtn: function(grid, column, rowIndex, colIndex, e){
+    onGoodsLostBtn: function(grid, column, rowIndex, colIndex, e) {
         var self = this,
             win = self.getDamagedGoodsLostWin(),
             record = grid.getStore().getAt(rowIndex),
@@ -154,7 +159,7 @@ Ext.define('XMLifeOperating.controller.DamagedProduct', {
         win.show();
     },
 
-    onSaveBtn: function(){
+    onSaveBtn: function() {
         var win = this.getDamagedGoodsLostWin(),
             windowEl = win.getEl(),
             form = win.down('form').getForm(),
@@ -184,14 +189,14 @@ Ext.define('XMLifeOperating.controller.DamagedProduct', {
                 Ext.Msg.alert('提示', '操作商品丢失失败');
             };
 
-            sendPutRequest('damagedProductApply/lose', 
-                {id:record.get('id'),
-                 loseCount:win.down('[name=loseCount]').getValue()
-                }, '操作商品丢失', '操作商品丢失成功', '操作商品丢失失败', success, failure);
-                
+            sendPutRequest('damagedProductApply/lose', {
+                id: record.get('id'),
+                loseCount: win.down('[name=loseCount]').getValue()
+            }, '操作商品丢失', '操作商品丢失成功', '操作商品丢失失败', success, failure);
+
         } else {
             Ext.Msg.alert('无效数据', '请提交正确的表格数据！');
-        }        
+        }
     },
 
     onCDealDetail: function(view, rowIndex, colIndex, column, e) {
@@ -200,10 +205,9 @@ Ext.define('XMLifeOperating.controller.DamagedProduct', {
             form = win.down('form').getForm(),
             status = record.get('status'),
             dealId = record.get('dealBackendId') || record.get('dealId');
-        if(dealId === null){
+        if (dealId === null) {
             return;
         }
-        // record.set('dealId','94012672286130185');
         // 单独获取详情的接口
         Ext.Ajax.request({
             method: 'GET',
@@ -232,14 +236,6 @@ Ext.define('XMLifeOperating.controller.DamagedProduct', {
                     var index = store.indexOfId(records[i].get('id'));
                     model.select(index, true);
                 }
-
-                /*if (status != 4) {
-                    win.down('#sellRefund').hide();
-                    win.down('#refundAll').hide();
-                } else {
-                    win.down('#sellRefund').show();
-                    win.down('#refundAll').show();
-                }*/
             }
         });
         win.show();

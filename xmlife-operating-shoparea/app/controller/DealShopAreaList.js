@@ -1,41 +1,32 @@
 Ext.define('XMLifeOperating.controller.DealShopAreaList', {
     extend: 'Ext.app.Controller',
 
-    views: ['operationManage.dealShopArea.DealShopAreaList',
-        'operationManage.dealShopArea.DSADealDetail'
+    views: [
+        'operationManage.dealShopArea.DealShopAreaList'
     ],
 
     stores: [
         'DealShopArea',
-        'ShopArea',
-        'DealItems'
+        'ShopArea'
     ],
 
     models: [
         'DealShopArea',
-        'ShopArea',
-        'DealItems'
+        'ShopArea'
     ],
-
 
     refs: [{
         ref: 'shopArea',
         selector: '#shopArea',
-    }, {
-        ref: 'dSADealDetail',
-        selector: 'dSADealDetail',
-        xtype: 'dSADealDetail',
-        autoCreate: true
     }, {
         ref: 'dealShopAreaList',
         selector: 'dealShopAreaList'
     }],
 
     init: function() {
-
         var me = this;
-        this.control({
 
+        this.control({
             'dealShopAreaList #shopArea': {
                 select: function(combo) {
                     var store = this.getDealShopAreaStore();
@@ -75,14 +66,17 @@ Ext.define('XMLifeOperating.controller.DealShopAreaList', {
                             }, function(str) {
 
                             });
-
                         }
 
                     });
                 }
             },
             'dealShopAreaList #dealDetail': {
-                click: me.onDSADealDetail
+                click: function() {
+                    // 这里引用了订单管理的control方法
+                    var ctrlDealList = this.getController('DealList');
+                    ctrlDealList.onDealDetail.apply(ctrlDealList, arguments);
+                }
             },
             'dealShopAreaList #refresh': {
                 click: me.onRefresh
@@ -125,44 +119,6 @@ Ext.define('XMLifeOperating.controller.DealShopAreaList', {
         } else {
             return
         }
-    },
-    onDSADealDetail: function(view, rowIndex, colIndex, column, e) {
-        var record = view.getRecord(view.findTargetByEvent(e)),
-            win = this.getDSADealDetail(),
-            form = win.down('form').getForm();
-        // 单独获取详情的接口
-        Ext.Ajax.request({
-            method: 'GET',
-            url: XMLifeOperating.generic.Global.URL.biz + 'deal/' + record.get('dealBackendId'),
-            params: {},
-            success: function(response) {
-                if (response.status == 200 && response.statusText == 'OK') {
-                    var data = Ext.decode(response.responseText);
-                    form.setValues(data);
-                }
-            },
-            failure: function() {
-                Ext.Msg.alert('获取订单详情失败！');
-            }
-        });
-        
-        var store = this.getDealItemsStore();
-        store.load({
-            params: {
-                deal: record.get('dealBackendId'),
-                task: record.get('taskId')
-            },
-            callback: function(records) {
-                var model = win.down('#dealDetails').getSelectionModel();
-                model.deselectAll();
-                for (var i = 0; i < records.length; i++) {
-                    var index = store.indexOfId(records[i].get('id'));
-                    model.select(index, true);
-                }
-            }
-        });
-
-        win.show();
     },
     onShopAreaSearch: function(view, e, eOpts) {
         var me = this,

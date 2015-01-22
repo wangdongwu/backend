@@ -4,7 +4,7 @@ Ext.define('XMLifeOperating.view.damagedGoodsManage.CDealDetail', {
     title: '订单详情',
     closeAction: 'hide',
     modal: true,
-    width: 850,
+    width: 900,
     maxHeight: 500,
     autoScroll: true,
     resizable: false,
@@ -129,7 +129,7 @@ Ext.define('XMLifeOperating.view.damagedGoodsManage.CDealDetail', {
                     }
                 }, {
                     xtype: 'displayfield',
-                    name: 'note',
+                    name: 'ratingNote',
                     fieldLabel: '自定义吐槽',
                     renderer: function(value) {
                         return value ? value : '无';
@@ -141,12 +141,10 @@ Ext.define('XMLifeOperating.view.damagedGoodsManage.CDealDetail', {
                 store: 'DealItems',
                 forceFit: true,
                 columns: [{
-                    xtype: 'rownumberer',
-                    width: 50,
-                    align: 'center'
+                    xtype: 'rownumberer'
                 }, {
                     text: '商品名',
-                    width: '25%',
+                    width: '30%',
                     dataIndex: 'name'
                 }, {
                     text: '单价',
@@ -170,7 +168,6 @@ Ext.define('XMLifeOperating.view.damagedGoodsManage.CDealDetail', {
                 }, {
                     text: '取消数量',
                     dataIndex: 'cancelNum',
-                    width: '19%',
                     align: 'center',
                     renderer: function(value, meta, record) {
                         var cancelType = record.get('cancelType');
@@ -179,7 +176,6 @@ Ext.define('XMLifeOperating.view.damagedGoodsManage.CDealDetail', {
                 }, {
                     text: '退货数量',
                     dataIndex: 'returnNum',
-                    width: '18%',
                     align: 'center',
                     renderer: function(value, meta, record) {
                         var returnNote = record.get('returnNote');
@@ -212,6 +208,7 @@ Ext.define('XMLifeOperating.view.damagedGoodsManage.CDealDetail', {
                 }
             }]
         }];
+
         this.callParent(arguments);
     }
 });

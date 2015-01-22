@@ -9,27 +9,21 @@ Ext.define('XMLifeOperating.controller.DealWaitAssignShopperList', {
         }
     },
 
-    views: ['operationManage.dealWaitAssignShopper.DealWaitAssignShopperList',
-        'operationManage.dealWaitAssignShopper.DWSDealDetail'
-    ],
+    views: ['operationManage.dealWaitAssignShopper.DealWaitAssignShopperList'],
 
-    stores: ['DealWaitAssignShopper', 'DealItems'],
+    stores: ['DealWaitAssignShopper'],
 
-    models: ['DealWaitAssignShopper', 'DealItems'],
+    models: ['DealWaitAssignShopper'],
 
     // 注意到这个control引用的component也有可能定义在commonDealList里。
     refs: [{
         ref: 'dealWaitAssignShopperList',
         selector: 'dealwaitassignshopperlist'
-    }, {
-        ref: 'dWSDealDetail',
-        selector: 'dWSDealDetail',
-        xtype: 'dWSDealDetail',
-        autoCreate: true
     }],
 
     init: function() {
         var me = this;
+        
         this.control({
             'dealwaitassignshopperlist #shopArea': {
                 select: function(combo) {
@@ -47,7 +41,11 @@ Ext.define('XMLifeOperating.controller.DealWaitAssignShopperList', {
                 click: me.onWaitAssignShopperSearch
             },
             'dealwaitassignshopperlist #dealDetail': {
-                click: me.onDealDetail
+                click: function() {
+                    // 这里引用了订单管理的control方法
+                    var ctrlDealList = this.getController('DealList');
+                    ctrlDealList.onDealDetail.apply(ctrlDealList, arguments);
+                }
             },
             'dealwaitassignshopperlist #customerDetail': {
                 click: function() {
@@ -118,43 +116,6 @@ Ext.define('XMLifeOperating.controller.DealWaitAssignShopperList', {
                 }
             });
         }
-    },
-    onDealDetail: function(view, rowIndex, colIndex, column, e) {
-        var record = view.getRecord(view.findTargetByEvent(e)),
-            win = this.getDWSDealDetail(),
-            form = win.down('form').getForm();
-        // 单独获取详情的接口
-        Ext.Ajax.request({
-            method: 'GET',
-            url: XMLifeOperating.generic.Global.URL.biz + 'deal/' + record.get('dealBackendId'),
-            params: {},
-            success: function(response) {
-                if (response.status == 200 && response.statusText == 'OK') {
-                    var data = Ext.decode(response.responseText);
-                    form.setValues(data);
-                }
-            },
-            failure: function() {
-                Ext.Msg.alert('获取订单详情失败！');
-            }
-        });
-
-        var store = this.getDealItemsStore();
-        store.load({
-            params: {
-                deal: record.get('dealBackendId')
-            },
-            callback: function(records) {
-                var model = win.down('#dealDetails').getSelectionModel();
-                model.deselectAll();
-                for (var i = 0; i < records.length; i++) {
-                    var index = store.indexOfId(records[i].get('id'));
-                    model.select(index, true);
-                }
-            }
-        });
-
-        win.show();
     },
     onOneKeyDistribute: function() {
         var me = this;

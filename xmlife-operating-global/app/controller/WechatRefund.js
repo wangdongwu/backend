@@ -1,27 +1,19 @@
 Ext.define('XMLifeOperating.controller.WechatRefund', {
     extend: 'Ext.app.Controller',
 
-    views: ['refundManage.wechatRefund.WechatRefundList',
-        'refundManage.DealDetailRefund',
+    views: [
+        'refundManage.wechatRefund.WechatRefundList',
         'refundManage.wechatRefund.TenpayLogin'
     ],
 
-    stores: ['WechatRefund',
-        'DealItems'
-    ],
+    stores: ['WechatRefund'],
 
-    models: ['Refund',
-        'DealItems'
-    ],
+    models: ['Refund'],
+
     refs: [{
         ref: 'wechatRefundList',
         selector: 'wechatRefundList',
         xtype: 'wechatRefundList',
-        autoCreate: true
-    }, {
-        ref: 'dealDetailRefund',
-        selector: 'dealDetailRefund',
-        xtype: 'dealDetailRefund',
         autoCreate: true
     }, {
         ref: 'tenpayLogin',
@@ -29,9 +21,11 @@ Ext.define('XMLifeOperating.controller.WechatRefund', {
         xtype: 'tenpayLogin',
         autoCreate: true
     }],
+
     init: function() {
         var self = this;
         this.selectObjList = [];
+        
         self.control({
             'wechatRefundList': {
                 added: self.rendenWechatRefundList,
@@ -96,7 +90,11 @@ Ext.define('XMLifeOperating.controller.WechatRefund', {
                 }
             },
             'wechatRefundList #dealDetailRefund': {
-                click: self.onDealDetailRefund
+                click: function() {
+                    // 这里引用了订单管理的control方法
+                    var ctrlGDealList = this.getController('GDealList');
+                    ctrlGDealList.onDealDetail.apply(ctrlGDealList, arguments);
+                }
             },
             'wechatRefundList button[name=allSelect]': {
                 click: function() {
@@ -283,43 +281,6 @@ Ext.define('XMLifeOperating.controller.WechatRefund', {
                 break;
         }
     },
-    onDealDetailRefund: function(view, rowIndex, colIndex, column, e) {
-        var record = view.getRecord(view.findTargetByEvent(e)),
-            win = this.getDealDetailRefund(),
-            form = win.down('form').getForm();
-        // 单独获取详情的接口
-        Ext.Ajax.request({
-            method: 'GET',
-            url: XMLifeOperating.generic.Global.URL.biz + 'deal/' + record.get('dealBackendId'),
-            params: {},
-            success: function(response) {
-                if (response.status == 200 && response.statusText == 'OK') {
-                    var data = Ext.decode(response.responseText);
-                    form.setValues(data);
-                }
-            },
-            failure: function() {
-                Ext.Msg.alert('获取订单详情失败！');
-            }
-        });
-
-        var store = this.getDealItemsStore();
-        store.load({
-            params: {
-                deal: record.get('dealBackendId'),
-            },
-            callback: function(records) {
-                var model = win.down('#dealDetails').getSelectionModel();
-                model.deselectAll();
-                for (var i = 0; i < records.length; i++) {
-                    var index = store.indexOfId(records[i].get('id'));
-                    model.select(index, true);
-                }
-            }
-        });
-
-        win.show();
-    },
     selectChange: function(obj, objList) {
         this.selectObjList = objList;
     },
@@ -361,19 +322,19 @@ Ext.define('XMLifeOperating.controller.WechatRefund', {
             refundTypeSearch = RefundList.down('[name=refundTypeSearch]').getValue(),
             params = {
                 dealId: mobileOrDealId,
-                refundType:'tenpay'
+                refundType: 'tenpay'
             };
         if (refundTypeSearch == 'mobile') {
             params = {
                 mobile: mobileOrDealId,
-                refundType:'tenpay'
+                refundType: 'tenpay'
             };
         }
         store.getProxy().extraParams = params;
         store.load();
     },
 
-    onCleanSearch:function(grid){
+    onCleanSearch: function(grid) {
         grid.down('[name=mobileSearch]').setValue('');
         grid.down('[name=refundTypeSearch]').setValue('');
     }

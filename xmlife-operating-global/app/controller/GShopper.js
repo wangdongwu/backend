@@ -12,14 +12,12 @@ Ext.define('XMLifeOperating.controller.GShopper', {
     stores: [
         'SuperShopper',
         'DealShopperHistory',
-        'SuperShopperWorkTime',
-        'DealItems'
+        'SuperShopperWorkTime'
     ],
     models: [
         'SuperShopper',
         'DealShopperHistory',
-        'SuperShopperWorkTime',
-        'DealItems'
+        'SuperShopperWorkTime'
     ],
     refs: [{
         ref: 'gShopperList',

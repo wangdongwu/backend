@@ -3,22 +3,19 @@ Ext.define('XMLifeOperating.controller.DealProblemDealsList', {
     views: ['operationManage.dealProblemDeals.DealProblemDealsList',
         'operationManage.dealProblemDeals.DealProblemDealsReapportion',
         'operationManage.dealProblemDeals.DealProblemDealsReapportionShopper',
-        // 'operationManage.dealProblemDeals.DealProblemDealsReapportionDeliverer',
-        'operationManage.dealProblemDeals.DPDealDetail'
+        // 'operationManage.dealProblemDeals.DealProblemDealsReapportionDeliverer'
     ],
     stores: [
         'DealProblemDeals',
         'DealTasks',
-        'SuperShopper',
-        // 'Deliverer',
-        'DealItems'
+        'SuperShopper'
+        // 'Deliverer'
     ],
     models: [
         'DealProblemDeals',
         'DealTasks',
-        'SuperShopper',
-        // 'Deliverer',
-        'DealItems'
+        'SuperShopper'
+        // 'Deliverer'
     ],
     refs: [{
         ref: 'dealProblemDealsList',
@@ -33,16 +30,11 @@ Ext.define('XMLifeOperating.controller.DealProblemDealsList', {
         selector: 'reapportionDealTasksShopper',
         xtype: 'reapportionDealTasksShopper',
         autoCreate: true
-            // }, {
-            //     ref: 'reapportionDealTasksDeliverer',
-            //     selector: 'reapportionDealTasksDeliverer',
-            //     xtype: 'reapportionDealTasksDeliverer',
-            //     autoCreate: true
-    }, {
-        ref: 'dPDealDetail',
-        selector: 'dPDealDetail',
-        xtype: 'dPDealDetail',
-        autoCreate: true
+        // }, {
+        //     ref: 'reapportionDealTasksDeliverer',
+        //     selector: 'reapportionDealTasksDeliverer',
+        //     xtype: 'reapportionDealTasksDeliverer',
+        //     autoCreate: true
     }],
     init: function() {
         var me = this;
@@ -100,7 +92,11 @@ Ext.define('XMLifeOperating.controller.DealProblemDealsList', {
             //     click: me.onPutReapportionDeliverer
             // },
             'dealProblemDealsList #dealDetail': {
-                click: me.onDPDealDetail
+                click: function() {
+                    // 这里引用了订单管理的control方法
+                    var ctrlDealList = this.getController('DealList');
+                    ctrlDealList.onDealDetail.apply(ctrlDealList, arguments);
+                }
             },
             'dealProblemDealsList #dealSearch': {
                 click: me.onProblemDealsSearch
@@ -422,43 +418,6 @@ Ext.define('XMLifeOperating.controller.DealProblemDealsList', {
                 }
             }
         );
-    },
-    onDPDealDetail: function(view, rowIndex, colIndex, column, e) {
-        var record = view.getRecord(view.findTargetByEvent(e)),
-            win = this.getDPDealDetail(),
-            form = win.down('form').getForm();
-        // 单独获取详情的接口
-        Ext.Ajax.request({
-            method: 'GET',
-            url: XMLifeOperating.generic.Global.URL.biz + 'deal/' + record.get('dealBackendId'),
-            params: {},
-            success: function(response) {
-                if (response.status == 200 && response.statusText == 'OK') {
-                    var data = Ext.decode(response.responseText);
-                    form.setValues(data);
-                }
-            },
-            failure: function() {
-                Ext.Msg.alert('获取订单详情失败！');
-            }
-        });
-
-        var store = this.getDealItemsStore();
-        store.load({
-            params: {
-                deal: record.get('dealBackendId'),
-            },
-            callback: function(records) {
-                var model = win.down('#dealDetails').getSelectionModel();
-                model.deselectAll();
-                for (var i = 0; i < records.length; i++) {
-                    var index = store.indexOfId(records[i].get('id'));
-                    model.select(index, true);
-                }
-            }
-        });
-
-        win.show();
     },
     onProblemDealsSearch: function(view) {
         var list = view.up('dealProblemDealsList'),
