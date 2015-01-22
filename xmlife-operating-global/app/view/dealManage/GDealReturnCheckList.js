@@ -61,21 +61,23 @@ Ext.define('XMLifeOperating.view.dealManage.GDealReturnCheckList', {
             })(),
             format: 'Y-m-d',
             width: 100
-        }, /*{
-            xtype: 'combobox',
-            name: 'shopAread',
-            itemId: 'shopAread',
-            store: 'ShopArea',
-            emptyText: '请选择中心',
-            editable: false,
-            fieldLabel: '中心',
-            labelWidth: 30,
-            labelAlign: 'right',
-            //queryMode:'local',
-            displayField: 'name',
-            valueField: 'id',
-            hidden: (XMLifeOperating.generic.Global.operating_type == 'center')
-        },*/ {
+        },
+        /*{
+                    xtype: 'combobox',
+                    name: 'shopAread',
+                    itemId: 'shopAread',
+                    store: 'ShopArea',
+                    emptyText: '请选择中心',
+                    editable: false,
+                    fieldLabel: '中心',
+                    labelWidth: 30,
+                    labelAlign: 'right',
+                    //queryMode:'local',
+                    displayField: 'name',
+                    valueField: 'id',
+                    hidden: (XMLifeOperating.generic.Global.operating_type == 'center')
+                },*/
+        {
             xtype: 'combobox',
             name: 'check',
             itemId: 'rstatus',
@@ -124,6 +126,10 @@ Ext.define('XMLifeOperating.view.dealManage.GDealReturnCheckList', {
     }, {
         text: '商品件数',
         dataIndex: 'num',
+        align: 'center'
+    }, {
+        text: '申请提交者',
+        dataIndex: 'creatorName',
         align: 'center'
     }, {
         text: '提交时间',

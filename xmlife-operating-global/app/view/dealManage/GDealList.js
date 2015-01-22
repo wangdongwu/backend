@@ -116,20 +116,22 @@ Ext.define('XMLifeOperating.view.dealManage.GDealList', {
     var items = columns.items;
     // 添加本类特定的列。
     items.push({
-        text: '',
-        itemId: 'toproblemdeal',
-        menuDisabled: true,
-        renderer: function() {
-            return '<a href="javascript:;">转为问题订单</a>';
+            text: '',
+            itemId: 'toproblemdeal',
+            menuDisabled: true,
+            renderer: function() {
+                return '<a href="javascript:;">转为问题订单</a>';
+            }
         }
-    }, {
-        text: '',
-        itemId: 'showReturnProductBtn',
-        menuDisabled: true,
-        renderer: function(value, metadata, model) {
-            return model.get('status') != 4 ? '--' : '<a href="javascript:;">退货</a>';
-        }
-    });
+        /*, {
+                text: '',
+                itemId: 'showReturnProductBtn',
+                menuDisabled: true,
+                renderer: function(value, metadata, model) {
+                    return model.get('status') != 4 ? '--' : '<a href="javascript:;">退货</a>';
+                }
+            }*/
+    );
 
     this.prototype.columns = columns;
 });

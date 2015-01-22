@@ -61,21 +61,23 @@ Ext.define('XMLifeOperating.view.dealManage.GDealReturnAuditList', {
             })(),
             format: 'Y-m-d',
             width: 100
-        }, /*{
-            xtype: 'combobox',
-            name: 'shopAread',
-            itemId: 'shopAread',
-            store: 'ShopArea',
-            emptyText: '请选择中心',
-            editable: false,
-            fieldLabel: '中心',
-            labelWidth: 30,
-            labelAlign: 'right',
-            //queryMode:'local',
-            displayField: 'name',
-            valueField: 'id',
-            hidden: (XMLifeOperating.generic.Global.operating_type == 'center')
-        }, */{
+        },
+        /*{
+                    xtype: 'combobox',
+                    name: 'shopAread',
+                    itemId: 'shopAread',
+                    store: 'ShopArea',
+                    emptyText: '请选择中心',
+                    editable: false,
+                    fieldLabel: '中心',
+                    labelWidth: 30,
+                    labelAlign: 'right',
+                    //queryMode:'local',
+                    displayField: 'name',
+                    valueField: 'id',
+                    hidden: (XMLifeOperating.generic.Global.operating_type == 'center')
+                }, */
+        {
             xtype: 'combobox',
             name: 'audit',
             itemId: 'rstatus',
@@ -110,7 +112,7 @@ Ext.define('XMLifeOperating.view.dealManage.GDealReturnAuditList', {
         }
     ],
     selModel: Ext.create('Ext.selection.CheckboxModel', {
-        mode: 'single',
+        mode: 'MULTI',
         checkOnly: true,
         allowDeselect: true,
         enableKeyNav: false
@@ -123,11 +125,15 @@ Ext.define('XMLifeOperating.view.dealManage.GDealReturnAuditList', {
         sortable: false,
         align: 'center',
         renderer: function(value, metadata, model, rowIndex, colIndex, store) {
-            return  value 
+            return value
         }
     }, {
         text: '商品件数',
         dataIndex: 'num',
+        align: 'center'
+    }, {
+        text: '申请提交者',
+        dataIndex: 'creatorName',
         align: 'center'
     }, {
         text: '提交时间',
@@ -142,7 +148,7 @@ Ext.define('XMLifeOperating.view.dealManage.GDealReturnAuditList', {
     }, {
         text: ' 状态',
         itemId: 'status',
-        dataIndex:'status',
+        dataIndex: 'status',
         name: 'audit',
         menuDisabled: true,
         sortable: false,
