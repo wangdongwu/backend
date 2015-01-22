@@ -98,7 +98,7 @@ Ext.define('XMLifeOperating.view.dealManage.DamagedAddSalesDefeat', {
                 }
             }, {
                 xtype: 'combo',
-                fieldLabel: '选择商店',
+                fieldLabel: '店铺模板',
                 store: 'ShopBannerTemplate',
                 name: 'shopId',
                 itemId: 'shopId',
