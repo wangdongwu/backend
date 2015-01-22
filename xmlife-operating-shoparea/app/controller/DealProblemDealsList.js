@@ -146,7 +146,7 @@ Ext.define('XMLifeOperating.controller.DealProblemDealsList', {
             Ext.String.format("确定要对该'{0}'订单自动分配买手吗？", dealId),
             function(result) {
                 if (result == 'yes') {
-                    sendPutRequest('deal/reAssignSuperShopper', {
+                    sendPutRequest('deal/assignSuperShopper', {
                         dealId: dealId
                     }, '自动分配', '自动分配成功', '自动分配失败', function(response) {
                         if (response.responseText == -2) {
@@ -252,7 +252,7 @@ Ext.define('XMLifeOperating.controller.DealProblemDealsList', {
             Ext.String.format("确定该订单重新分配给'{0}'吗？", reapportionBuyerS.get('name')),
             function(result) {
                 if (result == 'yes') {
-                    sendPutRequest('deal/reAssignSuperShopper', {
+                    sendPutRequest('deal/assignSuperShopper', {
                         dealId: dealId,
                         taskId: taskId,
                         shopperId: uid
