@@ -61,8 +61,7 @@ Ext.define('XMLifeOperating.view.dealManage.GDealReturnAuditList', {
             })(),
             format: 'Y-m-d',
             width: 100
-        },
-        {
+        }, {
             xtype: 'combobox',
             name: 'audit',
             itemId: 'rstatus',
@@ -125,10 +124,11 @@ Ext.define('XMLifeOperating.view.dealManage.GDealReturnAuditList', {
     }, {
         text: '长单号',
         dataIndex: 'dealId',
+        itemId: 'longId',
         sortable: false,
         align: 'center',
         renderer: function(value, metadata, model, rowIndex, colIndex, store) {
-            return value
+            return '<a href="javascript:void(0)">' + value + '</a>';
         }
     }, {
         text: '商品件数',
@@ -137,6 +137,10 @@ Ext.define('XMLifeOperating.view.dealManage.GDealReturnAuditList', {
     }, {
         text: '申请提交者',
         dataIndex: 'creatorName',
+        align: 'center'
+    }, {
+        text: '审核者',
+        dataIndex: 'auditorName',
         align: 'center'
     }, {
         text: '提交时间',

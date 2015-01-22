@@ -132,7 +132,11 @@ Ext.define('XMLifeOperating.view.dealManage.GDealReturnCheckList', {
         text: '申请提交者',
         dataIndex: 'creatorName',
         align: 'center'
-    }, {
+    },{
+        text: '审核者',
+        dataIndex: 'auditorName',
+        align: 'center'
+    },  {
         text: '提交时间',
         dataIndex: 'createTime',
         sortable: false,
