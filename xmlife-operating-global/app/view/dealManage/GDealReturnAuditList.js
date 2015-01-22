@@ -62,21 +62,6 @@ Ext.define('XMLifeOperating.view.dealManage.GDealReturnAuditList', {
             format: 'Y-m-d',
             width: 100
         },
-        /*{
-                    xtype: 'combobox',
-                    name: 'shopAread',
-                    itemId: 'shopAread',
-                    store: 'ShopArea',
-                    emptyText: '请选择中心',
-                    editable: false,
-                    fieldLabel: '中心',
-                    labelWidth: 30,
-                    labelAlign: 'right',
-                    //queryMode:'local',
-                    displayField: 'name',
-                    valueField: 'id',
-                    hidden: (XMLifeOperating.generic.Global.operating_type == 'center')
-                }, */
         {
             xtype: 'combobox',
             name: 'audit',
@@ -92,8 +77,19 @@ Ext.define('XMLifeOperating.view.dealManage.GDealReturnAuditList', {
             valueField: 'value'
         }, {
             xtype: 'button',
-            itemId: 'getReturnAuditList',
+            name: 'audit',
+            itemId: 'queryBtn',
             text: '查询'
+        }, {
+            xtype: 'button',
+            name: 'audit',
+            itemId: 'batchpass',
+            text: '批量通过'
+        }, {
+            xtype: 'button',
+            name: 'refuse',
+            itemId: 'batchrefuse',
+            text: '批量拒绝'
         },
         '->', {
             xtype: 'textfield',
@@ -115,7 +111,14 @@ Ext.define('XMLifeOperating.view.dealManage.GDealReturnAuditList', {
         mode: 'MULTI',
         checkOnly: true,
         allowDeselect: true,
-        enableKeyNav: false
+        enableKeyNav: false,
+        listeners: {
+            beforeselect: function(cm, record, index, eOpts) {
+                if (record.get('status') != 0) {
+                    return false;
+                }
+            }
+        }
     }),
     columns: [{
         xtype: 'rownumberer'

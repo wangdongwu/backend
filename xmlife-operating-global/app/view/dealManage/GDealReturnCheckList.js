@@ -92,7 +92,8 @@ Ext.define('XMLifeOperating.view.dealManage.GDealReturnCheckList', {
             valueField: 'value'
         }, {
             xtype: 'button',
-            itemId: 'getReturnCheckList',
+            name:'check',
+            itemId: 'queryBtn',
             text: '查询'
         },
         '->', {
