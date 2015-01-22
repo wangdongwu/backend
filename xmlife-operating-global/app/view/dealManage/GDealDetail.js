@@ -122,7 +122,7 @@ Ext.define('XMLifeOperating.view.dealManage.GDealDetail', {
                     }
                 }, {
                     xtype: 'displayfield',
-                    name: 'serviceProblem',
+                    name: 'serviceProblemDesc',
                     fieldLabel: '标准吐槽',
                     renderer: function(value) {
                         return value ? value : '无';

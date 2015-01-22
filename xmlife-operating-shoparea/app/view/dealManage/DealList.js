@@ -54,15 +54,18 @@ Ext.define('XMLifeOperating.view.dealManage.DealList', {
         }, {
             xtype: 'button',
             itemId: 'productInvoice',
-            text: '导出商品对货单'
+            text: '导出商品对货单',
+            hidden: true
         }, {
             xtype: 'button',
             itemId: 'paymentInvoice',
-            text: '导出支付对账单'
+            text: '导出支付对账单',
+            hidden: true
         }, {
             xtype: 'button',
             itemId: 'deallistInvoice',
-            text: '导出订单'
+            text: '导出订单',
+            hidden: true
         },
         /*{
             xtype: 'button',
