@@ -344,7 +344,7 @@ Ext.define('XMLifeOperating.controller.GDealList', {
             'gDealReturnAuditList #batchpass, gDealReturnAuditList #batchrefuse': {
                 click: me.batchAudit
             },
-            'gDealReturnAuditList #longId':{
+            'gDealReturnCheckList #longId, gDealReturnAuditList #longId':{
                 click:me.onDealDetail
             }
         });
