@@ -146,11 +146,21 @@ Ext.define('XMLifeOperating.controller.BatchOperation', {
 	},
 	updateAndResumeMultiFileInput: function (button, url, syncImg) {
 		var self = this,
+      host = window.location.host,
 			form = button.up('form').getForm(),
 			path = '/',
 			logArea = button.up('form').down('#resultLog'),
 			sessionId = localStorage.getItem('sessionId'),
 			syncImgUrl = 'http://192.168.6.101:12345/proxy/http://192.168.6.101/jenkins/job/SyncSkuResource/build?delay=0sec';
+      
+      if(host.indexOf('localhost') || host.indexOf('127.0') || host.indexOf('dev')){
+        evn = 'dev';
+      }else if(host.indexOf('rc')){
+        evn = 'RC';
+      }else{
+        evn = 'production';
+      }
+
 		if (syncImg) {
 			Ext.Ajax.request({
 				url: syncImgUrl,
@@ -164,7 +174,7 @@ Ext.define('XMLifeOperating.controller.BatchOperation', {
 							"value": sessionId
 						}, {
 							"name": "dst_env",
-							"value": 'dev'
+							"value": evn
 						}]
 					})
 				},
