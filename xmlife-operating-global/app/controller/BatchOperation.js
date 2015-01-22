@@ -105,7 +105,7 @@ Ext.define('XMLifeOperating.controller.BatchOperation', {
 			},
 			'ProductPictureUpdateBatch #submit': {
 				click: function (button) {
-					self.updateAndResumeMultiFileInput(button, 'backdoor/update/product/img', true)
+					self.updateAndResumeMultiFileInput(button, '', true)
 				}
 			},
 			'DistributionTypeUpdateBatch #submit': {
@@ -149,6 +149,7 @@ Ext.define('XMLifeOperating.controller.BatchOperation', {
       host = window.location.host,
 			form = button.up('form').getForm(),
 			path = '/',
+      comment = form.down('#commentMsg') && form.down('#commentMsg').getValue(),
 			logArea = button.up('form').down('#resultLog'),
 			sessionId = localStorage.getItem('sessionId'),
 			syncImgUrl = 'http://192.168.6.101:12345/proxy/http://192.168.6.101/jenkins/job/SyncSkuResource/build?delay=0sec';
@@ -175,7 +176,10 @@ Ext.define('XMLifeOperating.controller.BatchOperation', {
 						}, {
 							"name": "dst_env",
 							"value": evn
-						}]
+						},{
+              "name" : "comment",
+              "value" : comment
+            }]
 					})
 				},
 				method: 'POST',
@@ -183,8 +187,10 @@ Ext.define('XMLifeOperating.controller.BatchOperation', {
 					//触发成功
 					if (response.status == 201) {
 						self.getBuildResult(function(){
-              form.url = XMLifeOperating.generic.Global.URL.biz + url;
-              self.submitForm(form, logArea, path, function () {});
+              if(url){
+                form.url = XMLifeOperating.generic.Global.URL.biz + url;
+                self.submitForm(form, logArea, path, function () {});
+              }
             });
 					}
 				},
