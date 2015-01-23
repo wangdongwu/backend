@@ -3,7 +3,7 @@ Ext.define('XMLifeOperating.view.operationManage.dealProblemDeals.DealProblemDea
     xtype: 'reapportion',
     closeAction: 'hide',
     modal: true,
-    width: 650,
+    width: 675,
     maxHeight: 500,
     autoScroll: true,
     resizable: false,
@@ -72,26 +72,10 @@ Ext.define('XMLifeOperating.view.operationManage.dealProblemDeals.DealProblemDea
                         dataIndex: 'shopperPhone'
                     }, {
                         text: '问题原因',
-                        dataIndex: 'problem',
-                        width: 76,
-                        renderer: function(value) {
-                            switch (value) {
-                                case 0:
-                                    return '正常单';
-                                case 1:
-                                    return '分配失败';
-                                case 2:
-                                    return '超时，未打开';
-                                case 3:
-                                    return '超时，未购买完成';
-                                case 4:
-                                    return '超时，未送达';
-                                case 5:
-                                    return '人工置为问题单';
-                                default:
-                                    return '未定义原因';
-                            }
-                        }
+                        width: 102,
+                        renderer: function(value, md, record, rowIndex, colIndex, store, view) {
+                            return view.up('window').problemText;
+                         }
                     }, {
                         text: '操作',
                         align: 'center',

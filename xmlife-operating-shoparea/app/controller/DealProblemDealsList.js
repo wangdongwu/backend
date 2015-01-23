@@ -1,5 +1,23 @@
 Ext.define('XMLifeOperating.controller.DealProblemDealsList', {
     extend: 'Ext.app.Controller',
+    statics: {
+        getProblemDesc: function(code) {
+            switch (code) {
+                case 1:
+                    return '分配失败';
+                case 2:
+                    return '超时，未打开';
+                case 3:
+                    return '超时，未购买完成';
+                case 4:
+                    return '超时，未送达';
+                case 5:
+                    return '人工置为问题单';
+                default:
+                    return '未定义原因';
+            }
+        }
+    },
     views: ['operationManage.dealProblemDeals.DealProblemDealsList',
         'operationManage.dealProblemDeals.DealProblemDealsReapportion',
         'operationManage.dealProblemDeals.DealProblemDealsReapportionShopper',
@@ -152,17 +170,17 @@ Ext.define('XMLifeOperating.controller.DealProblemDealsList', {
                     sendPutRequest('deal/assignSuperShopper', {
                         dealId: dealId
                     }, '自动分配', '自动分配成功', '自动分配失败', function(response) {
-                        if (response.responseText == -2) {
+                        if (response.responseText != 1) {
                             Ext.MessageBox.show({
                                 title: '订单自动分配',
-                                msg: '有买手未上班，无法自动分配',
+                                msg: '订单自动分配失败',
                                 icon: Ext.Msg.ERROR,
                                 buttons: Ext.Msg.OK
                             });
-                        } else if (response.responseText == 1) {
+                        } else {
                             Ext.MessageBox.show({
                                 title: '',
-                                msg: '该订单自动分配成功',
+                                msg: '订单自动分配成功',
                                 icon: Ext.Msg.INFO,
                                 buttons: Ext.Msg.OK
                             });
@@ -183,6 +201,8 @@ Ext.define('XMLifeOperating.controller.DealProblemDealsList', {
 
         var win = this.getReapportion();
         win.reapportionDealId = dealId;
+        // 服务器端在deal/tasks接口中传人problem字段有困难，这里将“问题类型“描述绑定在”重新分配“窗口上供其子控件访问。
+        win.problemText = this.self.getProblemDesc(record.get('problem'));
         win.down('form').loadRecord(record);
         win.show();
         var store = this.getDealTasksStore();
@@ -245,7 +265,7 @@ Ext.define('XMLifeOperating.controller.DealProblemDealsList', {
                     sendPutRequest('deal/reAssignSuperShopper', {
                         dealId: win.reapportionDealId,
                         taskId: win.taskId,
-                        shopperId: uid
+                        superShopperId: uid
                     }, '分单', '分单成功', '分单失败', function(response) {
 
                         if (response.responseText != 1) {
