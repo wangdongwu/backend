@@ -189,7 +189,8 @@ Ext.define('XMLifeOperating.controller.ShopperCheck', {
   exportGather : function(){
     var param = this.getParam(),
         parmUrl = Ext.urlEncode(param),
-        url = XMLifeOperating.generic.Global.URL.report+'superShopperExamine/exportGather?'+parmUrl;
+        sessionId = localStorage.getItem('sessionId') || '',
+        url = XMLifeOperating.generic.Global.URL.report + 'superShopperExamine/exportGather?' + parmUrl + '&sessionId=' + sessionId;
         
         window.open(url, '_blank');
   },
@@ -200,7 +201,8 @@ Ext.define('XMLifeOperating.controller.ShopperCheck', {
   exportGatherList : function(){
     var param = this.getParam(),
     parmUrl = Ext.urlEncode(param),
-    url = XMLifeOperating.generic.Global.URL.report+'superShopperExamine/exportGatherList?'+parmUrl;
+    sessionId = localStorage.getItem('sessionId') || '',
+    url = XMLifeOperating.generic.Global.URL.report + 'superShopperExamine/exportGatherList?' + parmUrl + '&sessionId=' + sessionId;
 
     window.open(url, '_blank');
   },
