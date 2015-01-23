@@ -133,11 +133,11 @@ Ext.define('XMLifeOperating.view.staffManage.shopperCheck.ShopperList', {
 	}, {
 		text: '问题单数',
     align : 'center',
-		dataIndex: 'problemDeals',
+		dataIndex: 'problemDeals'/*,
 		itemId: 'issueDeal',
     renderer : function(v){
       return this.changeColor(v)
-    }
+    }*/
 	}, {
 		text: '部分退货商品数',
     align : 'center',

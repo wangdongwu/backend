@@ -12,9 +12,9 @@ Ext.define('XMLifeOperating.view.staffManage.shopperCheck.CheckDetailTab', {
       xtype : 'OverTimeRefuseDealList'
     },{
       xtype : 'ReturnedDealList'
-    },{
+    }/*,{
       xtype : 'IssueDealList'
-    },{
+    }*/,{
       xtype : 'ReturnRecordList'
     },{
       xtype : 'ComplainRecordList'
