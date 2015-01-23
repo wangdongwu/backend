@@ -100,7 +100,7 @@ Ext.define('XMLifeOperating.view.damagedGoodsManage.DamagedGoodsList', {
     }, {
         text: '申报时间',
         dataIndex: 'applyTime',
-        width: 70,
+        width: 100,
         sortable: true,
         align: 'center',
         renderer: function(value) {
@@ -142,12 +142,11 @@ Ext.define('XMLifeOperating.view.damagedGoodsManage.DamagedGoodsList', {
         dataIndex: '',
         width: 100,
         sortable: false,
-        align: 'left',
-        renderer: function(value,model,record){
+        align: 'center',
+        renderer: function(value, model, record) {
             var pkgCount = record.get('pkgCount'),
                 pkgName = record.get('pkgName');
-
-            return (pkgCount == '' || pkgName == '') ? pkgName * pkgCount : '-';
+            return (pkgCount == 0 || pkgName === null) ? '-' : pkgName + '*' + pkgCount;
         }
     }, {
         text: '所属商家',
