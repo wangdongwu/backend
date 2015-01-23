@@ -33,8 +33,6 @@ Ext.define('XMLifeOperating.view.general.CommonDealList', {
                         return '分配买手失败-' + value;
                     case 2:
                         return '已出货-' + value;
-                    case 32:
-                        return '分配快递员失败-' + value;
                     case 3:
                         return '配送中-' + value;
                     case 4:

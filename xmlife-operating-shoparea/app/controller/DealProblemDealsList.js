@@ -160,6 +160,10 @@ Ext.define('XMLifeOperating.controller.DealProblemDealsList', {
         countDownFn(5);
     },
     onAutoAllocation: function(view, cellEl, rowIndex, colIndex, e, record) {
+        if (record.get('superShopperName')) {
+            return;
+        }
+
         var me = this,
             dealId = record.get('dealBackendId');
         Ext.MessageBox.confirm(
