@@ -272,7 +272,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
                     var id = record.get('id');
                     var storeLimitEnable = record.get('storeLimitEnable');
                     var success = function(response) {
-                        me.showShopList()
+                        me.showShopList();
                     };
                     var failure = function(response) {
                         Ext.MessageBox.show({
@@ -281,7 +281,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
                             icon: Ext.Msg.ERROR,
                             buttons: Ext.Msg.OK
                         });
-                    }
+                    };
                     if (storeLimitEnable) { //已开启库存管理，关闭库存管理
 
                         sendPutRequest('shop/closeStoreLimit', {
@@ -292,7 +292,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
 
                         sendPutRequest('shop/openStoreLimit', {
                             id: id
-                        }, '操作库存管理', '操作库存管理成功', '操作库存管理失败', success, failure)
+                        }, '操作库存管理', '操作库存管理成功', '操作库存管理失败', success, failure);
                     }
                 }
             },
@@ -361,7 +361,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
                 // 弹出入住买手window
                 click: function(grid, rowIndex, colIndex) {
                     var record = grid.getStore().getAt(colIndex);
-                    var win = this.getShopBuyer(); 
+                    var win = this.getShopBuyer();
                     win.down('form').loadRecord(record);
 
                     win.down('[name=keywordBuyer]').setValue('');
@@ -373,7 +373,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
                     store.removeAll();
                     store.getProxy().extraParams = {
                         shopId: record.get('id')
-                    }
+                    };
                     store.load({
                         callback: function(records) {
                             if ((records.length == 1) && (records[0].get('uid') == '')) {
@@ -409,13 +409,6 @@ Ext.define('XMLifeOperating.controller.Shop', {
                     var needAuditPrice = (this.record.get('needAuditPrice') == true || this.record.get('needAuditPrice') == 'true') ? 'true' : 'false';
                     var needUserCollection = (this.record.get('needUserCollection') == true || this.record.get('needUserCollection') == 'true') ? 'true' : 'false';
 
-                    Ext.Array.each(['initShippingFee', 'minPrice', 'minOrderForFreeShipping', 'minDistance', 'shippingFeePerKM'], function(field) {
-                        var value = this.record.get(field);
-                        if (Ext.isNumeric(value)) {
-                            this.record.set(field, value / 100);
-                        }
-                    }, this);
-
                     this.record.set('openTimeText', openTime);
                     this.record.set('closeTimeText', closeTime);
                     this.record.set('autoOnline', autoOnline);
@@ -423,6 +416,22 @@ Ext.define('XMLifeOperating.controller.Shop', {
                     this.record.set('needAuditPrice', needAuditPrice);
                     this.record.set('needUserCollection', needUserCollection);
                     form.loadRecord(this.record);
+
+                    // 因为使用了store.update()提交表单修改，所以对如下几个字段，在store里需要保持其值为“服务器友好”的值
+                    // 也即是所显示的人民币/公里数＊100之后的值。鉴于此，这里不能将显示用值写回record。
+                    // 另外由于numberfiled不支持renderer方法，这里显式地将显示用值set到form。
+                    // 另一个可选方案是给numberfield指定applyValue方法，但其会影响所有setValue()调用，难免误伤。
+                    // 待1.5过后这个文件大规模整理时再考虑重构方案。
+                    var freightValues = {};
+                    Ext.Array.each(['initShippingFee', 'minPrice', 'minOrderForFreeShipping', 'minDistance', 'shippingFeePerKM'], function(field) {
+                        var value = this.record.get(field);
+                        if (Ext.isNumeric(value)) {
+                            freightValues[field] = value / 100;
+                        }
+                    }, this);
+
+                    form.getForm().setValues(freightValues);
+
                     this.shopId = this.record.raw.id;
                     tab.show();
                 }
@@ -493,7 +502,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
                             }
                         } else {
                             alert('经纬度格式错误');
-                            return
+                            return;
                         }
                         // 开始结束时间点检验
                         var openTime = shopStore.get('openTime').getHours() * 60 + shopStore.get('openTime').getMinutes();
@@ -609,7 +618,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
                         if (shopBannerTemplateStore.data.items.length) {
                             //combo加载，用户选择下拉框。
                             if (shopStore.get('shopBannerTemplateId') !== shopStore.get('templateName')) {
-                                templateId = shopBannerTemplateStore.findRecord('id', shopStore.get('shopBannerTemplateId')).getId()
+                                templateId = shopBannerTemplateStore.findRecord('id', shopStore.get('shopBannerTemplateId')).getId();
                             }
                         }
 
