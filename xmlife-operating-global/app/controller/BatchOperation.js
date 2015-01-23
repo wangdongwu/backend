@@ -152,7 +152,7 @@ Ext.define('XMLifeOperating.controller.BatchOperation', {
       comment = form.owner.down('#commentMsg') && form.owner.down('#commentMsg').getValue(),
 			logArea = button.up('form').down('#resultLog'),
 			sessionId = localStorage.getItem('sessionId'),
-			syncImgUrl = 'http://192.168.6.101:12345/proxy/http://192.168.6.101/jenkins/job/SyncSkuResource/build?delay=0sec';
+			syncImgUrl = 'https://192.168.6.102/proxy/http://192.168.6.101/jenkins/job/SyncSkuResource/build?delay=0sec';
       
       if(host.indexOf('localhost') || host.indexOf('127.0') || host.indexOf('dev')){
         evn = 'dev';
