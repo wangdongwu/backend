@@ -203,7 +203,7 @@ Ext.define('XMLifeOperating.controller.BatchOperation', {
 	getBuildResult: function (callback) {
 		var self = this,
 			runner = new Ext.util.TaskRunner(),
-			resultJsonUrl = 'http://192.168.6.101:12345/proxy/http://192.168.6.101/jenkins/job/SyncSkuResource/lastBuild/api/json',
+			resultJsonUrl = 'https://192.168.6.102/proxy/http://192.168.6.101/jenkins/job/SyncSkuResource/lastBuild/api/json',
 			getJson = function () {
 				Ext.Ajax.request({
 					url: resultJsonUrl,
