@@ -75,7 +75,7 @@ Ext.define('XMLifeOperating.view.templateManage.productTemplate.ProductTemplateL
                 width: 150,
                 sortable: false,
                 renderer: function(value) {
-                    return Ext.String.format('<img src="{0}/image/id-{1}" height="100" />', XMLifeOperating.generic.Global.URL.res, value);
+                    return Ext.String.format('<img src="{0}{1}" height="100" />', XMLifeOperating.generic.Global.URL.res, value);
                 }
             }, {
                 text: 'rank',
@@ -124,7 +124,7 @@ Ext.define('XMLifeOperating.view.templateManage.productTemplate.ProductTemplateL
                     '<ul id="picViewList" style="width:100%;list-style:none;text-align:center;">',
                     '<tpl for=".">', // 处理数据的子节点
                     '<li class="picList" style="float:left;margin:10px 25px 15px 8px;width:29%;border:1px solid #eee;">',
-                    '<p><img src="' + XMLifeOperating.generic.Global.URL.res + '/image/id-' + '{picture}" width="90%" /></p>',
+                    '<p><img src="' + XMLifeOperating.generic.Global.URL.res + '{picture}" width="90%" /></p>',
                     '<p style="position:relative;">{name} <input type="text" value="{rank}" title="点击编辑" style="width:50px;margin-left:15px;padding-left:2px;border:1px solid #fff;color:#999;" />',
                     '<img class="x-action-col-icon" src="resources/images/edit.png" title="修改" style="position:absolute;right:10px;" /></p>',
                     '</li>',

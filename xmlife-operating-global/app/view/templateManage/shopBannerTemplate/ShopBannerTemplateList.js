@@ -44,7 +44,7 @@ Ext.define('XMLifeOperating.view.templateManage.shopBannerTemplate.ShopBannerTem
             width: 180,
             sortable: false,
             renderer: function(value) {
-                return Ext.String.format('<img src="{0}/image/id-{1}" height="45" />', XMLifeOperating.generic.Global.URL.res, value);
+                return Ext.String.format('<img src="{0}{1}" height="45" />', XMLifeOperating.generic.Global.URL.res, value);
             }
         }, {
             text: '店铺icon',
@@ -52,7 +52,7 @@ Ext.define('XMLifeOperating.view.templateManage.shopBannerTemplate.ShopBannerTem
             width: 180,
             sortable: false,
             renderer: function(value) {
-                return Ext.String.format('<img src="{0}/image/id-{1}" height="45" />', XMLifeOperating.generic.Global.URL.res, value);
+                return Ext.String.format('<img src="{0}{1}" height="45" />', XMLifeOperating.generic.Global.URL.res, value);
             }
         }, {
             xtype: 'actioncolumn',

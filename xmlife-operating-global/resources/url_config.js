@@ -10,7 +10,7 @@ window.URLMap = {
     // biz: 'http://dev.xiaomei.com/backend/',
     //biz: 'http://test.xiaomei.com:1550/',
     biz: 'https://dev.backend.xiaomei.com/bs/',
-    res: 'http://dev.backend.xiaomei.com/res/image/id-',
+    res: 'http://img.miaomiaochat.com/',
     report: 'https://dev.backend.xiaomei.com/report/',
     upload: 'https://dev.backend.xiaomei.com/res/upload'
 };
