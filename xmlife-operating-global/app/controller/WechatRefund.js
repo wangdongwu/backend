@@ -244,8 +244,18 @@ Ext.define('XMLifeOperating.controller.WechatRefund', {
                 grid.down('#manualHandingIntrId').setVisible(false);
                 grid.down('#handledId').setVisible(false);
                 break;
-                //已处理
+            //已处理
             case '1-7-4-8':
+                grid.down('#manualHandingId').setVisible(false);
+                grid.down('#refundFailureId').setVisible(false);
+                grid.down('#pengdingId').setVisible(false);
+
+                grid.down('#manualHandingIntrId').setVisible(false);
+                grid.down('#handledId').setVisible(false);
+                grid.down('#checkAllId').setVisible(false);
+                break;
+            //处理中
+            case '2':
                 grid.down('#manualHandingId').setVisible(false);
                 grid.down('#refundFailureId').setVisible(false);
                 grid.down('#pengdingId').setVisible(false);

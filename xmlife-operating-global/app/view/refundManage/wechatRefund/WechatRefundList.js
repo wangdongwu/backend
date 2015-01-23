@@ -78,6 +78,9 @@ Ext.define('XMLifeOperating.view.refundManage.wechatRefund.WechatRefundList', {
                     "value": '0',
                     "type": '待处理'
                 }, {
+                    "value": '2',
+                    "type": '处理中'
+                }, {
                     "value": '1-7-4-8',
                     "type": '已处理'
                 }, {
@@ -290,6 +293,7 @@ Ext.define('XMLifeOperating.view.refundManage.wechatRefund.WechatRefundList', {
             var data = {
                 '0': '待处理',
                 '1': '退款成功1',
+                '2': '处理中',
                 '3': '退款失败',
                 '5': '人工处理',
                 '4': '拒绝退款',
