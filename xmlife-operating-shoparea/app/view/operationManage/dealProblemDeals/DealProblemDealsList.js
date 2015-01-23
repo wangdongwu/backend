@@ -69,28 +69,25 @@ Ext.define('XMLifeOperating.view.operationManage.dealProblemDeals.DealProblemDea
         renderer: function(value) {
             switch (value) {
                 case 1:
-                    return '买手超时';
+                    return '分配失败';
                 case 2:
-                    return '未上班';
+                    return '超时，未打开';
                 case 3:
-                    return '未分配';
+                    return '超时，未购买完成';
                 case 4:
-                    return '配送超时';
+                    return '超时，未送达';
                 case 5:
-                    return '标记问题订单';
-                case 6:
-                    return '买手未反应';
+                    return '人工置为问题单';
                 default:
-                    return '默认';
+                    return '未定义原因';
             }
         }
     }, {
         text: '',
         itemId: 'reapportion',
         menuDisabled: true,
-        renderer: function(value, metadata, model) {
-            var str = model.get('superShopperName') ? '重新分配' : '自动分配';
-            return '<a href="javascript:;">' + str + '</a>';
+        renderer: function() {
+            return '<a href="javascript:;">重新分配</a>';
         }
     }, {
         text: '',
@@ -101,6 +98,20 @@ Ext.define('XMLifeOperating.view.operationManage.dealProblemDeals.DealProblemDea
             return (status != 20 && status != 31) ? '取消订单' : '<a href="javascript:;">取消订单</a>';
         }
     });
+
+    // 在买手列添加自动分配链接
+    var shopperNameItem;
+
+    Ext.Array.each(items, function(item) {
+        if (item.dataIndex === 'superShopperName') {
+            shopperNameItem = item;
+            return false;
+        }
+    });
+
+    shopperNameItem.renderer = function(v) {
+        return v ? v : '<a href="javascript:;">自动分配</a>';
+    };
 
     this.prototype.columns = columns;
 });

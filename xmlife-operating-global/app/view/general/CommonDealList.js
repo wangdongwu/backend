@@ -20,7 +20,7 @@ Ext.define('XMLifeOperating.view.general.CommonDealList', {
             dataIndex: 'dealBackendId',
             itemId: 'dealDetail',
             renderer: function(value) {
-                return '<a href="javascript:">' + value + '</a>';
+                return '<a href="javascript:;">' + value + '</a>';
             }
         }, {
             text: '订单状态',
@@ -49,6 +49,8 @@ Ext.define('XMLifeOperating.view.general.CommonDealList', {
                         return '货到中心-' + value;
                     case 22:
                         return '等待快递员取货-' + value;
+                    case 23:
+                        return '分配买手中－' + value;
                     default:
                         return '未知-' + value;
                 }
@@ -58,7 +60,7 @@ Ext.define('XMLifeOperating.view.general.CommonDealList', {
             dataIndex: 'contactsName',
             itemId: 'customerDetail',
             renderer: function(value) {
-                return '<a href="javascript:">' + value + '</a>';
+                return '<a href="javascript:;">' + value + '</a>';
             }
         }, {
             text: '顾客电话',
@@ -68,14 +70,11 @@ Ext.define('XMLifeOperating.view.general.CommonDealList', {
             dataIndex: 'shopAreaName',
         }, {
             text: '买手',
-            dataIndex: 'superShopperName'
+            dataIndex: 'superShopperName',
+            itemId: 'superShopperName'
         }, {
             text: '购买店铺',
-            dataIndex: 'shopNames',
-            renderer: function(value) {
-                var arr = value.length ? Ext.toArray(value) : [];
-                return arr.join('<br />');
-            }
+            dataIndex: 'shopName'
         }, {
             text: '下单时间',
             dataIndex: 'created',
@@ -86,13 +85,7 @@ Ext.define('XMLifeOperating.view.general.CommonDealList', {
             text: '期望送达时间',
             dataIndex: 'deliverTime',
             renderer: function(value) {
-                value = new Date(value);
-                var now = new Date(),
-                    dateOffset = value.getDate() - now.getDate(),
-                    str = dateOffset > 1 ? Ext.Date.format(value, 'm-d ') :
-                    dateOffset > 0 ? '次日 ' : '';
-
-                return str + Ext.Date.format(value, 'H:i');
+                return Ext.Date.format(new Date(value), 'm-d H:i');
             },
         }, {
             text: '剩余时间',
@@ -118,19 +111,15 @@ Ext.define('XMLifeOperating.view.general.CommonDealList', {
             }
         }, {
             text: '接单时间',
-            dataIndex: 'assignSuperShopperTime',
+            dataIndex: 'assignShopperTime',
             renderer: function(value) {
                 return Ext.Date.format(new Date(value), 'H:i');
             }
         }, {
             text: '完成购买时间',
-            dataIndex: 'taskDone',
+            dataIndex: 'buyDone',
             renderer: function(value) {
-                var arr = Ext.Array.from(value);
-                arr = Ext.Array.map(arr, function(v) {
-                    return Ext.Date.format(new Date(v), 'H:i');
-                });
-                return arr.join('<br />');
+                return Ext.Date.format(new Date(value), 'H:i');
             }
         }, {
             text: '送达时间',
