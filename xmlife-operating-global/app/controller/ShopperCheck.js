@@ -125,6 +125,12 @@ Ext.define('XMLifeOperating.controller.ShopperCheck', {
       },
       'ShopperList #complainDeal' : {
         click : self.complainDeal
+      },
+      'CheckDetailTab #dealDetail' : {
+        click : function(){
+          var ctrlGDealList = self.getController('GDealList');
+              ctrlGDealList.onDealDetail.apply(ctrlGDealList, arguments);
+        }
       }
 		});
 	},
