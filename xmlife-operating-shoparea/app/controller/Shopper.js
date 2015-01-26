@@ -84,14 +84,14 @@ Ext.define('XMLifeOperating.controller.Shopper', {
                         view.down('#activeBind').setText('查看未绑定的买手');
                         view.down('#searchBuyerKeyWords').setValue('');
                     });
-                    store.loadPage(1,{
+                    store.loadPage(1, {
                         params: {
                             start: 0,
                             limit: 25,
                             page: 1
                         }
                     });
-                    this.areaId=combo.getValue();
+                    this.areaId = combo.getValue();
                 },
             },
             //查看中心下暂停或接单买手
@@ -119,7 +119,7 @@ Ext.define('XMLifeOperating.controller.Shopper', {
                         view.down('#activeSearch').setText(activeSearch);
                     });
 
-                    store.loadPage(1 ,{
+                    store.loadPage(1, {
                         params: {
                             start: 0,
                             limit: 25,
@@ -374,7 +374,7 @@ Ext.define('XMLifeOperating.controller.Shopper', {
             },
             ///返回历史订单
             'dealItemsLists #dealShopperHistoryListReturn': {
-                click: function() {                   
+                click: function() {
                     var tab = me.getDealShopperHistoryList();
                     var content = this.getContentPanel();
                     content.removeAll(false);
@@ -382,33 +382,32 @@ Ext.define('XMLifeOperating.controller.Shopper', {
                 }
             },
             'shopperList #closeOrOpenOrder': {
-                click: function(grid, column, rowIndex) {
-                    var record = grid.getStore().getAt(rowIndex);
-                    var shopper = record.get('uid');
-                    var isActive = record.get('isActive');
-                    var url = '';
-                    var str = '确认要此操作吗？';
-                    if (isActive == true) {
+                click: function(grid, column, rowIndex, colIndex, e) {
+                    var record = grid.getRecord(grid.findTargetByEvent(e)),
+                        superShopperId = record.get('uid'),
+                        isActive = record.get('isActive'),
+                        url = '',
+                        str = '确认要此操作吗？',
+                        win = me.getShopperList(),
+                        store = me.getSuperShopperStore(),
+                        activeBindText = win.down('#activeBind').getText(),
+                        searchBuyerKeyWords = win.down('#searchBuyerKeyWords').getValue();
+                    if (isActive === true) {
                         str = '确认要暂停买手接单吗？';
                         isActive = false;
                     } else {
                         str = '确认要恢复买手接单';
                         isActive = true;
                     }
-                    url = 'shopper/enable';
+                    url = 'superShopper/enable';
                     Ext.MessageBox.confirm("选择框", str, function(str) {
                         if (str != 'yes') {
                             return;
                         }
                         sendPutRequest(url, {
-                            shopper: shopper,
+                            superShopperId: superShopperId,
                             isActive: isActive
                         }, '操作恢复或暂停买手接单', '成功操作买手接单', '操作买手接单失败', function() {
-                            //3种情况 手机查询  未绑定查询 中心停单买手查询
-                            var store = me.getSuperShopperStore();
-                            var activeBindText = Ext.getCmp('shopperList').down('#activeBind').getText();
-                            var params = '';
-                            var searchBuyerKeyWords = me.getShopperList().down('#searchBuyerKeyWords').getValue();
                             if (activeBindText == '查看已绑定的买手' || searchBuyerKeyWords != '') {
                                 record.set('isActive', isActive);
                                 return;
