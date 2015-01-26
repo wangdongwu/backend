@@ -221,8 +221,10 @@ Ext.define('XMLifeOperating.controller.GDealList', {
                             case -3:
                                 str = '订单已存在申请中的退货:' + code;
                                 break;
+                            case -4:
+                                str = '订单已超过15天，无法退货:' + code;
+                                break;
                         }
-
                         Ext.Msg.alert('提示', str);
                         win.close();
                         refresh(me);
@@ -247,6 +249,9 @@ Ext.define('XMLifeOperating.controller.GDealList', {
                             case -3:
                                 str = '订单已存在申请中的退货:' + code;
                                 break;
+                            case -4:
+                                str = '订单已超过15天，无法退货:' + code;
+                                break;
                         }
 
                         Ext.MessageBox.show({
@@ -260,7 +265,7 @@ Ext.define('XMLifeOperating.controller.GDealList', {
                         dealId: dealId,
                         productIds: productIds,
                         numbers: numbers
-                    }, '申请订单退货请求', '请求成功', '请求失败', success, failure);
+                    }, '退货申请请求', '请求成功', '请求失败', success, failure);
 
                 }
             },
@@ -344,8 +349,8 @@ Ext.define('XMLifeOperating.controller.GDealList', {
             'gDealReturnAuditList #batchpass, gDealReturnAuditList #batchrefuse': {
                 click: me.batchAudit
             },
-            'gDealReturnCheckList #longId, gDealReturnAuditList #longId':{
-                click:me.onDealDetail
+            'gDealReturnCheckList #longId, gDealReturnAuditList #longId': {
+                click: me.onDealDetail
             }
         });
     },
