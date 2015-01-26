@@ -19,7 +19,7 @@ Ext.define('XMLifeOperating.view.staffManage.shopperCheck.ShopperList', {
 		format: 'Y-m-d',
     value : new Date(Ext.Date.format(Ext.Date.add(new Date(), Ext.Date.DAY, -1),'Y-m-d')),
 		emptyText: '选择起始时间',
-		maxValue: Ext.Date.add(new Date(), Ext.Date.DAY, 1)
+		maxValue: new Date()
 	}, {
 		xtype: 'datefield',
 		name: 'endTime',
@@ -27,7 +27,7 @@ Ext.define('XMLifeOperating.view.staffManage.shopperCheck.ShopperList', {
 		format: 'Y-m-d',
     value : new Date(Ext.Date.format(Ext.Date.add(new Date(), Ext.Date.DAY, -1),'Y-m-d')),
 		emptyText: '选择结束时间',
-		maxValue: Ext.Date.add(new Date(), Ext.Date.DAY, 1)
+		maxValue: new Date()
 	}, {
     text: '本月',
     handler: function () {

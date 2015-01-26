@@ -28,7 +28,7 @@ Ext.define('XMLifeOperating.view.Viewport', {
         items: [{
             closable: true,
             title: '欢迎使用',
-            html: '<br/><br/><br/><br/><h1 style="text-align:center">欢迎使用小美后台管理系统!! <br/><br/>⊙o⊙</h1>'
+            html: '<br/><br/><br/><br/><h1 style="text-align:center">欢迎使用小美后台管理系统!! <br/><br/>⊙o⊙</h1><p style="font-size:14px;text-align:center">由于小美后台升级https，为大家更安全更正常的使用请<a href="http://s25.qeedoo.com/confluence/download/attachments/5309054/%E5%B0%8F%E7%BE%8Ehttps%E8%AF%81%E4%B9%A6%E5%AE%89%E8%A3%85%E8%AF%B4%E6%98%8E.zip?version=1&modificationDate=1422237467412&api=v2">小美https证书安装说明.zip</a></p>'
         }],
         layout: 'fit',
         header: false,
