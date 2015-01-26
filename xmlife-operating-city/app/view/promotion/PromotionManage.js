@@ -60,9 +60,13 @@ Ext.define('XMLifeOperating.view.promotion.PromotionManage', {
 		displayInfo: true,
 		style: 'border:none'
 	}],
+  viewConfig: {
+    enableTextSelection : true
+  },
 	columns: [{
 			header: '序号',
-			dataIndex: 'id'
+			dataIndex: 'id',
+      width : 130
 		}, {
 			header: '活动',
 			dataIndex: 'name'
