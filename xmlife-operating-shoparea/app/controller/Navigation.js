@@ -67,6 +67,9 @@ Ext.define('XMLifeOperating.controller.Navigation', {
         var xtype = eOpts[0].raw.id,
             text = eOpts[0].raw.text;
 
+        if (!eOpts[0].raw.leaf) {
+            return false;
+        }
 
         if (xtype) { // only leaf nodes have ids
             this.switchToView(xtype);
