@@ -121,7 +121,7 @@ Ext.define('XMLifeOperating.view.dealManage.GDealList', {
             menuDisabled: true,
             renderer: function() {
                 return '<a href="javascript:;">转为问题订单</a>';
-            }
+            }            
         }
         /*, {
                 text: '',

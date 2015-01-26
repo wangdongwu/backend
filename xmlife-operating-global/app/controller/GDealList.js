@@ -270,26 +270,26 @@ Ext.define('XMLifeOperating.controller.GDealList', {
             'gDealList #toproblemdeal': {
                 click: me.onToProblemDeal
             },
-            'gDealList #showReturnProductBtn': {
-                click: function(view, rowIndex, colIndex, column, e) {
-                    var record = view.getRecord(view.findTargetByEvent(e)),
-                        dealId = record.get('id'),
-                        itemStore = me.getDealItemsStore(),
-                        status = record.get('status');
+            // 'gDealList #showReturnProductBtn': {
+            //     click: function(view, rowIndex, colIndex, column, e) {
+            //         var record = view.getRecord(view.findTargetByEvent(e)),
+            //             dealId = record.get('id'),
+            //             itemStore = me.getDealItemsStore(),
+            //             status = record.get('status');
 
-                    if (status != 4) {
-                        return;
-                    }
+            //         if (status != 4) {
+            //             return;
+            //         }
 
-                    me.getReturnProductForm().down('#DealItemsNumber').setValue("");
-                    me.getReturnProductForm().down('#DealItems').setValue("");
-                    itemStore.getProxy().extraParams = {
-                        deal: dealId
-                    };
-                    itemStore.load();
-                    me.getReturnProductForm().show();
-                }
-            },
+            //         me.getReturnProductForm().down('#DealItemsNumber').setValue("");
+            //         me.getReturnProductForm().down('#DealItems').setValue("");
+            //         itemStore.getProxy().extraParams = {
+            //             deal: dealId
+            //         };
+            //         itemStore.load();
+            //         me.getReturnProductForm().show();
+            //     }
+            // },
             'ReturnProductForm #DealItems': {
                 select: function(combo, records, opts) {
                     if (records.length == 0) return;
@@ -726,7 +726,7 @@ Ext.define('XMLifeOperating.controller.GDealList', {
                                 });
                                 var sstore = me.getDealStore();
                                 sstore.getProxy().extraParams = {
-                                    shopArea: Ext.getCmp('gDealList').down('#shopAread').getValue(),
+                                    shopArea: me.getGDealList().down('#shopAread').getValue(),
                                     assignShopper: true
                                 };
                             }
