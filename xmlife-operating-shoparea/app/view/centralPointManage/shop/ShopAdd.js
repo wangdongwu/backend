@@ -149,7 +149,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopAdd', {
                 xtype: 'numberfield',
                 name: 'minOrderForFreeShipping',
                 fieldLabel: '满免金额',
-                minValue: 0,
+                minValue: 1,
                 allowDecimals: false,
                 emptyText: '不填则以城市设置为准'
             }, {

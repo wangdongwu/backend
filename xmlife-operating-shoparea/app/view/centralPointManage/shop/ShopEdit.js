@@ -5,6 +5,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopEdit', {
     width: 450,
     buttonAlign: 'center',
     autoScroll: false,
+    modal: true,
     initComponent: function() {
 
         var required = '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>';
@@ -151,7 +152,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopEdit', {
                 xtype: 'numberfield',
                 name: 'minOrderForFreeShipping',
                 fieldLabel: '满免金额',
-                minValue: 0,
+                minValue: 1,
                 allowDecimals: false,
                 emptyText: '不填则以城市设置为准'
             }, {

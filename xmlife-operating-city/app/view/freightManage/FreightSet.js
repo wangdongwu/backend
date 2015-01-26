@@ -9,6 +9,7 @@ Ext.define('XMLifeOperating.view.freightManage.FreightSet', {
     resizable: false,
     layout: 'fit',
     title: '运费设置',
+    modal: true,
     initComponent: function() {
         function getTailLabelConfig(text, disabled) {
             return {
@@ -101,6 +102,7 @@ Ext.define('XMLifeOperating.view.freightManage.FreightSet', {
                     itemId: 'minOrderForFreeShipping',
                     name: 'minOrderForFreeShipping',
                     fieldLabel: '满免金额',
+                    minValue: 1,
                     disabled: true
                 }), getTailLabelConfig('元（仅免起送费）', true)]
             }, {        // 第五行，container > 复选框 ＋ 输入框 ＋ 尾标签
