@@ -401,7 +401,7 @@ Ext.define('XMLifeOperating.controller.Manager', {
                     phone: manager.get('phone'),
                     idcard: manager.get('idcard'),
                     avatar: manager.get('avatar'),
-                }, '编辑模板', '成功编辑模板', '编辑模板失败', function(operation) {
+                }, '编辑掌柜', '成功编辑掌柜', '编辑掌柜失败', function(operation) {
                     windowEl.unmask();
                     editWindow.close();
                 });
@@ -458,7 +458,7 @@ Ext.define('XMLifeOperating.controller.Manager', {
                     idcard: manager.get('idcard'),
                     phone: manager.get('phone'),
                     avatar: manager.get('avatar')
-                }, '添加模板', '成功添加模板', '添加模板失败', success, failure);
+                }, '添加掌柜', '成功添加掌柜', '添加掌柜失败', success, failure);
             }
         } else {
             Ext.Msg.alert('无效数据', '请提交正确的表格数据!');
