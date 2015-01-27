@@ -16,13 +16,13 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopEdit', {
                 'name': '系统默认展示'
             }, {
                 'value': 1,
-                'name': '一级分类合并展示'
+                'name': '一级分类全部展示'
             }, {
                 'value': 2,
-                'name': '二级分类合并展示'
+                'name': '二级分类全部展示'
             }, {
                 'value': 3,
-                'name': '三级分类合并展示'
+                'name': '三级分类全部展示'
             }]
         });
         this.items = [{

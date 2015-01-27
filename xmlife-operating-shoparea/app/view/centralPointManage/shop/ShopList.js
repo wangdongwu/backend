@@ -141,16 +141,16 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopList', {
             var str = '';
             switch (value) {
                 case 0:
-                    str = '系统默认';
+                    str = '系统默认展示';
                     break;
                 case 1:
-                    str = '一级分类合并';
+                    str = '一级分类合并展示';
                     break;
                 case 2:
-                    str = '二级分类合并';
+                    str = '二级分类合并展示';
                     break;
                 case 3:
-                    str = '三级分类合并';
+                    str = '三级分类合并展示';
                     break;
                 default:
                     break;
