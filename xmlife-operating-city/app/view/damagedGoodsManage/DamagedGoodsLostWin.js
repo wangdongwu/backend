@@ -35,7 +35,7 @@ Ext.define('XMLifeOperating.view.damagedGoodsManage.DamagedGoodsLostWin', {
                 labelAlign: 'left',
                 emptyText: '请输入丢失数量',
                 width: 140,
-                minValue: 0,
+                minValue: 1,
                 maxValue: 1000,
                 allowBlank: false
             }],
