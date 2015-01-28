@@ -3,7 +3,6 @@ Ext.define('XMLifeOperating.controller.Manager', {
 
     views: [
         'staffManage.manager.ManagerList',
-        'staffManage.manager.EditManager',
         'staffManage.manager.ManagerWorkTimeList'
     ],
 
@@ -26,11 +25,6 @@ Ext.define('XMLifeOperating.controller.Manager', {
         ref: 'shopArea',
         selector: '#shopArea',
     }, {
-        ref: 'editWindow',
-        selector: 'editManager',
-        xtype: 'editManager',
-        autoCreate: true
-    }, {
         ref: 'contentPanel',
         selector: '#contentPanel',
         xtype: 'panel'
@@ -49,12 +43,6 @@ Ext.define('XMLifeOperating.controller.Manager', {
             'managerList': {
                 added: me.onShow
             },
-            'managerList #editManagerId': {
-                click: me.onEdit
-            },
-            'editManager #save-manager-edit-btn': {
-                click: me.saveEditWindow
-            },
             'managerList #searchButton': {
                 click: me.searchManager
             },
@@ -66,13 +54,6 @@ Ext.define('XMLifeOperating.controller.Manager', {
             },
             'managerList #closeOrOpenOrder': {
                 click: me.closeOrOpenOrder
-            },
-            'editManager filefield[name="managerUploadfile"]': {
-                change: function(uploadfile) {
-                    var form = uploadfile.ownerCt;
-                    var hash = uploadfile.previousNode().previousNode();
-                    uploadImage(form, hash);
-                }
             },
             'managerWorkTimeList #managerReturn': {
                 click: function() {
@@ -302,99 +283,5 @@ Ext.define('XMLifeOperating.controller.Manager', {
             });
         }
     },
-    onShow: function() {},
-    // 编辑
-    onEdit: function(view, rowIndex, colIndex, column, e) {
-        var manager = view.getRecord(view.findTargetByEvent(e));
-        var win = this.getEditWindow();
-        var record = manager;
-        win.down('#managerPhone').setDisabled(true);
-        win.down('form').loadRecord(record);
-        win.down('[name=pwd]').setValue('');
-        win.show();
-    },
-    saveEditWindow: function() {
-        var editWindow = this.getEditWindow(),
-            windowEl = editWindow.getEl(),
-            form = editWindow.down('form').getForm(),
-            manager = form.getRecord(),
-            me = this;
-
-        if (form.isValid()) {
-            windowEl.mask('saving');
-            form.updateRecord(manager);
-
-            var pwd = editWindow.down('[name=pwd]').getValue();
-            pwd = pwd.replace(/(^\s+)|(\s+$)/g, "");
-            if (pwd != '') {
-                manager.set('pwd', hex_md5(pwd));
-            }
-
-            if (manager.get('id') != null && manager.get('id') != '') {
-                var url = 'manager/updateManager';
-                sendPutRequest(url, {
-                    manager: manager.get('uid'),
-                    name: manager.get('name'),
-                    pwd: manager.get('pwd'),
-                    phone: manager.get('phone'),
-                    title: manager.get('title'),
-                    gender: manager.get('gender'),
-                    idcard: manager.get('idcard'),
-                    avatar: manager.get('avatar'),
-                }, '编辑模板', '成功编辑模板', '编辑模板失败', function(operation) {
-                    windowEl.unmask();
-                    editWindow.close();
-                });
-                return;
-            }
-
-            manager.save({
-                success: function(task, operation) {
-                    var error = operation.getError();
-                    var errorStr = '';
-                    switch (operation.response.responseText) {
-                        case '1':
-                            errorStr = '创建成功';
-                            break;
-                        case '-2':
-                            errorStr = '传参错误';
-                            break;
-                        case '-24':
-                            errorStr = '手机已注册';
-                            break;
-                        case '-28':
-                            errorStr = '手机号码格式错误';
-                            break;
-                    }
-                    if (operation.response.responseText < 0) {
-                        Ext.MessageBox.show({
-                            title: '编辑失败',
-                            msg: errorStr,
-                            icon: Ext.Msg.ERROR,
-                            buttons: Ext.Msg.OK
-                        });
-                        windowEl.unmask();
-                        return;
-                    }
-                    windowEl.unmask();
-                    editWindow.close();
-                    me.fireEvent('refreshView');
-                },
-                failure: function(task, operation) {
-                    var error = operation.getError(),
-                        msg = Ext.isObject(error) ? error.status + ' ' + error.statusText : error;
-
-                    Ext.MessageBox.show({
-                        title: '编辑失败',
-                        msg: msg,
-                        icon: Ext.Msg.ERROR,
-                        buttons: Ext.Msg.OK
-                    });
-                    windowEl.unmask();
-                }
-            })
-        } else {
-            Ext.Msg.alert('无效数据', '请提交正确的表格数据!');
-        }
-    }
+    onShow: function() {}
 });

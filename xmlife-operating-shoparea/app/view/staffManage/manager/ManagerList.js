@@ -101,15 +101,6 @@ Ext.define('XMLifeOperating.view.staffManage.manager.ManagerList', {
             return '<a href="javascript:;">查看</a>';
         }
     }, {
-        header: "编辑",
-        xtype: 'actioncolumn',
-        width: 60,
-        icon: 'resources/images/edit.png',
-        tooltip: 'Edit',
-        menuDisabled: true,
-        sortable: true,
-        itemId: 'editManagerId'
-    }, {
         header: "操作",
         width: 90,
         dataIndex: 'isActive',

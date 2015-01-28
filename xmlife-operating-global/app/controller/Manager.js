@@ -73,7 +73,7 @@ Ext.define('XMLifeOperating.controller.Manager', {
                 render: function(combo) {
                     var view = me.getGManagerList(),
                         activeSearch = view.down('#activeSearch').getText();
-                        
+
                     if (activeSearch == '查看停单掌柜') {
                         isActive = true;
                     } else if (activeSearch == '查看接单掌柜') {
@@ -371,6 +371,7 @@ Ext.define('XMLifeOperating.controller.Manager', {
         win.down('#managerPhone').setDisabled(true);
         win.down('form').loadRecord(record);
         win.down('[name=pwd]').setValue('');
+        win.down('[name=pwd]').allowBlank = true;
         win.show();
     },
     saveEditWindow: function() {
