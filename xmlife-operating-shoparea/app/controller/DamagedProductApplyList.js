@@ -1,36 +1,31 @@
 Ext.define('XMLifeOperating.controller.DamagedProductApplyList', {
     extend: 'Ext.app.Controller',
 
-    views: ['damagedProductApply.DamagedProductApplyList','damagedProductApply.AddDamagedProductApply'],
+    views: ['damagedProductApply.DamagedProductApplyList', 'damagedProductApply.AddDamagedProductApply'],
 
-    stores: ['DamagedProductApply', 'ShopArea','DamagedProductStatus','Shop','ProductSearch'],
+    stores: ['DamagedProductApply', 'ShopArea', 'DamagedProductStatus', 'Shop', 'ProductSearch'],
 
-    models: ['DamagedProductApply', 'ShopArea','Shop'],
+    models: ['DamagedProductApply', 'ShopArea', 'Shop'],
 
     refs: [{
         ref: 'damagedProductApplyList',
         selector: 'damagedProductApplyList',
         xtype: 'damagedProductApplyList'
-    }, 
-    {
+    }, {
         ref: 'shopArea',
         selector: '#shopArea',
-    }, 
-    {
+    }, {
         ref: 'keyword',
         selector: '#keyword',
-    },
-    {
+    }, {
         ref: 'addDamagedProductApply',
         selector: 'addDamagedProductApply',
         xtype: 'addDamagedProductApply',
         autoCreate: true
-    },
-    {
+    }, {
         ref: 'chooseShopList',
-        selector: '#chooseShopList',
-    },
-    ],
+        selector: '#chooseShopList'
+    }],
     init: function() {
         var me = this;
         this.control({
@@ -41,7 +36,7 @@ Ext.define('XMLifeOperating.controller.DamagedProductApplyList', {
                     sstore.getProxy().url = XMLifeOperating.generic.Global.URL.biz + 'damagedProductApply/applyList';
                     sstore.getProxy().extraParams = {
                         cityId: XMLifeOperating.generic.Global.currentCity,
-                        areaId:combo.getValue(),
+                        areaId: combo.getValue(),
                         startTime: me.beginTime,
                         endTime: me.endTime
                     }
@@ -55,7 +50,7 @@ Ext.define('XMLifeOperating.controller.DamagedProductApplyList', {
                     this.areaId = combo.getValue();
                 }
             },
-            'damagedProductApplyList':{
+            'damagedProductApplyList': {
 
             },
             'damagedProductApplyList #createDamagedProductApply': {
@@ -64,24 +59,24 @@ Ext.define('XMLifeOperating.controller.DamagedProductApplyList', {
                     var line = new cClass();
                     var win = this.getAddDamagedProductApply();
                     win.down('form').loadRecord(line);
-                    
+
                     var store = Ext.create('XMLifeOperating.store.Shop', {
                         autoSync: true
                     });
                     store.load({
-                        params:{
-                            cities:XMLifeOperating.generic.Global.currentCity,
-                            areaId:this.areaId
-                        },
-                     })
+                        params: {
+                            cities: XMLifeOperating.generic.Global.currentCity,
+                            areaId: this.areaId
+                        }
+                    })
 
-                    this.getChooseShopList().bindStore(store,false);
+                    this.getChooseShopList().bindStore(store, false);
 
                     win.show();
                 }
             },
 
-           'addDamagedProductApply #reseachShopProduct': {
+            'addDamagedProductApply #reseachShopProduct': {
                 click: function() {
                     var shopid = me.getAddDamagedProductApply().down('#chooseShopList').getValue();
                     var keyWords = me.getAddDamagedProductApply().down('#keywordShop').getValue();
@@ -100,46 +95,50 @@ Ext.define('XMLifeOperating.controller.DamagedProductApplyList', {
             },
             'addDamagedProductApply #saveDamagedProductApplyBtn': {
                 click: function() {
-                var editWindow = this.getAddDamagedProductApply();
-                var windowEl = editWindow.getEl();
+                    var me = this,
+                        win = this.getAddDamagedProductApply(),
+                        form = win.down('form').getForm(),
+                        shopid = win.down('#chooseShopList').getValue(),
+                        shopProductModel = win.down('#chooseShopProductId').getSelectionModel(),
+                        selectRecords = shopProductModel.getSelection(),
+                        shopProduct = [],
+                        reasonCode = win.down('#reasonCodeitem').getValue(),
+                        totalCount = win.down('#totalCount').getValue();
 
-                var me = this;
-                var shopid = me.getAddDamagedProductApply().down('#chooseShopList').getValue();
-                var shopProductModel = Ext.ComponentQuery.query('#chooseShopProductId')[0].getSelectionModel();
-                var selectRecords = shopProductModel.getSelection();
-                var shopProduct=[];
-                selectRecords.forEach(function(item) {
-                    if (item.get("id") != null) {
-                        shopProduct.push(item.get('id'));
+                    if (form.isValid()) {
+                        selectRecords.forEach(function(item) {
+                            if (item.get("id") != null) {
+                                shopProduct.push(item.get('id'));
+                            }
+                        });
+                        var params = {
+                            productId: shopProduct,
+                            reasonCode: reasonCode,
+                            count: totalCount
+                        };
+                        sendRequest('damagedProductApply/apply', params, '申报残损', '成功申报残损', '申报残损失败', function() {
+                            win.close();
+                            var store = me.getDamagedProductApplyStore();
+                            me.dateReset();
+                            store.getProxy().url = XMLifeOperating.generic.Global.URL.biz + 'damagedProductApply/applyList';
+                            store.getProxy().extraParams = {
+                                cityId: XMLifeOperating.generic.Global.currentCity,
+                                startTime: me.beginTime,
+                                endTime: me.endTime,
+                                areaId: me.areaId,
+                                status: 0
+                            }
+                            store.loadPage(1, {
+                                params: {
+                                    start: 0,
+                                    limit: 25,
+                                    page: 1
+                                }
+                            });
+                        });
+                    } else {
+                        Ext.Msg.alert('无效数据', '请提交正确的表格数据！');
                     }
-                });
-                var reasonCode = me.getAddDamagedProductApply().down('#reasonCodeitem').getValue();
-                var totalCount = me.getAddDamagedProductApply().down('#totalCount').getValue();
-                var params = {
-                            productId:shopProduct,
-                            reasonCode:reasonCode,
-                            count:totalCount
-                }
-                sendRequest('damagedProductApply/apply',params, '申报残损', '成功申报残损', '申报残损失败', function() {
-                    windowEl.unmask();
-                    editWindow.close();
-                    var sstore = me.getDamagedProductApplyStore();
-                    me.dateReset();
-                    sstore.getProxy().url = XMLifeOperating.generic.Global.URL.biz + 'damagedProductApply/applyList';
-                    sstore.getProxy().extraParams = {
-                        cityId: XMLifeOperating.generic.Global.currentCity,
-                        startTime: me.beginTime,
-                        endTime: me.endTime,
-                        areaId:me.areaId
-                    }
-                    sstore.loadPage(1, {
-                        params: {
-                            start: 0,
-                            limit: 25,
-                            page: 1
-                        }
-                    });
-                });
                 }
             },
 
@@ -230,33 +229,33 @@ Ext.define('XMLifeOperating.controller.DamagedProductApplyList', {
                 }
             },
         });
-},
-dateReset:function(){
-    var me =this;
-    var damagedProductApplyList = me.getDamagedProductApplyList();
-    var beginTimeCmp = damagedProductApplyList.down('[name=beginTime]');
-    var endTimeCmp  = damagedProductApplyList.down('[name=endTime]');
-    beginTimeCmp.reset();
-    endTimeCmp.reset();
-    this.beginTime = beginTimeCmp.rawValue;
-    this.endTime = endTimeCmp.rawValue;
-},
+    },
+    dateReset: function() {
+        var me = this;
+        var damagedProductApplyList = me.getDamagedProductApplyList();
+        var beginTimeCmp = damagedProductApplyList.down('[name=beginTime]');
+        var endTimeCmp = damagedProductApplyList.down('[name=endTime]');
+        beginTimeCmp.reset();
+        endTimeCmp.reset();
+        this.beginTime = beginTimeCmp.rawValue;
+        this.endTime = endTimeCmp.rawValue;
+    },
 
-dateString: function(date) {
-    var date  = date||{};
-    return date.getFullYear() + '-' + (date.getMonth() + 1) +'-'+ date.getDate();
-},
+    dateString: function(date) {
+        var date = date || {};
+        return date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
+    },
 
-onRefresh: function(view, e, eOpts) {
-    var me = this;
-    if (!view.isDisabled()) {
+    onRefresh: function(view, e, eOpts) {
+        var me = this;
+        if (!view.isDisabled()) {
             //发送刷新请求
             var sstore = this.getDamagedProductApplyStore();
-            me.dateReset();//日期号码重置
+            me.dateReset(); //日期号码重置
             sstore.getProxy().extraParams = {
                 areaId: this.areaId,
-                endTime:me.endTime,
-                beginTime:me.beginTime
+                endTime: me.endTime,
+                beginTime: me.beginTime
             };
             sstore.loadPage(1, {
                 params: {

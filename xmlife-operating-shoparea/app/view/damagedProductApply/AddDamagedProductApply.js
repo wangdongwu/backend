@@ -78,7 +78,7 @@ Ext.define('XMLifeOperating.view.damagedProductApply.AddDamagedProductApply', {
                     itemId: 'chooseShopProductId',
                     height: 100,
                     selModel: Ext.create('Ext.selection.CheckboxModel', {
-                        mode: 'MULTI'
+                        mode: 'SINGLE'
                     }),
                     columns: [{
                         text: 'id',
