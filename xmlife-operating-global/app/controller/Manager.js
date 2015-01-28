@@ -360,6 +360,7 @@ Ext.define('XMLifeOperating.controller.Manager', {
         var manager = new cClass();
         var win = this.getEditWindow();
         win.down('#managerPhone').setDisabled(false);
+        win.down('[name=pwd]').allowBlank = false;
         win.down('form').loadRecord(manager);
         win.show();
     },
