@@ -84,6 +84,7 @@ Ext.define('XMLifeOperating.controller.Authority', {
                         formEl = form.getForm(),
                         accountField = form.down('#accountField'),
                         ownerField = form.down('#accountOwner');
+                    me.loadAccountListStore(null);
                     addGlobalAccount.setTitle('创建管理员账号');
                     accountField.setDisabled(false);
                     ownerField.show();
@@ -115,12 +116,18 @@ Ext.define('XMLifeOperating.controller.Authority', {
                         isHaveCities = form.down('#isHaveCities'),
                         model = arguments[5],
                         cityIds = model.get('cityIds'),
-                        modules = model.get('modules');
+                        modules = model.get('modules'),
+                        isSuperAdmin = XMLifeOperating.generic.Global.currentAdminInfor.superAdmin,
+                        moduleIds = model.get('moduleIds');
+
                     addGlobalAccount.setTitle('修改管理员账号');
-                    moduleIds = model.get('moduleIds');
                     form.loadRecord(model);
                     accountField.setDisabled(true);
-                    ownerField.setVisible(XMLifeOperating.generic.Global.currentAdminInfor.superAdmin);
+
+                    ownerField.setVisible(isSuperAdmin);
+                    if (isSuperAdmin) {
+                        me.loadAccountListStore(model.get('account'));
+                    }
                     me.initSelectData(form, modules);
 
                     if (cityIds.length > 0) {
@@ -370,6 +377,33 @@ Ext.define('XMLifeOperating.controller.Authority', {
             // }
         });
     },
+    // 读取可以被设置为accountInEdit的owner的所有account
+    // 可以被设置为owner的条件是设置后owner关系不会构成环，该逻辑由服务器保证
+    // 新建帐号时所有account都是可用的，此时accountInEdit应传入null（区别于undefined）
+    loadAccountListStore: function(accountInEdit) {
+        var accountEditWin = this.getAddGlobalAccount(),
+            ownerField = accountEditWin.down('#accountOwner'),
+            ownerStore = ownerField.getStore();
+
+        // 避免不必要的重复读取
+        if (ownerStore.lastLoadFor === accountInEdit) {
+            return;
+        }
+
+        var options = {
+            callback: function(records, operation, success) {
+                ownerStore.lastLoadFor = success ? accountInEdit : undefined;
+            }
+        };
+
+        if (accountInEdit) {
+            options.params = {
+                // 根据当前正在修改的用户，读取可选的owner
+                'account': accountInEdit
+            };
+        }
+        ownerStore.load(options);
+    },
     loadData: function(type) {
         this.activeType = type || 'Global';
 
@@ -516,6 +550,10 @@ Ext.define('XMLifeOperating.controller.Authority', {
             }
         }
         if (form.edit) {
+            // subData里去掉owner域，如果当前登录用户不是超级管理员
+            if (!XMLifeOperating.generic.Global.currentAdminInfor.superAdmin) {
+                delete subData.owner;
+            }
             subData = Ext.merge(subData, selectData);
             Ext.Ajax.request({
                 method: "PUT",

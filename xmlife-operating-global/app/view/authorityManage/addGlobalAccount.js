@@ -73,6 +73,9 @@ Ext.define('XMLifeOperating.view.authorityManage.addGlobalAccount', {
                     proxy: new XMLifeOperating.generic.BaseProxy('admin/list/account')
                 }),
                 displayField: 'account',
+                forceSelection: true,
+                queryMode: 'local',
+                typeAhead: true,
                 allowBlank: false
             }, {
                 xtype: 'checkbox',
