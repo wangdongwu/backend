@@ -149,7 +149,7 @@ Ext.define('XMLifeOperating.controller.BatchOperation', {
       host = window.location.host,
 			form = button.up('form').getForm(),
 			path = '/',
-      comment = form.owner.down('#commentMsg') ? form.owner.down('#commentMsg').getValue() : '',
+      comment = form.owner.down('#commentMsg') && form.owner.down('#commentMsg').getValue(),
 			logArea = button.up('form').down('#resultLog'),
 			sessionId = localStorage.getItem('sessionId'),
 			syncImgUrl = 'https://192.168.6.102/proxy/http://192.168.6.101/jenkins/job/SyncSkuResource/build?delay=0sec';

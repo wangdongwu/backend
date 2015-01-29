@@ -45,6 +45,7 @@ Ext.define('XMLifeOperating.view.batchoperation.add.ProductTemplateAddBatch', {
 					grow: true,
 					name: 'comment',
 					fieldLabel: '提交说明',
+          itemId : 'commentMsg',
 					allowBlank: false,
 					emptyText: '提交说明(必填)'
 				}, {
