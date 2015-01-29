@@ -98,10 +98,10 @@ Ext.define('XMLifeOperating.view.dealManage.GDealReturnCheckList', {
         },
         '->', {
             xtype: 'textfield',
-            emptyText: '输入搜索号码...',
+            emptyText: '输入订单号码...',
             name: 'keyword',
             itemId: 'keyword',
-            fieldLabel: '手机/订单号码',
+            fieldLabel: '订单号码',
             labelAlign: 'right',
             /* regex: XMLifeOperating.generic.Global.VALIDATION_CONSTANTS.PHONE,
              regexText: '请输入正确的手机号'*/

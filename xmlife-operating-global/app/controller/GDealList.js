@@ -189,17 +189,7 @@ Ext.define('XMLifeOperating.controller.GDealList', {
                     var refresh = function(me) {
                         var store = me.getDealItemsStore();
                         //请求的参数在extraparams中已定义
-                        store.load({
-                            callback: function(records) {
-                                var detail = me.getGDealDetail().down('#dealDetails');
-                                var model = detail.getSelectionModel();
-                                for (var i = 0, len = records.length; i < len; i++) {
-                                    var index = store.indexOfId(records[i].get('id'));
-                                    model.select(index, true);
-                                }
-                                detail.getSelectionModel().deselectAll();
-                            }
-                        });
+                        store.load();
                     };
                     var success = function(request) {
                         var code = request.responseText;
