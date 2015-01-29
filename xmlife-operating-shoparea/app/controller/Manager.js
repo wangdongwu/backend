@@ -240,23 +240,24 @@ Ext.define('XMLifeOperating.controller.Manager', {
     // 搜索
     searchManager: function() {
         var me = this,
-            keyWords = me.getManagerList().down('#searchBuyerKeyWords').getValue(),
             store = me.getManagerStore(),
             view = me.getManagerList(),
             area = me.areaId,
-            activeBindText = Ext.getCmp('managerList').down('#activeBind').getText(),
+            keyWords = view.down('#searchBuyerKeyWords').getValue(),
+            activeBindText = view.down('#activeBind').getText(),
             isUnbind = null;
+
         if (activeBindText == '查看已绑定的掌柜') {
             isUnbind = true;
         } else if (activeBindText == '查看未绑定的掌柜') {
-            isUnbind = '';
+            isUnbind = false;
         }
         if (keyWords == '') {
             store.getProxy().extraParams = {
                 unbind: isUnbind
             };
             store.on('load', function() {
-                me.getManagerList().down('#searchBuyerKeyWords').setValue(keyWords);
+                view.down('#searchBuyerKeyWords').setValue(keyWords);
             });
             store.loadPage(1, {
                 params: {
@@ -267,12 +268,11 @@ Ext.define('XMLifeOperating.controller.Manager', {
             });
         } else {
             store.getProxy().extraParams = {
-                nameOrPhone: keyWords,
-                area: area
+                nameOrPhone: keyWords
             };
             store.on('load', function() {
-                Ext.getCmp('managerList').down('#activeBind').setText('查看未绑定的掌柜');
-                me.getManagerList().down('#searchBuyerKeyWords').setValue(keyWords);
+                view.down('#activeBind').setText('查看未绑定的掌柜');
+                view.down('#searchBuyerKeyWords').setValue(keyWords);
             });
             store.loadPage(1, {
                 params: {
