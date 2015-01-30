@@ -38,7 +38,11 @@ Ext.define('XMLifeOperating.view.staffManage.shopper.GShopperEdit', {
                     name: 'name',
                     fieldLabel: '姓名',
                     labelWidth: 90,
-                    allowBlank: false
+                    allowBlank: false,
+                    minLength: 2,
+                    minLengthText: '商品名称最小长度为2',
+                    maxLength: 8,
+                    maxLengthText: '商品名称最大长度为8'
                 }, {
                     xtype: 'textfield',
                     name: 'title',

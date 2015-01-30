@@ -4,7 +4,7 @@ Ext.define('XMLifeOperating.view.staffManage.manager.EditManager', {
     requires: [
         'Ext.form.Panel',
         'Ext.form.field.Text',
-        'Ext.form.field.Hidden',
+        'Ext.form.field.Hidden'
     ],
     closeAction: 'hide',
     modal: true,
@@ -23,7 +23,7 @@ Ext.define('XMLifeOperating.view.staffManage.manager.EditManager', {
             }, {
                 "value": 1,
                 "gender": '女'
-            }],
+            }]
         });
         this.items = [{
             xtype: 'form',
@@ -38,7 +38,11 @@ Ext.define('XMLifeOperating.view.staffManage.manager.EditManager', {
                 name: 'name',
                 fieldLabel: '姓名',
                 labelWidth: 90,
-                allowBlank: false
+                allowBlank: false,
+                minLength: 2,
+                minLengthText: '商品名称最小长度为2',
+                maxLength: 8,
+                maxLengthText: '商品名称最大长度为8'
             }, {
                 xtype: 'textfield',
                 name: 'title',
@@ -115,7 +119,7 @@ Ext.define('XMLifeOperating.view.staffManage.manager.EditManager', {
                 text: '取消',
                 handler: function() {
                     //关闭窗口
-                    Ext.ComponentQuery.query('editManager')[0].close();
+                    this.up('window').close();
                 }
             }]
         }]
