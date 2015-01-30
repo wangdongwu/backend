@@ -112,7 +112,8 @@ Ext.define('XMLifeOperating.view.damagedProductApply.AddDamagedProductApply', {
                     emptyText: '请输入残损数量',
                     width: 140,
                     minValue: 1,
-                    maxValue: 1000
+                    maxValue: 1000,
+                    allowBlank: false
                 }
             ],
             buttons: [{
