@@ -14,6 +14,7 @@ Ext.define('XMLifeOperating.view.userManage.customer.CustomerDealList', {
 
     var items = columns.items,
         spliced = 0;
+
     // 删除父类特定的列。这里利用查找而不是直接使用位置访问是为了降低耦合，避免父类结构改变时这里忘记更新。
     Ext.Array.each(items, function(item, index, arr) {
         if (item.dataIndex === 'contactsName' || item.dataIndex === 'contactsPhone') {

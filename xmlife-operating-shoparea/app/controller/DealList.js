@@ -9,11 +9,11 @@ Ext.define('XMLifeOperating.controller.DealList', {
         }
     },
 
-    views: ['dealManage.DealList', 'dealManage.DealDetail', 'dealManage.DealCustomerDetail'],
+    views: ['dealManage.DealList', 'dealManage.DealDetail', 'dealManage.DealCustomerDetail', 'dealManage.DealSuperShopperDetail'],
 
-    stores: ['Deal', 'ShopArea', 'DealStatus', 'Customer', 'DealItems'],
+    stores: ['Deal', 'ShopArea', 'DealStatus', 'DealItems'],
 
-    models: ['Deal', 'ShopArea', 'Customer', 'DealItems'],
+    models: ['Deal', 'ShopArea', 'DealItems'],
 
     // 注意到这个control引用的component也有可能定义在commonDealList里。
     refs: [{
@@ -26,6 +26,11 @@ Ext.define('XMLifeOperating.controller.DealList', {
         xtype: 'dealCustomerDetail',
         autoCreate: true
     }, {
+        ref: 'dealSuperShopperDetail',
+        selector: 'dealSuperShopperDetail',
+        xtype: 'dealSuperShopperDetail',
+        autoCreate: true
+    }, {
         ref: 'dealDetail',
         selector: 'dealDetail',
         xtype: 'dealDetail',
@@ -34,10 +39,12 @@ Ext.define('XMLifeOperating.controller.DealList', {
 
     init: function() {
         var me = this;
+
         this.control({
             'dealList #shopArea': {
                 select: function(combo) {
-                    var sstore = this.getDealStore();
+                    var sstore = me.getDealStore();
+
                     me.dateReset();
                     sstore.getProxy().extraParams = {
                         shopArea: combo.getValue(),
@@ -47,7 +54,7 @@ Ext.define('XMLifeOperating.controller.DealList', {
                     sstore.loadPage(1, {
                         params: me.self.PARAM_1PAGE
                     });
-                    this.areaId = combo.getValue();
+                    me.areaId = combo.getValue();
                 }
             },
             'dealList #productInvoice': {
@@ -61,13 +68,13 @@ Ext.define('XMLifeOperating.controller.DealList', {
             },
             'dealList #getDealListByDate': {
                 click: function() {
-                    var me = this;
                     var dealList = me.getDealList();
                     var beginTime = dealList.down('[name=beginTime]').rawValue;
                     var endTime = dealList.down('[name=endTime]').rawValue;
-                    var sstore = this.getDealStore();
+                    var sstore = me.getDealStore();
+
                     sstore.getProxy().extraParams = {
-                        shopArea: this.areaId,
+                        shopArea: me.areaId,
                         beginTime: beginTime,
                         endTime: endTime
                     };
@@ -81,12 +88,13 @@ Ext.define('XMLifeOperating.controller.DealList', {
             },
             'dealList #statusSearch': {
                 select: function(combo) {
-                    var sstore = this.getDealStore();
+                    var sstore = me.getDealStore();
                     var dealList = me.getDealList();
                     var beginTime = dealList.down('[name=beginTime]').rawValue;
                     var endTime = dealList.down('[name=endTime]').rawValue;
+
                     sstore.getProxy().extraParams = {
-                        shopArea: Ext.getCmp('dealList').down('#shopArea').getValue(),
+                        shopArea: dealList.down('#shopArea').getValue(),
                         status: combo.getValue(),
                         beginTime: beginTime,
                         endTime: endTime
@@ -101,6 +109,9 @@ Ext.define('XMLifeOperating.controller.DealList', {
             },
             'dealList #customerDetail': {
                 click: me.onCustomerDetail
+            },
+            'dealList #superShopperName': {
+                click: me.onSuperShopperDetail
             },
             'dealList #toproblemdeal': {
                 click: me.onToProblemDeal
@@ -141,18 +152,21 @@ Ext.define('XMLifeOperating.controller.DealList', {
         var dealList = this.getDealList();
         var beginTimeCmp = dealList.down('[name=beginTime]');
         var endTimeCmp = dealList.down('[name=endTime]');
+
         beginTimeCmp.reset();
         endTimeCmp.reset();
         this.beginTime = beginTimeCmp.rawValue;
         this.endTime = endTimeCmp.rawValue;
     },
-    onRefresh: function(view, e, eOpts) {
+    onRefresh: function(view) {
         var me = this;
+
         if (view.isDisabled()) {
             return;
         }
         //发送刷新请求
         var sstore = me.getDealStore();
+
         me.dateReset(); //日期号码重置
         sstore.getProxy().extraParams = {
             shopArea: me.areaId,
@@ -181,10 +195,11 @@ Ext.define('XMLifeOperating.controller.DealList', {
     },
     dealSearch: function() {
         var me = this,
-            keyWords = me.getDealList().down('#keyword').getValue(),
-            store = this.getDealStore(),
-            view = this.getDealList();
-        var shopAreaId = Ext.getCmp('dealList').down('#shopArea').getValue();
+            dealListView = me.getDealList(),
+            keyWords = dealListView.down('#keyword').getValue(),
+            shopAreaId = dealListView.down('#shopArea').getValue(),
+            store = me.getDealStore();
+
         if (keyWords == '') {
             if (shopAreaId) {
                 store.getProxy().extraParams = {
@@ -203,10 +218,10 @@ Ext.define('XMLifeOperating.controller.DealList', {
             });
         }
     },
-    onDealDetail: function(view, rowIndex, colIndex, column, e) {
-        var record = view.getRecord(view.findTargetByEvent(e)),
-            win = this.getDealDetail(),
+    onDealDetail: function(view, cellEl, rowIndex, colIndex, e, record) {
+        var win = this.getDealDetail(),
             form = win.down('form').getForm();
+
         // 单独获取详情的接口
         Ext.Ajax.request({
             method: 'GET',
@@ -215,6 +230,7 @@ Ext.define('XMLifeOperating.controller.DealList', {
             success: function(response) {
                 if (response.status == 200 && response.statusText == 'OK') {
                     var data = Ext.decode(response.responseText);
+
                     form.setValues(data);
                 }
             },
@@ -224,6 +240,7 @@ Ext.define('XMLifeOperating.controller.DealList', {
         });
 
         var store = this.getDealItemsStore();
+
         store.load({
             params: {
                 deal: record.get('dealBackendId'),
@@ -240,36 +257,33 @@ Ext.define('XMLifeOperating.controller.DealList', {
 
         win.show();
     },
-
-    onCustomerDetail: function(view, rowIndex, colIndex, column, e) {
-        var dealDetail = view.getRecord(view.findTargetByEvent(e));
-        var store = this.getCustomerStore();
-
+    onCustomerDetail: function(view, cellEl, rowIndex, colIndex, e, record) {
         var win = this.getDealCustomerDetail();
-        store.on('load', function(store, records, successful, eOpts) {
-            store.data.items[0].data['dtoAddress'] = dealDetail.getData()['dtoAddress'];
-            win.down('form').loadRecord(store.data.items[0]);
-        });
-        store.load({
-            params: {
-                uid: dealDetail.get('customId'),
-            },
-        });
+
+        win.down('form').loadRecord(record);
         win.show();
     },
+    onSuperShopperDetail: function(view, cellEl, rowIndex, colIndex, e, record) {
+        if (!record.get('superShopperName')) {
+            return;
+        }
+        var win = this.getDealSuperShopperDetail();
 
-    onToProblemDeal: function(view, rowIndex, colIndex, column, e) {
-        var dealitem = view.getRecord(view.findTargetByEvent(e));
-        var dealBackendId = dealitem.get('dealBackendId');
+        win.down('form').loadRecord(record);
+        win.show();
+    },
+    onToProblemDeal: function(view, cellEl, rowIndex, colIndex, e, record) {
+        var dealBackendId = record.get('dealBackendId');
         var url = 'deal/transToProblem/' + dealBackendId;
         var me = this;
-        var status = dealitem.get('status');
+        var status = record.get('status');
+
         if (status == 7 || status == 4 || status == 6) {
             return;
         }
         Ext.MessageBox.confirm(
             '确认转为问题订单',
-            Ext.String.format("确定要将<h5>'{0}'</h5>的订单转为问题订单吗？", '订单号为：' + dealitem.get('shortId') + ' 顾客为：' + dealitem.get('customerName')),
+            Ext.String.format("确定要将<h5>'{0}'</h5>的订单转为问题订单吗？", '订单号为：' + record.get('shortId') + ' 顾客为：' + record.get('customerName')),
             function(result) {
                 if (result == 'yes') {
                     sendPutRequest(url, {}, '转为问题订单', '转为问题订单成功', '转为问题订单失败',
@@ -302,18 +316,18 @@ Ext.define('XMLifeOperating.controller.DealList', {
             }
         );
     },
-    onCancalDeal: function(view, rowIndex, colIndex, column, e) {
-        var dealitem = view.getRecord(view.findTargetByEvent(e));
-        var dealBackendId = dealitem.get('dealBackendId');
+    onCancalDeal: function(view, cellEl, rowIndex, colIndex, e, record) {
+        var dealBackendId = record.get('dealBackendId');
         var url = 'deal/cancelDeal';
         var me = this;
-        var status = dealitem.get('status');
+        var status = record.get('status');
+
         if (status != 20 && status != 31) {
             return;
         }
         Ext.MessageBox.confirm(
             '确认取消订单',
-            Ext.String.format("确定要取消<h5>'{0}'</h5>的订单吗？", '订单号为：' + dealitem.get('shortId') + ' 顾客为：' + dealitem.get('customerName')),
+            Ext.String.format("确定要取消<h5>'{0}'</h5>的订单吗？", '订单号为：' + record.get('shortId') + ' 顾客为：' + record.get('customerName')),
             function(result) {
                 if (result == 'yes') {
                     sendPutRequest(url, {

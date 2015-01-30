@@ -20,7 +20,7 @@ Ext.define('XMLifeOperating.controller.DealProblemDealsList', {
     },
     views: ['operationManage.dealProblemDeals.DealProblemDealsList',
         'operationManage.dealProblemDeals.DealProblemDealsReapportion',
-        'operationManage.dealProblemDeals.DealProblemDealsReapportionShopper',
+        'operationManage.dealProblemDeals.DealProblemDealsReapportionShopper'
         // 'operationManage.dealProblemDeals.DealProblemDealsReapportionDeliverer'
     ],
     stores: [
@@ -56,26 +56,26 @@ Ext.define('XMLifeOperating.controller.DealProblemDealsList', {
     }],
     init: function() {
         var me = this;
-        this.control({
 
+        this.control({
             'dealProblemDealsList #shopArea': {
                 select: function(combo) {
-                    var sstore = this.getDealProblemDealsStore();
+                    var sstore = me.getDealProblemDealsStore(),
+                    areaId = combo.getValue();
 
                     sstore.load({
                         params: {
-                            areaId: combo.getValue()
+                            areaId: areaId
                         }
                     });
-                    this.areaId = combo.getValue();
+                    me.areaId = areaId;
                 }
             },
             //刷新按钮
             'dealProblemDealsList #update': {
                 click: function() {
-
-                    var store = this.getDealProblemDealsStore();
-                    var shopAreaId = this.up('dealProblemDealsList').down('#shopArea').getValue();
+                    var store = me.getDealProblemDealsStore();
+                    var shopAreaId = me.getDealProblemDealsList().down('#shopArea').getValue();
 
                     if (shopAreaId) {
                         store.load({
@@ -83,8 +83,6 @@ Ext.define('XMLifeOperating.controller.DealProblemDealsList', {
                                 areaId: shopAreaId
                             }
                         });
-                    } else {
-                        return;
                     }
                 }
             },
@@ -115,7 +113,8 @@ Ext.define('XMLifeOperating.controller.DealProblemDealsList', {
             'dealProblemDealsList #dealDetail': {
                 click: function() {
                     // 这里引用了订单管理的control方法
-                    var ctrlDealList = this.getController('DealList');
+                    var ctrlDealList = me.getController('DealList');
+
                     ctrlDealList.onDealDetail.apply(ctrlDealList, arguments);
                 }
             },
@@ -124,7 +123,8 @@ Ext.define('XMLifeOperating.controller.DealProblemDealsList', {
             },
             'dealProblemDealsList #customerDetail': {
                 click: function() {
-                    var controllerDealList = this.getController('DealList');
+                    var controllerDealList = me.getController('DealList');
+
                     controllerDealList.onCustomerDetail.apply(controllerDealList, arguments);
                 }
             }
@@ -160,12 +160,18 @@ Ext.define('XMLifeOperating.controller.DealProblemDealsList', {
         countDownFn(5);
     },
     onAutoAllocation: function(view, cellEl, rowIndex, colIndex, e, record) {
+        // 如果有买手分配，则显示买手详情
         if (record.get('superShopperName')) {
+            // 这里引用了订单管理的control方法
+            var ctrlDealList = this.getController('DealList');
+
+            ctrlDealList.onSuperShopperDetail.apply(ctrlDealList, arguments);
             return;
         }
 
         var me = this,
             dealId = record.get('dealBackendId');
+
         Ext.MessageBox.confirm(
             '确认自动分配',
             Ext.String.format("确定要对该'{0}'订单自动分配买手吗？", dealId),
@@ -202,13 +208,14 @@ Ext.define('XMLifeOperating.controller.DealProblemDealsList', {
     },
     onReapportion: function(view, cellEl, rowIndex, colIndex, e, record) {
         var dealId = record.get('dealBackendId');
-
         var win = this.getReapportion();
+
         win.reapportionDealId = dealId;
         // 服务器端在deal/tasks接口中传人problem字段有困难，这里将“问题类型“描述绑定在”重新分配“窗口上供其子控件访问。
         win.problemText = this.self.getProblemDesc(record.get('problem'));
         win.down('form').loadRecord(record);
         win.show();
+
         var store = this.getDealTasksStore();
 
         store.load({
@@ -229,6 +236,7 @@ Ext.define('XMLifeOperating.controller.DealProblemDealsList', {
     onReapportionShopper: function(view, cellEl, rowIndex, colIndex, e, record) {
 
         var win = this.getReapportionDealTasksShopper();
+
         // 将taskId和dealId传递给最终的表单
         win.taskId = record.get('taskId');
         win.reapportionDealId = view.up('window').reapportionDealId;
@@ -236,8 +244,8 @@ Ext.define('XMLifeOperating.controller.DealProblemDealsList', {
         win.show();
 
         var store = this.getSuperShopperStore();
-        store.getProxy().extraParams = {};
 
+        store.getProxy().extraParams = {};
         store.load({
             params: {
                 shopId: record.get('shopId'),
@@ -386,6 +394,7 @@ Ext.define('XMLifeOperating.controller.DealProblemDealsList', {
         var url = 'deal/cancelDeal';
         var me = this;
         var status = record.get('status');
+
         if (status != 20 && status != 31) {
             return;
         }

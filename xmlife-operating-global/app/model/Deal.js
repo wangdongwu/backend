@@ -11,6 +11,7 @@ Ext.define('XMLifeOperating.model.Deal', {
         'customerPhone',   // 顾客电话
         'shopAreaName',    // 中心点
         'superShopperName',// 分配买手
+        'superShopperPhone', // 分配买手的电话
         'shopName',       // 购买店铺
         'assignShopperTime', // 接单时间
         'deliverTime',     // 期望送达时间

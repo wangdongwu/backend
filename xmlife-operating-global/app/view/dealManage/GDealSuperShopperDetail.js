@@ -1,6 +1,6 @@
-Ext.define('XMLifeOperating.view.dealManage.GDealCustomerDetail', {
+Ext.define('XMLifeOperating.view.dealManage.GDealSuperShopperDetail', {
     extend: 'Ext.window.Window',
-    xtype: 'gDealCustomerDetail',
+    xtype: 'gDealSuperShopperDetail',
 
     closeAction: 'hide',
     modal: true,
@@ -12,25 +12,23 @@ Ext.define('XMLifeOperating.view.dealManage.GDealCustomerDetail', {
     initComponent: function() {
         this.items = [{
             xtype: 'form',
-            title: '顾客详情',
+            title: '买手详情',
             layout: 'anchor',
             bodyPadding: 5,
             border: false,
+
             defaults: {
                 anchor: '100%',
                 xtype: 'displayfield',
                 labelAlign: 'left'
             },
             items: [{
-                name: 'contactsName',
+                name: 'superShopperName',
                 fieldLabel: '姓名:'
             }, {
-                name: 'contactsPhone',
+                name: 'superShopperPhone',
                 fieldLabel: '电话:'
-            }, {
-                name: 'dtoAddress',
-                fieldLabel: '地址'
-            }, ],
+            }],
             buttons: [{
                 text: '知道了',
                 labelAlign: 'center',
@@ -39,6 +37,7 @@ Ext.define('XMLifeOperating.view.dealManage.GDealCustomerDetail', {
                 }
             }]
         }];
+
         this.callParent(arguments);
     }
 });

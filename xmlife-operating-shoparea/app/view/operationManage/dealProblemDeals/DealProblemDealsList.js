@@ -17,7 +17,6 @@ Ext.define('XMLifeOperating.view.operationManage.dealProblemDeals.DealProblemDea
             valueField: 'id',
             hidden: (XMLifeOperating.generic.Global.operating_type == 'center')
         }, {
-
             xtype: 'button',
             text: '刷新',
             itemId: 'update',
@@ -49,6 +48,7 @@ Ext.define('XMLifeOperating.view.operationManage.dealProblemDeals.DealProblemDea
                 return;
             }
             var combo = view.down('#shopArea');
+
             combo.setValue(XMLifeOperating.generic.Global.current_operating);
             combo.fireEvent('select', combo);
         }
@@ -62,6 +62,7 @@ Ext.define('XMLifeOperating.view.operationManage.dealProblemDeals.DealProblemDea
     columns = needClone ? Ext.clone(columns) : columns;
 
     var items = columns.items;
+
     // 添加本类特定的列。
     items.push({
         text: '问题原因',
@@ -82,6 +83,7 @@ Ext.define('XMLifeOperating.view.operationManage.dealProblemDeals.DealProblemDea
         menuDisabled: true,
         renderer: function(value, metadata, model) {
             var status = model.get('status');
+
             return (status != 20 && status != 31) ? '取消订单' : '<a href="javascript:;">取消订单</a>';
         }
     });
@@ -97,7 +99,7 @@ Ext.define('XMLifeOperating.view.operationManage.dealProblemDeals.DealProblemDea
     });
 
     shopperNameItem.renderer = function(v) {
-        return v ? v : '<a href="javascript:;">自动分配</a>';
+        return v ? '<a href="javascript:;">' + v + '</a>' : '<a href="javascript:;" style="color:red;">自动分配</a>';
     };
 
     this.prototype.columns = columns;

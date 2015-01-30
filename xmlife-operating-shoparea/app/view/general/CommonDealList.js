@@ -69,7 +69,10 @@ Ext.define('XMLifeOperating.view.general.CommonDealList', {
         }, {
             text: '买手',
             dataIndex: 'superShopperName',
-            itemId: 'superShopperName'
+            itemId: 'superShopperName',
+            renderer: function(value) {
+                return value ? '<a href="javascript:;">' + value + '</a>' : '';
+            }
         }, {
             text: '购买店铺',
             dataIndex: 'shopName'
@@ -90,6 +93,7 @@ Ext.define('XMLifeOperating.view.general.CommonDealList', {
             dataIndex: 'remainTime',
             renderer: function(value, metaData, record) {
                 var status = record.get('status');
+
                 switch (status) {
                     case 4:
                         return '完成配送';
@@ -101,9 +105,11 @@ Ext.define('XMLifeOperating.view.general.CommonDealList', {
                         var time = (value / (3600 * 1000) + '').split('.');
                         var time1 = Math.abs(time[0]);
                         var time2 = Math.floor(('0.' + time[1]) * 60);
+
                         time = time1 + '时' + time2 + '分';
 
                         var color = value <= 0 ? '#ff0000' : '#000';
+
                         return '<span style="color:' + color + '">' + time + '</span>';
                 }
             }

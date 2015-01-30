@@ -11,6 +11,7 @@ Ext.define('XMLifeOperating.model.DealCustomerHistory', {
         'customerPhone',
         'shopAreaName',
         'superShopperName',
+        'superShopperPhone',
         'shopName',
         'assignShopperTime',
         'deliverTime',

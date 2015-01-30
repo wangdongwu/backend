@@ -5,15 +5,16 @@ Ext.define('XMLifeOperating.controller.GDealList', {
         'dealManage.GDealList',
         'dealManage.GDealDetail',
         'dealManage.GDealCustomerDetail',
+        'dealManage.GDealSuperShopperDetail',
         'dealManage.ReturnProductForm',
         'dealManage.GDealReturnAuditList',
         'dealManage.GDealReturnCheckList',
         'dealManage.GDealReturnComfirm'
     ],
 
-    stores: ['Deal', 'ShopArea', 'DealStatus', 'Customer', 'DealItems', 'ReturnGoodsAuditList', 'ReturnGoodsApplyList'],
+    stores: ['Deal', 'ShopArea', 'DealStatus', 'DealItems', 'ReturnGoodsAuditList', 'ReturnGoodsApplyList'],
 
-    models: ['Deal', 'ShopArea', 'Customer', 'DealItems', 'ReturnGoodsAuditList', 'ReturnGoodsApplyList'],
+    models: ['Deal', 'ShopArea', 'DealItems', 'ReturnGoodsAuditList', 'ReturnGoodsApplyList'],
 
     refs: [{
         ref: 'contentPanel',
@@ -27,6 +28,11 @@ Ext.define('XMLifeOperating.controller.GDealList', {
         ref: 'gDealCustomerDetail',
         selector: 'gDealCustomerDetail',
         xtype: 'gDealCustomerDetail',
+        autoCreate: true
+    }, {
+        ref: 'gDealSuperShopperDetail',
+        selector: 'gDealSuperShopperDetail',
+        xtype: 'gDealSuperShopperDetail',
         autoCreate: true
     }, {
         ref: 'gDealDetail',
@@ -65,6 +71,7 @@ Ext.define('XMLifeOperating.controller.GDealList', {
             'gDealList #getDealListByDate': {
                 click: function() {
                     var dealList = me.getGDealList();
+
                     me.rendenGDealList(dealList, 'all');
                     dealList.down('#shopAread').setValue('');
                     dealList.down('#statusSearch').setValue('');
@@ -73,8 +80,9 @@ Ext.define('XMLifeOperating.controller.GDealList', {
             'gDealList #shopAread': {
                 select: function(combo) {
                     var dealList = me.getGDealList();
+
                     me.rendenGDealList(dealList, 'center');
-                    this.areaId = combo.getValue();
+                    me.areaId = combo.getValue();
                 }
             },
             'gDealList #dealSearch': {
@@ -83,6 +91,7 @@ Ext.define('XMLifeOperating.controller.GDealList', {
             'gDealList #statusSearch': {
                 select: function(combo) {
                     var dealList = me.getGDealList();
+
                     me.rendenGDealList(dealList, 'center');
                 }
             },
@@ -91,9 +100,8 @@ Ext.define('XMLifeOperating.controller.GDealList', {
             },
             // 申请售后退货
             'gDealDetail #sellRefund': {
-                click: function(view, rowIndex, colIndex, column, e) {
-                    var record = view.getRecord(view.findTargetByEvent(e)),
-                        buyNum = record.get('num');
+                click: function(view, cellEl, rowIndex, colIndex, e, record) {
+                    var buyNum = record.get('num');
 
                     Ext.MessageBox.prompt('申请售后退货', '商品名称：' + record.get('name') + ' <br />输入数量：',
                         function(result, value) {
@@ -156,6 +164,7 @@ Ext.define('XMLifeOperating.controller.GDealList', {
                         //退货商品数量判断
                         var allcount = items[i].get('orderNum');
                         var returncount = items[i].get('returncount');
+
                         if (items[i].get('dealBackendId') != dealId) { //所有商品订单号判断
                             Ext.MessageBox.show({
                                 title: '提示',
@@ -262,6 +271,9 @@ Ext.define('XMLifeOperating.controller.GDealList', {
             'gDealList #customerDetail': {
                 click: me.onCustomerDetail
             },
+            'gDealList #superShopperName': {
+                click: me.onSuperShopperDetail
+            },
             'gDealList #toproblemdeal': {
                 click: me.onToProblemDeal
             },
@@ -286,8 +298,10 @@ Ext.define('XMLifeOperating.controller.GDealList', {
             //     }
             // },
             'ReturnProductForm #DealItems': {
-                select: function(combo, records, opts) {
-                    if (records.length == 0) return;
+                select: function(combo, records) {
+                    if (records.length === 0) {
+                        return;
+                    }
 
                     me._returnProductItem = records[0];
                     me.getReturnProductForm().down('#DealItemsNumber').setValue(records[0].data.num);
@@ -296,9 +310,9 @@ Ext.define('XMLifeOperating.controller.GDealList', {
             'ReturnProductForm #submit': {
                 click: function(button) {
                     var form = button.up('form').getForm(),
-                        number = button.up('form').down('#DealItemsNumber').getValue();
+                        number = button.up('form').down('#DealItemsNumber').getValue(),
+                        data = me._returnProductItem.data;
 
-                    var data = me._returnProductItem.data;
                     if (number > data.num) {
                         button.up('window').close();
                         Ext.Msg.alert('提示', '退货数量大于购买数量');
@@ -319,13 +333,13 @@ Ext.define('XMLifeOperating.controller.GDealList', {
                         });
                 }
             },
-            'gDealReturnCheckList,gDealReturnAuditList': {
+            'gDealReturnCheckList, gDealReturnAuditList': {
                 show: me.returnListShow
             },
-            'gDealReturnCheckList #rstatus,gDealReturnAuditList #rstatus': {
+            'gDealReturnCheckList #rstatus, gDealReturnAuditList #rstatus': {
                 change: me.returnStatusComboChange
             },
-            'gDealReturnCheckList #getReturnSearch,gDealReturnAuditList #getReturnSearch': {
+            'gDealReturnCheckList #getReturnSearch, gDealReturnAuditList #getReturnSearch': {
                 click: me.getReturnSearch
             },
 
@@ -350,8 +364,9 @@ Ext.define('XMLifeOperating.controller.GDealList', {
         var store = me.getReturnGoodsAuditListStore();
         var checkboxmodel = grid.getSelectionModel();
         var selected = checkboxmodel.selected;
-        if (selected.length == 0) {
-            return
+
+        if (selected.length === 0) {
+            return;
         } else {
             var data = {
                 ids: [],
@@ -371,6 +386,7 @@ Ext.define('XMLifeOperating.controller.GDealList', {
             var success = function(response) {
                 var code = response.responseText;
                 var str;
+
                 switch (parseInt(code)) {
                     case 1:
                         str = '操作成功';
@@ -386,10 +402,11 @@ Ext.define('XMLifeOperating.controller.GDealList', {
                 //成功后，加载上次参数状态的Store
                 store.loadPage(1);
                 Ext.Msg.alert('提示', str);
-            }
+            };
             var failure = function(response) {
                 var code = response.responseText;
                 var str;
+
                 switch (parseInt(code)) {
                     case 1:
                         str = '申请订单退货成功！';
@@ -414,15 +431,14 @@ Ext.define('XMLifeOperating.controller.GDealList', {
                     buttons: Ext.Msg.OK
                 });
                 checkboxmodel.deselectAll();
-            }
+            };
             sendPutRequest('returnGoods/audit', data, '退货审核操作', '退货审核操作成功', '退货审核操失败 ', success, failure);
-
-
         }
     },
-    queryReturnList: function(button, e) {
+    queryReturnList: function(button) {
         var me = this;
         var startdate, enddate, name, panel, store, dealId, combo;
+
         name = button['name'];
         if (name == 'check') {
             panel = me.getGDealReturnCheckList();
@@ -439,7 +455,7 @@ Ext.define('XMLifeOperating.controller.GDealList', {
             status: combo.getValue(),
             startTime: startdate.getRawValue(),
             endTime: enddate.getRawValue(),
-            cityId: XMLifeOperating.generic.Global.currentCity,
+            cityId: XMLifeOperating.generic.Global.currentCity
         };
         store.loadPage(1);
     },
@@ -453,6 +469,7 @@ Ext.define('XMLifeOperating.controller.GDealList', {
             var type = target.getAttribute('name');
             var data = {};
             var str = '';
+
             switch (type) {
                 case 'cancel':
                     str = 'cancel';
@@ -475,6 +492,7 @@ Ext.define('XMLifeOperating.controller.GDealList', {
             var success = function(response) {
                 var code = response.responseText;
                 var str;
+
                 switch (parseInt(code)) {
                     case 1:
                         str = '操作成功';
@@ -493,6 +511,7 @@ Ext.define('XMLifeOperating.controller.GDealList', {
             var failure = function(response) {
                 var code = response.responseText;
                 var str;
+
                 switch (parseInt(code)) {
                     case 1:
                         str = '申请订单退货成功！';
@@ -527,13 +546,14 @@ Ext.define('XMLifeOperating.controller.GDealList', {
         if (!stcombo.getValue()) {
             stcombo.select(3); //3：全部
         } else {
-            grid.getStore().loadPage(1)
+            grid.getStore().loadPage(1);
         }
     },
-    returnStatusComboChange: function(combo, newValue, oldValue, e) {
+    returnStatusComboChange: function(combo, newValue) {
 
         var me = this;
         var startdate, enddate, name, panel, store;
+
         name = combo.getName();
         if (name == 'check') {
             panel = me.getGDealReturnCheckList();
@@ -555,9 +575,10 @@ Ext.define('XMLifeOperating.controller.GDealList', {
         };
         store.loadPage(1);
     },
-    getReturnSearch: function(button, e) {
+    getReturnSearch: function(button) {
         var me = this;
         var startdate, enddate, name, panel, store, dealId, combo;
+
         name = button['name'];
         if (name == 'check') {
             panel = me.getGDealReturnCheckList();
@@ -593,6 +614,7 @@ Ext.define('XMLifeOperating.controller.GDealList', {
         var sstore = this.getDealStore();
         var shopArea = '';
         var status = '';
+
         switch (type) {
             case 'all':
                 shopArea = '';
@@ -622,8 +644,8 @@ Ext.define('XMLifeOperating.controller.GDealList', {
     dealSearch: function() {
         var me = this,
             keyWords = me.getGDealList().down('#keyword').getValue(),
-            store = this.getDealStore(),
-            view = this.getGDealList();
+            store = me.getDealStore(),
+            view = me.getGDealList();
 
         view.down('#shopAread').setValue('');
         view.down('#statusSearch').setValue('');
@@ -632,13 +654,13 @@ Ext.define('XMLifeOperating.controller.GDealList', {
         };
         store.loadPage(1);
     },
-    onDealDetail: function(view, item, rowIndex, colIndex, e) {
-        var record = view.getRecord(view.findTargetByEvent(e)),
-            win = this.getGDealDetail(),
+    onDealDetail: function(view, cellEl, rowIndex, colIndex, e, record) {
+        var win = this.getGDealDetail(),
             form = win.down('form').getForm(),
             grid = win.down('#dealDetails'),
             localPage = this.getContentPanel().getActiveTab().xtype,
             status = record.get('status');
+
         // 单独获取详情的接口
         Ext.Ajax.request({
             method: 'GET',
@@ -677,30 +699,30 @@ Ext.define('XMLifeOperating.controller.GDealList', {
 
         win.show();
     },
-    onCustomerDetail: function(view, rowIndex, colIndex, column, e) {
-        var dealDetail = view.getRecord(view.findTargetByEvent(e));
-        var store = this.getCustomerStore();
-
+    onCustomerDetail: function(view, cellEl, rowIndex, colIndex, e, record) {
         var win = this.getGDealCustomerDetail();
-        store.on('load', function(store, records, successful, eOpts) {
-            store.data.items[0].data['dtoAddress'] = dealDetail.getData()['dtoAddress'];
-            win.down('form').loadRecord(store.data.items[0]);
-        });
+
+        win.down('form').loadRecord(record);
         win.show();
-        store.getProxy().extraParams = {
-            uid: dealDetail.get('customId'),
-        };
-        store.loadPage(1);
     },
-    onToProblemDeal: function(view, rowIndex, colIndex, column, e) {
-        var dealitem = view.getRecord(view.findTargetByEvent(e));
-        var dealBackendId = dealitem.get('dealBackendId');
+    onSuperShopperDetail: function(view, cellEl, rowIndex, colIndex, e, record) {
+        if (!record.get('superShopperName')) {
+            return;
+        }
+
+        var win = this.getGDealSuperShopperDetail();
+
+        win.down('form').loadRecord(record);
+        win.show();
+    },
+    onToProblemDeal: function(view, cellEl, rowIndex, colIndex, e, record) {
+        var dealBackendId = record.get('dealBackendId');
         var url = 'deal/transToProblem/' + dealBackendId;
         var me = this;
 
         Ext.MessageBox.confirm(
             '确认操作',
-            Ext.String.format("确定要将<h5>'{0}'</h5>的订单转为问题订单吗？", '订单号为：' + dealitem.get('shortId') + ' 顾客为：' + dealitem.get('customerName')),
+            Ext.String.format("确定要将<h5>'{0}'</h5>的订单转为问题订单吗？", '订单号为：' + record.get('shortId') + ' 顾客为：' + record.get('customerName')),
             function(result) {
                 if (result == 'yes') {
                     sendPutRequest(url, {}, '转为问题订单', '转为问题订单成功', '转为问题订单失败',

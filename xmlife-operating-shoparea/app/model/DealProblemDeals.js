@@ -13,6 +13,7 @@ Ext.define('XMLifeOperating.model.DealProblemDeals', {
         'customerPhone',
         'shopAreaName',
         'superShopperName',
+        'superShopperPhone',
         'shopName',
         'delivererName',
         'created',
