@@ -173,5 +173,4 @@ Ext.define('XMLifeOperating.view.staffManage.shopper.GShopperList', {
             combo.fireEvent('select', combo);
         }
     }
-
 });

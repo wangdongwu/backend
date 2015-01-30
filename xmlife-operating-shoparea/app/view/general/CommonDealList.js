@@ -54,14 +54,14 @@ Ext.define('XMLifeOperating.view.general.CommonDealList', {
                 }
             }
         }, {
-            text: '顾客',
+            text: '收货人',
             dataIndex: 'contactsName',
             itemId: 'customerDetail',
             renderer: function(value) {
                 return '<a href="javascript:;">' + value + '</a>';
             }
         }, {
-            text: '顾客电话',
+            text: '收货人电话',
             dataIndex: 'contactsPhone'
         }, {
             text: '中心点',

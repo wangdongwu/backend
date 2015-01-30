@@ -32,7 +32,7 @@ Ext.define('XMLifeOperating.model.Deal', {
 // 订单号：dealBackendId
 // 线路:zoneName
 // 订单状态：status
-// 顾客:customerName
+// 收货人:customerName
 // 中心点:shopAreaName
 // 分配买手:superShopperName
 // 分配买手的电话:superShopperPhone

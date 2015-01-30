@@ -19,36 +19,26 @@ Ext.define('XMLifeOperating.view.operationManage.dealCashOnDelivery.DealCashOnDe
             layout: 'anchor',
             bodyPadding: 10,
             border: false,
-            
-            items: [
-                {
-                    xtype: 'textfield',
-                    name: 'codMarkContent',
-                    fieldLabel: '备注',
-                    labelWidth: 90,
-                    allowBlank:false,
-                    itemId:'codeMarkContentId'
-                    /*maxLength: 10,
-                    maxLengthText:'商品名称最大长度为1',*/
-                },
-            ],
-            buttons: [
-                {
-                    text: 'Save',
-                    itemId: 'save-editRemark-edit-btn'
-                },
-                {
-                    text: 'Cancel',
-                    handler:function(){
-                        //关闭窗口
-                        Ext.ComponentQuery.query('editRemark')[0].close();
-                    }
+
+            items: [{
+                xtype: 'textfield',
+                name: 'codMarkContent',
+                fieldLabel: '备注',
+                labelWidth: 90,
+                allowBlank: false,
+                itemId: 'codeMarkContentId'
+            }],
+            buttons: [{
+                text: '保存',
+                itemId: 'save-editRemark-edit-btn'
+            }, {
+                text: '取消',
+                handler: function() {
+                    //关闭窗口
+                    this.up('window').close();
                 }
-            ]
+            }]
         }]
-
         this.callParent(arguments);
-
     }
-
-});      
+});

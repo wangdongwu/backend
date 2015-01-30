@@ -12,7 +12,7 @@ Ext.define('XMLifeOperating.view.dealManage.DealCustomerDetail', {
     initComponent: function() {
         this.items = [{
             xtype: 'form',
-            title: '顾客详情',
+            title: '收货人详情',
             layout: 'anchor',
             bodyPadding: 5,
             border: false,

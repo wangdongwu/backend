@@ -34,7 +34,7 @@ Ext.define('XMLifeOperating.view.operationManage.dealCashOnDelivery.DealCashOnDe
                 {
                     xtype: 'displayfield',
                     name: 'customerName',
-                    fieldLabel:'顾客姓名',
+                    fieldLabel:'收货人姓名',
                     allowBlank:false,
                     labelAlign:'left'
                 },

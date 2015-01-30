@@ -7,7 +7,7 @@ Ext.define('XMLifeOperating.model.DealCashOnDelivery', {
 
 //actualDealPrice 订单金额
 //dealPrice  包含运费的订单金额
-//dtoAddress 顾客订单的地址
+//dtoAddress 收货人订单的地址
 //"hasReturn": false,  是否有退货
 //"hasCancel": false,  是否取消订单
 //banlance 使用账户余额

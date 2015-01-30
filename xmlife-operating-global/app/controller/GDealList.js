@@ -722,7 +722,7 @@ Ext.define('XMLifeOperating.controller.GDealList', {
 
         Ext.MessageBox.confirm(
             '确认操作',
-            Ext.String.format("确定要将<h5>'{0}'</h5>的订单转为问题订单吗？", '订单号为：' + record.get('shortId') + ' 顾客为：' + record.get('customerName')),
+            Ext.String.format("确定要将<h5>'{0}'</h5>的订单转为问题订单吗？", '订单号为：' + record.get('shortId') + ' 收货人为：' + record.get('customerName')),
             function(result) {
                 if (result == 'yes') {
                     sendPutRequest(url, {}, '转为问题订单', '转为问题订单成功', '转为问题订单失败',

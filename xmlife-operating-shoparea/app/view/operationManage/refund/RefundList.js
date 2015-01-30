@@ -53,7 +53,6 @@ Ext.define('XMLifeOperating.view.operationManage.refund.RefundList', {
             style: {
                 border: '1px solid #99bce8'
             }
-
         }, {
             xtype: 'button',
             name: 'oldMonth',

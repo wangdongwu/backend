@@ -7,8 +7,8 @@ Ext.define('XMLifeOperating.model.Deal', {
         'dealBackendId',   // 订单号
         'zoneName',        // 线路
         'status',          // 订单状态
-        'customerName',    // 顾客
-        'customerPhone',   // 顾客电话
+        'customerName',    // 收货人
+        'customerPhone',   // 收货人电话
         'shopAreaName',    // 中心点
         'superShopperName',// 分配买手
         'superShopperPhone', // 分配买手的电话

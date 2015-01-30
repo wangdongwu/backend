@@ -42,11 +42,11 @@ Ext.define('XMLifeOperating.view.operationManage.dealProblemDeals.DealProblemDea
             }, {
                 xtype: 'displayfield',
                 name: 'customerName',
-                fieldLabel: '顾客'
+                fieldLabel: '收货人'
             }, {
                 xtype: 'displayfield',
                 name: 'customerPhone',
-                fieldLabel: '顾客电话'
+                fieldLabel: '收货人电话'
             }, {
                 xtype: 'displayfield',
                 name: 'dtoAddress',
@@ -85,43 +85,6 @@ Ext.define('XMLifeOperating.view.operationManage.dealProblemDeals.DealProblemDea
                             return '<a href="javascript:;">重新分配</a>';
                         }
                     }]
-                    // 听说配送员不会再出现了
-                    // }, {
-                    //     xtype: 'fieldset',
-                    //     labelWidth: 400,
-                    //     border: false,
-                    //     bodyPadding: 0,
-                    //     items: [{
-                    //         layout: 'column',
-                    //         xtype: 'fieldset',
-                    //         border: false,
-                    //         padding: 10,
-                    //         items: [{
-                    //             xtype: 'displayfield',
-                    //             fieldLabel: '配送员名字',
-                    //             labelWidth: 100,
-                    //             name: 'delivererName',
-                    //         }, {
-                    //             xtype: 'displayfield',
-                    //             fieldLabel: '线路',
-                    //             labelWidth: 100,
-                    //             Padding: 20,
-                    //             name: 'zoneName',
-                    //         }, {
-                    //             xtype: 'label',
-                    //             width: 80,
-                    //             bodyPadding: 20,
-                    //             itemId: 'reapportionDeliverer',
-                    //             html: '<a>重新分配</a>',
-                    //             listeners: {
-                    //                 render: function(c) {
-                    //                     c.getEl().on('click', function() {
-                    //                         this.fireEvent('click', c);
-                    //                     }, c);
-                    //                 }
-                    //             }
-                    //         }]
-                    //     }]
             }],
         }];
         this.callParent(arguments);

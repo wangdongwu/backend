@@ -129,7 +129,7 @@ Ext.define('XMLifeOperating.view.staffManage.shopper.GDealShopperHistoryList', {
                 return newTime;
             }
         }, {
-            text: '顾客',
+            text: '收货人',
             dataIndex: 'customName',
             sortable: false,
             width: 100

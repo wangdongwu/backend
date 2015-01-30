@@ -29,7 +29,6 @@ Ext.define('XMLifeOperating.view.operationManage.dealShopArea.DealShopAreaList',
         name: 'keyword',
         itemId: 'keyword',
         fieldLabel: '手机/订单号'
-
     }, {
         xtype: 'button',
         itemId: 'dealSearch',
@@ -66,7 +65,7 @@ Ext.define('XMLifeOperating.view.operationManage.dealShopArea.DealShopAreaList',
             dataIndex: 'districtName',
             width: 80,
             sortable: true,
-            align: 'center',
+            align: 'center'
         }, {
             text: '订单状态',
             dataIndex: 'status',
@@ -129,26 +128,18 @@ Ext.define('XMLifeOperating.view.operationManage.dealShopArea.DealShopAreaList',
 
             }
         }, {
-            text: '顾客',
+            text: '收货人',
             dataIndex: 'customName',
             width: 80,
             sortable: true,
-            align: 'center',
+            align: 'center'
         }, {
-            text: '顾客电话',
+            text: '收货人电话',
             dataIndex: 'customPhone',
             width: 90,
             sortable: true,
-            align: 'center',
-        },
-        /*{
-            text: '中心点',
-            dataIndex: 'shopAreaName',
-            width: 80,
-            sortable: false,
-            align: 'center',
-        }, */
-        {
+            align: 'center'
+        }, {
             text: '分配买手',
             dataIndex: 'shopperName',
             width: 60,

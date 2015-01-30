@@ -127,7 +127,7 @@ Ext.define('XMLifeOperating.view.operationManage.dealCashOnDelivery.DealCashOnDe
             sortable: true,
             align: 'center'
         }, {
-            text: '顾客',
+            text: '收货人',
             dataIndex: 'customerName',
             width: 80,
             sortable: true,
@@ -137,7 +137,7 @@ Ext.define('XMLifeOperating.view.operationManage.dealCashOnDelivery.DealCashOnDe
                 return '<a href="javascript:;">' + value + '</a>';
             }
         }, {
-            text: '顾客电话',
+            text: '收货人电话',
             dataIndex: 'customerPhone',
             width: 90,
             sortable: true,

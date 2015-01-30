@@ -400,7 +400,7 @@ Ext.define('XMLifeOperating.controller.DealProblemDealsList', {
         }
         Ext.MessageBox.confirm(
             '确认取消订单',
-            Ext.String.format("确定要取消<h5>'{0}'</h5>的订单吗？", '订单号为：' + record.get('shortId') + ' 顾客为：' + record.get('customerName')),
+            Ext.String.format("确定要取消<h5>'{0}'</h5>的订单吗？", '订单号为：' + record.get('shortId') + ' 收货人为：' + record.get('customerName')),
             function(result) {
                 if (result == 'yes') {
 
