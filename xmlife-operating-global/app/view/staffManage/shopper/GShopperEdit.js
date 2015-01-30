@@ -39,10 +39,26 @@ Ext.define('XMLifeOperating.view.staffManage.shopper.GShopperEdit', {
                     fieldLabel: '姓名',
                     labelWidth: 90,
                     allowBlank: false,
-                    minLength: 2,
-                    minLengthText: '商品名称最小长度为2',
-                    maxLength: 8,
-                    maxLengthText: '商品名称最大长度为8'
+                    validator: function(str) {
+                        var value = str;
+                        var length = 0;
+                        for (var i = 0, len = value.length; i < len; i++) {
+                            var chart = value.charCodeAt(i);
+
+                            if (chart == 12288) {
+                                length = length + 1;
+                            } else if (chart >= 0 && chart <= 255) {
+                                length = length + 1;
+                            } else {
+                                length = length + 2;
+                            }
+                        }
+                        if (length > 8) {
+                            return '姓名最大长度为4个汉字或8个字母'
+                        } else {
+                            return true
+                        }
+                    }
                 }, {
                     xtype: 'textfield',
                     name: 'title',
