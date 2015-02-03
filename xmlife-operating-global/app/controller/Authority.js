@@ -84,7 +84,7 @@ Ext.define('XMLifeOperating.controller.Authority', {
                         formEl = form.getForm(),
                         accountField = form.down('#accountField'),
                         ownerField = form.down('#accountOwner');
-                    me.loadAccountListStore(null);
+                    me.loadAccountListStore();
                     addGlobalAccount.setTitle('创建管理员账号');
                     accountField.setDisabled(false);
                     ownerField.show();
@@ -121,13 +121,14 @@ Ext.define('XMLifeOperating.controller.Authority', {
                         moduleIds = model.get('moduleIds');
 
                     addGlobalAccount.setTitle('修改管理员账号');
-                    form.loadRecord(model);
                     accountField.setDisabled(true);
 
                     ownerField.setVisible(isSuperAdmin);
                     if (isSuperAdmin) {
                         me.loadAccountListStore(model.get('account'));
                     }
+                    // 由于ownerField的forceSelection需求，loadRecord需要推迟到读取account列表之后。
+                    form.loadRecord(model);
                     me.initSelectData(form, modules);
 
                     if (cityIds.length > 0) {
@@ -377,24 +378,17 @@ Ext.define('XMLifeOperating.controller.Authority', {
             // }
         });
     },
-    // 读取可以被设置为accountInEdit的owner的所有account
-    // 可以被设置为owner的条件是设置后owner关系不会构成环，该逻辑由服务器保证
-    // 新建帐号时所有account都是可用的，此时accountInEdit应传入null（区别于undefined）
+    // 读取可以被设置为accountInEdit的owner的所有account。
+    // 可以被设置为owner的条件是设置后owner关系不会构成环，该逻辑由服务器保证。
+    // 之前的优化逻辑（当查询的accountInEdit与上次读取一致时跳过重复读取）被去掉，因为在新建时，新建成功后这个列表需要更新（重新读取或显式操作store），
+    // 而不论新建或编辑，两次“相同操作“（新建或编辑同一个帐号）之间可能服务器数据（owner树）已改变，权衡性能损失与更积极的读取策略目前倾向于后者。
+    // 新建帐号时所有account都是可用的，此时accountInEdit可以传人null或undefined。
     loadAccountListStore: function(accountInEdit) {
         var accountEditWin = this.getAddGlobalAccount(),
             ownerField = accountEditWin.down('#accountOwner'),
             ownerStore = ownerField.getStore();
 
-        // 避免不必要的重复读取
-        if (ownerStore.lastLoadFor === accountInEdit) {
-            return;
-        }
-
-        var options = {
-            callback: function(records, operation, success) {
-                ownerStore.lastLoadFor = success ? accountInEdit : undefined;
-            }
-        };
+        var options = {};
 
         if (accountInEdit) {
             options.params = {

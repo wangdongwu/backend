@@ -70,6 +70,10 @@ Ext.define('XMLifeOperating.view.authorityManage.addGlobalAccount', {
                 itemId: 'accountOwner',
                 store: new Ext.data.Store({
                     fields: [ 'account' ],
+                    sorters: [{
+                        property: 'account',
+                        direction: 'ASC'
+                    }],
                     proxy: new XMLifeOperating.generic.BaseProxy('admin/list/account')
                 }),
                 displayField: 'account',
