@@ -395,7 +395,7 @@ Ext.define('XMLifeOperating.controller.Manager', {
                 // 编辑修改
                 var url = 'manager/updateManager';
                 sendPutRequest(url, {
-                    managerId: manager.get('uid'),
+                    manager: manager.get('uid'),
                     name: manager.get('name'),
                     pwd: manager.get('pwd'),
                     title: manager.get('title'),
