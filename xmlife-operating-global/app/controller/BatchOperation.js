@@ -154,7 +154,7 @@ Ext.define('XMLifeOperating.controller.BatchOperation', {
     },
     updateAndResumeMultiFileInput: function(button, url, syncImg) {
         var me = this,
-            host = window.location.host,
+            host = window.location.host.toLowerCase(),
             form = button.up('form').getForm(),
             path = '/',
             comment = form.owner.down('#commentMsg') && form.owner.down('#commentMsg').getValue(),
@@ -165,7 +165,7 @@ Ext.define('XMLifeOperating.controller.BatchOperation', {
         if (host.indexOf('localhost') || host.indexOf('127.0') || host.indexOf('dev')) {
             evn = 'dev';
         } else if (host.indexOf('rc')) {
-            evn = 'RC';
+            evn = 'rc';
         } else {
             evn = 'production';
         }
