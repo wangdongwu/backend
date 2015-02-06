@@ -22,16 +22,17 @@ Ext.define('XMLifeOperating.controller.login', {
     init: function() {
         var self = this;
         var sessionId = localStorage.getItem('sessionId'),
-            username = localStorage.getItem('username');
-            var navigationStore = self.getNavigationStore();
-                  /*navigationStore.on('load',function(){
-                    this.getRootNode().appendChild({text:'员工考核',id : 'ShopperCheckList',leaf: true});
-                    
-                  });*/
+            username = localStorage.getItem('username'),
+            navigationStore = self.getNavigationStore();
+
+        /*navigationStore.on('load',function(){
+          this.getRootNode().appendChild({text:'员工考核',id : 'ShopperCheckList',leaf: true});
+        });*/
         this.control({
             'login': {
                 show: function(panel) {
                     var ele = panel.getEl();
+
                     self.bindKeyMap(ele);
                 }
             },
@@ -41,6 +42,7 @@ Ext.define('XMLifeOperating.controller.login', {
             'headerToolbar #txtUserName': {
                 click: function() {
                     var sessionId = localStorage.getItem('sessionId');
+
                     if (!sessionId) {
                         this.getLogin().show();
                     } else {
@@ -69,10 +71,10 @@ Ext.define('XMLifeOperating.controller.login', {
                             nickField.show().setValue(data.name).setDisabled(true);
                             usernameField.setValue(data.account).setDisabled(true);
                         }
-                    })
+                    });
 
                     newPasswordField.show();
-                    reNewPasswordField.show()
+                    reNewPasswordField.show();
 
                     passwordField.setFieldLabel('旧密码');
                     loginBt.setText('确定');
@@ -84,6 +86,7 @@ Ext.define('XMLifeOperating.controller.login', {
                 click: function() {
                     var loginOutUrl = XMLifeOperating.generic.Global.URL.biz + 'admin/logout',
                         sessionId = localStorage.getItem('sessionId');
+
                     localStorage.removeItem('sessionId');
                     localStorage.removeItem('username');
                     Ext.Ajax.request({
@@ -103,7 +106,7 @@ Ext.define('XMLifeOperating.controller.login', {
                                 buttons: Ext.Msg.OK
                             });
                         }
-                    })
+                    });
                 }
             }
         });
@@ -117,6 +120,7 @@ Ext.define('XMLifeOperating.controller.login', {
             self.getNavigationStore().load({
                 callback: function(records, e) {
                     var errorMsg = e.response.getAllResponseHeaders()['errormsg'];
+
                     if (errorMsg) {
                         Ext.MessageBox.show({
                             title: '提示',
@@ -127,20 +131,20 @@ Ext.define('XMLifeOperating.controller.login', {
                 }
             });
             this.getUserInfor();
-        };
+        }
     },
     login: function() {
         var self = this,
             view = this.getLogin(),
             username = view.down('[name=username]').getValue(),
             password = view.down('[name=password]').getValue(),
-            newPassword = view.down('[name=newPassword]').getValue();
-        reNewPassword = view.down('[name=reNewPassword]').getValue();
-        loginUrl = XMLifeOperating.generic.Global.URL.biz + 'admin/login',
+            newPassword = view.down('[name=newPassword]').getValue(),
+            reNewPassword = view.down('[name=reNewPassword]').getValue(),
+            loginUrl = XMLifeOperating.generic.Global.URL.biz + 'admin/login',
             updateUrl = XMLifeOperating.generic.Global.URL.biz + 'admin/update/ownAccount';
+
         if (self.edit) {
-            var newPassword = view.down('[name=newPassword]').getValue(),
-                name = view.down('[name=nick]').getValue();
+            var name = view.down('[name=nick]').getValue();
             Ext.Ajax.request({
                 url: updateUrl,
                 params: {
@@ -159,7 +163,7 @@ Ext.define('XMLifeOperating.controller.login', {
                         Ext.Msg.alert('失败', '更新' + username + '账户时失败');
                     }
                 }
-            })
+            });
         } else {
             Ext.Ajax.request({
                 url: loginUrl,
@@ -171,6 +175,7 @@ Ext.define('XMLifeOperating.controller.login', {
                 success: function(response) {
                     if (response.responseText) {
                         var data = Ext.JSON.decode(response.responseText);
+
                         /*本地储存信息*/
                         localStorage.setItem("sessionId", data.sessionId);
                         localStorage.setItem("username", username);
@@ -200,11 +205,11 @@ Ext.define('XMLifeOperating.controller.login', {
                 failure: function(response) {
                     if (response.status == 401 || response.status == 0) {
                         var data = {
-                            'Unauthorized': '对不起，你登录失败了，请重新登录'
+                            '401': '对不起，你登录失败了，请重新登录'
                         };
                         Ext.MessageBox.show({
                             title: '登录失败',
-                            msg: data[response.statusText],
+                            msg: data[response.status],
                             buttons: Ext.Msg.OK
                         });
                     }
@@ -234,7 +239,8 @@ Ext.define('XMLifeOperating.controller.login', {
                 XMLifeOperating.generic.Global.currentAdminInfor = data;
                 self.application.fireEvent('admin/getInfo', data);
             }
-        }
+        };
+
         store.load({
             callback: callback
         });

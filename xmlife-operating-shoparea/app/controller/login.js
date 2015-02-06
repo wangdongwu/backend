@@ -39,6 +39,7 @@ Ext.define('XMLifeOperating.controller.login', {
             'login': {
                 show: function(panel) {
                     var ele = panel.getEl();
+
                     self.bindKeyMap(ele);
                 }
             },
@@ -48,6 +49,7 @@ Ext.define('XMLifeOperating.controller.login', {
             'headerToolbar #txtUserName': {
                 click: function() {
                     var sessionId = localStorage.getItem('sessionId');
+
                     if (!sessionId) {
                         this.getLogin().show();
                     }
@@ -74,21 +76,21 @@ Ext.define('XMLifeOperating.controller.login', {
                             nickField.show().setValue(data.name).setDisabled(true);
                             usernameField.setValue(data.account).setDisabled(true);
                         }
-                    })
+                    });
 
                     newPasswordField.show();
-                    reNewPasswordField.show()
+                    reNewPasswordField.show();
                     passwordField.setFieldLabel('旧密码');
                     loginBt.setText('确定');
                     self.edit = true;
                     loginView.show();
-
                 }
             },
             'headerToolbar #btnSignOut': {
                 click: function() {
                     var loginOutUrl = XMLifeOperating.generic.Global.URL.biz + 'admin/logout',
                         sessionId = localStorage.getItem('sessionId');
+
                     localStorage.removeItem('sessionId');
                     localStorage.removeItem('username');
                     Ext.Ajax.request({
@@ -107,9 +109,8 @@ Ext.define('XMLifeOperating.controller.login', {
                                 msg: '您现在已经注销了!',
                                 buttons: Ext.Msg.OK
                             });
-
                         }
-                    })
+                    });
                 }
             }
         });
@@ -130,13 +131,14 @@ Ext.define('XMLifeOperating.controller.login', {
             view = this.getLogin(),
             username = view.down('[name=username]').getValue(),
             password = view.down('[name=password]').getValue(),
-            newPassword = view.down('[name=newPassword]').getValue();
-        reNewPassword = view.down('[name=reNewPassword]').getValue();
-        loginUrl = XMLifeOperating.generic.Global.URL.biz + 'admin/login',
+            newPassword = view.down('[name=newPassword]').getValue(),
+            reNewPassword = view.down('[name=reNewPassword]').getValue(),
+            loginUrl = XMLifeOperating.generic.Global.URL.biz + 'admin/login',
             updateUrl = XMLifeOperating.generic.Global.URL.biz + 'admin/update/ownAccount';
+
         if (self.edit) {
-            var newPassword = view.down('[name=newPassword]').getValue(),
-                name = view.down('[name=nick]').getValue();
+            var name = view.down('[name=nick]').getValue();
+
             Ext.Ajax.request({
                 url: updateUrl,
                 params: {
@@ -150,7 +152,6 @@ Ext.define('XMLifeOperating.controller.login', {
                     if (response.responseText == 1) {
                         self.getLogin().hide();
                         Ext.Msg.alert('成功', '成功更新' + username + '账户');
-
                     } else {
                         Ext.Msg.alert('失败', '更新' + username + '账户时失败');
                     }
@@ -167,11 +168,11 @@ Ext.define('XMLifeOperating.controller.login', {
                 success: function(response) {
                     if (response.responseText) {
                         var data = Ext.JSON.decode(response.responseText);
+
                         /*本地储存信息*/
                         localStorage.setItem("sessionId", data.sessionId);
                         localStorage.setItem("username", username);
                         //saveUidAndSession(username + "@c", data.sessionId);
-
 
                         /*更改页头*/
                         Ext.Ajax.defaultHeaders = {
@@ -188,11 +189,12 @@ Ext.define('XMLifeOperating.controller.login', {
                 failure: function(response) {
                     if (response.status == 401) {
                         var data = {
-                            'Unauthorized': '对不起，你登录失败了，请重新登录'
+                            '401': '对不起，你登录失败了，请重新登录'
                         };
+
                         Ext.MessageBox.show({
                             title: '登录失败',
-                            msg: data[response.statusText],
+                            msg: data[response.status],
                             buttons: Ext.Msg.OK
                         });
                     }
@@ -218,40 +220,42 @@ Ext.define('XMLifeOperating.controller.login', {
         var me = this;
         var store = me.getNavigationStore();
         var shopAreaStore = me.getShopAreaStore();
+
         var success = function(response) {
             var obj = eval('(' + response.responseText + ')');
             var type = obj.adminType;
             var account = obj.account,
                 areaId = obj.areaId,
                 filterFunArr = [];
+
             if (Ext.isArray(areaId)) {
                 Ext.each(areaId, function(id) {
                     filterFunArr.push(function(v) {
-                        return v.get('id') == id
-                    })
+                        return v.get('id') == id;
+                    });
                 }, this);
             } else if (areaId == 0) {
                 shopAreaStore.clearFilter(true);
             } else {
                 filterFunArr.push(function(v) {
-                    return v.get('id') == areaId
-                })
+                    return v.get('id') == areaId;
+                });
             }
             if (type == 'Area') { //中心长账号登陆
                 store.setProxy(new XMLifeOperating.generic.BaseProxy('module/getUserModulesTree'));
                 XMLifeOperating.generic.Global.current_operating = obj.areaId;
                 store.load({
-                        callback: function(records, e) {
-                            var errorMsg = e.response.getAllResponseHeaders()['errormsg'];
-                            if (errorMsg) {
-                                Ext.MessageBox.show({
-                                    title: '提示',
-                                    msg: '账号权限未更新：'+errorMsg,
-                                    buttons: Ext.Msg.OK
-                                });
-                            }
+                    callback: function(records, e) {
+                        var errorMsg = e.response.getAllResponseHeaders()['errormsg'];
+                        if (errorMsg) {
+                            Ext.MessageBox.show({
+                                title: '提示',
+                                msg: '账号权限未更新：' + errorMsg,
+                                buttons: Ext.Msg.OK
+                            });
                         }
-                    });
+                    }
+                });
             } else if (type == 'City' || type == 'Global') { //高级权限账号登陆
                 store.setProxy(new XMLifeOperating.generic.BaseProxy('module/getPlatModulesTree'));
                 me.getCmbGlobalCenter().show();
@@ -259,17 +263,17 @@ Ext.define('XMLifeOperating.controller.login', {
                     type: 'Area'
                 };
                 store.load({
-                        callback: function(records, e) {
-                            var errorMsg = e.response.getAllResponseHeaders()['errormsg'];
-                            if (errorMsg) {
-                                Ext.MessageBox.show({
-                                    title: '提示',
-                                    msg: '账号权限未更新：'+errorMsg,
-                                    buttons: Ext.Msg.OK
-                                });
-                            }
+                    callback: function(records, e) {
+                        var errorMsg = e.response.getAllResponseHeaders()['errormsg'];
+                        if (errorMsg) {
+                            Ext.MessageBox.show({
+                                title: '提示',
+                                msg: '账号权限未更新：' + errorMsg,
+                                buttons: Ext.Msg.OK
+                            });
                         }
-                    });
+                    }
+                });
                 shopAreaStore.clearFilter(true);
                 shopAreaStore.filter(filterFunArr);
                 shopAreaStore.load({
@@ -278,7 +282,7 @@ Ext.define('XMLifeOperating.controller.login', {
                         if (this.data.items[0]) { //若存在符合筛选的中心
                             XMLifeOperating.generic.Global.current_operating = this.data.items[0].get('id');
                         } else { //若不存在符合筛选的中心,默认为0，无法加载（基本上不存在此情况）
-                            XMLifeOperating.generic.Global.current_operating = 0
+                            XMLifeOperating.generic.Global.current_operating = 0;
                         }
                     }
                 });
@@ -300,14 +304,14 @@ Ext.define('XMLifeOperating.controller.login', {
                     });
                 }
             }
-        }
+        };
         var failure = function(response) {
             Ext.MessageBox.show({
                 title: '账号检测失败',
                 msg: data[responseText.statusText],
                 buttons: Ext.Msg.OK
             });
-        }
+        };
         sendGetRequest('admin/getInfo', null, '检测账号', '检测账号成功', '检测账号失败', success, failure);
     }
 });

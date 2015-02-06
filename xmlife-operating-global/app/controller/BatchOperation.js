@@ -122,7 +122,7 @@ Ext.define('XMLifeOperating.controller.BatchOperation', {
             },
             'ProductTemplateAddBatch #submit': {
                 click: function(button) {
-                    me.updateAndResumeMultiFileInput(button, 'backdoor/update/product/addtemplates', true);
+                    me.updateSimple(button, 'backdoor/update/product/addtemplates');
                 }
             },
             'DistributionLocationAddBatch #submit': {
