@@ -70,7 +70,7 @@ Ext.define('XMLifeOperating.controller.DataExport', {
                 rechargeableCard.setDisabled(false);
             }
             // 订单清单
-            if (modules[i] == 'DealListManage.DataExport.exportOperatorData') {
+            if (modules[i] == 'DealListManage.DataExport.exportSalesData') {
                 dealSales.setDisabled(false);
             }
         }
