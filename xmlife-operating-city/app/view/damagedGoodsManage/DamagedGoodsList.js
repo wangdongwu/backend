@@ -189,9 +189,40 @@ Ext.define('XMLifeOperating.view.damagedGoodsManage.DamagedGoodsList', {
             }
         }
     }, {
+        text: '掌柜',
+        dataIndex: 'creatorName',
+        itemId:'creatorNameId',
+        sortable: false,
+        align: 'left',
+        renderer: function(value,obj,model){
+            var source = model.get('source');
+            if(value === null){
+                return '';
+            }
+            return source == 'm' ? '<a href="javascript:;">'+value+'</a>' : value;
+        }
+    }, {
+        text: '来源',
+        dataIndex: 'source',
+        width: 100,
+        sortable: false,
+        align: 'left',
+        renderer: function(value) {
+            switch (value) {
+                case 'm':
+                    return '掌柜退货';
+                    break;
+                case 'b':
+                    return '手动添加';
+                    break;
+                default:
+                    return '未知';
+            }
+        }
+    }, {
         text: '操作',
         dataIndex: 'status',
-        width: 50,
+        width: 80,
         sortable: false,
         align: 'left',
         itemId: 'acceptBtn',
@@ -203,7 +234,7 @@ Ext.define('XMLifeOperating.view.damagedGoodsManage.DamagedGoodsList', {
     }, {
         text: '操作',
         dataIndex: 'status',
-        width: 70,
+        width: 80,
         sortable: false,
         align: 'center',
         itemId: 'goodsLostBtn',

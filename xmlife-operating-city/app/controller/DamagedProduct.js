@@ -4,7 +4,8 @@ Ext.define('XMLifeOperating.controller.DamagedProduct', {
     views: [
         'damagedGoodsManage.DamagedGoodsList',
         'damagedGoodsManage.DamagedGoodsLostWin',
-        'damagedGoodsManage.CDealDetail'
+        'damagedGoodsManage.CDealDetail',
+        'damagedGoodsManage.CManagerDetail'
     ],
     stores: ['DamagedProduct', 'ShopArea', 'DealItems'],
 
@@ -24,6 +25,11 @@ Ext.define('XMLifeOperating.controller.DamagedProduct', {
         ref: 'cDealDetail',
         selector: 'cDealDetail',
         xtype: 'cDealDetail',
+        autoCreate: true
+    }, {
+        ref: 'cManagerDetail',
+        selector: 'cManagerDetail',
+        xtype: 'cManagerDetail',
         autoCreate: true
     }],
 
@@ -126,6 +132,9 @@ Ext.define('XMLifeOperating.controller.DamagedProduct', {
             //查看订单
             'damagedGoodsList #cDealDetail': {
                 click: self.onCDealDetail
+            },
+            'damagedGoodsList #creatorNameId': {
+                click: self.onCreatorName
             }
         });
     },
@@ -199,9 +208,8 @@ Ext.define('XMLifeOperating.controller.DamagedProduct', {
         }
     },
 
-    onCDealDetail: function(view, rowIndex, colIndex, column, e) {
-        var record = view.getRecord(view.findTargetByEvent(e)),
-            win = this.getCDealDetail(),
+    onCDealDetail: function(view, cellEl, rowIndex, colIndex, e, record) {
+        var win = this.getCDealDetail(),
             form = win.down('form').getForm(),
             status = record.get('status'),
             dealId = record.get('dealBackendId') || record.get('dealId');
@@ -236,6 +244,34 @@ Ext.define('XMLifeOperating.controller.DamagedProduct', {
                     var index = store.indexOfId(records[i].get('id'));
                     model.select(index, true);
                 }
+            }
+        });
+        win.show();
+    },
+
+    onCreatorName: function(view, cellEl, rowIndex, colIndex, e, record) {
+        var win = this.getCManagerDetail(),
+            form = win.down('form').getForm(),
+            source = record.get('source'),
+            creatorName = record.get('creatorName'),
+            managerId = record.get('creator');
+        
+        if(source != 'm' || creatorName === null){
+            return;
+        }
+        // 单独获取详情的接口
+        Ext.Ajax.request({
+            method: 'GET',
+            url: XMLifeOperating.generic.Global.URL.biz + 'manager',
+            params: {managerId:managerId},
+            success: function(response) {
+                if (response.status == 200 && response.statusText == 'OK') {
+                    var data = Ext.decode(response.responseText).result[0];
+                    form.setValues(data);
+                }
+            },
+            failure: function() {
+                Ext.Msg.alert('获取掌柜详情失败！');
             }
         });
         win.show();
