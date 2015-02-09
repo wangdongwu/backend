@@ -25,6 +25,22 @@ Ext.define('XMLifeOperating.view.soldoutProductManage.soldoutRecord.soldoutRecor
                 'disabled': false
             }]
         });
+        var opTypeStore = Ext.create('Ext.data.Store', {
+            fields: ['value', 'name'],
+            data: [{
+                'value': 4,
+                'name': '全部'
+            }, {
+                'value': 1,
+                'name': '买手'
+            }, {
+                'value': 2,
+                'name': '掌柜'
+            }, {
+                'value': 3,
+                'name': '其他'
+            }]
+        });
         var combo = Ext.create('Ext.form.ComboBox', {
             displayField: 'name',
             valueField: 'value',
@@ -57,9 +73,6 @@ Ext.define('XMLifeOperating.view.soldoutProductManage.soldoutRecord.soldoutRecor
                 aligin: 'center'
             },
             columns: [{
-                header: '买手姓名',
-                dataIndex: 'shopper'
-            }, {
                 header: '联系方式',
                 dataIndex: 'phoneNum'
             }, {
@@ -80,7 +93,7 @@ Ext.define('XMLifeOperating.view.soldoutProductManage.soldoutRecord.soldoutRecor
                     var str = [];
                     for (var i = 0, len = bina.length; i < len; i++) {
                         if (bina.charAt(i) == 1) {
-                            str.push(pros[len-i-1]);
+                            str.push(pros[len - i - 1]);
                         }
                     }
                     return str.join('<br/>');
@@ -95,6 +108,32 @@ Ext.define('XMLifeOperating.view.soldoutProductManage.soldoutRecord.soldoutRecor
                     str.push(date.getMonth() + 1);
                     str.push(date.getDate());
                     return str.join('-');
+                }
+            }, {
+                header: '操作人',
+                dataIndex: 'operator'
+            }, {
+                header: '类别',
+                dataIndex: 'operatorType',
+                renderer: function(value) {
+                    var str = '';
+                    switch (value) {
+                        case 1:
+                            str = '买手';
+                            break;
+                        case 2:
+                            str = '掌柜';
+                            break;
+                        case 3:
+                            str = '其他';
+                            break;
+                        case 4:
+                            str = '全部';
+                            break;
+                        default:
+                            break;
+                    }
+                    return str;
                 }
             }, {
                 header: '编辑实例',
@@ -191,6 +230,15 @@ Ext.define('XMLifeOperating.view.soldoutProductManage.soldoutRecord.soldoutRecor
                             date.setDate(date.getDate());
                             return date;
                         })()
+                    }, {
+                        xtype: 'combo',
+                        name: 'optype',
+                        itemId: 'optype',
+                        store: opTypeStore,
+                        displayField: 'name',
+                        valueField: 'value',
+                        editable: false,
+                        deafultValue: 1
                     }, {
                         xtype: 'button',
                         text: '查询',

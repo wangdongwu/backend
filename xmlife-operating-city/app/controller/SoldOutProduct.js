@@ -46,6 +46,9 @@ Ext.define('XMLifeOperating.controller.SoldOutProduct', {
             'soldoutRecordList #queryRecordBtn': {
                 click: me.querySoldoutRecordList
             },
+            'soldoutRecordList #optype': {
+                change: me.operatorTypeChange
+            },
             'soldoutRecordList #recordSearchBtn': {
                 click: me.searchSoldoutRecordList
             },
@@ -74,10 +77,39 @@ Ext.define('XMLifeOperating.controller.SoldOutProduct', {
         var store = me.getOfflineProductGetOfflineRecordsStore(),
             recordList = me.getSoldoutRecordList(),
             startTimePicker = recordList.down('[name="startTime"]'),
-            endTimePicker = recordList.down('[name="endTime"]');
+            endTimePicker = recordList.down('[name="endTime"]'),
+            operatorType = recordList.down('#optype');
+/*        store.getProxy().extraParams = {
+            startTime: startTimePicker.getValue().getTime(),
+            endTime: endTimePicker.getValue().getTime() + 86400000,
+            operatorType: operatorType.getValue()
+        }
+        store.loadPage(1, {
+            params: {
+                page: 1,
+                start: 0,
+                limit: 25
+            }
+        });*/
+        operatorType.select(4);
+    },
+    showShopperRecordList: function() {
+        var me = this;
+        var store = me.getGetOptLogsStore(),
+            recordList = me.getShopperRecordList();
+        store.load();
+    },
+    operatorTypeChange: function(combo, newValue, oldValue) {
+        var me = this;
+        var store = me.getOfflineProductGetOfflineRecordsStore(),
+            recordList = me.getSoldoutRecordList(),
+            startTimePicker = recordList.down('[name="startTime"]'),
+            endTimePicker = recordList.down('[name="endTime"]'),
+            operatorType = combo;
         store.getProxy().extraParams = {
             startTime: startTimePicker.getValue().getTime(),
-            endTime: endTimePicker.getValue().getTime() + 86400000
+            endTime: endTimePicker.getValue().getTime() + 86400000,
+            operatorType: newValue
         }
         store.loadPage(1, {
             params: {
@@ -87,22 +119,18 @@ Ext.define('XMLifeOperating.controller.SoldOutProduct', {
             }
         });
     },
-    showShopperRecordList: function() {
-        var me = this;
-        var store = me.getGetOptLogsStore(),
-            recordList = me.getShopperRecordList();
-        store.load();
-    },
     querySoldoutRecordList: function() {
         var me = this;
         var store = me.getOfflineProductGetOfflineRecordsStore(),
             recordList = me.getSoldoutRecordList(),
             keyWords = recordList.down('#recordSearchKeyWords').setValue(''),
             startTimePicker = recordList.down('[name="startTime"]'),
-            endTimePicker = recordList.down('[name="endTime"]');
+            endTimePicker = recordList.down('[name="endTime"]'),
+            operatorType = recordList.down('#optype');
         store.getProxy().extraParams = {
             startTime: startTimePicker.getValue().getTime(),
-            endTime: endTimePicker.getValue().getTime() + 86400000
+            endTime: endTimePicker.getValue().getTime() + 86400000,
+            operatorType: operatorType.getValue()
         }
         store.loadPage(1, {
             params: {
@@ -126,7 +154,8 @@ Ext.define('XMLifeOperating.controller.SoldOutProduct', {
             keyWords = recordList.down('#recordSearchKeyWords').getValue(),
             keyType = null,
             startTimePicker = recordList.down('[name="startTime"]'),
-            endTimePicker = recordList.down('[name="endTime"]');
+            endTimePicker = recordList.down('[name="endTime"]'),
+            operatorType = recordList.down('#optype');
 
         if (keyWords.length == 11 && !isNaN(keyWords)) {
             keyType = 1
@@ -137,7 +166,8 @@ Ext.define('XMLifeOperating.controller.SoldOutProduct', {
             startTime: startTimePicker.getValue().getTime(),
             endTime: endTimePicker.getValue().getTime() + 86400000,
             keyword: keyWords,
-            keyType: keyType
+            keyType: keyType,
+            operatorType: operatorType.getValue()
         }
         store.loadPage(1, {
             params: {
