@@ -8,13 +8,12 @@
      itemId: 'ShelvesNextList',
      columns: [{
          xtype: 'rownumberer',
-         width: 50,
          align: 'center'
      }, {
-         text: 'id',
+         text: '货架ID',
          dataIndex: 'id'
      }, {
-         text: 'shopId',
+         text: '店铺ID',
          dataIndex: 'shopId'
      }, {
          text: '货架名称',
@@ -56,14 +55,14 @@
                  if (isLeaf) {
                      returnStr = '<button>显示</button>';
                  } else {
-                     metaData.css = 'x-hide-display';
+                     metadata.css = 'x-hide-display';
                      returnStr = '<button disabled >显示</button>';
                  }
              } else if (value == 1) { //显示
                  if (isLeaf) {
                      returnStr = '<button>隐藏</button>';
                  } else {
-                     metaData.css = 'x-hide-display';
+                     metadata.css = 'x-hide-display';
                      returnStr = '<button disabled >隐藏</button>';
                  }
              }

@@ -1294,7 +1294,8 @@ Ext.define('XMLifeOperating.controller.Shop', {
                         windowEl = editWindow.getEl(),
                         form = editWindow.down('form').getForm(),
                         shelves = form.getRecord(),
-                        me = this;
+                        me = this,
+                        shopId;
                     var tabIdstrArray = this.tabIdStr.split('_');
                     var parentId = '',
                         parentIdStr = '';

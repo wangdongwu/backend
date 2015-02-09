@@ -139,14 +139,14 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopShelf', {
                 if (isLeaf) {
                     returnStr = '<button>显示</button>';
                 } else {
-                    metaData.css = 'x-hide-display';
+                    metadata.css = 'x-hide-display';
                     returnStr = '<button disabled >显示</button>';
                 }
             } else if (value == 1) { //显示
                 if (isLeaf) {
                     returnStr = '<button>隐藏</button>';
                 } else {
-                    metaData.css = 'x-hide-display';
+                    metadata.css = 'x-hide-display';
                     returnStr = '<button disabled >隐藏</button>';
                 }
             }

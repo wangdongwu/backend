@@ -34,29 +34,26 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopSecondShelfAdd', {
             bodyPadding: 10,
             border: false,
             items: [{
-                    xtype: 'textfield',
-                    name: 'name',
-                    fieldLabel: '货架名称',
-                    labelWidth: 90,
-                    allowBlank: false,
-                    id: 'secondShelvesName',
-                }, {
-                    fieldLabel: '是否有子类',
-                    labelWidth: 90,
-                    store: leafStore,
-                    name: 'leaf',
-                    allowBlank: false,
-                    xtype: 'combo',
-                    editable: false,
-                    queryMode: 'local',
-                    triggerAction: 'all',
-                    displayField: 'leaf',
-                    valueField: 'value',
-                    allowBlank: false,
-                    id: 'secondShelvesLeaf'
-                }
-
-            ],
+                xtype: 'textfield',
+                name: 'name',
+                fieldLabel: '货架名称',
+                labelWidth: 90,
+                allowBlank: false,
+                id: 'secondShelvesName',
+            }, {
+                xtype: 'combo',
+                name: 'leaf',
+                id: 'secondShelvesLeaf',
+                fieldLabel: '是否有子类',
+                labelWidth: 90,
+                store: leafStore,
+                queryMode: 'local',
+                triggerAction: 'all',
+                displayField: 'leaf',
+                valueField: 'value',
+                allowBlank: false,
+                editable: false
+            }],
             buttons: [{
                 text: 'Save',
                 itemId: 'addShelvesWin'
