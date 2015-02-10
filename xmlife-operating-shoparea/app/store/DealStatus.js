@@ -24,6 +24,9 @@ Ext.define('XMLifeOperating.store.DealStatus', {
             'name': '订单取消',
             'value': '7'
         }, {
+            'name': '等待支付确认',
+            'value': '10'
+        }, {
             'name': '等待分配买手',
             'value': '20'
         }, {

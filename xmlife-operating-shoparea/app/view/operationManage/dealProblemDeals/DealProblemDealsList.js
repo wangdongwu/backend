@@ -71,6 +71,15 @@ Ext.define('XMLifeOperating.view.operationManage.dealProblemDeals.DealProblemDea
             return XMLifeOperating.controller.DealProblemDealsList.getProblemDesc(value);
         }
     }, {
+        text: '支付确认',
+        itemId: 'recheckPayment',
+        menuDisabled: true,
+        renderer: function(value, metadata, model) {
+            var problem = model.get('problem');
+
+            return problem === 6 ? '<a href="javascript:;">重新确认</a>' : '';
+        }
+    }, {
         text: '',
         itemId: 'reapportion',
         menuDisabled: true,

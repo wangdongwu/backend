@@ -41,6 +41,8 @@ Ext.define('XMLifeOperating.view.general.CommonDealList', {
                         return '订单取消-' + value;
                     case 6:
                         return '全部退货-' + value;
+                    case 10:
+                        return '等待支付确认-' + value;
                     case 20:
                         return '等待分配买手-' + value;
                     case 21:

@@ -13,6 +13,8 @@ Ext.define('XMLifeOperating.controller.DealProblemDealsList', {
                     return '超时，未送达';
                 case 5:
                     return '人工置为问题单';
+                case 6:
+                    return '支付异常';
                 default:
                     return '未定义原因';
             }
@@ -61,7 +63,7 @@ Ext.define('XMLifeOperating.controller.DealProblemDealsList', {
             'dealProblemDealsList #shopArea': {
                 select: function(combo) {
                     var sstore = me.getDealProblemDealsStore(),
-                    areaId = combo.getValue();
+                        areaId = combo.getValue();
 
                     sstore.load({
                         params: {
@@ -123,10 +125,14 @@ Ext.define('XMLifeOperating.controller.DealProblemDealsList', {
             },
             'dealProblemDealsList #customerDetail': {
                 click: function() {
+                    // 这里引用了订单管理的control方法
                     var controllerDealList = me.getController('DealList');
 
                     controllerDealList.onCustomerDetail.apply(controllerDealList, arguments);
                 }
+            },
+            'dealProblemDealsList #recheckPayment': {
+                click: me.onRecheckPayment
             }
         });
     },
@@ -146,7 +152,7 @@ Ext.define('XMLifeOperating.controller.DealProblemDealsList', {
         var countDownFn = function(sec) {
             if (sec > 0) {
                 view.setText(sec + 's');
-                countTimer = setTimeout(function() {
+                setTimeout(function() {
                     countDownFn(sec - 1);
                 }, 1000);
             } else {
@@ -225,6 +231,7 @@ Ext.define('XMLifeOperating.controller.DealProblemDealsList', {
 
             callback: function(records) {
                 var model = win.down('#dealTasks').getSelectionModel();
+
                 model.deselectAll();
                 for (var i = 0; i < records.length; i++) {
                     var index = store.indexOfId(records[i].get('id'));
@@ -252,6 +259,7 @@ Ext.define('XMLifeOperating.controller.DealProblemDealsList', {
             },
             callback: function(records) {
                 var model = win.down('#reapportionShoppers').getSelectionModel();
+
                 model.deselectAll();
                 for (var i = 0; i < records.length; i++) {
                     var index = store.indexOfId(records[i].get('id'));
@@ -468,5 +476,58 @@ Ext.define('XMLifeOperating.controller.DealProblemDealsList', {
                 }
             });
         }
+    },
+    onRecheckPayment: function(view, cellEl, rowIndex, colIndex, e, record) {
+        var anchorEl = cellEl.getElementsByTagName('a')[0];
+
+        if (record.get('problem') !== 6 || !anchorEl) {
+            return;
+        }
+
+        var me = this,
+            dealId = record.get('dealBackendId'),
+            textContainerEl = anchorEl.parentNode,
+            countDownTimer,
+            countDownFn = function(time) {
+                if (time > 0) {
+                    textContainerEl.innerHTML = '<span style="color:grey">' + time + 's</span>';
+                    countDownTimer = setTimeout(function() {
+                        countDownFn(time - 1);
+                    }, 1000);
+                } else {
+                    textContainerEl.innerHTML = '<a href="javascript:;">重新确认</a>';
+                }
+            };
+
+        Ext.Ajax.request({
+            url: XMLifeOperating.generic.Global.URL.biz + 'deal/manualCheckPayment',
+            params: {
+                dealId: dealId
+            },
+            method: 'POST',
+            callback: function(options, success, response) {
+                var error = requestException(response),
+                    statusUpdated = success && response.responseText === '0';
+
+                Ext.MessageBox.show({
+                    title: error.title || '支付状态确认',
+                    msg: statusUpdated ? '确认为支付成功，该订单将转入正常单' : error.msg || '仍未确认成功支付，请稍后再试',
+                    icon: error.msg ? Ext.Msg.ERROR : Ext.Msg.INFO,
+                    buttons: Ext.Msg.OK
+                });
+
+                if (statusUpdated) {
+                    clearTimeout(countDownTimer);
+                    me.getDealProblemDealsStore().load({
+                        params: {
+                            areaId: me.areaId
+                        }
+                    });
+                }
+            }
+        });
+
+        countDownFn(10);
     }
+
 });
