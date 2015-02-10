@@ -307,7 +307,7 @@ Ext.define('XMLifeOperating.controller.DealProblemDealsList', {
                             });
                             var store,areaId;
                             if(localPage == 'dealwaitassignshopperlist'){
-                                store = me.getController('DealWaitAssignShopperList ').getDealWaitAssignShopperStore();
+                                store = me.getController('DealWaitAssignShopperList').getDealWaitAssignShopperStore();
 
                                 areaId = me.getController('DealWaitAssignShopperList').getDealWaitAssignShopperList().down('#shopArea').getValue();
                             }else{
