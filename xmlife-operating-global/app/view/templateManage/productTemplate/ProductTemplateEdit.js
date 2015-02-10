@@ -228,9 +228,9 @@ Ext.define('XMLifeOperating.view.templateManage.productTemplate.ProductTemplateE
                     change: function(value) {
                         var me = this;
                         var files = value.fileInputEl.dom.files;
-                        var length = files.length > 6 ? 6 : files.length;
+                        var length = files.length > 10 ? 10 : files.length;
                         var arraytemp = [];
-                        var reg = /^[A-Z]\d{9}\-\d{1}$/;
+                        var reg = /^[A-Z]\d{9}\-([1-9]|10)$/;
                         for (var i = 0; i < length; i++) {
                             if (reg.test(files[i].name.split('.')[0])) {
                                 arraytemp.push(files[i].name);
