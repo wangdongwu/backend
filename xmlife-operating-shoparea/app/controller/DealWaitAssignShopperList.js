@@ -58,6 +58,13 @@ Ext.define('XMLifeOperating.controller.DealWaitAssignShopperList', {
             },
             'dealwaitassignshopperlist #refresh': {
                 click: me.onRefresh
+            },
+            'dealwaitassignshopperlist #reapportion': {
+                click: function() {
+                    // 这里引用了问题订单管理的control方法
+                    var reapportion = this.getController('DealProblemDealsList');
+                    reapportion.onReapportion.apply(reapportion, arguments);
+                }
             }
         });
     },

@@ -55,4 +55,22 @@ Ext.define('XMLifeOperating.view.operationManage.dealWaitAssignShopper.DealWaitA
             combo.fireEvent('select', combo);
         }
     }
+},function(){
+    // this是指向类本身
+    // 修改本类的columns，但是不影响父类
+    var needClone = !this.prototype.hasOwnProperty('columns'),
+        columns = this.prototype.columns;
+
+    columns = needClone ? Ext.clone(columns) : columns;
+    var items = columns.items;
+    // 添加本类特定的列。
+    items.push({
+        text: '',
+        itemId: 'reapportion',
+        menuDisabled: true,
+        renderer: function() {
+            return '<a href="javascript:;">分配</a>';
+        }
+    });
+    this.prototype.columns = columns;
 });

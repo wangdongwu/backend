@@ -23,21 +23,24 @@ Ext.define('XMLifeOperating.controller.DealProblemDealsList', {
     views: ['operationManage.dealProblemDeals.DealProblemDealsList',
         'operationManage.dealProblemDeals.DealProblemDealsReapportion',
         'operationManage.dealProblemDeals.DealProblemDealsReapportionShopper'
-        // 'operationManage.dealProblemDeals.DealProblemDealsReapportionDeliverer'
     ],
     stores: [
         'DealProblemDeals',
         'DealTasks',
         'SuperShopper'
-        // 'Deliverer'
     ],
     models: [
         'DealProblemDeals',
         'DealTasks',
-        'SuperShopper'
-        // 'Deliverer'
+        'SuperShopper',
+        'DealWaitAssignShopper'
     ],
     refs: [{
+        ref: 'contentPanel',
+        selector: '#contentPanel',
+        xtype: 'panel',
+        autoCreate: true
+    }, {
         ref: 'dealProblemDealsList',
         selector: 'dealProblemDealsList'
     }, {
@@ -223,7 +226,6 @@ Ext.define('XMLifeOperating.controller.DealProblemDealsList', {
         win.show();
 
         var store = this.getDealTasksStore();
-
         store.load({
             params: {
                 dealId: dealId,
@@ -275,10 +277,11 @@ Ext.define('XMLifeOperating.controller.DealProblemDealsList', {
 
         var uid = record.get('uid');
         var me = this,
-            win = view.up('window');
-
+            win = view.up('window'),
+            localPage = this.getContentPanel().child().xtype;
+            
         Ext.MessageBox.confirm(
-            '确认删除',
+            '确认订单重新分配',
             Ext.String.format("确定该订单重新分配给'{0}'吗？", record.get('name')),
             function(result) {
                 if (result == 'yes') {
@@ -302,11 +305,19 @@ Ext.define('XMLifeOperating.controller.DealProblemDealsList', {
                                 icon: Ext.Msg.INFO,
                                 buttons: Ext.Msg.OK
                             });
+                            var store,areaId;
+                            if(localPage == 'dealwaitassignshopperlist'){
+                                store = me.getController('DealWaitAssignShopperList ').getDealWaitAssignShopperStore();
 
-                            var sstore = me.getDealProblemDealsStore();
-                            sstore.load({
+                                areaId = me.getController('DealWaitAssignShopperList').getDealWaitAssignShopperList().down('#shopArea').getValue();
+                            }else{
+                                store = me.getDealProblemDealsStore();
+
+                                areaId = me.getDealProblemDealsList().down('#shopArea').getValue();
+                            }
+                            store.load({
                                 params: {
-                                    areaId: me.getDealProblemDealsList().down('#shopArea').getValue()
+                                    areaId: areaId
                                 }
                             });
                         }

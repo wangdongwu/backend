@@ -12,7 +12,7 @@ Ext.define('XMLifeOperating.view.operationManage.dealProblemDeals.DealProblemDea
     initComponent: function() {
         this.items = [{
             xtype: 'form',
-            title: '问题订单重新分配',
+            title: '订单重新分配',
             itemId: 'dealForm',
             layout: 'anchor',
             bodyPadding: 5,
@@ -41,11 +41,11 @@ Ext.define('XMLifeOperating.view.operationManage.dealProblemDeals.DealProblemDea
                 }
             }, {
                 xtype: 'displayfield',
-                name: 'customerName',
+                name: 'contactsName',
                 fieldLabel: '收货人'
             }, {
                 xtype: 'displayfield',
-                name: 'customerPhone',
+                name: 'contactsPhone',
                 fieldLabel: '收货人电话'
             }, {
                 xtype: 'displayfield',
