@@ -47,77 +47,58 @@ Ext.define('XMLifeOperating.view.staffManage.manager.ManagerList', {
         displayInfo: true,
         style: 'border:none'
     }],
-    columns: [{
-        xtype: 'rownumberer',
-        width: 50,
-        align: 'center'
-    }, {
-        text: 'uid',
-        dataIndex: 'uid',
-        width: 60,
-        sortable: true,
-        align: 'center'
-    }, {
-        text: '姓名',
-        dataIndex: 'name',
-        width: 80,
-        sortable: true,
-        align: 'center'
-    }, {
-        text: '职称',
-        dataIndex: 'title',
-        width: 80,
-        sortable: true,
-        align: 'center'
-    }, {
-        text: '电话',
-        dataIndex: 'phone',
-        width: 90,
-        sortable: true,
-        align: 'center'
-    }, {
-        text: '绑定店铺',
-        dataIndex: 'shopNames',
-        width: 100,
-        sortable: true,
-        align: 'center',
-        renderer: function(value) {
-            var htmlStr = '';
-            if (value != null) {
-                value.forEach(function(item, index, value) {
-                    htmlStr += item + "<br />";
-                });
+    columns: {
+        defaults: {
+            align: 'center'
+        },
+        items: [{
+            xtype: 'rownumberer',
+            width: 50
+        }, {
+            text: 'uid',
+            dataIndex: 'uid',
+            width: 60
+        }, {
+            text: '姓名',
+            dataIndex: 'name',
+            width: 80
+        }, {
+            text: '职称',
+            dataIndex: 'title',
+            width: 80
+        }, {
+            text: '电话',
+            dataIndex: 'phone',
+            width: 90
+        }, {
+            text: '绑定店铺',
+            dataIndex: 'shopNames',
+            width: 100,
+            renderer: function(value) {
+                return (value || []).join('<br />');
             }
-            return htmlStr;
-        }
-    }, {
-        header: "考勤管理",
-        width: 90,
-        itemId: 'managerWorkTimeId',
-        menuDisabled: true,
-        sortable: true,
-        align: 'center',
-        renderer: function(value, metadata, model, rowIndex, colIndex, store) {
-            return '<a href="javascript:;">查看</a>';
-        }
-    }, {
-        header: "操作",
-        width: 90,
-        dataIndex: 'isActive',
-        itemId: 'closeOrOpenOrder',
-        menuDisabled: true,
-        sortable: true,
-        align: 'center',
-        renderer: function(value) {
-            var str = '';
-            if (value == true) {
-                str += '<input type="button" value="关闭" statusValue="open" /><br/>';
-            } else {
-                str += '<input type="button" value="开启" statusValue="close"  /><br/>';
+        }, {
+            header: "考勤管理",
+            width: 90,
+            itemId: 'managerWorkTimeId',
+            menuDisabled: true,
+            renderer: function() {
+                return '<a href="javascript:;">查看</a>';
             }
-            return str;
-        }
-    }],
+        }, {
+            header: "操作",
+            width: 90,
+            dataIndex: 'isActive',
+            itemId: 'closeOrOpenOrder',
+            menuDisabled: true,
+            renderer: function(value) {
+                var txt = value ? '关闭' : '开启',
+                    statusValue = value ? 'open' : 'close';
+
+                return Ext.String.format('<input type="button" value="{0}" statusValue="{1}"  /><br/>', txt, statusValue);
+            }
+        }]
+    },
     viewConfig: {
         plugins: {
             ptype: 'gridviewdragdrop',
@@ -133,10 +114,12 @@ Ext.define('XMLifeOperating.view.staffManage.manager.ManagerList', {
                 alert('请先在右上角选择中心');
                 return;
             }
+
             var combo = view.down('#shopArea');
+
             combo.setValue(XMLifeOperating.generic.Global.current_operating);
             combo.fireEvent('select', combo);
         }
     },
-    columnLines: true,
+    columnLines: true
 });

@@ -43,7 +43,6 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopAdd', {
                 name: 'name',
                 afterLabelTextTpl: required,
                 fieldLabel: '店铺主名称',
-                labelAlign: 'right',
                 allowBlank: false,
                 validator: function(value) {
                     var length = 0;
@@ -68,7 +67,6 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopAdd', {
                 allowBlank: false,
                 afterLabelTextTpl: required,
                 blankText: '请选择模板',
-                labelAlign: 'right',
                 editable: false,
                 mode: 'local',
                 store: 'ShopBannerTemplate',
@@ -79,17 +77,15 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopAdd', {
                 xtype: 'textfield',
                 name: 'address',
                 fieldLabel: '地址',
-                labelAlign: 'right',
                 allowBlank: false,
                 afterLabelTextTpl: required,
-                emptyText: '请选择结束时间'
+                emptyText: '请选择地址'
 
             }, {
                 xtype: 'textfield',
                 name: 'lng',
                 fieldLabel: '经度',
                 allowBlank: false,
-                labelAlign: 'right',
                 afterLabelTextTpl: required,
                 emptyText: '请输入经度'
             }, {
@@ -97,7 +93,6 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopAdd', {
                 name: 'lat',
                 fieldLabel: '纬度',
                 allowBlank: false,
-                labelAlign: 'right',
                 afterLabelTextTpl: required,
                 emptyText: '请输入纬度'
             }, {
@@ -106,7 +101,6 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopAdd', {
                 fieldLabel: '开始时间',
                 format: 'H:i',
                 allowBlank: false,
-                labelAlign: 'right',
                 afterLabelTextTpl: required,
                 emptyText: '请选择开始时间'
             }, {
@@ -115,7 +109,6 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopAdd', {
                 fieldLabel: '结束时间',
                 format: 'H:i',
                 allowBlank: false,
-                labelAlign: 'right',
                 afterLabelTextTpl: required,
                 emptyText: '请选择结束时间'
             }, {
@@ -123,7 +116,6 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopAdd', {
                 itemId: 'showway',
                 name: 'mergeType',
                 fieldLabel: '分类展示方式',
-                labelAlign: 'right',
                 afterLabelTextTpl: required,
                 store: showstore,
                 queryMode: 'local',
@@ -169,7 +161,6 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopAdd', {
                 xtype: 'radiogroup',
                 fieldLabel: '商品是否每日自动上架',
                 labelWidth: 160,
-                labelAlign: 'right',
                 afterLabelTextTpl: required,
                 defaults: {
                     flex: 1
@@ -189,7 +180,6 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopAdd', {
                 xtype: 'radiogroup',
                 fieldLabel: '是否在首页展示所有商品',
                 labelWidth: 160,
-                labelAlign: 'right',
                 defaults: {
                     flex: 1
                 },
@@ -209,7 +199,6 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopAdd', {
                 xtype: 'radiogroup',
                 fieldLabel: '改价是否审核',
                 labelWidth: 160,
-                labelAlign: 'right',
                 defaults: {
                     flex: 1
                 },
@@ -234,7 +223,6 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopAdd', {
                     flex: 1
                 },
                 allowBlank: false,
-                labelAlign: 'right',
                 afterLabelTextTpl: required,
                 layout: 'hbox',
                 items: [{

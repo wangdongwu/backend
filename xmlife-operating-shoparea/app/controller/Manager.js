@@ -1,5 +1,13 @@
 Ext.define('XMLifeOperating.controller.Manager', {
     extend: 'Ext.app.Controller',
+    statics: {
+        // 指定store读取一页时的参数
+        PARAM_1PAGE: {
+            start: 0,
+            limit: 25,
+            page: 1
+        }
+    },
 
     views: [
         'staffManage.manager.ManagerList',
@@ -22,12 +30,8 @@ Ext.define('XMLifeOperating.controller.Manager', {
         xtype: 'managerList',
         autoCreate: true
     }, {
-        ref: 'shopArea',
-        selector: '#shopArea',
-    }, {
         ref: 'contentPanel',
-        selector: '#contentPanel',
-        xtype: 'panel'
+        selector: '#contentPanel'
     }, {
         ref: 'managerWorkTimeList',
         selector: 'managerWorkTimeList',
@@ -36,8 +40,6 @@ Ext.define('XMLifeOperating.controller.Manager', {
     }],
     init: function() {
         var me = this;
-        var isActive = true,
-            isUnbind = true;
 
         me.control({
             'managerList': {
@@ -58,7 +60,8 @@ Ext.define('XMLifeOperating.controller.Manager', {
             'managerWorkTimeList #managerReturn': {
                 click: function() {
                     var tab = me.getManagerList();
-                    var content = this.getContentPanel();
+                    var content = me.getContentPanel();
+
                     content.removeAll(false);
                     content.add(tab);
                 }
@@ -69,6 +72,7 @@ Ext.define('XMLifeOperating.controller.Manager', {
                 select: function(combo) {
                     var view = me.getManagerList();
                     var store = me.getManagerStore();
+
                     store.getProxy().extraParams = {
                         city: XMLifeOperating.generic.Global.currentCity,
                         area: combo.getValue()
@@ -78,97 +82,63 @@ Ext.define('XMLifeOperating.controller.Manager', {
                         view.down('#searchBuyerKeyWords').setValue('');
                     });
                     store.loadPage(1, {
-                        params: {
-                            start: 0,
-                            limit: 25,
-                            page: 1
-                        }
+                        params: me.self.PARAM_1PAGE
                     });
-                    this.areaId = combo.getValue();
-                },
+                    me.areaId = combo.getValue();
+                }
             },
             // 考勤管理按时间过滤
             'managerWorkTimeList radio[name="dayType"]': {
                 change: function(record, newV, oldV) {
-                    var managerId = me.managerId;
-                    if (newV == true) {;
-                        var itemId = record.itemId,
-                            str;
-                        switch (itemId) {
-                            case 'dayType0':
-                                str = 0;
-                                break;
-                            case 'dayType1':
-                                str = 1;
-                                break;
-                            case 'dayType2':
-                                str = 2;
-                                break;
-                            case 'dayType3':
-                                str = 3;
-                                break;
-                            case 'dayType4':
-                                str = 4;
-                                break;
-                            case 'dayType5':
-                                str = 5;
-                                break;
-                            case 'dayType6':
-                                str = 6;
-                                break;
-                            default:
-                                str = -1;
-                                break;
-                        }
-                        var store = this.getManagerWorkTimeStore();
+                    if (newV) {
+                        var dayType = {
+                            'dayType0': 0,
+                            'dayType1': 1,
+                            'dayType2': 2,
+                            'dayType3': 3,
+                            'dayType4': 4,
+                            'dayType5': 5,
+                            'dayType6': 6
+                        }[record.itemId];
+
+                        dayType = (dayType !== undefined) ? dayType : -1;
+
+                        var store = me.getManagerWorkTimeStore();
+
                         store.getProxy().extraParams = {
-                            dayType: str,
-                            manager: managerId
+                            dayType: dayType,
+                            manager: me.managerId
                         };
                         store.loadPage(1, {
-                            params: {
-                                start: 0,
-                                limit: 25,
-                                page: 1
-                            }
+                            params: me.self.PARAM_1PAGE
                         });
-                        this.dayType = str;
                     }
                 }
-            },
+            }
         });
     },
     // 操作
-    closeOrOpenOrder: function(grid, column, rowIndex) {
-        var me = this;
-        var record = grid.getStore().getAt(rowIndex);
-        var manager = record.get('uid');
-        var isActive = record.get('isActive');
-        var url = '';
-        var str = '确认要此操作吗？';
-        if (isActive == true) {
-            str = '确认要暂停掌柜接单吗？';
-            isActive = false;
-        } else {
-            str = '确认要恢复掌柜接单';
-            isActive = true;
-        }
-        url = 'manager/enable';
-        Ext.MessageBox.confirm("选择框", str, function(str) {
-            if (str != 'yes') {
+    closeOrOpenOrder: function(view, cellEl, rowIndex, colIndex, e, record) {
+        var me = this,
+            manager = record.get('uid'),
+            isActive = record.get('isActive'),
+            msg = isActive ? '确认要将该掌柜停职吗？' : '确认要恢复该掌柜职务吗？';
+
+        Ext.MessageBox.confirm('掌柜管理', msg, function(btnId) {
+            if (btnId !== 'yes') {
                 return;
             }
-            sendPutRequest(url, {
+            sendPutRequest('manager/enable', {
                 managerId: manager,
-                isActive: isActive
-            }, '操作恢复或暂停掌柜接单', '成功操作掌柜接单', '操作掌柜接单失败', function() {
+                isActive: !isActive
+            }, '掌柜管理', '掌柜管理操作成功', '掌柜管理操作失败', function() {
                 //3种情况 手机查询  未绑定查询 中心停单掌柜查询
-                var store = me.getManagerStore();
-                var activeBindText = Ext.getCmp('managerList').down('#activeBind').getText();
-                var params = '';
-                var searchBuyerKeyWords = me.getManagerList().down('#searchBuyerKeyWords').getValue();
+                var store = me.getManagerStore(),
+                    activeBindText = me.getManagerList().down('#activeBind').getText(),
+                    searchBuyerKeyWords = me.getManagerList().down('#searchBuyerKeyWords').getValue();
+
                 if (activeBindText == '查看已绑定的掌柜' || searchBuyerKeyWords != '') {
-                    record.set('isActive', isActive);
+                    record.set('isActive', !isActive);
                     return;
                 }
                 me.fireEvent('refreshView');
@@ -176,42 +146,40 @@ Ext.define('XMLifeOperating.controller.Manager', {
         });
     },
     // 考勤管理页面
-    managerWorkTimeId: function(view, column, rowIndex, colIndex, e) {
-        var tab = this.getManagerWorkTimeList();
+    managerWorkTimeId: function(view, cellEl, rowIndex, colIndex, e, record) {
         var content = this.getContentPanel();
+
         content.removeAll(false);
-        var manager = view.getRecord(view.findTargetByEvent(e));
-        var managerId = manager.get('uid');
-        var ManagerWorkTimeStore = this.getManagerWorkTimeStore();
+
+        var managerId = record.get('uid');
+        var managerWorkTimeStore = this.getManagerWorkTimeStore();
         var managerWorkTimeList = this.getManagerWorkTimeList();
         var radios = managerWorkTimeList.down('#managerworktimeradios');
+
         this.managerId = managerId;
+
+
         if (radios.getValue().dayType == 3) {
-            radios.setValue({
-                dayType: 3
-            });
-            ManagerWorkTimeStore.getProxy().extraParams = {
+            managerWorkTimeStore.getProxy().extraParams = {
                 manager: managerId,
                 dayType: 3
-            }
-            ManagerWorkTimeStore.loadPage(1, {
-                params: {
-                    start: 0,
-                    limit: 25,
-                    page: 1
-                }
-            });
-        } else {
-            radios.setValue({
-                dayType: 3
+            };
+            managerWorkTimeStore.loadPage(1, {
+                params: this.self.PARAM_1PAGE
             });
         }
-        content.add(tab);
+
+        radios.setValue({
+            dayType: 3
+        });
+
+        content.add(managerWorkTimeList);
     },
     // 查看未绑定的掌柜
     activeBind: function(grid) {
         var me = this;
-        var activeBindText = Ext.getCmp('managerList').down('#activeBind').getText();
+        var activeBindText = me.getManagerList().down('#activeBind').getText(),
+            isUnbind;
 
         if (activeBindText == '查看已绑定的掌柜') {
             isUnbind = '';
@@ -219,9 +187,11 @@ Ext.define('XMLifeOperating.controller.Manager', {
         } else if (activeBindText == '查看未绑定的掌柜') {
             isUnbind = true;
             activeBindText = '查看已绑定的掌柜';
-            Ext.getCmp('managerList').down('#shopArea').setValue('');
+            me.getManagerList().down('#shopArea').setValue('');
         }
+
         var lstore = this.getManagerStore();
+
         lstore.getProxy().extraParams = {
             unbind: isUnbind
         };
@@ -230,11 +200,7 @@ Ext.define('XMLifeOperating.controller.Manager', {
             me.getManagerList().down('#activeBind').setText(activeBindText);
         });
         lstore.loadPage(1, {
-            params: {
-                start: 0,
-                limit: 25,
-                page: 1
-            }
+            params: me.self.PARAM_1PAGE
         });
     },
     // 搜索
@@ -245,7 +211,7 @@ Ext.define('XMLifeOperating.controller.Manager', {
             area = me.areaId,
             keyWords = view.down('#searchBuyerKeyWords').getValue(),
             activeBindText = view.down('#activeBind').getText(),
-            isUnbind = null;
+            isUnbind;
 
         if (activeBindText == '查看已绑定的掌柜') {
             isUnbind = true;
@@ -260,11 +226,7 @@ Ext.define('XMLifeOperating.controller.Manager', {
                 view.down('#searchBuyerKeyWords').setValue(keyWords);
             });
             store.loadPage(1, {
-                params: {
-                    start: 0,
-                    limit: 25,
-                    page: 1
-                }
+                params: me.self.PARAM_1PAGE
             });
         } else {
             store.getProxy().extraParams = {
@@ -275,11 +237,7 @@ Ext.define('XMLifeOperating.controller.Manager', {
                 view.down('#searchBuyerKeyWords').setValue(keyWords);
             });
             store.loadPage(1, {
-                params: {
-                    start: 0,
-                    limit: 25,
-                    page: 1
-                }
+                params: me.self.PARAM_1PAGE
             });
         }
     },
