@@ -79,17 +79,17 @@ Ext.define('XMLifeOperating.view.waitForAudit.WaitForAuditList', {
             }
         }
     ],
-    // dockedItems : [
-    //   {
-    //     xtype : 'pagingtoolbar',
-    //     itemId : 'pagetoll',
-    //     store : 'WaitForAudit',
-    //     dock : 'bottom',
-    //     displayInfo : true/*,
-    //     items : ['->'],   
-    //     prependButtons: true*/
-    //   }
-    // ],
+    dockedItems : [
+      {
+        xtype : 'pagingtoolbar',
+        itemId : 'pagetoll',
+        store : 'WaitForAudit',
+        dock : 'bottom',
+        displayInfo : true/*,
+        items : ['->'],   
+        prependButtons: true*/
+      }
+    ],
     columns: [{
         xtype: 'rownumberer',
         width: 50,
