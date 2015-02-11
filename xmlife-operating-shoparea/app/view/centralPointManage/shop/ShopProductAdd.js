@@ -114,13 +114,15 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopProductAdd', {
                     step: 1,
                     labelWidth: 90,
                     itemId: 'stock',
-                    disabled: true
+                    disabled: true,
+                    maxValue: 999999,
+                    emptyText: '1~999999'
                 }, {
                     xtype: 'fieldset',
                     border: false,
                     padding: 0,
                     itemId: 'limitTypeFieldset',
-                    hidden:true,
+                    hidden: true,
                     items: [{
                         layout: 'column',
                         xtype: 'fieldset',

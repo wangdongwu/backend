@@ -2453,7 +2453,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
             flags[flagIdx] = false;
             Ext.MessageBox.show({
                 title: '提示',
-                msg: '限购库存失败',
+                msg: '设置库存失败',
                 icon: Ext.Msg.ERROR,
                 buttons: Ext.Msg.OK
             });

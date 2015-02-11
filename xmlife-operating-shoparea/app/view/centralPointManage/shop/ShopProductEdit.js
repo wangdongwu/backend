@@ -78,10 +78,12 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopProductEdit', {
                 name: 'stock',
                 itemId: 'editstock',
                 fieldLabel: '库存',
+                maxValue:999999,
                 allowBlank: true,
                 step: 1,
                 labelWidth: 90,
-                disabled: true
+                disabled: true,
+                emptyText:'1~999999'
             }, {
                 xtype: 'fieldset',
                 border: false,

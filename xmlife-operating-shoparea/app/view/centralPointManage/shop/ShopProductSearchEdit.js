@@ -49,29 +49,27 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopProductSearchEdit',
                 padding: 0,
                 itemId: 'editprice',
                 items: [{
-                        xtype: 'numberfield',
-                        name: 'purchasePrice',
-                        fieldLabel: '进价',
-                        labelWidth: 90,
-                        step: 0.1,
-                        allowBlank: false,
-                    }, {
-                        xtype: 'numberfield',
-                        name: 'facePrice',
-                        fieldLabel: '原价',
-                        labelWidth: 90,
-                        step: 0.1,
-                        allowBlank: false
-                    },
-                    {
-                        xtype: 'numberfield',
-                        name: 'discountPrice',
-                        fieldLabel: '折扣价',
-                        allowBlank: true,
-                        step: 0.1,
-                        labelWidth: 90
-                    }
-                ]
+                    xtype: 'numberfield',
+                    name: 'purchasePrice',
+                    fieldLabel: '进价',
+                    labelWidth: 90,
+                    step: 0.1,
+                    allowBlank: false,
+                }, {
+                    xtype: 'numberfield',
+                    name: 'facePrice',
+                    fieldLabel: '原价',
+                    labelWidth: 90,
+                    step: 0.1,
+                    allowBlank: false
+                }, {
+                    xtype: 'numberfield',
+                    name: 'discountPrice',
+                    fieldLabel: '折扣价',
+                    allowBlank: true,
+                    step: 0.1,
+                    labelWidth: 90
+                }]
             }, {
                 xtype: 'numberfield',
                 name: 'stock',
@@ -80,13 +78,15 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopProductSearchEdit',
                 allowBlank: true,
                 step: 1,
                 labelWidth: 90,
-                disabled: true
+                disabled: true,
+                maxValue: 999999,
+                emptyText: '1~999999'
             }, {
                 xtype: 'fieldset',
                 border: false,
                 padding: 0,
                 itemId: 'editlimit',
-                hidden:true,
+                hidden: true,
                 items: [{
                     xtype: 'fieldset',
                     layout: 'column',
