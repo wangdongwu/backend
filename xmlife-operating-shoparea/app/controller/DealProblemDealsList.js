@@ -507,7 +507,8 @@ Ext.define('XMLifeOperating.controller.DealProblemDealsList', {
     onRecheckPayment: function(view, cellEl, rowIndex, colIndex, e, record) {
         var anchorEl = cellEl.getElementsByTagName('a')[0];
 
-        if (record.get('problem') !== 6 || !anchorEl) {
+        // 10 － 等待支付确认
+        if (record.get('status') !== 10 || !anchorEl) {
             return;
         }
 

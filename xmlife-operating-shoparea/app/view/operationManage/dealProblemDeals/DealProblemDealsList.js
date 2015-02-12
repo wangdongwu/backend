@@ -97,9 +97,10 @@ Ext.define('XMLifeOperating.view.operationManage.dealProblemDeals.DealProblemDea
         itemId: 'recheckPayment',
         menuDisabled: true,
         renderer: function(value, metadata, model) {
-            var problem = model.get('problem');
+            var status = model.get('status');
 
-            return problem === 6 ? '<a href="javascript:;">重新确认</a>' : '';
+            // 10 － 等待支付确认
+            return status === 10 ? '<a href="javascript:;">重新确认</a>' : '';
         }
     }, {
         text: '',
