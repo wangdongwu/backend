@@ -103,10 +103,8 @@ Ext.define('XMLifeOperating.view.soldoutProductManage.soldoutRecord.soldoutRecor
                 dataIndex: 'time',
                 width:120,
                 renderer: function(value) {
-                    var newTime = new Date(value);
-                    var newDate = newTime.getFullYear() + '-' + (newTime.getMonth() + 1) + '-' + newTime.getDate()+'&nbsp;' ;
-                    newDate +=newTime.getHours() + ':' + ((newTime.getMinutes()<=9)?'0'+newTime.getMinutes():newTime.getMinutes());
-                    return newDate;
+                  var newTime = new Date(value);
+                  return   Ext.Date.format(newTime,'Y-m-d H:i');
                 }
             }, {
                 header: '操作人',
