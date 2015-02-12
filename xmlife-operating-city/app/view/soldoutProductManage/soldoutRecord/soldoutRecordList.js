@@ -101,13 +101,12 @@ Ext.define('XMLifeOperating.view.soldoutProductManage.soldoutRecord.soldoutRecor
             }, {
                 header: '操作时间',
                 dataIndex: 'time',
+                width:120,
                 renderer: function(value) {
-                    var date = new Date(value);
-                    var str = [];
-                    str.push(date.getFullYear());
-                    str.push(date.getMonth() + 1);
-                    str.push(date.getDate());
-                    return str.join('-');
+                    var newTime = new Date(value);
+                    var newDate = newTime.getFullYear() + '-' + (newTime.getMonth() + 1) + '-' + newTime.getDate()+'&nbsp;' ;
+                    newDate +=newTime.getHours() + ':' + ((newTime.getMinutes()<=9)?'0'+newTime.getMinutes():newTime.getMinutes());
+                    return newDate;
                 }
             }, {
                 header: '操作人',
