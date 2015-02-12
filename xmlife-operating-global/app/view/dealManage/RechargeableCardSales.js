@@ -46,7 +46,7 @@ Ext.define('XMLifeOperating.view.dealManage.RechargeableCardSales', {
                     }, {
                         "value": '1',
                         "type": '在线充值卡'
-                    }],
+                    }]
                 })
             }, {
                 xtype: 'container',
@@ -63,7 +63,7 @@ Ext.define('XMLifeOperating.view.dealManage.RechargeableCardSales', {
                     inputValue: 1,
                     style: 'margin-left:30px',
                     listeners: {
-                        change: function(radio, newValue, oldValue, e) {
+                        change: function(radio, newValue) {
                             var cardNumber = radio.nextSibling();
                             var file = cardNumber.nextSibling();
                             var batchId = Ext.getCmp('batchId');
@@ -71,7 +71,7 @@ Ext.define('XMLifeOperating.view.dealManage.RechargeableCardSales', {
                             var arrive = beginTime.nextSibling().nextSibling();
                             var endTime = arrive.nextSibling();
 
-                            if (newValue == true) {
+                            if (newValue) {
                                 batchId.setValue('');
                                 cardNumber.setDisabled(false);
                                 file.setDisabled(false);
@@ -120,13 +120,13 @@ Ext.define('XMLifeOperating.view.dealManage.RechargeableCardSales', {
                     inputValue: 2,
                     style: 'margin-left:27px',
                     listeners: {
-                        change: function(radio, newValue, oldValue, e) {
+                        change: function(radio, newValue) {
                             var batchId = radio.nextSibling();
                             var startTime = batchId.nextSibling();
                             var arrive = startTime.nextSibling().nextSibling();
                             var endTime = arrive.nextSibling();
 
-                            if (newValue == true) {
+                            if (newValue) {
                                 Ext.getCmp('rechargeableCardFile').inputEl.dom.value = '';
                                 batchId.setDisabled(false);
                                 startTime.setDisabled(false);
@@ -176,7 +176,7 @@ Ext.define('XMLifeOperating.view.dealManage.RechargeableCardSales', {
                     })(),
                     format: 'Y-m-d',
                     listeners: {
-                        change: function(datefield, newValue, oldValue) {
+                        change: function(datefield, newValue) {
                             var endDate = function() {
                                 var date = new Date();
                                 date.setDate(date.getDate() - 1);
@@ -223,7 +223,7 @@ Ext.define('XMLifeOperating.view.dealManage.RechargeableCardSales', {
                     })(),
                     format: 'Y-m-d',
                     listeners: {
-                        change: function(datefield, newValue, oldValue) {
+                        change: function(datefield) {
                             var end = datefield.nextSibling();
                             if (datefield.value == null) {
                                 end.setValue('');

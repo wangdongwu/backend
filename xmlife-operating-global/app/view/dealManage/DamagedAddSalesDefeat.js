@@ -44,22 +44,22 @@ Ext.define('XMLifeOperating.view.dealManage.DamagedAddSalesDefeat', {
                 queryMode: 'local',
                 valueField: 'code',
                 listeners: {
-                    afterrender: function(combo, e) {
+                    afterrender: function(combo) {
                         var me = this,
                             store = combo.getStore();
 
-                        store.on('load', function(st, items) {
+                        store.on('load', function() {
                             var me = this;
                             me.setValue(330100);
                         }, me);
                         store.load();
                     },
-                    change: function(combo, records, e) {
+                    change: function(combo) {
                         var me = this,
                             areaSelection = combo.nextSibling(),
                             areaStore = areaSelection.getStore();
 
-                        areaStore.on('load', function(st, items) {
+                        areaStore.on('load', function(st) {
                             var me = this;
                             st.add({
                                 name: '全部',
@@ -85,12 +85,12 @@ Ext.define('XMLifeOperating.view.dealManage.DamagedAddSalesDefeat', {
                 valueField: 'id',
                 queryMode: 'local',
                 listeners: {
-                    change: function(combo, records, e) {
+                    change: function(combo) {
                         var me = this,
                             shopSelection = combo.nextSibling(),
                             shopStore = shopSelection.getStore();
 
-                        shopStore.on('load', function(st, items) {
+                        shopStore.on('load', function() {
                             shopSelection.setValue('5412fb110364452d87bd21c3');
                         }, shopSelection);
                         shopStore.load();
@@ -139,7 +139,7 @@ Ext.define('XMLifeOperating.view.dealManage.DamagedAddSalesDefeat', {
                     })(),
                     format: 'Y-m-d',
                     listeners: {
-                        change: function(datefield, newValue, oldValue) {
+                        change: function(datefield, newValue) {
                              var endDate = function(){
                                 var date = new Date();
                                 date.setDate(date.getDate()-1);

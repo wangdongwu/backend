@@ -32,5 +32,4 @@ Ext.define('XMLifeOperating.view.dealManage.DataExport', {
         }];
         this.callParent(arguments);
     }
-
-})
+});

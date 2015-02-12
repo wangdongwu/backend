@@ -35,7 +35,7 @@ Ext.define('XMLifeOperating.view.dealManage.CustomerSales', {
                     xtype: 'radio',
                     name: 'rangeType',
                     listeners: {
-                        change: function(radio, newValue, oldValue, e) {
+                        change: function(radio, newValue) {
                             var customerFile = Ext.getCmp('customerFile');
                             var city = radio.nextSibling();
                             var register = city.nextSibling();
@@ -44,7 +44,7 @@ Ext.define('XMLifeOperating.view.dealManage.CustomerSales', {
                             var endTime = arrive.nextSibling();
                             var customer = customerFile.previousSibling();
 
-                            if (newValue == true) {
+                            if (newValue) {
                                 city.setDisabled(false);
                                 register.setDisabled(false);
                                 beginTime.setDisabled(false);
@@ -81,22 +81,22 @@ Ext.define('XMLifeOperating.view.dealManage.CustomerSales', {
                     displayField: 'name',
                     valueField: 'code',
                     listeners: {
-                        afterrender: function(combo, e) {
+                        afterrender: function(combo) {
                             var me = this,
                                 store = combo.getStore();
 
-                            store.on('load', function(st, items) {
+                            store.on('load', function() {
                                 var me = this;
                                 me.setValue(330100);
                             }, me);
                             store.load();
-                        },
+                        }
                     }
                 }, {
                     xtype: 'displayfield',
                     value: '注册时间:',
                     disabled: true,
-                    style: 'margin-left:15px',
+                    style: 'margin-left:15px'
                 }, {
                     xtype: 'datefield',
                     name: 'beginTime',
@@ -116,7 +116,7 @@ Ext.define('XMLifeOperating.view.dealManage.CustomerSales', {
                     })(),
                     format: 'Y-m-d',
                     listeners: {
-                        change: function(datefield, newValue, oldValue) {
+                        change: function(datefield, newValue) {
                             var endDate = function() {
                                 var date = new Date();
                                 date.setDate(date.getDate() - 1);
@@ -166,11 +166,11 @@ Ext.define('XMLifeOperating.view.dealManage.CustomerSales', {
                     xtype: 'radio',
                     name: 'rangeType',
                     listeners: {
-                        change: function(radio, newValue, oldValue, e) {
+                        change: function(radio, newValue) {
                             var customer = radio.nextSibling();
                             var customerFile = customer.nextSibling();
 
-                            if (newValue == true) {
+                            if (newValue) {
                                 customer.setDisabled(false);
                                 customerFile.setDisabled(false);
                             }

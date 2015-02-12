@@ -30,7 +30,7 @@ Ext.define('XMLifeOperating.view.dealManage.GDealCustomerDetail', {
             }, {
                 name: 'dtoAddress',
                 fieldLabel: '地址'
-            }, ],
+            }],
             buttons: [{
                 text: '知道了',
                 labelAlign: 'center',

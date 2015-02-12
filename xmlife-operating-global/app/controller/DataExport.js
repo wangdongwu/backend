@@ -87,7 +87,7 @@ Ext.define('XMLifeOperating.controller.DataExport', {
 
         if (areaId == 'all') {
             areaId = "";
-        };
+        }
         var url = XMLifeOperating.generic.Global.URL.report + 'dataExport/exportPurchase' +
             '?sessionId=' + sessionId +
             '&city=' + city +
@@ -109,7 +109,7 @@ Ext.define('XMLifeOperating.controller.DataExport', {
 
         if (areaId == 'all') {
             areaId = "";
-        };
+        }
 
         var url = XMLifeOperating.generic.Global.URL.report + 'dataExport/exportReturn' +
             '?sessionId=' + sessionId +
@@ -133,7 +133,7 @@ Ext.define('XMLifeOperating.controller.DataExport', {
 
         if (shopArea == 'all') {
             shopArea = "";
-        };
+        }
 
         var url = XMLifeOperating.generic.Global.URL.report + 'dataExport/exportAllDeal' +
             '?cityCode=' + cityCode +
@@ -157,7 +157,7 @@ Ext.define('XMLifeOperating.controller.DataExport', {
 
         if (areaId == 'all') {
             areaId = "";
-        };
+        }
 
         var url = XMLifeOperating.generic.Global.URL.report + 'dataExport/exportDamage' +
             '?sessionId=' + sessionId +
@@ -174,13 +174,13 @@ Ext.define('XMLifeOperating.controller.DataExport', {
             city = win.down('#city').getValue(),
             beginTime = win.down("datefield[name='beginTime']").getValue(),
             endTime = win.down("datefield[name='endTime']").getValue(),
-            file = win.down("#file").getValue(),
             isChecked = win.getForm().findField('rangeType').checked,
-            sessionId = localStorage.getItem('sessionId') || '';
+            sessionId = localStorage.getItem('sessionId') || '',
+            url;
 
-        if (isChecked == true) {
+        if (isChecked) {
             // 按日期导出
-            var url = XMLifeOperating.generic.Global.URL.report + 'dataExport/customerDataExportByDate' +
+            url = XMLifeOperating.generic.Global.URL.report + 'dataExport/customerDataExportByDate' +
                 '?cityCode=' + city +
                 '&beginTime=' + this.formatDate(beginTime, 0) +
                 '&endTime=' + this.formatDate(endTime, 1) +
@@ -188,7 +188,7 @@ Ext.define('XMLifeOperating.controller.DataExport', {
             window.open(url, '_blank');
         } else {
             // 按用户ID导出用户清单
-            var url = XMLifeOperating.generic.Global.URL.report + 'dataExport/customerDataExportByUserId' +
+            url = XMLifeOperating.generic.Global.URL.report + 'dataExport/customerDataExportByUserId' +
                 '?sessionId=' + sessionId;
 
             win.getForm().submit({
@@ -205,30 +205,30 @@ Ext.define('XMLifeOperating.controller.DataExport', {
                     var data = action.response.responseText;
                     console.log(data);
                 }
-            })
+            });
         }
     },
     // 导出充值卡
     exportRechargeableCardSales: function(button) {
         var win = button.up("panel"),
             bizType = win.down("#bizType").getValue(),
-            file = win.down("#file").getValue(),
             start = win.down("datefield[name='startTime']").getValue(),
             end = win.down("datefield[name='endTime']").getValue(),
             batch = win.down("#batchId"),
             batchId = batch.getValue(),
             isChecked = win.getForm().findField('rangeType').checked,
             sessionId = localStorage.getItem('sessionId') || '',
+            url,
             rangeType;
 
-        if (isChecked == true) {
+        if (isChecked) {
             rangeType = 1;
         } else {
             rangeType = 2;
         }
         if (rangeType == 2) {
             // 指定时间和批次
-            var url = XMLifeOperating.generic.Global.URL.report + 'dataExport/charge' +
+            url = XMLifeOperating.generic.Global.URL.report + 'dataExport/charge' +
                 '?bizType=' + bizType +
                 '&start=' + this.formatDate(start, 0) +
                 '&end=' + this.formatDate(end, 1) +
@@ -252,10 +252,10 @@ Ext.define('XMLifeOperating.controller.DataExport', {
                     var data = action.response.responseText;
                     console.log(data);
                 }
-            })
+            });
         } else {
             // 指定卡号
-            var url = XMLifeOperating.generic.Global.URL.report + 'dataExport/charge' +
+            url = XMLifeOperating.generic.Global.URL.report + 'dataExport/charge' +
                 '?sessionId=' + sessionId;
 
             win.getForm().submit({
@@ -272,7 +272,7 @@ Ext.define('XMLifeOperating.controller.DataExport', {
                     var data = action.response.responseText;
                     console.log(data);
                 }
-            })
+            });
         }
     },
     formatDate: function(date, n) {
