@@ -5,6 +5,7 @@ Ext.define('XMLifeOperating.view.staffManage.manager.GManagerList', {
     title: '掌柜管理',
     store: 'Manager',
     id: 'gManagerList',
+    columnLines: true,
     tbar: [{
             xtype: 'button',
             text: '添加掌柜',
@@ -40,6 +41,10 @@ Ext.define('XMLifeOperating.view.staffManage.manager.GManagerList', {
                     this.setText('查看未绑定的掌柜');
                 }
             }
+        }, '-', {
+            xtype: 'button',
+            itemId: 'activeAbandon',
+            text: '查看已废弃的掌柜'
         },
         '->', {
             xtype: 'textfield',
@@ -96,13 +101,7 @@ Ext.define('XMLifeOperating.view.staffManage.manager.GManagerList', {
         sortable: true,
         align: 'center',
         renderer: function(value) {
-            var htmlStr = '';
-            if (value != null) {
-                value.forEach(function(item, index, value) {
-                    htmlStr += item + "<br />";
-                });
-            }
-            return htmlStr;
+            return (value || []).join('<br />');
         }
     }, {
         header: "考勤管理",
@@ -111,7 +110,7 @@ Ext.define('XMLifeOperating.view.staffManage.manager.GManagerList', {
         menuDisabled: true,
         sortable: true,
         align: 'center',
-        renderer: function(value, metadata, model, rowIndex, colIndex, store) {
+        renderer: function() {
             return '<a href="javascript:;">查看</a>';
         }
     }, {
@@ -132,13 +131,22 @@ Ext.define('XMLifeOperating.view.staffManage.manager.GManagerList', {
         sortable: true,
         align: 'center',
         renderer: function(value) {
-            var str = '';
-            if (value == true) {
-                str += '<input type="button" value="关闭" statusValue="open" /><br/>';
-            } else {
-                str += '<input type="button" value="开启" statusValue="close"  /><br/>';
-            }
-            return str;
+            var txt = value ? '关闭' : '开启',
+                statusValue = value ? 'open' : 'close';
+
+            return Ext.String.format('<input type="button" value="{0}" statusValue="{1}"  /><br/>', txt, statusValue);
+        }
+    }, {
+        header: "操作",
+        width: 90,
+        dataIndex: 'abandon',
+        itemId: 'abandon',
+        menuDisabled: true,
+        hidden: false,
+        sortable: true,
+        align: 'center',
+        renderer: function(value) {
+            return '<input type="button" value="废弃"/>';
         }
     }]
 });
