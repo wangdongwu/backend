@@ -79,7 +79,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopAdd', {
                 fieldLabel: '地址',
                 allowBlank: false,
                 afterLabelTextTpl: required,
-                emptyText: '请选择地址'
+                emptyText: '请填写地址'
 
             }, {
                 xtype: 'textfield',
