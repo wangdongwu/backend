@@ -93,7 +93,7 @@ Ext.define('XMLifeOperating.controller.Manager', {
                     
                     store.on('load', function() {
                         view.down('#activeBind').setText('查看未绑定的掌柜');
-                    })
+                    });
                     
                     store.loadPage(1);
                 },
@@ -115,10 +115,10 @@ Ext.define('XMLifeOperating.controller.Manager', {
                     
                     store.on('load', function() {
                         view.down('#activeBind').setText('查看未绑定的掌柜');
-                    })
+                    });
 
                     store.loadPage(1);
-                },
+                }
             },
             // 查看中心下暂停或接单掌柜
             'gManagerList #activeSearch': {
@@ -154,7 +154,7 @@ Ext.define('XMLifeOperating.controller.Manager', {
             },
             // 查看绑定
             'gManagerList #activeBind': {
-                click: function(grid) {
+                click: function() {
                     var view = me.getGManagerList(),
                         activeBindText = view.down('#activeBind').getText(),
                         lstore = me.getManagerStore();
@@ -189,7 +189,7 @@ Ext.define('XMLifeOperating.controller.Manager', {
             },
             // 考勤管理
             'gManagerList #managerWorkTimeId': {
-                click: function(view, cell, rowIndex, colIndex, e, record, row) {
+                click: function(view, cell, rowIndex, colIndex, e, record) {
                     var content = this.getContentPanel();
 
                     content.removeAll(false);
@@ -217,8 +217,8 @@ Ext.define('XMLifeOperating.controller.Manager', {
                 }
             },
             'managerWorkTimeList radio[name="dayType"]': {
-                change: function(record, newV, oldV) {
-                    if (newV == true) {;
+                change: function(record, newV) {
+                    if (newV) {
                         var itemId = record.itemId,
                             str;
                         switch (itemId) {
@@ -262,7 +262,7 @@ Ext.define('XMLifeOperating.controller.Manager', {
             },
             // 操作
             'gManagerList #closeOrOpenOrder': {
-                click: function(grid, cell, rowIndex, colIndex, e, record, row) {
+                click: function(grid, cell, rowIndex, colIndex, e, record) {
                     var me = this;
                     var manager = record.get('uid');
                     var isActive = record.get('isActive');
@@ -282,7 +282,7 @@ Ext.define('XMLifeOperating.controller.Manager', {
                             var activeBindText = view.down('#activeBind').getText();
                             var searchBuyerKeyWords = view.down('#searchBuyerKeyWords').getValue();
 
-                            if (activeBindText == '查看已绑定的掌柜' || searchBuyerKeyWords != '') {
+                            if (activeBindText == '查看已绑定的掌柜' || searchBuyerKeyWords !== '') {
                                 record.set('isActive', !isActive);
                                 return;
                             }
@@ -291,14 +291,6 @@ Ext.define('XMLifeOperating.controller.Manager', {
                             store.loadPage(1);
                         });
                     });
-                }
-            },
-            'managerWorkTimeList #managerReturn': {
-                click: function() {
-                    var tab = me.getGManagerList();
-                    var content = this.getContentPanel();
-                    content.removeAll(false);
-                    content.add(tab);
                 }
             }
         });
@@ -313,7 +305,7 @@ Ext.define('XMLifeOperating.controller.Manager', {
         //var hide = abandon.hide();
     },
     // 废弃按钮
-    abandon: function(grid, cell, rowIndex, colIndex, e, record, row) {
+    abandon: function(grid, cell, rowIndex, colIndex, e, record) {
         var store = this.getManagerStore();
     },
     searchManager: function() {
@@ -330,8 +322,8 @@ Ext.define('XMLifeOperating.controller.Manager', {
         } else if (activeBindText == '查看未绑定的掌柜') {
             isUnbind = '';
         }
-
-        if (keyWords == '') {
+        
+        if (keyWords === '') {
             store.getProxy().extraParams = {
                 unbind: isUnbind
             };
@@ -362,7 +354,7 @@ Ext.define('XMLifeOperating.controller.Manager', {
         win.show();
     },
     // 编辑
-    onEdit: function(grid, cell, rowIndex, colIndex, e, record, row) {
+    onEdit: function(grid, cell, rowIndex, colIndex, e, record) {
         var win = this.getEditWindow();
         win.down('#managerPhone').setDisabled(true);
         win.down('form').loadRecord(record);
@@ -374,19 +366,18 @@ Ext.define('XMLifeOperating.controller.Manager', {
         var editWindow = this.getEditWindow(),
             windowEl = editWindow.getEl(),
             form = editWindow.down('form').getForm(),
-            manager = form.getRecord(),
-            me = this;
+            manager = form.getRecord();
 
         if (form.isValid()) {
             windowEl.mask('saving');
             form.updateRecord(manager);
             var pwd = editWindow.down('[name=pwd]').getValue();
             pwd = pwd.replace(/(^\s+)|(\s+$)/g, "");
-            if (pwd != '') {
+            if (pwd !== '') {
                 manager.set('pwd', hex_md5(pwd));
             }
 
-            if (manager.get('id') != null && manager.get('id') != '') {
+            if (manager.get('id') !== null && manager.get('id') !== '') {
                 // 编辑修改
                 var url = 'manager/updateManager';
                 sendPutRequest(url, {
@@ -397,8 +388,8 @@ Ext.define('XMLifeOperating.controller.Manager', {
                     gender: manager.get('gender'),
                     phone: manager.get('phone'),
                     idcard: manager.get('idcard'),
-                    avatar: manager.get('avatar'),
-                }, '编辑掌柜', '成功编辑掌柜', '编辑掌柜失败', function(operation) {
+                    avatar: manager.get('avatar')
+                }, '编辑掌柜', '成功编辑掌柜', '编辑掌柜失败', function() {
                     windowEl.unmask();
                     editWindow.close();
                 });
@@ -406,8 +397,7 @@ Ext.define('XMLifeOperating.controller.Manager', {
             } else {
                 // 添加
                 windowEl.unmask();
-                url = 'manager';
-                var success = function(task, operation) {
+                var success = function(task) {
                     var errorStr = '';
                     switch (task.responseText) {
                         case '1':
@@ -447,7 +437,7 @@ Ext.define('XMLifeOperating.controller.Manager', {
                     windowEl.unmask();
                 };
 
-                sendRequest(url, {
+                sendRequest('manager', {
                     name: manager.get('name'),
                     pwd: manager.get('pwd'),
                     title: manager.get('title'),
