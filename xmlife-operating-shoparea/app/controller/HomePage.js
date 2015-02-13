@@ -66,7 +66,9 @@ Ext.define('XMLifeOperating.controller.HomePage', {
                     };
                     store.load({
                         callback: function(records) {
-                            if (!records || records.length === 0) return;
+                            if (!records || records.length === 0) {
+                                return;
+                            }
                             // 初始化选择启用项
                             var model = Ext.ComponentQuery.query('#versionList')[0].getSelectionModel();
                             model.deselectAll();
@@ -120,7 +122,7 @@ Ext.define('XMLifeOperating.controller.HomePage', {
                                         layoutId: layoutId
                                     },
                                     '删除版本', '删除版本成功', '删除版本失败',
-                                    function(response) {
+                                    function() {
                                         me.getHomePageStore().load();
                                         me.refreshView('all');
                                     });
@@ -196,7 +198,7 @@ Ext.define('XMLifeOperating.controller.HomePage', {
             'homePage #editTime': {
                 click: function(view, rowIndex, colIndex, column, e) {
                     var record = view.getRecord(view.findTargetByEvent(e));
-                    if(record.get('startTime')) {
+                    if (record.get('startTime')) {
                         var win = this.getVersionEnable(),
                             form = win.down('form').getForm();
                         form.loadRecord(record);
@@ -214,11 +216,11 @@ Ext.define('XMLifeOperating.controller.HomePage', {
                 change: function(radio) {
                     var win = this.getVersionEnable();
                     if (radio.getValue()) {
-                        Ext.each(win.query('datefield'), function(elem, index) {
+                        Ext.each(win.query('datefield'), function(elem) {
                             elem.setVisible(true);
                         });
                     } else {
-                        Ext.each(win.query('datefield'), function(elem, index) {
+                        Ext.each(win.query('datefield'), function(elem) {
                             elem.setVisible(false);
                         });
                     }
@@ -246,7 +248,9 @@ Ext.define('XMLifeOperating.controller.HomePage', {
                         record = form.getRecord();
 
                     if (values.type == 1) {
-                        if (!form.isValid()) return;
+                        if (!form.isValid()) {
+                            return;
+                        }
                         if (values.endTime <= values.startTime) {
                             Ext.Msg.alert('错误提示', '结束时间不能小于开始时间！');
                             return;
@@ -267,7 +271,9 @@ Ext.define('XMLifeOperating.controller.HomePage', {
             // 选择版本，展示大积木列表
             'homePage #versionList': {
                 selectionchange: function(model, selected) {
-                    if (selected.length === 0) return;
+                    if (selected.length === 0) {
+                        return;
+                    }
                     var record = selected[0].data;
                     //保存当前版本id
                     this.layoutId = record.id;
@@ -394,7 +400,7 @@ Ext.define('XMLifeOperating.controller.HomePage', {
                                         moduleId: moduleId
                                     },
                                     '删除大积木', '删除大积木成功', '删除大积木失败',
-                                    function(response) {
+                                    function() {
                                         me.getHomePageModuleListStore().load();
                                         me.refreshView('detail');
                                     });
@@ -405,10 +411,12 @@ Ext.define('XMLifeOperating.controller.HomePage', {
             },
             // 大积木排序
             'homePage #moduleList dataview': {
-                beforedrop: function(node, data, dropRec, dropPosition) {
-                    if (dropRec.index === 0 || data.records[0].type == 'TYPE0') return false;
+                beforedrop: function(node, data, dropRec) {
+                    if (dropRec.index === 0 || data.records[0].type == 'TYPE0') {
+                        return false;
+                    }
                 },
-                drop: function(node, data, dropRec, dropPosition) {
+                drop: function() {
                     var store = this.getHomePageModuleListStore();
                     var moduleIds = [];
                     for (var i = 0, n = store.totalCount; i < n; i++) {
@@ -427,7 +435,9 @@ Ext.define('XMLifeOperating.controller.HomePage', {
             // 大积木选择展示详情、编辑（名称/分割线）
             'homePage #moduleList': {
                 selectionchange: function(model, selected) {
-                    if (selected.length === 0) return;
+                    if (selected.length === 0) {
+                        return;
+                    }
 
                     // 保存当前大积木全局属性
                     var record = selected[0].data;
@@ -471,11 +481,13 @@ Ext.define('XMLifeOperating.controller.HomePage', {
                             me.getHomePageModuleListStore().load();
                         });
 
-                    // 编辑分割线
-                    } else if (e.field == 'needLine'){
-                        if (record.get('type') != 'TYPE14') return;
+                        // 编辑分割线
+                    } else if (e.field == 'needLine') {
+                        if (record.get('type') != 'TYPE14') {
+                            return;
+                        }
 
-                        var url  = record.get('needLine') ? 'homepage/showLine' : 'homepage/hiddenLine';
+                        var url = record.get('needLine') ? 'homepage/showLine' : 'homepage/hiddenLine';
                         sendPutRequest(url, {
                             moduleId: record.get('id')
                         }, '修改名称', '修改名称成功', '修改名称失败', function() {
@@ -528,7 +540,7 @@ Ext.define('XMLifeOperating.controller.HomePage', {
             },
             // 新建小积木(现只有banner用)/租客
             'homePage #addModuleItem': {
-                click: function(button, e) {
+                click: function() {
                     var win = this.getModuleDetailEdit(),
                         store = this.getHomePageModuleDetailStore();
                     if (store.totalCount >= 6) {
@@ -544,7 +556,7 @@ Ext.define('XMLifeOperating.controller.HomePage', {
                             data.push({
                                 name: records[i].get('index') + '号小积木',
                                 index: records[i].get('index')
-                            })
+                            });
                         }
 
                         var renterIndexStore = Ext.create('Ext.data.Store', {
@@ -587,7 +599,7 @@ Ext.define('XMLifeOperating.controller.HomePage', {
                                 data.push({
                                     name: records[i].get('index') + '号小积木',
                                     index: records[i].get('index')
-                                })
+                                });
                             }
                             var renterIndexStore = Ext.create('Ext.data.Store', {
                                 fields: ['name', 'index'],
@@ -612,7 +624,7 @@ Ext.define('XMLifeOperating.controller.HomePage', {
                         win.down('#picSizeTip').setText('（提示：尺寸' + size + '，大小100K以内）');
                         win.show();
 
-                    // 删除
+                        // 删除
                     } else if (targetClass.indexOf('action-del') >= 0) {
                         Ext.MessageBox.confirm('确认删除',
                             Ext.String.format("您确定要删除 '{0}' 吗？", record.get('name')),
@@ -623,7 +635,7 @@ Ext.define('XMLifeOperating.controller.HomePage', {
                                                 renterId: record.get('renterId')
                                             },
                                             '删除租客', '租客删除成功', '租客删除失败',
-                                            function(response) {
+                                            function() {
                                                 me.getHomePageModuleRenterStore().load();
                                             }
                                         );
@@ -634,7 +646,7 @@ Ext.define('XMLifeOperating.controller.HomePage', {
                                                 index: record.get('index')
                                             },
                                             '删除小积木', '小积木删除成功', '小积木删除失败',
-                                            function(response) {
+                                            function() {
                                                 me.getHomePageModuleDetailStore().load();
                                             }
                                         );
@@ -651,7 +663,8 @@ Ext.define('XMLifeOperating.controller.HomePage', {
                 select: function(combo, flag) {
                     var win = this.getModuleDetailEdit(),
                         record = win.down('form').getRecord(),
-                        urlType = combo.getValue();
+                        urlType = combo.getValue(),
+                        otherCombos;
 
                     this.urlType = urlType;
 
@@ -697,8 +710,8 @@ Ext.define('XMLifeOperating.controller.HomePage', {
 
                         win.down('combo[name=shopSetId]').setVisible(true);
                         // 隐藏除此之外的combo
-                        var otherCombos = win.query('#comboFieldset combo[name!=shopSetId]');
-                        Ext.each(otherCombos, function(elem, i) {
+                        otherCombos = win.query('#comboFieldset combo[name!=shopSetId]');
+                        Ext.each(otherCombos, function(elem) {
                             elem.setVisible(false);
                         });
 
@@ -711,8 +724,8 @@ Ext.define('XMLifeOperating.controller.HomePage', {
 
                         win.down('combo[name=fid]').setVisible(true);
                         // 隐藏除功能之外的combo
-                        var otherCombos = win.query('#comboFieldset combo[name!=fid]');
-                        Ext.each(otherCombos, function(elem, i) {
+                        otherCombos = win.query('#comboFieldset combo[name!=fid]');
+                        Ext.each(otherCombos, function(elem) {
                             elem.setVisible(false);
                         });
 
@@ -730,8 +743,8 @@ Ext.define('XMLifeOperating.controller.HomePage', {
 
                         win.down('combo[name=promoId]').setVisible(true);
                         // 隐藏除功能之外的combo
-                        var otherCombos = win.query('#comboFieldset combo[name!=promoId]');
-                        Ext.each(otherCombos, function(elem, i) {
+                        otherCombos = win.query('#comboFieldset combo[name!=promoId]');
+                        Ext.each(otherCombos, function(elem) {
                             elem.setVisible(false);
                         });
                     }
@@ -783,15 +796,17 @@ Ext.define('XMLifeOperating.controller.HomePage', {
                             }
                         });
                         // 过滤掉已下架/已删除的商品
-                        store.on('load', function () {
-                          this.filter([
-                            function (item) {
-                              var status = item.get('status');
-                              return status == 0 || status == 3;
-                            }
-                          ]);
+                        store.on('load', function() {
+                            this.filter([
+                                function(item) {
+                                    var status = item.get('status');
+                                    return status === 0 || status === 3;
+                                }
+                            ]);
                         });
-                        if (flag != 'isInit') win.down('combo[name=pid]').setValue('');
+                        if (flag !== 'isInit') {
+                            win.down('combo[name=pid]').setValue('');
+                        }
                     }
                 }
             },
@@ -892,7 +907,7 @@ Ext.define('XMLifeOperating.controller.HomePage', {
             },
             // 小积木排序
             'homePage #moduleDetail dataview': {
-                drop: function(node, data, dropRec, dropPosition) {
+                drop: function() {
                     var store = this.getHomePageModuleDetailStore();
                     var indexs = [];
                     for (var i = 0, n = store.totalCount; i < n; i++) {
@@ -974,7 +989,9 @@ Ext.define('XMLifeOperating.controller.HomePage', {
     },
     // 渲染预览首页
     renderHomePage: function(records) {
-        if (!records || records.length === 0) return;
+        if (!records || records.length === 0) {
+            return;
+        }
 
         var res_url = XMLifeOperating.generic.Global.URL.res + '/image/id-',
             html = '';
@@ -982,7 +999,6 @@ Ext.define('XMLifeOperating.controller.HomePage', {
         var borderT = 'border-top:1px solid #eee;',
             borderR = 'border-right:1px solid #eee;',
             borderB = 'border-bottom:1px solid #eee;',
-            borderL = 'border-left:1px solid #eee;',
             wrapCss = 'width:100%;padding:0;list-style:none;font-family:\'Microsoft Yahei\';font-size:12px;line-height:9px;';
 
         for (var i = 0, n = records.length; i < n; i++) {
@@ -1115,9 +1131,9 @@ Ext.define('XMLifeOperating.controller.HomePage', {
                     str = '<ul class="x-clear" style="' + wrapCss + (i > 1 ? borderT + borderB : '') + '">';
                     for (j = 0, m = items.length; j < m; j++) {
                         if (items[j].titles.length > 0) {
-                            titles = j === 0 ? '<div style="height:35px;padding-left:10px;"><p style="text-align:left;line-height:35px;font-weight:bold;color:#6FAB38;">' + items[j].titles[0] + '<span style="float:right;margin-right:5px;font-size:10px;font-weight:normal;-webkit-transform:scale(0.8);color:#F86125;">'+ (items[j].url ? '<a href="' + items[j].url + '" target="_blank" style="color:#F86125;">' : '') + (items[j].titles[1] ? items[j].titles[1] + ' &gt;' : '') +  (items[j].url ? '</a>' : '') + '</span></p></div>' : '';
+                            titles = j === 0 ? '<div style="height:35px;padding-left:10px;"><p style="text-align:left;line-height:35px;font-weight:bold;color:#6FAB38;">' + items[j].titles[0] + '<span style="float:right;margin-right:5px;font-size:10px;font-weight:normal;-webkit-transform:scale(0.8);color:#F86125;">' + (items[j].url ? '<a href="' + items[j].url + '" target="_blank" style="color:#F86125;">' : '') + (items[j].titles[1] ? items[j].titles[1] + ' &gt;' : '') + (items[j].url ? '</a>' : '') + '</span></p></div>' : '';
                         }
-                        str += '<li style="float:left;position:relative;width:100%;">' + titles  + '</li>';
+                        str += '<li style="float:left;position:relative;width:100%;">' + titles + '</li>';
                     }
                     str += '</ul>';
                     html += str;
@@ -1126,10 +1142,10 @@ Ext.define('XMLifeOperating.controller.HomePage', {
                 case 'TYPE14':
                     str = '<ul class="x-clear" style="' + wrapCss + (i > 1 ? borderT : '') + '">';
                     for (j = 0, m = items.length; j < m; j++) {
-                        if (j == 0 || j == 2) {
+                        if (j === 0 || j === 2) {
                             str += (j === 0 ? '<li style="float:left;position:relative;padding:10px 10px 0 10px;width:50%;border:1px solid #fff;">' : '') + (items[j].url ? '<a href="' + items[j].url + '" target="_blank">' : '') + '<img src="' + res_url + items[j].image + '" width="100%" />' + (items[j].url ? '</a>' : '') + (j === 2 ? '</li>' : '');
                         } else if (j >= 3) {
-                            str += (j === 3 ? '<li style="float:left;position:relative;width:50%;border:1px solid #fff;color:#999;">' : '') + '<span style="display:inline-block;margin:10% 3% 0 0;padding:6% 4%;border:1px solid #eee;font-size:80%;font-weight:normal;">'+ items[j].titles[0] +'</span>' + (j === 8 ? '</li>' : '');
+                            str += (j === 3 ? '<li style="float:left;position:relative;width:50%;border:1px solid #fff;color:#999;">' : '') + '<span style="display:inline-block;margin:10% 3% 0 0;padding:6% 4%;border:1px solid #eee;font-size:80%;font-weight:normal;">' + items[j].titles[0] + '</span>' + (j === 8 ? '</li>' : '');
                         }
                     }
                     str += '</ul>';

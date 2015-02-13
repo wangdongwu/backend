@@ -7,7 +7,6 @@ Ext.define('XMLifeOperating.view.centralPointManage.homePage.VersionEnable', {
 
     items: [{
         xtype: 'form',
-        //layout: 'vbox',
         bodyPadding: 15,
         defaults: {
             margin: '5 0'
@@ -16,21 +15,19 @@ Ext.define('XMLifeOperating.view.centralPointManage.homePage.VersionEnable', {
             xtype: 'radiogroup',
             layout: 'column',
             defaults: {
-                margin: '0 15 0 30',
+                margin: '0 15 0 30'
             },
-            items: [
-                {
-                    boxLabel: '立即启用',
-                    name: 'type',
-                    inputValue: 0,
-                    checked: true
-                }, {
-                    boxLabel: '定时启用',
-                    name: 'type',
-                    itemId: 'timeEnable',
-                    inputValue: 1
-                }
-            ]
+            items: [{
+                boxLabel: '立即启用',
+                name: 'type',
+                inputValue: 0,
+                checked: true
+            }, {
+                boxLabel: '定时启用',
+                name: 'type',
+                itemId: 'timeEnable',
+                inputValue: 1
+            }]
         }, {
             xtype: 'datefield',
             name: 'startTime',

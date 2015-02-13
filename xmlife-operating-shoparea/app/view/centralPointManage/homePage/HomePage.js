@@ -31,7 +31,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.homePage.HomePage', {
                     columns: [{
                         xtype: 'rownumberer',
                         align: 'center',
-                        width: '5%',
+                        width: '5%'
                     }, {
                         text: '版本列表',
                         dataIndex: 'version',
@@ -68,12 +68,14 @@ Ext.define('XMLifeOperating.view.centralPointManage.homePage.HomePage', {
                         dataIndex: 'status',
                         width: '18%',
                         align: 'center',
-                        renderer: function(value, meta, record, rowIndex, colIndex, store, view) {
+                        renderer: function(value) {
                             return value ? (value == 2 ? '<input type="button" value="取消定时" style="margin-left: -4px; padding: 3px 2px 5px;" />' : '<span style="color:green;">启用中</span>') : '<input type="button" value="启用" style="margin-left: -3px;" />';
                         },
                         listeners: {
                             click: function(view, meta, rowIndex, colIndex, e, record) {
-                                if (record.get('status') == 1) return false;
+                                if (record.get('status') == 1) {
+                                    return false;
+                                }
                             }
                         }
                     }, {
@@ -93,12 +95,16 @@ Ext.define('XMLifeOperating.view.centralPointManage.homePage.HomePage', {
                         icon: 'resources/images/delete.png',
                         width: '9%',
                         align: 'center',
-                        renderer: function(value, meta, record, rowIndex, colIndex, store, view) {
-                            if (record.get('status') == 1) meta.style = 'display: none;';
+                        renderer: function(value, meta, record) {
+                            if (record.get('status') === 1 || record.get('transitional') === true) {
+                                meta.style = 'display: none;';
+                            }
                         },
                         listeners: {
                             click: function(view, meta, rowIndex, colIndex, e, record) {
-                                if (record.get('status') == 1) return false;
+                                if (record.get('status') == 1) {
+                                    return false;
+                                }
                             }
                         }
                     }],
@@ -168,14 +174,14 @@ Ext.define('XMLifeOperating.view.centralPointManage.homePage.HomePage', {
                                     }
                                 }
                             }
-                        }
-                        /*, {
-                                      text: '类型',
-                                      dataIndex: 'type',
-                                      width: '15%',
-                                      align: 'center'
-                                  }*/
-                        , {
+                        },
+                        /* {
+                              text: '类型',
+                              dataIndex: 'type',
+                              width: '15%',
+                              align: 'center'
+                          }*/
+                        {
                             xtype: 'actioncolumn',
                             itemId: 'delModule',
                             text: '操作',
@@ -183,12 +189,16 @@ Ext.define('XMLifeOperating.view.centralPointManage.homePage.HomePage', {
                             icon: 'resources/images/delete.png',
                             width: '14%',
                             align: 'center',
-                            renderer: function(value, meta, record, rowIndex, colIndex, store, view) {
-                                if (record.get('type') == 'TYPE0') meta.style = 'display: none;';
+                            renderer: function(value, meta, record) {
+                                if (record.get('type') == 'TYPE0') {
+                                    meta.style = 'display: none;';
+                                }
                             },
                             listeners: {
                                 click: function(view, meta, rowIndex, colIndex, e, record) {
-                                    if (record.get('type') == 'TYPE0') return false;
+                                    if (record.get('type') == 'TYPE0') {
+                                        return false;
+                                    }
                                 }
                             }
                         }
@@ -205,7 +215,6 @@ Ext.define('XMLifeOperating.view.centralPointManage.homePage.HomePage', {
                     }
 
                 }]
-
             },
 
             {
@@ -286,7 +295,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.homePage.HomePage', {
                     text: '操作',
                     width: '10%',
                     align: 'center',
-                    renderer: function(value, meta, record, rowIndex, colIndex, store, view) {
+                    renderer: function(value, meta, record) {
                         var str1 = '<img src="resources/images/edit.png" class="x-action-col-icon action-edit" style="margin-left:5px;" />',
                             str2 = '<img src="resources/images/delete.png" class="x-action-col-icon action-del" style="margin-left:5px;" />';
                         return XMLifeOperating.generic.Global.isBanner || record.get('renterId') ? str1 + str2 : str1;
@@ -321,7 +330,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.homePage.HomePage', {
                     itemSelector: 'li',
                     loadMask: true,
                     loadingText: 'Loading...',
-                    tpl: '<div id="homePreviewList"><p style="text-align:center;">当前暂无预览</p></div>',
+                    tpl: '<div id="homePreviewList"><p style="text-align:center;">当前暂无预览</p></div>'
                 }]
             }
         ];

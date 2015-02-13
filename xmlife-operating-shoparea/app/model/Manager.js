@@ -21,5 +21,5 @@ Ext.define('XMLifeOperating.model.Manager', {
         'activeTaskNum',
         'isActive'
     ],
-    proxy: dataProxy,
+    proxy: dataProxy
 });

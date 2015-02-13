@@ -21,7 +21,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.homePage.ModuleAdd', {
             width: '100%',
             height: 420,
             defaults: {
-                style: 'margin:25px 35px 0 0',
+                style: 'margin:25px 35px 0 0'
             },
             columns: 2,
             vertical: true,

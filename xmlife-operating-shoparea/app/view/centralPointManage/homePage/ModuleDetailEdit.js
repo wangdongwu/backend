@@ -38,10 +38,10 @@ Ext.define('XMLifeOperating.view.centralPointManage.homePage.ModuleDetailEdit', 
             ),
             listeners: {
                 buffer: 50,
-                focus: function(component) {
+                focus: function() {
                     this.expand();
                 },
-                removed: function(component) {
+                removed: function() {
                     this.store.clearFilter(true);
                 }
             }
@@ -70,10 +70,10 @@ Ext.define('XMLifeOperating.view.centralPointManage.homePage.ModuleDetailEdit', 
             ),
             listeners: {
                 buffer: 50,
-                focus: function(component) {
+                focus: function() {
                     this.expand();
                 },
-                removed: function(component) {
+                removed: function() {
                     this.store.clearFilter(true);
                 }
             }
@@ -255,7 +255,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.homePage.ModuleDetailEdit', 
                 labelAlign: 'right',
                 width: 329,
                 allowBlank: true,
-                //readOnly: true,
+                readOnly: true
             }, {
                 xtype: 'form',
                 border: false,
