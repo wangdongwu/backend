@@ -40,7 +40,7 @@ Ext.define('XMLifeOperating.view.operationManage.dealWaitAssignShopper.DealWaitA
     bbar: [{
         xtype: 'pagingtoolbar',
         itemId: 'pagetool',
-        store: 'Deal',
+        store: 'DealWaitAssignShopper',
         displayInfo: true,
         style: 'border:none'
     }],    
