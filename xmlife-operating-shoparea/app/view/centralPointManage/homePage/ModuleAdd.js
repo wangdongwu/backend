@@ -1,11 +1,8 @@
 Ext.define('XMLifeOperating.view.centralPointManage.homePage.ModuleAdd', {
     extend: 'Ext.window.Window',
     xtype: 'moduleAdd',
-    requires: [
-        'Ext.form.Panel',
-        'Ext.form.field.Text'
-    ],
     title: '新建大积木',
+    closeAction: 'hide',
     width: 750,
     buttonAlign: 'center',
     items: [{

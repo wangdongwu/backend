@@ -1,11 +1,8 @@
 Ext.define('XMLifeOperating.view.centralPointManage.homePage.ModuleCopy', {
     extend: 'Ext.window.Window',
     xtype: 'moduleCopy',
-    requires: [
-        'Ext.form.Panel',
-        'Ext.form.field.Text'
-    ],
     title: '拷贝已有积木',
+    closeAction: 'hide',
     width: 300,
     autoScroll: false,
 

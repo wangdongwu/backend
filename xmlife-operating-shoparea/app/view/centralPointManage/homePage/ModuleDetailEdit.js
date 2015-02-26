@@ -1,11 +1,8 @@
 Ext.define('XMLifeOperating.view.centralPointManage.homePage.ModuleDetailEdit', {
     extend: 'Ext.window.Window',
     xtype: 'moduleDetailEdit',
-    requires: [
-        'Ext.form.Panel',
-        'Ext.form.field.Text'
-    ],
     title: '新建/编辑属性',
+    closeAction: 'hide',
     width: 450,
     buttonAlign: 'center',
     autoScroll: false,

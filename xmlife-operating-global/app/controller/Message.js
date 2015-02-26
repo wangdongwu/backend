@@ -78,16 +78,20 @@ Ext.define('XMLifeOperating.controller.Message', {
                 }
             },
             'notifyList #editBtn': {
-                click: function(view, item, rowIndex, colIndex, e, record) {
+                click: function(view, item, rowIndex, colIndex, e) {
                     //排除没有编辑图标的
-                    if (e.target.getAttribute('class') != "x-action-col-icon") return;
-                    me.onEdit({view: view, e: e}, 'getNotifyAdd');
+                    if (e.target.getAttribute('class') != "x-action-col-icon") {
+                        return;
+                    }
+                    me.onEdit({
+                        view: view,
+                        e: e
+                    }, 'getNotifyAdd');
                 }
             },
             'notifyList #viewReceipt': {
                 click: function(view, item, rowIndex, colIndex, e, record) {
-                    var record = record,
-                        win =  this.getViewReceipt(),
+                    var win = this.getViewReceipt(),
                         form = win.down('form').getForm();
 
                     form.loadRecord(record);
@@ -95,9 +99,14 @@ Ext.define('XMLifeOperating.controller.Message', {
                 }
             },
             'smsList #editBtn': {
-                click: function(view, item, rowIndex, colIndex, e, record) {
-                    if (e.target.getAttribute('class') != "x-action-col-icon") return;
-                    me.onEdit({view: view, e: e}, 'getSmsAdd');
+                click: function(view, item, rowIndex, colIndex, e) {
+                    if (e.target.getAttribute('class') != "x-action-col-icon") {
+                        return;
+                    }
+                    me.onEdit({
+                        view: view,
+                        e: e
+                    }, 'getSmsAdd');
                 }
             },
             'notifyAdd #startTime': {
@@ -123,10 +132,9 @@ Ext.define('XMLifeOperating.controller.Message', {
         });
     },
     onLinkTypeSelect: function(component, record) {
-        var me = this;
         var linkType = record;
         var nextCmp = component.nextSibling();
-        var urlCmp = me.getNotifyAdd().down('#linkUrl');
+        var urlCmp = this.getNotifyAdd().down('#linkUrl');
 
         if (linkType == 2) { //h5页面
             nextCmp.isVisible() ? nextCmp.setVisible(false) : null;
@@ -140,17 +148,19 @@ Ext.define('XMLifeOperating.controller.Message', {
         }
     },
     onAdd: function(method) {
-        var record = new(this.getMessageModel());
-        var win = this[method]();
+        var model = this.getMessageModel(),
+            record = new model(),
+            win = this[method]();
+
         win.down('form').getForm().reset();
         win.down('form').loadRecord(record);
         win.show();
     },
     onEdit: function(args, method) {
-        var me = this;
-        var win = this[method]();
-        var record = args.view.getRecord(args.view.findTargetByEvent(args.e));
-        win.down('form').loadRecord(record)
+        var win = this[method](),
+            record = args.view.getRecord(args.view.findTargetByEvent(args.e));
+
+        win.down('form').loadRecord(record);
         win.show();
     },
     onDateSelect: function(elem) {
@@ -187,7 +197,7 @@ Ext.define('XMLifeOperating.controller.Message', {
                 beginTime: null,
                 isUpload: null,
                 linkType: null
-            }
+            };
             data.type = msgType;
             data.id = record.get('id');
             data.beginTime = Date.parse(win.down('datefield').getValue());
@@ -206,6 +216,7 @@ Ext.define('XMLifeOperating.controller.Message', {
                 } else if (linkType == 3) { //内部类型
                     data.linkType = 3;
                     var internalType = win.down('#internalType').getValue();
+
                     if (!internalType) {
                         Ext.MessageBox.show({
                             title: '提示',
@@ -213,7 +224,7 @@ Ext.define('XMLifeOperating.controller.Message', {
                             icon: Ext.Msg.ERROR,
                             buttons: Ext.Msg.OK
                         });
-                        return
+                        return;
                     } else {
                         data.internalType = internalType;
                     }
@@ -232,7 +243,7 @@ Ext.define('XMLifeOperating.controller.Message', {
                     win.close();
                 },
                 failure: function(form, action) {
-                    console.log('failure:', action.response.responseText);
+                    window.console && console.log('failure:', action.response.responseText);
                     self.getMessageStore().reload();
                     win.close();
                 }
@@ -241,5 +252,4 @@ Ext.define('XMLifeOperating.controller.Message', {
             Ext.Msg.alert('提示信息', '表单验证失败，请确认无误后再提交！');
         }
     }
-
 });

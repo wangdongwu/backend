@@ -2,6 +2,7 @@ Ext.define('XMLifeOperating.view.msgManage.ViewReceipt', {
     extend: 'Ext.window.Window',
     xtype: 'viewReceipt',
     title: '查看回执',
+    closeAction: 'hide',
     modal: true,
     width: 320,
     resizable: false,
@@ -10,7 +11,6 @@ Ext.define('XMLifeOperating.view.msgManage.ViewReceipt', {
     initComponent: function() {
         this.items = [{
             xtype: 'form',
-            frame: true,
             bodyBorder: false,
             layout: 'anchor',
             bodyPadding: '10 15',

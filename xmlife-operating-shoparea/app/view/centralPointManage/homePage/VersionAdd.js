@@ -1,11 +1,8 @@
 Ext.define('XMLifeOperating.view.centralPointManage.homePage.VersionAdd', {
     extend: 'Ext.window.Window',
     xtype: 'versionAdd',
-    requires: [
-        'Ext.form.Panel',
-        'Ext.form.field.Text'
-    ],
     title: '新建版本',
+    closeAction: 'hide',
     width: 300,
     buttonAlign: 'center',
     autoScroll: false,

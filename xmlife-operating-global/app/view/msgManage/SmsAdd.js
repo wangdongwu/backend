@@ -2,6 +2,7 @@ Ext.define('XMLifeOperating.view.msgManage.SmsAdd', {
     extend: 'Ext.window.Window',
     xtype: 'smsAdd',
     title: '新增/修改短信',
+    closeAction: 'hide',
     modal: true,
     width: 450,
     resizable: false,
@@ -46,7 +47,7 @@ Ext.define('XMLifeOperating.view.msgManage.SmsAdd', {
                 xtype: 'filefield',
                 name: 'file',
                 emptyText: '请选择文件...',
-                buttonText: '上传/修改',
+                buttonText: '上传/修改'
                 //allowBlank: false
             }],
             buttons: [{
@@ -62,5 +63,4 @@ Ext.define('XMLifeOperating.view.msgManage.SmsAdd', {
 
         this.callParent(arguments);
     }
-
 });

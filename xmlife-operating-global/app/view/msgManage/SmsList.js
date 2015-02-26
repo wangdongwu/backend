@@ -41,8 +41,7 @@ Ext.define('XMLifeOperating.view.msgManage.SmsList', {
         dataIndex: 'content',
         sortable: false,
         width: 200,
-        align: 'left',
-
+        align: 'left'
     }, {
         text: '发布时间',
         dataIndex: 'startTime',
@@ -73,8 +72,7 @@ Ext.define('XMLifeOperating.view.msgManage.SmsList', {
         width: 100,
         align: 'center',
         renderer: function(value) {
-            return value == 0 ? '<img src="resources/images/edit.png" class="x-action-col-icon" />' : '';
+            return value === 0 ? '<img src="resources/images/edit.png" class="x-action-col-icon" />' : '';
         }
     }]
-
 });

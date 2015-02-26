@@ -1,19 +1,9 @@
-/**
- * @class SimpleTasks.view.tasks.EditWindow
- * @extends Ext.window.Window
- */
 Ext.define('XMLifeOperating.view.templateManage.shopBannerTemplate.ShopBannerTemplateEdit', {
     extend: 'Ext.window.Window',
     xtype: 'shopBannerTemplateEdit',
-    requires: [
-        'Ext.form.Panel',
-        'Ext.form.field.Text',
-        'Ext.form.field.Hidden',
-    ],
     closeAction: 'hide',
     modal: true,
-    width: 500,
-    height: 450,
+    width: 450,
     resizable: false,
     layout: 'fit',
 
@@ -32,7 +22,7 @@ Ext.define('XMLifeOperating.view.templateManage.shopBannerTemplate.ShopBannerTem
             }, {
                 "value": 4,
                 "type": '库存型优选店铺'
-            }],
+            }]
         });
         this.items = [{
             xtype: 'form',
@@ -54,7 +44,6 @@ Ext.define('XMLifeOperating.view.templateManage.shopBannerTemplate.ShopBannerTem
                 labelWidth: 90,
                 store: typeStore,
                 name: 'type',
-                allowBlank: false,
                 xtype: 'combo',
                 editable: false,
                 queryMode: 'local',
@@ -117,11 +106,11 @@ Ext.define('XMLifeOperating.view.templateManage.shopBannerTemplate.ShopBannerTem
             }, {
                 text: '关闭',
                 handler: function() {
-                    //关闭窗口
-                    Ext.ComponentQuery.query('shopBannerTemplateEdit')[0].close();
+                    this.up('window').close();
                 }
             }]
-        }]
+        }];
+
         this.callParent(arguments);
     }
 });

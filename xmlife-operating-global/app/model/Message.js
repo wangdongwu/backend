@@ -2,7 +2,7 @@ Ext.define('XMLifeOperating.model.Message', {
     extend: 'Ext.data.Model',
     fields: [
     	'id', 'content',
-    	{name: 'startTime', type: 'date', convert: function(v,r) {
+    	{name: 'startTime', type: 'date', convert: function(v) {
     			return Ext.Date.format(new Date(v),'Y-m-d H:i:s');
     		}
     	},

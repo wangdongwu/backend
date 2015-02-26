@@ -2,6 +2,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.homePage.VersionEnable', {
     extend: 'Ext.window.Window',
     xtype: 'versionEnable',
     title: '版本启用',
+    closeAction: 'hide',
     width: 300,
     autoScroll: false,
 

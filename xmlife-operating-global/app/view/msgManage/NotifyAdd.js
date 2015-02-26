@@ -2,6 +2,7 @@ Ext.define('XMLifeOperating.view.msgManage.NotifyAdd', {
     extend: 'Ext.window.Window',
     xtype: 'notifyAdd',
     title: '新增/修改系统消息',
+    closeAction: 'hide',
     modal: true,
     width: 450,
     resizable: false,
