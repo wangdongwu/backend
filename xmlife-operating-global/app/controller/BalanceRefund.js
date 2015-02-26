@@ -24,7 +24,7 @@ Ext.define('XMLifeOperating.controller.BalanceRefund', {
                 afterrender: function(thisObj) {
                     sm = thisObj.getSelectionModel();
                     self.sm = sm;
-                    sm.on('selectionchange', self.selectChange, self)
+                    sm.on('selectionchange', self.selectChange, self);
                 }
             },
             'balanceRefundList button[name=today]': {
@@ -105,14 +105,24 @@ Ext.define('XMLifeOperating.controller.BalanceRefund', {
                     var idObj = self.getBalanceRefundIdList({
                         type: 'disagree'
                     });
-                    idObj && sendPutRequest('refund/refuse', {
-                        ids: idObj.idList
-                    }, '', '', '', function(response) {
-                        if (response.responseText == 1) {
-                            Ext.Msg.alert('提示', '成功拒绝' + self.sm.getCount() + '条退款记录');
-                        }
-                        self.rendenBalanceRefundList(self.getBalanceRefundList());
-                    }, function() {})
+                    if(idObj){
+                        Ext.MessageBox.confirm(
+                            '拒绝退款',
+                            Ext.String.format("共选中'{0}'笔退款总金额'{1}'元", self.sm.getCount(),idObj.amountTotal),
+                            function(result) {
+                                if (result == 'yes') {
+                                   sendPutRequest('refund/refuse', {
+                                        ids: idObj.idList
+                                    }, '', '', '', function(response) {
+                                        if (response.responseText == 1) {
+                                            Ext.Msg.alert('提示', '成功拒绝' + self.sm.getCount() + '条退款记录');
+                                        }
+                                        self.rendenBalanceRefundList(self.getBalanceRefundList());
+                                    }, function() {});
+                                }
+                            }
+                        );
+                    }
                 }
             },
             'balanceRefundList button[name=agreeRefund]': {
@@ -120,29 +130,25 @@ Ext.define('XMLifeOperating.controller.BalanceRefund', {
                     var idObj = self.getBalanceRefundIdList({
                         type: 'agree'
                     });
-                    if (idObj && idObj.refundType == 'tenpay') {
-                        self.getTenpayLogin().show();
-                        return false;
-                    }
-
-                    idObj && sendPutRequest('refund/' + idObj.refundType, {
-                        ids: idObj.idList
-                    }, '', '', '', function(response) {
-                        if (response.responseText == 1) {
-                            Ext.Msg.alert('提示', '成功同意' + self.sm.getCount() + '条退款记录');
-                            self.rendenBalanceRefundList(self.getBalanceRefundList());
-                        }
-                        /*if(idObj.refundType == 'alipay'){
-                            var w = window.open();
-                            w.document.open();
-                            w.document.write(response.responseText);
-                            var confirmMsg = Ext.Msg.confirm('提示', '你已经完成退款了吗',function(value){
-                                if(value == 'yes'){
-                                    self.getAlipayRefundStore().reload()
+                    if(idObj){
+                        Ext.MessageBox.confirm(
+                            '同意退款',
+                            Ext.String.format("共选中'{0}'笔退款总金额'{1}'元", self.sm.getCount(),idObj.amountTotal),
+                            function(result) {
+                                if (result == 'yes') {
+                                    sendPutRequest('refund/' + idObj.refundType, {
+                                        ids: idObj.idList
+                                    }, '', '', '', function(response) {
+                                        if (response.responseText == 1) {
+                                            Ext.Msg.alert('提示', '成功同意' + self.sm.getCount() + '条退款记录');
+                                            self.rendenBalanceRefundList(self.getBalanceRefundList());
+                                        }
+                                    }, function() {});
+                                   
                                 }
-                            });  
-                        }*/
-                    }, function() {});
+                            }
+                        );
+                    }
                 }
             },
 
@@ -158,8 +164,8 @@ Ext.define('XMLifeOperating.controller.BalanceRefund', {
             endTime = grid.down('[name=endTime]').rawValue,
             //refundType = grid.down('#refundTypeCombo').getValue(),
             refundType = 'BALANCE',
-            status = grid.down('#gStatusCombo').getValue();
-        store = grid.store;
+            status = grid.down('#gStatusCombo').getValue(),
+            store = grid.store;
         store.getProxy().extraParams = {
             beginTime: beginTime,
             endTime: endTime,
@@ -217,25 +223,36 @@ Ext.define('XMLifeOperating.controller.BalanceRefund', {
             idObj = {},
             idList = [],
             isSameType = true,
-            oldRefundType = '';
+            oldRefundType = '',
+            amountTotal = 0;
+
+        if(this.sm.getCount() === 0){
+            Ext.Msg.alert('提示', '很抱歉，没有退款记录，请选择！');
+            return;
+        } 
+
         Ext.Array.each(list, function(v, k) {
-            if (k == 0) {
-                oldRefundType = v.data.refundType
-            };
+            if (k === 0) {
+                oldRefundType = v.data.refundType;
+            }
             if (v.data.refundType != oldRefundType) {
-                isSameType = false
-            };
+                isSameType = false;
+            }
             idList.push(v.data.id);
+            amountTotal += v.data.amount;
         });
+
         idObj.refundType = oldRefundType.toLowerCase();
         idObj.idList = idList;
+        idObj.amountTotal = amountTotal/100;
+
         if (!isSameType) {
             Ext.Msg.alert('提示', '批量退款时<br/>请选择相同类型的退款方式');
         }
-        if (typeObj.type = 'agree') {
+        if (typeObj.type == 'agree') {
             return isSameType ? idObj : isSameType;
-        } else if (typeObj.type = 'disagree') {
-            return idObj
+        } else if (typeObj.type == 'disagree') {
+            return idObj;
         } else {
             return idObj;
         }
