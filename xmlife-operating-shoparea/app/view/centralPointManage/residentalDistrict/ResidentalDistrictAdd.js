@@ -45,7 +45,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.residentalDistrict.Residenta
                     labelWidth: 60,
                     allowBlank: false,
                     regex: /^-?((\d|[1-9]\d|1[0-7]\d)(\.)([0-9]{0,8})|(\d|[1-9]\d|1[0-7]\d))$/,
-                    regexText: '请输入正确的经度大于-180小于等于180'
+                    regexText: '请输入正确的纬度大于-180小于等于180'
                 }, {
                     xtype: 'textfield',
                     name: 'address',
@@ -65,7 +65,6 @@ Ext.define('XMLifeOperating.view.centralPointManage.residentalDistrict.Residenta
                     displayField: 'type',
                     valueField: 'value',
                     emptyText:'请选择小区类型',
-                    allowBlank:false,
                     store : Ext.create('Ext.data.Store', {
                         fields: ['value','type'],
                         data : [
@@ -74,7 +73,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.residentalDistrict.Residenta
                             {"value": 2, "type": '酒店'},
                             {"value": 3, "type": '医院'}
                         ],
-                    })                
+                    })              
                 },
             ],
             buttons: [{
@@ -84,12 +83,10 @@ Ext.define('XMLifeOperating.view.centralPointManage.residentalDistrict.Residenta
                 text: '取消',
                 handler: function() {
                     //关闭窗口
-                    Ext.ComponentQuery.query('residentaldistrictadd')[0].close();
+                    this.up('window').close();
                 }
             }]
         }];
-
         this.callParent(arguments);
     }
-
 });
