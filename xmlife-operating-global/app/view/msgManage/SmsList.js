@@ -54,6 +54,11 @@ Ext.define('XMLifeOperating.view.msgManage.SmsList', {
         sortable: false,
         align: 'center'
     }, {
+        text: '发送用户数',
+        dataIndex: 'userNums',
+        sortable: false,
+        align: 'center'
+    }, {
         text: '消息url',
         dataIndex: 'url',
         width: 200,

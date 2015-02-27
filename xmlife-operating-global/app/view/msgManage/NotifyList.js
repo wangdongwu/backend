@@ -43,7 +43,6 @@ Ext.define('XMLifeOperating.view.msgManage.NotifyList', {
         sortable: false,
         width: 200,
         align: 'left'
-
     }, {
         text: '发布时间',
         dataIndex: 'startTime',
@@ -53,6 +52,11 @@ Ext.define('XMLifeOperating.view.msgManage.NotifyList', {
     }, {
         text: '发布者',
         dataIndex: 'adminName',
+        sortable: false,
+        align: 'center'
+    }, {
+        text: '发送用户数',
+        dataIndex: 'userNums',
         sortable: false,
         align: 'center'
     }, {
