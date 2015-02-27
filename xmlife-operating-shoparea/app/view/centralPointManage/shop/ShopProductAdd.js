@@ -9,12 +9,12 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopProductAdd', {
         'Ext.form.Panel',
         'Ext.form.field.Text',
         'Ext.form.field.Hidden',
-        'Ext.selection.CheckboxModel',
+        'Ext.selection.CheckboxModel'
     ],
     closeAction: 'hide',
     modal: true,
-    width: 500,
-    height: 650,
+    width: 400,
+    height: 450,
     resizable: false,
     layout: 'fit',
     bodyStyle: 'text-align:center;border-style: none;',
@@ -38,32 +38,60 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopProductAdd', {
             bodyBorder: false,
             items: [{
                     xtype: 'fieldset',
-                    labelWidth: 90,
                     border: false,
                     padding: 0,
-                    items: [
+                    items: [{
+                        xtype: 'fieldset',
+                        layout: 'column',
+                        style: 'margin-bottom:0',
+                        border: false,
+                        items: [{
+                            xtype: 'radio',
+                            itemId: 'searchtype',
+                            name: 'searchtype',
+                            boxLabel: '商品SKU',
+                            listeners: {
+                                change: function(radio, newValue) {
+                                    var me = this;
+                                    var keyword;
+                                    if (newValue) {
+                                        keyword = me.up('fieldset').down('#keywordProductTemplate');
+                                        keyword.emptyText = '商品SKU';
+                                        keyword.reset();
+                                    }
+                                    return;
+                                }
+                            }
+                        }, {
+                            xtype: 'radio',
+                            name: 'searchtype',
+                            checked: true,
+                            boxLabel: '商品名称',
+                            margin:'0 8 0 8',
+                            listeners: {
+                                change: function(radio, newValue) {
+                                    var me = this;
+                                    var keyword;
+                                    if (newValue) {
+                                        keyword = me.up('fieldset').down('#keywordProductTemplate');
+                                        keyword.emptyText = '商品名称';
+                                        keyword.reset();
+                                    }
+                                    return;
+                                }
+                            }
+                        }, {
+                            xtype: 'textfield',
+                            emptyText: '商品名称',
+                            name: 'keywordProductTemplate',
+                            itemId: 'keywordProductTemplate'
+                        }, {
+                            xtype: 'button',
+                            text: '搜索',
+                            itemId: 'reseachProductTemplate'
 
-                        {
-                            layout: 'column',
-                            xtype: 'fieldset',
-                            border: false,
-                            padding: 0,
-                            items: [{
-                                xtype: 'textfield',
-                                fieldLabel: '商品模板',
-                                labelWidth: 90,
-                                labelAlign: 'left',
-                                name: 'keywordProductTemplate',
-                                itemId: 'keywordProductTemplate',
-                            }, {
-                                xtype: 'button',
-                                text: '搜索',
-                                itemId: 'reseachProductTemplate'
-
-                            }]
-
-                        }
-                    ]
+                        }]
+                    }]
                 }, {
                     name: 'productTemplateId',
                     store: 'ProductTemplate',

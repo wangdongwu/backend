@@ -22,7 +22,7 @@ Ext.define('XMLifeOperating.view.templateManage.productTemplate.ProductTemplateL
         items: [],
         plugins: [{
             ptype: 'tabscrollermenu'
-        }],
+        }]
     }, {
         xtype: 'treepanel',
         region: 'west',
@@ -68,7 +68,7 @@ Ext.define('XMLifeOperating.view.templateManage.productTemplate.ProductTemplateL
                 text: '商品名称',
                 dataIndex: 'name',
                 width: 200,
-                sortable: false,
+                sortable: false
             }, {
                 text: '图片',
                 dataIndex: 'picture',
@@ -81,19 +81,19 @@ Ext.define('XMLifeOperating.view.templateManage.productTemplate.ProductTemplateL
                 text: 'rank',
                 dataIndex: 'rank',
                 width: 65,
-                sortable: true,
+                sortable: true
             }, {
                 text: 'rank2',
                 dataIndex: 'rank2',
                 width: 65,
-                sortable: true,
+                sortable: true
             }, {
                 text: '价格区间',
                 dataIndex: 'minPrice',
                 width: 100,
                 sortable: true,
-                renderer:function(value,cell,record,rowIndex,colIndex,store){
-                    return value/100+'-'+record.get('maxPrice')/100;
+                renderer: function(value, cell, record) {
+                    return value / 100 + '-' + record.get('maxPrice') / 100;
                 }
             }, {
                 xtype: 'actioncolumn',
@@ -148,10 +148,45 @@ Ext.define('XMLifeOperating.view.templateManage.productTemplate.ProductTemplateL
                 text: '添加商品模板',
                 itemId: 'add'
             }, '-', {
+                xtype: 'radio',
+                itemId: 'searchtype',
+                name: 'searchtype',
+                boxLabel: '商品SKU',
+                listeners: {
+                    change: function(radio, newValue) {
+                        var me = this;
+                        var keyword;
+                        if (newValue) {
+                            keyword = me.up('toolbar').down('#keyword');
+                            keyword.emptyText = '商品SKU';
+                            keyword.reset();
+                        }
+                        return;
+                    }
+                }
+            }, {
+                xtype: 'radio',
+                name: 'searchtype',
+                checked: true,
+                boxLabel: '商品名称',
+                margin: '0 8 0 8',
+                listeners: {
+                    change: function(radio, newValue) {
+                        var me = this;
+                        var keyword;
+                        if (newValue) {
+                            keyword = me.up('toolbar').down('#keyword');
+                            keyword.emptyText = '商品名称';
+                            keyword.reset();
+                        }
+                        return;
+                    }
+                }
+            }, {
                 xtype: 'textfield',
                 emptyText: '商品名称',
                 name: 'keyword',
-                itemId: 'keyword',
+                itemId: 'keyword'
             }, {
                 xtype: 'button',
                 itemId: 'productSearch',

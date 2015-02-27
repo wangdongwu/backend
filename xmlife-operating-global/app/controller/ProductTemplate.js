@@ -46,7 +46,7 @@ Ext.define('XMLifeOperating.controller.ProductTemplate', {
         autoCreate: true
     }, {
         ref: 'keyword',
-        selector: '#keyword',
+        selector: '#keyword'
     }, {
         ref: 'dataview',
         selector: '#dataview'
@@ -61,12 +61,12 @@ Ext.define('XMLifeOperating.controller.ProductTemplate', {
                     var me = this;
                     var rootStore = me.getProductTemplateRootsStore();
                     var tabpanel = me.getProductTemplateList().down('tabpanel');
-                    var callback = function(records, response, isSuccessed) {
+                    var callback = function(records) {
                         var len = records ? records.length : 0;
                         var tabs = tabpanel.items;
 
                         if (!len) {
-                            return
+                            return;
                         }
 
                         for (var i = 0; i < len; i++) {
@@ -78,14 +78,14 @@ Ext.define('XMLifeOperating.controller.ProductTemplate', {
                                     id: id,
                                     closable: true,
                                     listeners: {
-                                        beforeclose: function(tab, e) {
+                                        beforeclose: function(tab) {
                                             var categoryId = tab.id;
                                             var success = function() {
                                                 var tabpanel = tab.getRefOwner();
                                                 if (tabpanel) {
-                                                    tabpanel.fireEvent('removeTab', tabpanel, tab)
+                                                    tabpanel.fireEvent('removeTab', tabpanel, tab);
                                                 }
-                                            }
+                                            };
                                             var failure = function() {
                                                 Ext.MessageBox.show({
                                                     title: '提示',
@@ -93,7 +93,7 @@ Ext.define('XMLifeOperating.controller.ProductTemplate', {
                                                     icon: Ext.Msg.ERROR,
                                                     buttons: Ext.Msg.OK
                                                 });
-                                            }
+                                            };
                                             sendDeleteRequest('producttemplate/deleteCategory', {
                                                 categoryId: categoryId
                                             }, '删除分类', '删除分类成功', '删除分类失败', success, failure);
@@ -114,12 +114,11 @@ Ext.define('XMLifeOperating.controller.ProductTemplate', {
                 }
             },
             'productTemplateList #productTemplateTabs': {
-                tabchange: function(tabpanel, newCard, oldCard, e) {
+                tabchange: function(tabpanel, newCard) {
                     var me = this;
                     var rootId = newCard.id;
                     var tree = me.getProductTemplateList().down('#productTemplateTree');
                     var categoryStore = me.getProductTemplateSubsStore();
-
 
                     categoryStore.load({
                         params: {
@@ -168,7 +167,7 @@ Ext.define('XMLifeOperating.controller.ProductTemplate', {
             },
             'productTemplateList #productTemplateTree': {
                 //view tree视图，record 节点数据， item节点dom ，index 节点顺序 ，e 事件响应， opts view事件
-                itemclick: function(view, record, item, index, e, opts) {
+                itemclick: function(view, record) {
                     var me = this;
                     var leaf = record.get('leaf'),
                         grid = me.getProductTemplateList().down('#productTemplateGrid'),
@@ -186,14 +185,14 @@ Ext.define('XMLifeOperating.controller.ProductTemplate', {
                         }
                         store.getProxy().extraParams = {
                             categoryId: categoryId
-                        }
+                        };
                         store.loadPage(1, {
                             page: 1,
                             limit: 25,
                             start: 0
-                        })
+                        });
                     } else {
-                        return false
+                        return false;
                     }
                 }
             },
@@ -203,23 +202,26 @@ Ext.define('XMLifeOperating.controller.ProductTemplate', {
                     var store = me.getProductTemplatePageSearchStore(),
                         grid = me.getProductTemplateList().down('#productTemplateGrid'),
                         picView = me.getProductTemplateList().down('#productTemplatePicView'),
-                        pageTool = me.getProductTemplateList().down('#pagetoll');
-
+                        pageTool = me.getProductTemplateList().down('#pagetoll'),
+                        typeradio = me.getProductTemplateList().down('#searchtype'),
+                        keyType = 1;
+                    if (typeradio.checked) {
+                        keyType = 2;
+                    }
                     if (grid.getStore().storeId != store.storeId) {
                         grid.bindStore(store);
                         picView.bindStore(store);
                         pageTool.bindStore(store);
                     }
-
                     store.getProxy().extraParams = {
-                        keyword: me.getKeyword().getValue()
-                    }
+                        keyword: me.getKeyword().getValue(),
+                        keyType: keyType
+                    };
                     store.loadPage(1, {
                         page: 1,
                         limit: 25,
                         start: 0
                     });
-
                 }
             },
             'productTemplateList #editProductTemplate': {
@@ -241,26 +243,26 @@ Ext.define('XMLifeOperating.controller.ProductTemplate', {
                     //快速编辑rank
                     view.mon(view.getEl(), {
                         delegate: 'input',
-                        mouseover: function(e, t) {
+                        mouseover: function(e) {
                             Ext.fly(e.target).setStyle('border', '1px solid #eee');
                         }
                     });
                     view.mon(view.getEl(), {
                         delegate: 'input',
-                        mouseout: function(e, t) {
+                        mouseout: function(e) {
                             Ext.fly(e.target).setStyle('border', '1px solid #fff');
                         }
                     });
                     view.mon(view.getEl(), {
                         delegate: 'input',
-                        change: function(e, t) {
+                        change: function(e) {
                             me.saveRank(view, e, Ext.fly(e.target).getValue());
                         }
                     });
                     //修改
                     view.mon(view.getEl(), {
                         delegate: 'img.x-action-col-icon',
-                        click: function(e, t) {
+                        click: function(e) {
                             me.onEdit(view, undefined, undefined, undefined, e);
                         }
                     });
@@ -366,7 +368,7 @@ Ext.define('XMLifeOperating.controller.ProductTemplate', {
             names.push(productTemplate.get('name3'));
             productTemplate.set('names', names);
 
-            if (productTemplate.get('id') != '' && productTemplate.get('id') != null) {
+            if (productTemplate.get('id') !== '' && productTemplate.get('id') != null) {
 
                 var id = productTemplate.get('id');
                 //var name = productTemplate.get('name');
@@ -536,5 +538,5 @@ Ext.define('XMLifeOperating.controller.ProductTemplate', {
         } else {
             Ext.Msg.alert('Invalid Data', 'Please correct form errors');
         }
-    },
+    }
 });

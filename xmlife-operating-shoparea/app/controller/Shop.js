@@ -170,10 +170,10 @@ Ext.define('XMLifeOperating.controller.Shop', {
         autoCreate: true
     }, {
         ref: 'keywordProductTemplate',
-        selector: '#keywordProductTemplate',
+        selector: '#keywordProductTemplate'
     }, {
         ref: 'keywordBuyer',
-        selector: '#keywordBuyer',
+        selector: '#keywordBuyer'
     }, {
         ref: 'shopProductSearch',
         selector: 'shopProductSearch',
@@ -196,7 +196,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
         shopStore.on('load', function() {
             this.clearFilter(true);
             return;
-        })
+        });
         this.control({
             /*
              *shoplist事件
@@ -207,7 +207,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
                     dstore.getProxy().extraParams = {
                         city: XMLifeOperating.generic.Global.currentCity,
                         areaId: combo.getValue()
-                    }
+                    };
                     dstore.loadPage(1, {
                         params: {
                             start: 0,
@@ -242,7 +242,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
                         for (var i = 0, length = banners.length; i < length; i++) {
                             shopStoreBannerStore.add(banners[i]);
                         }
-                    };
+                    }
                     content.add(tab);
                     this.shopId = shopStoreId;
                 }
@@ -957,7 +957,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
                     var shop = shopStore.getById(shopId);
                     var keyWords = me.getShopShelfTab().down('#keyword').getValue();
                     if (me.tabIsExist('searchProduct')) {
-                        return
+                        return;
                     } else {
                         toolbar.add({
                             title: '搜索商品',
@@ -1024,7 +1024,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
                     var id = record.get('id');
                     var url = null;
                     var shopId = this.shopId;
-                    if (status == 0) { //隐藏，准备显示
+                    if (status === 0) { //隐藏，准备显示
                         url = 'category/online';
                     } else if (status == 1) { //显示，准备隐藏
                         url = 'category/offline';
@@ -1033,7 +1033,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
                         var success = function(response) {
 
                             var json = eval('(' + response.responseText + ')');
-                            if (json.success == false) {
+                            if (json.success === false) {
                                 var items = json.items,
                                     len = items.length;
                                 var nameStr = [];
@@ -1041,7 +1041,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
                                     var item = items[i];
                                     nameStr.push(item.name.join('') + '(' + item.skuId + ');');
                                 }
-                                nameStr.push('还存在于其它分类，无法设置状态')
+                                nameStr.push('还存在于其它分类，无法设置状态');
                                 Ext.MessageBox.show({
                                     title: '提示',
                                     msg: nameStr.join('<br/>'),
@@ -1050,7 +1050,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
                                 });
                             }
                             me.showCategoryRootsList(shopId);
-                        }
+                        };
                         var failure = function(response) {
                             Ext.MessageBox.show({
                                 title: '提示',
@@ -1058,7 +1058,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
                                 icon: Ext.Msg.ERROR,
                                 buttons: Ext.Msg.OK
                             });
-                        }
+                        };
                         sendPutRequest(url, {
                             id: id
                         }, '货架显示隐藏', '货架显示隐藏操作成功', '货架显示隐藏操作失败', success, failure);
@@ -1099,7 +1099,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
                         parentIdStr = '',
                         inputs = null,
                         shelfId = null;
-                    if (tabIdstrArray[0] == 'tab3' && tabIdstrArray[1] != undefined) {
+                    if (tabIdstrArray[0] == 'tab3' && tabIdstrArray[1] !== undefined) {
                         parentId = tabIdstrArray[1];
                     }
                     if (form.isValid()) {
@@ -1107,7 +1107,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
                         shopId = this.shopId;
                         shelfId = shelves.get('id');
                         // 修改分类
-                        if (shelfId != null && shelfId != '') {
+                        if (shelfId != null && shelfId !== '') {
                             sendPutRequest('category/update', {
                                 id: shelfId,
                                 name: inputs.name,
@@ -1116,7 +1116,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
                                 leaf: inputs.leaf
                             }, '编辑分类', '成功编辑分类', '编辑分类失败', function() {
                                 editWindow.close();
-                                if (parentId == '') {
+                                if (parentId === '') {
                                     me.showCategoryRootsList(shopId);
                                 } else {
                                     me.showCategorySubsList(shopId, parentId);
@@ -1135,12 +1135,12 @@ Ext.define('XMLifeOperating.controller.Shop', {
                                 xImage: xImage,
                                 vImage: vImage
                             };
-                            if (parentId != '') {
+                            if (parentId !== '') {
                                 jsonStr["parentId"] = parentId;
                             }
                             sendRequest('category', jsonStr, '创建分类', '成功创建分类', '创建分类失败', function() {
                                 editWindow.close();
-                                if (parentId == '') {
+                                if (parentId === '') {
                                     me.showCategoryRootsList(shopId);
                                 } else {
                                     me.showCategorySubsList(shopId, parentId);
@@ -1167,7 +1167,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
                     };
                     var success = function(task, operation) {
                         me.showCategorySubsList(me.shopId, tabId);
-                    }
+                    };
                     var failure = function(task, operation) {
                         var error = operation.getError(),
                             msg = Ext.isObject(error) ? error.status + ' ' + error.statusText : error;
@@ -1177,10 +1177,10 @@ Ext.define('XMLifeOperating.controller.Shop', {
                             icon: Ext.Msg.ERROR,
                             buttons: Ext.Msg.OK
                         });
-                    }
+                    };
                     data.parentId = tabId;
                     store.each(function(e) {
-                        data.ids.push(e.data.id)
+                        data.ids.push(e.data.id);
                     });
                     sendPutRequest('category/reorder', data, '一级货架排序', '排序成功', '排序失败', success, failure);
                 }
@@ -1207,7 +1207,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
                     var url = null;
                     var shopId = this.shopId;
                     var parentId = this.tabIdStr.split('_')[1];
-                    if (status == 0) { //隐藏，准备显示
+                    if (status === 0) { //隐藏，准备显示
                         url = 'category/online';
                     } else if (status == 1) { //显示，准备隐藏
                         url = 'category/offline';
@@ -1223,7 +1223,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
                                     var item = items[i];
                                     nameStr.push(item.name.join('') + '(' + item.skuId + ');');
                                 }
-                                nameStr.push('还存在于其它分类，无法设置状态')
+                                nameStr.push('还存在于其它分类，无法设置状态');
                                 Ext.MessageBox.show({
                                     title: '提示',
                                     msg: nameStr.join('<br/>'),
@@ -1232,7 +1232,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
                                 });
                             }
                             me.showCategorySubsList(shopId, parentId);
-                        }
+                        };
                         var failure = function(response) {
                             Ext.MessageBox.show({
                                 title: '提示',
@@ -1241,7 +1241,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
                                 icon: Ext.Msg.ERROR,
                                 buttons: Ext.Msg.OK
                             });
-                        }
+                        };
                         sendPutRequest(url, {
                             id: id
                         }, '货架显示隐藏', '货架显示隐藏操作成功', '货架显示隐藏操作失败', success, failure);
@@ -1282,9 +1282,9 @@ Ext.define('XMLifeOperating.controller.Shop', {
                                 } else {
                                     Ext.Msg.alert('失败', '删除失败');
                                 }
-                            })
+                            });
                         }
-                    })
+                    });
                 }
             },
             // shopsecondshelf add &edit 事件
@@ -1299,14 +1299,14 @@ Ext.define('XMLifeOperating.controller.Shop', {
                     var tabIdstrArray = this.tabIdStr.split('_');
                     var parentId = '',
                         parentIdStr = '';
-                    if (tabIdstrArray[0] == 'tab3' && tabIdstrArray[1] != undefined) {
+                    if (tabIdstrArray[0] == 'tab3' && tabIdstrArray[1] !== undefined) {
                         parentId = tabIdstrArray[1];
                     }
                     if (form.isValid()) {
                         form.updateRecord(shelves);
                         shopId = this.shopId;
                         // 修改分类
-                        if (shelves.get('id') != null && shelves.get('id') != '') {
+                        if (shelves.get('id') != null && shelves.get('id') !== '') {
                             sendPutRequest('category/update', {
                                 id: shelves.get('id'),
                                 name: shelves.get('name'),
@@ -1325,7 +1325,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
                                 name: shelvesName,
                                 leaf: shelvesLeaf
                             };
-                            if (parentId != '') {
+                            if (parentId !== '') {
                                 jsonStr["parentId"] = parentId;
                             }
                             sendRequest('category', jsonStr, '创建分类', '成功创建分类', '创建分类失败', function() {
@@ -1490,7 +1490,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
                     }
                     categorySelectionStore.getProxy().extraParams = {
                         shopId: me.shopId
-                    }
+                    };
                     categorySelectionStore.load();
                     me.openWin(win, model);
                 }
@@ -1510,7 +1510,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
                     if (form.isValid()) {
                         for (var pro in userInfo) {
                             if (pro == 'frozen') {
-                                continue
+                                continue;
                             }
                             if (!me.isDisabledCmp(editWindow.down('form'), pro)) {
                                 count += 1;
@@ -1525,7 +1525,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
                         }, 500);
                         for (var pro in userInfo) {
                             if (pro == 'frozen') {
-                                return
+                                return;
                             }
                             if (!me.isDisabledCmp(editWindow.down('form'), pro)) {
                                 flags.push(0);
@@ -1555,7 +1555,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
                     }
                     var success = function(response) {
                         me.showProductSearchList(me.shopId);
-                    }
+                    };
                     var failure = function() {
                         Ext.MessageBox.show({
                             title: '提示',
@@ -1563,7 +1563,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
                             icon: Ext.Msg.ERROR,
                             buttons: Ext.Msg.OK
                         });
-                    }
+                    };
                     sendPutRequest(requestStr, {
                         productId: productId
                     }, '修改置顶', '修改置顶成功', '修改置顶失败', success, failure);
@@ -1577,7 +1577,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
                     var me = this;
                     var store = me.getShopManager().down('#searchManagerIds').getStore();
                     var keyWords = button.previousSibling().getValue();
-                    if (keyWords == '') {
+                    if (keyWords === '') {
                         Ext.Msg.alert('提示', '请输入搜索关键字！');
                     } else {
                         store.load({
@@ -1606,7 +1606,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
                     var oldSelectModel = editWindow.down('#bindShopWithManager').getSelectionModel();
                     var oldSelectRecords = oldSelectModel.getSelection();
                     oldSelectRecords.forEach(function(item) {
-                        if (item.get("uid") != '') {
+                        if (item.get("uid") !== '') {
                             managerIds.push(item.get("uid"));
                         }
                     });
@@ -1630,7 +1630,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
                     store.getProxy().extraParams = {
                         nameOrPhone: me.getKeywordBuyer().getValue(),
                         isActive: true
-                    }
+                    };
                     store.load();
                 }
             },
@@ -1652,7 +1652,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
                     var oldSelectModel = Ext.ComponentQuery.query('#bindShopWithShopper')[0].getSelectionModel();
                     var oldSelectRecords = oldSelectModel.getSelection();
                     oldSelectRecords.forEach(function(item) {
-                        if (item.get("uid") != '') {
+                        if (item.get("uid") !== '') {
                             shopperIds.push(item.get("uid"));
                         }
                     });
@@ -1698,7 +1698,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
                     var requestStr = null;
                     var categoryId = null;
                     var tabIdstrArray = this.tabIdStr.split('_');
-                    if (tabIdstrArray[0] == 'tab4' && tabIdstrArray[1] != undefined) {
+                    if (tabIdstrArray[0] == 'tab4' && tabIdstrArray[1] !== undefined) {
                         categoryId = tabIdstrArray[1];
                     }
                     if (status) {
@@ -1708,7 +1708,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
                     }
                     var success = function(response) {
                         me.showProductList(categoryId);
-                    }
+                    };
                     var failure = function() {
                         Ext.MessageBox.show({
                             title: '提示',
@@ -1716,7 +1716,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
                             icon: Ext.Msg.ERROR,
                             buttons: Ext.Msg.OK
                         });
-                    }
+                    };
                     sendPutRequest(requestStr, {
                         productId: productId
                     }, '修改置顶', '修改置顶成功', '修改置顶失败', success, failure);
@@ -1797,7 +1797,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
                     }
                     categorySelectionStore.getProxy().extraParams = {
                         shopId: me.shopId
-                    }
+                    };
                     categorySelectionStore.load();
 
                     me.openWin(win, model);
@@ -1807,9 +1807,14 @@ Ext.define('XMLifeOperating.controller.Shop', {
             'shopproductadd #reseachProductTemplate': {
                 click: function() {
                     var store = me.getProductTemplateStore();
+                    var keyType = 1;
+                    if (me.getShopProductAdd().down('#searchtype').checked) {
+                        keyType = 2;
+                    }
                     store.load({
                         params: {
-                            keyword: me.getKeywordProductTemplate().getValue()
+                            keyword: me.getKeywordProductTemplate().getValue(),
+                            keyType: keyType
                         }
                     });
                 }
@@ -2106,15 +2111,22 @@ Ext.define('XMLifeOperating.controller.Shop', {
     showProductSearchList: function(shopId) {
         var me = this;
         var view = me.getShopProductSearch(),
-            keyWords = me.getShopShelf().down('#keyword').getValue(),
+            shelf = me.getShopShelf(),
+            keyWords = shelf.down('#keyword').getValue(),
+            searchtype = shelf.down('#searchtype'),
+            keyType = 1,
             store = me.getProductSearchStore();
         if (keyWords == '') {
             return;
         } else {
+            if (searchtype.checked) {
+                keyType = 2;
+            }
             store.load({
                 params: {
                     shopId: shopId,
-                    keyword: keyWords
+                    keyword: keyWords,
+                    keyType: keyType
                 }
             });
         }

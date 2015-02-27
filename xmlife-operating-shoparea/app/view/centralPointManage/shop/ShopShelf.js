@@ -15,8 +15,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopShelf', {
         itemId: 'rowIndex',
         id: 'rowIndex',
         tdCls: 'user-td',
-        width: 50,
-        align: 'center'
+        width: 50
     }, {
         text: '货架名称',
         dataIndex: 'name',
@@ -29,7 +28,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopShelf', {
         align: 'center',
         width: 110,
         tdCls: 'user-td',
-        renderer: function(value, metadata, model, rowIndex, colIndex, store) {
+        renderer: function(value) {
             return value ? '无' : '有';
         }
     }, {
@@ -39,7 +38,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopShelf', {
         sortable: true,
         align: 'center',
         tdCls: 'user-td',
-        renderer: function(value, metadata, model, rowIndex, colIndex, store) {
+        renderer: function(value) {
             return Ext.String.format('<img src="{0}{1}" height="100" />', XMLifeOperating.generic.Global.URL.res, value);
         }
     }, {
@@ -49,7 +48,7 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopShelf', {
         sortable: true,
         align: 'center',
         tdCls: 'user-td',
-        renderer: function(value, metadata, model, rowIndex, colIndex, store) {
+        renderer: function(value) {
             return Ext.String.format('<img src="{0}{1}" height="100" />', XMLifeOperating.generic.Global.URL.res, value);
         }
     }, {
@@ -62,7 +61,8 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopShelf', {
         summaryType: function(records) {
             var i = 0,
                 length = records.length,
-                total = 0;
+                total = 0,
+                record;
             for (; i < length; i++) {
                 record = records[i];
                 total += record.get('onlineProductsCount');
@@ -76,11 +76,11 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopShelf', {
         width: 70,
         sortable: true,
         align: 'center',
-        summaryType: 'sum',
         summaryType: function(records) {
             var i = 0,
                 length = records.length,
-                total = 0;
+                total = 0,
+                record;
             for (; i < length; i++) {
                 record = records[i];
                 total += record.get('soldoutProductsCount');
@@ -97,7 +97,8 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopShelf', {
         summaryType: function(records) {
             var i = 0,
                 length = records.length,
-                total = 0;
+                total = 0,
+                record;
             for (; i < length; i++) {
                 record = records[i];
                 total += record.get('unlineProductsCount');
@@ -131,11 +132,11 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopShelf', {
         text: '状态',
         dataIndex: 'status',
         itemId: 'showOrHide',
-        renderer: function(value, metadata, model, rowIndex, colIndex, store) {
+        renderer: function(value, metadata, model) {
             var record = model,
                 isLeaf = record.get('leaf');
             var returnStr = '';
-            if (value == 0) { //隐藏
+            if (value === 0) { //隐藏
                 if (isLeaf) {
                     returnStr = '<button>显示</button>';
                 } else {
@@ -191,11 +192,45 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopShelf', {
             text: '返回',
             itemId: 'returnShopStore'
         }, '->', {
+            xtype: 'radio',
+            itemId: 'searchtype',
+            name: 'searchtype',
+            boxLabel: '商品SKU',
+            listeners: {
+                change: function(radio, newValue) {
+                    var me = this;
+                    var keyword;
+                    if (newValue) {
+                        keyword = me.up('toolbar').down('#keyword');
+                        keyword.emptyText = '商品SKU';
+                        keyword.reset();
+                    }
+                    return;
+                }
+            }
+        }, {
+            xtype: 'radio',
+            name: 'searchtype',
+            checked: true,
+            boxLabel: '商品名称',
+            margin: '0 8 0 8',
+            listeners: {
+                change: function(radio, newValue) {
+                    var me = this;
+                    var keyword;
+                    if (newValue) {
+                        keyword = me.up('toolbar').down('#keyword');
+                        keyword.emptyText = '商品名称';
+                        keyword.reset();
+                    }
+                    return;
+                }
+            }
+        }, {
             xtype: 'textfield',
-            emptyText: '输入商品名称',
+            emptyText: '商品名称',
             name: 'keyword',
             itemId: 'keyword'
-
         }, {
             xtype: 'button',
             itemId: 'productSearch',
