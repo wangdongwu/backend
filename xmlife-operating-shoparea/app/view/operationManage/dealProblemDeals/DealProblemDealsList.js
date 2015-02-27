@@ -25,6 +25,40 @@ Ext.define('XMLifeOperating.view.operationManage.dealProblemDeals.DealProblemDea
             xtype: 'button',
             itemId: 'refresh',
             text: '刷新'
+        }, '查询范围', {
+            xtype: 'datefield',
+            name: 'beginTime',
+            emptyText: '开始时间',
+            minValue: (function() {
+                var date = new Date();
+                date.setMonth(date.getMonth() - 1);
+                date.setDate(1);
+                return date;
+            })(),
+            maxValue: new Date(),
+            value: (function() {
+                var date = new Date();
+                date.setDate(date.getDate() - 6);
+                return date;
+            })(),
+            format: 'Y-m-d'
+        }, '到', {
+            xtype: 'datefield',
+            name: 'endTime',
+            emptyText: '结束时间',
+            minValue: (function() {
+                var date = new Date();
+                date.setMonth(date.getMonth() - 1);
+                date.setDate(1);
+                return date;
+            })(),
+            maxValue: new Date(),
+            value: new Date(),
+            format: 'Y-m-d'
+        }, {
+            xtype: 'button',
+            itemId: 'getProblemDealListByDate',
+            text: '查询'
         },
         '->', {
             xtype: 'textfield',
@@ -39,7 +73,7 @@ Ext.define('XMLifeOperating.view.operationManage.dealProblemDeals.DealProblemDea
         }
     ],
     listeners: {
-        onShowView: function(view, viewName) {
+        onShowView: function(view) {
             if (XMLifeOperating.generic.Global.operating_type != 'center') {
                 return;
             }

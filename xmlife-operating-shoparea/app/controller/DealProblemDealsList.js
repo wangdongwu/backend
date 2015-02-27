@@ -136,6 +136,21 @@ Ext.define('XMLifeOperating.controller.DealProblemDealsList', {
             },
             'dealProblemDealsList #recheckPayment': {
                 click: me.onRecheckPayment
+            },
+            'dealProblemDealsList #getProblemDealListByDate': {
+                click: function() {
+                    var problemDealList = me.getDealProblemDealsList(),
+                        beginTime = problemDealList.down('[name=beginTime]').rawValue,
+                        endTime = problemDealList.down('[name=endTime]').rawValue,
+                        sstore = me.getDealProblemDealsStore();
+
+                    sstore.getProxy().extraParams = {
+                        areaId: me.areaId,
+                        beginTime: beginTime,
+                        endTime: endTime
+                    };
+                    sstore.loadPage(1);
+                }
             }
         });
     },
@@ -279,7 +294,7 @@ Ext.define('XMLifeOperating.controller.DealProblemDealsList', {
         var me = this,
             win = view.up('window'),
             localPage = this.getContentPanel().child().xtype;
-            
+
         Ext.MessageBox.confirm(
             '确认订单重新分配',
             Ext.String.format("确定该订单重新分配给'{0}'吗？", record.get('name')),
@@ -305,12 +320,12 @@ Ext.define('XMLifeOperating.controller.DealProblemDealsList', {
                                 icon: Ext.Msg.INFO,
                                 buttons: Ext.Msg.OK
                             });
-                            var store,areaId;
-                            if(localPage == 'dealwaitassignshopperlist'){
+                            var store, areaId;
+                            if (localPage == 'dealwaitassignshopperlist') {
                                 store = me.getController('DealWaitAssignShopperList').getDealWaitAssignShopperStore();
 
                                 areaId = me.getController('DealWaitAssignShopperList').getDealWaitAssignShopperList().down('#shopArea').getValue();
-                            }else{
+                            } else {
                                 store = me.getDealProblemDealsStore();
 
                                 areaId = me.getDealProblemDealsList().down('#shopArea').getValue();
@@ -417,6 +432,7 @@ Ext.define('XMLifeOperating.controller.DealProblemDealsList', {
         if (status != 20 && status != 31) {
             return;
         }
+
         Ext.MessageBox.confirm(
             '确认取消订单',
             Ext.String.format("确定要取消<h5>'{0}'</h5>的订单吗？", '订单号为：' + record.get('shortId') + ' 收货人为：' + record.get('customerName')),
