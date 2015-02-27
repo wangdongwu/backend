@@ -51,23 +51,23 @@ Ext.define('XMLifeOperating.view.userManage.customer.CustomerList', {
                     }, {
                         "value": 'mobile',
                         "type": '手机号码'
-                    }, ],
+                    }]
                 })
             }, {
                 xtype: 'textfield',
                 emptyText: '输入搜索号码orUid...',
                 name: 'keywordc',
-                itemId: 'keywordc',
+                itemId: 'keywordc'
                 /*regex: XMLifeOperating.generic.Global.VALIDATION_CONSTANTS.PHONE,
                 regexText: '请输入正确的手机号',*/
             }, {
                 xtype: 'button',
                 itemId: 'customerSearch',
-                text: '搜索',
+                text: '搜索'
             }, {
                 xtype: 'button',
                 itemId: 'customerTitle',
-                text: '查看封号用户',
+                text: '查看封号用户'
             }
         ]
     }],
@@ -93,9 +93,7 @@ Ext.define('XMLifeOperating.view.userManage.customer.CustomerList', {
         width: 80,
         sortable: true,
         renderer: function(value) {
-            var newTime = new Date(value);
-            newDate = newTime.getFullYear() + '.' + (newTime.getMonth() + 1) + '.' + newTime.getDate();
-            return newDate;
+            return Ext.Date.format(new Date(value), 'Y.m.d');
         }
     }, {
         text: '最后登录日期',
@@ -103,9 +101,7 @@ Ext.define('XMLifeOperating.view.userManage.customer.CustomerList', {
         width: 80,
         sortable: true,
         renderer: function(value) {
-            var newTime = new Date(value);
-            newDate = newTime.getFullYear() + '.' + (newTime.getMonth() + 1) + '.' + newTime.getDate();
-            return newDate;
+            return Ext.Date.format(new Date(value), 'Y.m.d');
         }
     }, {
         text: '余额',
@@ -121,7 +117,7 @@ Ext.define('XMLifeOperating.view.userManage.customer.CustomerList', {
         width: 60,
         align: 'center',
         menuDisabled: true,
-        renderer: function(value, metadata, model, rowIndex, colIndex, store) {
+        renderer: function() {
             return '<a href="javascript:;">查看</a>';
         }
     }, {
@@ -130,7 +126,7 @@ Ext.define('XMLifeOperating.view.userManage.customer.CustomerList', {
         width: 60,
         align: 'center',
         menuDisabled: true,
-        renderer: function(value, metadata, model, rowIndex, colIndex, store) {
+        renderer: function() {
             return '<a href="javascript:;">查看</a>';
         }
     }, {
@@ -139,7 +135,7 @@ Ext.define('XMLifeOperating.view.userManage.customer.CustomerList', {
         align: 'center',
         itemId: 'consumePayListId',
         menuDisabled: true,
-        renderer: function(value, metadata, model, rowIndex, colIndex, store) {
+        renderer: function() {
             return '<a href="javascript:;">查看</a>';
         }
     }, {
@@ -148,8 +144,17 @@ Ext.define('XMLifeOperating.view.userManage.customer.CustomerList', {
         align: 'center',
         itemId: 'couponListId',
         menuDisabled: true,
-        renderer: function(value, metadata, model, rowIndex, colIndex, store) {
+        renderer: function() {
             return '<a href="javascript:;">查看</a>';
+        }
+    }, {
+        text: '扣余额',
+        width: 60,
+        align: 'center',
+        itemId: 'deduct',
+        menuDisabled: true,
+        renderer: function() {
+            return '<input type="button" value="减扣" />';
         }
     }, {
         header: "操作",
@@ -162,14 +167,14 @@ Ext.define('XMLifeOperating.view.userManage.customer.CustomerList', {
         renderer: function(value) {
             var inputVal = value ? '封号' : '解封',
                 statusVal = value ? 'open' : 'close';
-            return '<input type="button" value="' + inputVal + '" statusValue="' + statusVal + '"  /><br/>';
+            return '<input type="button" value="' + inputVal + '" statusValue="' + statusVal + '"  />';
         }
     }],
     viewConfig: {
         enableTextSelection: true
     },
     listeners: {
-        onShowView: function(view, viewName) {
+        onShowView: function(view) {
             if (XMLifeOperating.generic.Global.operating_type != 'center') {
                 return;
             }

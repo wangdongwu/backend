@@ -4,7 +4,9 @@ Ext.define('XMLifeOperating.controller.CustomerList', {
         'userManage.customer.CustomerAddress',
         'userManage.customer.CustomerDealList',
         'userManage.customer.CustomerConsumePayList',
-        'userManage.customer.CustomerCouponList'
+        'userManage.customer.CustomerCouponList',
+        'userManage.customer.CustomerDeductBalance',
+        'userManage.customer.OnlineChargeRefund'
     ],
 
     stores: ['Customer', 'ShopArea', 'Address', 'DealCustomerHistory', 'CustomerUserCashflow', 'CustomerUserCoupon'],
@@ -28,7 +30,7 @@ Ext.define('XMLifeOperating.controller.CustomerList', {
         autoCreate: true
     }, {
         ref: 'contentPanel',
-        selector: '#contentPanel',
+        selector: '#contentPanel'
     }, {
         ref: 'customerCouponList',
         selector: 'customerCouponList',
@@ -38,6 +40,16 @@ Ext.define('XMLifeOperating.controller.CustomerList', {
         ref: 'customerConsumePayList',
         selector: 'customerConsumePayList',
         xtype: 'customerConsumePayList',
+        autoCreate: true
+    }, {
+        ref: 'customerDeductBalance',
+        selector: 'customerDeductBalance',
+        xtype: 'customerDeductBalance',
+        autoCreate: true
+    }, {
+        ref: 'onlineChargeRefund',
+        selector: 'onlineChargeRefund',
+        xtype: 'onlineChargeRefund',
         autoCreate: true
     }],
 
@@ -57,7 +69,7 @@ Ext.define('XMLifeOperating.controller.CustomerList', {
                         shopArea: me.shopArea
                     };
                     store.loadPage(1);
-                },
+                }
             },
             'CustomerList #customerSearch': {
                 click: function() {
@@ -112,6 +124,12 @@ Ext.define('XMLifeOperating.controller.CustomerList', {
             'CustomerList #couponListId': {
                 click: me.onCouponListId
             },
+            'CustomerList #deduct': {
+                click: me.openDeductBalancePopup
+            },
+            'customerDeductBalance #submitDeduct': {
+                click: me.submitBalanceDeduction
+            },
             'CustomerDealList #dealDetail': {
                 click: function() {
                     // 这里引用了订单管理的control方法
@@ -125,6 +143,12 @@ Ext.define('XMLifeOperating.controller.CustomerList', {
                     var ctrlGDealList = this.getController('GDealList');
                     ctrlGDealList.onSuperShopperDetail.apply(ctrlGDealList, arguments);
                 }
+            },
+            'customerConsumePayList #refund': {
+                click: me.openRefundPopup
+            },
+            'onlineChargeRefund #submitRefund': {
+                click: me.submitRefund
             }
         });
     },
@@ -138,13 +162,13 @@ Ext.define('XMLifeOperating.controller.CustomerList', {
             store = me.getAddressStore(),
             win = me.getCustomerAddress();
 
-        store.on('load', function(store, addressList) {
+        store.on('load', function(store) {
             win.show();
         });
         store.load({
             params: {
                 customer: uid
-            },
+            }
         });
     },
     onOrderHistory: function(view, cellEl, rowIndex, colIndex, e, record) {
@@ -221,7 +245,7 @@ Ext.define('XMLifeOperating.controller.CustomerList', {
                 uid: uid
             }
         });
-        // 这两个是CustomerConsumePayList的全局变量，下次优化的时候至少改成view的statics。
+        // 正在协调服务端将customer/user/cashflow增强成支持分页，确认后会优化逻辑
         consumePayCount = 1;
         consumePayMark = '';
     },
@@ -249,4 +273,73 @@ Ext.define('XMLifeOperating.controller.CustomerList', {
             }
         });
     },
+    openDeductBalancePopup: function(view, cellEl, rowIndex, colIndex, e, record) {
+        var win = this.getCustomerDeductBalance();
+
+        win.down('form').loadRecord(record);
+        win.down('numberfield').setMaxValue(record.get('balance'));
+        win.show();
+    },
+    submitBalanceDeduction: function() {
+        var me = this,
+            win = me.getCustomerDeductBalance(),
+            form = win.down('form'),
+            values = form.getValues();
+
+        if (!form.isValid()) {
+            return;
+        }
+
+        win.close();
+        Ext.MessageBox.wait('余额减扣处理中...');
+
+        Ext.Ajax.request({
+            url: XMLifeOperating.generic.Global.URL.biz + 'customer/user/balance/reduce',
+            params: {
+                uid: values.uid,
+                amount: values.amount * 100
+            },
+            method: 'POST',
+            callback: function(options, success, response) {
+                var error = requestException(response),
+                    errMsg = response.responseText === '-22' ? '余额不足以减扣' : '余额减扣失败';
+
+                success = success && response.responseText === '1';
+
+                Ext.MessageBox.show({
+                    title: error.title || '余额减扣',
+                    msg: success ? '余额减扣成功' : error.msg || errMsg,
+                    icon: error.msg ? Ext.Msg.ERROR : Ext.Msg.INFO,
+                    buttons: Ext.Msg.OK
+                });
+
+                if (success) {
+                    me.getCustomerStore().loadPage(1);
+                }
+            }
+        });
+    },
+    openRefundPopup: function(view, cellEl, rowIndex, colIndex, e, record) {
+
+        Ext.MessageBox.alert('', '退款接口开发中...');
+
+        // var win = this.getCustomerRefund();
+
+        // win.down('form').loadRecord(record);
+        // win.down('numberfield').setMaxValue(record.get('balance'));
+        // win.show();
+    },
+    // 服务端接口还没有做完，稍后补充联调。
+    submitRefund: function() {
+        // var win = this.getCustomerRefund(),
+        //     form = win.down('form'),
+        //     values = form.getValues;
+
+        // if (!form.isValid()) {
+        //     return;
+        // }
+        // win.close();
+        // submit AJAX and listen to responseText
+    }
+
 });
