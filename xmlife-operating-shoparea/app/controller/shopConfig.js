@@ -533,9 +533,14 @@ Ext.define('XMLifeOperating.controller.shopConfig', {
         var windows = this.getEditModule(),
             form = windows.down('form'),
             model = arguments[5],
-            id = model.get('id');
+            id = model.get('id'),
+            positionField = windows.down('#position');
 
         form.loadRecord(model);
+        //当编辑的积木是banner时隐藏修改位置的编辑框
+        if(model.get('type') === 'banner'){
+          positionField.hide();
+        }
         this.isEditModule = true;
         this.moduleId = id;
         windows.show();
