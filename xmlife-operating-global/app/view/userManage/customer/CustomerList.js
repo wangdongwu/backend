@@ -13,9 +13,6 @@ Ext.define('XMLifeOperating.view.userManage.customer.CustomerList', {
         store: 'Customer',
         dock: 'bottom',
         displayInfo: true
-            /*,
-                  items : ['->'],   
-                  prependButtons: true*/
     }, {
         xtype: 'toolbar',
         dock: 'top',
@@ -26,7 +23,6 @@ Ext.define('XMLifeOperating.view.userManage.customer.CustomerList', {
                 store: 'ShopArea',
                 emptyText: '请选择中心',
                 editable: false,
-                // queryMode:'local',
                 displayField: 'name',
                 valueField: 'id',
                 hidden: (XMLifeOperating.generic.Global.operating_type == 'center')
@@ -58,8 +54,6 @@ Ext.define('XMLifeOperating.view.userManage.customer.CustomerList', {
                 emptyText: '输入搜索号码orUid...',
                 name: 'keywordc',
                 itemId: 'keywordc'
-                /*regex: XMLifeOperating.generic.Global.VALIDATION_CONSTANTS.PHONE,
-                regexText: '请输入正确的手机号',*/
             }, {
                 xtype: 'button',
                 itemId: 'customerSearch',
@@ -86,7 +80,7 @@ Ext.define('XMLifeOperating.view.userManage.customer.CustomerList', {
     }, {
         text: '手机号',
         dataIndex: 'phone',
-        width: 100
+        width: 90
     }, {
         text: '日期',
         dataIndex: 'created',

@@ -65,7 +65,7 @@ Ext.define('XMLifeOperating.view.general.CommonDealList', {
             dataIndex: 'contactsPhone'
         }, {
             text: '中心点',
-            dataIndex: 'shopAreaName',
+            dataIndex: 'shopAreaName'
         }, {
             text: '买手',
             dataIndex: 'superShopperName',
@@ -87,7 +87,7 @@ Ext.define('XMLifeOperating.view.general.CommonDealList', {
             dataIndex: 'deliverTime',
             renderer: function(value) {
                 return Ext.Date.format(new Date(value), 'm-d H:i');
-            },
+            }
         }, {
             text: '剩余时间',
             dataIndex: 'remainTime',

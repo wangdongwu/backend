@@ -96,11 +96,6 @@ Ext.define('XMLifeOperating.view.staffManage.manager.ManagerWorkTimeList', {
             var time = Math.floor(value / 60) + '时' + (value % 60) + '分';
             return time;
         }
-    }, {
-        text: '完成维护数',
-        dataIndex: 'deals',
-        sortable: true,
-        width: 100
     }],
     viewConfig: {
         plugins: {

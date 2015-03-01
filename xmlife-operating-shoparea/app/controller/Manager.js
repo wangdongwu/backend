@@ -89,7 +89,7 @@ Ext.define('XMLifeOperating.controller.Manager', {
             },
             // 考勤管理按时间过滤
             'managerWorkTimeList radio[name="dayType"]': {
-                change: function(record, newV, oldV) {
+                change: function(record, newV) {
                     if (newV) {
                         var dayType = {
                             'dayType0': 0,
@@ -107,7 +107,7 @@ Ext.define('XMLifeOperating.controller.Manager', {
 
                         store.getProxy().extraParams = {
                             dayType: dayType,
-                            manager: me.managerId
+                            managerId: me.managerId
                         };
                         store.loadPage(1, {
                             params: me.self.PARAM_1PAGE
@@ -133,8 +133,7 @@ Ext.define('XMLifeOperating.controller.Manager', {
                 isActive: !isActive
             }, '掌柜管理', '掌柜管理操作成功', '掌柜管理操作失败', function() {
                 //3种情况 手机查询  未绑定查询 中心停单掌柜查询
-                var store = me.getManagerStore(),
-                    activeBindText = me.getManagerList().down('#activeBind').getText(),
+                var activeBindText = me.getManagerList().down('#activeBind').getText(),
                     searchBuyerKeyWords = me.getManagerList().down('#searchBuyerKeyWords').getValue();
 
                 if (activeBindText == '查看已绑定的掌柜' || searchBuyerKeyWords != '') {
@@ -161,7 +160,7 @@ Ext.define('XMLifeOperating.controller.Manager', {
 
         if (radios.getValue().dayType == 3) {
             managerWorkTimeStore.getProxy().extraParams = {
-                manager: managerId,
+                managerId: managerId,
                 dayType: 3
             };
             managerWorkTimeStore.loadPage(1, {
@@ -176,7 +175,7 @@ Ext.define('XMLifeOperating.controller.Manager', {
         content.add(managerWorkTimeList);
     },
     // 查看未绑定的掌柜
-    activeBind: function(grid) {
+    activeBind: function() {
         var me = this;
         var activeBindText = me.getManagerList().down('#activeBind').getText(),
             isUnbind;
@@ -208,7 +207,6 @@ Ext.define('XMLifeOperating.controller.Manager', {
         var me = this,
             store = me.getManagerStore(),
             view = me.getManagerList(),
-            area = me.areaId,
             keyWords = view.down('#searchBuyerKeyWords').getValue(),
             activeBindText = view.down('#activeBind').getText(),
             isUnbind;

@@ -54,9 +54,9 @@ Ext.define('XMLifeOperating.view.staffManage.manager.EditManager', {
                         }
                     }
                     if (length > 8) {
-                        return '姓名最大长度为4个汉字或8个字母'
+                        return '姓名最大长度为4个汉字或8个字母';
                     } else {
-                        return true
+                        return true;
                     }
                 }
             }, {
@@ -80,8 +80,7 @@ Ext.define('XMLifeOperating.view.staffManage.manager.EditManager', {
                 queryMode: 'local',
                 triggerAction: 'all',
                 displayField: 'gender',
-                valueField: 'value',
-                allowBlank: false
+                valueField: 'value'
             }, {
                 xtype: 'fieldset',
                 layout: 'column',
@@ -134,11 +133,10 @@ Ext.define('XMLifeOperating.view.staffManage.manager.EditManager', {
             }, {
                 text: '取消',
                 handler: function() {
-                    //关闭窗口
                     this.up('window').close();
                 }
             }]
-        }]
+        }];
         this.callParent(arguments);
     }
 });

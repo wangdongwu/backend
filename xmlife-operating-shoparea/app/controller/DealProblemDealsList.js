@@ -228,7 +228,7 @@ Ext.define('XMLifeOperating.controller.DealProblemDealsList', {
         var store = this.getDealTasksStore();
         store.load({
             params: {
-                dealId: dealId,
+                dealId: dealId
             },
 
             callback: function(records) {
@@ -257,7 +257,7 @@ Ext.define('XMLifeOperating.controller.DealProblemDealsList', {
         store.getProxy().extraParams = {};
         store.load({
             params: {
-                shopId: record.get('shopId'),
+                shopId: record.get('shopId')
             },
             callback: function(records) {
                 var model = win.down('#reapportionShoppers').getSelectionModel();
@@ -537,8 +537,6 @@ Ext.define('XMLifeOperating.controller.DealProblemDealsList', {
                 }
             }
         });
-
         countDownFn(10);
     }
-
 });

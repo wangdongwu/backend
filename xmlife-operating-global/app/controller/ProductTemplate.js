@@ -117,7 +117,6 @@ Ext.define('XMLifeOperating.controller.ProductTemplate', {
                 tabchange: function(tabpanel, newCard) {
                     var me = this;
                     var rootId = newCard.id;
-                    var tree = me.getProductTemplateList().down('#productTemplateTree');
                     var categoryStore = me.getProductTemplateSubsStore();
 
                     categoryStore.load({
@@ -198,8 +197,8 @@ Ext.define('XMLifeOperating.controller.ProductTemplate', {
             },
             '#productSearch': {
                 click: function() {
-                    var me = this;
-                    var store = me.getProductTemplatePageSearchStore(),
+                    var me = this,
+                        store = me.getProductTemplatePageSearchStore(),
                         grid = me.getProductTemplateList().down('#productTemplateGrid'),
                         picView = me.getProductTemplateList().down('#productTemplatePicView'),
                         pageTool = me.getProductTemplateList().down('#pagetoll'),
@@ -240,7 +239,7 @@ Ext.define('XMLifeOperating.controller.ProductTemplate', {
             // dataView内事件
             'productTemplateList #productTemplatePicView': {
                 viewready: function(view) {
-                    //快速编辑rank
+                    // 快速编辑rank
                     view.mon(view.getEl(), {
                         delegate: 'input',
                         mouseover: function(e) {
@@ -259,7 +258,7 @@ Ext.define('XMLifeOperating.controller.ProductTemplate', {
                             me.saveRank(view, e, Ext.fly(e.target).getValue());
                         }
                     });
-                    //修改
+                    // 修改
                     view.mon(view.getEl(), {
                         delegate: 'img.x-action-col-icon',
                         click: function(e) {
@@ -307,7 +306,6 @@ Ext.define('XMLifeOperating.controller.ProductTemplate', {
                     this.form.getFields().items[0].fileInputEl.set({
                         multiple: 'multiple'
                     });
-
                 },
                 failure: function(form, action) {
                     var data = action.response.responseText;
@@ -323,9 +321,11 @@ Ext.define('XMLifeOperating.controller.ProductTemplate', {
         var productTemplate = view.getRecord(view.findTargetByEvent(e));
         var win = this.getEditWindow();
         var names = [];
+
         if (productTemplate.get('name').indexOf('\n')) {
             names = productTemplate.get('name').split('\n');
         }
+
         productTemplate.set('name1', names[0]);
         productTemplate.set('name2', names[1]);
         productTemplate.set('name3', names[2]);
@@ -437,9 +437,7 @@ Ext.define('XMLifeOperating.controller.ProductTemplate', {
                         windowEl.unmask();
                     }
                 });
-
             } else {
-
                 var treeSelected = me.getProductTemplateList().down('#productTemplateTree').getSelectionModel().selected;
                 var id = productTemplate.get('id');
                 //var name = productTemplate.get('name');
@@ -534,7 +532,6 @@ Ext.define('XMLifeOperating.controller.ProductTemplate', {
                     }
                 });
             }
-
         } else {
             Ext.Msg.alert('Invalid Data', 'Please correct form errors');
         }

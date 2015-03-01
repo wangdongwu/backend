@@ -23,7 +23,7 @@ Ext.define('XMLifeOperating.view.staffManage.shopper.GShopperEdit', {
             }, {
                 "value": 1,
                 "gender": '女'
-            }],
+            }]
         });
         this.items = [{
             xtype: 'form',
@@ -54,9 +54,9 @@ Ext.define('XMLifeOperating.view.staffManage.shopper.GShopperEdit', {
                             }
                         }
                         if (length > 8) {
-                            return '姓名最大长度为4个汉字或8个字母'
+                            return '姓名最大长度为4个汉字或8个字母';
                         } else {
-                            return true
+                            return true;
                         }
                     }
                 }, {
@@ -80,8 +80,7 @@ Ext.define('XMLifeOperating.view.staffManage.shopper.GShopperEdit', {
                     queryMode: 'local',
                     triggerAction: 'all',
                     displayField: 'gender',
-                    valueField: 'value',
-                    allowBlank: false
+                    valueField: 'value'
                 }, {
                     xtype: 'fieldset',
                     layout: 'column',
@@ -137,7 +136,7 @@ Ext.define('XMLifeOperating.view.staffManage.shopper.GShopperEdit', {
                     this.up('window').close();
                 }
             }]
-        }]
+        }];
         this.callParent(arguments);
     }
 });

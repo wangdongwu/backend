@@ -1,11 +1,8 @@
-/**
- * @class SimpleTasks.view.lists.Tree
- * @extends Ext.tree.Panel
- * The task list view.  A tree that displays all of the task lists.
- */
 Ext.define('XMLifeOperating.view.staffManage.manager.ManagerWorkTimeList', {
     extend: 'Ext.grid.Panel',
-    closable: false,
+    closable: true,
+    columnLines: true,
+    id: 'managerWorkTimeList',
     xtype: 'managerWorkTimeList',
     title: '考勤管理',
     store: 'ManagerWorkTime',
@@ -97,19 +94,11 @@ Ext.define('XMLifeOperating.view.staffManage.manager.ManagerWorkTimeList', {
             var time = Math.floor(value / 60) + '时' + (value % 60) + '分';
             return time;
         }
-    }, {
-        text: '完成维护数',
-        dataIndex: 'deals',
-        sortable: true,
-        width: 100
     }],
     viewConfig: {
         plugins: {
             ptype: 'gridviewdragdrop',
             dragText: 'Drag and drop to reorder'
         }
-    },
-    columnLines: true,
-    frame: true,
-    iconCls: 'icon-grid'
+    }
 });

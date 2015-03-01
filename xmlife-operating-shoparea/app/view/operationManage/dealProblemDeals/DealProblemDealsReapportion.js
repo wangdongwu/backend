@@ -85,7 +85,7 @@ Ext.define('XMLifeOperating.view.operationManage.dealProblemDeals.DealProblemDea
                             return '<a href="javascript:;">重新分配</a>';
                         }
                     }]
-            }],
+            }]
         }];
         this.callParent(arguments);
     }

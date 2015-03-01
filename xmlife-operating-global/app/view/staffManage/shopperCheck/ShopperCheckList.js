@@ -8,7 +8,7 @@ Ext.define('XMLifeOperating.view.staffManage.shopperCheck.ShopperCheckList', {
       width : '100%',
       layout :'fit'
     },
-    title : '买手管理',
+    title : '买手业绩',
     layout : 'vbox',
     items: [{
       xtype : 'ShopperList',

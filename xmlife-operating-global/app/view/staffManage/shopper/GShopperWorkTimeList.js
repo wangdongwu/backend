@@ -12,9 +12,6 @@ Ext.define('XMLifeOperating.view.staffManage.shopper.GShopperWorkTimeList', {
         store: 'SuperShopperWorkTime',
         dock: 'bottom',
         displayInfo: true
-            /*,
-                  items : ['->'],   
-                  prependButtons: true*/
     }],
     tbar: [{
         xtype: 'button',
@@ -60,11 +57,8 @@ Ext.define('XMLifeOperating.view.staffManage.shopper.GShopperWorkTimeList', {
         dataIndex: 'created',
         sortable: false,
         width: 100,
-        format: 'Y-m-d',
         renderer: function(value) {
-            var newTime = new Date(value);
-            newTime = newTime.getFullYear() + '-' + (newTime.getMonth() + 1) + '-' + newTime.getDate();
-            return newTime;
+            return Ext.Date.format(new Date(value),'Y-m-d');
         }
     }, {
         text: '上班时间',
@@ -98,7 +92,6 @@ Ext.define('XMLifeOperating.view.staffManage.shopper.GShopperWorkTimeList', {
     }, {
         text: '完成订单数',
         dataIndex: 'deals',
-
         sortable: false,
         width: 100
     }],

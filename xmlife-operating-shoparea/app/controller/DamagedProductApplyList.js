@@ -13,10 +13,10 @@ Ext.define('XMLifeOperating.controller.DamagedProductApplyList', {
         xtype: 'damagedProductApplyList'
     }, {
         ref: 'shopArea',
-        selector: '#shopArea',
+        selector: '#shopArea'
     }, {
         ref: 'keyword',
-        selector: '#keyword',
+        selector: '#keyword'
     }, {
         ref: 'addDamagedProductApply',
         selector: 'addDamagedProductApply',
@@ -39,7 +39,7 @@ Ext.define('XMLifeOperating.controller.DamagedProductApplyList', {
                         areaId: combo.getValue(),
                         startTime: me.beginTime,
                         endTime: me.endTime
-                    }
+                    };
                     sstore.loadPage(1, {
                         params: {
                             start: 0,
@@ -68,7 +68,7 @@ Ext.define('XMLifeOperating.controller.DamagedProductApplyList', {
                             cities: XMLifeOperating.generic.Global.currentCity,
                             areaId: this.areaId
                         }
-                    })
+                    });
 
                     this.getChooseShopList().bindStore(store, false);
 
@@ -93,6 +93,7 @@ Ext.define('XMLifeOperating.controller.DamagedProductApplyList', {
                     }
                 }
             },
+            
             'addDamagedProductApply #saveDamagedProductApplyBtn': {
                 click: function() {
                     var me = this,
@@ -127,7 +128,7 @@ Ext.define('XMLifeOperating.controller.DamagedProductApplyList', {
                                 endTime: me.endTime,
                                 areaId: me.areaId,
                                 status: 0
-                            }
+                            };
                             store.loadPage(1, {
                                 params: {
                                     start: 0,
@@ -173,7 +174,7 @@ Ext.define('XMLifeOperating.controller.DamagedProductApplyList', {
                         areaId: this.areaId,
                         beginTime: beginTime,
                         endTime: endTime
-                    }
+                    };
                     sstore.loadPage(1, {
                         params: {
                             start: 0,
@@ -182,7 +183,6 @@ Ext.define('XMLifeOperating.controller.DamagedProductApplyList', {
                         }
                     });
                 }
-
             },
 
             'damagedProductApplyList #dpStatusSearch': {
@@ -196,7 +196,7 @@ Ext.define('XMLifeOperating.controller.DamagedProductApplyList', {
                         status: combo.getValue(),
                         startTime: beginTime,
                         endTime: endTime
-                    }
+                    };
                     sstore.loadPage(1, {
                         params: {
                             start: 0,
@@ -204,7 +204,7 @@ Ext.define('XMLifeOperating.controller.DamagedProductApplyList', {
                             page: 1
                         }
                     });
-                },
+                }
             },
 
             'damagedProductApplyList #getDamagedProductApplyListByDate': {
@@ -218,7 +218,7 @@ Ext.define('XMLifeOperating.controller.DamagedProductApplyList', {
                         areaId: this.areaId,
                         startTime: beginTime,
                         endTime: endTime
-                    }
+                    };
                     sstore.loadPage(1, {
                         params: {
                             start: 0,
@@ -227,7 +227,7 @@ Ext.define('XMLifeOperating.controller.DamagedProductApplyList', {
                         }
                     });
                 }
-            },
+            }
         });
     },
     dateReset: function() {
@@ -246,7 +246,7 @@ Ext.define('XMLifeOperating.controller.DamagedProductApplyList', {
         return date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
     },
 
-    onRefresh: function(view, e, eOpts) {
+    onRefresh: function(view) {
         var me = this;
         if (!view.isDisabled()) {
             //发送刷新请求
@@ -268,22 +268,21 @@ Ext.define('XMLifeOperating.controller.DamagedProductApplyList', {
             var count = function(t) {
                 var time = 5 - t;
                 view.setText(time + 's');
-            }
+            };
             view.setDisabled(true);
             for (var i = 0; i < 5; i++) {
                 (function(t) {
                     setTimeout(function() {
-                        count(t)
+                        count(t);
                     }, t * 1000);
-                }(i))
+                }(i));
             }
             setTimeout(function() {
                 view.setDisabled(false);
                 view.setText('刷新');
             }, 5000);
         } else {
-            return
+            return;
         }
-    },
-
+    }
 });

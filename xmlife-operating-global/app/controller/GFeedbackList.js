@@ -1,6 +1,6 @@
 Ext.define('XMLifeOperating.controller.GFeedbackList', {
     extend: 'Ext.app.Controller',
-    views: ['userManage.feedback.GFeedbackList'],
+    views: ['userManage.feedback.GFeedbackList','userManage.feedback.GFeedbackContent'],
     stores: ['Feedback', 'FeedbackStatus'],
     models: ['Feedback'],
     refs: [{
@@ -8,12 +8,17 @@ Ext.define('XMLifeOperating.controller.GFeedbackList', {
         selector: 'gFeedbackList',
         xtype: 'gFeedbackList',
         autoCreate: true
+    },{
+        ref:'gFeedbackContent',
+        selector:'gFeedbackContent',
+        xtype:'gFeedbackContent',
+        autoCreate:true
     }],
     init: function() {
         var me = this;
         this.control({
             'gFeedbackList': {
-                added: me.onShow,
+                added: me.onShow
             },
             'gFeedbackList #add': {
                 click: function() {
@@ -24,8 +29,15 @@ Ext.define('XMLifeOperating.controller.GFeedbackList', {
                     win.show();
                 }
             },
+            'gFeedbackList #feedbackcontent':{
+                click:function(){
+                    //var store = this.getFeedbackStore();
+                    var win = this.getGFeedbackContent();
+                    win.show();
+                }
+            },
             'gFeedbackList radio[name="dayType"]': {
-                change: function(record, newV, oldV) {
+                change: function(record, newV) {
                     if (newV == true) {
                         var itemId = record.itemId,
                             str;

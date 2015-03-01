@@ -14,9 +14,6 @@ Ext.define('XMLifeOperating.view.userManage.feedback.GFeedbackList', {
         store: 'Feedback',
         dock: 'bottom',
         displayInfo: true
-            /*,
-                      items : ['->'],   
-                      prependButtons: true*/
     }],
     tbar: [{
             xtype: 'fieldcontainer',
@@ -83,53 +80,58 @@ Ext.define('XMLifeOperating.view.userManage.feedback.GFeedbackList', {
     ],
 
     columns: [{
-            xtype: 'rownumberer',
-            width: 50,
-            align: 'center'
-        }, {
-            dataIndex: 'created',
-            text: '时间',
-            width: 100,
-            format: 'Y-M-D',
-            sortable: false,
-            align: 'center',
-            renderer: function(v) {
-                var date = new Date(v);
-                return date.getFullYear() + "." + (date.getMonth() + 1) + "." + date.getDate()
-            }
-        }, {
-            text: '用户',
-            dataIndex: 'name',
-            width: 100,
-            sortable: false
-        }, {
-            text: '注册号码',
-            dataIndex: 'phone',
-            width: 100,
-            sortable: false
-        }, {
-            text: '反馈意见',
-            dataIndex: 'content',
-            width: 100,
-            sortable: false
-        }, {
-            header: "",
-            width: 100,
-            dataIndex: 'mark',
-            itemId: 'mark',
-            menuDisabled: true,
-            sortable: false,
-            renderer: function(value) {
-                var str = '';
-                if (value == true) {
-                    str = '<input type="button" value="取消标记" statusValue="offline" class="markStatus" />';
-                } else {
-                    str = '<input type="button" value="标记" statusValue="online" class="markStatus" />';
-                }
-                return str;
-            }
+        xtype: 'rownumberer',
+        width: 50,
+        align: 'center'
+    }, {
+        dataIndex: 'created',
+        text: '时间',
+        width: 100,
+        format: 'Y-M-D',
+        sortable: false,
+        align: 'center',
+        renderer: function(v) {
+            var date = new Date(v);
+            return date.getFullYear() + "." + (date.getMonth() + 1) + "." + date.getDate();
         }
-    ],
+    }, {
+        text: '用户',
+        dataIndex: 'name',
+        width: 100,
+        sortable: false
+    }, {
+        text: '注册号码',
+        dataIndex: 'phone',
+        width: 100,
+        sortable: false
+    }, {
+        text: '反馈意见',
+        dataIndex: 'content',
+        itemId: 'feedbackcontent',
+        width: 100,
+        sortable: false,
+        /*listeners: {
+            click: function(grid, cell, rowIndex, colIndex, e, record) {
+                Ext.Msg.alert(record.data.content);
+            }
+        }*/
+    }, {
+        header: "",
+        width: 100,
+        dataIndex: 'mark',
+        itemId: 'mark',
+        menuDisabled: true,
+        sortable: false,
+        renderer: function(value) {
+            var str = '';
+            if (value == true) {
+                str = '<input type="button" value="取消标记" statusValue="offline" class="markStatus" />';
+            } else {
+                str = '<input type="button" value="标记" statusValue="online" class="markStatus" />';
+            }
+            return str;
+        }
+    }],
     viewConfig: {
         plugins: {
             ptype: 'gridviewdragdrop',
