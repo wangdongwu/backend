@@ -51,11 +51,12 @@ Ext.define('XMLifeOperating.view.msgManage.NotifyAdd', {
                 valueField: 'value',
                 triggerAction: 'all',
                 editable: false,
+                value: 1,
                 store: Ext.create('Ext.data.Store', {
                     fields: ['value', 'type'],
                     data: [{
                         'value': 1,
-                        'type': '无'
+                        'type': '打开应用'
                     }, {
                         'value': 2,
                         'type': 'H5页面'
@@ -91,9 +92,9 @@ Ext.define('XMLifeOperating.view.msgManage.NotifyAdd', {
                 itemId: 'linkUrl',
                 hidden: true,
                 emptyText: 'http://',
+                allowBlank: true,
                 regex: XMLifeOperating.generic.Global.VALIDATION_CONSTANTS.URL,
                 regexText: '请输入正确的URL',
-                allowBlank: true,
                 margin: '10 0 20 0'
             }, {
                 xtype: 'label',

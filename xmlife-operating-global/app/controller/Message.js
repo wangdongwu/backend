@@ -148,12 +148,12 @@ Ext.define('XMLifeOperating.controller.Message', {
         }
     },
     onAdd: function(method) {
-        var model = this.getMessageModel(),
-            record = new model(),
-            win = this[method]();
+        var win = this[method](),
+            model = this.getMessageModel(),
+            record = new model();
 
-        win.down('form').getForm().reset();
         win.down('form').loadRecord(record);
+        win.down('form').getForm().reset();
         win.show();
     },
     onEdit: function(args, method) {
@@ -185,6 +185,7 @@ Ext.define('XMLifeOperating.controller.Message', {
             isAdd = record.get('id') ? false : true,
             isUpload = win.down('filefield').getValue() ? true : false,
             postUrl = isAdd ? 'notify/add' : 'notify/update';
+
 
         if (form.isValid()) {
             if (isAdd && !isUpload) {
@@ -237,6 +238,7 @@ Ext.define('XMLifeOperating.controller.Message', {
             form.submit({
                 url: XMLifeOperating.generic.Global.URL.biz + postUrl + '?sessionId=' + sessionId,
                 params: data,
+                submitEmptyText: false,
                 waitMsg: '正在上传文件......',
                 success: function(form, action) {
                     self.getMessageStore().reload();
