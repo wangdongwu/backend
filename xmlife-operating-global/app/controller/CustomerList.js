@@ -34,7 +34,7 @@ Ext.define('XMLifeOperating.controller.CustomerList', {
         autoCreate: true
     }, {
         ref: 'contentPanel',
-        selector: '#contentPanel'
+        selector: '#contentPanel',
     }, {
         ref: 'customerCouponList',
         selector: 'customerCouponList',
@@ -370,10 +370,19 @@ Ext.define('XMLifeOperating.controller.CustomerList', {
     },
     openChargeBatchInfo: function() {
         var me = this,
-            win = me.getOnlineChargeBatchDetail(),
+            win = me.getController('CustomerList').getOnlineChargeBatchDetail(),
+            /*win = me.getOnlineChargeBatchDetail(),
             values = me.getOnlineChargeRefund().down('form').getValues(false, false, false, true),
-            popUpTitle = '充值卡批次 - ' + values.batchId;
-
+            popUpTitle = '充值卡批次 - ' + values.batchId;*/
+            localPage = this.getContentPanel().getActiveTab().xtype,
+            values;
+            if(localPage === 'customerConsumePayList'){
+                values = me.getOnlineChargeRefund().down('form').getValues(false, false, false, true);
+            }else{
+                values = me.getController('WechatRefund').getRechargeRefundDetail().down('form').getValues(false, false, false, true);
+            }
+            var popUpTitle = '充值卡批次 - ' + values.batchId;
+            
         sendGetRequest('cardBatch/batch', {
             batchId: values.batchId
         }, popUpTitle, '', '获取充值卡批次信息失败', function(response) {

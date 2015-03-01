@@ -16,13 +16,6 @@ Ext.define('XMLifeOperating.view.refundManage.alipayRefund.AlipayRefundList', {
         'Ext.ux.RowExpander',
         'Ext.selection.CheckboxModel'
     ],
-    dockedItems: [{
-        xtype: 'pagingtoolbar',
-        itemId: 'pagetoll',
-        store: 'AlipayRefund',
-        dock: 'bottom',
-        displayInfo: true
-    }],
     tbar: [
         '查询范围', {
             xtype: 'datefield',
@@ -272,6 +265,19 @@ Ext.define('XMLifeOperating.view.refundManage.alipayRefund.AlipayRefundList', {
         sortable: false,
         align: 'left'
     }, {
+        text: '类型',
+        dataIndex: 'dealIdType',
+        width: 50,
+        sortable: false,
+        align: 'left',
+        renderer: function(value) {
+            var data = {
+                '1': '订单相关',
+                '2': '充值相关'
+            };
+            return data[value];
+        }
+    }, {
         text: '我方处理时间',
         dataIndex: 'auditTime',
         width: 90,
@@ -301,11 +307,11 @@ Ext.define('XMLifeOperating.view.refundManage.alipayRefund.AlipayRefundList', {
                 '5': '退款失败',
                 '4': '拒绝退款',
                 '8': '人工已处理'
-            }
+            };
             return data[v];
         }
     }, {
-        text: '订单编号',
+        text: '编号',
         dataIndex: 'shortId',
         width: 50,
         sortable: false,

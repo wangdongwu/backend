@@ -234,10 +234,10 @@ Ext.define('XMLifeOperating.view.refundManage.wechatRefund.WechatRefundList', {
         },
         items: [{
             text: '说明：代入转发：因为对方账号有问题，导致不能退款成功。需要我方直接联系用户，通过其他方式进行退款;',
-            xtype: 'label',
+            xtype: 'label'
         }, {
             text: '退款失败：微信退款失败，需要人为处理',
-            xtype: 'label',
+            xtype: 'label'
         }]
     }, {
         xtype: 'toolbar',
@@ -250,10 +250,10 @@ Ext.define('XMLifeOperating.view.refundManage.wechatRefund.WechatRefundList', {
         },
         items: [{
             text: '说明：退款成功1：微信退款已经确认成功;',
-            xtype: 'label',
+            xtype: 'label'
         }, {
             text: '退款成功2：微信退款处理中，但最终能成功',
-            xtype: 'label',
+            xtype: 'label'
         }]
     }],
     columns: [{
@@ -265,7 +265,20 @@ Ext.define('XMLifeOperating.view.refundManage.wechatRefund.WechatRefundList', {
         dataIndex: 'createTime',
         width: 90,
         sortable: false,
+        align: 'left'
+    }, {
+        text: '类型',
+        dataIndex: 'dealIdType',
+        width: 50,
+        sortable: false,
         align: 'left',
+        renderer: function(value) {
+            var data = {
+                '1': '订单相关',
+                '2': '充值相关'
+            };
+            return data[value];
+        }
     }, {
         text: '我方处理时间',
         dataIndex: 'auditTime',
@@ -299,19 +312,18 @@ Ext.define('XMLifeOperating.view.refundManage.wechatRefund.WechatRefundList', {
                 '4': '拒绝退款',
                 '7': '退款成功2',
                 '8': '人工已处理'
-            }
+            };
             if (v == 5) {
                 if (returnCode == 7) {
                     return '代入转发';
                 } else {
                     return '退款失败';
                 }
-
             }
             return data[v];
         }
     }, {
-        text: '订单编号',
+        text: '编号',
         dataIndex: 'shortId',
         width: 50,
         sortable: false,

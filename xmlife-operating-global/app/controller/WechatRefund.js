@@ -3,7 +3,8 @@ Ext.define('XMLifeOperating.controller.WechatRefund', {
 
     views: [
         'refundManage.wechatRefund.WechatRefundList',
-        'refundManage.wechatRefund.TenpayLogin'
+        'refundManage.wechatRefund.TenpayLogin',
+        'refundManage.RechargeRefundDetail'
     ],
 
     stores: ['WechatRefund'],
@@ -20,6 +21,14 @@ Ext.define('XMLifeOperating.controller.WechatRefund', {
         selector: 'tenpayLogin',
         xtype: 'tenpayLogin',
         autoCreate: true
+    }, {
+        ref: 'rechargeRefundDetail',
+        selector: 'rechargeRefundDetail',
+        xtype: 'rechargeRefundDetail',
+        autoCreate: true
+    }, {
+        ref: 'contentPanel',
+        selector: '#contentPanel'
     }],
 
     init: function() {
@@ -90,10 +99,18 @@ Ext.define('XMLifeOperating.controller.WechatRefund', {
                 }
             },
             'wechatRefundList #dealDetailRefund': {
-                click: function() {
-                    // 这里引用了订单管理的control方法
-                    var ctrlGDealList = this.getController('GDealList');
-                    ctrlGDealList.onDealDetail.apply(ctrlGDealList, arguments);
+                click: function(view, cellEl, rowIndex, colIndex, e, record) { 
+                    var dealIdType = record.get('dealIdType');
+                    if(dealIdType == 1){
+                        // 这里引用了订单管理的control方法
+                        var ctrlGDealList = this.getController('GDealList');
+                        ctrlGDealList.onDealDetail.apply(ctrlGDealList, arguments);
+                    }else if(dealIdType == 2){
+                        var wechatRefund = this.getController('WechatRefund');
+                        wechatRefund.onRechargeRefundDetail.apply(wechatRefund, arguments);
+                    }else{
+                        Ext.Msg.alert('提示', '未知类型');
+                    }                   
                 }
             },
             'wechatRefundList button[name=allSelect]': {
@@ -216,6 +233,13 @@ Ext.define('XMLifeOperating.controller.WechatRefund', {
             'wechatRefundList button[name=searchDeal]': {
                 click: function() {
                     self.onSearchDeal();
+                }
+            },
+
+            'rechargeRefundDetail #batchId': {
+                afterrender: function(field) {
+                    // 这里引用了用户管理的control方法
+                    field.getEl().on('click', this.getController('CustomerList').openChargeBatchInfo, this);
                 }
             }
 
@@ -358,5 +382,29 @@ Ext.define('XMLifeOperating.controller.WechatRefund', {
     onCleanSearch: function(grid) {
         grid.down('[name=mobileSearch]').setValue('');
         grid.down('[name=refundTypeSearch]').setValue('');
+    },
+
+    onRechargeRefundDetail: function(view, cellEl, rowIndex, colIndex, e, record) {
+        var win = this.getRechargeRefundDetail(),
+            form = win.down('form').getForm();
+        //10006062
+        // 单独获取详情的接口
+        Ext.Ajax.request({
+            method: 'GET',
+            url: XMLifeOperating.generic.Global.URL.biz + 'refund/chargeDetail',
+            params: {chargeId:record.get('dealId')},
+            // params: {chargeId:10006062},
+            success: function(response) {
+                if (response.status == 200 && response.statusText == 'OK') {
+                    var data = Ext.decode(response.responseText);
+                    form.setValues(data);
+                    win.down('grid').getStore().loadData(data.refunds || []);
+                }
+            },
+            failure: function() {
+                Ext.Msg.alert('获取在线充值详情失败！');
+            }
+        });
+        win.show();
     }
 });

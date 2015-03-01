@@ -81,10 +81,19 @@ Ext.define('XMLifeOperating.controller.AlipayRefund', {
                 }
             },
             'alipayRefundList #dealDetailRefund': {
-                click: function() {
-                    // 这里引用了订单管理的control方法
-                    var ctrlGDealList = this.getController('GDealList');
-                    ctrlGDealList.onDealDetail.apply(ctrlGDealList, arguments);
+                click: function(view, cellEl, rowIndex, colIndex, e, record) { 
+                    // var dealIdType = 3;
+                    var dealIdType = record.get('dealIdType');
+                    if(dealIdType == 1){
+                        // 这里引用了订单管理的control方法
+                        var ctrlGDealList = this.getController('GDealList');
+                        ctrlGDealList.onDealDetail.apply(ctrlGDealList, arguments);
+                    }else if(dealIdType == 2){
+                        var wechatRefund = this.getController('WechatRefund');
+                        wechatRefund.onRechargeRefundDetail.apply(wechatRefund, arguments);
+                    }else{
+                        Ext.Msg.alert('提示', '未知类型');
+                    }                    
                 }
             },
             'alipayRefundList button[name=agreeRefund]': {
