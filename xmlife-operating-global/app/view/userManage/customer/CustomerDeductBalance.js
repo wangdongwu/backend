@@ -21,9 +21,7 @@ Ext.define('XMLifeOperating.view.userManage.customer.CustomerDeductBalance', {
             name: 'balance',
             labelWidth: 70,
             style: 'text-align:left',
-            renderer: function(val) {
-                return (val / 100) + ' 元';
-            }
+            renderer: XMLifeOperating.ViewUtil.rmbRenderer
         }, {
             xtype: 'numberfield',
             name: 'amount',

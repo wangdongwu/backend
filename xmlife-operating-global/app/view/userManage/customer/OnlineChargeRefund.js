@@ -2,8 +2,11 @@ Ext.define('XMLifeOperating.view.userManage.customer.OnlineChargeRefund', {
     extend: 'Ext.window.Window',
     xtype: 'onlineChargeRefund',
     layout: 'fit',
+    title: '在线充值退款',
     modal: true,
-    width: 280,
+    width: 300,
+    maxHeight: 500,
+    autoScroll: true,
     resizable: false,
     buttonAlign: 'center',
     buttons: [{
@@ -27,56 +30,91 @@ Ext.define('XMLifeOperating.view.userManage.customer.OnlineChargeRefund', {
         },
         items: [{
             fieldLabel: '充值卡批次',
-            name: 'batchno',
-            itemId: 'batchno'
+            name: 'batchId',
+            itemId: 'batchId',
+            renderer: function(value) {
+                return '<a href="javascript:;">' + value + '</a>';
+            }
         }, {
             fieldLabel: '充值对应余额',
-            name: 'chargeAmount'
+            name: 'batchAmount',
+            renderer: XMLifeOperating.ViewUtil.rmbRenderer
         }, {
             fieldLabel: '充值实际支付',
-            name: 'actualPaied'
+            name: 'batchPrice',
+            renderer: XMLifeOperating.ViewUtil.rmbRenderer
         }, {
             fieldLabel: '支付渠道',
-            name: 'chargeChannel'
+            name: 'payWay',
+            renderer: function(value) {
+                return {
+                    '1': '支付宝',
+                    '2': '微信'
+                }[value];
+            }
         }, {
             fieldLabel: '充值时间',
-            name: 'chargeTime'
+            name: 'rechargeTime',
+            renderer: XMLifeOperating.ViewUtil.dateRenderer
         }, {
             fieldLabel: '已退款金额',
-            name: 'amoutRefunded'
+            name: 'completedRefundCash',
+            renderer: XMLifeOperating.ViewUtil.rmbRenderer
         }, {
             fieldLabel: '处理中的金额',
-            name: 'amountInProcess'
+            name: 'processingRefundCash',
+            renderer: XMLifeOperating.ViewUtil.rmbRenderer
         }, {
             fieldLabel: '当前可退',
-            name: 'amountAvailable'
-            // 服务器端接口还没有齐备，后续补充联调
-                // }, {
-                //     xtype: 'grid',
-                //     store: 'aaa',
-                //     columns: {
-                //         defaults: {
-                //             align: 'center'
-                //         },
-                //         items: [{
-                //             text: '退款申请时间',
-                //             dataIndex: 'timeOfApply'
-                //         }, {
-                //             text: '余额',
-                //             dataIndex: 'balance'
-                //         }, {
-                //             text: '财务处理',
-                //             dataIndex: 'operationDetail'
-                //         }]
-                //     }
+            name: 'maxRefundCashPermitted',
+            renderer: XMLifeOperating.ViewUtil.rmbRenderer
+        }, {
+            xtype: 'grid',
+            margin: '0 10',
+            store: Ext.create('Ext.data.Store', {
+                fields: ['submitTime', 'cashAmount', 'status']
+            }),
+            columns: {
+                defaults: {
+                    align: 'center'
+                },
+                items: [{
+                    text: '退款申请时间',
+                    flex: 3,
+                    dataIndex: 'submitTime',
+                    renderer: XMLifeOperating.ViewUtil.dateRenderer
+                }, {
+                    text: '余额',
+                    flex: 1,
+                    dataIndex: 'cashAmount',
+                    renderer: XMLifeOperating.ViewUtil.rmbRenderer
+                }, {
+                    text: '财务处理',
+                    flex: 2,
+                    dataIndex: 'status',
+                    renderer: function(value) {
+                        return {
+                            '1': '待处理', // 已上报，但是财务尚未处理
+                            '2': '处理中', // 财务已处理，但尚未成功
+                            '3': '已通过', // 财务已处理，并且成功（包含人工处理，处理成功）
+                            '4': '已拒绝', // 财务拒绝退款
+                            '5': '已失败' // 退款失败
+                        }[value];
+                    }
+                }]
+            }
         }, {
             xtype: 'numberfield',
             name: 'amoutToRefund',
-            margin: '0 0 0 90',
+            margin: '10 10',
             emptyText: '请填写退还的人民币金额（元）',
             allowBlank: false,
             minValue: 0.01,
             maxText: '超出用户当前余额'
+        }, {
+            // 用于提交表单时填充参数
+            xtype: 'hidden',
+            name: 'chargeId'
         }]
     }]
 

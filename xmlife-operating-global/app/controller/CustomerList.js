@@ -1,12 +1,16 @@
 Ext.define('XMLifeOperating.controller.CustomerList', {
     extend: 'Ext.app.Controller',
+    requires: [
+        'XMLifeOperating.view.general.Util'
+    ],
     views: ['userManage.customer.CustomerList',
         'userManage.customer.CustomerAddress',
         'userManage.customer.CustomerDealList',
         'userManage.customer.CustomerConsumePayList',
         'userManage.customer.CustomerCouponList',
         'userManage.customer.CustomerDeductBalance',
-        'userManage.customer.OnlineChargeRefund'
+        'userManage.customer.OnlineChargeRefund',
+        'userManage.customer.OnlineChargeBatchDetail'
     ],
 
     stores: ['Customer', 'ShopArea', 'Address', 'DealCustomerHistory', 'CustomerUserCashflow', 'CustomerUserCoupon'],
@@ -50,6 +54,11 @@ Ext.define('XMLifeOperating.controller.CustomerList', {
         ref: 'onlineChargeRefund',
         selector: 'onlineChargeRefund',
         xtype: 'onlineChargeRefund',
+        autoCreate: true
+    }, {
+        ref: 'onlineChargeBatchDetail',
+        selector: 'onlineChargeBatchDetail',
+        xtype: 'onlineChargeBatchDetail',
         autoCreate: true
     }],
 
@@ -147,6 +156,11 @@ Ext.define('XMLifeOperating.controller.CustomerList', {
             'customerConsumePayList #refund': {
                 click: me.openRefundPopup
             },
+            'onlineChargeRefund #batchId': {
+                afterrender: function(field) {
+                    field.getEl().on('click', me.openChargeBatchInfo, me);
+                }
+            },
             'onlineChargeRefund #submitRefund': {
                 click: me.submitRefund
             }
@@ -227,27 +241,17 @@ Ext.define('XMLifeOperating.controller.CustomerList', {
             uid = record.get('uid'),
             store = me.getCustomerUserCashflowStore(),
             win = me.getCustomerConsumePayList(),
-            content = me.getContentPanel(),
-            oldProxyUrl = store.getProxy().url;
+            content = me.getContentPanel();
 
         win.setTitle('充值和消费—' + record.get('phone'));
         if (!content.items.get(win.getId())) {
             content.add(win);
         }
         content.setActiveTab(win.getId());
-        store.getProxy().url = XMLifeOperating.generic.Global.URL.biz + 'customer/user/cashflow';
-        store.on('load', function() {
-            store.getProxy().url = oldProxyUrl;
-        });
-
-        store.load({
-            params: {
-                uid: uid
-            }
-        });
-        // 正在协调服务端将customer/user/cashflow增强成支持分页，确认后会优化逻辑
-        consumePayCount = 1;
-        consumePayMark = '';
+        store.getProxy().extraParams = {
+            uid: uid
+        };
+        store.load();
     },
 
     onCouponListId: function(view, cellEl, rowIndex, colIndex, e, record) {
@@ -321,25 +325,61 @@ Ext.define('XMLifeOperating.controller.CustomerList', {
     },
     openRefundPopup: function(view, cellEl, rowIndex, colIndex, e, record) {
 
-        Ext.MessageBox.alert('', '退款接口开发中...');
+        var me = this,
+            chargeId = record.get('dealId');
 
-        // var win = this.getCustomerRefund();
+        sendGetRequest('refund/chargeDetail', {
+            chargeId: chargeId
+        }, '在线充值退款', '', '退款信息查询失败，请稍后重试。', function(response) {
+            var values = Ext.decode(response.responseText),
+                win = me.getOnlineChargeRefund();
 
-        // win.down('form').loadRecord(record);
-        // win.down('numberfield').setMaxValue(record.get('balance'));
-        // win.show();
+            values.chargeId = chargeId;
+            win.down('form').getForm().setValues(values);
+            win.down('grid').getStore().loadData(values.refunds || []);
+            win.down('numberfield').setMaxValue(values.maxRefundCashPermitted);
+            win.show();
+        });
     },
-    // 服务端接口还没有做完，稍后补充联调。
     submitRefund: function() {
-        // var win = this.getCustomerRefund(),
-        //     form = win.down('form'),
-        //     values = form.getValues;
+        var me = this,
+            win = me.getOnlineChargeRefund(),
+            form = win.down('form'),
+            values = form.getValues(false, false, false, true);
 
-        // if (!form.isValid()) {
-        //     return;
-        // }
-        // win.close();
-        // submit AJAX and listen to responseText
+        if (!form.isValid()) {
+            return;
+        }
+        win.close();
+        sendPutRequest('refund/create', {
+            chargeId: values.chargeId,
+            cash: Math.round(values.amoutToRefund * 100)
+        }, '退款结果', '', '在线充值退款失败', function(response) {
+            if (response.responseText === '1') {
+                Ext.MessageBox.alert('退款结果', '在线充值退款成功');
+            }
+
+            // 这里调用了WechatRefund或AlipayRefund controller的方法
+            // 刷新退款管理 > 微信退款管理 或 支付宝退款管理 表格。
+            var storeName = values.payWay === '2' ? 'WechatRefund' : 'AlipayRefund',
+                methodName = 'get' + storeName + 'Store',
+                store = me.getController(storeName)[methodName]();
+
+            store.reload();
+        });
+    },
+    openChargeBatchInfo: function() {
+        var me = this,
+            win = me.getOnlineChargeBatchDetail(),
+            values = me.getOnlineChargeRefund().down('form').getValues(false, false, false, true),
+            popUpTitle = '充值卡批次 - ' + values.batchId;
+
+        sendGetRequest('cardBatch/batch', {
+            batchId: values.batchId
+        }, popUpTitle, '', '获取充值卡批次信息失败', function(response) {
+            win.setTitle(popUpTitle);
+            win.show().update(Ext.decode(response.responseText));
+        });
     }
 
 });
