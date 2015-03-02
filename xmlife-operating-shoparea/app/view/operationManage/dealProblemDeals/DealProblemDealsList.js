@@ -29,12 +29,6 @@ Ext.define('XMLifeOperating.view.operationManage.dealProblemDeals.DealProblemDea
             xtype: 'datefield',
             name: 'beginTime',
             emptyText: '开始时间',
-            minValue: (function() {
-                var date = new Date();
-                date.setMonth(date.getMonth() - 1);
-                date.setDate(1);
-                return date;
-            })(),
             maxValue: new Date(),
             value: (function() {
                 var date = new Date();
@@ -46,12 +40,6 @@ Ext.define('XMLifeOperating.view.operationManage.dealProblemDeals.DealProblemDea
             xtype: 'datefield',
             name: 'endTime',
             emptyText: '结束时间',
-            minValue: (function() {
-                var date = new Date();
-                date.setMonth(date.getMonth() - 1);
-                date.setDate(1);
-                return date;
-            })(),
             maxValue: new Date(),
             value: new Date(),
             format: 'Y-m-d'
