@@ -1,6 +1,6 @@
 Ext.define('XMLifeOperating.controller.GFeedbackList', {
     extend: 'Ext.app.Controller',
-    views: ['userManage.feedback.GFeedbackList','userManage.feedback.GFeedbackContent'],
+    views: ['userManage.feedback.GFeedbackList', 'userManage.feedback.GFeedbackContent'],
     stores: ['Feedback', 'FeedbackStatus'],
     models: ['Feedback'],
     refs: [{
@@ -8,11 +8,11 @@ Ext.define('XMLifeOperating.controller.GFeedbackList', {
         selector: 'gFeedbackList',
         xtype: 'gFeedbackList',
         autoCreate: true
-    },{
-        ref:'gFeedbackContent',
-        selector:'gFeedbackContent',
-        xtype:'gFeedbackContent',
-        autoCreate:true
+    }, {
+        ref: 'gFeedbackContent',
+        selector: 'gFeedbackContent',
+        xtype: 'gFeedbackContent',
+        autoCreate: true
     }],
     init: function() {
         var me = this;
@@ -29,10 +29,12 @@ Ext.define('XMLifeOperating.controller.GFeedbackList', {
                     win.show();
                 }
             },
-            'gFeedbackList #feedbackcontent':{
-                click:function(){
-                    //var store = this.getFeedbackStore();
+            'gFeedbackList #feedbackcontent': {
+                click: function(view, cell, rowIndex, colIndex, e, record) {
                     var win = this.getGFeedbackContent();
+                    var content = record.get('content');
+                    var feedback = win.down('#feedback');
+                    feedback.setValue(content);
                     win.show();
                 }
             },
@@ -128,7 +130,6 @@ Ext.define('XMLifeOperating.controller.GFeedbackList', {
         this.dayType = 0;
     },
     onFeedbackStatus: function(combo) {
-        var win = this.getGFeedbackList();
         var mark = combo.getValue();
         var dayType = this.dayType;
         this.rendenFeedbackList(this.getGFeedbackList(), mark, dayType);

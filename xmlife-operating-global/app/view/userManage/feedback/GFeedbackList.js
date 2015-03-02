@@ -6,7 +6,6 @@ Ext.define('XMLifeOperating.view.userManage.feedback.GFeedbackList', {
     titleAlign: 'left',
     closable: true,
     forceFit: true,
-
     store: 'Feedback',
     dockedItems: [{
         xtype: 'pagingtoolbar',
@@ -110,11 +109,9 @@ Ext.define('XMLifeOperating.view.userManage.feedback.GFeedbackList', {
         itemId: 'feedbackcontent',
         width: 100,
         sortable: false,
-        /*listeners: {
-            click: function(grid, cell, rowIndex, colIndex, e, record) {
-                Ext.Msg.alert(record.data.content);
-            }
-        }*/
+        renderer:function(value){
+            return '<a href="javascript:;">' + value + '</a>';
+        }
     }, {
         header: "",
         width: 100,

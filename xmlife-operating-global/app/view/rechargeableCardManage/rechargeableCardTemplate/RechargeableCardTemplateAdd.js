@@ -22,13 +22,13 @@ Ext.define('XMLifeOperating.view.rechargeableCardManage.rechargeableCardTemplate
                 xtype: 'textfield',
                 name: 'name',
                 fieldLabel: '名称',
-                allowBlank: false,
+                allowBlank: false
             }, {
                 xtype: 'textfield',
                 name: 'simpleDesc',
                 fieldLabel: '短描述',
                 allowBlank: false,
-                maxLengthText: '充值成功描述最大长度为28',
+                maxLengthText: '充值成功描述最大长度为28'
             }, {
                 xtype: 'textareafield',
                 name: 'desc',
@@ -55,7 +55,7 @@ Ext.define('XMLifeOperating.view.rechargeableCardManage.rechargeableCardTemplate
                     this.up('window').close();
                 }
             }]
-        }]
+        }];
         this.callParent(arguments);
     }
 });

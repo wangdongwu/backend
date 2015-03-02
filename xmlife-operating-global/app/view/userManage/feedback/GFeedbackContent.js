@@ -9,20 +9,24 @@ Ext.define('XMLifeOperating.view.userManage.feedback.GFeedbackContent', {
     closeAction: 'hide',
     modal: true,
     width: 400,
-    height: 240,
     resizable: false,
     layout: 'fit',
     initComponent: function() {
         this.items = [{
-            xtype: 'textareafield',
-            store: 'Feedback',
+            xtype: 'form',
+            layout: 'anchor',
+            defaults: {
+                anchor: '100%'
+            },
             items: [{
-                text: '反馈意见',
-                dataIndex: 'content',
-                align: 'center',
-                renderer:function(){
-                    
-                }
+                xtype: 'textarea',
+                fieldStyle: {
+                    border: 0,
+                    fontSize:'14px'
+                },
+                height: 100,
+                itemId: 'feedback',
+                align: 'center'
             }]
         }];
         this.callParent(arguments);
