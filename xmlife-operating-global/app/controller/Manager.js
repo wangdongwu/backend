@@ -235,7 +235,6 @@ Ext.define('XMLifeOperating.controller.Manager', {
         var me = this;
         var managerId = record.get('uid');
 
-
         var store = me.getManagerStore();
         Ext.MessageBox.confirm("掌柜管理", "确定要将该掌柜废弃吗？", function(str) {
             if (str !== 'yes') {
@@ -257,8 +256,9 @@ Ext.define('XMLifeOperating.controller.Manager', {
     searchManager: function() {
         var me = this,
             view = me.getGManagerList(),
-            keyWords = view.down('#searchManagerKeyWords').getValue(),
-            store = me.getManagerStore();
+            keyWords = Ext.util.Format.trim(view.down('#searchManagerKeyWords').getValue()),
+            store = me.getManagerStore(),
+            abandon = view.down('#abandon');
 
         if (keyWords === '') {
             store.getProxy().extraParams = {
@@ -271,6 +271,7 @@ Ext.define('XMLifeOperating.controller.Manager', {
         }
         store.on('load', function() {
             view.down('#searchManagerKeyWords').setValue(keyWords);
+            abandon.hide();
         });
         store.loadPage(1);
     },

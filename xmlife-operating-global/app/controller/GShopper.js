@@ -229,7 +229,7 @@ Ext.define('XMLifeOperating.controller.GShopper', {
             if (str !== 'yes') {
                 return;
             }
-            sendPutRequest('superShopper/setActive', {
+            sendPutRequest('superShopper/disable', {
                 superShopperId: shopperId
             }, '买手管理', '买手管理操作成功', '买手管理操作失败', function(obj) {
                 if (obj.responseText == -6) {
@@ -246,6 +246,7 @@ Ext.define('XMLifeOperating.controller.GShopper', {
         var me = this,
             view = me.getGShopperList(),
             keyWords = Ext.util.Format.trim(view.down('#searchBuyerKeyWords').getValue()),
+            abandon = view.down('#abandon'),
             store = me.getSuperShopperStore();
 
         if (keyWords == '') {
@@ -257,6 +258,10 @@ Ext.define('XMLifeOperating.controller.GShopper', {
                 nameOrPhone: keyWords
             };
         }
+        store.on('load', function() {
+            view.down('#searchBuyerKeyWords').setValue(keyWords);
+            abandon.hide();
+        });
         store.loadPage(1);
     },
     onShow: function() {
