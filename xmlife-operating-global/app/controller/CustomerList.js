@@ -378,7 +378,8 @@ Ext.define('XMLifeOperating.controller.CustomerList', {
             batchId: values.batchId
         }, popUpTitle, '', '获取充值卡批次信息失败', function(response) {
             win.setTitle(popUpTitle);
-            win.show().update(Ext.decode(response.responseText));
+            win.update(Ext.decode(response.responseText));
+            win.show();
         });
     }
 
