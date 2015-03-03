@@ -9,6 +9,7 @@ Ext.define('XMLifeOperating.Application', {
         'Ext.util.Point',
         'XMLifeOperating.generic.Global',
         'XMLifeOperating.generic.BaseProxy',
+        'XMLifeOperating.overrides.form.field.Time',
         'Ext.grid.plugin.DragDrop',
         'Ext.grid.plugin.CellEditing',
         'Ext.grid.column.Action',

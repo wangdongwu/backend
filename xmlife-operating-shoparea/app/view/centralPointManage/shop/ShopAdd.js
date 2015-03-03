@@ -258,10 +258,10 @@ Ext.define('XMLifeOperating.view.centralPointManage.shop.ShopAdd', {
                 }]
             }],
             buttons: [{
-                text: 'Save',
+                text: '保存',
                 itemId: 'save-shopStore-edit-btn'
             }, {
-                text: 'Cancel',
+                text: '取消',
                 handler: function(cmp) {
                     //关闭窗口
                     cmp.up('window').close();
