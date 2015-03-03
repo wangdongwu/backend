@@ -30,13 +30,14 @@ Ext.define('XMLifeOperating.controller.GFeedbackList', {
                 }
             },
             'gFeedbackList #feedbackcontent': {
-                click: function(view, cell, rowIndex, colIndex, e, record) {
+                /*click: function(view, cell, rowIndex, colIndex, e, record) {
                     var win = this.getGFeedbackContent();
                     var content = record.get('content');
                     var feedback = win.down('#feedback');
                     feedback.setValue(content);
                     win.show();
-                }
+                }*/
+                click: me.onFeedbackcontent
             },
             'gFeedbackList radio[name="dayType"]': {
                 change: function(record, newV) {
@@ -148,5 +149,12 @@ Ext.define('XMLifeOperating.controller.GFeedbackList', {
         }
         store.loadPage(1);
         this.dayType = dayType;
+    },
+    onFeedbackcontent: function(view, cell, rowIndex, colIndex, e, record) {
+        var win = this.getGFeedbackContent();
+        var content = record.get('content');
+        var feedback = win.down('#feedback');
+        feedback.setValue(content);
+        win.show();
     }
 });

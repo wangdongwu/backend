@@ -47,7 +47,8 @@ Ext.define('XMLifeOperating.Application', {
         'CouponSend',
         'DataExport',
         'Manager',
-        'ShopperCheck'
+        'ShopperCheck',
+        'SuperShopperFeedbacks'
         ],
 
     stores: [
