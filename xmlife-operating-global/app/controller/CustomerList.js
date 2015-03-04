@@ -158,7 +158,11 @@ Ext.define('XMLifeOperating.controller.CustomerList', {
             },
             'onlineChargeRefund #batchId': {
                 afterrender: function(field) {
-                    field.getEl().on('click', me.openChargeBatchInfo, me);
+                    // field.getEl().on('click', me.openChargeBatchInfo, me);
+                    field.getEl().on('click', function(){
+                        var values = me.getOnlineChargeRefund().down('form').getValues(false, false, false, true);
+                        me.openChargeBatchInfo(values.batchId);
+                    }, me);
                 }
             },
             'onlineChargeRefund #submitRefund': {
@@ -368,26 +372,23 @@ Ext.define('XMLifeOperating.controller.CustomerList', {
             store.reload();
         });
     },
-    openChargeBatchInfo: function() {
+    openChargeBatchInfo: function(batchId) {
         var me = this,
-            win = me.getController('CustomerList').getOnlineChargeBatchDetail(),
-            /*win = me.getOnlineChargeBatchDetail(),
-            values = me.getOnlineChargeRefund().down('form').getValues(false, false, false, true),
-            popUpTitle = '充值卡批次 - ' + values.batchId;*/
-            localPage = this.getContentPanel().getActiveTab().xtype,
-            values;
-            if(localPage === 'customerConsumePayList'){
-                values = me.getOnlineChargeRefund().down('form').getValues(false, false, false, true);
-            }else{
-                values = me.getController('WechatRefund').getRechargeRefundDetail().down('form').getValues(false, false, false, true);
-            }
-            var popUpTitle = '充值卡批次 - ' + values.batchId;
+            win = me.getOnlineChargeBatchDetail(),
+            popUpTitle = '充值卡批次 - ' + batchId;
             
         sendGetRequest('cardBatch/batch', {
-            batchId: values.batchId
+            batchId: batchId
         }, popUpTitle, '', '获取充值卡批次信息失败', function(response) {
             win.setTitle(popUpTitle);
-            win.update(Ext.decode(response.responseText));
+      
+            var objText = Ext.decode(response.responseText);
+            objText.endTime = Ext.util.Format.date(new Date(objText.endTime), "Y-m-d");
+            objText.startTime = Ext.util.Format.date(new Date(objText.startTime), "Y-m-d");
+            objText.displayStartTime = Ext.util.Format.date(new Date(objText.displayStartTime), "Y-m-d");
+            objText.displayEndTime = Ext.util.Format.date(new Date(objText.displayEndTime), "Y-m-d");
+            objText.create = Ext.util.Format.date(new Date(objText.create), "Y-m-d");
+            win.update(objText);
             win.show();
         });
     }

@@ -239,7 +239,10 @@ Ext.define('XMLifeOperating.controller.WechatRefund', {
             'rechargeRefundDetail #batchId': {
                 afterrender: function(field) {
                     // 这里引用了用户管理的control方法
-                    field.getEl().on('click', this.getController('CustomerList').openChargeBatchInfo, this);
+                    field.getEl().on('click', function(){
+                        var values = self.getRechargeRefundDetail().down('form').getValues(false, false, false, true);
+                        self.getController('CustomerList').openChargeBatchInfo(values.batchId);
+                    },self.getController('CustomerList'));
                 }
             }
 
