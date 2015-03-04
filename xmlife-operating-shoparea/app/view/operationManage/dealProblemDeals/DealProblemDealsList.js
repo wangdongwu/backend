@@ -32,7 +32,7 @@ Ext.define('XMLifeOperating.view.operationManage.dealProblemDeals.DealProblemDea
             maxValue: new Date(),
             value: (function() {
                 var date = new Date();
-                date.setDate(date.getDate() - 6);
+                date.setMonth(date.getMonth() - 1);
                 return date;
             })(),
             format: 'Y-m-d'
