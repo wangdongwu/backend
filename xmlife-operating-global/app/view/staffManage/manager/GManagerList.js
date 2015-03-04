@@ -122,22 +122,30 @@ Ext.define('XMLifeOperating.view.staffManage.manager.GManagerList', {
         itemId: 'closeOrOpenOrder',
         menuDisabled: true,
         align: 'center',
-        renderer: function(value) {
+        renderer: function(value, cellmeta, record) {
             var txt = value ? '关闭' : '开启',
-                statusValue = value ? 'open' : 'close';
+                statusValue = value ? 'open' : 'close',
+                disabled,
+                enable = record.data['enable'];
+            if (!enable) {
+                disabled = enable ? '' : 'disabled';
+            }
 
-            return Ext.String.format('<input type="button" value="{0}" statusValue="{1}"  /><br/>', txt, statusValue);
+            return Ext.String.format('<input type="button" value="{0}" statusValue="{1}" {2} /><br/>', txt, statusValue, disabled);
         }
     }, {
         header: "操作",
         width: 90,
-        dataIndex: 'abandon',
+        dataIndex: 'enable',
         itemId: 'abandon',
         menuDisabled: true,
-        hidden: false,
         align: 'center',
-        renderer: function() {
-            return '<input type="button" value="废弃"/>';
+        renderer: function(value) {
+            var txt = value ? '废弃' : '已废弃',
+                statusValue = value ? 'open' : 'close',
+                disabled = value ? '' : 'disabled';
+
+            return Ext.String.format('<input type="button" value="{0}" statusValue="{1}" {2} /><br/>', txt, statusValue, disabled);
         }
     }]
 });

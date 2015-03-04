@@ -184,8 +184,6 @@ Ext.define('XMLifeOperating.controller.GShopper', {
     },
     filtrate: function(record, newV) {
         var store = this.getSuperShopperStore();
-        var view = this.getGShopperList();
-        var abandon = view.down('#abandon');
         var str;
 
         switch (newV) {
@@ -208,11 +206,6 @@ Ext.define('XMLifeOperating.controller.GShopper', {
                 str = 5;
                 break;
         }
-        if (str === 5) {
-            abandon.hide();
-        } else {
-            abandon.show();
-        }
         store.getProxy().extraParams = {
             status: str
         };
@@ -224,7 +217,7 @@ Ext.define('XMLifeOperating.controller.GShopper', {
         var me = this;
         var shopperId = record.get('uid');
         var store = me.getSuperShopperStore();
-
+        
         Ext.MessageBox.confirm("买手管理", '确定要将该买手废弃吗？', function(str) {
             if (str !== 'yes') {
                 return;
@@ -246,7 +239,6 @@ Ext.define('XMLifeOperating.controller.GShopper', {
         var me = this,
             view = me.getGShopperList(),
             keyWords = Ext.util.Format.trim(view.down('#searchBuyerKeyWords').getValue()),
-            abandon = view.down('#abandon'),
             store = me.getSuperShopperStore();
 
         if (keyWords == '') {
@@ -260,7 +252,6 @@ Ext.define('XMLifeOperating.controller.GShopper', {
         }
         store.on('load', function() {
             view.down('#searchBuyerKeyWords').setValue(keyWords);
-            abandon.hide();
         });
         store.loadPage(1);
     },
