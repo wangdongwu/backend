@@ -162,9 +162,9 @@ Ext.define('XMLifeOperating.controller.BatchOperation', {
             sessionId = localStorage.getItem('sessionId'),
             syncImgUrl = 'https://192.168.6.102/proxy/http://192.168.6.101/jenkins/job/SyncSkuResource/build?delay=0sec';
 
-        if (host.indexOf('localhost') || host.indexOf('127.0') || host.indexOf('dev')) {
+        if (/localhost/.test(host) || /127.0/.test(host) || /dev/.test(host)) {
             evn = 'dev';
-        } else if (host.indexOf('rc')) {
+        } else if (/rc/.test(host)) {
             evn = 'rc';
         } else {
             evn = 'production';
