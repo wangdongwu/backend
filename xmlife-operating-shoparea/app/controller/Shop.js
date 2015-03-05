@@ -855,7 +855,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
                     var shop = shopStore.getById(shopId);
                     // 下架商品tab切换
                     if (me.tabIsExist('soldout')) {
-                        return
+                        return;
                     } else {
                         toolbar.add({
                             title: shop.get('name') + '-下架商品',
@@ -881,7 +881,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
                     var shop = shopStore.getById(shopId);
                     // 下架商品tab切换
                     if (me.tabIsExist('online')) {
-                        return
+                        return;
                     } else {
                         toolbar.add({
                             title: shop.get('name') + '-上架商品',
@@ -906,7 +906,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
                         shop = shopStore.getById(shopId);
                     // 雪藏商品tab切换
                     if (me.tabIsExist('offline')) {
-                        return
+                        return;
                     } else {
                         toolbar.add({
                             title: shop.get('name') + '-雪藏商品',
@@ -931,7 +931,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
                     var shop = shopStore.getById(shopId);
                     // 雪藏商品tab切换
                     if (me.tabIsExist('abandoned')) {
-                        return
+                        return;
                     } else {
                         toolbar.add({
                             title: shop.get('name') + '-废弃商品',
@@ -1583,7 +1583,7 @@ Ext.define('XMLifeOperating.controller.Shop', {
                         store.load({
                             params: {
                                 nameOrPhone: keyWords,
-                                isActive: true
+                                enable: true
                             }
                         });
                     }
@@ -1629,9 +1629,10 @@ Ext.define('XMLifeOperating.controller.Shop', {
                     var store = Ext.ComponentQuery.query('shopbuyer #searchBuyerId')[0].getStore();
                     store.getProxy().extraParams = {
                         nameOrPhone: me.getKeywordBuyer().getValue(),
-                        isActive: true
+                        enable: true
                     };
                     store.load();
+
                 }
             },
             'shopbuyer #save-bindShopWithShopper': {
